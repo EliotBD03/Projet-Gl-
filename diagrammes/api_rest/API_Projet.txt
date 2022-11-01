@@ -1,0 +1,62 @@
+	API Projet:
+
+/project/api/
+	login/<email>/<pwd>
+	
+	logout/<email>	#faut-il envoyer une requête pour ca?
+	
+	clients/<email>/<pwd>/
+		wallets/
+			<wallet>/
+				contracts/
+					<contract>/
+				consume/
+					water
+					electricity
+					gas
+				dataOfWallet
+		
+		notifications/
+			<notification>/
+				seeMore
+				accept
+				refuse
+		
+		settings/
+			languages/
+				changeFavouriteLanguage/<favorite language>
+				addLanguage/<language>
+			
+			changePwd/<newPwd>
+	
+	providers/
+		<provide>/contracts/
+			<contract>/
+				addContract
+		
+		<email>/<pwd>/
+			clients/
+				<client>/
+					contracts/
+						<contract>
+					consume/
+						water
+						electricity
+						gas
+			
+			notifications/
+				<notification>/
+					seeMore
+					accept
+					refuse
+				
+			settings/
+				languages/
+					changeFavouriteLanguage/<favorite language>
+					addLanguage/<language>
+				
+				changePwd/<newPwd>	
+
+remplacer email par name ou faire une id pour chaque utilisateur
+comment on change les données de consmmation
+
