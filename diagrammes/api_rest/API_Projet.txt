@@ -3,6 +3,8 @@
 /project/api/
 	login/<email>/<pwd>
 	
+	safeAccount/<email>/<pwd>/<pseudo>
+	
 	logout/<email>	#faut-il envoyer une requête pour ca?
 	
 	clients/<email>/<pwd>/
@@ -57,6 +59,6 @@
 				
 				changePwd/<newPwd>	
 
-remplacer email par name ou faire une id pour chaque utilisateur
+remplacer email par name/pseudo ou faire une id pour chaque utilisateur
 comment on change les données de consmmation
 

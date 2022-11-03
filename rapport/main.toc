@@ -1,0 +1,5 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Use case diagram}{3}{}%
+\contentsline {subsection}{\numberline {1.1}Points communs}{3}{}%
+\contentsline {subsection}{\numberline {1.2}Client}{4}{}%
+\contentsline {subsection}{\numberline {1.3}Fournisseur}{5}{}%
