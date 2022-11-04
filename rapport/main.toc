@@ -7,4 +7,4 @@
 \contentsline {subsection}{\numberline {2.1}Introduction}{6}%
 \contentsline {subsection}{\numberline {2.2}Points communs}{7}%
 \contentsline {subsection}{\numberline {2.3}Accès à l'application pour les clients}{8}%
-\contentsline {subsection}{\numberline {2.4}Accès à l'application pour les clients les fournisseurs}{10}%
+\contentsline {subsection}{\numberline {2.4}Accès à l'application pour les fournisseurs}{10}%
