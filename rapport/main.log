@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.10.17)  4 NOV 2022 20:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.10.17)  5 NOV 2022 11:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -567,7 +567,7 @@ LaTeX Warning: The counter will not be printed.
 [8]
 
 LaTeX Warning: The counter will not be printed.
-             The label is: - on input line 112.
+             The label is: - on input line 116.
 
 
 ! LaTeX Error: There's no line here to end.
@@ -576,7 +576,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.121 \newline
+l.125 \newline
               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -589,50 +589,63 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.122 \newline
+l.126 \newline
               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Overfull \hbox (7.09045pt too wide) in paragraph at lines 124--127
+Overfull \hbox (7.09045pt too wide) in paragraph at lines 128--131
 []\OT1/cmr/m/n/10 L'ajout et la fermeture de contrats impliquera une \OT1/cmr/b
 x/n/10 notification \OT1/cmr/m/n/10 sur l'application
  []
 
 [9]
+<overview/overview-client.png, id=46, 1035.11127pt x 793.26283pt>
+File: overview/overview-client.png Graphic file (type png)
+<use overview/overview-client.png>
+Package pdftex.def Info: overview/overview-client.png  used on input line 137.
+(pdftex.def)             Requested size: 345.0pt x 264.39204pt.
+ [10 <./overview/overview-client.png (PNG copy)>]
 
 LaTeX Warning: The counter will not be printed.
-             The label is: - on input line 144.
+             The label is: - on input line 155.
 
-[10]
+[11]
 
 LaTeX Warning: The counter will not be printed.
-             The label is: - on input line 175.
+             The label is: - on input line 186.
 
-) [11] (./main.aux (./use_case.aux) (./overview.aux)) ) 
+[12]
+<overview/overview-fournisseur.png, id=56, 1079.49756pt x 736.92638pt>
+File: overview/overview-fournisseur.png Graphic file (type png)
+<use overview/overview-fournisseur.png>
+Package pdftex.def Info: overview/overview-fournisseur.png  used on input line 
+214.
+(pdftex.def)             Requested size: 345.0pt x 235.51765pt.
+) [13 <./overview/overview-fournisseur.png (PNG copy)>] (./main.aux
+(./use_case.aux) (./overview.aux)) ) 
 Here is how much of TeX's memory you used:
- 3002 strings out of 483140
- 39338 string characters out of 5965150
+ 3015 strings out of 483140
+ 39733 string characters out of 5965150
  279193 words of memory out of 5000000
- 17977 multiletter control sequences out of 15000+600000
+ 17987 multiletter control sequences out of 15000+600000
  540849 words of font info for 57 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  30i,6n,27p,577b,248s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.
-pfb>
-Output written on main.pdf (11 pages, 511745 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on main.pdf (13 pages, 825998 bytes).
 PDF statistics:
- 79 PDF objects out of 1000 (max. 8388607)
- 51 compressed objects within 1 object stream
+ 88 PDF objects out of 1000 (max. 8388607)
+ 56 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
