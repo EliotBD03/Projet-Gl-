@@ -8,3 +8,9 @@
 \contentsline {subsection}{\numberline {2.2}Points communs}{7}%
 \contentsline {subsection}{\numberline {2.3}Accès à l'application pour les clients}{8}%
 \contentsline {subsection}{\numberline {2.4}Accès à l'application pour les fournisseurs}{11}%
+\contentsline {section}{\numberline {3}Interface}{14}%
+\contentsline {subsection}{\numberline {3.1}Introduction}{14}%
+\contentsline {subsection}{\numberline {3.2}Système de logs}{15}%
+\contentsline {subsection}{\numberline {3.3}Points communs}{17}%
+\contentsline {subsection}{\numberline {3.4}Interface client}{18}%
+\contentsline {subsection}{\numberline {3.5}Interface fournisseur}{24}%
