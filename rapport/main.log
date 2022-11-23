@@ -1,151 +1,152 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.10.17)  21 NOV 2022 15:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.9.12)  23 NOV 2022 13:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**main.tex
+**main.tex --enable-write18
 (./main.tex
-LaTeX2e <2020-02-02> patch level 2
-L3 programming layer <2020-02-14>
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-01-21>
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
-File: size10.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 )
-\c@part=\count167
-\c@section=\count168
-\c@subsection=\count169
-\c@subsubsection=\count170
-\c@paragraph=\count171
-\c@subparagraph=\count172
-\c@figure=\count173
-\c@table=\count174
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
-\bibindent=\dimen134
+\bibindent=\dimen138
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
-Package: inputenc 2018/08/11 v1.3c Input encoding file
-\inpenc@prehook=\toks14
-\inpenc@posthook=\toks15
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks16
+\KV@toks@=\toks18
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 105.
+Package graphics Info: Driver file: pdftex.def on input line 107.
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen135
-\Gin@req@width=\dimen136
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
 )
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2020/02/14 3.40 The Babel package
-
-(/usr/share/texlive/texmf-dist/tex/generic/babel/switch.def
-File: switch.def 2020/02/14 3.40 Babel switching mechanism
-)
-
-! Package babel Error: Unknown option `french'. Either you misspelled it
-(babel)                or the language definition file french.ldf was not found
-.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.542 \ProcessOptions*
-                      
-Valid options are: shorthands=, KeepShorthandsActive,
-activeacute, activegrave, noconfigs, safe=, main=, math=
-headfoot=, strings=, config=, hyphenmap=, or a language name.
-
-Package babel Info: You haven't specified a language. I'll use 'nil'
-(babel)             as the main language. Reported on input line 572.
-(/usr/share/texlive/texmf-dist/tex/generic/babel/nil.ldf
-Language: nil 2020/02/14 3.40 Nil language
-
-(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2020/02/14 3.40 Babel common definitions
-\babel@savecnt=\count175
-\U@D=\dimen137
+Package: babel 2022/01/26 3.70 The Babel package
+\babel@savecnt=\count193
+\U@D=\dimen141
+\l@unhyphenated=\language5
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
-\bbl@dirlevel=\count176
-)
-\l@nil=\language5
+\bbl@dirlevel=\count194
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel-french/french.ldf
+Language: french 2021/07/20 v3.5m French support from the babel system
+Package babel Info: Hyphen rules for 'acadian' set to \l@french
+(babel)             (\language3). Reported on input line 91.
+Package babel Info: Hyphen rules for 'canadien' set to \l@french
+(babel)             (\language3). Reported on input line 92.
+\FB@nonchar=\count195
+Package babel Info: Making : an active character on input line 430.
+Package babel Info: Making ; an active character on input line 431.
+Package babel Info: Making ! an active character on input line 432.
+Package babel Info: Making ? an active character on input line 433.
+\FBguill@level=\count196
+\FBold@everypar=\toks19
+\FB@Mht=\dimen142
+\mc@charclass=\count197
+\mc@charfam=\count198
+\mc@charslot=\count199
+\std@mcc=\count266
+\dec@mcc=\count267
+\listindentFB=\dimen143
+\descindentFB=\dimen144
+\labelindentFB=\dimen145
+\labelwidthFB=\dimen146
+\leftmarginFB=\dimen147
+\parindentFFN=\dimen148
+\FBfnindent=\dimen149
 ))
+(/usr/share/texlive/texmf-dist/tex/latex/carlisle/scalefnt.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2020/01/20 v2.17e AMS math features
+Package: amsmath 2021/10/15 v2.17l AMS math features
 \@mathmargin=\skip49
 
 For additional information on amsmath, use the `?' option.
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
-Package: amstext 2000/06/29 v2.01 AMS text
+Package: amstext 2021/08/26 v2.01 AMS text
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks17
-\ex@=\dimen138
+\@emptytoks=\toks20
+\ex@=\dimen150
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen139
+\pmbraise@=\dimen151
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 2016/03/08 v2.02 operator names
+Package: amsopn 2021/08/26 v2.02 operator names
 )
-\inf@bad=\count177
-LaTeX Info: Redefining \frac on input line 227.
-\uproot@=\count178
-\leftroot@=\count179
-LaTeX Info: Redefining \overline on input line 389.
-\classnum@=\count180
-\DOTSCASE@=\count181
-LaTeX Info: Redefining \ldots on input line 486.
-LaTeX Info: Redefining \dots on input line 489.
-LaTeX Info: Redefining \cdots on input line 610.
-\Mathstrutbox@=\box45
-\strutbox@=\box46
-\big@size=\dimen140
-LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
-\macc@depth=\count182
-\c@MaxMatrixCols=\count183
+\inf@bad=\count268
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count269
+\leftroot@=\count270
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count271
+\DOTSCASE@=\count272
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box50
+\strutbox@=\box51
+\big@size=\dimen152
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count273
+\c@MaxMatrixCols=\count274
 \dotsspace@=\muskip16
-\c@parentequation=\count184
-\dspbrk@lvl=\count185
-\tag@help=\toks18
-\row@=\count186
-\column@=\count187
-\maxfields@=\count188
-\andhelp@=\toks19
-\eqnshift@=\dimen141
-\alignsep@=\dimen142
-\tagshift@=\dimen143
-\tagwidth@=\dimen144
-\totwidth@=\dimen145
-\lineht@=\dimen146
-\@envbody=\toks20
+\c@parentequation=\count275
+\dspbrk@lvl=\count276
+\tag@help=\toks21
+\row@=\count277
+\column@=\count278
+\maxfields@=\count279
+\andhelp@=\toks22
+\eqnshift@=\dimen153
+\alignsep@=\dimen154
+\tagshift@=\dimen155
+\tagwidth@=\dimen156
+\totwidth@=\dimen157
+\lineht@=\dimen158
+\@envbody=\toks23
 \multlinegap=\skip50
 \multlinetaggap=\skip51
-\mathdisplay@stack=\toks21
-LaTeX Info: Redefining \[ on input line 2859.
-LaTeX Info: Redefining \] on input line 2860.
+\mathdisplay@stack=\toks24
+LaTeX Info: Redefining \[ on input line 2938.
+LaTeX Info: Redefining \] on input line 2939.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
@@ -160,78 +161,71 @@ Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/enumerate.sty
 Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
-\@enLab=\toks22
+\@enLab=\toks25
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pdfpages.sty
-Package: pdfpages 2020/01/28 v0.5q Insert pages of external PDF documents (AM)
+Package: pdfpages 2022/01/29 v0.5u Insert pages of external PDF documents (AM)
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count189
-\calc@Bcount=\count190
-\calc@Adimen=\dimen147
-\calc@Bdimen=\dimen148
+\calc@Acount=\count280
+\calc@Bcount=\count281
+\calc@Adimen=\dimen159
+\calc@Bdimen=\dimen160
 \calc@Askip=\skip52
 \calc@Bskip=\skip53
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count191
+\calc@Ccount=\count282
 \calc@Cskip=\skip54
 )
 (/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
-Package: eso-pic 2018/04/12 v2.0h eso-pic (RN)
+Package: eso-pic 2020/10/14 v3.0a eso-pic (RN)
+\ESO@tempdima=\dimen161
+\ESO@tempdimb=\dimen162
 
-(/usr/share/texlive/texmf-dist/tex/generic/atbegshi/atbegshi.sty
-Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
-Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-)
-(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
-Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
-)
-(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2019/11/07 v1.0c TeX engine tests
-))
 (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: pdftex.def on input line 225.
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
-Package xcolor Info: Model `RGB' extended on input line 1364.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
+Package xcolor Info: Model `RGB' extended on input line 1368.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
 ))
-\AM@pagewidth=\dimen149
-\AM@pageheight=\dimen150
+\AM@pagewidth=\dimen163
+\AM@pageheight=\dimen164
+\AM@fboxrule=\dimen165
 
 (/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pppdftex.def
-File: pppdftex.def 2020/01/28 v0.5q Pdfpages driver for pdfTeX (AM)
+File: pppdftex.def 2022/01/29 v0.5u Pdfpages driver for pdfTeX (AM)
 )
-\AM@pagebox=\box47
-\AM@global@opts=\toks23
-\AM@pagecnt=\count192
-\AM@toc@title=\toks24
-\c@AM@survey=\count193
-\AM@templatesizebox=\box48
+\pdfpages@includegraphics@status=\count283
+\AM@pagebox=\box52
+\AM@global@opts=\toks26
+\AM@pagecnt=\count284
+\AM@toc@title=\toks27
+\c@AM@survey=\count285
+\AM@templatesizebox=\box53
 )
-(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
-File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count194
-\l__pdf_internal_box=\box49
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count286
+\l__pdf_internal_box=\box54
 )
-(./main.aux (./use_case.aux) (./overview.aux) (./interface.aux))
+(./main.aux (./use_case.aux) (./overview.aux) (./interface.aux)
+(./classDiagram.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
@@ -251,17 +245,17 @@ LaTeX Font Info:    ... okay on input line 15.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count195
-\scratchdimen=\dimen151
-\scratchbox=\box50
-\nofMPsegments=\count196
-\nofMParguments=\count197
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count198
-\MPscratchDim=\dimen152
-\MPnumerator=\count199
-\makeMPintoPDFobject=\count266
-\everyMPtoPDFconversion=\toks26
+\scratchcounter=\count287
+\scratchdimen=\dimen166
+\scratchbox=\box55
+\nofMPsegments=\count288
+\nofMParguments=\count289
+\everyMPshowfont=\toks28
+\MPscratchCnt=\count290
+\MPscratchDim=\dimen167
+\MPnumerator=\count291
+\makeMPintoPDFobject=\count292
+\everyMPtoPDFconversion=\toks29
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -271,13 +265,25 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\AtBeginShipoutBox=\box51
+LaTeX Info: Redefining \degres on input line 15.
+Package french.ldf Info: Setting StandardEnumerateEnv=true for
+(french.ldf)             compatibility with enumerate package,
+(french.ldf)             reported on input line 15.
+LaTeX Info: Redefining \up on input line 15.
+
+
+Package french.ldf Warning: OT1 encoding should not be used for French.
+(french.ldf)                Add \usepackage[T1]{fontenc} to the preamble
+(french.ldf)                of your document; reported on input line 15.
 
 (/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
 
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+)
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
-Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
@@ -333,6 +339,7 @@ Package pdftex.def Info: use_case/fournisseur.png  used on input line 64.
  (./overview.tex [6
 
 
+
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 22--23
 
@@ -349,26 +356,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--27
  []
 
 
-Overfull \hbox (8.05617pt too wide) in paragraph at lines 28--29
-[]\OT1/cmr/m/n/10 De plus, lorsque l'utilisateur sera connect^^Se sur l'applica
-tion, il aura la possibilit^^Se
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 30--31
 
  []
 
 
-Overfull \hbox (3.00058pt too wide) in paragraph at lines 32--35
-[]\OT1/cmr/m/n/10 Une fois connect^^Se, l'utilisateur aura acc^^Res ^^Ra un men
-u reprenant la d^^Seconnexion,
- []
-
-
-Overfull \hbox (10.69507pt too wide) in paragraph at lines 32--35
-\OT1/cmr/m/n/10 Cette fa^^Xcon de penser nous semblait suffisamment intuitive p
-our que l'utilisateur
+Overfull \hbox (2.77946pt too wide) in paragraph at lines 32--35
+[]\OT1/cmr/m/n/10 Une fois connect^^Se, l'uti-li-sa-teur aura acc^^Res ^^Ra un 
+menu re-pre-nant la d^^Seconnexion,
  []
 
 
@@ -419,12 +414,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 108--109
 
 Underfull \hbox (badness 10000) in paragraph at lines 110--111
 
- []
-
-
-Overfull \hbox (7.09045pt too wide) in paragraph at lines 112--113
-[]\OT1/cmr/m/n/10 L'ajout et la fermeture de contrats impliquera une \OT1/cmr/b
-x/n/10 notification \OT1/cmr/m/n/10 sur l'application
  []
 
 
@@ -501,14 +490,31 @@ Package pdftex.def Info: overview/overview-fournisseur.png  used on input line
 198.
 (pdftex.def)             Requested size: 345.0pt x 235.51765pt.
 ) [13 <./overview/overview-fournisseur.png (PNG copy)>]
-\openout2 = `interface.aux'.
+\openout2 = `classDiagram.aux'.
 
- (./interface.tex
+ (./classDiagram.tex
+
+LaTeX Warning: The counter will not be printed.
+             The label is: - on input line 7.
+
 [14
 
 
-] [15]
-<interface/Log.pdf, id=67, 955.11964pt x 497.33139pt>
+
+]
+
+LaTeX Warning: The counter will not be printed.
+             The label is: - on input line 65.
+
+[15]) [16]
+\openout2 = `interface.aux'.
+
+ (./interface.tex [17
+
+
+
+] [18]
+<interface/Log.pdf, id=76, 955.11964pt x 497.33139pt>
 File: interface/Log.pdf Graphic file (type pdf)
 <use interface/Log.pdf>
 Package pdftex.def Info: interface/Log.pdf  used on input line 63.
@@ -517,7 +523,7 @@ File: interface/Log.pdf Graphic file (type pdf)
 <use interface/Log.pdf>
 Package pdftex.def Info: interface/Log.pdf  used on input line 63.
 (pdftex.def)             Requested size: 955.11731pt x 497.33017pt.
-<interface/Log.pdf, id=70, page=1, 955.11964pt x 497.33139pt>
+<interface/Log.pdf, id=79, page=1, 955.11964pt x 497.33139pt>
 File: interface/Log.pdf Graphic file (type pdf)
 <use interface/Log.pdf, page 1>
 Package pdftex.def Info: interface/Log.pdf , page1 used on input line 63.
@@ -538,14 +544,9 @@ File: interface/Log.pdf Graphic file (type pdf)
 <use interface/Log.pdf, page 1>
 Package pdftex.def Info: interface/Log.pdf , page1 used on input line 63.
 (pdftex.def)             Requested size: 614.36417pt x 319.8998pt.
- [16 <./interface/Log.pdf>] [17]
-Overfull \hbox (5.55606pt too wide) in paragraph at lines 84--85
-\OT1/cmr/m/n/10 Lorsqu'un client se connectera, il arrivera sur la page d'acceu
-il ou plus pr^^Secis^^Sement
- []
-
-[18] [19] [20] [21] [22]
-<interface/Client.pdf, id=127, 669.19211pt x 730.02773pt>
+ [19 <./interface/Log.pdf>] [20] [21]
+[22] [23] [24]
+<interface/Client.pdf, id=133, 669.19211pt x 730.02773pt>
 File: interface/Client.pdf Graphic file (type pdf)
 <use interface/Client.pdf>
 Package pdftex.def Info: interface/Client.pdf  used on input line 233.
@@ -554,7 +555,7 @@ File: interface/Client.pdf Graphic file (type pdf)
 <use interface/Client.pdf>
 Package pdftex.def Info: interface/Client.pdf  used on input line 233.
 (pdftex.def)             Requested size: 669.19046pt x 730.02594pt.
-<interface/Client.pdf, id=130, page=1, 669.19211pt x 730.02773pt>
+<interface/Client.pdf, id=136, page=1, 669.19211pt x 730.02773pt>
 File: interface/Client.pdf Graphic file (type pdf)
 <use interface/Client.pdf, page 1>
 Package pdftex.def Info: interface/Client.pdf , page1 used on input line 233.
@@ -575,14 +576,8 @@ File: interface/Client.pdf Graphic file (type pdf)
 <use interface/Client.pdf, page 1>
 Package pdftex.def Info: interface/Client.pdf , page1 used on input line 233.
 (pdftex.def)             Requested size: 614.46951pt x 670.33035pt.
- [23 <./interface/Client.pdf>]
-Overfull \hbox (5.55606pt too wide) in paragraph at lines 238--239
-\OT1/cmr/m/n/10 Lorsqu'un client se connectera, il arrivera sur la page d'acceu
-il ou plus pr^^Secis^^Sement
- []
-
-[24] [25] [26]
-<interface/Supplier.pdf, id=180, 877.85846pt x 749.93008pt>
+ [25 <./interface/Client.pdf>] [26] [27] [28]
+<interface/Supplier.pdf, id=186, 877.85846pt x 749.93008pt>
 File: interface/Supplier.pdf Graphic file (type pdf)
 <use interface/Supplier.pdf>
 Package pdftex.def Info: interface/Supplier.pdf  used on input line 330.
@@ -591,7 +586,7 @@ File: interface/Supplier.pdf Graphic file (type pdf)
 <use interface/Supplier.pdf>
 Package pdftex.def Info: interface/Supplier.pdf  used on input line 330.
 (pdftex.def)             Requested size: 877.85631pt x 749.92825pt.
-<interface/Supplier.pdf, id=183, page=1, 877.85846pt x 749.93008pt>
+<interface/Supplier.pdf, id=189, page=1, 877.85846pt x 749.93008pt>
 File: interface/Supplier.pdf Graphic file (type pdf)
 <use interface/Supplier.pdf, page 1>
 Package pdftex.def Info: interface/Supplier.pdf , page1 used on input line 330.
@@ -617,28 +612,28 @@ File: interface/Supplier.pdf Graphic file (type pdf)
 Package pdftex.def Info: interface/Supplier.pdf , page1 used on input line 330.
 
 (pdftex.def)             Requested size: 614.88518pt x 525.27933pt.
- [27 <./interface/Supplier.pdf>]) (./main.aux (./use_case.aux)
-(./overview.aux) (./interface.aux)) ) 
+ [29 <./interface/Supplier.pdf>]) (./main.aux (./use_case.aux) (./overview.aux)
+ (./classDiagram.aux) (./interface.aux)) ) 
 Here is how much of TeX's memory you used:
- 4596 strings out of 483140
- 63037 string characters out of 5965150
- 310935 words of memory out of 5000000
- 19507 multiletter control sequences out of 15000+600000
- 540849 words of font info for 57 fonts, out of 8000000 for 9000
- 36 hyphenation exceptions out of 8191
- 42i,18n,47p,586b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
-2.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on main.pdf (27 pages, 1503276 bytes).
+ 5910 strings out of 480218
+ 93459 string characters out of 5894882
+ 398292 words of memory out of 5000000
+ 23754 multiletter control sequences out of 15000+600000
+ 477770 words of font info for 61 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 61i,17n,75p,814b,431s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on main.pdf (29 pages, 1518018 bytes).
 PDF statistics:
- 248 PDF objects out of 1000 (max. 8388607)
- 143 compressed objects within 2 object streams
+ 262 PDF objects out of 1000 (max. 8388607)
+ 147 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  91 words of extra memory for PDF output out of 10000 (max. 10000000)
 
