@@ -28,9 +28,12 @@
 \contentsline {subsection}{\numberline {4.2}Le package database.}{21}%
 \contentsline {subsection}{\numberline {4.3}Le package dataObject.}{22}%
 \contentsline {subsection}{\numberline {4.4}La classe App.}{23}%
-\contentsline {section}{\numberline {5}Interface}{25}%
+\contentsline {section}{\numberline {5}Sequence diagrams}{25}%
 \contentsline {subsection}{\numberline {5.1}Introduction}{25}%
-\contentsline {subsection}{\numberline {5.2}Système de logs}{26}%
-\contentsline {subsection}{\numberline {5.3}Points communs}{28}%
-\contentsline {subsection}{\numberline {5.4}Interface client}{29}%
-\contentsline {subsection}{\numberline {5.5}Interface fournisseur}{35}%
+\contentsline {subsection}{\numberline {5.2}Client}{26}%
+\contentsline {section}{\numberline {6}Interface}{27}%
+\contentsline {subsection}{\numberline {6.1}Introduction}{27}%
+\contentsline {subsection}{\numberline {6.2}Système de logs}{28}%
+\contentsline {subsection}{\numberline {6.3}Points communs}{30}%
+\contentsline {subsection}{\numberline {6.4}Interface client}{31}%
+\contentsline {subsection}{\numberline {6.5}Interface fournisseur}{37}%
