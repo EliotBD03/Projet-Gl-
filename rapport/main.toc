@@ -8,14 +8,29 @@
 \contentsline {subsection}{\numberline {2.2}Points communs}{7}{}%
 \contentsline {subsection}{\numberline {2.3}Accès à l'application pour les clients}{8}{}%
 \contentsline {subsection}{\numberline {2.4}Accès à l'application pour les fournisseurs}{11}{}%
-\contentsline {section}{\numberline {3}Diagramme des classes pour le serveur.}{14}{}%
-\contentsline {subsection}{\numberline {3.1}Le package api:}{14}{}%
-\contentsline {subsection}{\numberline {3.2}Le package database.}{15}{}%
-\contentsline {subsection}{\numberline {3.3}Le package dataObject.}{16}{}%
-\contentsline {subsection}{\numberline {3.4}La classe App.}{16}{}%
-\contentsline {section}{\numberline {4}Interface}{19}{}%
-\contentsline {subsection}{\numberline {4.1}Introduction}{19}{}%
-\contentsline {subsection}{\numberline {4.2}Système de logs}{20}{}%
-\contentsline {subsection}{\numberline {4.3}Points communs}{22}{}%
-\contentsline {subsection}{\numberline {4.4}Interface client}{23}{}%
-\contentsline {subsection}{\numberline {4.5}Interface fournisseur}{28}{}%
+\contentsline {section}{\numberline {3}Entity relationship diagram}{14}{}%
+\contentsline {subsection}{\numberline {3.1}préambule}{14}{}%
+\contentsline {subsection}{\numberline {3.2}utilisateur}{14}{}%
+\contentsline {subsection}{\numberline {3.3}langue}{15}{}%
+\contentsline {subsection}{\numberline {3.4}client}{15}{}%
+\contentsline {subsection}{\numberline {3.5}portefeuille}{15}{}%
+\contentsline {subsection}{\numberline {3.6}contrat du portefeuille}{15}{}%
+\contentsline {subsection}{\numberline {3.7}fournisseur}{15}{}%
+\contentsline {subsection}{\numberline {3.8}proposition}{16}{}%
+\contentsline {subsection}{\numberline {3.9}contrat du fournisseur}{16}{}%
+\contentsline {subsection}{\numberline {3.10}contrat}{16}{}%
+\contentsline {subsection}{\numberline {3.11}compteur}{17}{}%
+\contentsline {subsection}{\numberline {3.12}consommation}{17}{}%
+\contentsline {subsection}{\numberline {3.13}notification}{18}{}%
+\contentsline {subsection}{\numberline {3.14}schéma}{18}{}%
+\contentsline {section}{\numberline {4}Diagramme des classes pour le serveur.}{19}{}%
+\contentsline {subsection}{\numberline {4.1}Le package API:}{19}{}%
+\contentsline {subsection}{\numberline {4.2}Le package database.}{20}{}%
+\contentsline {subsection}{\numberline {4.3}Le package dataObject.}{21}{}%
+\contentsline {subsection}{\numberline {4.4}La classe App.}{21}{}%
+\contentsline {section}{\numberline {5}Interface}{24}{}%
+\contentsline {subsection}{\numberline {5.1}Introduction}{24}{}%
+\contentsline {subsection}{\numberline {5.2}Système de logs}{25}{}%
+\contentsline {subsection}{\numberline {5.3}Points communs}{27}{}%
+\contentsline {subsection}{\numberline {5.4}Interface client}{28}{}%
+\contentsline {subsection}{\numberline {5.5}Interface fournisseur}{33}{}%

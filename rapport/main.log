@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.9.12)  28 NOV 2022 13:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.9.12)  30 NOV 2022 13:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -224,7 +224,7 @@ File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count286
 \l__pdf_internal_box=\box54
 )
-(./main.aux (./use_case.aux) (./overview.aux) (./classDiagram.aux)
+(./main.aux (./use_case.aux) (./overview.aux) (./bdd.aux) (./classDiagram.aux)
 (./interface.aux))
 \openout1 = `main.aux'.
 
@@ -490,6 +490,59 @@ Package pdftex.def Info: overview/overview-fournisseur.png  used on input line
 198.
 (pdftex.def)             Requested size: 345.0pt x 235.51765pt.
 ) [13 <./overview/overview-fournisseur.png (PNG copy)>]
+\openout2 = `bdd.aux'.
+
+ (./bdd.tex
+! Undefined control sequence.
+<argument> ...z@ \footnotesep \ignorespaces  \url 
+                                                  {https://en.wikipedia.org/...
+l.8 ...en.wikipedia.org/wiki/Third\_normal\_form}}
+                                                  .
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument> ...\z@ \footnotesep \ignorespaces \url 
+                                                  {https://fr.wikipedia.org/...
+l.16 ...url{https://fr.wikipedia.org/wiki/Bcrypt}}
+                                                   pour éviter toute fuite ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[14
+
+
+
+] [15] [16]
+! Undefined control sequence.
+<argument> ...notesep \ignorespaces source : \url 
+                                                  {https://shrinkthatfootpri...
+l.160 ...rage-household-electricity-consumption/}}
+                                                   ce qui nous permet de res...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[17]
+<bdd/bdd.png, id=76, 1106.63437pt x 634.62094pt>
+File: bdd/bdd.png Graphic file (type png)
+<use bdd/bdd.png>
+Package pdftex.def Info: bdd/bdd.png  used on input line 191.
+(pdftex.def)             Requested size: 442.6459pt x 253.84387pt.
+
+Overfull \hbox (97.6459pt too wide) in paragraph at lines 191--192
+[][] 
+ []
+
+) [18 <./bdd/bdd.png (PNG copy)>]
 \openout2 = `classDiagram.aux'.
 
  (./classDiagram.tex
@@ -497,64 +550,75 @@ Package pdftex.def Info: overview/overview-fournisseur.png  used on input line
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 7.
 
-[14
+! Undefined control sequence.
+<argument> ...\z@ \footnotesep \ignorespaces \url 
+                                                  {https://thierry-leriche-d...
+l.20 ...els/java/creer-API-rest-vertx-5-minutes/}}
+                                                  , nous expliquerons notre ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[19
 
 
 
-] [15]
+] [20]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 72.
 
-[16]
-<classDiagram/classDiagram.pdf, id=70, 597.23125pt x 845.1575pt>
+[21]
+<classDiagram/classDiagram.pdf, id=90, 597.23125pt x 845.1575pt>
 File: classDiagram/classDiagram.pdf Graphic file (type pdf)
 <use classDiagram/classDiagram.pdf>
-Package pdftex.def Info: classDiagram/classDiagram.pdf  used on input line 102.
+Package pdftex.def Info: classDiagram/classDiagram.pdf  used on input line 106.
 
 (pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
 File: classDiagram/classDiagram.pdf Graphic file (type pdf)
 <use classDiagram/classDiagram.pdf>
-Package pdftex.def Info: classDiagram/classDiagram.pdf  used on input line 102.
+Package pdftex.def Info: classDiagram/classDiagram.pdf  used on input line 106.
 
 (pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
-<classDiagram/classDiagram.pdf, id=73, page=1, 597.23125pt x 845.1575pt>
+<classDiagram/classDiagram.pdf, id=93, page=1, 597.23125pt x 845.1575pt>
 File: classDiagram/classDiagram.pdf Graphic file (type pdf)
 <use classDiagram/classDiagram.pdf, page 1>
 Package pdftex.def Info: classDiagram/classDiagram.pdf , page1 used on input li
-ne 102.
+ne 106.
 (pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
 File: classDiagram/classDiagram.pdf Graphic file (type pdf)
 <use classDiagram/classDiagram.pdf, page 1>
 Package pdftex.def Info: classDiagram/classDiagram.pdf , page1 used on input li
-ne 102.
+ne 106.
 (pdftex.def)             Requested size: 561.86221pt x 795.10587pt.
- [17]
+ [22]
 File: classDiagram/classDiagram.pdf Graphic file (type pdf)
 <use classDiagram/classDiagram.pdf, page 1>
 Package pdftex.def Info: classDiagram/classDiagram.pdf , page1 used on input li
-ne 102.
-(pdftex.def)             Requested size: 561.86221pt x 795.10587pt.
-File: classDiagram/classDiagram.pdf Graphic file (type pdf)
-<use classDiagram/classDiagram.pdf, page 1>
-Package pdftex.def Info: classDiagram/classDiagram.pdf , page1 used on input li
-ne 102.
+ne 106.
 (pdftex.def)             Requested size: 561.86221pt x 795.10587pt.
 File: classDiagram/classDiagram.pdf Graphic file (type pdf)
 <use classDiagram/classDiagram.pdf, page 1>
 Package pdftex.def Info: classDiagram/classDiagram.pdf , page1 used on input li
-ne 102.
+ne 106.
 (pdftex.def)             Requested size: 561.86221pt x 795.10587pt.
- [18 <./classDiagram/classDiagram.pdf>])
+File: classDiagram/classDiagram.pdf Graphic file (type pdf)
+<use classDiagram/classDiagram.pdf, page 1>
+Package pdftex.def Info: classDiagram/classDiagram.pdf , page1 used on input li
+ne 106.
+(pdftex.def)             Requested size: 561.86221pt x 795.10587pt.
+ [23 <./classDiagram/classDiagram.pdf>])
 \openout2 = `interface.aux'.
 
- (./interface.tex [19
+ (./interface.tex [24
 
 
 
 ]
-[20]
-<interface/Log.pdf, id=92, 955.11964pt x 497.33139pt>
+[25]
+<interface/Log.pdf, id=112, 955.11964pt x 497.33139pt>
 File: interface/Log.pdf Graphic file (type pdf)
 <use interface/Log.pdf>
 Package pdftex.def Info: interface/Log.pdf  used on input line 63.
@@ -563,7 +627,7 @@ File: interface/Log.pdf Graphic file (type pdf)
 <use interface/Log.pdf>
 Package pdftex.def Info: interface/Log.pdf  used on input line 63.
 (pdftex.def)             Requested size: 955.11731pt x 497.33017pt.
-<interface/Log.pdf, id=95, page=1, 955.11964pt x 497.33139pt>
+<interface/Log.pdf, id=115, page=1, 955.11964pt x 497.33139pt>
 File: interface/Log.pdf Graphic file (type pdf)
 <use interface/Log.pdf, page 1>
 Package pdftex.def Info: interface/Log.pdf , page1 used on input line 63.
@@ -584,8 +648,8 @@ File: interface/Log.pdf Graphic file (type pdf)
 <use interface/Log.pdf, page 1>
 Package pdftex.def Info: interface/Log.pdf , page1 used on input line 63.
 (pdftex.def)             Requested size: 614.36417pt x 319.8998pt.
- [21 <./interface/Log.pdf>] [22] [23] [24] [25] [26]
-<interface/Client.pdf, id=149, 669.19211pt x 730.02773pt>
+ [26 <./interface/Log.pdf>] [27] [28] [29] [30] [31]
+<interface/Client.pdf, id=169, 669.19211pt x 730.02773pt>
 File: interface/Client.pdf Graphic file (type pdf)
 <use interface/Client.pdf>
 Package pdftex.def Info: interface/Client.pdf  used on input line 233.
@@ -594,7 +658,7 @@ File: interface/Client.pdf Graphic file (type pdf)
 <use interface/Client.pdf>
 Package pdftex.def Info: interface/Client.pdf  used on input line 233.
 (pdftex.def)             Requested size: 669.19046pt x 730.02594pt.
-<interface/Client.pdf, id=152, page=1, 669.19211pt x 730.02773pt>
+<interface/Client.pdf, id=172, page=1, 669.19211pt x 730.02773pt>
 File: interface/Client.pdf Graphic file (type pdf)
 <use interface/Client.pdf, page 1>
 Package pdftex.def Info: interface/Client.pdf , page1 used on input line 233.
@@ -615,8 +679,8 @@ File: interface/Client.pdf Graphic file (type pdf)
 <use interface/Client.pdf, page 1>
 Package pdftex.def Info: interface/Client.pdf , page1 used on input line 233.
 (pdftex.def)             Requested size: 614.46951pt x 670.33035pt.
- [27 <./interface/Client.pdf>] [28] [29] [30]
-<interface/Supplier.pdf, id=202, 877.85846pt x 749.93008pt>
+ [32 <./interface/Client.pdf>] [33] [34] [35]
+<interface/Supplier.pdf, id=222, 877.85846pt x 749.93008pt>
 File: interface/Supplier.pdf Graphic file (type pdf)
 <use interface/Supplier.pdf>
 Package pdftex.def Info: interface/Supplier.pdf  used on input line 330.
@@ -625,7 +689,7 @@ File: interface/Supplier.pdf Graphic file (type pdf)
 <use interface/Supplier.pdf>
 Package pdftex.def Info: interface/Supplier.pdf  used on input line 330.
 (pdftex.def)             Requested size: 877.85631pt x 749.92825pt.
-<interface/Supplier.pdf, id=205, page=1, 877.85846pt x 749.93008pt>
+<interface/Supplier.pdf, id=225, page=1, 877.85846pt x 749.93008pt>
 File: interface/Supplier.pdf Graphic file (type pdf)
 <use interface/Supplier.pdf, page 1>
 Package pdftex.def Info: interface/Supplier.pdf , page1 used on input line 330.
@@ -651,29 +715,32 @@ File: interface/Supplier.pdf Graphic file (type pdf)
 Package pdftex.def Info: interface/Supplier.pdf , page1 used on input line 330.
 
 (pdftex.def)             Requested size: 614.88518pt x 525.27933pt.
- [31 <./interface/Supplier.pdf>]) (./main.aux
-(./use_case.aux) (./overview.aux) (./classDiagram.aux) (./interface.aux)) ) 
+ [36 <./interface/Supplier.pdf>]) (./main.aux
+(./use_case.aux) (./overview.aux) (./bdd.aux) (./classDiagram.aux)
+(./interface.aux)) ) 
 Here is how much of TeX's memory you used:
- 5920 strings out of 480218
- 93907 string characters out of 5894882
- 399292 words of memory out of 5000000
- 23762 multiletter control sequences out of 15000+600000
- 477770 words of font info for 61 fonts, out of 8000000 for 9000
+ 5960 strings out of 480218
+ 94656 string characters out of 5894882
+ 400566 words of memory out of 5000000
+ 23793 multiletter control sequences out of 15000+600000
+ 477938 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  61i,17n,75p,819b,431s stack positions out of 5000i,500n,10000p,200000b,80000s
-</us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmti12.pfb>
-Output written on main.pdf (31 pages, 1600465 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmb
+x12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmtt10.pfb>
+Output written on main.pdf (36 pages, 1756023 bytes).
 PDF statistics:
- 278 PDF objects out of 1000 (max. 8388607)
- 157 compressed objects within 2 object streams
+ 309 PDF objects out of 1000 (max. 8388607)
+ 176 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 111 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 116 words of extra memory for PDF output out of 10000 (max. 10000000)
 
