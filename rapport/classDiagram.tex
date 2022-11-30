@@ -13,7 +13,7 @@
 \begin{flushleft}
 En outre, il y a également la classe de base nommé App. Nous en reparlerons par après.
 \end{flushleft}
-
+\newpage
 \subsection{Le package API:}
 
 \begin{flushleft}
@@ -34,7 +34,7 @@ Celle-ci va être utilisée pour toutes les requêtes liées aux fournisseurs lo
 \item \textbf{CommonApi:}\newline
 Celle-ci va être utilisée pour toutes les requêtes qui sont communes aux clients et aux fournisseurs lorsqu'ils seront connectés. On y trouve les méthodes pour les langues, pour les notifications et pour les données de consommations. Il y a également une méthode pour voir un contrat en particulier et une qui permet de changer de mot de passe.
 \end{enumerate}
-
+\newpage
 \begin{flushleft}
 Chacune de ces parties vont donc créer une sous-route grâce à la méthode getSubRouter car elles implémentent toutes l'interface Router. Et c'est donc dans la méthode start de MyApi que toutes ces sous-routes vont être rassemblées pour finalement lancer le serveur API.
 \end{flushleft}
@@ -88,7 +88,7 @@ Nous avons décidé de créer ces objets pour transférer facilement les donnée
 \begin{flushleft}
 À l'exception de la classe notification, nous avons choisi de séparer chaque sorte d'objets en deux parties, une partie basique avec les informations primaires et une partie complète avec le reste des informations. Cela nous permet, lorsque l'utilisateur souhaite par exemple voir tous ces portefeuilles, d'envoyer seulement le nécessaire au lieu d'envoyer toutes les données en une fois. Ce n'est que lorsque l'utilisateur cliquera sur un portefeuille en particulier que nous enverrons toutes les données correspondant à celui-ci.
 \end{flushleft}
-
+\newpage
 \subsection{La classe App.}
 
 \begin{flushleft}
