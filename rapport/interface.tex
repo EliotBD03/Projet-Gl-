@@ -1,5 +1,3 @@
-%\usepackage{pdfpages} dans le main
-
 \section{Interface}
 
 \subsection{Introduction}
@@ -22,6 +20,10 @@ De plus, nous avons décidé de séparer l'interface en \textbf{trois parties} :
 
 \begin{flushleft}
 ce qui nous semblait plus approprié étant donné que nous devons obtenir deux applications distinctes, une pour le fournisseur et l'autre pour le client.
+\end{flushleft}
+
+\begin{flushleft}
+Il est important de noter que nous avons utilisé le logiciel "Figma" pour réaliser ces maquettes.
 \end{flushleft}
 
 \newpage
@@ -71,7 +73,7 @@ L'utilisateur verra le fournisseur ou client en question, le contexte et le cont
 Il pourra également observer plus en détail le contrat avec le bouton "See", marquer commme lue les notifications grâce au bouton "OK" et les accepter ou refuser dans le cadre d'une demande.\newline
 En outre, la possibilité d'actualiser lui-même s'il le désire lui est laissée.
 \item \textbf{Les paramètres :}\newline
-Concernant le changement de mot de passe, cela se déroule exactment de la même manière que dans le système de logs.
+Concernant le changement de mot de passe, cela se déroule exactement de la même manière que dans le système de logs.
 Pour la langue, l'utilisateur pourra en ajouter, choisir sa préférée et changer celle étant active.\newline
 Dans tous les cas, ce dernier sera conduit sur une page où il aura la possibilité de chercher une langue et ensuite soit de la télécharger, soit de la choisir en fonction du contexte.
 \end{enumerate}
@@ -137,7 +139,7 @@ Toutefois d'autres actions lui seront possibles :
 \end{enumerate}
 
 \begin{flushleft}
-Le bouton "Go" concernant les contrats associés l'amènera sur une page montrant le contrats que nous expliquerons prochainement.
+Le bouton "Go" concernant les contrats associés l'amènera sur une page montrant le contrat que nous expliquerons prochainement.
 \end{flushleft}
 
 \begin{flushleft}
@@ -177,10 +179,10 @@ Les informations basiques qu'il verra sur chaque ligne de la liste sont le fourn
 \end{flushleft}
 
 \begin{flushleft}
-Lorsqu'il cliquera sur le \textbf{bouton "Go"} la nouvelle page lui offrira les informations suivantes : Le type d'énergie et le fournisseur de la même manière que sur la page précédente.
+Lorsqu'il cliquera sur le \textbf{bouton "Go"} la nouvelle page lui offrira les informations suivantes : le type d'énergie et le fournisseur de la même manière que sur la page précédente.
 \end{flushleft}
 \begin{flushleft}
-Les nouvelles actions disponibles sont les suivantes :
+Les nouvelles informations disponibles sont les suivantes :
 \end{flushleft}
 \begin{enumerate}
 \item Le nom du contrat
@@ -189,6 +191,7 @@ Les nouvelles actions disponibles sont les suivantes :
 \item Le prix basique
 \item Le prix dépendant du jour et la nuit
 \item Le taux fixe ou variable
+\item Les heures creuses
 \item La date d'ouverture du contrat
 \item La date de fermeture du contrat
 \end{enumerate}
@@ -219,6 +222,7 @@ Le \textbf{bouton "Go"} l'amènera sur les informations liées à un nouveau con
 \item Le prix basique
 \item Le prix dépendant du jour et la nuit
 \item Le taux fixe ou variable
+\item Les heures creuses
 \item Le type de compteur
 \end{enumerate}
 \begin{flushleft}
@@ -235,7 +239,7 @@ Nous ne reviendrons pas sur les points "Voir les notifications" et "Les paramèt
 \newpage
 \subsection{Interface fournisseur}
 
-Lorsqu'un client se connectera, il arrivera sur la page d'acceuil ou plus précisément "Home".
+Lorsqu'un fournisseur se connectera, il arrivera sur la page d'acceuil ou plus précisément "Home".
 \begin{flushleft}
 Ce dernier aura alors les possibilités suivantes :
 \end{flushleft}
@@ -248,7 +252,7 @@ Ce dernier aura alors les possibilités suivantes :
 \end{enumerate}
 
 \begin{flushleft}
-Tout comme pour l'interface client, il est important de noter que ce n'est qu'à partir de ces six pages que le client pourra revenir sur la page "Home" étant donné le choix effectué dans notre overview diagram.
+Tout comme pour l'interface client, il est important de noter que ce n'est qu'à partir de ces six pages que le fournisseur pourra revenir sur la page "Home" étant donné le choix effectué dans notre overview diagram.
 \end{flushleft}
 
 \begin{flushleft}
@@ -274,7 +278,7 @@ Le founisseur pourra à partir d'ici voir une liste reprenant tous les noms de s
 \item Les contrats lui étant associés (Nom du contrat, code "EAN", le type d'énergie, la dernière consommation) : \newline
 Le bouton "Go" lui donnera la possibilité de voir plus en détail le contrat de la même manière que lorsqu'un client souhaite voir ses contrats.\newline
 Il aura la faculté de supprimer un contrat et voir les consommations.\newline
-Contrairement au client, il ne pourra pas ajouter de nouvelles données de consommations mais simplement les modifier et ne pourra pas exporter les données mais en importer.
+Contrairement au client, il ne pourra pas ajouter de nouvelles données de consommations mais simplement les modifier et les supprimer et ne pourra pas exporter les données mais en importer.
 \item La suppresion d'un client (Bouton "Delete Client")
 \end{enumerate}
 
@@ -302,6 +306,7 @@ Le founisseur pourra à partir d'ici voir une liste reprenant tous les noms de s
 \item Le prix basique
 \item Le prix dépendant du jour et la nuit
 \item Le taux fixe ou variable
+\item Les heures creuses
 \item Le type de compteur
 \end{enumerate}
 
@@ -318,6 +323,7 @@ Lorsqu'un fournisseur souhaitera ajouter un contrat il devra entrer :
 \item La localisation (du contrat)
 \item Le prix basique
 \item Le prix dépendant du jour et la nuit
+\item Les heures creuses
 \item Le taux fixe ou variable
 \item Le type de compteur
 \end{enumerate}
