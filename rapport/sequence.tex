@@ -60,7 +60,7 @@ A cet effet, il y aura deux méthodes :
 
 \begin{enumerate}
 \item getAllProposal si le client souhaite voir toutes les propositions.
-\item getProposal si le client souhaite voir une proposition.
+\item getProposal si le client souhaite voir une proposition en particulier.
 \end{enumerate}
 
 \begin{flushleft}
@@ -91,8 +91,8 @@ L'Use case \textbf{"Voir les portefeuilles"} fonctionne de la même manière qu'
 En effet, il y aura deux méthodes : 
 \end{flushleft}
 \begin{enumerate}
-\item getAllWallet si le client souhaite voir tous les portefeuilles où l'on doit retourner une ArrayList de "walletBasic".
-\item getWallet si le client souhaite voir un portefeuille où l'on doit retourner une instance de "walletFull".
+\item getAllWallet si le client souhaite voir tous les portefeuilles. On doit donc retourner une ArrayList de "walletBasic".
+\item getWallet si le client souhaite voir un portefeuille. On doit donc retourner une instance de "walletFull".
 \end{enumerate}
 
 \begin{flushleft}
@@ -114,7 +114,7 @@ Pour \textbf{supprimer un portefeuille}, nous appelons la méthode "deleteWallet
 Cependant, avant d'appeler la méthode du même nom de ClientDB, nous devons vérifier que le portefeuille est vide.
 \end{flushleft}
 \begin{flushleft}
-Si c'est le cas le portefeuille sera bien supprimé, sinon, il ne le sera pas.
+Si c'est le cas le portefeuille sera bien supprimé, sinon, on renverra une erreur.
 \end{flushleft}
 
 \newpage
