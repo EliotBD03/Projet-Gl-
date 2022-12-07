@@ -27,8 +27,191 @@ Avant de commencer, il est important de signaler dans le but d'éviter toute ré
 Si le token est bon, on continue le programme, sinon, on envoie un message d'erreur à l'aide de la méthode "sendMessageError".
 \end{flushleft}
 
+\begin{flushleft}
+Pour rappel, l'utilisateur n'appelle pas directement les méthodes partant de sa lifeline mais utilise des requêtes de l'API. De plus, vous pouvez constater que dans le diagramme des classes, nous n'avons pas mis de type de retour aux méthodes de l'API. Cependant, dans les diagrammes de séquences, nous avons quand-même représenté une flèche de retour. Cela est dû au fait que pour retourner quelque chose à l'utilisateur, nous utilisons une méthode de la variable routingContext.
+\end{flushleft}
+
 \newpage
 \subsection{Common}
+
+\begin{flushleft}
+Pour la partie commune aux clients et fournisseurs, nous retrouvons plusieurs Use Cases à décrire.
+\end{flushleft}
+
+\begin{enumerate}
+\item Gérer les données
+\item Gérer les langues
+\item Modifier son mot de passe
+\item Répondre aux notifications
+\item S'authentifier
+\item Visualisation des données de consommations
+\item Voir les contrats
+\item Voir notifications
+\end{enumerate}
+
+\subsubsection{Gérer les données}
+
+\begin{flushleft}
+Nous pouvons gérer les données de deux manières. L'utilisateur peut ajouter une donnée de consommation ou en changer une.
+\end{flushleft}
+
+\begin{flushleft}
+Pour ajouter une donnée, il suffit d'appeler la méthode addConsumption. Cette dernière peut écraser des données selon les paramètres utilisés. Lorsque des données sont écrasées, nous devons donc créer une notification pour prévenir l'autre utilisateur concerné par ce changement.
+\end{flushleft}
+
+\begin{flushleft}
+Pour changer une donnée, il suffit d'appeler la méthode changeConsumption. Celle-ci change automatiquement une donnée, nous devons donc créer une notification pour prévenir l'autre utilisateur.
+\end{flushleft}
+
+\begin{figure}[h]
+\centering
+\includegraphics[height = 1\textwidth]{sequence/common/Gérer les données.pdf}
+\end{figure}
+
+\newpage
+
+\subsubsection{Gérer les langues}
+
+\begin{flushleft}
+Nous pouvons gérer les langues à plusieurs niveaux. L'utilisateur peut voir toutes ses langues, sa langue actuelle et sa langue préférée. En plus de cela, il peut ajouter une langue, changer sa langue actuelle ou encore changer sa langue favorite.
+\end{flushleft}
+
+\begin{flushleft}
+Pour les trois premières fonctionnalités, le principe est le même. On appelle la méthode adéquate et celle-ci va t'être rappelée dans la partie base de donnée pour rechercher l'information désirée.
+\end{flushleft}
+
+\begin{flushleft}
+Concernant les autres fonctionnalités, on appelle également la méthode du même nom dans la partie base de données. Notez que ces méthodes  ne retournent rien.
+\end{flushleft}
+
+\begin{figure}[h]
+\centering
+\includegraphics[height = 1\textwidth]{sequence/common/Gérer les langues.pdf}
+\end{figure}
+
+\newpage
+
+\subsubsection{Modifier son mot de passe}
+
+\begin{flushleft}
+Pour modifier son mot de passe de manière sécurisée, nous passons par l'adresse mail de l'utilisateur pour être certains que ce soit bien celui-ci qui veuille changer le mot de passe. Pour se faire, il faut tout d'abord faire appel à la méthode getCode, cette dernière va appeler les méthodes createCode et sendEmail de la classe App.
+\end{flushleft}
+
+\begin{flushleft}
+À noter que createCode va appeler automaticDeleteCode afin que le code se supprime automatiquement au bout d'un laps de temps au cas où l'utilisateur prendrait trop de temps ou n'utiliserait jamais ce code.
+\end{flushleft}
+
+\begin{flushleft}
+L'utilisateur recevra donc par mail un code de vérification. Il pourra ensuite entrer le code et son nouveau mot de passe sur le site pour finalement appeler la méthode changePwd de l'API. Avant de le changer, nous utilisons la méthode checkCode d'App pour vérifier que le code est correct. Si c'est bien le cas, alors nous pouvons appeler changePwd de CommonDB pour changer le mot de passe. Dans le cas contraire, nous renvoyons évidemment un message d'erreur.
+\end{flushleft}
+
+\begin{figure}[h]
+\centering
+\includegraphics[height = 1\textwidth]{sequence/common/Modifier son mot de passe.pdf}
+\end{figure}
+
+\newpage
+
+\subsubsection{Répondre aux notifications}
+
+\begin{flushleft}
+Répondre aux notifications implique trois possibilités. L'utilisateur peut l'accepter ou la refuser dans le cas d'une demande de contrat ou bien dans les autres cas, noter la notification comme lu.
+\end{flushleft}
+
+\begin{flushleft}
+Lorsqu'un utilisateur accepte une notification (une demande de contrat). Dans la partie base de données, nous commençons par créer un objet contractFull à partir de la proposition acceptée, ensuite nous faisons appel à la méthode createContract pour enregistrer le contrat. Nous pouvons donc supprimer la notification actuelle étant donné qu'elle vient d'être acceptée. Pour finir, nous créons une nouvelle notification pour informer à l'autre utilisateur que sa demande a été acceptée.
+\end{flushleft}
+
+\begin{flushleft}
+Dans le cas d'une notification informative, l'utilisateur peut la marquer comme lue. Ce qui implique de la supprimer en appelant la méthode deleteNotification.
+\end{flushleft}
+
+\begin{figure}[h]
+\centering
+\includegraphics[height = 1\textwidth]{sequence/common/Répondre aux notifications.pdf}
+\end{figure}
+
+\newpage
+
+\subsubsection{S'authentifier}
+
+\begin{flushleft}
+Lorsque l'utilisateur arrive sur la fenêtre de connexion. Deux cas de base sont possibles. Si l'utilisateur n'a pas de compte ou au contraire s'il en possède déjà un.
+\end{flushleft}
+
+\begin{flushleft}
+Pour créer un compte, suivant le même principe que le changement de mot de passe. Un code va être crée et envoyé à l'adresse mail que l'utilisateur vient d'entrer grâce aux méthodes déjà expliquées ci-dessus. Quand l'utilisateur souhaite sauvegarder son compte, la méthode saveAcccount est invoquée. Après vérification du code, cette dernière est ré-appelée dans CommonDB pour sauvegarder le compte.
+\newline
+Suite à cela, Nous pouvons créer un token de connexion grâce à la méthode createToken de la classe abstraite AbstractToken et l'envoyer à l'utilisateur pour ses prochaines requêtes car en créant son compte, il s'est également connecté. Notez que lors de la création du token, nous appelons automaticDeleteToken pour limiter la durée de vie du token.
+\end{flushleft}
+
+\begin{flushleft}
+Si l'utilisateur possède déjà un compte, nous vérifions les données de connexion grâce à checkAccount. Si les données sont correctes, nous pouvons créer un token et l'envoyer comme expliqué précédemment.
+\end{flushleft}
+
+\begin{flushleft}
+Si l'utilisateur possède un compte mais ne parvient pas à se connecter. Il a la possibilité de réinitialiser son mot de passe. Le processus utilisé est le même que lors du changement de mot de passe expliqué précédemment.
+\end{flushleft}
+
+\begin{flushleft}
+Une fois connecté, l'utilisateur peut de toute évidence se déconnecter en faisant appel à la méthode disconnect. Celle-ci servant juste à appeler deleteToken pour supprimer le token.
+\end{flushleft}
+
+\begin{figure}[h]
+\centering
+\includegraphics[height = 1\textwidth]{sequence/common/S'authentifier.pdf}
+\end{figure}
+
+\newpage
+
+\subsubsection{Visualisation des données de consommations}
+
+\begin{flushleft}
+Rien de plus simple. Nous invoquons la méthode getConsumption de l'API, ensuite elle est ré-appelée dans CommonDB pour récupérer les valeurs dans la base de données pour finalement les renvoyer.
+\end{flushleft}
+
+\begin{figure}[h]
+\centering
+\includegraphics[height = 1\textwidth]{sequence/common/Visualisation des données de consommations.pdf}
+\end{figure}
+
+\newpage
+
+\subsubsection{Voir les contrats}
+
+\begin{flushleft}
+Au niveau des contrats dans la partie commune, il est possible de voir un contrat en particulier ainsi que d'en supprimer un.
+\end{flushleft}
+
+\begin{flushleft}
+Il suffit d'appeler la méthode getContract jusqu'à la base de données, nous pouvons ensuite créer un objet ContractFull pour facilement renvoyer les valeurs liées à cet objet. Notez qu'une fois envoyé, l'objet est détruit.
+\end{flushleft}
+
+\begin{flushleft}
+Comme son nom l'indique, deleteContract permet de supprimer un contrat. Une fois son devoir accompli, cette méthode doit également créer une notification pour avertir l'autre utilisateur impliqué par cette suppression. Il n'est pas utile que cette méthode renvoie quelque chose.
+\end{flushleft}
+
+\begin{figure}[h]
+\centering
+\includegraphics[height = 1\textwidth]{sequence/common/Voir les contrats.pdf}
+\end{figure}
+
+\newpage
+
+\subsubsection{Voir notifications}
+
+\begin{flushleft}
+Pour finir, l'utilisateur peut voir ses notifications. Pour cela, nous suivons toujours le même principe en appelant d'abord la méthode getAllNotifications au niveau de l'API et ensuite dans la partie base de données. Nous créons un objet Notification pour chaque notification stockée pour les envoyer dans une liste vers l'utilisateur. Tous les objets précédemment créés seront évidement supprimés à la suite de l'envoi de la liste.
+\end{flushleft}
+
+\begin{flushleft}
+Notez que lorsque l'utilisateur rafraîchit les notifications, c'est cette même méthode qui est appelée.
+\end{flushleft}
+
+\begin{figure}[h]
+\centering
+\includegraphics[height = 1\textwidth]{sequence/common/Voir notifications.pdf}
+\end{figure}
 
 \newpage
 \subsection{Client}
