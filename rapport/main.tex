@@ -6,6 +6,7 @@
 \usepackage[french]{babel}
 \usepackage[]{amsmath, amsfonts, amssymb, enumerate}
 \usepackage{pdfpages} 
+\usepackage[linkbordercolor=white]{hyperref}
 
 %all the things to make a good title
 \title{PROJET GENIE LOGICIEL (SINFO015) :\\ Rapport de modélisation}
@@ -53,16 +54,15 @@
 %hide the number of the actual page just for the cover page
 \thispagestyle{empty}
 
-
 \newpage
 \tableofcontents
 \newpage
 
-\include{use_case}
-\include{overview}
-\include{bdd}
-\include{classDiagram}
-\include{sequence}
-\include{interface}
+\include{Base/use_case/use_case-base}
+\include{Base/overview/overview-base}
+\include{Base/bdd/bdd-base}
+\include{Base/classDiagram/classDiagram-base}
+\include{Base/sequence/sequence-base}
+\include{Base/interface/interface-base}
 
 \end{document}

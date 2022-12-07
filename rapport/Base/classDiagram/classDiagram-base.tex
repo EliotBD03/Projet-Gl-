@@ -1,0 +1,107 @@
+\section{Diagramme des classes pour le serveur.}
+
+\subsection{Introduction}
+\begin{flushleft}
+Étant donné la taille du projet, nous avons évidemment décidé de séparer le projet en plusieurs parties. Au niveau du serveur, nous pouvons compter 3 grandes parties.
+\end{flushleft}
+
+\begin{enumerate}[-]
+\item Le package API
+\item Le package database
+\item Le package dataObject
+\end{enumerate}
+
+\begin{flushleft}
+En outre, il y a également la classe de base nommé App. Nous en reparlerons par après.
+\end{flushleft}
+\newpage
+\subsection{Le package API:}
+
+\begin{flushleft}
+Ce package contient toute la partie logique de l'ApiRest. Pour créer le serveur API nous avons décidé d'utiliser le framework Vertx\footnote{\url{https://thierry-leriche-dessirier.developpez.com/tutoriels/java/creer-API-rest-vertx-5-minutes/}}, nous expliquerons notre choix dans le rapport sur l'implementation. Pour créer une ApiRest, nous avons d'abord besoin d'une classe (MyApi) qui hérite de AbstractVerticle (une classe abstraite venant du package vertx). MyApi permet de lancer le serveur à l'aide de la méthode start.
+\end{flushleft}
+
+\begin{flushleft}
+Avant de la lancer, il faut d'abord configurer les routes de notre API. Notre API étant conséquente, nous avons décidé de la séparer en 4 sous-routes (parties distinctes).
+\end{flushleft}
+
+\begin{enumerate}[a)]
+\item \textbf{LogApi:}\newline
+Celle-ci va être utilisée pour toutes les opérations liées au login. Autrement dit, pouvoir se connecter ou se déconnecter, créer un compte et réinitialiser son mot de passe en cas d'oubli. Nous avons aussi rajouter une méthode getCode pour envoyer un code de vérification par mail lorsque l'utilisateur veut créer un compte ou pour réinitialiser son mot de passe.
+\item \textbf{ClientApi:}\newline
+Celle-ci va être utilisée pour toutes les requêtes liées aux clients lorsqu'ils seront connectés. Ils pourront effectuer toutes les opérations qu'ils souhaitent au niveau du portefeuille ainsi que voir tous leurs contrats et pour finir voir toutes les propositions des fournisseurs ou une en particulier. Le client pourra évidemment proposer de conclure un contrat en fonction des propositions précédemment vue.
+\item \textbf{ProviderApi:}\newline
+Celle-ci va être utilisée pour toutes les requêtes liées aux fournisseurs lorsqu'ils seront connectés. Ils pourront effectuer toutes les opérations qu'ils souhaitent au niveau des leurs propositions mais également voir tous les clients de l'application, tous leurs clients ou un client en particulier. Contrairement au client, il a la possibilité de supprimer une ou toutes les données de consommations liées à un contrat. De plus, tout comme le client, il pourra proposer de conclure un contrat à n'importe quelle client à partir de l'une de ces propositions.
+\item \textbf{CommonApi:}\newline
+Celle-ci va être utilisée pour toutes les requêtes qui sont communes aux clients et aux fournisseurs lorsqu'ils seront connectés. On y trouve les méthodes pour les langues, pour les notifications et pour les données de consommations. Il y a également une méthode pour voir un contrat en particulier et une qui permet de changer de mot de passe.
+\end{enumerate}
+\newpage
+\begin{flushleft}
+Chacune de ces parties vont donc créer une sous-route grâce à la méthode getSubRouter car elles implémentent toutes l'interface Router. Et c'est donc dans la méthode start de MyApi que toutes ces sous-routes vont être rassemblées pour finalement lancer le serveur API.
+\end{flushleft}
+
+\begin{flushleft}
+Notez que toutes les méthodes qui vont être appelées par l'API sont en privé car seul le serveur API peut les appeler et elles ont  le même argument (routingContext) car c'est cette variable qui contient la requête de l'utilisateur ainsi que le corps de la requête. Et c'est également par cette variable que nous pourrons répondre à l'utilisateur.
+\end{flushleft}
+
+\begin{flushleft}
+Nous constatons également que ces quatre parties héritent d'une classe abstraite nommée AbstractToken. Comme son nom l'indique, elle va gérer les tokens. Autrement dit, lorsqu'un utilisateur se connecte, on va créer un token et c'est grâce à ce token qu'il pourra envoyer des requêtes aux classes clientApi, ProviderApi et CommonApi. Le token se supprimera automatiquement après un certain délai (15 minutes) ou lorsque quand l'utilisateur se déconnectera.
+\newline
+Notez que si le token est expiré, l'utilisateur devra se reconnecter.
+\end{flushleft}
+
+\subsection{Le package database.}
+
+\begin{flushleft}
+Le package database contient toutes les méthodes qui vont communiquer avec la base de données. Une grande partie de celles-ci ont exactement le même nom que dans le package API puisqu’elles sont contenues dans la suite du programme. L'utilisateur envoie une requête à l'API, en fonction de la requête, la bonne méthode est appelée et appellera la méthode de database portant le même nom pour accéder aux données. Pour séparer le programme, nous avons divisé  cette partie en trois. Nous retrouvons donc une classe mère et deux classes filles.
+\end{flushleft}
+
+\begin{flushleft}
+CommonDB est la classe mère de ce package, elle reprend toutes les méthodes communes aux clients et aux fournisseurs comme son nom l'indique. Outre les méthodes de l'API, nous retrouvons également les méthodes createNotification, deleteNotification et createContract car elles devront être appelées à la suite d'une requête et non directement. Nous avons aussi décidé d'ajouter les méthodes createId, getDataOfTable et deleteDataOfTable car ce sont des actions qui seront souvent utilisées et que nous pouvons donc généraliser.
+\end{flushleft}
+
+\begin{flushleft}
+ClientDB et ProviderDB sont les deux classes enfants, elles s'occupent respectivement du côté client et du côté fournisseur comme leurs noms l'indiquent. Elles héritent de la classe CommonDB pour avoir accès à certaines méthodes comme par exemple createId, getDataOfTable et deleteDataOfTable. Notez qu'au niveau du client nous avons rajouté une méthode walletIsEmpty qui permet de savoir si un portefeuille du client est vide.
+\end{flushleft}
+
+\subsection{Le package dataObject.}
+
+\begin{flushleft}
+Le package dataObject contient toutes les classes représentant un objet, c'est-à-dire:
+\end{flushleft}
+
+\begin{enumerate}[-]
+\item Les portefeuilles.
+\item Les contrats.
+\item Les clients (du point de vue des fournisseurs).
+\item Les propositions (que les fournisseurs ont créées).
+\item Les notifications.
+\end{enumerate}
+
+\begin{flushleft}
+Notez également que nous avons rajouter une classe TypeEnergy pour énumerer tous les types d'énergies.
+\end{flushleft}
+
+\begin{flushleft}
+Nous avons décidé de créer ces objets pour transférer facilement les données. En effet toutes les classes ne contiennent que des attributs avec des assesseurs à quelques exceptions près. Notez que nous aurions donc pu mettre les variables en final mais nous avons préféré laisser comme ça car dans le cas contraire nous aurions eu des constructeurs vraiment longs. Ces classes seront donc instanciées lorsque nous recevrons un objet par l'API ou quand nous prendrons des données de la base de données pour facilement les envoyer à l'utilisateur en format json (io.vertx.core.json.Json).
+\end{flushleft}
+
+\begin{flushleft}
+À l'exception de la classe notification, nous avons choisi de séparer chaque sorte d'objets en deux parties, une partie basique avec les informations primaires et une partie complète avec le reste des informations. Cela nous permet, lorsque l'utilisateur souhaite par exemple voir tous ces portefeuilles, d'envoyer seulement le nécessaire au lieu d'envoyer toutes les données en une fois. Ce n'est que lorsque l'utilisateur cliquera sur un portefeuille en particulier que nous enverrons toutes les données correspondant à celui-ci.
+\end{flushleft}
+\newpage
+\subsection{La classe App.}
+
+\begin{flushleft}
+La classe App est le début du programme. C'est elle qui est chargée de lancer le programme comme toutes applications java grâce à la méthode nommée "main". En effet, cette méthode va lancer l'API de la classe Myapi. Notez que nous n'avons pas directement lié ces deux classes entre elles car l'API se lance indirectement par le framework Vertx.
+\end{flushleft}
+
+\begin{flushleft}
+La classe App contient également quelques méthodes statiques utilisées par les autres parties du projet. Ce sont ces méthodes qui s'occupent de la partie mail du projet, notamment "sendEmail" qui enverra une mail à un utilisateur qui souhaite créer un compte, réinitialiser son mot de passe ou bien le changer. Les autres méthodes s'occupent du "code". En effet, nous avons décidé que lorsqu'un utilisateur souhaite réaliser une des tâches précédentes, nous allons lui envoyer un code par mail avec quelques explications. Nous avons donc besoin d'une méthode pour générer le code aléatoirement, une pour vérifier que l'utilisateur a entré le bon code et pour finir une pour supprimer le code si l'utilisateur a mis trop de temps pour l'envoyer.
+\end{flushleft}
+
+\begin{flushleft}
+Notez que pour envoyer un mail, nous utilisons l'API javaxmail.
+\end{flushleft}
+
+\includepdf[pages=-]{Base/classDiagram/img/classDiagram.pdf}
