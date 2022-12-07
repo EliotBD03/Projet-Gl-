@@ -1,0 +1,11 @@
+* general
+  tout se trouve dans un même .vpp
+    - voir_clients
+    - gestion_consommation
+    - voir_proposition
+* gestion de consommation
+  je n'ai pas mis voir les consommation vu que c'est un point commun entre les deux types d'utilisateurs
+* voir clients
+  hypothese pour ajouter un client : on n'a pas eu de précédent contrats avec lui
+* proposition
+  faire une prop à un client se fait dans ajouter client (+ sans l'hypothèse)
