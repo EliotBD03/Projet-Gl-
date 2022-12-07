@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.10.17)  30 NOV 2022 15:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.10.17)  1 DEC 2022 19:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -231,15 +231,8 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count194
 \l__pdf_internal_box=\box49
 )
-(./main.aux
-
-Package babel Warning: Unknown language `french'. Very likely you
-(babel)                requested it in a previous run. Expect some
-(babel)                wrong results in this run, which should vanish
-(babel)                in the next one. Reported on input line 8.
-
-(./use_case.aux) (./overview.aux) (./bdd.aux) (./classDiagram.aux)
-(./interface.aux))
+(./main.aux (./use_case.aux) (./overview.aux) (./bdd.aux) (./classDiagram.aux)
+(./sequence.aux) (./interface.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
@@ -314,46 +307,31 @@ Package pdftex.def Info: images/facSciences.png  used on input line 50.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./images/umons.jpeg> <./im
-ages/facSciences.png>] (./main.toc
-Package babel Info: \l@french = using hyphenrules for nil
-(babel)             (\language5) on input line 1.
-
-(/usr/share/texlive/texmf-dist/tex/generic/babel/locale/fr/babel-french.tex
-Package babel Info: Importing basic data for french
-(babel)             from babel-fr.ini. Reported on input line 11.
-
-
-Package babel Warning: From babel-fr.ini:
-(babel)                The `french' date format may not be suitable
-(babel)                for proper typesetting, and therefore very likely
-(babel)                it will change in a future release.
-(babel)                Reported  on input line 11.
-
-))
+ages/facSciences.png>] (./main.toc)
 \tf@toc=\write3
 \openout3 = `main.toc'.
 
- [2]
+ [2] [3]
 \openout2 = `use_case.aux'.
 
- (./use_case.tex [3
+ (./use_case.tex [4
 
 ]
-<use_case/client.png, id=25, 1020.81375pt x 630.10406pt>
+<use_case/client.png, id=28, 1020.81375pt x 630.10406pt>
 File: use_case/client.png Graphic file (type png)
 <use use_case/client.png>
 Package pdftex.def Info: use_case/client.png  used on input line 43.
 (pdftex.def)             Requested size: 345.0pt x 212.9538pt.
- [4 <./use_case/client.png (PNG copy)>]
-<use_case/fournisseur.png, id=29, 1014.79124pt x 630.10406pt>
+ [5 <./use_case/client.png (PNG copy)>]
+<use_case/fournisseur.png, id=32, 1014.79124pt x 630.10406pt>
 File: use_case/fournisseur.png Graphic file (type png)
 <use use_case/fournisseur.png>
 Package pdftex.def Info: use_case/fournisseur.png  used on input line 64.
 (pdftex.def)             Requested size: 345.0pt x 214.21332pt.
-) [5 <./use_case/fournisseur.png (PNG copy)>]
+) [6 <./use_case/fournisseur.png (PNG copy)>]
 \openout2 = `overview.aux'.
 
- (./overview.tex [6
+ (./overview.tex [7
 
 
 ]
@@ -404,7 +382,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 47--49
 
  []
 
-[7]
+[8]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 70.
@@ -424,7 +402,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 80--81
 
  []
 
-[8]
+[9]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 103.
@@ -455,13 +433,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
-[9]
-<overview/overview-client.png, id=46, 1035.11127pt x 793.26283pt>
+[10]
+<overview/overview-client.png, id=49, 1035.11127pt x 793.26283pt>
 File: overview/overview-client.png Graphic file (type png)
 <use overview/overview-client.png>
 Package pdftex.def Info: overview/overview-client.png  used on input line 121.
 (pdftex.def)             Requested size: 345.0pt x 264.39204pt.
- [10 <./overview/overview-client.png (PNG copy)>]
+ [11 <./overview/overview-client.png (PNG copy)>]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 139.
@@ -481,7 +459,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 149--150
 
  []
 
-[11]
+[12]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 170.
@@ -516,14 +494,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 188--189
 
  []
 
-[12]
-<overview/overview-fournisseur.png, id=56, 1079.49756pt x 736.92638pt>
+[13]
+<overview/overview-fournisseur.png, id=60, 1079.49756pt x 736.92638pt>
 File: overview/overview-fournisseur.png Graphic file (type png)
 <use overview/overview-fournisseur.png>
 Package pdftex.def Info: overview/overview-fournisseur.png  used on input line 
 198.
 (pdftex.def)             Requested size: 345.0pt x 235.51765pt.
-) [13 <./overview/overview-fournisseur.png (PNG copy)>]
+) [14 <./overview/overview-fournisseur.png (PNG copy)>]
 \openout2 = `bdd.aux'.
 
  (./bdd.tex
@@ -549,10 +527,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-[14
+[15
 
 
-] [15] [16]
+] [16] [17]
 ! Undefined control sequence.
 <argument> ...notesep \ignorespaces source : \url 
                                                   {https://shrinkthatfootpri...
@@ -564,7 +542,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-[17]
+[18]
 
 LaTeX Warning: File `bdd/bdd.png' not found on input line 190.
 
@@ -580,7 +558,7 @@ l.190 \includegraphics[scale=0.4]{bdd/bdd.png}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-) [18]
+) [19]
 \openout2 = `classDiagram.aux'.
 
  (./classDiagram.tex
@@ -588,7 +566,7 @@ If that doesn't work, type  X <return>  to quit.
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 7.
 
-[19
+[20
 
 
 ]
@@ -615,13 +593,13 @@ Overfull \hbox (1.27823pt too wide) in paragraph at lines 32--34
 s aux fournisseurs lorsqu'ils
  []
 
-[20] [21]
+[21] [22]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 72.
 
-[22]
-<classDiagram/classDiagram.pdf, id=93, 597.23125pt x 845.1575pt>
+[23]
+<classDiagram/classDiagram.pdf, id=96, 597.23125pt x 845.1575pt>
 File: classDiagram/classDiagram.pdf Graphic file (type pdf)
 <use classDiagram/classDiagram.pdf>
 Package pdftex.def Info: classDiagram/classDiagram.pdf  used on input line 106.
@@ -632,7 +610,7 @@ File: classDiagram/classDiagram.pdf Graphic file (type pdf)
 Package pdftex.def Info: classDiagram/classDiagram.pdf  used on input line 106.
 
 (pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
-<classDiagram/classDiagram.pdf, id=96, page=1, 597.23125pt x 845.1575pt>
+<classDiagram/classDiagram.pdf, id=99, page=1, 597.23125pt x 845.1575pt>
 File: classDiagram/classDiagram.pdf Graphic file (type pdf)
 <use classDiagram/classDiagram.pdf, page 1>
 Package pdftex.def Info: classDiagram/classDiagram.pdf , page1 used on input li
@@ -643,7 +621,7 @@ File: classDiagram/classDiagram.pdf Graphic file (type pdf)
 Package pdftex.def Info: classDiagram/classDiagram.pdf , page1 used on input li
 ne 106.
 (pdftex.def)             Requested size: 561.86221pt x 795.10587pt.
- [23]
+ [24]
 File: classDiagram/classDiagram.pdf Graphic file (type pdf)
 <use classDiagram/classDiagram.pdf, page 1>
 Package pdftex.def Info: classDiagram/classDiagram.pdf , page1 used on input li
@@ -659,15 +637,45 @@ File: classDiagram/classDiagram.pdf Graphic file (type pdf)
 Package pdftex.def Info: classDiagram/classDiagram.pdf , page1 used on input li
 ne 106.
 (pdftex.def)             Requested size: 561.86221pt x 795.10587pt.
- [24 <./classDiagram/classDiagram.pdf>])
+ [25 <./classDiagram/classDiagram.pdf>])
+\openout2 = `sequence.aux'.
+
+ (./sequence.tex [26
+
+
+] [27]
+<sequence/client/seqContrats.png, id=118, 688.55669pt x 476.29913pt>
+File: sequence/client/seqContrats.png Graphic file (type png)
+<use sequence/client/seqContrats.png>
+Package pdftex.def Info: sequence/client/seqContrats.png  used on input line 50
+.
+(pdftex.def)             Requested size: 399.00594pt x 276.00105pt.
+
+Overfull \hbox (54.00594pt too wide) in paragraph at lines 50--51
+ [][] 
+ []
+
+[28 <./sequence/client/seqContrats.png (PNG copy)>] [29]
+<sequence/client/seqFCRe.png, id=125, 617.99385pt x 1021.45393pt>
+File: sequence/client/seqFCRe.png Graphic file (type png)
+<use sequence/client/seqFCRe.png>
+Package pdftex.def Info: sequence/client/seqFCRe.png  used on input line 85.
+(pdftex.def)             Requested size: 250.47473pt x 413.99895pt.
+ [30 <./sequence/client/seqFCRe.png (PNG copy)>] [31]
+<sequence/client/seqPortefeuilles.png, id=133, 629.94402pt x 1571.16118pt>
+File: sequence/client/seqPortefeuilles.png Graphic file (type png)
+<use sequence/client/seqPortefeuilles.png>
+Package pdftex.def Info: sequence/client/seqPortefeuilles.png  used on input li
+ne 123.
+(pdftex.def)             Requested size: 165.98276pt x 413.99895pt.
+ [32 <./sequence/client/seqPortefeuilles.png (PNG copy)>]) [33]
 \openout2 = `interface.aux'.
 
- (./interface.tex [25
+ (./interface.tex [34
 
 
-]
-[26]
-<interface/Log.pdf, id=115, 872.27884pt x 645.54878pt>
+] [35]
+<interface/Log.pdf, id=146, 872.27884pt x 645.54878pt>
 File: interface/Log.pdf Graphic file (type pdf)
 <use interface/Log.pdf>
 Package pdftex.def Info: interface/Log.pdf  used on input line 65.
@@ -676,7 +684,7 @@ File: interface/Log.pdf Graphic file (type pdf)
 <use interface/Log.pdf>
 Package pdftex.def Info: interface/Log.pdf  used on input line 65.
 (pdftex.def)             Requested size: 872.2767pt x 645.5472pt.
-<interface/Log.pdf, id=118, page=1, 872.27884pt x 645.54878pt>
+<interface/Log.pdf, id=149, page=1, 872.27884pt x 645.54878pt>
 File: interface/Log.pdf Graphic file (type pdf)
 <use interface/Log.pdf, page 1>
 Package pdftex.def Info: interface/Log.pdf , page1 used on input line 65.
@@ -697,14 +705,14 @@ File: interface/Log.pdf Graphic file (type pdf)
 <use interface/Log.pdf, page 1>
 Package pdftex.def Info: interface/Log.pdf , page1 used on input line 65.
 (pdftex.def)             Requested size: 614.47751pt x 454.75734pt.
- [27 <./interface/Log.pdf>] [28]
+ [36 <./interface/Log.pdf>] [37]
 Overfull \hbox (5.55606pt too wide) in paragraph at lines 86--87
 \OT1/cmr/m/n/10 Lorsqu'un client se connectera, il arrivera sur la page d'acceu
 il ou plus pr^^Secis^^Sement
  []
 
-[29] [30] [31] [32] [33]
-<interface/Client.pdf, id=177, 856.78192pt x 747.23128pt>
+[38] [39] [40] [41] [42]
+<interface/Client.pdf, id=209, 856.78192pt x 747.23128pt>
 File: interface/Client.pdf Graphic file (type pdf)
 <use interface/Client.pdf>
 Package pdftex.def Info: interface/Client.pdf  used on input line 237.
@@ -713,7 +721,7 @@ File: interface/Client.pdf Graphic file (type pdf)
 <use interface/Client.pdf>
 Package pdftex.def Info: interface/Client.pdf  used on input line 237.
 (pdftex.def)             Requested size: 856.77983pt x 747.22946pt.
-<interface/Client.pdf, id=180, page=1, 856.78192pt x 747.23128pt>
+<interface/Client.pdf, id=212, page=1, 856.78192pt x 747.23128pt>
 File: interface/Client.pdf Graphic file (type pdf)
 <use interface/Client.pdf, page 1>
 Package pdftex.def Info: interface/Client.pdf , page1 used on input line 237.
@@ -734,8 +742,8 @@ File: interface/Client.pdf Graphic file (type pdf)
 <use interface/Client.pdf, page 1>
 Package pdftex.def Info: interface/Client.pdf , page1 used on input line 237.
 (pdftex.def)             Requested size: 614.84306pt x 536.22743pt.
- [34 <./interface/Client.pdf>] [35] [36] [37]
-<interface/Supplier.pdf, id=231, 845.26949pt x 746.35779pt>
+ [43 <./interface/Client.pdf>] [44] [45] [46]
+<interface/Supplier.pdf, id=262, 845.26949pt x 746.35779pt>
 File: interface/Supplier.pdf Graphic file (type pdf)
 <use interface/Supplier.pdf>
 Package pdftex.def Info: interface/Supplier.pdf  used on input line 336.
@@ -744,7 +752,7 @@ File: interface/Supplier.pdf Graphic file (type pdf)
 <use interface/Supplier.pdf>
 Package pdftex.def Info: interface/Supplier.pdf  used on input line 336.
 (pdftex.def)             Requested size: 845.26741pt x 746.35597pt.
-<interface/Supplier.pdf, id=234, page=1, 845.26949pt x 746.35779pt>
+<interface/Supplier.pdf, id=265, page=1, 845.26949pt x 746.35779pt>
 File: interface/Supplier.pdf Graphic file (type pdf)
 <use interface/Supplier.pdf, page 1>
 Package pdftex.def Info: interface/Supplier.pdf , page1 used on input line 336.
@@ -770,33 +778,33 @@ File: interface/Supplier.pdf Graphic file (type pdf)
 Package pdftex.def Info: interface/Supplier.pdf , page1 used on input line 336.
 
 (pdftex.def)             Requested size: 614.48784pt x 542.58174pt.
- [38 <./interface/Supplier.pdf>]) (./main.aux (./use_case.aux) (./overview.aux)
+ [47 <./interface/Supplier.pdf>]) (./main.aux (./use_case.aux) (./overview.aux)
 
-(./bdd.aux) (./classDiagram.aux) (./interface.aux)) ) 
+(./bdd.aux) (./classDiagram.aux) (./sequence.aux) (./interface.aux)) ) 
 Here is how much of TeX's memory you used:
- 4809 strings out of 483140
- 67405 string characters out of 5965150
- 312486 words of memory out of 5000000
- 19685 multiletter control sequences out of 15000+600000
+ 4692 strings out of 483140
+ 64735 string characters out of 5965150
+ 313755 words of memory out of 5000000
+ 19562 multiletter control sequences out of 15000+600000
  541017 words of font info for 58 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  42i,18n,47p,807b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (38 pages, 1692187 bytes).
+</usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on main.pdf (47 pages, 2063538 bytes).
 PDF statistics:
- 312 PDF objects out of 1000 (max. 8388607)
- 187 compressed objects within 2 object streams
+ 344 PDF objects out of 1000 (max. 8388607)
+ 206 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
- 111 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 126 words of extra memory for PDF output out of 10000 (max. 10000000)
 
