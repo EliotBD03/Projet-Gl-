@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=latex 2022.12.8)  8 DEC 2022 21:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=latex 2022.12.8)  8 DEC 2022 21:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -375,9 +375,8 @@ File: l3backend-dvips.def 2022-01-12 L3 backend support: dvips
 (./main.aux (./Base/use_case/use_case-base.aux)
 (./Base/overview/overview-base.aux) (./Base/bdd/bdd-base.aux)
 (./Base/classDiagram/classDiagram-base.aux) (./Base/sequence/sequence-base.aux)
-(./Base/interface/interface-base.aux)
-No file Base/api-rest/api-rest.aux.
-)
+(./Base/interface/interface-base.aux) (./Base/api_rest/api-rest-base.aux)
+(./Base/intro/intro-ext.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
@@ -398,7 +397,8 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
- (/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
@@ -470,15 +470,15 @@ If that doesn't work, type  X <return>  to quit.
 File: images/facSciences.png Graphic file (type eps)
 <images/facSciences.png> [1
 
-] (./main.toc)
+] (./main.toc [2])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [2]
+ [3]
 \openout2 = `Base/use_case/use_case-base.aux'.
 
 
-(./Base/use_case/use_case-base.tex [3
+(./Base/use_case/use_case-base.tex [4
 
 ]
 
@@ -499,7 +499,7 @@ File: Base/use_case/img/client.png Graphic file (type eps)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[4]
+[5]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/use_case/img/fournisseu
 r.png (no BoundingBox).
@@ -518,10 +518,10 @@ File: Base/use_case/img/fournisseur.png Graphic file (type eps)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [5] [6]
+) [6] [7]
 \openout2 = `Base/overview/overview-base.aux'.
 
- (./Base/overview/overview-base.tex [7
+ (./Base/overview/overview-base.tex [8
 
 
 
@@ -573,7 +573,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 47--49
 
  []
 
-[8]
+[9]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 66.
@@ -593,7 +593,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 76--77
 
  []
 
-[9]
+[10]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 95.
@@ -624,7 +624,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--105
 
  []
 
-[10]
+[11]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/overview/img/overview-c
 lient.png (no BoundingBox).
@@ -639,7 +639,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/overview/img/overview-client.png Graphic file (type eps)
-<Base/overview/img/overview-client.png> [11]
+<Base/overview/img/overview-client.png> [12]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 127.
@@ -659,7 +659,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
 
-[12]
+[13]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 154.
@@ -694,7 +694,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 172--173
 
  []
 
-[13]
+[14]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/overview/img/overview-f
 ournisseur.png (no BoundingBox).
@@ -709,20 +709,20 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/overview/img/overview-fournisseur.png Graphic file (type eps)
-<Base/overview/img/overview-fournisseur.png>) [14]
+<Base/overview/img/overview-fournisseur.png>) [15]
 \openout2 = `Base/bdd/bdd-base.aux'.
 
  (./Base/bdd/bdd-base.tex
-[15
+[16
 
 
 
-] [16] [17]
+] [17] [18]
 Overfull \hbox (17.0538pt too wide) in paragraph at lines 159--159
 [][][][][]\OT1/cmr/m/n/8 source : [][][][]| 
  []
 
-[18]
+[19]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/bdd/img/bdd.jpg (no Bou
 ndingBox).
@@ -737,7 +737,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/bdd/img/bdd.jpg Graphic file (type eps)
-<Base/bdd/img/bdd.jpg>) [19]
+<Base/bdd/img/bdd.jpg>) [20]
 \openout2 = `Base/classDiagram/classDiagram-base.aux'.
 
  (./Base/classDiagram/classDiagram-base.tex
@@ -745,7 +745,7 @@ File: Base/bdd/img/bdd.jpg Graphic file (type eps)
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 8.
 
-[20
+[21
 
 
 
@@ -760,26 +760,26 @@ Overfull \hbox (1.27823pt too wide) in paragraph at lines 33--35
 s aux fournisseurs lorsqu'ils
  []
 
-[21] [22]
+[22] [23]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 73.
 
-[23]
+[24]
 
 Package pdfpages Warning: I cannot determine the number of pages of the
 (pdfpages)                included document, because we are running in
 (pdfpages)                DVI mode. 
 (pdfpages)                You can use the option `lastpage' to give me a hint.
 
-[24] [25])
+[25] [26])
 \openout2 = `Base/sequence/sequence-base.aux'.
 
- (./Base/sequence/sequence-base.tex [26
+ (./Base/sequence/sequence-base.tex [27
 
 
 
-] [27]
+] [28]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/gé
 rer_les_données.pdf (no BoundingBox).
@@ -794,7 +794,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/sequence/img/common/gérer_les_données.pdf Graphic file (type eps)
-<Base/sequence/img/common/gérer_les_données.pdf> [28]
+<Base/sequence/img/common/gérer_les_données.pdf> [29]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/gé
 rer_les_langues.pdf (no BoundingBox).
@@ -809,7 +809,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/sequence/img/common/gérer_les_langues.pdf Graphic file (type eps)
-<Base/sequence/img/common/gérer_les_langues.pdf> [29]
+<Base/sequence/img/common/gérer_les_langues.pdf> [30]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/Mod
 ifier son mot de passe.pdf (no BoundingBox).
@@ -825,7 +825,7 @@ If that doesn't work, type  X <return>  to quit.
 
 File: Base/sequence/img/common/Modifier son mot de passe.pdf Graphic file (type
  eps)
-<Base/sequence/img/common/Modifier son mot de passe.pdf> [30]
+<Base/sequence/img/common/Modifier son mot de passe.pdf> [31]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/ré
 pondre_aux_notifications.pdf (no BoundingBox).
@@ -841,7 +841,7 @@ If that doesn't work, type  X <return>  to quit.
 
 File: Base/sequence/img/common/répondre_aux_notifications.pdf Graphic file (ty
 pe eps)
-<Base/sequence/img/common/répondre_aux_notifications.pdf> [31] [32]
+<Base/sequence/img/common/répondre_aux_notifications.pdf> [32] [33]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/S'a
 uthentifier.pdf (no BoundingBox).
@@ -856,7 +856,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/sequence/img/common/S'authentifier.pdf Graphic file (type eps)
-<Base/sequence/img/common/S'authentifier.pdf> [33]
+<Base/sequence/img/common/S'authentifier.pdf> [34]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/Vis
 ualisation des données de consommations.pdf (no BoundingBox).
@@ -873,7 +873,7 @@ If that doesn't work, type  X <return>  to quit.
 File: Base/sequence/img/common/Visualisation des données de consommations.pdf 
 Graphic file (type eps)
 <Base/sequence/img/common/Visualisation des données de consommations.pdf>
-[34]
+[35]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/Voi
 r les contrats.pdf (no BoundingBox).
@@ -888,7 +888,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/sequence/img/common/Voir les contrats.pdf Graphic file (type eps)
-<Base/sequence/img/common/Voir les contrats.pdf> [35]
+<Base/sequence/img/common/Voir les contrats.pdf> [36]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/Voi
 r notifications.pdf (no BoundingBox).
@@ -903,7 +903,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/sequence/img/common/Voir notifications.pdf Graphic file (type eps)
-<Base/sequence/img/common/Voir notifications.pdf> [36]
+<Base/sequence/img/common/Voir notifications.pdf> [37]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/client/seq
 Contrats.pdf (no BoundingBox).
@@ -918,7 +918,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/sequence/img/client/seqContrats.pdf Graphic file (type eps)
-<Base/sequence/img/client/seqContrats.pdf> [37] [38]
+<Base/sequence/img/client/seqContrats.pdf> [38] [39]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/client/seq
 FCRe.pdf (no BoundingBox).
@@ -938,7 +938,7 @@ Overfull \hbox (69.11334pt too wide) in paragraph at lines 269--270
  [][] 
  []
 
-[39] [40]
+[40] [41]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/client/seq
 Portefeuilles.pdf (no BoundingBox).
@@ -958,7 +958,7 @@ Overfull \hbox (69.11334pt too wide) in paragraph at lines 309--310
  [][] 
  []
 
-[41] [42]
+[42] [43]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/fournisseu
 r/voir_ses_clients.pdf (no BoundingBox).
@@ -974,11 +974,11 @@ If that doesn't work, type  X <return>  to quit.
 
 File: Base/sequence/img/fournisseur/voir_ses_clients.pdf Graphic file (type eps
 )
-<Base/sequence/img/fournisseur/voir_ses_clients.pdf> [43]
+<Base/sequence/img/fournisseur/voir_ses_clients.pdf> [44]
 
-LaTeX Warning: Reference `Common' on page 44 undefined on input line 343.
+LaTeX Warning: Reference `Common' on page 45 undefined on input line 343.
 
-[44]
+[45]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/fournisseu
 r/voir_les_propositions.pdf (no BoundingBox).
@@ -994,7 +994,7 @@ If that doesn't work, type  X <return>  to quit.
 
 File: Base/sequence/img/fournisseur/voir_les_propositions.pdf Graphic file (typ
 e eps)
-<Base/sequence/img/fournisseur/voir_les_propositions.pdf> [45]
+<Base/sequence/img/fournisseur/voir_les_propositions.pdf> [46]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/fournisseu
 r/gestion de la consommation.pdf (no BoundingBox).
@@ -1010,15 +1010,15 @@ If that doesn't work, type  X <return>  to quit.
 
 File: Base/sequence/img/fournisseur/gestion de la consommation.pdf Graphic file
  (type eps)
-<Base/sequence/img/fournisseur/gestion de la consommation.pdf>) [46]
+<Base/sequence/img/fournisseur/gestion de la consommation.pdf>) [47]
 \openout2 = `Base/interface/interface-base.aux'.
 
 
-(./Base/interface/interface-base.tex [47
+(./Base/interface/interface-base.tex [48
 
 
 
-] [48]
+] [49]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/interface/img/Log.pdf (
 no BoundingBox).
@@ -1033,13 +1033,13 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/interface/img/Log.pdf Graphic file (type eps)
-<Base/interface/img/Log.pdf> [49] [50]
+<Base/interface/img/Log.pdf> [50] [51]
 Overfull \hbox (5.55606pt too wide) in paragraph at lines 88--89
 \OT1/cmr/m/n/10 Lorsqu'un client se connectera, il arrivera sur la page d'acceu
 il ou plus pr^^Secis^^Sement
  []
 
-[51] [52] [53]
+[52] [53] [54]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/interface/img/Client.pd
 f (no BoundingBox).
@@ -1054,7 +1054,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/interface/img/Client.pdf Graphic file (type eps)
-<Base/interface/img/Client.pdf> [54] [55] [56] [57]
+<Base/interface/img/Client.pdf> [55] [56] [57] [58]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/interface/img/Supplier.
 pdf (no BoundingBox).
@@ -1069,15 +1069,14 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/interface/img/Supplier.pdf Graphic file (type eps)
-<Base/interface/img/Supplier.pdf>) [58] [59]
-\openout2 = `Base/api_rest/api-rest.aux'.
+<Base/interface/img/Supplier.pdf>) [59] [60]
+\openout2 = `Base/api_rest/api-rest-base.aux'.
 
- (./Base/api_rest/api-rest.tex
-[60
-
+ (./Base/api_rest/api-rest-base.tex [61
 
 
-] [61]
+
+] [62]
 
 ! LaTeX Error: Cannot determine size of graphic in Base/api_rest/img/api_rest.j
 pg (no BoundingBox).
@@ -1092,10 +1091,10 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: Base/api_rest/img/api_rest.jpg Graphic file (type eps)
-<Base/api_rest/img/api_rest.jpg>) [62]
+<Base/api_rest/img/api_rest.jpg>) [63]
 \openout2 = `Base/intro/intro-ext.aux'.
 
- (./Base/intro/intro-ext.tex) [63
+ (./Base/intro/intro-ext.tex) [64
 
 
 
@@ -1103,27 +1102,21 @@ File: Base/api_rest/img/api_rest.jpg Graphic file (type eps)
 (./main.aux (./Base/use_case/use_case-base.aux)
 (./Base/overview/overview-base.aux) (./Base/bdd/bdd-base.aux)
 (./Base/classDiagram/classDiagram-base.aux) (./Base/sequence/sequence-base.aux)
-(./Base/interface/interface-base.aux) (./Base/api_rest/api-rest.aux)
+(./Base/interface/interface-base.aux) (./Base/api_rest/api-rest-base.aux)
 (./Base/intro/intro-ext.aux))
 
 LaTeX Warning: There were undefined references.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 99225F4BAA211CB1586910C674EC4923;8102
-(rerunfilecheck)             After:  1ABB2C8B5E37FA6FC723C409EE2500FD;9433.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 1ABB2C8B5E37FA6FC723C409EE2500FD;9433.
  ) 
 Here is how much of TeX's memory you used:
- 12045 strings out of 480205
- 207727 string characters out of 5895036
- 497408 words of memory out of 5000000
- 29659 multiletter control sequences out of 15000+600000
+ 12057 strings out of 480205
+ 208075 string characters out of 5895036
+ 505688 words of memory out of 5000000
+ 29668 multiletter control sequences out of 15000+600000
  478452 words of font info for 64 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  65i,8n,75p,3672b,485s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (63 pages, 167872 bytes).
+Output written on main.dvi (64 pages, 201788 bytes).
