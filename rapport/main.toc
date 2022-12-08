@@ -1,8 +1,8 @@
-\babel@toc {nil}{}
-\contentsline {section}{\numberline {1}Use cases diagrams}{4}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Points communs}{4}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Client}{5}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}Fournisseur}{6}{subsection.1.3}%
+\babel@toc {nil}{}\relax 
+\contentsline {section}{\numberline {1}Use cases diagrams}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Points communs}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Client}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Fournisseur}{5}{subsection.1.3}%
 \contentsline {section}{\numberline {2}interaction overview diagrams}{7}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Introduction}{7}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Points communs}{8}{subsection.2.2}%
@@ -52,6 +52,14 @@
 \contentsline {subsection}{\numberline {6.1}Introduction}{47}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Système de logs}{48}{subsection.6.2}%
 \contentsline {subsection}{\numberline {6.3}Points communs}{49}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4}Interface client}{50}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5}Interface fournisseur}{55}{subsection.6.5}%
-\contentsline {section}{\numberline {7}Introduction-extension}{59}{section.7}%
+\contentsline {subsection}{\numberline {6.4}Interface client}{51}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Interface fournisseur}{56}{subsection.6.5}%
+\contentsline {section}{\numberline {7}Design REST Api}{60}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Introduction}{60}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Gestion d'un utlisateur}{60}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Ajout de données}{60}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Affichage de données}{60}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Modification/Suppression de données}{61}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Conclusion}{61}{subsection.7.6}%
+\contentsline {subsection}{\numberline {7.7}schéma}{62}{subsection.7.7}%
+\contentsline {section}{\numberline {8}Introduction-extension}{63}{section.8}%
