@@ -54,3 +54,4 @@
 \contentsline {subsection}{\numberline {6.3}Points communs}{49}{subsection.6.3}%
 \contentsline {subsection}{\numberline {6.4}Interface client}{50}{subsection.6.4}%
 \contentsline {subsection}{\numberline {6.5}Interface fournisseur}{55}{subsection.6.5}%
+\contentsline {section}{\numberline {7}Introduction-extension}{59}{section.7}%
