@@ -1,7 +1,7 @@
 \section{Design REST Api}
 \subsection{Introduction}
 \begin{flushleft}
-Cette section représente le fonctionnement de l'AAPI REST sous forme d'un diagramme de classes. Ce schéma montre les interactions entre l'API, le serveur et les utilisateurs. Les fonctionnalités implémentées dans le diagramme de classe de l'application sont reprises sous formes de requêtes liées à l'API.
+Cette section représente le fonctionnement de l'API REST sous forme d'un diagramme de classes. Ce schéma montre les interactions entre l'API, le serveur et les utilisateurs. Les fonctionnalités implémentées dans le diagramme de classe de l'application sont reprises sous forme de requêtes liées à l'API.
 \end{flushleft}
 
 \subsection{Gestion d'un utlisateur}
@@ -17,7 +17,7 @@ Une fois l'utilisateur créé, une requête sortante est renvoyée à l'applicat
 \begin{flushleft}
 Lors d'une interaction avec l'API, il est possible d'ajouter ou de créer des données grâce à une requête "POST". Celle-ci permet notament la création de contrats, de portefeuilles, de propositons de contrats pour les fournisseur et l'ajout d'une méthode de consommation. Si l'interaction est validée, la requête "200 - OK" est la réponse de l'API pour l'application créeant donc respectivement l'objet demandé.
 \end{flushleft}
-
+\newpage
 \subsection{Affichage de données}
 \begin{flushleft}
 Parmi les fonctionnalités disponible pour un utilisateur, la possibilité de voir une liste de certains objets lui appartenant en fait partie. Lors d'une requête "GET", l'API va rechercher tous les éléments demandés, répondant aux caractéristiques et appartenant à l'utilisateur.
@@ -30,7 +30,7 @@ Lorsque qu'un utilisateur souhaite supprimer une donnée, celui-ci appelle l'API
 
 \subsection{Conclusion}
 \begin{flushleft}
-En conclusion, un utilisateur peut gérer ses données à l'aide de requêtes POST, PUT, GET, DELETE. Celui-ci a certaines permission d'accès à ces données et l'API gère ce gestionnaire de données à l'aide de classes.
+En conclusion, un utilisateur peut gérer ses données à l'aide de requêtes POST, PUT, GET, DELETE. Celui-ci a certaines permissions d'accès à ces données et l'API gère ce gestionnaire de données à l'aide de classes.
 \newpage
 
 \end{flushleft}
