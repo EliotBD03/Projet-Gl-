@@ -100,7 +100,7 @@ De plus, certains paramètres seront dépendants d'autres paramètres. Comme exe
 \end{flushleft}
 
 \begin{flushleft}
-Enfin, si nous avons que le prix est le même pendant les heures creuses et les heures pleines. Il sera donc inutile de conserver une heure bien précise (\texttt{début\_heures\_creuses} et \texttt{début\_heures\_pleines}\footnote{format: entier tel que les deux premiers digits seront l'heure et les minutes pour les derniers} pourront être nuls)
+Enfin, si nous avons que le prix est le même pendant les heures creuses et les heures pleines. Il sera donc inutile de conserver une heure bien précise (\texttt{début\_heures\_creuses} et \texttt{début\_heures\_pleines}\footnote{format: entier tel que les deux premiers digits seront l'heure et les minutes pour les derniers} pourront être nuls).
 \end{flushleft}
 
 \begin{flushleft}
@@ -147,10 +147,6 @@ Dans cette section, nous représentons le compteur associé à un contrat. Le co
 \end{flushleft}
 
 \begin{flushleft}
-On peut aussi noter le fait que la date d'ouverture d'un contrat est différent de la date d'ouverture du compteur(\texttt{date\_d\_ ouverture}).
-\end{flushleft}
-
-\begin{flushleft}
 PK(compteur) = \texttt{ean}
 \end{flushleft}
 \subsection{consommation}
@@ -181,9 +177,9 @@ PK(notification) = \texttt{id\_notification}
 \end{flushleft}
 
 \begin{flushleft}
-FK(notification) REFS client = \texttt{id\_client}
+FK(notification) REFS client = \texttt{id\_émetteur} et \texttt{id\_receveur}
 
-FK(notification) REFS fournisseur = \texttt{id\_fournisseur}
+FK(notification) REFS fournisseur = \texttt{id\_émetteur} et \texttt{id\_receveur}
 \newpage
 
 \end{flushleft}
