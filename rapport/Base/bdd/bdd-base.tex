@@ -173,17 +173,21 @@ En plus de ça, un contexte relativement court sera posé jusqu'à plus ample in
 \end{flushleft}
 
 \begin{flushleft}
+Enfin, un binaire permettra de savoir de qui vient la notification. 1 si c'est le fournisseur, client sinon.
+\end{flushleft}
+
+\begin{flushleft}
 PK(notification) = \texttt{id\_notification}
 \end{flushleft}
 
 \begin{flushleft}
-FK(notification) REFS client = \texttt{id\_émetteur} et \texttt{id\_receveur}
+FK(notification) REFS fournisseur = \texttt{id\_fournisseur}
 
-FK(notification) REFS fournisseur = \texttt{id\_émetteur} et \texttt{id\_receveur}
+FK(notification) REFS client = \texttt{id\_client}
 \newpage
 
 \end{flushleft}
 \subsection{schéma}
 \begin{figure}[h]
-\includegraphics[scale=0.3]{Base/bdd/img/bdd.jpg}
+\includegraphics[scale=0.5]{Base/bdd/img/bdd.pdf}
 \end{figure}
