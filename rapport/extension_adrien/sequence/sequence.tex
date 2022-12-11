@@ -8,10 +8,10 @@ Afin de compléter mon extension, j'ai introduit deux diagrammes de séquences, 
 Dans le cas du premier, nous retrouvons un cas de base. c'est-à-dire que le client n'a qu'à appeler la méthode \textbf{getConsumptionOfSimulation}, le token est vérifier et si ce dernier est correct alors, dans ce cas, nous appelons \textbf{getConsumptionOfSimulation} dans la classe \textbf{ClientDB}.
 \end{flushleft}
 
-\includepdf[pages=-]{extension_adrien/sequence/img/Comparer les données de consommations.pdf}
+\includepdf[pages=-]{extension_adrien/sequence/img/Comparer.pdf}
 
 \begin{flushleft}
 Dans le deuxième cas, que ça soit pour ajouter des données ou les changer, nous vérifions dans la classe \textbf{CommonDB} que la donnée est normal grâce à \textbf{isNormalData}. Si cette donnée est anormale, nous appelons la méthode statique \textbf{sendEmail} de la classe \textbf{App} pour envoyer un mail d'information.
 \end{flushleft}
 
-\includepdf[pages=-]{extension_adrien/sequence/img/Gérer les données.pdf}
+\includepdf[pages=-]{extension_adrien/sequence/img/Gerer.pdf}
