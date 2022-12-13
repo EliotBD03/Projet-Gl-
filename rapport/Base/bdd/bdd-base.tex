@@ -1,5 +1,5 @@
 \section{Entity relationship diagram}
-\subsection{préambule}
+\subsection{Préambule}
 \begin{flushleft}
 Dans cette partie, nous allons parler de la modélisation de la base de donnée. Chaque sous-section parlera d'une relation. Dans ces sous-sections, nous parlerons du fonctionnement de certains attributs et nous définirons nos clés primaires et étrangères.
 \end{flushleft}
@@ -7,7 +7,7 @@ Dans cette partie, nous allons parler de la modélisation de la base de donnée.
 \begin{flushleft}
 De manière générale, nous avons fait en sorte d'obtenir le moins de redondance possible entre les différentes relations pour convenir au mieux à la 3NF\footnote{ \url{https://en.wikipedia.org/wiki/Third\_normal\_form}}.
 \end{flushleft}
-\subsection{utilisateur}
+\subsection{Utilisateur}
 \begin{flushleft}
 Nous partons du principe qu'un fournisseur et un client sont avant tout des utilisateurs de l'application. De ce fait, les deux personnes auront un identifiant "id"("u" + 9 digits). Cet identifiant représente la quantième personne qui a été inscrite. Par exemple, si je suis le premier utilisateur alors j'aurai l'identifiant : u000000000.
 \end{flushleft}
@@ -26,7 +26,7 @@ FK(utilisateur) REFS fournisseur = \texttt{id}
 FK(utilisateur) REFS client = \texttt{id}
 \end{flushleft}
 \newpage
-\subsection{langue}
+\subsection{Langue}
 \begin{flushleft}
 Dans cette relation, nous posons que l'utilisateur peut avoir plusieurs langues. De ce fait, nous avons une clé primaire composée. 
 \end{flushleft}
@@ -46,7 +46,7 @@ PK(langue) = \texttt{id} et \texttt{langue\_enregistrée}
 \begin{flushleft}
 FK(langue) REFS utilisateur = \texttt{id}
 \end{flushleft}
-\subsection{client}
+\subsection{Client}
 \begin{flushleft}
 Du coté de la relation "client", nous y trouvons un seul attribut. Cela nous permet d'avoir un utilisateur ayant aucun portefeuille.
 \end{flushleft}
@@ -54,7 +54,7 @@ Du coté de la relation "client", nous y trouvons un seul attribut. Cela nous pe
 \begin{flushleft}
 PK(client) = \texttt{id\_client}
 \end{flushleft}
-\subsection{portefeuille}
+\subsection{Portefeuille}
 \begin{flushleft}
 L'adresse sera définie comme : nomdeville-nomderue-numérodemaison. 
 \end{flushleft}
@@ -66,7 +66,7 @@ PK(portefeuille) = \texttt{adresse}
 \begin{flushleft}
 FK(portefeuille) REFS client = \texttt{id\_client}
 \end{flushleft}
-\subsection{contrat du portefeuille}
+\subsection{Contrat du portefeuille}
 \begin{flushleft}
  Dans "contrat du portefeuille" et pour toute autre relation, \texttt{id\_contrat} sera défini comme ceci : "c" + quantième contrat créé.
 \end{flushleft}
@@ -86,7 +86,7 @@ Un fournisseur sera perçu avec son identifiant. De même que le client, un four
 \begin{flushleft}
 PK(fournisseur) = \texttt{id\_fournisseur}
 \end{flushleft}
-\subsection{proposition}
+\subsection{Proposition}
 \begin{flushleft}
 Cette section correspondra aux offres du fournisseur avec tous les paramètres qui seront associés. Nous posons qu'un nom d'offre ne peut être unique par rapport à plusieurs fournisseurs. De ce fait, nous avons une clé primaire composée. L'attribut \texttt{nom\_proposition} sera du type : "p" + nom que le fournisseur aura donné.
 \end{flushleft}
@@ -110,7 +110,7 @@ PK(proposition) = \texttt{nom\_proposition} et \texttt{id\_fournisseur}
 \begin{flushleft}
 FK(proposition) REFS fournisseur = \texttt{id\_fournisseur}
 \end{flushleft}
-\subsection{contrat du fournisseur}
+\subsection{Contrat du fournisseur}
 \begin{flushleft}
 PK(contrat du fournisseur) = \texttt{id\_contrat} et \texttt{id\_fournisseur}
 \end{flushleft}
@@ -118,7 +118,7 @@ PK(contrat du fournisseur) = \texttt{id\_contrat} et \texttt{id\_fournisseur}
 \begin{flushleft}
 FK(contrat du fournisseur) REFS fournisseur = \texttt{id\_fournisseur}
 \end{flushleft}
-\subsection{contrat}
+\subsection{Contrat}
 \begin{flushleft}
 La table contrat contiendra tous les éléments typiques d'un contrat tels que le fournisseur, le client, la proposition,ect,...
 \end{flushleft}
@@ -141,7 +141,7 @@ FK(contrat) REFS contrat du portefeuille = \texttt{adresse} et \texttt{id\_contr
 FK(contrat) REFS compteur = \texttt{ean}
 \end{flushleft}
 \newpage
-\subsection{compteur}
+\subsection{Compteur}
 \begin{flushleft}
 Dans cette section, nous représentons le compteur associé à un contrat. Le compteur sera identifié par le code EAN. 
 \end{flushleft}
@@ -149,7 +149,7 @@ Dans cette section, nous représentons le compteur associé à un contrat. Le co
 \begin{flushleft}
 PK(compteur) = \texttt{ean}
 \end{flushleft}
-\subsection{consommation}
+\subsection{Consommation}
 \begin{flushleft}
 Dans la consommation, nous pouvons noter qu'il est possible qu'un client n'ait rien consommé durant la journée. De ce fait, \texttt{consommation\_journalière} peut être mis à 0. On a aussi posé qu'un
 client ne pouvait consommer plus de 30 kw/heure par jour\footnote{source : \url{https://shrinkthatfootprint.com/average-household-electricity-consumption/}} ce qui nous permet de restreindre la taille de \texttt{consommation\_journalière} à 3 digits.
@@ -163,7 +163,7 @@ PK(consommation) = \texttt{ean} et \texttt{date}
 FK(consommation) REFS compteur = \texttt{ean}
 \end{flushleft}
 
-\subsection{notification}
+\subsection{Notification}
 \begin{flushleft}
 Les notifications seront représentées par un identifiant("n" + quantième notification créée).
 \end{flushleft}
@@ -182,7 +182,7 @@ PK(notification) = \texttt{id\_notification}
 
 \newpage
 
-\subsection{schéma}
+\subsection{Schéma}
 \begin{figure}[h]
 \includegraphics[scale=0.5]{Base/bdd/img/bdd.pdf}
 \end{figure}

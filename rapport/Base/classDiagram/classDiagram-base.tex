@@ -15,7 +15,7 @@
 En outre, il y a également la classe de base nommé App. Nous en reparlerons par après.
 \end{flushleft}
 \newpage
-\subsection{Le package API:}
+\subsection{Le package API}
 
 \begin{flushleft}
 Ce package contient toute la partie logique de l'ApiRest. Pour créer le serveur API nous avons décidé d'utiliser le framework Vertx\footnote{\url{https://thierry-leriche-dessirier.developpez.com/tutoriels/java/creer-API-rest-vertx-5-minutes/}}, nous expliquerons notre choix dans le rapport sur l'implementation. Pour créer une ApiRest, nous avons d'abord besoin d'une classe (MyApi) qui hérite de AbstractVerticle (une classe abstraite venant du package vertx). MyApi permet de lancer le serveur à l'aide de la méthode start.
@@ -50,7 +50,7 @@ Constatez également que ces quatre parties héritent d'une classe abstraite nom
 Notez que si le token est expiré, l'utilisateur devra se reconnecter.
 \end{flushleft}
 
-\subsection{Le package database.}
+\subsection{Le package database}
 
 \begin{flushleft}
 Le package database contient toutes les méthodes qui vont communiquer avec la base de données. Une grande partie de celles-ci ont exactement le même nom que dans le package API puisqu’elles sont contenues dans la suite du programme. L'utilisateur envoie une requête à l'API, en fonction de la requête, la bonne méthode est appelée et appellera la méthode de database portant le même nom pour accéder aux données. Pour séparer le programme, nous avons divisé  cette partie en trois. Nous retrouvons donc une classe mère et deux classes filles.
@@ -64,7 +64,7 @@ CommonDB est la classe mère de ce package, elle reprend toutes les méthodes co
 ClientDB et ProviderDB sont les deux classes enfants, elles s'occupent respectivement du côté client et du côté fournisseur comme leurs noms l'indiquent. Elles héritent de la classe CommonDB pour avoir accès à certaines méthodes comme par exemple createId, getDataOfTable et deleteDataOfTable. Notez qu'au niveau du client nous avons rajouté une méthode walletIsEmpty qui permet de savoir si un portefeuille du client est vide.
 \end{flushleft}
 
-\subsection{Le package dataObject.}
+\subsection{Le package dataObject}
 
 \begin{flushleft}
 Le package dataObject contient toutes les classes représentant un objet, c'est-à-dire:
@@ -90,7 +90,7 @@ Nous avons décidé de créer ces objets pour transférer facilement les donnée
 À l'exception de la classe notification, nous avons choisi de séparer chaque sorte d'objets en deux parties, une partie basique avec les informations primaires et une partie complète avec le reste des informations. Cela nous permet, lorsque l'utilisateur souhaite par exemple voir tous ces portefeuilles, d'envoyer seulement le nécessaire au lieu d'envoyer toutes les données en une fois. Ce n'est que lorsque l'utilisateur cliquera sur un portefeuille en particulier que nous enverrons toutes les données correspondant à celui-ci.
 \end{flushleft}
 \newpage
-\subsection{La classe App.}
+\subsection{La classe App}
 
 \begin{flushleft}
 La classe App est le début du programme. C'est elle qui est chargée de lancer le programme comme toutes applications java grâce à la méthode nommée "main". En effet, cette méthode va lancer l'API de la classe Myapi. Notez que nous n'avons pas directement lié ces deux classes entre elles car l'API se lance indirectement par le framework Vertx.
