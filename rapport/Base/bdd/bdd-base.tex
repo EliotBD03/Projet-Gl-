@@ -151,7 +151,7 @@ PK(compteur) = \texttt{ean}
 \end{flushleft}
 \subsection{consommation}
 \begin{flushleft}
-Dans la consommation, nous pouvons noter qu'il est possible qu'un client n'ai rien consommé durant la journée. De ce fait, \texttt{consommation\_journalière} peut être mis à 0. On a aussi posé qu'un
+Dans la consommation, nous pouvons noter qu'il est possible qu'un client n'ait rien consommé durant la journée. De ce fait, \texttt{consommation\_journalière} peut être mis à 0. On a aussi posé qu'un
 client ne pouvait consommer plus de 30 kw/heure par jour\footnote{source : \url{https://shrinkthatfootprint.com/average-household-electricity-consumption/}} ce qui nous permet de restreindre la taille de \texttt{consommation\_journalière} à 3 digits.
 \end{flushleft}
 
@@ -182,7 +182,6 @@ PK(notification) = \texttt{id\_notification}
 
 \newpage
 
-\end{flushleft}
 \subsection{schéma}
 \begin{figure}[h]
 \includegraphics[scale=0.5]{Base/bdd/img/bdd.pdf}

@@ -66,8 +66,9 @@ Pour changer une donnée, il suffit d'appeler la méthode changeConsumption. Cel
 
 \begin{figure}[h]
 \centering
-\includegraphics[width = 0.7\textwidth]{Base/sequence/img/common/gérer_les_données.pdf}
+\includegraphics[width = 0.7\textwidth]{Base/sequence/img/common/gerer_les_donne.pdf}
 \end{figure}
+
 \newpage
 \subsubsection{Gérer les langues}
 
@@ -80,12 +81,12 @@ Pour les trois premières fonctionnalités, le principe est le même. On appelle
 \end{flushleft}
 
 \begin{flushleft}
-Concernant les autres fonctionnalités, on appelle également la méthode du même nom dans la partie base de données. Notez que ces méthodes  ne retournent rien.
+Concernant les autres fonctionnalités, on appelle également la méthode du même nom dans la partie base de données. Remarquez que ces méthodes ne retournent rien.
 \end{flushleft}
 
 \begin{figure}[h]
 \centering
-\includegraphics[height = 1\textwidth]{Base/sequence/img/common/gérer_les_langues.pdf}
+\includegraphics[height = 1\textwidth]{Base/sequence/img/common/gerer_les_langues.pdf}
 \end{figure}
 
 \newpage
@@ -112,7 +113,7 @@ L'utilisateur recevra donc par mail un code de vérification. Il pourra ensuite 
 \subsubsection{Répondre aux notifications}
 
 \begin{flushleft}
-Répondre aux notifications implique trois possibilités. L'utilisateur peut l'accepter ou la refuser dans le cas d'une demande de contrat ou bien dans les autres cas, noter la notification comme lu.
+Répondre aux notifications implique trois possibilités. L'utilisateur peut l'accepter ou la refuser dans le cas d'une demande de contrat ou bien dans les autres cas, noter la notification comme lue.
 \end{flushleft}
 
 \begin{flushleft}
@@ -313,7 +314,7 @@ Si c'est le cas le portefeuille sera bien supprimé, sinon, on renverra une erre
 \subsection{Provider}
 
 \begin{flushleft}
-Tout d'abord, nous avons fait en sorte qu'un use case peut être représenté via un choix alternatif. Aussi, pour éviter de répéter la même chose dans le rapport, nous posons que toutes les méthodes liées à l'API appèleront la méthode \textbf{checkToken} de \textbf{AbstractToken} ce qui impliquera deux choix alternatifs : "Si le token est correct" et "Si le token est incorrect". Dans le dernier cas, on renverra un message d'erreur au fournisseur.
+Tout d'abord, nous avons fait en sorte qu'un use case peut être représenté via un choix alternatif. Aussi, pour éviter de répéter la même chose dans le rapport, nous posons que toutes les méthodes liées à l'API appelleront la méthode \textbf{checkToken} de \textbf{AbstractToken} ce qui impliquera deux choix alternatifs : "Si le token est correct" et "Si le token est incorrect". Dans le dernier cas, on renverra un message d'erreur au fournisseur.
 \end{flushleft}
 \subsubsection{Gestion des clients}
 \begin{flushleft}
@@ -321,7 +322,7 @@ Commençons par le use case "voir ses clients". Afin qu'un fournisseur puisse vo
 \end{flushleft}
 
 \begin{flushleft}
-Passons maintenant au use case "supprimer un client". Pour faire cela, la méthode \textbf{deleteClient} sera utilisé. En concéquence de ça, une notification sera envoyé au client ce qui nous oblige à faire appel à la méthode \textbf{createNotification}. 
+Passons maintenant au use case "supprimer un client". Pour faire cela, la méthode \textbf{deleteClient} sera utilisée. Par conséquent, une notification sera envoyée au client ce qui nous oblige à faire appel à la méthode \textbf{createNotification}. 
 \end{flushleft}
 
 \begin{flushleft}
@@ -340,22 +341,22 @@ Pour qu'un fournisseur puisse ajouter des clients. Il doit d'abord avoir accès 
 \newpage
 \subsubsection{Gestion des propositions}
 \begin{flushleft}
-Avant de parler des diagrammes de séquence de cette partie. Nous avons choisis de mettre les contrats d'un fournisseur et ses propositions dans les use cases parlant des contrats. De plus, Seules les propositions seront abordés dans cette partie étant donné qu'un contrat sera commun au fournisseur et au client(section \ref{CONTRATS},page \pageref{CONTRATS}).
+Avant de parler des diagrammes de séquence de cette partie. Nous avons choisi de mettre les contrats d'un fournisseur et ses propositions dans les use cases parlant des contrats. De plus, seules les propositions seront abordées dans cette partie étant donné qu'un contrat sera commun au fournisseur et au client(section \ref{CONTRATS},page \pageref{CONTRATS}).
 \end{flushleft}
 
 \begin{flushleft}
 Pour commencer, nous allons regarder comment le fournisseur peut avoir accès à toutes ses propositions. Pour cela, il devra utiliser la méthode \textbf{getAllProposals}. De plus, une boucle permettra de récupérer tous les objets. Si le fournisseur veut avoir plus de précision sur une de ses propositions, alors il aura juste besoin d'apeller la méthode \textbf{getProposal} en ayant l'identifiant de la proposition au préalable.
 \end{flushleft}
 \begin{flushleft}
-Après ça, Si le fournisseur veut ajouter une proposition. La méthode \textbf{addProposal} sera utilisé. Il faudra néanmoins créer un objet \textbf{ProposalFull} qui sera ensuite ajouté par la précédente méthode à la base de données. 
+Après ça, Si le fournisseur veut ajouter une proposition. La méthode \textbf{addProposal} sera utilisée. Il faudra néanmoins créer un objet \textbf{ProposalFull} qui sera ensuite ajouté par la précédente méthode à la base de données. 
 \end{flushleft}
 
 \begin{flushleft}
-Ensuite, si le fournisseur souhaite modifier les paramètres d'une de ses propositions. Il n'aura qu'à faire un nouvel objet qui servira de "remplacant" à l'ancienne proposition. La méthode \textbf{changeProposal} sera appelée par la suite pour faire le changement des paramètres directement dans la base de données. A noter que modifier les paramètres d'une proposition revient à changer les contrats avec les clients qui ont pris cette proposition. De ce fait, une notification sera envoyé via la méthode \textbf{createNotification}.
+Ensuite, si le fournisseur souhaite modifier les paramètres d'une de ses propositions. Il n'aura qu'à faire un nouvel objet qui servira de "remplacant" à l'ancienne proposition. La méthode \textbf{changeProposal} sera appelée par la suite pour faire le changement des paramètres directement dans la base de données. A noter que modifier les paramètres d'une proposition revient à changer les contrats avec les clients qui ont pris cette proposition. De ce fait, une notification sera envoyée via la méthode \textbf{createNotification}.
 \end{flushleft}
 
 \begin{flushleft}
-Pour finir cette partie, nous allons parler de comment fonctionne la procédure pour supprimer une proposition. Nous avons juste à faire appel à la méthode \textbf{deleteProposal}. De manière similaire au fait de modifier, supprimer implique la supression des contrats des clients ayant comme base cette proposition ce qui implique l'envoie d'une notification par la méthode \textbf{createNotification}.
+Pour finir cette partie, nous allons parler de comment fonctionne la procédure pour supprimer une proposition. Nous avons juste à faire appel à la méthode \textbf{deleteProposal}. De manière similaire au fait de modifier, supprimer implique la supression des contrats des clients ayant comme base cette proposition ce qui implique l'envoi d'une notification par la méthode \textbf{createNotification}.
 \end{flushleft}
 
 \newpage
@@ -371,7 +372,7 @@ Cette sous-sous-section parlera de la gestion de la consommation d'un client par
 \end{flushleft}
 
 \begin{flushleft}
-Tout d'abord, le fournisseur souhaitant supprimer une donnée de consommation devra passer par la méthode \textbf{deleteConsumption} de l'API. En plus de ça, il aura besoin d'un objet date ne contenant que l'année, le mois et le jour. Après ça il pourra supprimer la donnée qu'il souhaite avec la méthode portant le même nom que celle de l'API. Une notification sera envoyé au client avec la méthode \textbf{createNotification}.
+Tout d'abord, le fournisseur souhaitant supprimer une donnée de consommation devra passer par la méthode \textbf{deleteConsumption} de l'API. De plus, il aura besoin d'un objet date ne contenant que l'année, le mois et le jour. Après ça, il pourra supprimer la donnée qu'il souhaite avec la méthode portant le même nom que celle de l'API. Une notification sera envoyée au client avec la méthode \textbf{createNotification}.
 \end{flushleft}
 
 \begin{flushleft}

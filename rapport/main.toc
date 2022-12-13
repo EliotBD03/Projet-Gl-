@@ -52,7 +52,7 @@
 \contentsline {subsection}{\numberline {6.1}Introduction}{47}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Gestion d'un utlisateur}{47}{subsection.6.2}%
 \contentsline {subsection}{\numberline {6.3}Ajout de données}{47}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4}Affichage de données}{47}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.4}Affichage de données}{48}{subsection.6.4}%
 \contentsline {subsection}{\numberline {6.5}Modification/Suppression de données}{48}{subsection.6.5}%
 \contentsline {subsection}{\numberline {6.6}Conclusion}{48}{subsection.6.6}%
 \contentsline {subsection}{\numberline {6.7}schéma}{49}{subsection.6.7}%
