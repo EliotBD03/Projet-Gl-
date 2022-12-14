@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.10.17)  13 DEC 2022 13:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.10.17)  14 DEC 2022 13:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -345,7 +345,15 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 (./Base/overview/overview-base.aux) (./Base/bdd/bdd-base.aux)
 (./Base/classDiagram/classDiagram-base.aux) (./Base/sequence/sequence-base.aux)
 (./Base/api-rest/api-rest-base.aux) (./Base/interface/interface-base.aux)
-(./Base/intro/intro-ext.aux))
+(./Base/intro/intro-ext.aux)
+(./Extension-claire/Introduction/introduction-claire.aux)
+(./Extension-claire/Usecase-claire/use_case-claire.aux)
+(./Extension-claire/Overview-claire/overview-claire.aux)
+(./Extension-claire/BDD-claire/bdd-claire.aux)
+(./Extension-claire/Class-claire/class-claire.aux)
+(./Extension-claire/Sequence-claire/sequence-claire.aux)
+(./Extension-claire/API-claire/api-claire.aux)
+(./Extension-claire/Interface-claire/interface-claire.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
@@ -430,12 +438,12 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 19.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<images/umons.jpeg, id=261, 1927.2pt x 749.80125pt>
+<images/umons.jpeg, id=401, 1927.2pt x 749.80125pt>
 File: images/umons.jpeg Graphic file (type jpg)
 <use images/umons.jpeg>
 Package pdftex.def Info: images/umons.jpeg  used on input line 49.
 (pdftex.def)             Requested size: 103.50105pt x 40.26099pt.
-<images/facSciences.png, id=263, 578.16pt x 255.95625pt>
+<images/facSciences.png, id=403, 578.16pt x 255.95625pt>
 File: images/facSciences.png Graphic file (type png)
 <use images/facSciences.png>
 Package pdftex.def Info: images/facSciences.png  used on input line 51.
@@ -443,32 +451,32 @@ Package pdftex.def Info: images/facSciences.png  used on input line 51.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./images/umons.jpeg> <./im
-ages/facSciences.png>] (./main.toc [2])
+ages/facSciences.png>] (./main.toc [2] [3])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [3]
+ [4]
 \openout2 = `Base/use_case/use_case-base.aux'.
 
- (./Base/use_case/use_case-base.tex [4
+ (./Base/use_case/use_case-base.tex [5
 
 ]
-<Base/use_case/img/client.png, id=357, 1020.81375pt x 630.10406pt>
+<Base/use_case/img/client.png, id=538, 1020.81375pt x 630.10406pt>
 File: Base/use_case/img/client.png Graphic file (type png)
 <use Base/use_case/img/client.png>
 Package pdftex.def Info: Base/use_case/img/client.png  used on input line 43.
 (pdftex.def)             Requested size: 345.0pt x 212.9538pt.
- [5 <./Base/use_case/img/client.png (PNG copy)>]
-<Base/use_case/img/fournisseur.png, id=362, 1014.79124pt x 630.10406pt>
+ [6 <./Base/use_case/img/client.png (PNG copy)>]
+<Base/use_case/img/fournisseur.png, id=543, 1014.79124pt x 630.10406pt>
 File: Base/use_case/img/fournisseur.png Graphic file (type png)
 <use Base/use_case/img/fournisseur.png>
 Package pdftex.def Info: Base/use_case/img/fournisseur.png  used on input line 
 64.
 (pdftex.def)             Requested size: 345.0pt x 214.21332pt.
-) [6 <./Base/use_case/img/fournisseur.png (PNG copy)>]
+) [7 <./Base/use_case/img/fournisseur.png (PNG copy)>]
 \openout2 = `Base/overview/overview-base.aux'.
 
- (./Base/overview/overview-base.tex [7
+ (./Base/overview/overview-base.tex [8
 
 
 ]
@@ -519,7 +527,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 47--49
 
  []
 
-[8]
+[9]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 66.
@@ -539,7 +547,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 76--77
 
  []
 
-[9]
+[10]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 95.
@@ -570,14 +578,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--105
 
  []
 
-[10]
-<Base/overview/img/overview-client.png, id=402, 1035.11127pt x 793.26283pt>
+[11]
+<Base/overview/img/overview-client.png, id=583, 1035.11127pt x 793.26283pt>
 File: Base/overview/img/overview-client.png Graphic file (type png)
 <use Base/overview/img/overview-client.png>
 Package pdftex.def Info: Base/overview/img/overview-client.png  used on input l
 ine 113.
 (pdftex.def)             Requested size: 345.0pt x 264.39204pt.
- [11 <./Base/overview/img/overview-client.png (PNG copy)>]
+ [12 <./Base/overview/img/overview-client.png (PNG copy)>]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 127.
@@ -597,7 +605,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
 
-[12]
+[13]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 154.
@@ -632,34 +640,34 @@ Underfull \hbox (badness 10000) in paragraph at lines 172--173
 
  []
 
-[13]
-<Base/overview/img/overview-fournisseur.png, id=430, 1079.49756pt x 736.92638pt
+[14]
+<Base/overview/img/overview-fournisseur.png, id=611, 1079.49756pt x 736.92638pt
 >
 File: Base/overview/img/overview-fournisseur.png Graphic file (type png)
 <use Base/overview/img/overview-fournisseur.png>
 Package pdftex.def Info: Base/overview/img/overview-fournisseur.png  used on in
 put line 182.
 (pdftex.def)             Requested size: 345.0pt x 235.51765pt.
-) [14 <./Base/overview/img/overview-fournisseur.png (PNG copy)>]
+) [15 <./Base/overview/img/overview-fournisseur.png (PNG copy)>]
 \openout2 = `Base/bdd/bdd-base.aux'.
 
 
-(./Base/bdd/bdd-base.tex [15
+(./Base/bdd/bdd-base.tex [16
 
 
-] [16] [17]
+] [17] [18]
 Overfull \hbox (17.0538pt too wide) in paragraph at lines 155--155
 [][][]\OT1/cmr/m/n/8 source : []$\OT1/cmtt/m/n/8 https : / / shrinkthatfootprin
 t . com / average-[]household-[]electricity-[]consumption/$[]| 
  []
 
-[18]
-<Base/bdd/img/bdd.pdf, id=468, 597.23125pt x 845.1575pt>
+[19]
+<Base/bdd/img/bdd.pdf, id=650, 597.23125pt x 845.1575pt>
 File: Base/bdd/img/bdd.pdf Graphic file (type pdf)
 <use Base/bdd/img/bdd.pdf>
-Package pdftex.def Info: Base/bdd/img/bdd.pdf  used on input line 187.
+Package pdftex.def Info: Base/bdd/img/bdd.pdf  used on input line 190.
 (pdftex.def)             Requested size: 298.61488pt x 422.57771pt.
-) [19 <./Base/bdd/img/bdd.pdf>]
+) [20 <./Base/bdd/img/bdd.pdf>]
 \openout2 = `Base/classDiagram/classDiagram-base.aux'.
 
  (./Base/classDiagram/classDiagram-base.tex
@@ -667,7 +675,7 @@ Package pdftex.def Info: Base/bdd/img/bdd.pdf  used on input line 187.
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 8.
 
-[20
+[21
 
 
 ]
@@ -688,13 +696,13 @@ Overfull \hbox (22.4173pt too wide) in paragraph at lines 33--35
  clients de l'application,
  []
 
-[21] [22]
+[22] [23]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 73.
 
-[23]
-<Base/classDiagram/img/classDiagram.pdf, id=611, 597.23125pt x 845.1575pt>
+[24]
+<Base/classDiagram/img/classDiagram.pdf, id=792, 597.23125pt x 845.1575pt>
 File: Base/classDiagram/img/classDiagram.pdf Graphic file (type pdf)
 <use Base/classDiagram/img/classDiagram.pdf>
 Package pdftex.def Info: Base/classDiagram/img/classDiagram.pdf  used on input 
@@ -705,7 +713,7 @@ File: Base/classDiagram/img/classDiagram.pdf Graphic file (type pdf)
 Package pdftex.def Info: Base/classDiagram/img/classDiagram.pdf  used on input 
 line 107.
 (pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
-<Base/classDiagram/img/classDiagram.pdf, id=614, page=1, 597.23125pt x 845.1575
+<Base/classDiagram/img/classDiagram.pdf, id=795, page=1, 597.23125pt x 845.1575
 pt>
 File: Base/classDiagram/img/classDiagram.pdf Graphic file (type pdf)
 <use Base/classDiagram/img/classDiagram.pdf, page 1>
@@ -717,7 +725,7 @@ File: Base/classDiagram/img/classDiagram.pdf Graphic file (type pdf)
 Package pdftex.def Info: Base/classDiagram/img/classDiagram.pdf , page1 used on
  input line 107.
 (pdftex.def)             Requested size: 561.86221pt x 795.10587pt.
- [24]
+ [25]
 File: Base/classDiagram/img/classDiagram.pdf Graphic file (type pdf)
 <use Base/classDiagram/img/classDiagram.pdf, page 1>
 Package pdftex.def Info: Base/classDiagram/img/classDiagram.pdf , page1 used on
@@ -733,31 +741,31 @@ File: Base/classDiagram/img/classDiagram.pdf Graphic file (type pdf)
 Package pdftex.def Info: Base/classDiagram/img/classDiagram.pdf , page1 used on
  input line 107.
 (pdftex.def)             Requested size: 561.86221pt x 795.10587pt.
- [25 <./Base/classDiagram/img/classDiagram.pdf>])
+ [26 <./Base/classDiagram/img/classDiagram.pdf>])
 \openout2 = `Base/sequence/sequence-base.aux'.
 
 
-(./Base/sequence/sequence-base.tex [26
+(./Base/sequence/sequence-base.tex [27
 
 
-] [27]
-<Base/sequence/img/common/gerer_les_donne.pdf, id=648, 597.23125pt x 845.1575pt
+] [28]
+<Base/sequence/img/common/gerer_les_donne.pdf, id=829, 597.23125pt x 845.1575pt
 >
 File: Base/sequence/img/common/gerer_les_donne.pdf Graphic file (type pdf)
 <use Base/sequence/img/common/gerer_les_donne.pdf>
 Package pdftex.def Info: Base/sequence/img/common/gerer_les_donne.pdf  used on 
 input line 69.
 (pdftex.def)             Requested size: 241.49895pt x 341.74529pt.
- [28 <./Base/sequence/img/common/gerer_les_donne.pdf>]
-<Base/sequence/img/common/gerer_les_langues.pdf, id=656, 597.23125pt x 845.1575
+ [29 <./Base/sequence/img/common/gerer_les_donne.pdf>]
+<Base/sequence/img/common/gerer_les_langues.pdf, id=838, 597.23125pt x 845.1575
 pt>
 File: Base/sequence/img/common/gerer_les_langues.pdf Graphic file (type pdf)
 <use Base/sequence/img/common/gerer_les_langues.pdf>
 Package pdftex.def Info: Base/sequence/img/common/gerer_les_langues.pdf  used o
 n input line 89.
 (pdftex.def)             Requested size: 243.80017pt x 345.0pt.
- [29 <./Base/sequence/img/common/gerer_les_langues.pdf>]
-<Base/sequence/img/common/Modifier son mot de passe.pdf, id=665, 597.23125pt x 
+ [30 <./Base/sequence/img/common/gerer_les_langues.pdf>]
+<Base/sequence/img/common/Modifier son mot de passe.pdf, id=846, 597.23125pt x 
 845.1575pt>
 File: Base/sequence/img/common/Modifier son mot de passe.pdf Graphic file (type
  pdf)
@@ -766,8 +774,8 @@ Package pdftex.def Info: Base/sequence/img/common/Modifier son mot de passe.pdf
   used on input line 109.
 (pdftex.def)             Requested size: 219.41377pt x 310.4979pt.
 
-[30 <./Base/sequence/img/common/Modifier son mot de passe.pdf>]
-<Base/sequence/img/common/répondre_aux_notifications.pdf, id=673, 597.23125pt 
+[31 <./Base/sequence/img/common/Modifier son mot de passe.pdf>]
+<Base/sequence/img/common/répondre_aux_notifications.pdf, id=855, 597.23125pt 
 x 845.1575pt>
 File: Base/sequence/img/common/répondre_aux_notifications.pdf Graphic file (ty
 pe pdf)
@@ -775,64 +783,64 @@ pe pdf)
 Package pdftex.def Info: Base/sequence/img/common/répondre_aux_notifications.p
 df  used on input line 129.
 (pdftex.def)             Requested size: 219.41377pt x 310.4979pt.
- [31 <./Base/sequence/img/common/répondre_aux_notifications.pdf>] [32]
-<Base/sequence/img/common/S'authentifier.pdf, id=686, 597.23125pt x 845.1575pt>
+ [32 <./Base/sequence/img/common/répondre_aux_notifications.pdf>] [33]
+<Base/sequence/img/common/S'authentifier.pdf, id=867, 597.23125pt x 845.1575pt>
 
 File: Base/sequence/img/common/S'authentifier.pdf Graphic file (type pdf)
 <use Base/sequence/img/common/S'authentifier.pdf>
 Package pdftex.def Info: Base/sequence/img/common/S'authentifier.pdf  used on i
 nput line 161.
 (pdftex.def)             Requested size: 243.80017pt x 345.0pt.
- [33 <./Base/sequence/img/common/S'authentifier.pdf>]
-<Base/sequence/img/common/Visualisation des données de consommations.pdf, id=6
-94, 597.23125pt x 845.1575pt>
+ [34 <./Base/sequence/img/common/S'authentifier.pdf>]
+<Base/sequence/img/common/Visualisation des données de consommations.pdf, id=8
+75, 597.23125pt x 845.1575pt>
 File: Base/sequence/img/common/Visualisation des données de consommations.pdf 
 Graphic file (type pdf)
 <use Base/sequence/img/common/Visualisation des données de consommations.pdf>
 Package pdftex.def Info: Base/sequence/img/common/Visualisation des données de
  consommations.pdf  used on input line 173.
 (pdftex.def)             Requested size: 243.80017pt x 345.0pt.
- [34 <./Base/sequence/img/common/Visualisation des données de consommations.pd
+ [35 <./Base/sequence/img/common/Visualisation des données de consommations.pd
 f>]
-<Base/sequence/img/common/Voir les contrats.pdf, id=702, 597.23125pt x 845.1575
+<Base/sequence/img/common/Voir les contrats.pdf, id=883, 597.23125pt x 845.1575
 pt>
 File: Base/sequence/img/common/Voir les contrats.pdf Graphic file (type pdf)
 <use Base/sequence/img/common/Voir les contrats.pdf>
 Package pdftex.def Info: Base/sequence/img/common/Voir les contrats.pdf  used o
 n input line 194.
 (pdftex.def)             Requested size: 243.80017pt x 345.0pt.
- [35 <./Base/sequence/img/common/Voir les contrats.pdf>]
-<Base/sequence/img/common/Voir notifications.pdf, id=710, 597.23125pt x 845.157
+ [36 <./Base/sequence/img/common/Voir les contrats.pdf>]
+<Base/sequence/img/common/Voir notifications.pdf, id=891, 597.23125pt x 845.157
 5pt>
 File: Base/sequence/img/common/Voir notifications.pdf Graphic file (type pdf)
 <use Base/sequence/img/common/Voir notifications.pdf>
 Package pdftex.def Info: Base/sequence/img/common/Voir notifications.pdf  used 
 on input line 211.
 (pdftex.def)             Requested size: 243.80017pt x 345.0pt.
- [36 <./Base/sequence/img/common/Voir notifications.pdf>]
-<Base/sequence/img/client/seqContrats.pdf, id=718, 597.23125pt x 845.1575pt>
+ [37 <./Base/sequence/img/common/Voir notifications.pdf>]
+<Base/sequence/img/client/seqContrats.pdf, id=900, 597.23125pt x 845.1575pt>
 File: Base/sequence/img/client/seqContrats.pdf Graphic file (type pdf)
 <use Base/sequence/img/client/seqContrats.pdf>
 Package pdftex.def Info: Base/sequence/img/client/seqContrats.pdf  used on inpu
 t line 233.
 (pdftex.def)             Requested size: 219.41377pt x 310.4979pt.
- [37 <./Base/sequence/img/client/seqContrats.pdf>] [38]
-<Base/sequence/img/client/seqFCRe.pdf, id=733, 597.23125pt x 845.1575pt>
+ [38 <./Base/sequence/img/client/seqContrats.pdf>] [39]
+<Base/sequence/img/client/seqFCRe.pdf, id=914, 597.23125pt x 845.1575pt>
 File: Base/sequence/img/client/seqFCRe.pdf Graphic file (type pdf)
 <use Base/sequence/img/client/seqFCRe.pdf>
 Package pdftex.def Info: Base/sequence/img/client/seqFCRe.pdf  used on input li
 ne 270.
 (pdftex.def)             Requested size: 292.55473pt x 413.99895pt.
- [39 <./Base/sequence/img/client/seqFCRe.pdf>] [40]
-<Base/sequence/img/client/seqPortefeuilles.pdf, id=747, 597.23125pt x 845.1575p
+ [40 <./Base/sequence/img/client/seqFCRe.pdf>] [41]
+<Base/sequence/img/client/seqPortefeuilles.pdf, id=928, 597.23125pt x 845.1575p
 t>
 File: Base/sequence/img/client/seqPortefeuilles.pdf Graphic file (type pdf)
 <use Base/sequence/img/client/seqPortefeuilles.pdf>
 Package pdftex.def Info: Base/sequence/img/client/seqPortefeuilles.pdf  used on
  input line 310.
 (pdftex.def)             Requested size: 292.55473pt x 413.99895pt.
- [41 <./Base/sequence/img/client/seqPortefeuilles.pdf>] [42]
-<Base/sequence/img/fournisseur/voir_ses_clients.pdf, id=759, 597.23125pt x 845.
+ [42 <./Base/sequence/img/client/seqPortefeuilles.pdf>] [43]
+<Base/sequence/img/fournisseur/voir_ses_clients.pdf, id=941, 597.23125pt x 845.
 1575pt>
 File: Base/sequence/img/fournisseur/voir_ses_clients.pdf Graphic file (type pdf
 )
@@ -841,8 +849,8 @@ Package pdftex.def Info: Base/sequence/img/fournisseur/voir_ses_clients.pdf  us
 ed on input line 339.
 (pdftex.def)             Requested size: 243.80017pt x 345.0pt.
 
-[43 <./Base/sequence/img/fournisseur/voir_ses_clients.pdf>] [44]
-<Base/sequence/img/fournisseur/voir_les_propositions.pdf, id=774, 597.23125pt x
+[44 <./Base/sequence/img/fournisseur/voir_ses_clients.pdf>] [45]
+<Base/sequence/img/fournisseur/voir_les_propositions.pdf, id=956, 597.23125pt x
  845.1575pt>
 File: Base/sequence/img/fournisseur/voir_les_propositions.pdf Graphic file (typ
 e pdf)
@@ -850,8 +858,8 @@ e pdf)
 Package pdftex.def Info: Base/sequence/img/fournisseur/voir_les_propositions.pd
 f  used on input line 365.
 (pdftex.def)             Requested size: 219.41377pt x 310.4979pt.
- [45 <./Base/sequence/img/fournisseur/voir_les_propositions.pdf>]
-<Base/sequence/img/fournisseur/gestion de la consommation.pdf, id=783, 597.2312
+ [46 <./Base/sequence/img/fournisseur/voir_les_propositions.pdf>]
+<Base/sequence/img/fournisseur/gestion de la consommation.pdf, id=964, 597.2312
 5pt x 845.1575pt>
 File: Base/sequence/img/fournisseur/gestion de la consommation.pdf Graphic file
  (type pdf)
@@ -859,79 +867,257 @@ File: Base/sequence/img/fournisseur/gestion de la consommation.pdf Graphic file
 Package pdftex.def Info: Base/sequence/img/fournisseur/gestion de la consommati
 on.pdf  used on input line 384.
 (pdftex.def)             Requested size: 195.03648pt x 276.00105pt.
-) [46 <./Base/sequence/img/fournisseur/gestion de la consommation.pdf>]
+) [47 <./Base/sequence/img/fournisseur/gestion de la consommation.pdf>]
 \openout2 = `Base/api-rest/api-rest-base.aux'.
 
  (./Base/api-rest/api-rest-base.tex
-[47
+[48
 
 
-] [48]
-<Base/api-rest/img/apirest.jpg, id=805, 1634.105pt x 1401.235pt>
+] [49]
+<Base/api-rest/img/apirest.jpg, id=987, 1634.105pt x 1401.235pt>
 File: Base/api-rest/img/apirest.jpg Graphic file (type jpg)
 <use Base/api-rest/img/apirest.jpg>
 Package pdftex.def Info: Base/api-rest/img/apirest.jpg  used on input line 39.
 (pdftex.def)             Requested size: 326.81522pt x 280.24203pt.
-) [49 <./Base/api-rest/img/apirest.jpg>]
+) [50 <./Base/api-rest/img/apirest.jpg>]
 \openout2 = `Base/interface/interface-base.aux'.
 
 
-(./Base/interface/interface-base.tex [50
+(./Base/interface/interface-base.tex [51
 
 
-] [51]
-<Base/interface/img/Log.pdf, id=822, 872.27884pt x 645.54878pt>
+] [52]
+<Base/interface/img/Log.pdf, id=1003, 872.27884pt x 645.54878pt>
 File: Base/interface/img/Log.pdf Graphic file (type pdf)
 <use Base/interface/img/Log.pdf>
 Package pdftex.def Info: Base/interface/img/Log.pdf  used on input line 67.
 (pdftex.def)             Requested size: 345.0pt x 255.3288pt.
- [52 <./Base/interface/img/Log.pdf>]
+ [53 <./Base/interface/img/Log.pdf>]
 Overfull \hbox (5.55606pt too wide) in paragraph at lines 88--89
 \OT1/cmr/m/n/10 Lorsqu'un client se connectera, il arrivera sur la page d'acceu
 il ou plus pr^^Secis^^Sement
  []
 
-[53] [54] [55]
-<Base/interface/img/Client.pdf, id=902, 856.78192pt x 747.23128pt>
+[54] [55] [56]
+<Base/interface/img/Client.pdf, id=1083, 856.78192pt x 747.23128pt>
 File: Base/interface/img/Client.pdf Graphic file (type pdf)
 <use Base/interface/img/Client.pdf>
 Package pdftex.def Info: Base/interface/img/Client.pdf  used on input line 238.
 
 (pdftex.def)             Requested size: 345.0pt x 300.89394pt.
- [56] [57 <./Base/interface/img/Client.pdf>] [58] [59]
-<Base/interface/img/Supplier.pdf, id=972, 811.34245pt x 729.84761pt>
+ [57] [58 <./Base/interface/img/Client.pdf>] [59] [60]
+<Base/interface/img/Supplier.pdf, id=1153, 811.34245pt x 729.84761pt>
 File: Base/interface/img/Supplier.pdf Graphic file (type pdf)
 <use Base/interface/img/Supplier.pdf>
 Package pdftex.def Info: Base/interface/img/Supplier.pdf  used on input line 33
 9.
 (pdftex.def)             Requested size: 345.0pt x 310.35374pt.
-) [60]
-[61 <./Base/interface/img/Supplier.pdf>]
+) [61]
+[62 <./Base/interface/img/Supplier.pdf>]
 \openout2 = `Base/intro/intro-ext.aux'.
 
- (./Base/intro/intro-ext.tex) [62
+ (./Base/intro/intro-ext.tex) [63
 
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 70.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 70.
+\openout2 = `Extension-claire/Introduction/introduction-claire.aux'.
 
-(./main.aux (./Base/use_case/use_case-base.aux)
-(./Base/overview/overview-base.aux) (./Base/bdd/bdd-base.aux)
-(./Base/classDiagram/classDiagram-base.aux) (./Base/sequence/sequence-base.aux)
-(./Base/api-rest/api-rest-base.aux) (./Base/interface/interface-base.aux)
-(./Base/intro/intro-ext.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 70.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 70.
+
+(./Extension-claire/Introduction/introduction-claire.tex
+Overfull \hbox (54.29285pt too wide) in paragraph at lines 1--1
+[]\OT1/cmr/bx/n/14.4 Introduction : Extension 1.6.1 : Gestion d'utilisateurs
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--5
+
+ []
+
+) [64
+
+
+]
+\openout2 = `Extension-claire/Usecase-claire/use_case-claire.aux'.
+
+ (./Extension-claire/Usecase-claire/use_case-claire.tex [65
+
+
+]
+<Extension-claire/Usecase-claire/img/usecase.png, id=1231, 979.91292pt x 605.47
+464pt>
+File: Extension-claire/Usecase-claire/img/usecase.png Graphic file (type png)
+<use Extension-claire/Usecase-claire/img/usecase.png>
+Package pdftex.def Info: Extension-claire/Usecase-claire/img/usecase.png  used 
+on input line 38.
+(pdftex.def)             Requested size: 345.0pt x 213.16653pt.
+) [66 <./Extension-claire/Usecase-claire/img/usecase.png (PNG copy)>]
+\openout2 = `Extension-claire/Overview-claire/overview-claire.aux'.
+
+
+(./Extension-claire/Overview-claire/overview-claire.tex [67
+
+
+]
+
+LaTeX Warning: The counter will not be printed.
+             The label is: - on input line 47.
+
+
+LaTeX Warning: The counter will not be printed.
+             The label is: - on input line 57.
+
+
+Overfull \hbox (2.61156pt too wide) in paragraph at lines 61--62
+\OT1/cmr/m/n/10 inscrivant les permissions qu'il d^^Sesire lui associer (lectur
+e ou lecture et ^^Secriture). 
+ []
+
+[68]
+
+LaTeX Warning: The counter will not be printed.
+             The label is: - on input line 89.
+
+<Extension-claire/Overview-claire/img/overview.png, id=1257, 1599.61394pt x 834
+.2348pt>
+File: Extension-claire/Overview-claire/img/overview.png Graphic file (type png)
+
+<use Extension-claire/Overview-claire/img/overview.png>
+Package pdftex.def Info: Extension-claire/Overview-claire/img/overview.png  use
+d on input line 111.
+(pdftex.def)             Requested size: 345.0pt x 179.91708pt.
+) [69 <./Extension-claire/Overview-claire/img/overview.png (PNG copy)>]
+\openout2 = `Extension-claire/BDD-claire/bdd-claire.aux'.
+
+
+(./Extension-claire/BDD-claire/bdd-claire.tex [70
+
+
+]
+Overfull \hbox (19.3339pt too wide) in paragraph at lines 39--42
+\OT1/cmr/m/n/10 Ce qui explique donc la pr^^Sesence du binary(1) repr^^Sesentan
+t les deux possibilit^^Ses. 
+ []
+
+[71]
+<Extension-claire/BDD-claire/img/BDD-claire.png, id=1285, 1243.95448pt x 609.45
+804pt>
+File: Extension-claire/BDD-claire/img/BDD-claire.png Graphic file (type png)
+<use Extension-claire/BDD-claire/img/BDD-claire.png>
+Package pdftex.def Info: Extension-claire/BDD-claire/img/BDD-claire.png  used o
+n input line 76.
+(pdftex.def)             Requested size: 345.0pt x 169.02896pt.
+) [72 <./Extension-claire/BDD-claire/img/BDD-claire.png (PNG copy)>]
+\openout2 = `Extension-claire/Class-claire/class-claire.aux'.
+
+
+(./Extension-claire/Class-claire/class-claire.tex [73
+
+
+] [74]
+<Extension-claire/Class-claire/img/class.png, id=1311, 1863.08646pt x 2133.9567
+pt>
+File: Extension-claire/Class-claire/img/class.png Graphic file (type png)
+<use Extension-claire/Class-claire/img/class.png>
+Package pdftex.def Info: Extension-claire/Class-claire/img/class.png  used on i
+nput line 83.
+(pdftex.def)             Requested size: 345.0pt x 395.13399pt.
+) [75 <./Extension-claire/Class-claire/img/class.png (PNG copy)>]
+\openout2 = `Extension-claire/Sequence-claire/sequence-claire.aux'.
+
+
+(./Extension-claire/Sequence-claire/sequence-claire.tex [76
+
+
+] [77]
+<Extension-claire/Sequence-claire/img/seqOuInvité.png, id=1326, 629.37495pt x
+ 1086.32622pt>
+File: Extension-claire/Sequence-claire/img/seqOuInvité.png Graphic file (type
+ png)
+<use Extension-claire/Sequence-claire/img/seqOuInvité.png>
+Package pdftex.def Info: Extension-claire/Sequence-claire/img/seqOuInvité.png
+  used on input line 53.
+(pdftex.def)             Requested size: 239.85641pt x 413.99895pt.
+ [78 <./Extension-claire/Sequence-claire/img/seqOuInvité.png (PNG copy)>] [79
+]
+<Extension-claire/Sequence-claire/img/seqUtilisateursInvités.png, id=1338, 627
+.09874pt x 1855.11969pt>
+File: Extension-claire/Sequence-claire/img/seqUtilisateursInvités.png Graphic 
+file (type png)
+<use Extension-claire/Sequence-claire/img/seqUtilisateursInvités.png>
+Package pdftex.def Info: Extension-claire/Sequence-claire/img/seqUtilisateursIn
+vités.png  used on input line 97.
+(pdftex.def)             Requested size: 139.94287pt x 413.99895pt.
+) [80 <./Extension-claire/Sequence-claire/img/seqUtilisateursInvités.png (PNG 
+copy)>]
+\openout2 = `Extension-claire/API-claire/api-claire.aux'.
+
+
+(./Extension-claire/API-claire/api-claire.tex [81
+
+
+]
+<Extension-claire/API-claire/img/API-claire.png, id=1354, 1288.34079pt x 1205.2
+5874pt>
+File: Extension-claire/API-claire/img/API-claire.png Graphic file (type png)
+<use Extension-claire/API-claire/img/API-claire.png>
+Package pdftex.def Info: Extension-claire/API-claire/img/API-claire.png  used o
+n input line 48.
+(pdftex.def)             Requested size: 345.0pt x 322.75755pt.
+) [82 <./Extension-claire/API-claire/img/API-claire.png (PNG copy)>]
+\openout2 = `Extension-claire/Interface-claire/interface-claire.aux'.
+
+
+(./Extension-claire/Interface-claire/interface-claire.tex [83
+
+
+]
+Overfull \hbox (5.55606pt too wide) in paragraph at lines 43--44
+\OT1/cmr/m/n/10 Lorsqu'un client se connectera, il arrivera sur la page d'accue
+il ou plus pr^^Secis^^Sement
+ []
+
+[84] [85] [86]
+<Extension-claire/Interface-claire/img/MonInterface.pdf, id=1398, 864.42737pt x
+ 667.2841pt>
+File: Extension-claire/Interface-claire/img/MonInterface.pdf Graphic file (type
+ pdf)
+<use Extension-claire/Interface-claire/img/MonInterface.pdf>
+Package pdftex.def Info: Extension-claire/Interface-claire/img/MonInterface.pdf
+  used on input line 166.
+(pdftex.def)             Requested size: 432.21263pt x 333.64124pt.
+
+Overfull \hbox (87.21263pt too wide) in paragraph at lines 166--167
+ [] 
+ []
+
+) [87 <./Extension-claire/Interface-claire/img/MonInterface.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 78.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 78.
+ (./main.aux
+(./Base/use_case/use_case-base.aux) (./Base/overview/overview-base.aux)
+(./Base/bdd/bdd-base.aux) (./Base/classDiagram/classDiagram-base.aux)
+(./Base/sequence/sequence-base.aux) (./Base/api-rest/api-rest-base.aux)
+(./Base/interface/interface-base.aux) (./Base/intro/intro-ext.aux)
+(./Extension-claire/Introduction/introduction-claire.aux)
+(./Extension-claire/Usecase-claire/use_case-claire.aux)
+(./Extension-claire/Overview-claire/overview-claire.aux)
+(./Extension-claire/BDD-claire/bdd-claire.aux)
+(./Extension-claire/Class-claire/class-claire.aux)
+(./Extension-claire/Sequence-claire/sequence-claire.aux)
+(./Extension-claire/API-claire/api-claire.aux)
+(./Extension-claire/Interface-claire/interface-claire.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 78.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 78.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 6027034BA259A599E1A1AC2E425AE987;4355.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 70.
+(rerunfilecheck)             Checksum: 1E1DC567EA7E050ABC50F02447DF8538;6701.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 78.
  ) 
 Here is how much of TeX's memory you used:
- 8736 strings out of 483140
- 131600 string characters out of 5965150
- 399149 words of memory out of 5000000
- 23235 multiletter control sequences out of 15000+600000
+ 9053 strings out of 483140
+ 140254 string characters out of 5965150
+ 401948 words of memory out of 5000000
+ 23342 multiletter control sequences out of 15000+600000
  541185 words of font info for 59 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  43i,18n,47p,933b,483s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -947,10 +1133,10 @@ sfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
 2.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on main.pdf (62 pages, 2218964 bytes).
+Output written on main.pdf (87 pages, 4788353 bytes).
 PDF statistics:
- 1143 PDF objects out of 1200 (max. 8388607)
- 875 compressed objects within 9 object streams
- 256 named destinations out of 1000 (max. 500000)
- 658 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1565 PDF objects out of 1728 (max. 8388607)
+ 1245 compressed objects within 13 object streams
+ 387 named destinations out of 1000 (max. 500000)
+ 978 words of extra memory for PDF output out of 10000 (max. 10000000)
 
