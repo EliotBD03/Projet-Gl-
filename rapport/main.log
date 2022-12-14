@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.9.12)  14 DEC 2022 13:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.9.12)  14 DEC 2022 13:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1330,12 +1330,12 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 (./extension-adrien/Api-rest/api-rest.aux)
 (./extension-adrien/Interface/interface.aux))
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 31BCA2EFE3052B244458E3FFA47278B4;15738.
+(rerunfilecheck)             Checksum: 0630E541F3B71CC3568C763405B6938E;15633.
  ) 
 Here is how much of TeX's memory you used:
  13939 strings out of 480218
- 249064 string characters out of 5894882
- 515273 words of memory out of 5000000
+ 248994 string characters out of 5894882
+ 515265 words of memory out of 5000000
  31052 multiletter control sequences out of 15000+600000
  478106 words of font info for 63 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1352,7 +1352,7 @@ sfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
 t10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb
 >
-Output written on main.pdf (103 pages, 6233162 bytes).
+Output written on main.pdf (103 pages, 6233110 bytes).
 PDF statistics:
  1854 PDF objects out of 2073 (max. 8388607)
  1371 compressed objects within 14 object streams
