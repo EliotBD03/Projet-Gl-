@@ -1,4 +1,4 @@
-\babel@toc {french}{}\relax 
+\babel@toc {nil}{}
 \contentsline {section}{\numberline {1}Use cases diagrams}{5}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Points communs}{5}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Client}{6}{subsection.1.2}%
@@ -37,72 +37,72 @@
 \contentsline {subsubsection}{\numberline {5.2.3}Modifier son mot de passe}{31}{subsubsection.5.2.3}%
 \contentsline {subsubsection}{\numberline {5.2.4}Répondre aux notifications}{32}{subsubsection.5.2.4}%
 \contentsline {subsubsection}{\numberline {5.2.5}S'authentifier}{33}{subsubsection.5.2.5}%
-\contentsline {subsubsection}{\numberline {5.2.6}Visualisation des données de consommations}{35}{subsubsection.5.2.6}%
-\contentsline {subsubsection}{\numberline {5.2.7}Voir les contrats}{36}{subsubsection.5.2.7}%
-\contentsline {subsubsection}{\numberline {5.2.8}Voir notifications}{37}{subsubsection.5.2.8}%
-\contentsline {subsection}{\numberline {5.3}Client}{38}{subsection.5.3}%
-\contentsline {subsubsection}{\numberline {5.3.1}Contrats}{38}{subsubsection.5.3.1}%
-\contentsline {subsubsection}{\numberline {5.3.2}Fournisseurs et contrats relatifs}{39}{subsubsection.5.3.2}%
-\contentsline {subsubsection}{\numberline {5.3.3}Portefeuilles}{41}{subsubsection.5.3.3}%
-\contentsline {subsection}{\numberline {5.4}Provider}{43}{subsection.5.4}%
-\contentsline {subsubsection}{\numberline {5.4.1}Gestion des clients}{43}{subsubsection.5.4.1}%
-\contentsline {subsubsection}{\numberline {5.4.2}Gestion des propositions}{45}{subsubsection.5.4.2}%
-\contentsline {subsubsection}{\numberline {5.4.3}Gestion de la consommation}{47}{subsubsection.5.4.3}%
-\contentsline {section}{\numberline {6}Design REST Api}{48}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Introduction}{48}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Gestion d'un utlisateur}{48}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Ajout de données}{48}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4}Affichage de données}{49}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5}Modification/Suppression de données}{49}{subsection.6.5}%
-\contentsline {subsection}{\numberline {6.6}Conclusion}{49}{subsection.6.6}%
-\contentsline {subsection}{\numberline {6.7}Schéma}{50}{subsection.6.7}%
-\contentsline {section}{\numberline {7}Interface}{51}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Introduction}{51}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Système de logs}{52}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Points communs}{53}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}Interface client}{54}{subsection.7.4}%
-\contentsline {subsection}{\numberline {7.5}Interface fournisseur}{59}{subsection.7.5}%
-\contentsline {section}{\numberline {8}Introduction-extension}{63}{section.8}%
-\contentsline {section}{\numberline {9}Introduction : Extension 1.6.1 : Gestion d’utilisateurs par D’Haene Claire}{64}{section.9}%
-\contentsline {section}{\numberline {10}Use case diagram}{65}{section.10}%
-\contentsline {subsection}{\numberline {10.1}Introduction}{65}{subsection.10.1}%
-\contentsline {subsection}{\numberline {10.2}Client}{65}{subsection.10.2}%
-\contentsline {subsection}{\numberline {10.3}Diagramme}{66}{subsection.10.3}%
-\contentsline {section}{\numberline {11}interaction overview diagram}{67}{section.11}%
-\contentsline {subsection}{\numberline {11.1}Introduction}{67}{subsection.11.1}%
-\contentsline {subsection}{\numberline {11.2}Accès à l'application pour les clients}{68}{subsection.11.2}%
-\contentsline {subsection}{\numberline {11.3}Diagramme}{69}{subsection.11.3}%
-\contentsline {section}{\numberline {12}Entity relationship diagram}{70}{section.12}%
-\contentsline {subsection}{\numberline {12.1}Introduction}{70}{subsection.12.1}%
-\contentsline {subsection}{\numberline {12.2}Utilisateur}{70}{subsection.12.2}%
-\contentsline {subsection}{\numberline {12.3}Portefeuille invité}{71}{subsection.12.3}%
-\contentsline {subsection}{\numberline {12.4}Contrat du portefeuille}{71}{subsection.12.4}%
-\contentsline {subsection}{\numberline {12.5}Diagramme}{72}{subsection.12.5}%
-\contentsline {section}{\numberline {13}Class diagram}{73}{section.13}%
-\contentsline {subsection}{\numberline {13.1}Introduction}{73}{subsection.13.1}%
-\contentsline {subsection}{\numberline {13.2}Le package api}{73}{subsection.13.2}%
-\contentsline {subsection}{\numberline {13.3}Le package dataBase}{74}{subsection.13.3}%
-\contentsline {subsection}{\numberline {13.4}Le package dataObject}{74}{subsection.13.4}%
-\contentsline {subsection}{\numberline {13.5}Diagramme}{75}{subsection.13.5}%
-\contentsline {section}{\numberline {14}Sequence diagram}{76}{section.14}%
-\contentsline {subsection}{\numberline {14.1}Introduction}{76}{subsection.14.1}%
-\contentsline {subsection}{\numberline {14.2}Client}{77}{subsection.14.2}%
-\contentsline {subsubsection}{\numberline {14.2.1}Gestion des portefeuilles invités}{77}{subsubsection.14.2.1}%
-\contentsline {subsubsection}{\numberline {14.2.2}Gestion des utilisateurs invités}{79}{subsubsection.14.2.2}%
-\contentsline {section}{\numberline {15}API REST}{81}{section.15}%
-\contentsline {subsection}{\numberline {15.1}Introduction}{81}{subsection.15.1}%
-\contentsline {subsection}{\numberline {15.2}Les utilisateurs invités}{81}{subsection.15.2}%
-\contentsline {subsection}{\numberline {15.3}Les portefeuilles invités}{81}{subsection.15.3}%
-\contentsline {subsection}{\numberline {15.4}Diagramme}{82}{subsection.15.4}%
-\contentsline {section}{\numberline {16}Interface}{83}{section.16}%
-\contentsline {subsection}{\numberline {16.1}Introduction}{83}{subsection.16.1}%
-\contentsline {subsection}{\numberline {16.2}L'interface client}{84}{subsection.16.2}%
-\contentsline {subsection}{\numberline {16.3}Image de l'interface}{87}{subsection.16.3}%
-\contentsline {section}{\numberline {17}Introduction: 1.6.4: Analyse statistique de la consommation énergétique}{88}{section.17}%
-\contentsline {section}{\numberline {18}Use cases diagrams}{89}{section.18}%
-\contentsline {section}{\numberline {19}Overview}{91}{section.19}%
-\contentsline {section}{\numberline {20}Bdd}{93}{section.20}%
+\contentsline {subsubsection}{\numberline {5.2.6}Visualisation des données de consommations}{34}{subsubsection.5.2.6}%
+\contentsline {subsubsection}{\numberline {5.2.7}Voir les contrats}{35}{subsubsection.5.2.7}%
+\contentsline {subsubsection}{\numberline {5.2.8}Voir notifications}{36}{subsubsection.5.2.8}%
+\contentsline {subsection}{\numberline {5.3}Client}{37}{subsection.5.3}%
+\contentsline {subsubsection}{\numberline {5.3.1}Contrats}{37}{subsubsection.5.3.1}%
+\contentsline {subsubsection}{\numberline {5.3.2}Fournisseurs et contrats relatifs}{38}{subsubsection.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.3}Portefeuilles}{39}{subsubsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.4}Provider}{40}{subsection.5.4}%
+\contentsline {subsubsection}{\numberline {5.4.1}Gestion des clients}{40}{subsubsection.5.4.1}%
+\contentsline {subsubsection}{\numberline {5.4.2}Gestion des propositions}{41}{subsubsection.5.4.2}%
+\contentsline {subsubsection}{\numberline {5.4.3}Gestion de la consommation}{42}{subsubsection.5.4.3}%
+\contentsline {section}{\numberline {6}Design REST Api}{45}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Introduction}{45}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Gestion d'un utlisateur}{45}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Ajout de données}{45}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Affichage de données}{46}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Modification/Suppression de données}{46}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Conclusion}{46}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7}Schéma}{47}{subsection.6.7}%
+\contentsline {section}{\numberline {7}Interface}{48}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Introduction}{48}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Système de logs}{49}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Points communs}{50}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Interface client}{51}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Interface fournisseur}{56}{subsection.7.5}%
+\contentsline {section}{\numberline {8}Introduction-extension}{60}{section.8}%
+\contentsline {section}{\numberline {9}Introduction : Extension 1.6.1 : Gestion d’utilisateurs par D’Haene Claire}{61}{section.9}%
+\contentsline {section}{\numberline {10}Use case diagram}{62}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Introduction}{62}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Client}{62}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}Diagramme}{63}{subsection.10.3}%
+\contentsline {section}{\numberline {11}interaction overview diagram}{64}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Introduction}{64}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Accès à l'application pour les clients}{65}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Diagramme}{66}{subsection.11.3}%
+\contentsline {section}{\numberline {12}Entity relationship diagram}{67}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Introduction}{67}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Utilisateur}{67}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.3}Portefeuille invité}{68}{subsection.12.3}%
+\contentsline {subsection}{\numberline {12.4}Contrat du portefeuille}{68}{subsection.12.4}%
+\contentsline {subsection}{\numberline {12.5}Diagramme}{69}{subsection.12.5}%
+\contentsline {section}{\numberline {13}Class diagram}{70}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Introduction}{70}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Le package api}{70}{subsection.13.2}%
+\contentsline {subsection}{\numberline {13.3}Le package dataBase}{71}{subsection.13.3}%
+\contentsline {subsection}{\numberline {13.4}Le package dataObject}{71}{subsection.13.4}%
+\contentsline {subsection}{\numberline {13.5}Diagramme}{72}{subsection.13.5}%
+\contentsline {section}{\numberline {14}Sequence diagram}{73}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Introduction}{73}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Client}{74}{subsection.14.2}%
+\contentsline {subsubsection}{\numberline {14.2.1}Gestion des portefeuilles invités}{74}{subsubsection.14.2.1}%
+\contentsline {subsubsection}{\numberline {14.2.2}Gestion des utilisateurs invités}{76}{subsubsection.14.2.2}%
+\contentsline {section}{\numberline {15}API REST}{78}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Introduction}{78}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Les utilisateurs invités}{78}{subsection.15.2}%
+\contentsline {subsection}{\numberline {15.3}Les portefeuilles invités}{78}{subsection.15.3}%
+\contentsline {subsection}{\numberline {15.4}Diagramme}{79}{subsection.15.4}%
+\contentsline {section}{\numberline {16}Interface}{80}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Introduction}{80}{subsection.16.1}%
+\contentsline {subsection}{\numberline {16.2}L'interface client}{81}{subsection.16.2}%
+\contentsline {subsection}{\numberline {16.3}Image de l'interface}{84}{subsection.16.3}%
+\contentsline {section}{\numberline {17}Introduction: 1.6.4: Analyse statistique de la consommation énergétique}{85}{section.17}%
+\contentsline {section}{\numberline {18}Use cases diagrams}{86}{section.18}%
+\contentsline {section}{\numberline {19}Overview}{89}{section.19}%
+\contentsline {section}{\numberline {20}Bdd}{92}{section.20}%
 \contentsline {section}{\numberline {21}Class}{95}{section.21}%
-\contentsline {section}{\numberline {22}sequence}{97}{section.22}%
-\contentsline {section}{\numberline {23}api-rest}{100}{section.23}%
-\contentsline {section}{\numberline {24}Interface}{102}{section.24}%
+\contentsline {section}{\numberline {22}sequence}{98}{section.22}%
+\contentsline {section}{\numberline {23}api-rest}{101}{section.23}%
+\contentsline {section}{\numberline {24}Interface}{104}{section.24}%
