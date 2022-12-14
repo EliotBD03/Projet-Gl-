@@ -1,4 +1,4 @@
-\babel@toc {nil}{}
+\babel@toc {french}{}\relax 
 \contentsline {section}{\numberline {1}Use cases diagrams}{5}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Points communs}{5}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Client}{6}{subsection.1.2}%
@@ -98,3 +98,11 @@
 \contentsline {subsection}{\numberline {16.1}Introduction}{83}{subsection.16.1}%
 \contentsline {subsection}{\numberline {16.2}L'interface client}{84}{subsection.16.2}%
 \contentsline {subsection}{\numberline {16.3}Image de l'interface}{87}{subsection.16.3}%
+\contentsline {section}{\numberline {17}Introduction: 1.6.4: Analyse statistique de la consommation énergétique}{88}{section.17}%
+\contentsline {subsection}{\numberline {17.1}Use cases diagrams}{89}{subsection.17.1}%
+\contentsline {subsection}{\numberline {17.2}Overview}{91}{subsection.17.2}%
+\contentsline {subsection}{\numberline {17.3}Bdd}{93}{subsection.17.3}%
+\contentsline {subsection}{\numberline {17.4}Class}{95}{subsection.17.4}%
+\contentsline {subsection}{\numberline {17.5}sequence}{97}{subsection.17.5}%
+\contentsline {subsection}{\numberline {17.6}api-rest}{100}{subsection.17.6}%
+\contentsline {subsection}{\numberline {17.7}Interface}{102}{subsection.17.7}%
