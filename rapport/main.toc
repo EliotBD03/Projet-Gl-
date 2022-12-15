@@ -1,4 +1,4 @@
-\babel@toc {french}{}\relax 
+\babel@toc {nil}{}
 \contentsline {section}{\numberline {1}Use cases diagrams}{6}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Points communs}{6}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Client}{7}{subsection.1.2}%
@@ -103,12 +103,6 @@
 \contentsline {section}{\numberline {19}Overview}{91}{section.19}%
 \contentsline {section}{\numberline {20}Bdd}{92}{section.20}%
 \contentsline {section}{\numberline {21}Class}{93}{section.21}%
-\contentsline {section}{\numberline {22}sequence}{95}{section.22}%
-\contentsline {section}{\numberline {23}api-rest}{97}{section.23}%
-\contentsline {section}{\numberline {24}Interface}{99}{section.24}%
-\contentsline {section}{\numberline {25}Introduction : Extension 10 : Application android par Julien Ladeuze}{101}{section.25}%
-\contentsline {section}{\numberline {26}Aspect pratique}{101}{section.26}%
-\contentsline {section}{\numberline {27}Aspect technologique}{101}{section.27}%
-\contentsline {section}{\numberline {28}Interface}{101}{section.28}%
-\contentsline {section}{\numberline {29}Ressources utilisées}{102}{section.29}%
-\contentsline {section}{\numberline {30}Schéma}{102}{section.30}%
+\contentsline {section}{\numberline {22}sequence}{96}{section.22}%
+\contentsline {section}{\numberline {23}api-rest}{99}{section.23}%
+\contentsline {section}{\numberline {24}Interface}{102}{section.24}%

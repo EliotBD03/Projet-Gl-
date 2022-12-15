@@ -6,11 +6,15 @@ Tout d'abord, il était important de revenir sur la partie client du sequence di
 \end{flushleft}
 
 \begin{flushleft}
-Comme pour la base du projet, je suis repartie de mon class diagram et de mon use case diagram et j'ai représenté l'interaction des méthodes avec l'API et la base de données.
+Comme pour la base du projet, repartons de mon class diagram et de mon use case diagram et représentons l'interaction des méthodes avec l'API et la base de données.
 \end{flushleft}
 
 \begin{flushleft}
 Avant de commencer, il est important de signaler que les explications concernant le token dans le class diagram de la base du projet sont aussi valables pour l'extension afin d'éviter les répétitions.
+\end{flushleft}
+
+\begin{flushleft}
+De plus, vous pouvez remarquer l'appel à la méthode "createNotification" lorsque cela est nécessaire dans les deux sequence diagram ci-joints.
 \end{flushleft}
 
 \begin{flushleft}
@@ -28,7 +32,7 @@ A cet effet, il y aura deux méthodes :
 
 \begin{enumerate}
 \item getAllInvitedWallets si le client souhaite voir tous les portefeuilles où il est invité.
-\item getInvitedWallet si le client souhaite voir un portefeuille où il est invité en particulier.
+\item getInvitedWallet, si le client souhaite voir un portefeuille où il est invité en particulier.
 \end{enumerate}
 
 \begin{flushleft}
@@ -60,11 +64,11 @@ Il est important de remarquer que pour quitter un portefeuille où il est invit�
 Le deuxième ajout est en partant de l'Use case \textbf{"Voir les utilisateurs invités"}. Ce dernier fonctionne de la même manière qu'expliqué précédemment pour "Voir les portefeuilles où il est invité".
 \end{flushleft}
 \begin{flushleft}
-En effet, il y aura deux méthodes : 
+En effet, il y aura la méthode : 
 \end{flushleft}
 \begin{enumerate}
 \item getAllInvitedClients si le client souhaite voir tous les utilisateurs invités. Je dois donc retourner une ArrayList de "ClientBasic".
-\item InvitedClient si le client souhaite voir un utilisateur invité en particulier. Je dois donc retourner une instance de "ClientFull".
+\item mais getInvitedClient, si le client souhaite voir un utilisateur invité en particulier, ne devra pas être instanciée car toutes les informations dont un client "gestionnaire" à besoin se trouve dans un ClientBasic envoyé au préalable par la méthode getAllInvitedClients.
 \end{enumerate}
 
 \begin{flushleft}
