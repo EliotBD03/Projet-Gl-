@@ -114,23 +114,23 @@
 \contentsline {subsection}{\numberline {33.1}Description}{111}{subsection.33.1}%
 \contentsline {subsection}{\numberline {33.2}Les variables}{111}{subsection.33.2}%
 \contentsline {subsection}{\numberline {33.3}Les méthodes}{111}{subsection.33.3}%
-\contentsline {subsection}{\numberline {33.4}Schéma}{112}{subsection.33.4}%
-\contentsline {section}{\numberline {34}Entity relationship diagram}{113}{section.34}%
-\contentsline {subsection}{\numberline {34.1}Description}{113}{subsection.34.1}%
-\contentsline {subsection}{\numberline {34.2}Schéma}{113}{subsection.34.2}%
-\contentsline {section}{\numberline {35}Sequence diagram}{114}{section.35}%
-\contentsline {subsection}{\numberline {35.1}Description}{114}{subsection.35.1}%
-\contentsline {subsection}{\numberline {35.2}Schéma}{114}{subsection.35.2}%
-\contentsline {section}{\numberline {36}Design API Rest}{115}{section.36}%
-\contentsline {subsection}{\numberline {36.1}Description}{115}{subsection.36.1}%
-\contentsline {subsection}{\numberline {36.2}Schéma}{115}{subsection.36.2}%
-\contentsline {section}{\numberline {37}Interface}{116}{section.37}%
-\contentsline {subsection}{\numberline {37.1}Description}{116}{subsection.37.1}%
-\contentsline {subsection}{\numberline {37.2}Page d'accueil}{116}{subsection.37.2}%
-\contentsline {subsection}{\numberline {37.3}Liste des factures}{116}{subsection.37.3}%
-\contentsline {subsection}{\numberline {37.4}Facture}{116}{subsection.37.4}%
-\contentsline {subsection}{\numberline {37.5}Paiement}{116}{subsection.37.5}%
-\contentsline {subsection}{\numberline {37.6}Modification de la proposition}{116}{subsection.37.6}%
-\contentsline {subsection}{\numberline {37.7}Changement de méthode de paiement}{117}{subsection.37.7}%
-\contentsline {subsection}{\numberline {37.8}Changement des informations bancaires}{117}{subsection.37.8}%
-\contentsline {section}{\numberline {38}Conclusion}{119}{section.38}%
+\contentsline {subsection}{\numberline {33.4}Schéma}{113}{subsection.33.4}%
+\contentsline {section}{\numberline {34}Entity relationship diagram}{114}{section.34}%
+\contentsline {subsection}{\numberline {34.1}Description}{114}{subsection.34.1}%
+\contentsline {subsection}{\numberline {34.2}Schéma}{115}{subsection.34.2}%
+\contentsline {section}{\numberline {35}Sequence diagram}{116}{section.35}%
+\contentsline {subsection}{\numberline {35.1}Description}{116}{subsection.35.1}%
+\contentsline {subsection}{\numberline {35.2}Schéma}{117}{subsection.35.2}%
+\contentsline {section}{\numberline {36}Design API Rest}{118}{section.36}%
+\contentsline {subsection}{\numberline {36.1}Description}{118}{subsection.36.1}%
+\contentsline {subsection}{\numberline {36.2}Schéma}{119}{subsection.36.2}%
+\contentsline {section}{\numberline {37}Interface}{120}{section.37}%
+\contentsline {subsection}{\numberline {37.1}Description}{120}{subsection.37.1}%
+\contentsline {subsection}{\numberline {37.2}Page d'accueil}{120}{subsection.37.2}%
+\contentsline {subsection}{\numberline {37.3}Liste des factures}{120}{subsection.37.3}%
+\contentsline {subsection}{\numberline {37.4}Facture}{121}{subsection.37.4}%
+\contentsline {subsection}{\numberline {37.5}Paiement}{121}{subsection.37.5}%
+\contentsline {subsection}{\numberline {37.6}Modification de la proposition}{122}{subsection.37.6}%
+\contentsline {subsection}{\numberline {37.7}Changement de méthode de paiement}{122}{subsection.37.7}%
+\contentsline {subsection}{\numberline {37.8}Changement des informations bancaires}{123}{subsection.37.8}%
+\contentsline {section}{\numberline {38}Conclusion}{127}{section.38}%

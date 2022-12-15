@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=latex 2022.12.8)  15 DEC 2022 19:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=latex 2022.12.8)  15 DEC 2022 20:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2039,36 +2039,15 @@ l.64 ...sion-maxime/class/img/class-extension.png}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.64 ...sion-maxime/class/img/class-extension.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.64 ...sion-maxime/class/img/class-extension.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: extension-maxime/class/img/class-extension.png Graphic file (type eps)
-<extension-maxime/class/img/class-extension.png>) [112]
+<extension-maxime/class/img/class-extension.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [112] [113]
 \openout2 = `extension-maxime/bdd/bdd-extension.aux'.
 
-
-(./extension-maxime/bdd/bdd-extension.tex
+ (./extension-maxime/bdd/bdd-extension.tex
 ! Missing $ inserted.
 <inserted text> 
                 $
@@ -2407,7 +2386,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.32 ...1]{extension-maxime/bdd/bdd-extension.png}
+l.32 ...h]{extension-maxime/bdd/bdd-extension.png}
                                                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2420,45 +2399,24 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.32 ...1]{extension-maxime/bdd/bdd-extension.png}
+l.32 ...h]{extension-maxime/bdd/bdd-extension.png}
                                                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.32 ...1]{extension-maxime/bdd/bdd-extension.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.32 ...1]{extension-maxime/bdd/bdd-extension.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: extension-maxime/bdd/bdd-extension.png Graphic file (type eps)
-<extension-maxime/bdd/bdd-extension.png>) [113
+<extension-maxime/bdd/bdd-extension.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [114
 
 
 
-]
+] [115]
 \openout2 = `extension-maxime/sequence/sequence-extension.aux'.
 
-
-(./extension-maxime/sequence/sequence-extension.tex
+ (./extension-maxime/sequence/sequence-extension.tex
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/sequence/im
 g/sequence-extension.png (no BoundingBox).
@@ -2472,41 +2430,20 @@ l.27 ...axime/sequence/img/sequence-extension.png}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.27 ...axime/sequence/img/sequence-extension.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.27 ...axime/sequence/img/sequence-extension.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: extension-maxime/sequence/img/sequence-extension.png Graphic file (type e
 ps)
-<extension-maxime/sequence/img/sequence-extension.png>) [114
+<extension-maxime/sequence/img/sequence-extension.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [116
 
 
 
-]
+] [117]
 \openout2 = `extension-maxime/apirest/apirest-extension.aux'.
 
-
-(./extension-maxime/apirest/apirest-extension.tex
+ (./extension-maxime/apirest/apirest-extension.tex
 ! Missing $ inserted.
 <inserted text> 
                 $
@@ -2783,41 +2720,20 @@ l.23 ...-maxime/apirest/img/apirest-extension.png}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.23 ...-maxime/apirest/img/apirest-extension.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.23 ...-maxime/apirest/img/apirest-extension.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: extension-maxime/apirest/img/apirest-extension.png Graphic file (type eps
 )
-<extension-maxime/apirest/img/apirest-extension.png>) [115
+<extension-maxime/apirest/img/apirest-extension.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [118
 
 
 
-]
+] [119]
 \openout2 = `extension-maxime/interface/interface-extension.aux'.
 
-
-(./extension-maxime/interface/interface-extension.tex
+ (./extension-maxime/interface/interface-extension.tex
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
 mg/home.png (no BoundingBox).
@@ -2831,32 +2747,12 @@ l.14 ...]{extension-maxime/interface/img/home.png}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.14 ...]{extension-maxime/interface/img/home.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.14 ...]{extension-maxime/interface/img/home.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: extension-maxime/interface/img/home.png Graphic file (type eps)
-<extension-maxime/interface/img/home.png>
+<extension-maxime/interface/img/home.png> [120
+
+
+
+]
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
 mg/list.png (no BoundingBox).
@@ -2869,30 +2765,6 @@ l.23 ...]{extension-maxime/interface/img/list.png}
                                                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.23 ...]{extension-maxime/interface/img/list.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.23 ...]{extension-maxime/interface/img/list.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
 
 File: extension-maxime/interface/img/list.png Graphic file (type eps)
 <extension-maxime/interface/img/list.png>
@@ -2909,32 +2781,12 @@ l.32 ...xtension-maxime/interface/img/facture.png}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.32 ...xtension-maxime/interface/img/facture.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.32 ...xtension-maxime/interface/img/facture.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: extension-maxime/interface/img/facture.png Graphic file (type eps)
 <extension-maxime/interface/img/facture.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[121]
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
 mg/paiement.png (no BoundingBox).
@@ -2947,30 +2799,6 @@ l.41 ...tension-maxime/interface/img/paiement.png}
                                                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.41 ...tension-maxime/interface/img/paiement.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.41 ...tension-maxime/interface/img/paiement.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
 
 File: extension-maxime/interface/img/paiement.png Graphic file (type eps)
 <extension-maxime/interface/img/paiement.png>
@@ -2990,40 +2818,11 @@ l.50 ...tension-maxime/interface/img/proposal.png}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.50 ...tension-maxime/interface/img/proposal.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.50 ...tension-maxime/interface/img/proposal.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: extension-maxime/interface/img/proposal.png Graphic file (type eps)
 <extension-maxime/interface/img/proposal.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[116
-
-
-
-]
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
 mg/paiement-method.png (no BoundingBox).
@@ -3037,33 +2836,12 @@ l.59 ...-maxime/interface/img/paiement-method.png}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.59 ...-maxime/interface/img/paiement-method.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.59 ...-maxime/interface/img/paiement-method.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: extension-maxime/interface/img/paiement-method.png Graphic file (type eps
 )
-<extension-maxime/interface/img/paiement-method.png>
+<extension-maxime/interface/img/paiement-method.png> [122]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
 mg/paiement-informations.png (no BoundingBox).
@@ -3077,40 +2855,17 @@ l.68 ...e/interface/img/paiement-informations.png}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.68 ...e/interface/img/paiement-informations.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   !
-l.68 ...e/interface/img/paiement-informations.png}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: extension-maxime/interface/img/paiement-informations.png Graphic file (ty
 pe eps)
 <extension-maxime/interface/img/paiement-informations.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [117] [118]
+) [123] [124] [125] [126]
 \openout2 = `extension-maxime/conclusion/conclusion-extension.aux'.
 
- (./extension-maxime/conclusion/conclusion-extension.tex) [119
+
+(./extension-maxime/conclusion/conclusion-extension.tex) [127
 
 
 
@@ -3173,4 +2928,4 @@ Here is how much of TeX's memory you used:
  36 hyphenation exceptions out of 8191
  65i,9n,75p,10604b,635s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (119 pages, 364056 bytes).
+Output written on main.dvi (127 pages, 368740 bytes).
