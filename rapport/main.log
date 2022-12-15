@@ -1,65 +1,69 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.10.17)  15 DEC 2022 16:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=latex 2022.12.8)  15 DEC 2022 19:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **main.tex
 (./main.tex
-LaTeX2e <2020-02-02> patch level 2
-L3 programming layer <2020-02-14>
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-01-21>
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
-File: size10.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 )
-\c@part=\count167
-\c@section=\count168
-\c@subsection=\count169
-\c@subsubsection=\count170
-\c@paragraph=\count171
-\c@subparagraph=\count172
-\c@figure=\count173
-\c@table=\count174
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
-\bibindent=\dimen134
+\bibindent=\dimen138
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
-Package: inputenc 2018/08/11 v1.3c Input encoding file
-\inpenc@prehook=\toks14
-\inpenc@posthook=\toks15
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks16
+\KV@toks@=\toks18
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 105.
+Package graphics Info: Driver file: dvips.def on input line 107.
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/dvips.def
+File: dvips.def 2017/06/20 v3.1d Graphics/color driver for dvips
 ))
-\Gin@req@height=\dimen135
-\Gin@req@width=\dimen136
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
 )
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2020/02/14 3.40 The Babel package
+Package: babel 2022/01/26 3.70 The Babel package
+\babel@savecnt=\count193
+\U@D=\dimen141
+\l@unhyphenated=\language5
 
-(/usr/share/texlive/texmf-dist/tex/generic/babel/switch.def
-File: switch.def 2020/02/14 3.40 Babel switching mechanism
-)
+(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count194
 
-! Package babel Error: Unknown option `french'. Either you misspelled it
+
+! Package babel Error: Unknown option 'french'. Either you misspelled it
 (babel)                or the language definition file french.ldf was not found
 .
 
@@ -67,85 +71,75 @@ See the babel package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.542 \ProcessOptions*
-                      
-Valid options are: shorthands=, KeepShorthandsActive,
+l.4254 \ProcessOptions*
+                       
+Valid options are, among others: shorthands=, KeepShorthandsActive,
 activeacute, activegrave, noconfigs, safe=, main=, math=
 headfoot=, strings=, config=, hyphenmap=, or a language name.
 
 Package babel Info: You haven't specified a language. I'll use 'nil'
-(babel)             as the main language. Reported on input line 572.
+(babel)             as the main language. Reported on input line 4299.
 (/usr/share/texlive/texmf-dist/tex/generic/babel/nil.ldf
-Language: nil 2020/02/14 3.40 Nil language
-
-(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2020/02/14 3.40 Babel common definitions
-\babel@savecnt=\count175
-\U@D=\dimen137
-
-(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
-\bbl@readstream=\read2
-\bbl@dirlevel=\count176
-)
-\l@nil=\language5
+Language: nil 2022/01/26 3.70 Nil language
+\l@nil=\language6
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2020/01/20 v2.17e AMS math features
+Package: amsmath 2021/10/15 v2.17l AMS math features
 \@mathmargin=\skip49
 
 For additional information on amsmath, use the `?' option.
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
-Package: amstext 2000/06/29 v2.01 AMS text
+Package: amstext 2021/08/26 v2.01 AMS text
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks17
-\ex@=\dimen138
+\@emptytoks=\toks19
+\ex@=\dimen142
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen139
+\pmbraise@=\dimen143
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 2016/03/08 v2.02 operator names
+Package: amsopn 2021/08/26 v2.02 operator names
 )
-\inf@bad=\count177
-LaTeX Info: Redefining \frac on input line 227.
-\uproot@=\count178
-\leftroot@=\count179
-LaTeX Info: Redefining \overline on input line 389.
-\classnum@=\count180
-\DOTSCASE@=\count181
-LaTeX Info: Redefining \ldots on input line 486.
-LaTeX Info: Redefining \dots on input line 489.
-LaTeX Info: Redefining \cdots on input line 610.
-\Mathstrutbox@=\box45
-\strutbox@=\box46
-\big@size=\dimen140
-LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
-\macc@depth=\count182
-\c@MaxMatrixCols=\count183
+\inf@bad=\count195
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count196
+\leftroot@=\count197
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count198
+\DOTSCASE@=\count199
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box50
+\strutbox@=\box51
+\big@size=\dimen144
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count266
+\c@MaxMatrixCols=\count267
 \dotsspace@=\muskip16
-\c@parentequation=\count184
-\dspbrk@lvl=\count185
-\tag@help=\toks18
-\row@=\count186
-\column@=\count187
-\maxfields@=\count188
-\andhelp@=\toks19
-\eqnshift@=\dimen141
-\alignsep@=\dimen142
-\tagshift@=\dimen143
-\tagwidth@=\dimen144
-\totwidth@=\dimen145
-\lineht@=\dimen146
-\@envbody=\toks20
+\c@parentequation=\count268
+\dspbrk@lvl=\count269
+\tag@help=\toks20
+\row@=\count270
+\column@=\count271
+\maxfields@=\count272
+\andhelp@=\toks21
+\eqnshift@=\dimen145
+\alignsep@=\dimen146
+\tagshift@=\dimen147
+\tagwidth@=\dimen148
+\totwidth@=\dimen149
+\lineht@=\dimen150
+\@envbody=\toks22
 \multlinegap=\skip50
 \multlinetaggap=\skip51
-\mathdisplay@stack=\toks21
-LaTeX Info: Redefining \[ on input line 2859.
-LaTeX Info: Redefining \] on input line 2860.
+\mathdisplay@stack=\toks23
+LaTeX Info: Redefining \[ on input line 2938.
+LaTeX Info: Redefining \] on input line 2939.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
@@ -160,81 +154,91 @@ Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/enumerate.sty
 Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
-\@enLab=\toks22
+\@enLab=\toks24
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pdfpages.sty
-Package: pdfpages 2020/01/28 v0.5q Insert pages of external PDF documents (AM)
+Package: pdfpages 2022/01/29 v0.5u Insert pages of external PDF documents (AM)
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count189
-\calc@Bcount=\count190
-\calc@Adimen=\dimen147
-\calc@Bdimen=\dimen148
+\calc@Acount=\count273
+\calc@Bcount=\count274
+\calc@Adimen=\dimen151
+\calc@Bdimen=\dimen152
 \calc@Askip=\skip52
 \calc@Bskip=\skip53
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count191
+\calc@Ccount=\count275
 \calc@Cskip=\skip54
 )
 (/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
-Package: eso-pic 2018/04/12 v2.0h eso-pic (RN)
+Package: eso-pic 2020/10/14 v3.0a eso-pic (RN)
+\ESO@tempdima=\dimen153
+\ESO@tempdimb=\dimen154
 
-(/usr/share/texlive/texmf-dist/tex/generic/atbegshi/atbegshi.sty
-Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
-Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-)
-(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
-Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
-)
-(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2019/11/07 v1.0c TeX engine tests
-))
 (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: pdftex.def on input line 225.
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
-Package xcolor Info: Model `RGB' extended on input line 1364.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+Package xcolor Info: Driver file: dvips.def on input line 227.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1368.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
 ))
-\AM@pagewidth=\dimen149
-\AM@pageheight=\dimen150
+\AM@pagewidth=\dimen155
+\AM@pageheight=\dimen156
+\AM@fboxrule=\dimen157
 
 (/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pppdftex.def
-File: pppdftex.def 2020/01/28 v0.5q Pdfpages driver for pdfTeX (AM)
-)
-\AM@pagebox=\box47
-\AM@global@opts=\toks23
-\AM@pagecnt=\count192
-\AM@toc@title=\toks24
-\c@AM@survey=\count193
-\AM@templatesizebox=\box48
-)
-(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2020/01/14 v7.00d Hypertext links for LaTeX
+File: pppdftex.def 2022/01/29 v0.5u Pdfpages driver for pdfTeX (AM)
 
-(/usr/share/texlive/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
+(/usr/share/texlive/texmf-dist/tex/latex/pdfpages/ppnull.def
+File: ppnull.def 2022/01/29 v0.5u Pdfpages dummy driver (AM)
+
+
+Package pdfpages Warning: I will use a dummy \includepdf command
+(pdfpages)                which will insert empty pages instead of the actual
+(pdfpages)                PDF file because we are running in DVI mode or with
+(pdfpages)                dvips driver.
+
+))
+\pdfpages@includegraphics@status=\count276
+\AM@pagebox=\box52
+\AM@global@opts=\toks25
+\AM@pagecnt=\count277
+\AM@toc@title=\toks26
+\c@AM@survey=\count278
+\AM@templatesizebox=\box53
+) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
+Package pdftexcmds Info: \pdfdraftmode is ignored in DVI mode.
 )
 (/usr/share/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
@@ -255,16 +259,20 @@ Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
-Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
+Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 )
-\@linkdim=\dimen151
-\Hy@linkcounter=\count194
-\Hy@pagecounter=\count195
+\@linkdim=\dimen158
+\Hy@linkcounter=\count279
+\Hy@pagecounter=\count280
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2020/01/14 v7.00d Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
+)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
+File: hyperref-langpatches.def 2021-06-07 v7.00m Hyperref: patches for babel la
+nguages
 )
 (/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
@@ -272,23 +280,28 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count196
-\pdfmajorversion=\count197
-Package hyperref Info: Hyper figures OFF on input line 4547.
-Package hyperref Info: Link nesting OFF on input line 4552.
-Package hyperref Info: Hyper index ON on input line 4555.
-Package hyperref Info: Plain pages OFF on input line 4562.
-Package hyperref Info: Backreferencing OFF on input line 4567.
+\Hy@SavedSpaceFactor=\count281
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Hyper figures OFF on input line 4192.
+Package hyperref Info: Link nesting OFF on input line 4197.
+Package hyperref Info: Hyper index ON on input line 4200.
+Package hyperref Info: Plain pages OFF on input line 4207.
+Package hyperref Info: Backreferencing OFF on input line 4212.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4800.
-\c@Hy@tempcnt=\count198
+Package hyperref Info: Bookmarks ON on input line 4445.
+\c@Hy@tempcnt=\count282
 
 (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 5159.
-\XeTeXLinkMargin=\dimen152
+LaTeX Info: Redefining \url on input line 4804.
+\XeTeXLinkMargin=\dimen159
 
 (/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -297,37 +310,50 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count199
-\Field@Width=\dimen153
-\Fld@charsize=\dimen154
-Package hyperref Info: Hyper figures OFF on input line 6430.
-Package hyperref Info: Link nesting OFF on input line 6435.
-Package hyperref Info: Hyper index ON on input line 6438.
-Package hyperref Info: backreferencing OFF on input line 6445.
-Package hyperref Info: Link coloring OFF on input line 6450.
-Package hyperref Info: Link coloring with OCG OFF on input line 6455.
-Package hyperref Info: PDF/A mode OFF on input line 6460.
-LaTeX Info: Redefining \ref on input line 6500.
-LaTeX Info: Redefining \pageref on input line 6504.
-\Hy@abspage=\count266
-\c@Item=\count267
-\c@Hfootnote=\count268
-)
-Package hyperref Info: Driver (autodetected): hpdftex.
+\Fld@menulength=\count283
+\Field@Width=\dimen160
+\Fld@charsize=\dimen161
+Package hyperref Info: Hyper figures OFF on input line 6076.
+Package hyperref Info: Link nesting OFF on input line 6081.
+Package hyperref Info: Hyper index ON on input line 6084.
+Package hyperref Info: backreferencing OFF on input line 6091.
+Package hyperref Info: Link coloring OFF on input line 6096.
+Package hyperref Info: Link coloring with OCG OFF on input line 6101.
+Package hyperref Info: PDF/A mode OFF on input line 6106.
+LaTeX Info: Redefining \ref on input line 6146.
+LaTeX Info: Redefining \pageref on input line 6150.
 
-(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2020/01/14 v7.00d Hyperref driver for pdfTeX
-
-(/usr/share/texlive/texmf-dist/tex/latex/atveryend/atveryend.sty
-Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
-Package atveryend Info: \enddocument detected (standard20110627).
+(/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
 )
-\Fld@listcount=\count269
-\c@bookmark@seq@number=\count270
+\Hy@abspage=\count284
+\c@Item=\count285
+\c@Hfootnote=\count286
+)
+Package hyperref Info: Driver (default): hdvips.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hdvips.def
+File: hdvips.def 2021-06-07 v7.00m Hyperref driver for dvips
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pdfmark.def
+File: pdfmark.def 2021-06-07 v7.00m Hyperref definitions for pdfmark specials
+\pdf@docset=\toks27
+\pdf@box=\box54
+\pdf@toks=\toks28
+\pdf@defaulttoks=\toks29
+\HyField@AnnotCount=\count287
+\Fld@listcount=\count288
+\c@bookmark@seq@number=\count289
 
 (/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
 
+(/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
 (/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
@@ -335,17 +361,22 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 86.
 )
 \Hy@SectionHShift=\skip55
-)
-(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
-File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count271
-\l__pdf_internal_box=\box49
+))
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-dvips.def
+File: l3backend-dvips.def 2022-01-12 L3 backend support: dvips
+\l__pdf_internal_box=\box55
+\g__pdf_backend_object_int=\count290
+\l__pdf_backend_content_box=\box56
+\l__pdf_backend_model_box=\box57
+\g__pdf_backend_annotation_int=\count291
+\g__pdf_backend_link_int=\count292
+\g__pdf_backend_link_sf_int=\count293
 )
 (./main.aux (./Base/use_case/use_case-base.aux)
 (./Base/overview/overview-base.aux) (./Base/bdd/bdd-base.aux)
 (./Base/classDiagram/classDiagram-base.aux) (./Base/sequence/sequence-base.aux)
-No file Base/api-rest/api-rest-base.aux.
-(./Base/interface/interface-base.aux) (./Base/intro/intro-ext.aux)
+(./Base/apirest/apirest-base.aux) (./Base/interface/interface-base.aux)
+(./Base/intro/intro-ext.aux)
 (./Extension-claire/Introduction/introduction-claire.aux)
 (./Extension-claire/Usecase-claire/use_case-claire.aux)
 (./Extension-claire/Overview-claire/overview-claire.aux)
@@ -360,8 +391,16 @@ No file Base/api-rest/api-rest-base.aux.
 (./extension-adrien/ClassDiagram/classDiagram.aux)
 (./extension-adrien/Sequence/sequence.aux)
 (./extension-adrien/Api-rest/api-rest.aux)
-(./extension-adrien/Interface/interface.aux)
-(./extension_julien/android.tex.aux))
+(./extension-adrien/Interface/interface.aux) (./extension_julien/android.aux)
+(./extension-maxime/intro/intro-extension.aux)
+(./extension-maxime/usescases/usescases-extension.aux)
+(./extension-maxime/interaction/interaction-extension.aux)
+(./extension-maxime/class/class-extension.aux)
+(./extension-maxime/bdd/bdd-extension.aux)
+(./extension-maxime/sequence/sequence-extension.aux)
+(./extension-maxime/apirest/apirest-extension.aux)
+(./extension-maxime/interface/interface-extension.aux)
+(./extension-maxime/conclusion/conclusion-extension.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
@@ -380,43 +419,21 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
-
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count272
-\scratchdimen=\dimen155
-\scratchbox=\box50
-\nofMPsegments=\count273
-\nofMParguments=\count274
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count275
-\MPscratchDim=\dimen156
-\MPnumerator=\count276
-\makeMPintoPDFobject=\count277
-\everyMPtoPDFconversion=\toks26
-) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
-Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-85.
-
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
-\AtBeginShipoutBox=\box51
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
 
 (/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
-Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
-Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+Package pdflscape Info: Auto-detected driver: dvips (dvips) on input line 124.
 )
 Package hyperref Info: Link coloring OFF on input line 16.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
-Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
@@ -424,7 +441,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count278
+\c@section@level=\count294
 )
 LaTeX Info: Redefining \ref on input line 16.
 LaTeX Info: Redefining \pageref on input line 16.
@@ -446,45 +463,104 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 19.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<images/umons.jpeg, id=434, 1927.2pt x 749.80125pt>
-File: images/umons.jpeg Graphic file (type jpg)
-<use images/umons.jpeg>
-Package pdftex.def Info: images/umons.jpeg  used on input line 49.
-(pdftex.def)             Requested size: 103.50105pt x 40.26099pt.
-<images/facSciences.png, id=436, 578.16pt x 255.95625pt>
-File: images/facSciences.png Graphic file (type png)
-<use images/facSciences.png>
-Package pdftex.def Info: images/facSciences.png  used on input line 51.
-(pdftex.def)             Requested size: 103.50105pt x 45.82018pt.
- [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./images/umons.jpeg> <./im
-ages/facSciences.png>] (./main.toc [2] [3])
+! LaTeX Error: Cannot determine size of graphic in images/umons.jpeg (no Boundi
+ngBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.49 ...[width = 0.3\textwidth]{images/umons.jpeg}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: images/umons.jpeg Graphic file (type eps)
+<images/umons.jpeg>
+
+! LaTeX Error: Cannot determine size of graphic in images/facSciences.png (no B
+oundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.51 ...h = 0.3\textwidth]{images/facSciences.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: images/facSciences.png Graphic file (type eps)
+<images/facSciences.png> [1
+
+] (./main.toc [2]
+Overfull \hbox (62.68956pt too wide) in paragraph at lines 58--58
+ [] [] []  
+ []
+
+[3]
+Overfull \hbox (147.29329pt too wide) in paragraph at lines 93--93
+ [] [] []  
+ []
+
+
+Overfull \hbox (40.63692pt too wide) in paragraph at lines 101--101
+ [] [] []  
+ []
+
+[4])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [4]
+ [5]
 \openout2 = `Base/use_case/use_case-base.aux'.
 
- (./Base/use_case/use_case-base.tex [5
+ (./Base/use_case/use_case-base.tex [6
 
 ]
-<Base/use_case/img/client.png, id=579, 1020.81375pt x 630.10406pt>
-File: Base/use_case/img/client.png Graphic file (type png)
-<use Base/use_case/img/client.png>
-Package pdftex.def Info: Base/use_case/img/client.png  used on input line 43.
-(pdftex.def)             Requested size: 345.0pt x 212.9538pt.
- [6 <./Base/use_case/img/client.png (PNG copy)>]
-<Base/use_case/img/fournisseur.png, id=584, 1014.79124pt x 630.10406pt>
-File: Base/use_case/img/fournisseur.png Graphic file (type png)
-<use Base/use_case/img/fournisseur.png>
-Package pdftex.def Info: Base/use_case/img/fournisseur.png  used on input line 
-64.
-(pdftex.def)             Requested size: 345.0pt x 214.21332pt.
-) [7 <./Base/use_case/img/fournisseur.png (PNG copy)>]
+
+! LaTeX Error: Cannot determine size of graphic in Base/use_case/img/client.png
+ (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.43 ...1\textwidth]{Base/use_case/img/client.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/use_case/img/client.png Graphic file (type eps)
+<Base/use_case/img/client.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[7]
+
+! LaTeX Error: Cannot determine size of graphic in Base/use_case/img/fournisseu
+r.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.64 ...twidth]{Base/use_case/img/fournisseur.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/use_case/img/fournisseur.png Graphic file (type eps)
+<Base/use_case/img/fournisseur.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [8] [9]
 \openout2 = `Base/overview/overview-base.aux'.
 
- (./Base/overview/overview-base.tex [8
+ (./Base/overview/overview-base.tex [10
+
 
 
 ]
@@ -535,7 +611,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 47--49
 
  []
 
-[9]
+[11]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 66.
@@ -555,7 +631,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 76--77
 
  []
 
-[10]
+[12]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 95.
@@ -586,14 +662,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--105
 
  []
 
-[11]
-<Base/overview/img/overview-client.png, id=624, 1035.11127pt x 793.26283pt>
-File: Base/overview/img/overview-client.png Graphic file (type png)
-<use Base/overview/img/overview-client.png>
-Package pdftex.def Info: Base/overview/img/overview-client.png  used on input l
-ine 113.
-(pdftex.def)             Requested size: 345.0pt x 264.39204pt.
- [12 <./Base/overview/img/overview-client.png (PNG copy)>]
+[13]
+
+! LaTeX Error: Cannot determine size of graphic in Base/overview/img/overview-c
+lient.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.113 ...h]{Base/overview/img/overview-client.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/overview/img/overview-client.png Graphic file (type eps)
+<Base/overview/img/overview-client.png> [14]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 127.
@@ -613,7 +697,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
 
-[13]
+[15]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 154.
@@ -648,34 +732,50 @@ Underfull \hbox (badness 10000) in paragraph at lines 172--173
 
  []
 
-[14]
-<Base/overview/img/overview-fournisseur.png, id=653, 1079.49756pt x 736.92638pt
->
-File: Base/overview/img/overview-fournisseur.png Graphic file (type png)
-<use Base/overview/img/overview-fournisseur.png>
-Package pdftex.def Info: Base/overview/img/overview-fournisseur.png  used on in
-put line 182.
-(pdftex.def)             Requested size: 345.0pt x 235.51765pt.
-) [15 <./Base/overview/img/overview-fournisseur.png (PNG copy)>]
+[16]
+
+! LaTeX Error: Cannot determine size of graphic in Base/overview/img/overview-f
+ournisseur.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.182 ...se/overview/img/overview-fournisseur.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/overview/img/overview-fournisseur.png Graphic file (type eps)
+<Base/overview/img/overview-fournisseur.png>) [17]
 \openout2 = `Base/bdd/bdd-base.aux'.
 
+ (./Base/bdd/bdd-base.tex
+[18
 
-(./Base/bdd/bdd-base.tex [16
 
 
-] [17] [18]
+] [19] [20]
 Overfull \hbox (17.0538pt too wide) in paragraph at lines 155--155
-[][][]\OT1/cmr/m/n/8 source : []$\OT1/cmtt/m/n/8 https : / / shrinkthatfootprin
-t . com / average-[]household-[]electricity-[]consumption/$[]| 
+[][][][][]\OT1/cmr/m/n/8 source : [][][][]| 
  []
 
-[19]
-<Base/bdd/img/bdd.png, id=691, 1106.63437pt x 598.48593pt>
-File: Base/bdd/img/bdd.png Graphic file (type png)
-<use Base/bdd/img/bdd.png>
-Package pdftex.def Info: Base/bdd/img/bdd.png  used on input line 190.
-(pdftex.def)             Requested size: 345.0pt x 186.57892pt.
-) [20 <./Base/bdd/img/bdd.png>]
+[21]
+
+! LaTeX Error: Cannot determine size of graphic in Base/bdd/img/bdd.png (no Bou
+ndingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.190 ...idth = 1\textwidth]{Base/bdd/img/bdd.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/bdd/img/bdd.png Graphic file (type eps)
+<Base/bdd/img/bdd.png>) [22]
 \openout2 = `Base/classDiagram/classDiagram-base.aux'.
 
  (./Base/classDiagram/classDiagram-base.tex
@@ -683,13 +783,13 @@ Package pdftex.def Info: Base/bdd/img/bdd.png  used on input line 190.
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 8.
 
-[21
+[23
+
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[][][][]$\OT1/cmtt/m/n/8 https : / / thierry-[]leriche-[]dessirier . developpez
- . com / tutoriels / java /
+Overfull \hbox (77.55603pt too wide) in paragraph at lines 21--21
+[][][][][][][][][]| 
  []
 
 
@@ -704,207 +804,350 @@ Overfull \hbox (22.4173pt too wide) in paragraph at lines 33--35
  clients de l'application,
  []
 
-[22] [23]
+[24] [25]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 73.
 
-[24] [25]
-<Base/classDiagram/img/classDiagram.png, id=734, 1888.80656pt x 2049.15562pt>
-File: Base/classDiagram/img/classDiagram.png Graphic file (type png)
-<use Base/classDiagram/img/classDiagram.png>
-Package pdftex.def Info: Base/classDiagram/img/classDiagram.png  used on input 
-line 110.
-(pdftex.def)             Requested size: 379.5021pt x 411.69992pt.
+[26] [27]
 
+! LaTeX Error: Cannot determine size of graphic in Base/classDiagram/img/classD
+iagram.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.110 ...]{Base/classDiagram/img/classDiagram.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/classDiagram/img/classDiagram.png Graphic file (type eps)
+<Base/classDiagram/img/classDiagram.png>
 Overfull \hbox (34.5021pt too wide) in paragraph at lines 110--111
  [][] 
  []
 
-) [26 <./Base/classDiagram/img/classDiagram.png>]
+) [28]
 \openout2 = `Base/sequence/sequence-base.aux'.
 
+ (./Base/sequence/sequence-base.tex [29
 
-(./Base/sequence/sequence-base.tex [27
 
 
-] [28]
-<Base/sequence/img/common/Gérer les données.png, id=760, 600.74437pt x 612.03
-656pt>
-File: Base/sequence/img/common/Gérer les données.png Graphic file (type png)
-<use Base/sequence/img/common/Gérer les données.png>
-Package pdftex.def Info: Base/sequence/img/common/Gérer les données.png  used
- on input line 69.
-(pdftex.def)             Requested size: 241.49895pt x 246.03368pt.
- [29 <./Base/sequence/img/common/Gérer les données.png>]
-<Base/sequence/img/common/Gérer les langues.png, id=766, 568.37344pt x 1306.12
-968pt>
-File: Base/sequence/img/common/Gérer les langues.png Graphic file (type png)
-<use Base/sequence/img/common/Gérer les langues.png>
-Package pdftex.def Info: Base/sequence/img/common/Gérer les langues.png  used 
-on input line 89.
-(pdftex.def)             Requested size: 150.1239pt x 345.0pt.
- [30 <./Base/sequence/img/common/Gérer les langues.png>]
-<Base/sequence/img/common/Modifier son mot de passe.png, id=772, 596.2275pt x 4
-90.08093pt>
+] [30]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/Gé
+rer les données.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.69 ...quence/img/common/Gérer les données.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/sequence/img/common/Gérer les données.png Graphic file (type eps)
+<Base/sequence/img/common/Gérer les données.png> [31]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/Gé
+rer les langues.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.89 ...equence/img/common/Gérer les langues.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/sequence/img/common/Gérer les langues.png Graphic file (type eps)
+<Base/sequence/img/common/Gérer les langues.png> [32]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/Mod
+ifier son mot de passe.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.109 ...img/common/Modifier son mot de passe.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 File: Base/sequence/img/common/Modifier son mot de passe.png Graphic file (type
- png)
-<use Base/sequence/img/common/Modifier son mot de passe.png>
-Package pdftex.def Info: Base/sequence/img/common/Modifier son mot de passe.png
-  used on input line 109.
-(pdftex.def)             Requested size: 377.75417pt x 310.4979pt.
+ eps)
+<Base/sequence/img/common/Modifier son mot de passe.png> [33]
 
-Overfull \hbox (32.75417pt too wide) in paragraph at lines 109--110
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/ré
+pondre aux notifications.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.129 ...g/common/répondre aux notifications.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/sequence/img/common/répondre aux notifications.png Graphic file (ty
+pe eps)
+<Base/sequence/img/common/répondre aux notifications.png> [34] [35]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/Sau
+thentifier.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.161 ...se/sequence/img/common/Sauthentifier.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/sequence/img/common/Sauthentifier.png Graphic file (type eps)
+<Base/sequence/img/common/Sauthentifier.png> [36]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/Vis
+ualisation des données de consommations.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.173 ...sation des données de consommations.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/sequence/img/common/Visualisation des données de consommations.png 
+Graphic file (type eps)
+<Base/sequence/img/common/Visualisation des données de consommations.png>
+[37]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/Voi
+r les contrats.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.194 ...equence/img/common/Voir les contrats.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/sequence/img/common/Voir les contrats.png Graphic file (type eps)
+<Base/sequence/img/common/Voir les contrats.png> [38]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/common/Voi
+r notifications.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.211 ...quence/img/common/Voir notifications.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/sequence/img/common/Voir notifications.png Graphic file (type eps)
+<Base/sequence/img/common/Voir notifications.png> [39]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/client/Voi
+r-les-contrats.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.233 ...equence/img/client/Voir-les-contrats.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/sequence/img/client/Voir-les-contrats.png Graphic file (type eps)
+<Base/sequence/img/client/Voir-les-contrats.png> [40] [41]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/client/Voi
+r-les-fournisseurs-et-contrats-relatifs.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.270 ...es-fournisseurs-et-contrats-relatifs.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/sequence/img/client/Voir-les-fournisseurs-et-contrats-relatifs.png G
+raphic file (type eps)
+<Base/sequence/img/client/Voir-les-fournisseurs-et-contrats-relatifs.png>
+[42] [43]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/client/Voi
+r-les-portefeuilles.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.310 ...ce/img/client/Voir-les-portefeuilles.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/sequence/img/client/Voir-les-portefeuilles.png Graphic file (type ep
+s)
+<Base/sequence/img/client/Voir-les-portefeuilles.png>
+Overfull \hbox (40.10432pt too wide) in paragraph at lines 310--311
  [][] 
  []
 
-[31 <./Base/sequence/img/common/Modifier son mot de passe.png>]
-<Base/sequence/img/common/répondre aux notifications.png, id=779, 888.31876pt 
-x 880.79062pt>
-File: Base/sequence/img/common/répondre aux notifications.png Graphic file (ty
-pe png)
-<use Base/sequence/img/common/répondre aux notifications.png>
-Package pdftex.def Info: Base/sequence/img/common/répondre aux notifications.p
-ng  used on input line 129.
-(pdftex.def)             Requested size: 310.4979pt x 307.8647pt.
- [32 <./Base/sequence/img/common/Répondre aux notifications.png>] [33]
-<Base/sequence/img/common/Sauthentifier.png, id=789, 727.96968pt x 1128.46594pt
->
-File: Base/sequence/img/common/Sauthentifier.png Graphic file (type png)
-<use Base/sequence/img/common/Sauthentifier.png>
-Package pdftex.def Info: Base/sequence/img/common/Sauthentifier.png  used on in
-put line 161.
-(pdftex.def)             Requested size: 241.49895pt x 374.35788pt.
- [34 <./Base/sequence/img/common/Sauthentifier.png>]
-<Base/sequence/img/common/Visualisation des données de consommations.png, id=7
-95, 435.12563pt x 313.9228pt>
-File: Base/sequence/img/common/Visualisation des données de consommations.png 
-Graphic file (type png)
-<use Base/sequence/img/common/Visualisation des données de consommations.png>
-Package pdftex.def Info: Base/sequence/img/common/Visualisation des données de
- consommations.png  used on input line 173.
-(pdftex.def)             Requested size: 345.0pt x 248.91599pt.
- [35 <./Base/sequence/img/common/Visualisation des données de consommations.pn
-g>]
-<Base/sequence/img/common/Voir les contrats.png, id=801, 700.11563pt x 604.5084
-4pt>
-File: Base/sequence/img/common/Voir les contrats.png Graphic file (type png)
-<use Base/sequence/img/common/Voir les contrats.png>
-Package pdftex.def Info: Base/sequence/img/common/Voir les contrats.png  used o
-n input line 194.
-(pdftex.def)             Requested size: 345.0pt x 297.8905pt.
- [36 <./Base/sequence/img/common/Voir les contrats.png>]
-<Base/sequence/img/common/Voir notifications.png, id=807, 712.91344pt x 354.574
-69pt>
-File: Base/sequence/img/common/Voir notifications.png Graphic file (type png)
-<use Base/sequence/img/common/Voir notifications.png>
-Package pdftex.def Info: Base/sequence/img/common/Voir notifications.png  used 
-on input line 211.
-(pdftex.def)             Requested size: 345.0pt x 171.58978pt.
- [37 <./Base/sequence/img/common/Voir notifications.png>]
-<Base/sequence/img/client/Voir-les-contrats.png, id=814, 717.43031pt x 496.1034
-4pt>
-File: Base/sequence/img/client/Voir-les-contrats.png Graphic file (type png)
-<use Base/sequence/img/client/Voir-les-contrats.png>
-Package pdftex.def Info: Base/sequence/img/client/Voir-les-contrats.png  used o
-n input line 233.
-(pdftex.def)             Requested size: 310.4979pt x 214.71318pt.
- [38 <./Base/sequence/img/client/Voir-les-contrats.png>] [39]
-<Base/sequence/img/client/Voir-les-fournisseurs-et-contrats-relatifs.png, id=82
-6, 647.41875pt x 1063.72406pt>
-File: Base/sequence/img/client/Voir-les-fournisseurs-et-contrats-relatifs.png G
-raphic file (type png)
-<use Base/sequence/img/client/Voir-les-fournisseurs-et-contrats-relatifs.png>
-Package pdftex.def Info: Base/sequence/img/client/Voir-les-fournisseurs-et-cont
-rats-relatifs.png  used on input line 270.
-(pdftex.def)             Requested size: 241.49895pt x 396.78549pt.
- [40 <./Base/sequence/img/client/Voir-les-fournisseurs-et-contrats-relatifs.png
->] [41]
-<Base/sequence/img/client/Voir-les-portefeuilles.png, id=838, 656.4525pt x 1636
-.61438pt>
-File: Base/sequence/img/client/Voir-les-portefeuilles.png Graphic file (type pn
-g)
-<use Base/sequence/img/client/Voir-les-portefeuilles.png>
-Package pdftex.def Info: Base/sequence/img/client/Voir-les-portefeuilles.png  u
-sed on input line 310.
-(pdftex.def)             Requested size: 154.41661pt x 384.99832pt.
- [42 <./Base/sequence/img/client/Voir-les-portefeuilles.png>] [43]
-<Base/sequence/img/fournisseur/voir-ses-clients.png, id=849, 752.0597pt x 1789.
-43532pt>
-File: Base/sequence/img/fournisseur/voir-ses-clients.png Graphic file (type png
+[44] [45]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/fournisseu
+r/voir-ses-clients.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.339 ...nce/img/fournisseur/voir-ses-clients.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/sequence/img/fournisseur/voir-ses-clients.png Graphic file (type eps
 )
-<use Base/sequence/img/fournisseur/voir-ses-clients.png>
-Package pdftex.def Info: Base/sequence/img/fournisseur/voir-ses-clients.png  us
-ed on input line 339.
-(pdftex.def)             Requested size: 161.80443pt x 384.99832pt.
- [44 <./Base/sequence/img/fournisseur/voir-ses-clients.png>] [45]
-<Base/sequence/img/fournisseur/voir-les-propositions.png, id=861, 968.86969pt x
- 1805.24437pt>
+<Base/sequence/img/fournisseur/voir-ses-clients.png>
+Overfull \hbox (40.10432pt too wide) in paragraph at lines 339--340
+ [][] 
+ []
+
+[46] [47]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/fournisseu
+r/voir-les-propositions.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.365 ...mg/fournisseur/voir-les-propositions.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 File: Base/sequence/img/fournisseur/voir-les-propositions.png Graphic file (typ
-e png)
-<use Base/sequence/img/fournisseur/voir-les-propositions.png>
-Package pdftex.def Info: Base/sequence/img/fournisseur/voir-les-propositions.pn
-g  used on input line 365.
-(pdftex.def)             Requested size: 206.61757pt x 384.99832pt.
- [46 <./Base/sequence/img/fournisseur/voir-les-propositions.png>]
-<Base/sequence/img/fournisseur/gestion de la consommation.png, id=867, 892.0828
-1pt x 692.5875pt>
+e eps)
+<Base/sequence/img/fournisseur/voir-les-propositions.png>
+Overfull \hbox (40.10432pt too wide) in paragraph at lines 365--366
+ [][] 
+ []
+
+[48]
+
+! LaTeX Error: Cannot determine size of graphic in Base/sequence/img/fournisseu
+r/gestion de la consommation.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.384 ...urnisseur/gestion de la consommation.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 File: Base/sequence/img/fournisseur/gestion de la consommation.png Graphic file
- (type png)
-<use Base/sequence/img/fournisseur/gestion de la consommation.png>
-Package pdftex.def Info: Base/sequence/img/fournisseur/gestion de la consommati
-on.png  used on input line 384.
-(pdftex.def)             Requested size: 276.00105pt x 214.27718pt.
-) [47 <./Base/sequence/img/fournisseur/gestion de la consommation.png>]
+ (type eps)
+<Base/sequence/img/fournisseur/gestion de la consommation.png>) [49]
 \openout2 = `Base/apirest/apirest-base.aux'.
 
 
 No file Base/apirest/apirest-base.tex.
 \openout2 = `Base/interface/interface-base.aux'.
 
-(./Base/interface/interface-base.tex [48
+(./Base/interface/interface-base.tex [50
 
 
 
 
-] [49]
-<Base/interface/img/Log.png, id=886, 2930.95pt x 2124.93875pt>
-File: Base/interface/img/Log.png Graphic file (type png)
-<use Base/interface/img/Log.png>
-Package pdftex.def Info: Base/interface/img/Log.png  used on input line 67.
-(pdftex.def)             Requested size: 345.0pt x 250.11806pt.
- [50 <./Base/interface/img/Log.png>]
+
+
+] [51]
+
+! LaTeX Error: Cannot determine size of graphic in Base/interface/img/Log.png (
+no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.67 ...= 1\textwidth]{Base/interface/img/Log.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/interface/img/Log.png Graphic file (type eps)
+<Base/interface/img/Log.png> [52] [53]
 Overfull \hbox (5.55606pt too wide) in paragraph at lines 88--89
 \OT1/cmr/m/n/10 Lorsqu'un client se connectera, il arrivera sur la page d'acceu
 il ou plus pr^^Secis^^Sement
  []
 
-[51] [52] [53]
-<Base/interface/img/Client.png, id=929, 6132.9125pt x 6686.9825pt>
-File: Base/interface/img/Client.png Graphic file (type png)
-<use Base/interface/img/Client.png>
-Package pdftex.def Info: Base/interface/img/Client.png  used on input line 238.
+[54] [55] [56]
 
-(pdftex.def)             Requested size: 345.0pt x 376.10103pt.
- [54] [55 <./Base/interface/img/Client.png>] [56] [57]
-<Base/interface/img/Supplier.png, id=965, 7664.635pt x 6745.2pt>
-File: Base/interface/img/Supplier.png Graphic file (type png)
-<use Base/interface/img/Supplier.png>
-Package pdftex.def Info: Base/interface/img/Supplier.png  used on input line 33
-9.
-(pdftex.def)             Requested size: 345.0pt x 303.5209pt.
-) [58]
-[59 <./Base/interface/img/Supplier.png>]
+! LaTeX Error: Cannot determine size of graphic in Base/interface/img/Client.pn
+g (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.238 ...textwidth]{Base/interface/img/Client.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/interface/img/Client.png Graphic file (type eps)
+<Base/interface/img/Client.png> [57] [58] [59] [60]
+
+! LaTeX Error: Cannot determine size of graphic in Base/interface/img/Supplier.
+png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.339 ...xtwidth]{Base/interface/img/Supplier.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Base/interface/img/Supplier.png Graphic file (type eps)
+<Base/interface/img/Supplier.png>) [61] [62]
 \openout2 = `Base/intro/intro-ext.aux'.
 
- (./Base/intro/intro-ext.tex) [60
+ (./Base/intro/intro-ext.tex)
+[63
+
 
 
 ]
 \openout2 = `Extension-claire/Introduction/introduction-claire.aux'.
 
-
-(./Extension-claire/Introduction/introduction-claire.tex
+ (./Extension-claire/Introduction/introduction-claire.tex
 Overfull \hbox (54.29285pt too wide) in paragraph at lines 1--1
 []\OT1/cmr/bx/n/14.4 Introduction : Extension 1.6.1 : Gestion d'utilisateurs
  []
@@ -914,28 +1157,38 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--5
 
  []
 
-) [61
+) [64
+
 
 
 ]
 \openout2 = `Extension-claire/Usecase-claire/use_case-claire.aux'.
 
- (./Extension-claire/Usecase-claire/use_case-claire.tex [62
+ (./Extension-claire/Usecase-claire/use_case-claire.tex [65
+
 
 
 ]
-<Extension-claire/Usecase-claire/img/usecase.png, id=1007, 979.91292pt x 605.47
-464pt>
-File: Extension-claire/Usecase-claire/img/usecase.png Graphic file (type png)
-<use Extension-claire/Usecase-claire/img/usecase.png>
-Package pdftex.def Info: Extension-claire/Usecase-claire/img/usecase.png  used 
-on input line 38.
-(pdftex.def)             Requested size: 345.0pt x 213.16653pt.
-) [63 <./Extension-claire/Usecase-claire/img/usecase.png (PNG copy)>]
+
+! LaTeX Error: Cannot determine size of graphic in Extension-claire/Usecase-cla
+ire/img/usecase.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.38 ...ion-claire/Usecase-claire/img/usecase.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Extension-claire/Usecase-claire/img/usecase.png Graphic file (type eps)
+<Extension-claire/Usecase-claire/img/usecase.png>) [66]
 \openout2 = `Extension-claire/Overview-claire/overview-claire.aux'.
 
 
-(./Extension-claire/Overview-claire/overview-claire.tex [64
+(./Extension-claire/Overview-claire/overview-claire.tex [67
+
 
 
 ]
@@ -953,24 +1206,35 @@ Overfull \hbox (2.61156pt too wide) in paragraph at lines 61--62
 e ou lecture et ^^Secriture). 
  []
 
-[65]
+[68]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 89.
 
-<Extension-claire/Overview-claire/img/overview.png, id=1033, 1599.61394pt x 834
-.2348pt>
-File: Extension-claire/Overview-claire/img/overview.png Graphic file (type png)
 
-<use Extension-claire/Overview-claire/img/overview.png>
-Package pdftex.def Info: Extension-claire/Overview-claire/img/overview.png  use
-d on input line 112.
-(pdftex.def)             Requested size: 345.0pt x 179.91708pt.
-) [66 <./Extension-claire/Overview-claire/img/overview.png (PNG copy)>]
+! LaTeX Error: Cannot determine size of graphic in Extension-claire/Overview-cl
+aire/img/overview.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.112 ...-claire/Overview-claire/img/overview.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Extension-claire/Overview-claire/img/overview.png Graphic file (type eps)
+
+<Extension-claire/Overview-claire/img/overview.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [69] [70]
 \openout2 = `Extension-claire/BDD-claire/bdd-claire.aux'.
 
+ (./Extension-claire/BDD-claire/bdd-claire.tex [71
 
-(./Extension-claire/BDD-claire/bdd-claire.tex [67
 
 
 ]
@@ -979,82 +1243,128 @@ Overfull \hbox (19.3339pt too wide) in paragraph at lines 39--42
 t les deux possibilit^^Ses. 
  []
 
-[68]
-<Extension-claire/BDD-claire/img/BDD-claire.png, id=1063, 1243.95448pt x 609.45
-804pt>
-File: Extension-claire/BDD-claire/img/BDD-claire.png Graphic file (type png)
-<use Extension-claire/BDD-claire/img/BDD-claire.png>
-Package pdftex.def Info: Extension-claire/BDD-claire/img/BDD-claire.png  used o
-n input line 76.
-(pdftex.def)             Requested size: 345.0pt x 169.02896pt.
-) [69 <./Extension-claire/BDD-claire/img/BDD-claire.png (PNG copy)>]
+[72]
+
+! LaTeX Error: Cannot determine size of graphic in Extension-claire/BDD-claire/
+img/BDD-claire.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.76 ...sion-claire/BDD-claire/img/BDD-claire.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Extension-claire/BDD-claire/img/BDD-claire.png Graphic file (type eps)
+<Extension-claire/BDD-claire/img/BDD-claire.png>) [73]
 \openout2 = `Extension-claire/Class-claire/class-claire.aux'.
 
 
-(./Extension-claire/Class-claire/class-claire.tex [70
+(./Extension-claire/Class-claire/class-claire.tex [74
 
 
-] [71]
-<Extension-claire/Class-claire/img/class.png, id=1088, 1863.65552pt x 2133.9567
-pt>
-File: Extension-claire/Class-claire/img/class.png Graphic file (type png)
-<use Extension-claire/Class-claire/img/class.png>
-Package pdftex.def Info: Extension-claire/Class-claire/img/class.png  used on i
-nput line 83.
-(pdftex.def)             Requested size: 345.0pt x 395.0363pt.
-) [72 <./Extension-claire/Class-claire/img/class.png (PNG copy)>]
+
+] [75]
+
+! LaTeX Error: Cannot determine size of graphic in Extension-claire/Class-clair
+e/img/class.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.83 ...tension-claire/Class-claire/img/class.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Extension-claire/Class-claire/img/class.png Graphic file (type eps)
+<Extension-claire/Class-claire/img/class.png>) [76]
 \openout2 = `Extension-claire/Sequence-claire/sequence-claire.aux'.
 
 
-(./Extension-claire/Sequence-claire/sequence-claire.tex [73
+(./Extension-claire/Sequence-claire/sequence-claire.tex [77
 
 
-] [74]
-<Extension-claire/Sequence-claire/img/seqOuInvité.png, id=1106, 629.37495pt x
- 1086.32622pt>
+
+] [78]
+
+! LaTeX Error: Cannot determine size of graphic in Extension-claire/Sequence-cl
+aire/img/seqOuInvité.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.57 ...ire/Sequence-claire/img/seqOuInvité.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 File: Extension-claire/Sequence-claire/img/seqOuInvité.png Graphic file (type
- png)
-<use Extension-claire/Sequence-claire/img/seqOuInvité.png>
-Package pdftex.def Info: Extension-claire/Sequence-claire/img/seqOuInvité.png
-  used on input line 57.
-(pdftex.def)             Requested size: 239.85641pt x 413.99895pt.
- [75 <./Extension-claire/Sequence-claire/img/seqOuInvité.png (PNG copy)>] [76
-]
-<Extension-claire/Sequence-claire/img/seqUtilisateursInvités.png, id=1118, 627
-.09874pt x 1855.11969pt>
+ eps)
+<Extension-claire/Sequence-claire/img/seqOuInvité.png>
+Overfull \hbox (69.11334pt too wide) in paragraph at lines 57--58
+ [][] 
+ []
+
+[79] [80]
+
+! LaTeX Error: Cannot determine size of graphic in Extension-claire/Sequence-cl
+aire/img/seqUtilisateursInvités.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.101 ...e-claire/img/seqUtilisateursInvités.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 File: Extension-claire/Sequence-claire/img/seqUtilisateursInvités.png Graphic 
-file (type png)
-<use Extension-claire/Sequence-claire/img/seqUtilisateursInvités.png>
-Package pdftex.def Info: Extension-claire/Sequence-claire/img/seqUtilisateursIn
-vités.png  used on input line 101.
-(pdftex.def)             Requested size: 139.94287pt x 413.99895pt.
-) [77 <./Extension-claire/Sequence-claire/img/seqUtilisateursInvités.png (PNG 
-copy)>]
+file (type eps)
+<Extension-claire/Sequence-claire/img/seqUtilisateursInvités.png>
+Overfull \hbox (69.11334pt too wide) in paragraph at lines 101--102
+ [][] 
+ []
+
+) [81]
 \openout2 = `Extension-claire/API-claire/api-claire.aux'.
 
-
-(./Extension-claire/API-claire/api-claire.tex
+ (./Extension-claire/API-claire/api-claire.tex
 Overfull \hbox (2.20772pt too wide) in paragraph at lines 37--39
 \OT1/cmr/m/n/10 Le GET donne la possibilit^^Se de renvoyer les portefeuilles in
 vit^^Ses que poss^^Rede
  []
 
-[78
+[82
+
 
 
 ]
-<Extension-claire/API-claire/img/API-claire.png, id=1135, 1405.56615pt x 1284.9
-2645pt>
-File: Extension-claire/API-claire/img/API-claire.png Graphic file (type png)
-<use Extension-claire/API-claire/img/API-claire.png>
-Package pdftex.def Info: Extension-claire/API-claire/img/API-claire.png  used o
-n input line 48.
-(pdftex.def)             Requested size: 345.0pt x 315.38812pt.
-) [79 <./Extension-claire/API-claire/img/API-claire.png (PNG copy)>]
+
+! LaTeX Error: Cannot determine size of graphic in Extension-claire/API-claire/
+img/API-claire.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.48 ...sion-claire/API-claire/img/API-claire.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: Extension-claire/API-claire/img/API-claire.png Graphic file (type eps)
+<Extension-claire/API-claire/img/API-claire.png>) [83]
 \openout2 = `Extension-claire/Interface-claire/interface-claire.aux'.
 
 
-(./Extension-claire/Interface-claire/interface-claire.tex [80
+(./Extension-claire/Interface-claire/interface-claire.tex [84
+
 
 
 ]
@@ -1063,98 +1373,54 @@ Overfull \hbox (5.55606pt too wide) in paragraph at lines 43--44
 il ou plus pr^^Secis^^Sement
  []
 
-[81] [82] [83]
-<Extension-claire/Interface-claire/img/MonInterface.png, id=1180, 6124.8825pt x
- 4715.6175pt>
+[85] [86] [87]
+
+! LaTeX Error: Cannot determine size of graphic in Extension-claire/Interface-c
+laire/img/MonInterface.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.166 ...re/Interface-claire/img/MonInterface.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 File: Extension-claire/Interface-claire/img/MonInterface.png Graphic file (type
- png)
-<use Extension-claire/Interface-claire/img/MonInterface.png>
-Package pdftex.def Info: Extension-claire/Interface-claire/img/MonInterface.png
-  used on input line 166.
-(pdftex.def)             Requested size: 345.0pt x 265.58382pt.
-) [84 <./Extension-claire/Interface-claire/img/MonInterface.png>]
+ eps)
+<Extension-claire/Interface-claire/img/MonInterface.png>) [88]
 \openout2 = `extension-adrien/Intro/introduction.aux'.
+
 
 (./extension-adrien/Intro/introduction.tex
 Overfull \hbox (17.07294pt too wide) in paragraph at lines 1--1
 \OT1/cmr/bx/n/14.4 la consommation ^^Senerg^^Setique par Fi^^Sevet Adrien 
  []
 
-) [85
+) [89
+
 
 
 ]
 \openout2 = `extension-adrien/Use-case/use-case.aux'.
 
  (./extension-adrien/Use-case/use-case.tex
-<extension-adrien/Use-case/img/use-case.png, id=1191, 1020.81375pt x 630.10406p
-t>
-File: extension-adrien/Use-case/img/use-case.png Graphic file (type png)
-<use extension-adrien/Use-case/img/use-case.png>
-Package pdftex.def Info: extension-adrien/Use-case/img/use-case.png  used on in
-put line 17.
-(pdftex.def)             Requested size: 448.50105pt x 276.84283pt.
 
-Overfull \hbox (103.50105pt too wide) in paragraph at lines 17--18
- [][] 
- []
+! LaTeX Error: Cannot determine size of graphic in extension-adrien/Use-case/im
+g/use-case.png (no BoundingBox).
 
-) [86
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.17 ...xtension-adrien/Use-case/img/use-case.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-
- <./extension-adrien/Use-case/img/use-case.png (PNG copy)>]
-\openout2 = `extension-adrien/Overview/overview.aux'.
-
-
-(./extension-adrien/Overview/overview.tex
-<extension-adrien/Overview/img/overview.png, id=1196, 1169.11781pt x 826.58812p
-t>
-File: extension-adrien/Overview/img/overview.png Graphic file (type png)
-<use extension-adrien/Overview/img/overview.png>
-Package pdftex.def Info: extension-adrien/Overview/img/overview.png  used on in
-put line 9.
-(pdftex.def)             Requested size: 448.50105pt x 317.09595pt.
-
-Overfull \hbox (103.50105pt too wide) in paragraph at lines 9--10
- [][] 
- []
-
-) [87
-
-
- <./extension-adrien/Overview/img/overview.png (PNG copy)>]
-\openout2 = `extension-adrien/Bdd/bdd.aux'.
-
-
-(./extension-adrien/Bdd/bdd.tex
-<extension-adrien/Bdd/img/bdd.png, id=1201, 1336.995pt x 598.48593pt>
-File: extension-adrien/Bdd/img/bdd.png Graphic file (type png)
-<use extension-adrien/Bdd/img/bdd.png>
-Package pdftex.def Info: extension-adrien/Bdd/img/bdd.png  used on input line 1
-3.
-(pdftex.def)             Requested size: 448.50105pt x 200.76114pt.
-
-Overfull \hbox (103.50105pt too wide) in paragraph at lines 13--14
- [][] 
- []
-
-) [88
-
-
- <./extension-adrien/Bdd/img/bdd.png (PNG copy)>]
-\openout2 = `extension-adrien/ClassDiagram/classDiagram.aux'.
-
-
-(./extension-adrien/ClassDiagram/classDiagram.tex
-<extension-adrien/ClassDiagram/img/classDiagram.png, id=1206, 1929.45844pt x 21
-11.63907pt>
-File: extension-adrien/ClassDiagram/img/classDiagram.png Graphic file (type png
-)
-<use extension-adrien/ClassDiagram/img/classDiagram.png>
-Package pdftex.def Info: extension-adrien/ClassDiagram/img/classDiagram.png  us
-ed on input line 17.
-(pdftex.def)             Requested size: 448.50105pt x 490.82213pt.
-
+File: extension-adrien/Use-case/img/use-case.png Graphic file (type eps)
+<extension-adrien/Use-case/img/use-case.png>
 Overfull \hbox (103.50105pt too wide) in paragraph at lines 17--18
  [][] 
  []
@@ -1162,82 +1428,59 @@ Overfull \hbox (103.50105pt too wide) in paragraph at lines 17--18
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [89
+) [90
 
 
-]
-Missing character: There is no � in font cmr10!
- [90
 
-]
-Missing character: There is no � in font cmr10!
-Missing character: There is no � in font cmr10!
+] [91]
+\openout2 = `extension-adrien/Overview/overview.aux'.
 
-Overfull \vbox (10.0pt too high) has occurred while \output is active []
+ (./extension-adrien/Overview/overview.tex
 
- [91
+! LaTeX Error: Cannot determine size of graphic in extension-adrien/Overview/im
+g/overview.png (no BoundingBox).
 
-]
-\openout2 = `extension-adrien/Sequence/sequence.aux'.
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.9 ...extension-adrien/Overview/img/overview.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-
-(./extension-adrien/Sequence/sequence.tex
-<extension-adrien/Sequence/img/comparer.png, id=1221, 557.08125pt x 309.40594pt
->
-File: extension-adrien/Sequence/img/comparer.png Graphic file (type png)
-<use extension-adrien/Sequence/img/comparer.png>
-Package pdftex.def Info: extension-adrien/Sequence/img/comparer.png  used on in
-put line 13.
-(pdftex.def)             Requested size: 448.50105pt x 249.10667pt.
-
-Overfull \hbox (103.50105pt too wide) in paragraph at lines 13--14
+File: extension-adrien/Overview/img/overview.png Graphic file (type eps)
+<extension-adrien/Overview/img/overview.png>
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 9--10
  [][] 
  []
-
-<extension-adrien/Sequence/img/gerer.png, id=1222, 648.92438pt x 808.52063pt>
-File: extension-adrien/Sequence/img/gerer.png Graphic file (type png)
-<use extension-adrien/Sequence/img/gerer.png>
-Package pdftex.def Info: extension-adrien/Sequence/img/gerer.png  used on input
- line 22.
-(pdftex.def)             Requested size: 448.50105pt x 558.81746pt.
-
-Overfull \hbox (103.50105pt too wide) in paragraph at lines 22--23
- [][] 
- []
-
-
-LaTeX Warning: Float too large for page by 8.81746pt on input line 23.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 ) [92
 
- <./extension-adrien/Sequence/img/comparer.png (PNG copy)>]
-Missing character: There is no � in font cmr10!
- [93
-
-]
-Missing character: There is no � in font cmr10!
-Missing character: There is no � in font cmr10!
-
-Overfull \vbox (10.0pt too high) has occurred while \output is active []
-
- [94
-
-]
-\openout2 = `extension-adrien/Api-rest/api-rest.aux'.
 
 
-(./extension-adrien/Api-rest/api-rest.tex
-<extension-adrien/Api-rest/img/apirest.png, id=1235, 1312.905pt x 1081.79156pt>
+] [93]
+\openout2 = `extension-adrien/Bdd/bdd.aux'.
 
-File: extension-adrien/Api-rest/img/apirest.png Graphic file (type png)
-<use extension-adrien/Api-rest/img/apirest.png>
-Package pdftex.def Info: extension-adrien/Api-rest/img/apirest.png  used on inp
-ut line 13.
-(pdftex.def)             Requested size: 448.50105pt x 369.55399pt.
+ (./extension-adrien/Bdd/bdd.tex
 
+! LaTeX Error: Cannot determine size of graphic in extension-adrien/Bdd/img/bdd
+.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...xtwidth]{extension-adrien/Bdd/img/bdd.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: extension-adrien/Bdd/img/bdd.png Graphic file (type eps)
+<extension-adrien/Bdd/img/bdd.png>
 Overfull \hbox (103.50105pt too wide) in paragraph at lines 13--14
  [][] 
  []
@@ -1245,42 +1488,83 @@ Overfull \hbox (103.50105pt too wide) in paragraph at lines 13--14
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [95
-
-]
-Missing character: There is no � in font cmr10!
- [96
-
-]
-Missing character: There is no � in font cmr10!
-Missing character: There is no � in font cmr10!
-
-Overfull \vbox (10.0pt too high) has occurred while \output is active []
-
- [97
-
-]
-\openout2 = `extension-adrien/Interface/interface.aux'.
+) [94
 
 
-(./extension-adrien/Interface/interface.tex
 
-LaTeX Warning: The counter will not be printed.
-             The label is: - on input line 7.
+] [95]
+\openout2 = `extension-adrien/ClassDiagram/classDiagram.aux'.
+
+ (./extension-adrien/ClassDiagram/classDiagram.tex
+
+! LaTeX Error: Cannot determine size of graphic in extension-adrien/ClassDiagra
+m/img/classDiagram.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.17 ...-adrien/ClassDiagram/img/classDiagram.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: extension-adrien/ClassDiagram/img/classDiagram.png Graphic file (type eps
+)
+<extension-adrien/ClassDiagram/img/classDiagram.png>
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 17--18
+ [][] 
+ []
 
 
-LaTeX Warning: The counter will not be printed.
-             The label is: - on input line 21.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-<extension-adrien/Interface/img/interface.png, id=1249, 6375.82pt x 7245.0675pt
->
-File: extension-adrien/Interface/img/interface.png Graphic file (type png)
-<use extension-adrien/Interface/img/interface.png>
-Package pdftex.def Info: extension-adrien/Interface/img/interface.png  used on 
-input line 33.
-(pdftex.def)             Requested size: 448.50105pt x 509.63867pt.
+) [96
 
-Overfull \hbox (103.50105pt too wide) in paragraph at lines 33--34
+
+
+] [97]
+\openout2 = `extension-adrien/Sequence/sequence.aux'.
+
+ (./extension-adrien/Sequence/sequence.tex
+
+! LaTeX Error: Cannot determine size of graphic in extension-adrien/Sequence/im
+g/comparer.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...xtension-adrien/Sequence/img/comparer.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: extension-adrien/Sequence/img/comparer.png Graphic file (type eps)
+<extension-adrien/Sequence/img/comparer.png>
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 13--14
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+! LaTeX Error: Cannot determine size of graphic in extension-adrien/Sequence/im
+g/gerer.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.22 ...]{extension-adrien/Sequence/img/gerer.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: extension-adrien/Sequence/img/gerer.png Graphic file (type eps)
+<extension-adrien/Sequence/img/gerer.png>
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 22--23
  [][] 
  []
 
@@ -1289,25 +1573,1561 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 ) [98
 
-]
-Missing character: There is no � in font cmr10!
- [99
+
+
+] [99] [100]
+\openout2 = `extension-adrien/Api-rest/api-rest.aux'.
+
+ (./extension-adrien/Api-rest/api-rest.tex
+
+! LaTeX Error: Cannot determine size of graphic in extension-adrien/Api-rest/im
+g/apirest.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...extension-adrien/Api-rest/img/apirest.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: extension-adrien/Api-rest/img/apirest.png Graphic file (type eps)
+<extension-adrien/Api-rest/img/apirest.png>
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 13--14
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [101
+
+
+
+] [102]
+\openout2 = `extension-adrien/Interface/interface.aux'.
+
+ (./extension-adrien/Interface/interface.tex
+
+LaTeX Warning: The counter will not be printed.
+             The label is: - on input line 7.
+
+
+LaTeX Warning: The counter will not be printed.
+             The label is: - on input line 21.
+
+
+! LaTeX Error: Cannot determine size of graphic in extension-adrien/Interface/i
+mg/interface.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.33 ...ension-adrien/Interface/img/interface.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: extension-adrien/Interface/img/interface.png Graphic file (type eps)
+<extension-adrien/Interface/img/interface.png>
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 33--34
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [103
+
+
+
+] [104]
+\openout2 = `extension_julien/android.aux'.
+
+ (./extension_julien/android.tex [105
+
+
 
 ]
-Missing character: There is no � in font cmr10!
-Missing character: There is no � in font cmr10!
+Overfull \hbox (240.24492pt too wide) in paragraph at lines 29--30
+[][][][]  
+ []
 
-Overfull \vbox (10.0pt too high) has occurred while \output is active []
 
- [100
+Overfull \hbox (271.24464pt too wide) in paragraph at lines 32--33
+[][][][]  
+ []
+
+) [106]
+\openout2 = `extension-maxime/intro/intro-extension.aux'.
+
+ (./extension-maxime/intro/intro-extension.tex) [107
+
+
 
 ]
-\openout2 = `extension_julien/android.tex.aux'.
+\openout2 = `extension-maxime/usescases/usescases-extension.aux'.
 
 
-No file extension_julien/android.tex.tex.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 87.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 87.
+(./extension-maxime/usescases/usescases-extension.tex)
+Runaway argument?
+{Comprise en +-20\end {flushleft} \par \begin {flushleft} De plus, lo\ETC.
+! File ended while scanning use of \@footnotetext.
+<inserted text> 
+                \par 
+l.87 ...sion-maxime/usescases/usescases-extension}
+                                                  
+I suspect you have forgotten a `}', causing me
+to read past where you wanted me to stop.
+I'll try to recover; but if the error is serious,
+you'd better type `E' or `X' now and fix your file.
+
+[108
+
+
+
+]
+\openout2 = `extension-maxime/interaction/interaction-extension.aux'.
+
+ (./extension-maxime/interaction/interaction-extension.tex
+
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/interaction
+/img/interaction-extension.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.20 ...interaction/img/interaction-extension.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: extension-maxime/interaction/img/interaction-extension.png Graphic file (
+type eps)
+<extension-maxime/interaction/img/interaction-extension.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [109
+
+
+
+] [110]
+\openout2 = `extension-maxime/class/class-extension.aux'.
+
+ (./extension-maxime/class/class-extension.tex
+
+LaTeX Warning: The counter will not be printed.
+             The label is: - on input line 16.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.18 ...e la facture via un boolean (payed=true).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+<recently read> \egroup 
+                        
+l.18 ...e la facture via un boolean (payed=true).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.19 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.19 
+     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (44.12064pt too wide) in paragraph at lines 18--19
+\OT1/cmr/bx/n/10 "paiement$[]\OML/cmm/m/it/10 tatus\OT1/cmr/m/n/10 "\OML/cmm/m/
+it/10 permetdevoirlestatutdepaiementdelafactureviaunboolean\OT1/cmr/m/n/10 (\OM
+L/cmm/m/it/10 payed \OT1/cmr/m/n/10 = 
+ []
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.20 ...iquement par l'application via un double.}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 20.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.20 ...iquement par l'application via un double.}
+                                                  
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Extra }, or forgotten $.
+<recently read> \egroup 
+                        
+l.20 ...iquement par l'application via un double.}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.21 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.21 
+     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (52.49702pt too wide) in paragraph at lines 20--21
+\OT1/cmr/bx/n/10 "ideal$[]\OML/cmm/m/it/10 ccompt\OT1/cmr/m/n/10 "\OML/cmm/m/it
+/10 affichel[]accomptecalcul[]automatiquementparl[]applicationviaundouble:[]$  
+
+ []
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.22 ...de paiement via un boolean (manual=true).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 22.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.22 ...de paiement via un boolean (manual=true).}
+                                                  
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Extra }, or forgotten $.
+<recently read> \egroup 
+                        
+l.22 ...de paiement via un boolean (manual=true).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.23 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.23 
+     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.24 ... ArrayList, les informations de paiement.}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+<recently read> \egroup 
+                        
+l.24 ... ArrayList, les informations de paiement.}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.25 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.25 
+     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (74.0193pt too wide) in paragraph at lines 24--25
+\OT1/cmr/bx/n/10 "paiement$[]\OML/cmm/m/it/10 nformations\OT1/cmr/m/n/10 "\OML/
+cmm/m/it/10 affiche; sousformed[]uneArrayList; lesinformationsdepaiement:[]$  
+ []
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.26 ...che un historique des factures du client.}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+LaTeX Warning: Command \^ invalid in math mode on input line 26.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.26 ...che un historique des factures du client.}
+                                                  
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \` invalid in math mode on input line 26.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.26 ...che un historique des factures du client.}
+                                                  
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 26.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.26 ...che un historique des factures du client.}
+                                                  
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 26.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.26 ...che un historique des factures du client.}
+                                                  
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Extra }, or forgotten $.
+<recently read> \egroup 
+                        
+l.26 ...che un historique des factures du client.}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.27 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.27 
+     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (130.38324pt too wide) in paragraph at lines 26--27
+\OT1/cmr/bx/n/10 "factures$[]\OML/cmm/m/it/10 istory\OT1/cmr/m/n/10 "\OML/cmm/m
+/it/10 ; delam[]memani[]requelavariablepr[]c[]dente; afficheunhistoriquedesfact
+uresduclient:[]$  
+ []
+
+
+LaTeX Warning: The counter will not be printed.
+             The label is: - on input line 37.
+
+[111
+
+
+
+]
+! Undefined control sequence.
+<recently read> \texbf 
+                       
+l.49 \item \texbf
+                 {Dans le cas où le paiement manuel est choisi, la méthode...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/class/img/c
+lass-extension.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.64 ...sion-maxime/class/img/class-extension.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.64 ...sion-maxime/class/img/class-extension.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.64 ...sion-maxime/class/img/class-extension.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+File: extension-maxime/class/img/class-extension.png Graphic file (type eps)
+<extension-maxime/class/img/class-extension.png>) [112]
+\openout2 = `extension-maxime/bdd/bdd-extension.aux'.
+
+
+(./extension-maxime/bdd/bdd-extension.tex
+! Missing $ inserted.
+<inserted text> 
+                $
+l.9 ... et une facture. En outre, un élement "id_
+                                                  factures" a été ajouté ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 9.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.9 ...e. En outre, un élement "id_factures" a é
+                                                  té ajouté à l'entité "...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 9.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.9 ...En outre, un élement "id_factures" a été
+                                                   ajouté à l'entité "con...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 9.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.9 ..., un élement "id_factures" a été ajouté
+                                                   à l'entité "contrat" af...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \` invalid in math mode on input line 9.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.9 ...n élement "id_factures" a été ajouté à
+                                                   l'entité "contrat" afin ...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 9.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.9 ... "id_factures" a été ajouté à l'entité
+                                                   "contrat" afin de relier ...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.9 ...otnote{"id_factures" étant un Primary Key}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 9.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.9 ...otnote{"id_factures" étant un Primary Key}
+                                                  
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.9 ...otnote{"id_factures" étant un Primary Key}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+! LaTeX Error: Command \end{flushleft} invalid in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 \end{flushleft}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 \end{flushleft}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 \end{flushleft}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.10 \end{flushleft}
+                    
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+LaTeX Warning: The counter will not be printed.
+             The label is: - on input line 15.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.17 ...ontrat avec un varchar de 10 caractères.}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+LaTeX Warning: Command \` invalid in math mode on input line 17.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.17 ...ontrat avec un varchar de 10 caractères.}
+                                                  
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Extra }, or forgotten $.
+<recently read> \egroup 
+                        
+l.17 ...ontrat avec un varchar de 10 caractères.}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.18 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.18 
+     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.21 ...de l'accompte proposé par l'application.}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 21.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.21 ...de l'accompte proposé par l'application.}
+                                                  
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Extra }, or forgotten $.
+<recently read> \egroup 
+                        
+l.21 ...de l'accompte proposé par l'application.}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.22 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.22 
+     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (12.0209pt too wide) in paragraph at lines 21--22
+\OT1/cmr/bx/n/10 "ideal$[]\OML/cmm/m/it/10 ccompte\OT1/cmr/m/n/10 "\OML/cmm/m/i
+t/10 contientunevaleurdoubledel[]accomptepropos[]parl[]application:[]$  
+ []
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.23 ...t une valeur binaire du mode de paiement.}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+<recently read> \egroup 
+                        
+l.23 ...t une valeur binaire du mode de paiement.}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.24 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.24 
+     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.25 ...vec les informations bancaires du client.}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+<recently read> \egroup 
+                        
+l.25 ...vec les informations bancaires du client.}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.26 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.26 
+     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (40.89424pt too wide) in paragraph at lines 25--26
+\OT1/cmr/bx/n/10 "paiement$[]\OML/cmm/m/it/10 nformations\OT1/cmr/m/n/10 "\OML/
+cmm/m/it/10 contientunvarcharaveclesinformationsbancairesduclient:[]$  
+ []
+
+
+LaTeX Warning: File `extension-maxime/bdd/bdd-extension.png' not found on input
+ line 32.
+
+
+! LaTeX Error: File `extension-maxime/bdd/bdd-extension.png' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.32 ...1]{extension-maxime/bdd/bdd-extension.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/bdd/bdd-ext
+ension.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.32 ...1]{extension-maxime/bdd/bdd-extension.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.32 ...1]{extension-maxime/bdd/bdd-extension.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.32 ...1]{extension-maxime/bdd/bdd-extension.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+File: extension-maxime/bdd/bdd-extension.png Graphic file (type eps)
+<extension-maxime/bdd/bdd-extension.png>) [113
+
+
+
+]
+\openout2 = `extension-maxime/sequence/sequence-extension.aux'.
+
+
+(./extension-maxime/sequence/sequence-extension.tex
+
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/sequence/im
+g/sequence-extension.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.27 ...axime/sequence/img/sequence-extension.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.27 ...axime/sequence/img/sequence-extension.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.27 ...axime/sequence/img/sequence-extension.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+File: extension-maxime/sequence/img/sequence-extension.png Graphic file (type e
+ps)
+<extension-maxime/sequence/img/sequence-extension.png>) [114
+
+
+
+]
+\openout2 = `extension-maxime/apirest/apirest-extension.aux'.
+
+
+(./extension-maxime/apirest/apirest-extension.tex
+! Missing $ inserted.
+<inserted text> 
+                $
+l.10 ...e. Dans cette requête, un paramètre "id_
+                                                  facture" est nécessaire p...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 10.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.10 ...quête, un paramètre "id_facture" est né
+                                                  cessaire pour voir une fac...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \` invalid in math mode on input line 10.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.10 ... une facture en particulier. Si ce paramè
+                                                  tre vaut "NULL", toutes le...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 10.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.10 ... "NULL", toutes les factures sont affiché
+                                                  es.
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \^ invalid in math mode on input line 11.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.11 Cette requê
+                 te renvoie donc un objet "Facture" comprenant les même él...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \^ invalid in math mode on input line 11.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.11 ...donc un objet "Facture" comprenant les mê
+                                                  me éléments cités préc...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 11.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.11 ...un objet "Facture" comprenant les même é
+                                                  léments cités précédem...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 11.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.11 ...objet "Facture" comprenant les même élé
+                                                  ments cités précédemment.
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 11.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.11 ...ure" comprenant les même éléments cité
+                                                  s précédemment.
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 11.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.11 ...omprenant les même éléments cités pré
+                                                  cédemment.
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 11.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.11 ...renant les même éléments cités précé
+                                                  demment.
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+! LaTeX Error: Command \end{flushleft} invalid in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.12 \end{flushleft}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.12 \end{flushleft}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.12 \end{flushleft}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.12 \end{flushleft}
+                    
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (606.96992pt too wide) in paragraph at lines 10--13
+\OT1/cmr/m/n/10 "id$[]\OML/cmm/m/it/10 acture\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 
+estn[]cessairepourvoirunefactureenparticulier:Siceparam[]trevaut\OT1/cmr/m/n/10
+ "\OML/cmm/m/it/10 NULL\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 ; touteslesfacturesson
+taffich[]es:Cetterequ[]terenvoiedoncunobjet\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 Fa
+cture\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 comprenantlesm[]me[]l[]mentscit[]spr[]c[
+]demment:$  
+ []
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.17 ...aut cependant noter que le paramètre "id_
+                                                  facture" ne peut plus êtr...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+LaTeX Warning: Command \^ invalid in math mode on input line 17.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.17 ...le paramètre "id_facture" ne peut plus ê
+                                                  tre "NULL" sous peine de g...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 17.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.17 ...e peut plus être "NULL" sous peine de gé
+                                                  nérer une erreur.
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 17.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.17 ...eut plus être "NULL" sous peine de géné
+                                                  rer une erreur.
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+! LaTeX Error: Command \end{flushleft} invalid in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.18 \end{flushleft}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.18 \end{flushleft}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.18 \end{flushleft}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.18 \end{flushleft}
+                    
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/apirest/img
+/apirest-extension.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.23 ...-maxime/apirest/img/apirest-extension.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.23 ...-maxime/apirest/img/apirest-extension.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.23 ...-maxime/apirest/img/apirest-extension.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+File: extension-maxime/apirest/img/apirest-extension.png Graphic file (type eps
+)
+<extension-maxime/apirest/img/apirest-extension.png>) [115
+
+
+
+]
+\openout2 = `extension-maxime/interface/interface-extension.aux'.
+
+
+(./extension-maxime/interface/interface-extension.tex
+
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
+mg/home.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ...]{extension-maxime/interface/img/home.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.14 ...]{extension-maxime/interface/img/home.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.14 ...]{extension-maxime/interface/img/home.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+File: extension-maxime/interface/img/home.png Graphic file (type eps)
+<extension-maxime/interface/img/home.png>
+
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
+mg/list.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.23 ...]{extension-maxime/interface/img/list.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.23 ...]{extension-maxime/interface/img/list.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.23 ...]{extension-maxime/interface/img/list.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+File: extension-maxime/interface/img/list.png Graphic file (type eps)
+<extension-maxime/interface/img/list.png>
+
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
+mg/facture.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.32 ...xtension-maxime/interface/img/facture.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.32 ...xtension-maxime/interface/img/facture.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.32 ...xtension-maxime/interface/img/facture.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+File: extension-maxime/interface/img/facture.png Graphic file (type eps)
+<extension-maxime/interface/img/facture.png>
+
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
+mg/paiement.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.41 ...tension-maxime/interface/img/paiement.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.41 ...tension-maxime/interface/img/paiement.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.41 ...tension-maxime/interface/img/paiement.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+File: extension-maxime/interface/img/paiement.png Graphic file (type eps)
+<extension-maxime/interface/img/paiement.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
+mg/proposal.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.50 ...tension-maxime/interface/img/proposal.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.50 ...tension-maxime/interface/img/proposal.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.50 ...tension-maxime/interface/img/proposal.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+File: extension-maxime/interface/img/proposal.png Graphic file (type eps)
+<extension-maxime/interface/img/proposal.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[116
+
+
+
+]
+
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
+mg/paiement-method.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.59 ...-maxime/interface/img/paiement-method.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.59 ...-maxime/interface/img/paiement-method.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.59 ...-maxime/interface/img/paiement-method.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+File: extension-maxime/interface/img/paiement-method.png Graphic file (type eps
+)
+<extension-maxime/interface/img/paiement-method.png>
+
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
+mg/paiement-informations.png (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.68 ...e/interface/img/paiement-informations.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.68 ...e/interface/img/paiement-informations.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   !
+l.68 ...e/interface/img/paiement-informations.png}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+File: extension-maxime/interface/img/paiement-informations.png Graphic file (ty
+pe eps)
+<extension-maxime/interface/img/paiement-informations.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [117] [118]
+\openout2 = `extension-maxime/conclusion/conclusion-extension.aux'.
+
+ (./extension-maxime/conclusion/conclusion-extension.tex) [119
+
+
+
+]
+
+! LaTeX Error: \begin{flushleft} on input line 7 ended by \end{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.96 \end{document}
+                   
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
 (./main.aux (./Base/use_case/use_case-base.aux)
 (./Base/overview/overview-base.aux) (./Base/bdd/bdd-base.aux)
 (./Base/classDiagram/classDiagram-base.aux) (./Base/sequence/sequence-base.aux)
@@ -1327,99 +3147,30 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 87.
 (./extension-adrien/ClassDiagram/classDiagram.aux)
 (./extension-adrien/Sequence/sequence.aux)
 (./extension-adrien/Api-rest/api-rest.aux)
-(./extension-adrien/Interface/interface.aux)
-(./extension_julien/android.tex.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 87.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 87.
+(./extension-adrien/Interface/interface.aux) (./extension_julien/android.aux)
+(./extension-maxime/intro/intro-extension.aux)
+(./extension-maxime/usescases/usescases-extension.aux)
+(./extension-maxime/interaction/interaction-extension.aux)
+(./extension-maxime/class/class-extension.aux)
+(./extension-maxime/bdd/bdd-extension.aux)
+(./extension-maxime/sequence/sequence-extension.aux)
+(./extension-maxime/apirest/apirest-extension.aux)
+(./extension-maxime/interface/interface-extension.aux)
+(./extension-maxime/conclusion/conclusion-extension.aux))
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: EDC9062D9DAD2369260DF6D7337139E2;19695.
+ )
+(\end occurred inside a group at level 1)
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 114A961EA956B29C4CD3AE246CEE7A6D;7162
-(rerunfilecheck)             After:  2756EE536745C0D15C03CA1676B4580A;6612.
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 87.
- ) 
+### semi simple group (level 1) entered at line 7 (\begingroup)
+### bottom level 
 Here is how much of TeX's memory you used:
- 9232 strings out of 483140
- 145652 string characters out of 5965150
- 404144 words of memory out of 5000000
- 23417 multiletter control sequences out of 15000+600000
- 541185 words of font info for 59 fonts, out of 8000000 for 9000
+ 13407 strings out of 480205
+ 278076 string characters out of 5895036
+ 527429 words of memory out of 5000000
+ 30706 multiletter control sequences out of 15000+600000
+ 478106 words of font info for 63 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 40i,8n,45p,829b,429s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{section.24} has been referenced but does not exis
-t, replaced by a fixed one
+ 65i,9n,75p,10604b,635s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-pdfTeX warning (dest): name{subsection.16.3} has been referenced but does not e
-xist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.16.2} has been referenced but does not e
-xist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.16.1} has been referenced but does not e
-xist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.15.4} has been referenced but does not e
-xist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsubsection.14.2.2} has been referenced but does 
-not exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsubsection.14.2.1} has been referenced but does 
-not exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.13.5} has been referenced but does not e
-xist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.13.4} has been referenced but does not e
-xist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.13.3} has been referenced but does not e
-xist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.7.5} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.7.4} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.7.3} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.7.2} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.7.1} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.6.7} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.6.6} has been referenced but does not ex
-ist, replaced by a fixed one
-
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on main.pdf (100 pages, 8462208 bytes).
-PDF statistics:
- 1403 PDF objects out of 1440 (max. 8388607)
- 1212 compressed objects within 13 object streams
- 420 named destinations out of 1000 (max. 500000)
- 1062 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+Output written on main.dvi (119 pages, 364056 bytes).
