@@ -1,7 +1,7 @@
 \section{Design REST Api}
 \subsection{Introduction}
 \begin{flushleft}
-Cette section représente le fonctionnement de l'API REST sous forme d'un diagramme de classes. Ce schéma montre les interactions entre l'API, le serveur et les utilisateurs. Les fonctionnalités implémentées dans le diagramme de classe de l'application sont reprises sous forme de requêtes liées à l'API.  Un requête est référenciée suivant un chemin appelée "route". Celle-ci détermine les paramètres indiquant le chemin d'accès et les éléments à modifier. Tout ceci est contenu dans une requête de type "https://www.myapplication.be/login/create_account/". Pour toutes les requêtes (exceptée la requête de connexion), un paramètre "token" de type String est inclu pour vérifier si l'utilisateur est connecté et ce token permet de le reconnaître dans la base de données.
+Cette section représente le fonctionnement de l'API REST sous forme d'un diagramme de classes. Ce schéma montre les interactions entre l'API, le serveur et les utilisateurs. Les fonctionnalités implémentées dans le diagramme de classe de l'application sont reprises sous forme de requêtes liées à l'API.  Un requête est référenciée suivant un chemin appelée "route". Celle-ci détermine les paramètres indiquant le chemin d'accès et les éléments à modifier. Tout ceci est contenu dans une requête de type $"https://www.myapplication.be/login/create_account/"$. Pour toutes les requêtes (exceptée la requête de connexion), un paramètre "token" de type String est inclu pour vérifier si l'utilisateur est connecté et ce token permet de le reconnaître dans la base de données.
 \end{flushleft}
 
 \subsection{Gestion d'un utlisateur}
@@ -36,6 +36,6 @@ En conclusion, un utilisateur peut gérer ses données à l'aide de requêtes PO
 \end{flushleft}
 \subsection{Schéma}
 \begin{figure}[h]
-\includegraphics[scale=0.2]{Base/apirest/img/apirest.png}
+\includegraphics[width = 1.3\textwidth]{Base/api-rest/img/apirest.png}
 \end{figure}
 
