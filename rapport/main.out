@@ -47,61 +47,53 @@
 \BOOKMARK [3][-]{subsubsection.5.4.1}{Gestion des clients}{subsection.5.4}% 47
 \BOOKMARK [3][-]{subsubsection.5.4.2}{Gestion des propositions}{subsection.5.4}% 48
 \BOOKMARK [3][-]{subsubsection.5.4.3}{Gestion de la consommation}{subsection.5.4}% 49
-\BOOKMARK [1][-]{section.6}{Design REST Api}{}% 50
+\BOOKMARK [1][-]{section.6}{Interface}{}% 50
 \BOOKMARK [2][-]{subsection.6.1}{Introduction}{section.6}% 51
-\BOOKMARK [2][-]{subsection.6.2}{Gestion d'un utlisateur}{section.6}% 52
-\BOOKMARK [2][-]{subsection.6.3}{Ajout de donn\351es}{section.6}% 53
-\BOOKMARK [2][-]{subsection.6.4}{Affichage de donn\351es}{section.6}% 54
-\BOOKMARK [2][-]{subsection.6.5}{Modification/Suppression de donn\351es}{section.6}% 55
-\BOOKMARK [2][-]{subsection.6.6}{Conclusion}{section.6}% 56
-\BOOKMARK [2][-]{subsection.6.7}{Sch\351ma}{section.6}% 57
-\BOOKMARK [1][-]{section.7}{Interface}{}% 58
-\BOOKMARK [2][-]{subsection.7.1}{Introduction}{section.7}% 59
-\BOOKMARK [2][-]{subsection.7.2}{Syst\350me de logs}{section.7}% 60
-\BOOKMARK [2][-]{subsection.7.3}{Points communs}{section.7}% 61
-\BOOKMARK [2][-]{subsection.7.4}{Interface client}{section.7}% 62
-\BOOKMARK [2][-]{subsection.7.5}{Interface fournisseur}{section.7}% 63
-\BOOKMARK [1][-]{section.8}{Introduction-extension}{}% 64
-\BOOKMARK [1][-]{section.9}{Introduction : Extension 1.6.1 : Gestion d\220utilisateurs par D\220Haene Claire}{}% 65
-\BOOKMARK [1][-]{section.10}{Use case diagram}{}% 66
-\BOOKMARK [2][-]{subsection.10.1}{Introduction}{section.10}% 67
-\BOOKMARK [2][-]{subsection.10.2}{Client}{section.10}% 68
-\BOOKMARK [2][-]{subsection.10.3}{Diagramme}{section.10}% 69
-\BOOKMARK [1][-]{section.11}{interaction overview diagram}{}% 70
-\BOOKMARK [2][-]{subsection.11.1}{Introduction}{section.11}% 71
-\BOOKMARK [2][-]{subsection.11.2}{Acc\350s \340 l'application pour les clients}{section.11}% 72
-\BOOKMARK [2][-]{subsection.11.3}{Diagramme}{section.11}% 73
-\BOOKMARK [1][-]{section.12}{Entity relationship diagram}{}% 74
-\BOOKMARK [2][-]{subsection.12.1}{Introduction}{section.12}% 75
-\BOOKMARK [2][-]{subsection.12.2}{Utilisateur}{section.12}% 76
-\BOOKMARK [2][-]{subsection.12.3}{Portefeuille invit\351}{section.12}% 77
-\BOOKMARK [2][-]{subsection.12.4}{Contrat du portefeuille}{section.12}% 78
-\BOOKMARK [2][-]{subsection.12.5}{Diagramme}{section.12}% 79
-\BOOKMARK [1][-]{section.13}{Class diagram}{}% 80
-\BOOKMARK [2][-]{subsection.13.1}{Introduction}{section.13}% 81
-\BOOKMARK [2][-]{subsection.13.2}{Le package api}{section.13}% 82
-\BOOKMARK [2][-]{subsection.13.3}{Le package dataBase}{section.13}% 83
-\BOOKMARK [2][-]{subsection.13.4}{Le package dataObject}{section.13}% 84
-\BOOKMARK [2][-]{subsection.13.5}{Diagramme}{section.13}% 85
-\BOOKMARK [1][-]{section.14}{Sequence diagram}{}% 86
-\BOOKMARK [2][-]{subsection.14.1}{Introduction}{section.14}% 87
-\BOOKMARK [2][-]{subsection.14.2}{Client}{section.14}% 88
-\BOOKMARK [3][-]{subsubsection.14.2.1}{Gestion des portefeuilles invit\351s}{subsection.14.2}% 89
-\BOOKMARK [3][-]{subsubsection.14.2.2}{Gestion des utilisateurs invit\351s}{subsection.14.2}% 90
-\BOOKMARK [1][-]{section.15}{API REST}{}% 91
-\BOOKMARK [2][-]{subsection.15.1}{Introduction}{section.15}% 92
-\BOOKMARK [2][-]{subsection.15.2}{Les utilisateurs invit\351s}{section.15}% 93
-\BOOKMARK [2][-]{subsection.15.3}{Les portefeuilles invit\351s}{section.15}% 94
-\BOOKMARK [2][-]{subsection.15.4}{Diagramme}{section.15}% 95
-\BOOKMARK [1][-]{section.16}{Interface}{}% 96
-\BOOKMARK [2][-]{subsection.16.1}{Introduction}{section.16}% 97
-\BOOKMARK [2][-]{subsection.16.2}{L'interface client}{section.16}% 98
-\BOOKMARK [2][-]{subsection.16.3}{Image de l'interface}{section.16}% 99
-\BOOKMARK [1][-]{section.17}{Introduction: 1.6.4: Analyse statistique de la consommation \351nerg\351tique par Fi\351vet Adrien}{}% 100
-\BOOKMARK [1][-]{section.18}{Use cases diagrams}{}% 101
-\BOOKMARK [1][-]{section.19}{Overview}{}% 102
-\BOOKMARK [1][-]{section.20}{Bdd}{}% 103
-\BOOKMARK [1][-]{section.21}{Class}{}% 104
-\BOOKMARK [1][-]{section.22}{sequence}{}% 105
-\BOOKMARK [1][-]{section.23}{api-rest}{}% 106
-\BOOKMARK [1][-]{section.24}{Interface}{}% 107
+\BOOKMARK [2][-]{subsection.6.2}{Syst\350me de logs}{section.6}% 52
+\BOOKMARK [2][-]{subsection.6.3}{Points communs}{section.6}% 53
+\BOOKMARK [2][-]{subsection.6.4}{Interface client}{section.6}% 54
+\BOOKMARK [2][-]{subsection.6.5}{Interface fournisseur}{section.6}% 55
+\BOOKMARK [1][-]{section.7}{Introduction-extension}{}% 56
+\BOOKMARK [1][-]{section.8}{Introduction : Extension 1.6.1 : Gestion d\220utilisateurs par D\220Haene Claire}{}% 57
+\BOOKMARK [1][-]{section.9}{Use case diagram}{}% 58
+\BOOKMARK [2][-]{subsection.9.1}{Introduction}{section.9}% 59
+\BOOKMARK [2][-]{subsection.9.2}{Client}{section.9}% 60
+\BOOKMARK [2][-]{subsection.9.3}{Diagramme}{section.9}% 61
+\BOOKMARK [1][-]{section.10}{interaction overview diagram}{}% 62
+\BOOKMARK [2][-]{subsection.10.1}{Introduction}{section.10}% 63
+\BOOKMARK [2][-]{subsection.10.2}{Acc\350s \340 l'application pour les clients}{section.10}% 64
+\BOOKMARK [2][-]{subsection.10.3}{Diagramme}{section.10}% 65
+\BOOKMARK [1][-]{section.11}{Entity relationship diagram}{}% 66
+\BOOKMARK [2][-]{subsection.11.1}{Introduction}{section.11}% 67
+\BOOKMARK [2][-]{subsection.11.2}{Utilisateur}{section.11}% 68
+\BOOKMARK [2][-]{subsection.11.3}{Portefeuille invit\351}{section.11}% 69
+\BOOKMARK [2][-]{subsection.11.4}{Contrat du portefeuille}{section.11}% 70
+\BOOKMARK [2][-]{subsection.11.5}{Diagramme}{section.11}% 71
+\BOOKMARK [1][-]{section.12}{Class diagram}{}% 72
+\BOOKMARK [2][-]{subsection.12.1}{Introduction}{section.12}% 73
+\BOOKMARK [2][-]{subsection.12.2}{Le package api}{section.12}% 74
+\BOOKMARK [2][-]{subsection.12.3}{Le package dataBase}{section.12}% 75
+\BOOKMARK [2][-]{subsection.12.4}{Le package dataObject}{section.12}% 76
+\BOOKMARK [2][-]{subsection.12.5}{Diagramme}{section.12}% 77
+\BOOKMARK [1][-]{section.13}{Sequence diagram}{}% 78
+\BOOKMARK [2][-]{subsection.13.1}{Introduction}{section.13}% 79
+\BOOKMARK [2][-]{subsection.13.2}{Client}{section.13}% 80
+\BOOKMARK [3][-]{subsubsection.13.2.1}{Gestion des portefeuilles invit\351s}{subsection.13.2}% 81
+\BOOKMARK [3][-]{subsubsection.13.2.2}{Gestion des utilisateurs invit\351s}{subsection.13.2}% 82
+\BOOKMARK [1][-]{section.14}{API REST}{}% 83
+\BOOKMARK [2][-]{subsection.14.1}{Introduction}{section.14}% 84
+\BOOKMARK [2][-]{subsection.14.2}{Les utilisateurs invit\351s}{section.14}% 85
+\BOOKMARK [2][-]{subsection.14.3}{Les portefeuilles invit\351s}{section.14}% 86
+\BOOKMARK [2][-]{subsection.14.4}{Diagramme}{section.14}% 87
+\BOOKMARK [1][-]{section.15}{Interface}{}% 88
+\BOOKMARK [2][-]{subsection.15.1}{Introduction}{section.15}% 89
+\BOOKMARK [2][-]{subsection.15.2}{L'interface client}{section.15}% 90
+\BOOKMARK [2][-]{subsection.15.3}{Image de l'interface}{section.15}% 91
+\BOOKMARK [1][-]{section.16}{Introduction: 1.6.4: Analyse statistique de la consommation \351nerg\351tique par Fi\351vet Adrien}{}% 92
+\BOOKMARK [1][-]{section.17}{Use cases diagrams}{}% 93
+\BOOKMARK [1][-]{section.18}{Overview}{}% 94
+\BOOKMARK [1][-]{section.19}{Bdd}{}% 95
+\BOOKMARK [1][-]{section.20}{Class}{}% 96
+\BOOKMARK [1][-]{section.21}{sequence}{}% 97
+\BOOKMARK [1][-]{section.22}{api-rest}{}% 98
+\BOOKMARK [1][-]{section.23}{Interface}{}% 99
