@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=latex 2022.12.8)  15 DEC 2022 20:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=latex 2022.12.8)  15 DEC 2022 20:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1707,314 +1707,23 @@ If that doesn't work, type  X <return>  to quit.
 
 File: extension-maxime/interaction/img/interaction-extension.png Graphic file (
 type eps)
-<extension-maxime/interaction/img/interaction-extension.png>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) [109
+<extension-maxime/interaction/img/interaction-extension.png>) [109
 
 
 
-] [110]
+]
 \openout2 = `extension-maxime/class/class-extension.aux'.
 
- (./extension-maxime/class/class-extension.tex
+
+(./extension-maxime/class/class-extension.tex
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 16.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.18 ...e la facture via un boolean (payed=true).}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Extra }, or forgotten $.
-<recently read> \egroup 
-                        
-l.18 ...e la facture via un boolean (payed=true).}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.19 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.19 
-     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-Overfull \hbox (44.12064pt too wide) in paragraph at lines 18--19
-\OT1/cmr/bx/n/10 "paiement$[]\OML/cmm/m/it/10 tatus\OT1/cmr/m/n/10 "\OML/cmm/m/
-it/10 permetdevoirlestatutdepaiementdelafactureviaunboolean\OT1/cmr/m/n/10 (\OM
-L/cmm/m/it/10 payed \OT1/cmr/m/n/10 = 
- []
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.20 ...iquement par l'application via un double.}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 20.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.20 ...iquement par l'application via un double.}
-                                                  
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-! Extra }, or forgotten $.
-<recently read> \egroup 
-                        
-l.20 ...iquement par l'application via un double.}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.21 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.21 
-     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-Overfull \hbox (52.49702pt too wide) in paragraph at lines 20--21
-\OT1/cmr/bx/n/10 "ideal$[]\OML/cmm/m/it/10 ccompt\OT1/cmr/m/n/10 "\OML/cmm/m/it
-/10 affichel[]accomptecalcul[]automatiquementparl[]applicationviaundouble:[]$  
-
- []
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.22 ...de paiement via un boolean (manual=true).}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 22.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.22 ...de paiement via un boolean (manual=true).}
-                                                  
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-! Extra }, or forgotten $.
-<recently read> \egroup 
-                        
-l.22 ...de paiement via un boolean (manual=true).}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.23 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.23 
-     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.24 ... ArrayList, les informations de paiement.}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Extra }, or forgotten $.
-<recently read> \egroup 
-                        
-l.24 ... ArrayList, les informations de paiement.}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.25 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.25 
-     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-Overfull \hbox (74.0193pt too wide) in paragraph at lines 24--25
-\OT1/cmr/bx/n/10 "paiement$[]\OML/cmm/m/it/10 nformations\OT1/cmr/m/n/10 "\OML/
-cmm/m/it/10 affiche; sousformed[]uneArrayList; lesinformationsdepaiement:[]$  
- []
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.26 ...che un historique des factures du client.}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-LaTeX Warning: Command \^ invalid in math mode on input line 26.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.26 ...che un historique des factures du client.}
-                                                  
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \` invalid in math mode on input line 26.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.26 ...che un historique des factures du client.}
-                                                  
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 26.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.26 ...che un historique des factures du client.}
-                                                  
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 26.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.26 ...che un historique des factures du client.}
-                                                  
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-! Extra }, or forgotten $.
-<recently read> \egroup 
-                        
-l.26 ...che un historique des factures du client.}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.27 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.27 
-     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-Overfull \hbox (130.38324pt too wide) in paragraph at lines 26--27
-\OT1/cmr/bx/n/10 "factures$[]\OML/cmm/m/it/10 istory\OT1/cmr/m/n/10 "\OML/cmm/m
-/it/10 ; delam[]memani[]requelavariablepr[]c[]dente; afficheunhistoriquedesfact
-uresduclient:[]$  
- []
 
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 37.
 
-[111
-
-
-
-]
 ! Undefined control sequence.
 <recently read> \texbf 
                        
@@ -2026,6 +1735,11 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
+[110
+
+
+
+]
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/class/img/c
 lass-extension.png (no BoundingBox).
@@ -2040,383 +1754,38 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: extension-maxime/class/img/class-extension.png Graphic file (type eps)
-<extension-maxime/class/img/class-extension.png>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) [112] [113]
+<extension-maxime/class/img/class-extension.png>) [111]
 \openout2 = `extension-maxime/bdd/bdd-extension.aux'.
 
- (./extension-maxime/bdd/bdd-extension.tex
-! Missing $ inserted.
-<inserted text> 
-                $
-l.9 ... et une facture. En outre, un élement "id_
-                                                  factures" a été ajouté ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
 
-
-LaTeX Warning: Command \' invalid in math mode on input line 9.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.9 ...e. En outre, un élement "id_factures" a é
-                                                  té ajouté à l'entité "...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 9.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.9 ...En outre, un élement "id_factures" a été
-                                                   ajouté à l'entité "con...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 9.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.9 ..., un élement "id_factures" a été ajouté
-                                                   à l'entité "contrat" af...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \` invalid in math mode on input line 9.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.9 ...n élement "id_factures" a été ajouté à
-                                                   l'entité "contrat" afin ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 9.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.9 ... "id_factures" a été ajouté à l'entité
-                                                   "contrat" afin de relier ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.9 ...otnote{"id_factures" étant un Primary Key}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 9.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.9 ...otnote{"id_factures" étant un Primary Key}
-                                                  
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.9 ...otnote{"id_factures" étant un Primary Key}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-! LaTeX Error: Command \end{flushleft} invalid in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.10 \end{flushleft}
-                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.10 \end{flushleft}
-                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.10 \end{flushleft}
-                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.10 \end{flushleft}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
+(./extension-maxime/bdd/bdd-extension.tex
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 15.
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.17 ...ontrat avec un varchar de 10 caractères.}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
 
-
-LaTeX Warning: Command \` invalid in math mode on input line 17.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.17 ...ontrat avec un varchar de 10 caractères.}
-                                                  
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-! Extra }, or forgotten $.
-<recently read> \egroup 
-                        
-l.17 ...ontrat avec un varchar de 10 caractères.}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.18 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.18 
-     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.21 ...de l'accompte proposé par l'application.}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 21.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.21 ...de l'accompte proposé par l'application.}
-                                                  
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-! Extra }, or forgotten $.
-<recently read> \egroup 
-                        
-l.21 ...de l'accompte proposé par l'application.}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.22 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.22 
-     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-Overfull \hbox (12.0209pt too wide) in paragraph at lines 21--22
-\OT1/cmr/bx/n/10 "ideal$[]\OML/cmm/m/it/10 ccompte\OT1/cmr/m/n/10 "\OML/cmm/m/i
-t/10 contientunevaleurdoubledel[]accomptepropos[]parl[]application:[]$  
- []
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.23 ...t une valeur binaire du mode de paiement.}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Extra }, or forgotten $.
-<recently read> \egroup 
-                        
-l.23 ...t une valeur binaire du mode de paiement.}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.24 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.24 
-     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.25 ...vec les informations bancaires du client.}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Extra }, or forgotten $.
-<recently read> \egroup 
-                        
-l.25 ...vec les informations bancaires du client.}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.26 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.26 
-     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-Overfull \hbox (40.89424pt too wide) in paragraph at lines 25--26
-\OT1/cmr/bx/n/10 "paiement$[]\OML/cmm/m/it/10 nformations\OT1/cmr/m/n/10 "\OML/
-cmm/m/it/10 contientunvarcharaveclesinformationsbancairesduclient:[]$  
- []
-
-
-LaTeX Warning: File `extension-maxime/bdd/bdd-extension.png' not found on input
- line 32.
-
-
-! LaTeX Error: File `extension-maxime/bdd/bdd-extension.png' not found.
+! LaTeX Error: Cannot determine size of graphic in extension-maxime/bdd/img/bdd
+-extension.png (no BoundingBox).
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.32 ...h]{extension-maxime/bdd/bdd-extension.png}
+l.32 ...xtension-maxime/bdd/img/bdd-extension.png}
                                                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-
-! LaTeX Error: Cannot determine size of graphic in extension-maxime/bdd/bdd-ext
-ension.png (no BoundingBox).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.32 ...h]{extension-maxime/bdd/bdd-extension.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-File: extension-maxime/bdd/bdd-extension.png Graphic file (type eps)
-<extension-maxime/bdd/bdd-extension.png>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) [114
+File: extension-maxime/bdd/img/bdd-extension.png Graphic file (type eps)
+<extension-maxime/bdd/img/bdd-extension.png>) [112
 
 
 
-] [115]
+]
 \openout2 = `extension-maxime/sequence/sequence-extension.aux'.
 
- (./extension-maxime/sequence/sequence-extension.tex
+
+(./extension-maxime/sequence/sequence-extension.tex
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/sequence/im
 g/sequence-extension.png (no BoundingBox).
@@ -2432,281 +1801,15 @@ If that doesn't work, type  X <return>  to quit.
 
 File: extension-maxime/sequence/img/sequence-extension.png Graphic file (type e
 ps)
-<extension-maxime/sequence/img/sequence-extension.png>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) [116
+<extension-maxime/sequence/img/sequence-extension.png>) [113
 
 
 
-] [117]
+]
 \openout2 = `extension-maxime/apirest/apirest-extension.aux'.
 
- (./extension-maxime/apirest/apirest-extension.tex
-! Missing $ inserted.
-<inserted text> 
-                $
-l.10 ...e. Dans cette requête, un paramètre "id_
-                                                  facture" est nécessaire p...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
 
-
-LaTeX Warning: Command \' invalid in math mode on input line 10.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.10 ...quête, un paramètre "id_facture" est né
-                                                  cessaire pour voir une fac...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \` invalid in math mode on input line 10.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.10 ... une facture en particulier. Si ce paramè
-                                                  tre vaut "NULL", toutes le...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 10.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.10 ... "NULL", toutes les factures sont affiché
-                                                  es.
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \^ invalid in math mode on input line 11.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.11 Cette requê
-                 te renvoie donc un objet "Facture" comprenant les même él...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \^ invalid in math mode on input line 11.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.11 ...donc un objet "Facture" comprenant les mê
-                                                  me éléments cités préc...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 11.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.11 ...un objet "Facture" comprenant les même é
-                                                  léments cités précédem...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 11.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.11 ...objet "Facture" comprenant les même élé
-                                                  ments cités précédemment.
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 11.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.11 ...ure" comprenant les même éléments cité
-                                                  s précédemment.
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 11.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.11 ...omprenant les même éléments cités pré
-                                                  cédemment.
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 11.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.11 ...renant les même éléments cités précé
-                                                  demment.
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-! LaTeX Error: Command \end{flushleft} invalid in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.12 \end{flushleft}
-                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.12 \end{flushleft}
-                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.12 \end{flushleft}
-                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.12 \end{flushleft}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-Overfull \hbox (606.96992pt too wide) in paragraph at lines 10--13
-\OT1/cmr/m/n/10 "id$[]\OML/cmm/m/it/10 acture\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 
-estn[]cessairepourvoirunefactureenparticulier:Siceparam[]trevaut\OT1/cmr/m/n/10
- "\OML/cmm/m/it/10 NULL\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 ; touteslesfacturesson
-taffich[]es:Cetterequ[]terenvoiedoncunobjet\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 Fa
-cture\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 comprenantlesm[]me[]l[]mentscit[]spr[]c[
-]demment:$  
- []
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.17 ...aut cependant noter que le paramètre "id_
-                                                  facture" ne peut plus êtr...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-LaTeX Warning: Command \^ invalid in math mode on input line 17.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.17 ...le paramètre "id_facture" ne peut plus ê
-                                                  tre "NULL" sous peine de g...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 17.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.17 ...e peut plus être "NULL" sous peine de gé
-                                                  nérer une erreur.
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 17.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.17 ...eut plus être "NULL" sous peine de géné
-                                                  rer une erreur.
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-! LaTeX Error: Command \end{flushleft} invalid in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.18 \end{flushleft}
-                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.18 \end{flushleft}
-                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.18 \end{flushleft}
-                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.18 \end{flushleft}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
+(./extension-maxime/apirest/apirest-extension.tex
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/apirest/img
 /apirest-extension.png (no BoundingBox).
@@ -2722,18 +1825,15 @@ If that doesn't work, type  X <return>  to quit.
 
 File: extension-maxime/apirest/img/apirest-extension.png Graphic file (type eps
 )
-<extension-maxime/apirest/img/apirest-extension.png>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) [118
+<extension-maxime/apirest/img/apirest-extension.png>) [114
 
 
 
-] [119]
+]
 \openout2 = `extension-maxime/interface/interface-extension.aux'.
 
- (./extension-maxime/interface/interface-extension.tex
+
+(./extension-maxime/interface/interface-extension.tex
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
 mg/home.png (no BoundingBox).
@@ -2748,11 +1848,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: extension-maxime/interface/img/home.png Graphic file (type eps)
-<extension-maxime/interface/img/home.png> [120
-
-
-
-]
+<extension-maxime/interface/img/home.png>
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
 mg/list.png (no BoundingBox).
@@ -2768,6 +1864,9 @@ If that doesn't work, type  X <return>  to quit.
 
 File: extension-maxime/interface/img/list.png Graphic file (type eps)
 <extension-maxime/interface/img/list.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
 mg/facture.png (no BoundingBox).
@@ -2786,7 +1885,11 @@ File: extension-maxime/interface/img/facture.png Graphic file (type eps)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[121]
+[115
+
+
+
+]
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
 mg/paiement.png (no BoundingBox).
@@ -2823,6 +1926,7 @@ File: extension-maxime/interface/img/proposal.png Graphic file (type eps)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+[116]
 
 ! LaTeX Error: Cannot determine size of graphic in extension-maxime/interface/i
 mg/paiement-method.png (no BoundingBox).
@@ -2838,7 +1942,7 @@ If that doesn't work, type  X <return>  to quit.
 
 File: extension-maxime/interface/img/paiement-method.png Graphic file (type eps
 )
-<extension-maxime/interface/img/paiement-method.png> [122]
+<extension-maxime/interface/img/paiement-method.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -2861,11 +1965,10 @@ pe eps)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [123] [124] [125] [126]
+) [117] [118]
 \openout2 = `extension-maxime/conclusion/conclusion-extension.aux'.
 
-
-(./extension-maxime/conclusion/conclusion-extension.tex) [127
+ (./extension-maxime/conclusion/conclusion-extension.tex) [119
 
 
 
@@ -2920,12 +2023,12 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 ### semi simple group (level 1) entered at line 7 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 13407 strings out of 480205
- 278076 string characters out of 5895036
+ 13408 strings out of 480205
+ 278161 string characters out of 5895036
  527429 words of memory out of 5000000
  30706 multiletter control sequences out of 15000+600000
  478106 words of font info for 63 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 65i,9n,75p,10604b,635s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 65i,8n,75p,10604b,635s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (127 pages, 368740 bytes).
+Output written on main.dvi (119 pages, 363408 bytes).
