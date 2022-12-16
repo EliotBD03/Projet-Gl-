@@ -63,12 +63,12 @@
 \contentsline {subsection}{\numberline {7.4}Interface client}{55}{subsection.7.4}%
 \contentsline {subsection}{\numberline {7.5}Interface fournisseur}{60}{subsection.7.5}%
 \contentsline {section}{\numberline {8}Introduction-extension}{64}{section.8}%
-\contentsline {section}{\numberline {9}Extension 1.6.1 : Gestion d’utilisateurs par Claire D’Haene}{65}{section.9}%
+\contentsline {section}{\numberline {9}Introduction : Extension 1.6.1 : Gestion d’utilisateurs par D’Haene Claire}{65}{section.9}%
 \contentsline {section}{\numberline {10}Use case diagram}{66}{section.10}%
 \contentsline {subsection}{\numberline {10.1}Introduction}{66}{subsection.10.1}%
 \contentsline {subsection}{\numberline {10.2}Client}{66}{subsection.10.2}%
 \contentsline {subsection}{\numberline {10.3}Diagramme}{67}{subsection.10.3}%
-\contentsline {section}{\numberline {11}Interaction overview diagram}{68}{section.11}%
+\contentsline {section}{\numberline {11}interaction overview diagram}{68}{section.11}%
 \contentsline {subsection}{\numberline {11.1}Introduction}{68}{subsection.11.1}%
 \contentsline {subsection}{\numberline {11.2}Accès à l'application pour les clients}{69}{subsection.11.2}%
 \contentsline {subsection}{\numberline {11.3}Diagramme}{70}{subsection.11.3}%

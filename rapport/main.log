@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.10.17)  16 DEC 2022 13:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.10.17)  16 DEC 2022 19:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -360,8 +360,7 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 (./extension-adrien/ClassDiagram/classDiagram.aux)
 (./extension-adrien/Sequence/sequence.aux)
 (./extension-adrien/Api-rest/api-rest.aux)
-(./extension-adrien/Interface/interface.aux)
-No file extension_julien/android.aux.
+(./extension-adrien/Interface/interface.aux) (./extension-julien/android.aux)
 (./extension-maxime/intro/intro-extension.aux)
 (./extension-maxime/usescases/usescases-extension.aux)
 (./extension-maxime/interaction/interaction-extension.aux)
@@ -939,6 +938,11 @@ Package pdftex.def Info: Base/interface/img/Supplier.png  used on input line 33
 
 
 (./Extension-claire/Introduction/introduction-claire.tex
+Overfull \hbox (54.29285pt too wide) in paragraph at lines 1--1
+[]\OT1/cmr/bx/n/14.4 Introduction : Extension 1.6.1 : Gestion d'utilisateurs
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 3--5
 
  []
@@ -1072,13 +1076,13 @@ vit^^Ses que poss^^Rede
 
 
 ]
-<Extension-claire/API-claire/img/API-claire.png, id=1336, 1405.56615pt x 1284.9
-2645pt>
+<Extension-claire/API-claire/img/API-claire.png, id=1336, 1405.56615pt x 1286.6
+3362pt>
 File: Extension-claire/API-claire/img/API-claire.png Graphic file (type png)
 <use Extension-claire/API-claire/img/API-claire.png>
 Package pdftex.def Info: Extension-claire/API-claire/img/API-claire.png  used o
 n input line 48.
-(pdftex.def)             Requested size: 345.0pt x 315.38812pt.
+(pdftex.def)             Requested size: 345.0pt x 315.80714pt.
 ) [83 <./Extension-claire/API-claire/img/API-claire.png (PNG copy)>]
 \openout2 = `Extension-claire/Interface-claire/interface-claire.aux'.
 
@@ -1255,18 +1259,14 @@ input line 34.
 \openout2 = `extension-julien/android.aux'.
 
 
-(./extension-julien/android.tex
-
-LaTeX Warning: Reference `INTRODUCTION' on page 100 undefined on input line 11.
-
-
-[100
+(./extension-julien/android.tex [100
 
 
 ]) [101]
 \openout2 = `extension-maxime/intro/intro-extension.aux'.
 
- (./extension-maxime/intro/intro-extension.tex) [102
+
+(./extension-maxime/intro/intro-extension.tex) [102
 
 
 ]
@@ -1277,7 +1277,7 @@ LaTeX Warning: Reference `INTRODUCTION' on page 100 undefined on input line 11.
 
 
 ]
-<extension-maxime/usescases/img/usecases-extension.png, id=1475, 1020.81375pt x
+<extension-maxime/usescases/img/usecases-extension.png, id=1476, 1020.81375pt x
  959.83594pt>
 File: extension-maxime/usescases/img/usecases-extension.png Graphic file (type 
 png)
@@ -1293,7 +1293,7 @@ Package pdftex.def Info: extension-maxime/usescases/img/usecases-extension.png
 
 
 ]
-<extension-maxime/interaction/img/interaction-extension.png, id=1485, 1825.5703
+<extension-maxime/interaction/img/interaction-extension.png, id=1486, 1825.5703
 1pt x 826.58812pt>
 File: extension-maxime/interaction/img/interaction-extension.png Graphic file (
 type png)
@@ -1336,7 +1336,7 @@ Overfull \hbox (11.78944pt too wide) in paragraph at lines 52--53
  []
 
 [108]
-<extension-maxime/class/img/class-extension.png, id=1516, 797.22844pt x 226.596
+<extension-maxime/class/img/class-extension.png, id=1517, 797.22844pt x 226.596
 56pt>
 File: extension-maxime/class/img/class-extension.png Graphic file (type png)
 <use extension-maxime/class/img/class-extension.png>
@@ -1367,7 +1367,7 @@ Overfull \hbox (10.12367pt too wide) in paragraph at lines 21--22
 
 
 ]
-<extension-maxime/bdd/img/bdd-extension.png, id=1535, 1306.8825pt x 598.48593pt
+<extension-maxime/bdd/img/bdd-extension.png, id=1536, 1306.8825pt x 598.48593pt
 >
 File: extension-maxime/bdd/img/bdd-extension.png Graphic file (type png)
 <use extension-maxime/bdd/img/bdd-extension.png>
@@ -1387,7 +1387,7 @@ Overfull \hbox (68.99895pt too wide) in paragraph at lines 33--34
 
 
 ]
-<extension-maxime/sequence/img/sequence-extension.png, id=1545, 771.63281pt x 9
+<extension-maxime/sequence/img/sequence-extension.png, id=1546, 771.63281pt x 9
 48.54375pt>
 File: extension-maxime/sequence/img/sequence-extension.png Graphic file (type p
 ng)
@@ -1403,7 +1403,7 @@ used on input line 28.
 
 
 ]
-<extension-maxime/apirest/img/apirest-extension.png, id=1555, 1568.86125pt x 12
+<extension-maxime/apirest/img/apirest-extension.png, id=1556, 1568.86125pt x 12
 00.73593pt>
 File: extension-maxime/apirest/img/apirest-extension.png Graphic file (type png
 )
@@ -1421,7 +1421,7 @@ Overfull \hbox (68.99895pt too wide) in paragraph at lines 24--25
 
 
 (./extension-maxime/interface/interface-extension.tex
-<extension-maxime/interface/img/home.png, id=1561, 1040.88875pt x 740.7675pt>
+<extension-maxime/interface/img/home.png, id=1562, 1040.88875pt x 740.7675pt>
 File: extension-maxime/interface/img/home.png Graphic file (type png)
 <use extension-maxime/interface/img/home.png>
 Package pdftex.def Info: extension-maxime/interface/img/home.png  used on input
@@ -1431,13 +1431,13 @@ Package pdftex.def Info: extension-maxime/interface/img/home.png  used on input
 
 
  <./extension-maxime/interface/img/home.png>]
-<extension-maxime/interface/img/list.png, id=1567, 1038.88126pt x 739.76375pt>
+<extension-maxime/interface/img/list.png, id=1568, 1038.88126pt x 739.76375pt>
 File: extension-maxime/interface/img/list.png Graphic file (type png)
 <use extension-maxime/interface/img/list.png>
 Package pdftex.def Info: extension-maxime/interface/img/list.png  used on input
  line 24.
 (pdftex.def)             Requested size: 207.0021pt x 147.39702pt.
-<extension-maxime/interface/img/facture.png, id=1568, 1039.885pt x 737.75626pt>
+<extension-maxime/interface/img/facture.png, id=1569, 1039.885pt x 737.75626pt>
 
 File: extension-maxime/interface/img/facture.png Graphic file (type png)
 <use extension-maxime/interface/img/facture.png>
@@ -1446,14 +1446,14 @@ put line 33.
 (pdftex.def)             Requested size: 207.0021pt x 146.85068pt.
  [117 <./extension-maxime/interface/img/list.png> <./extension-maxime/interface
 /img/facture.png>]
-<extension-maxime/interface/img/paiement.png, id=1575, 1036.87375pt x 735.74875
+<extension-maxime/interface/img/paiement.png, id=1576, 1036.87375pt x 735.74875
 pt>
 File: extension-maxime/interface/img/paiement.png Graphic file (type png)
 <use extension-maxime/interface/img/paiement.png>
 Package pdftex.def Info: extension-maxime/interface/img/paiement.png  used on i
 nput line 43.
 (pdftex.def)             Requested size: 207.0021pt x 146.8777pt.
-<extension-maxime/interface/img/proposal.png, id=1576, 1039.885pt x 738.76pt>
+<extension-maxime/interface/img/proposal.png, id=1577, 1039.885pt x 738.76pt>
 File: extension-maxime/interface/img/proposal.png Graphic file (type png)
 <use extension-maxime/interface/img/proposal.png>
 Package pdftex.def Info: extension-maxime/interface/img/proposal.png  used on i
@@ -1461,7 +1461,7 @@ nput line 52.
 (pdftex.def)             Requested size: 207.0021pt x 147.05048pt.
  [118 <./extension-maxime/interface/img/paiement.png> <./extension-maxime/inter
 face/img/proposal.png>]
-<extension-maxime/interface/img/paiement-method.png, id=1583, 1038.88126pt x 73
+<extension-maxime/interface/img/paiement-method.png, id=1584, 1038.88126pt x 73
 8.76pt>
 File: extension-maxime/interface/img/paiement-method.png Graphic file (type png
 )
@@ -1469,7 +1469,7 @@ File: extension-maxime/interface/img/paiement-method.png Graphic file (type png
 Package pdftex.def Info: extension-maxime/interface/img/paiement-method.png  us
 ed on input line 62.
 (pdftex.def)             Requested size: 207.0021pt x 147.19702pt.
-<extension-maxime/interface/img/paiement-informations.png, id=1584, 1038.88126p
+<extension-maxime/interface/img/paiement-informations.png, id=1585, 1038.88126p
 t x 737.75626pt>
 File: extension-maxime/interface/img/paiement-informations.png Graphic file (ty
 pe png)
@@ -1519,21 +1519,21 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 98.
 (./extension-maxime/conclusion/conclusion-extension.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 98.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 98.
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C1286ACC3A86D6DEC10008A9BA9F3D82;9611.
 
 
-LaTeX Warning: There were undefined references.
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: C1286ACC3A86D6DEC10008A9BA9F3D82;9611
+(rerunfilecheck)             After:  840767A61BD79800D46B28B43B3B62E7;9626.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 98.
  ) 
 Here is how much of TeX's memory you used:
- 9543 strings out of 483140
- 155508 string characters out of 5965150
- 407926 words of memory out of 5000000
+ 9544 strings out of 483140
+ 155548 string characters out of 5965150
+ 407744 words of memory out of 5000000
  23563 multiletter control sequences out of 15000+600000
  541883 words of font info for 61 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
@@ -1554,10 +1554,10 @@ hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on main.pdf (120 pages, 11760545 bytes).
+Output written on main.pdf (120 pages, 11761920 bytes).
 PDF statistics:
- 1760 PDF objects out of 2073 (max. 8388607)
- 1515 compressed objects within 16 object streams
+ 1761 PDF objects out of 2073 (max. 8388607)
+ 1516 compressed objects within 16 object streams
  493 named destinations out of 1000 (max. 500000)
  1428 words of extra memory for PDF output out of 10000 (max. 10000000)
 
