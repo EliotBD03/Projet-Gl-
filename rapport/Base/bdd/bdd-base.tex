@@ -1,7 +1,7 @@
 \section{Entity relationship diagram}
 \subsection{Préambule}
 \begin{flushleft}
-Dans cette partie, nous allons parler de la modélisation de la base de donnée. Chaque sous-section parlera d'une relation. Dans ces sous-sections, nous parlerons du fonctionnement de certains attributs et nous définirons nos clés primaires et étrangères.
+Dans cette partie, nous allons parler de la modélisation de la base de données. Chaque sous-section parlera d'une relation. Dans ces sous-sections, nous parlerons du fonctionnement de certains attributs et nous définirons nos clés primaires et étrangères.
 \end{flushleft}
 
 \begin{flushleft}
@@ -13,7 +13,7 @@ Nous partons du principe qu'un fournisseur et un client sont avant tout des util
 \end{flushleft}
 
 \begin{flushleft}
-A noter que le mot de passe sera stocké dans la base de données après avoir été "hashé" par l'algorithme bcrypt\footnote{\url{https://fr.wikipedia.org/wiki/Bcrypt}} pour éviter toute fuite dans le cas où la base de donnée serait compromise.
+A noter que le mot de passe sera stocké dans la base de données après avoir été "hashé" par l'algorithme bcrypt\footnote{\url{https://fr.wikipedia.org/wiki/Bcrypt}} pour éviter toute fuite dans le cas où la base de données serait compromise.
 \end{flushleft}
 
 \begin{flushleft}
@@ -48,7 +48,7 @@ FK(langue) REFS utilisateur = \texttt{id}
 \end{flushleft}
 \subsection{Client}
 \begin{flushleft}
-Du coté de la relation "client", nous y trouvons un seul attribut. Cela nous permet d'avoir un utilisateur ayant aucun portefeuille.
+Du coté de la relation "client", nous y trouvons un seul attribut. Cela nous permet d'avoir un utilisateur n'ayant aucun portefeuille.
 \end{flushleft}
 
 \begin{flushleft}
@@ -92,7 +92,7 @@ Cette section correspondra aux offres du fournisseur avec tous les paramètres q
 \end{flushleft}
 
 \begin{flushleft}
-A noter que la localisation sera définie par un binaire de taille 3: le premier bit sera la région Wallonne, le second sera la région flamande et le troisième la région Bruxelles-Capitales. Comme exemple, 101 dira que le contrat sera disponible dans la région Wallonne et Bruxelles-Capitales .Du coté des autres types binaires, 1 sera vrai et 0 faux. 
+A noter que la localisation sera définie par un binaire de taille 3: le premier bit sera la région Wallonne, le second sera la région flamande et le troisième la région Bruxelles-Capitale. Comme exemple, 101 dira que le contrat sera disponible dans la région Wallonne et Bruxelles-Capitale. Du coté des autres types binaires, 1 sera vrai et 0 faux. 
 \end{flushleft}
 
 \begin{flushleft}
@@ -100,7 +100,7 @@ De plus, certains paramètres seront dépendants d'autres paramètres. Comme exe
 \end{flushleft}
 
 \begin{flushleft}
-Enfin, si nous avons que le prix est le même pendant les heures creuses et les heures pleines. Il sera donc inutile de conserver une heure bien précise (\texttt{début\_heures\_creuses} et \texttt{début\_heures\_pleines}\footnote{format: entier tel que les deux premiers digits seront l'heure et les minutes pour les derniers} pourront être nuls).
+Enfin, si nous avons le même prix pendant les heures creuses et les heures pleines, il sera donc inutile de conserver une heure bien précise (\texttt{début\_heures\_creuses} et \texttt{début\_heures\_pleines}\footnote{format: entier tel que les deux premiers digits seront l'heure et les minutes pour les derniers} pourront être nuls).
 \end{flushleft}
 
 \begin{flushleft}
@@ -173,11 +173,11 @@ En plus de ça, un contexte relativement court sera posé jusqu'à plus ample in
 \end{flushleft}
 
 \begin{flushleft}
-Enfin, un binaire permettra de savoir de qui vient la notification. 1 si c'est le fournisseur, client sinon.
+Enfin, un binaire permettra de savoir de qui vient la notification (1 si c'est le fournisseur, sinon c'est le client).
 \end{flushleft}
 
 \begin{flushleft}
-A noter que cette relation ne contient aucune clé étrangère puisque il est impossible de faire en sorte que \texttt{id\_receveur} et \texttt{id\_émetteur} référencent la table utilisateur.
+A noter que cette relation ne contient aucune clé étrangère puisqu' il est impossible de faire en sorte que \texttt{id\_receveur} et \texttt{id\_émetteur} référencent la table utilisateur.
 \end{flushleft}
 \begin{flushleft}
 PK(notification) = \texttt{id\_notification}

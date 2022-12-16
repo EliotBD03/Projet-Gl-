@@ -77,7 +77,7 @@ Nous pouvons gérer les langues à plusieurs niveaux. L'utilisateur peut voir to
 \end{flushleft}
 
 \begin{flushleft}
-Pour les trois premières fonctionnalités, le principe est le même. On appelle la méthode adéquate et celle-ci va t'être rappelée dans la partie base de donnée pour rechercher l'information désirée.
+Pour les trois premières fonctionnalités, le principe est le même. On appelle la méthode adéquate et celle-ci va être rappelée dans la partie base de données pour rechercher l'information désirée.
 \end{flushleft}
 
 \begin{flushleft}
@@ -117,7 +117,7 @@ Répondre aux notifications implique trois possibilités. L'utilisateur peut l'a
 \end{flushleft}
 
 \begin{flushleft}
-Lorsqu'un utilisateur accepte une notification (une demande de contrat). Dans la partie base de données, nous commençons par créer un objet contractFull à partir de la proposition acceptée, ensuite nous faisons appel à la méthode createContract pour enregistrer le contrat. Nous pouvons donc supprimer la notification actuelle étant donné qu'elle vient d'être acceptée. Pour finir, nous créons une nouvelle notification pour informer à l'autre utilisateur que sa demande a été acceptée.
+Lorsqu'un utilisateur accepte une notification (une demande de contrat) dans la partie base de données, nous commençons par créer un objet contractFull à partir de la proposition acceptée, ensuite nous faisons appel à la méthode createContract pour enregistrer le contrat. Nous pouvons donc supprimer la notification actuelle étant donné qu'elle vient d'être acceptée. Pour finir, nous créons une nouvelle notification pour informer à l'autre utilisateur que sa demande a été acceptée.
 \end{flushleft}
 
 \begin{flushleft}
@@ -140,7 +140,7 @@ Lorsque l'utilisateur arrive sur la fenêtre de connexion. Deux cas de base sont
 \begin{flushleft}
 Pour créer un compte, suivant le même principe que le changement de mot de passe. Un code va être crée et envoyé à l'adresse mail que l'utilisateur vient d'entrer grâce aux méthodes déjà expliquées ci-dessus. Quand l'utilisateur souhaite sauvegarder son compte, la méthode saveAcccount est invoquée. Après vérification du code, cette dernière est ré-appelée dans CommonDB pour sauvegarder le compte.
 \newline
-Suite à cela, Nous pouvons créer un token de connexion grâce à la méthode createToken de la classe abstraite AbstractToken et l'envoyer à l'utilisateur pour ses prochaines requêtes car en créant son compte, il s'est également connecté. Notez que lors de la création du token, nous appelons automaticDeleteToken pour limiter la durée de vie du token.
+Suite à cela, nous pouvons créer un token de connexion grâce à la méthode createToken de la classe abstraite AbstractToken et l'envoyer à l'utilisateur pour ses prochaines requêtes car en créant son compte, il s'est également connecté. Notez que lors de la création du token, nous appelons automaticDeleteToken pour limiter la durée de vie du token.
 \end{flushleft}
 
 \begin{flushleft}
@@ -199,7 +199,7 @@ Comme son nom l'indique, deleteContract permet de supprimer un contrat. Une fois
 \subsubsection{Voir notifications}
 
 \begin{flushleft}
-Pour finir, l'utilisateur peut voir ses notifications. Pour cela, nous suivons toujours le même principe en appelant d'abord la méthode getAllNotifications au niveau de l'API et ensuite dans la partie base de données. Nous créons un objet Notification pour chaque notification stockée pour les envoyer dans une liste vers l'utilisateur. Tous les objets précédemment créés seront évidement supprimés à la suite de l'envoi de la liste.
+Pour finir, l'utilisateur peut voir ses notifications. Pour cela, nous suivons toujours le même principe en appelant d'abord la méthode getAllNotifications au niveau de l'API et ensuite dans la partie base de données. Nous créons un objet Notification pour chaque notification stockée afin de les envoyer dans une liste vers l'utilisateur. Tous les objets précédemment créés seront évidement supprimés à la suite de l'envoi de la liste.
 \end{flushleft}
 
 \begin{flushleft}
@@ -221,7 +221,7 @@ Commençons par le Use Case \textbf{"Voir les contrats"}, nous appelons la méth
 \end{flushleft}
 
 \begin{flushleft}
-Le but étant d'obtenir une ArrayList de "contractBasic", nous devons effecter une boucle afin de récupérer tous les "contractBasic".
+Le but étant d'obtenir une ArrayList de "contractBasic", nous devons effectuer une boucle afin de récupérer tous les "contractBasic".
 \end{flushleft}
 
 \begin{flushleft}
@@ -330,7 +330,7 @@ Pour ajouter un client, cela se fera par le biais d'une proposition du fournisse
 \end{flushleft}
 
 \begin{flushleft}
-Pour qu'un fournisseur puisse ajouter des clients. Il doit d'abord avoir accès à tous les clients de l'application. Ceci se fera par la méthode \textbf{getAllClients}. De la même manière que voir "ses clients", nous utiliserons une boucle.  
+Pour qu'un fournisseur puisse ajouter des clients il doit d'abord avoir accès à tous les clients de l'application. Ceci se fera par la méthode \textbf{getAllClients}. De la même manière que voir "ses clients", nous utiliserons une boucle.  
 \end{flushleft}
 
 \newpage
@@ -341,18 +341,18 @@ Pour qu'un fournisseur puisse ajouter des clients. Il doit d'abord avoir accès 
 \newpage
 \subsubsection{Gestion des propositions}
 \begin{flushleft}
-Avant de parler des diagrammes de séquence de cette partie. Nous avons choisi de mettre les contrats d'un fournisseur et ses propositions dans les use cases parlant des contrats. De plus, seules les propositions seront abordées dans cette partie étant donné qu'un contrat sera commun au fournisseur et au client(section \ref{CONTRATS},page \pageref{CONTRATS}).
+Avant de parler des diagrammes de séquence de cette partie, nous avons choisi de mettre les contrats d'un fournisseur et ses propositions dans les use cases parlant des contrats. De plus, seules les propositions seront abordées dans cette partie étant donné qu'un contrat sera commun au fournisseur et au client(section \ref{CONTRATS},page \pageref{CONTRATS}).
 \end{flushleft}
 
 \begin{flushleft}
-Pour commencer, nous allons regarder comment le fournisseur peut avoir accès à toutes ses propositions. Pour cela, il devra utiliser la méthode \textbf{getAllProposals}. De plus, une boucle permettra de récupérer tous les objets. Si le fournisseur veut avoir plus de précision sur une de ses propositions, alors il aura juste besoin d'apeller la méthode \textbf{getProposal} en ayant l'identifiant de la proposition au préalable.
+Pour commencer, nous allons regarder comment le fournisseur peut avoir accès à toutes ses propositions. Pour cela, il devra utiliser la méthode \textbf{getAllProposals}. De plus, une boucle permettra de récupérer tous les objets. Si le fournisseur veut avoir plus de précision sur une de ses propositions, alors il aura juste besoin d'appeller la méthode \textbf{getProposal} en ayant l'identifiant de la proposition au préalable.
 \end{flushleft}
 \begin{flushleft}
-Après ça, Si le fournisseur veut ajouter une proposition. La méthode \textbf{addProposal} sera utilisée. Il faudra néanmoins créer un objet \textbf{ProposalFull} qui sera ensuite ajouté par la précédente méthode à la base de données. 
+Après ça, si le fournisseur veut ajouter une proposition, la méthode \textbf{addProposal} sera utilisée. Il faudra néanmoins créer un objet \textbf{ProposalFull} qui sera ensuite ajouté par la précédente méthode à la base de données. 
 \end{flushleft}
 
 \begin{flushleft}
-Ensuite, si le fournisseur souhaite modifier les paramètres d'une de ses propositions. Il n'aura qu'à faire un nouvel objet qui servira de "remplacant" à l'ancienne proposition. La méthode \textbf{changeProposal} sera appelée par la suite pour faire le changement des paramètres directement dans la base de données. A noter que modifier les paramètres d'une proposition revient à changer les contrats avec les clients qui ont pris cette proposition. De ce fait, une notification sera envoyée via la méthode \textbf{createNotification}.
+Ensuite, si le fournisseur souhaite modifier les paramètres d'une de ses propositions, il n'aura qu'à faire un nouvel objet qui servira de "remplacant" à l'ancienne proposition. La méthode \textbf{changeProposal} sera appelée par la suite pour faire le changement des paramètres directement dans la base de données. A noter que modifier les paramètres d'une proposition revient à changer les contrats avec les clients qui ont pris cette proposition. De ce fait, une notification sera envoyée via la méthode \textbf{createNotification}.
 \end{flushleft}
 
 \begin{flushleft}
