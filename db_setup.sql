@@ -1,5 +1,5 @@
 /*
-All the query initialized at the database set up.
+All the queries initialized at the database set up.
 Please make sure you have already set the PK before setting up the FK.
 NOTE: all query use "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci" at the end.
 */
