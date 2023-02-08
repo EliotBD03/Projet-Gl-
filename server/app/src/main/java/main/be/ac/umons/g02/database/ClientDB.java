@@ -1,4 +1,5 @@
 package main.be.ac.umons.g02.database;
 
-public class ProposalBasic {
+public class ClientDB extends CommonDB {
+
 }

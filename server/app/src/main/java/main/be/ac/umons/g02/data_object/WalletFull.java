@@ -1,4 +1,4 @@
-package main.be.ac.umons.g02.database;
+package main.be.ac.umons.g02.data_object;
 
 import java.util.ArrayList;
 
