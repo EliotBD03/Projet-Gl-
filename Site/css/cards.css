@@ -1,0 +1,29 @@
+.card1{
+    justify-content: left;
+}
+
+.text1{
+    text-align: center;
+}
+
+.card2{
+    justify-content: center;
+}
+
+.text2{
+    text-align: center;
+}
+
+.card3{
+    justify-content: right;
+}
+
+.text3{
+    text-align: center;
+}
+
+.allcards{
+    margin-top: 10%;
+    display: flex;
+    justify-content: space-between;
+}
