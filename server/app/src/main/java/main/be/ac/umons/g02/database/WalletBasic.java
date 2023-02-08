@@ -1,11 +1,19 @@
 package main.be.ac.umons.g02.database;
 
-public class WalletBasic {
+public class WalletBasic
+{
     protected String address;
     protected String name;
     protected String nameOwner;
-    
-    public String getAddress() {
+
+    public WalletBasic(String address, String name, String nameOwner){
+        this.address = address;
+        this.name = name;
+        this.nameOwner = nameOwner;
+    }
+
+    public String getAddress()
+    {
         return address;
     }
 
@@ -17,12 +25,6 @@ public class WalletBasic {
     public String getNameOwner()
     {
         return nameOwner;
-    }
-
-    public WalletBasic(String address, String name, String nameOwner){
-        this.address = address;
-        this.name = name;
-        this.nameOwner = nameOwner;
     }
 
 
