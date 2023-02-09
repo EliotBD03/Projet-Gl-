@@ -1,9 +1,9 @@
 Vue.component('change-page', {
-  props: ['go'],
+  props: ['go', 'name', 'css'],
   template: `
     <div>
         <a :href="go">
-            <button class="button">Go</button>
+            <button :class="css">{{ name }}</button>
         </a>
     </div>
     `
@@ -21,3 +21,14 @@ new Vue({
   el: '#button_redirection_notifications'
 });
 
+new Vue({
+  el: '#button_redirection_settings'
+});
+
+new Vue({
+  el: '#button_redirection_newcontracts'
+});
+
+new Vue({
+  el: '#button_redirection_disconnect'
+});

@@ -2,33 +2,51 @@
 <html>
 <head>  
   <link rel="stylesheet" href="css/button_style.css">
-  <link rel="stylesheet" href="css/title.css">
+  <link rel="stylesheet" href="css/essential.css">
   <link rel="stylesheet" href="css/cards.css">
+  <title>Home</title>
 </head>
+
 <body>
-  <h1>Home</h1>
+  <h1 class = "title">Home</h1>
+
   <div class = "allcards">
-    <div class = "card1"> 
+    <div class = "card"> 
       <div id="button_redirection_wallet">
-        <p class = "text1">Wallet</p>
-        <change-page go="html/wallet.html"></change-page>
+        <p class = "text">Wallet</p>
+        <change-page css = "blueButton" go="html/client/wallet.html" name = "Go"></change-page>
       </div>
     </div>
 
-    <div class = "card2"> 
+    <div class = "card"> 
       <div id="button_redirection_contracts">
-        <p class = "text2">Your contracts</p>
-        <change-page go="html/contracts.html"></change-page>
+        <p class = "text">Your contracts</p>
+        <change-page css = "blueButton" go="html/client/contracts.html" name = "Go"></change-page>
       </div>
     </div>
 
-    <div class = "card3"> 
+    <div class = "card"> 
       <div id="button_redirection_notifications">
-        <p class = "text3">Notifications</p>
-        <change-page go="html/notifications.html"></change-page>
+        <p class = "text">Notifications</p>
+        <change-page css = "blueButton" go="html/client/notifications.html" name = "Go"></change-page>
       </div>
     </div>
   </div>
+
+
+  <div id="button_redirection_settings">
+    <change-page css = "greyButton rightButton" go="html/client/settings.html" name = "Settings"></change-page>
+  </div>
+  
+  <div id="button_redirection_newcontracts">
+    <change-page css = "blueButton middleButton" go="html/client/newContracts.html" name = "See new Contracts"></change-page>
+  </div>
+
+  <!-- On fera les fn plus tard mais le bouton est fait -->
+  <div id="button_redirection_disconnect">
+    <change-page css = "redButton leftButton" go="html/client/settings.html" name = "Disconnect"></change-page>
+  </div>
+
   <!-- Include Vue.js -->
   <!-- script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script -->
   <script src="vue.js"></script>
