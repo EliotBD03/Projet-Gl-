@@ -2,6 +2,7 @@ package main.be.ac.umons.g02.data_object;
 
 import java.util.ArrayList;
 
+/* TODO
 public class WalletFull extends WalletBasic{
 
     private ArrayList<ContractBasic> listContracts;
@@ -11,3 +12,5 @@ public class WalletFull extends WalletBasic{
 
 
 }
+*/
+
