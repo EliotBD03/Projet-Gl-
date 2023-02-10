@@ -16,4 +16,29 @@ public class ProposalBasic
         this.typeOfEnergy = typeOfEnergy;
         this.location = location;
     }
+
+    public String getNameProposal()
+    {
+        return nameProposal;
+    }
+
+    public String getId_provider()
+    {
+        return id_provider;
+    }
+
+    public String getNameProvider()
+    {
+        return nameProvider;
+    }
+
+    public TypeEnergy getTypeOfEnergy()
+    {
+        return typeOfEnergy;
+    }
+
+    public String getLocation()
+    {
+        return location;
+    }
 }

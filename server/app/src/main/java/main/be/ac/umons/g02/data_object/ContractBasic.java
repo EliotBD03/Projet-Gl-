@@ -8,17 +8,15 @@ public class ContractBasic
     protected String nameProvider;
     protected String nameClient;
     protected String ean;
-    protected TypeEnergy typeofEnery;
 
-    ContractBasic(String id_contract, String id_client, String id_provider, String nameProvider, String nameClient, String ean, TypeEnergy typeofEnery)
+    ContractBasic(String id_contract, String id_client, String id_provider, String nameProvider, String nameClient, String ean)
     {
         this.id_contract = id_contract;
         this.id_client = id_client;
         this.id_provider = id_provider;
-        this.nameProvider = nameProvider;
         this.nameClient = nameClient;
+        this.nameProvider = nameProvider;
         this.ean = ean;
-        this.typeofEnery = typeofEnery;
     }
 
     public String getId_contract()

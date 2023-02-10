@@ -2,7 +2,7 @@ package main.be.ac.umons.g02.database;
 
 import java.util.ArrayList;
 
-public abstract class CommonDB
+public class CommonDB
 {
     /**
      * vérifie si le compte existe

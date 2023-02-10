@@ -12,4 +12,19 @@ public class ClientBasic
         this.name = name;
         this.mail = mail;
     }
+
+    public String getId_client()
+    {
+        return id_client;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getMail()
+    {
+        return mail;
+    }
 }
