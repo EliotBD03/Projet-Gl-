@@ -14,23 +14,19 @@ public class App
 
     public static void sendEmail(String recipient, String subject, String text)
     {
-        //TODO
     }
 
     public static String createCode(String mailOrId)
     {
-        //TODO
         return null;
     }
 
     public static boolean checkCode(String mailOrId)
     {
-        //TODO
         return false;
     }
 
     private static void automaticDeleteCode(String code)
     {
-        //TODO
     }
 }
