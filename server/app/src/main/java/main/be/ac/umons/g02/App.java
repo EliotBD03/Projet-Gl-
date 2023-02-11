@@ -9,18 +9,20 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 import java.util.Map;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class App
 {
     private static HashMap<String, String> listCode;
-    private static HashMap<String, Timer> listTimerTodeleteCode;
     private static String username = "";
     private static String password = "";
 
     public static void main(String[] args)
     {
         final Vertx vertx = Vertx.vertx();
-		vertx.deployVerticle(new MyApi());
+        vertx.deployVerticle(new MyApi());
     }
 
     public static void sendEmail(String recipient, String subject, String text)
@@ -28,7 +30,7 @@ public class App
         Map<String, String> env  = System.getenv();
 
 
-		if(env.containsKey("EMAILID") && env.containsKey("EMAILPWD"))
+        if(env.containsKey("EMAILID") && env.containsKey("EMAILPWD"))
         {
             username = env.get("EMAILID");
             password = env.get("EMAILPWD");
@@ -70,15 +72,47 @@ public class App
 
     public static String createCode(String mailOrId)
     {
-        return null;
+        String code = "";
+        Random rand = new Random();
+
+        for(int i = 0; i < 5; i++)
+        {
+            int number = rand.nextInt(10);
+            code += number;
+        }
+
+        listCode.put(mailOrId, code);
+        automaticDeleteCode(mailOrId);
+
+        return code;
     }
 
-    public static boolean checkCode(String mailOrId)
+    public static boolean checkCode(String mailOrId, String code)
     {
+        if(listCode.containsKey(mailOrId))
+            if(listCode.get(mailOrId) == code)
+            {
+                listCode.remove(mailOrId);
+                return true;
+            }
+
         return false;
     }
 
-    private static void automaticDeleteCode(String code)
+    private static void automaticDeleteCode(String mailOrId)
     {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                if(listCode.containsKey(mailOrId))
+                    listCode.remove(mailOrId);
+                timer.cancel();
+            }
+        };
+        
+        timer.schedule(task, 3 * 60 * 1000);
     }
 }
