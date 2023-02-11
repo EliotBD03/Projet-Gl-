@@ -19,70 +19,90 @@ public class CommonApi extends AbstractToken implements RouterApi
     @Override
     public Router getSubRouter(final Vertx vertx)
     {
+        final Router subRouter = Router.router(vertx);
+        subRouter.route("/*").handler(BodyHandler.create());
+
+        subRouter.get("/:token/languages").handler(this::getAllLanguages);
+        subRouter.get("/:token/languages/language").handler(this::getLanguage);
+        subRouter.get("/:token/languages/favourite_language").handler(this::getFavouriteLanguage);
+        subRouter.post("/:token/languages").handler(this::addLanguage);
+        subRouter.put("/:token/languages/language").handler(this::changeLanguage);
+        subRouter.put("/:token/languages/favourite_language").handler(this::changeFavouriteLanguage);
+        subRouter.put("/:token/change_pwd").handler(this::changePwd);
+        subRouter.get("/:token/notifications").handler(this::getAllNotifications);
+        subRouter.post("/:token/notifications/accept_notification").handler(this::acceptNotification);
+        subRouter.post("/:token/notifications/refuse_notification").handler(this::refuseNotification);
+        subRouter.delete("/:token/notifications/:id_notification").handler(this::deleteNotification);
+        subRouter.get("/:token/contracts/:id_contract").handler(this::getContract);
+        subRouter.delete("/:token/contracts/:id_contract").handler(this::deleteContract);
+        subRouter.get("/:token/consumptions").handler(this::getConsumption);
+        subRouter.post("/:token/consumptions").handler(this::addConsumption);
+        subRouter.put("/:token/consumptions").handler(this::changeConsumption);
+
         return null;
     }
     
-    private void getLanguage(final RoutingContext rountingContext)
+    private void getFavouriteLanguage(final RoutingContext routingContext)
     {
     }
     
-    private void getFavouriteLanguage(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void getAllLanguages(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void addLanguage(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void changeLanguage(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void changeFavouriteLanguage(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void changePwd(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void getAllNotifications(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void acceptNotification(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void refuseNotification(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void deleteNotification(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void getContract(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void deleteContract(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void getConsumption(final RoutingContext rountingContext)
-    {
-    }
-    
-    private void addConsumption(final RoutingContext rountingContext)
+    private void getLanguage(final RoutingContext routingContext)
     {
     }
 
-    private void changeConsumption(final RoutingContext rountingContext)
+    private void getAllLanguages(final RoutingContext routingContext)
+    {
+    }
+    
+    private void addLanguage(final RoutingContext routingContext)
+    {
+    }
+    
+    private void changeLanguage(final RoutingContext routingContext)
+    {
+    }
+    
+    private void changeFavouriteLanguage(final RoutingContext routingContext)
+    {
+    }
+    
+    private void changePwd(final RoutingContext routingContext)
+    {
+    }
+    
+    private void getAllNotifications(final RoutingContext routingContext)
+    {
+    }
+    
+    private void acceptNotification(final RoutingContext routingContext)
+    {
+    }
+    
+    private void refuseNotification(final RoutingContext routingContext)
+    {
+    }
+    
+    private void deleteNotification(final RoutingContext routingContext)
+    {
+    }
+    
+    private void getContract(final RoutingContext routingContext)
+    {
+    }
+    
+    private void deleteContract(final RoutingContext routingContext)
+    {
+    }
+    
+    private void getConsumption(final RoutingContext routingContext)
+    {
+    }
+    
+    private void addConsumption(final RoutingContext routingContext)
+    {
+    }
+
+    private void changeConsumption(final RoutingContext routingContext)
     {
     }
 }

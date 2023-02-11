@@ -20,6 +20,21 @@ public class ProviderApi extends AbstractToken implements RouterApi
     public Router getSubRouter(final Vertx vertx)
     {
         final Router subRouter = Router.router(vertx);
+        subRouter.route("/*").handler(BodyHandler.create());
+
+        subRouter.get("/:token/clients").handler(this::getAllClients);
+        subRouter.get("/:token/clients/:id_provider").handler(this::getAllHisClients);
+        subRouter.get("/:token/clients/:id_provider/:id_client").handler(this::getClient);
+        subRouter.delete("/:token/clients/:id_provider/:id_client").handler(this::deleteClient);
+        subRouter.get("/:token/proposals").handler(this::getAllProposals);
+        subRouter.get("/:token/proposals/:id_proposal").handler(this::getProposal);
+        subRouter.post("/:token/proposals").handler(this::addProposal);
+        subRouter.put("/:token/proposals").handler(this::changeProposal);
+        subRouter.delete("/:token/proposals/:id_proposal").handler(this::deleteProposal);
+        subRouter.delete("/:token/consumptions/:ean").handler(this::deleteAllConsumptions);
+        subRouter.delete("/:token/consumptions/:ean/:date").handler(this::deleteConsumption);
+        subRouter.post("/:token/propose_contract").handler(this::providerProposeContract);
+
         return subRouter;
     }
 

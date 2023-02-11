@@ -19,6 +19,17 @@ public class ClientApi extends AbstractToken implements RouterApi
     @Override
     public Router getSubRouter(final Vertx vertx)
     {
+        final Router subRouter = Router.router(vertx);
+        subRouter.route("/*").handler(BodyHandler.create());
+
+        subRouter.get("/:token/wallets").handler(this::getAllWallets);
+        subRouter.get("/:token/wallets/:adress").handler(this::getWallet);
+        subRouter.post("/:token/wallets").handler(this::createWallet);
+        subRouter.delete("/:token/wallets/:adress").handler(this::deleteWallet);
+        subRouter.get("/:token/contracts").handler(this::getAllContracts);
+        subRouter.get("/:token/proposals").handler(this::getAllProposals);
+        subRouter.get("/:token/proposals/:id_proposal").handler(this::getProposal);
+
         return null;
     }
 

@@ -19,6 +19,15 @@ public class LogApi extends AbstractToken implements RouterApi
     @Override
     public Router getSubRouter(final Vertx vertx)
     {
+        final Router subRouter = Router.router(vertx);
+        subRouter.route("/*").handler(BodyHandler.create());
+
+        subRouter.post("/check_account").handler(this::checkAccount);
+        subRouter.post("/disconnect").handler(this::disconnect);
+        subRouter.post("/create_account").handler(this::saveAccount);
+        subRouter.put("/renitialize_pwd").handler(this::renitializePwd);
+        subRouter.get("/code").handler(this::getCode);
+
         return null;
     }
 

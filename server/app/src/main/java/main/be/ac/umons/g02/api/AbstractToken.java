@@ -10,8 +10,8 @@ import io.vertx.ext.web.handler.BodyHandler;
 
 public abstract class AbstractToken
 {
-    private HashMap<String, String> listToken = new HashMap<>();
-    private HashMap<String, Timer> listTimerToDeleteToken = new HashMap<>();
+    private static HashMap<String, String> listToken = new HashMap<>();
+    private static HashMap<String, Timer> listTimerToDeleteToken = new HashMap<>();
 
     protected void sendMessageError(final RoutingContext routingContext)
     {

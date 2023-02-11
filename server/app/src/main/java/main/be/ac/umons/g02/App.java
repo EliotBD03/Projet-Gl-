@@ -2,14 +2,18 @@ package main.be.ac.umons.g02;
 
 import java.util.HashMap;
 import java.util.Timer;
+import io.vertx.core.Vertx;
+import main.be.ac.umons.g02.api.MyApi;
 
 public class App
 {
     private static HashMap<String, String> listCode;
     private static HashMap<String, Timer> listTimerTodeleteCode;
+
     public static void main(String[] args)
     {
-        System.out.println("Hello World");
+        final Vertx vertx = Vertx.vertx();
+		vertx.deployVerticle(new MyApi());
     }
 
     public static void sendEmail(String recipient, String subject, String text)
