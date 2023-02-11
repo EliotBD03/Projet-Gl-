@@ -14,6 +14,8 @@ public class App
 {
     private static HashMap<String, String> listCode;
     private static HashMap<String, Timer> listTimerTodeleteCode;
+    private static String username = "";
+    private static String password = "";
 
     public static void main(String[] args)
     {
@@ -25,8 +27,6 @@ public class App
     {
         Map<String, String> env  = System.getenv();
 
-        String username = "";
-        String password = "";
 
 		if(env.containsKey("EMAILID") && env.containsKey("EMAILPWD"))
         {
