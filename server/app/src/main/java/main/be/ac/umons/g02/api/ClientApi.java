@@ -10,9 +10,13 @@ import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 
 public class ClientApi extends AbstractToken implements RouterApi
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClientApi.class);
+
     //private final ClientDB clientDB = ClientDB.getInstance();
     private final ClientDB clientDB = new ClientDB();
 
