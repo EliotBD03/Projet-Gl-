@@ -1,7 +1,6 @@
 package main.be.ac.umons.g02;
 
 import java.util.HashMap;
-import java.util.Timer;
 import io.vertx.core.Vertx;
 import main.be.ac.umons.g02.api.MyApi;
 import javax.mail.*;
@@ -90,11 +89,13 @@ public class App
     public static boolean checkCode(String mailOrId, String code)
     {
         if(listCode.containsKey(mailOrId))
+        {
             if(listCode.get(mailOrId) == code)
             {
                 listCode.remove(mailOrId);
                 return true;
             }
+        }
 
         return false;
     }
