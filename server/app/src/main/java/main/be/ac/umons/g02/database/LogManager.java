@@ -15,13 +15,19 @@ public class LogManager
         return Integer.parseInt(instance.getResults(new String[] {"mail"}).get(0).get(0)) == 1;
     }
 
-    public boolean checkAccount(String mail, String password)
+    public String checkAccount(String mail, String password)
     {
-        DB.getInstance().executeQuery("SELECT password FROM user WHERE mail='"+ mail +"'", true);
-        String savedPassword = DB.getInstance().getResults(new String[] {"password"}).get(0).get(0);
-        System.out.println(savedPassword);
-        System.out.println(BCrypt.hashpw(password, BCrypt.gensalt()));
-        return BCrypt.checkpw(password, savedPassword);
+        if(doesAccountExist(mail))
+        {
+            DB.getInstance().executeQuery("SELECT password FROM user WHERE mail='"+ mail +"'", true);
+            String savedPassword = DB.getInstance().getResults(new String[] {"password"}).get(0).get(0);
+            if(BCrypt.checkpw(password, savedPassword))
+            {
+                DB.getInstance().executeQuery("SELECT id FROM user WHERE mail='"+mail+"'",true);
+                return DB.getInstance().getResults(new String[] {"id"}).get(0).get(0);
+            }
+        }
+        return null;
     }
 
     public void saveAccount(String mail, String password, boolean isClient, String name, String language) throws Exception
@@ -50,11 +56,8 @@ public class LogManager
             instance.executeQuery("INSERT INTO provider(provider_id) VALUES(" + id + ")", false);
     }
 
-    public void changePassword(String mail, String newPassword) throws Exception
+    public void changePassword(String id, String newPassword) throws Exception
     {
-        if(doesAccountExist(mail))
-            DB.getInstance().executeQuery("UPDATE user SET password='" + BCrypt.hashpw(newPassword, BCrypt.gensalt()) + "' WHERE mail ='" + mail+"'",false);
-        else
-            throw new Exception("the account doesn't exist");
+        DB.getInstance().executeQuery("UPDATE user SET password='" + BCrypt.hashpw(newPassword, BCrypt.gensalt()) + "' WHERE id ='" + id+"'",false);
     }
 }
