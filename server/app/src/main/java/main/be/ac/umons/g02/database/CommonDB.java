@@ -4,67 +4,37 @@ import java.util.ArrayList;
 
 public class CommonDB
 {
-    /**
-     * vérifie si le compte existe
-     * @param mail
-     * @param pwd mdp
-     * @param isClient s'il est client oui, sinon fournisseur
-     * @return vrai s'il est présent, faux sinon
-     */
-    public boolean checkAccount(String mail, String pwd, boolean isClient)
+   //TODO private static final ConsumptionManager consumptionManager = new ConsumptionManager();
+    private static final ContractManager contractManager = new ContractManager();
+    private static final LanguageManager languageManager = new LanguageManager();
+  //TODO  private static final NotificationManager notificationManager = new NotificationManager();
+    private static final WalletManager walletManager = new WalletManager();
+/*
+    public ConsumptionManager getConsumptionManager()
     {
-        //TODO
-        return false;
+        return consumptionManager;
+    }
+   TODO
+*/
+    public ContractManager getContractManager()
+    {
+        return contractManager;
     }
 
-    /**
-     * crée un compte (s'il n'existe pas)
-     */
-
-    public void saveAccount(String mail, String pwd, boolean isClient, String name, String language)
+    public LanguageManager getLanguageManager()
     {
-
+        return languageManager;
     }
-
-    /**
-     * change le mot de passe existant en un nouveau
-     */
-    public void changePwd(String id_user, String newPwd)
+/*
+    public NotificationManager getNotificationManager()
     {
-
+        return notificationManager;
     }
-
-    /**
-     * retourne la langue actuelle de l'utilisateur
-     */
-
-    public String getLanguage(String id_user)
+TODO
+*/
+    public WalletManager getWalletManager()
     {
-        //TODO
-        return null;
+        return walletManager;
     }
-
-    /**
-     * retourne la langue préférée de l'utilisateur
-     */
-    public String getFavouriteLanguage(String id_user)
-    {
-        //TODO
-        return null;
-    }
-
-    /**
-     * retourne toutes les langues que l'utilisateur possède
-     * @param id_user
-     * @return
-     */
-    public ArrayList<String> getAllLanguages(String id_user)
-    {
-        //TODO
-        return null;
-    }
-
-
-
 
 }

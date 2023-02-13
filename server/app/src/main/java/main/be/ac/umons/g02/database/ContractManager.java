@@ -1,6 +1,4 @@
 package main.be.ac.umons.g02.database;
 
-public class ClientDB extends CommonDB
-{
-
+public class ContractManager {
 }

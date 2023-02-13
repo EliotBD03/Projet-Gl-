@@ -29,6 +29,9 @@ dependencies {
     implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.7.5'
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 	implementation group: 'com.google.apis', name: 'google-api-services-gmail', version: 'v1-rev20220404-2.0.0'
+
+    //This dependency is used to connect the app to the ssh2 server
+    implementation group: 'com.jcraft', name: 'jsch', version: '0.1.55'
 }
 
 application {
