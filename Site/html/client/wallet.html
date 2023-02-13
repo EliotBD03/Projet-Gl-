@@ -3,10 +3,33 @@
 <head>
   <link rel="stylesheet" href="../../css/button_style.css">
   <link rel="stylesheet" href="../../css/essential.css">
-  <title>Wallet</title>
+  <title>Wallets</title>
 </head>
 <body>
-  <h1 class = "title">Wallet</h1>
+  <h1 class = "title">Wallets</h1>
+
+  <!-- A tester notamment le @click -->
+  <div class = "list">
+    <div id="wallet">
+      <div v-for="wallet in listWallet">
+        <p> {{ wallet.name }}</p>
+        <p> {{ wallet.nameOwner }}</p>
+        <p> {{ wallet.address }}</p>   
+        <div id="button_redirection_walletFull">
+          <change-page @click="seeMore(wallet)" css = "greenButton rightButton" go="walletFull.html" name = "Go"></change-page>
+        </div>
+      </div>
+    </div> 
+  </div>
+
+  <div id="button_redirection_home">
+    <change-page css = "blueButton leftButton" go="../../index.html" name = "Home"></change-page>
+  </div>
+  
+  <script src="../../vue.js"></script>
+  
+  <script src="../../js/redirection.js"></script>
+  <script src="../../js/wallet.js"></script>
 </body>
 </html>
 

@@ -10,3 +10,9 @@
     background-color: rgba(177, 185, 252, 1);
     text-align: center;
 }
+
+.list{
+    position: absolute;
+    top: 20%;
+    left: 30%;
+}
