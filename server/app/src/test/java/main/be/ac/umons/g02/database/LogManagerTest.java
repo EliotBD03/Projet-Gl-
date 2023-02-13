@@ -4,13 +4,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * We suppose that the tests are executed with an empty database.
+ */
 class LogManagerTest {
 
 
     @Test
     void saveAccountTest()
     {
-        //we suppose that the database doesn't contain these values
         assertDoesNotThrow(() -> {new LogManager().saveAccount("test@gmail.com", "password", true, "testname","english");});
         assertThrows(Exception.class,() -> {new LogManager().saveAccount("test@gmail.com", "password", true, "testname","english");});
     }
@@ -18,8 +20,8 @@ class LogManagerTest {
     @Test
     void checkAccountTest()
     {
-        assertTrue(new LogManager().checkAccount("test@gmail.com", "password"));
-        assertFalse(new LogManager().checkAccount("test@gmail.com", "mdp"));
+        assertEquals(new LogManager().checkAccount("test@gmail.com", "password"), "1");
+        assertNull(new LogManager().checkAccount("test@gmail.com", "mdp"));
     }
 
     @Test
