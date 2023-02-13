@@ -7,27 +7,23 @@
 </head>
 <body>
 
-  <!-- A tester : voir si la variable wallet est bien "conservée" de wallet à walletFull"-->
-  <div class ="list">
-    <div id="wallet">
-      <div v-if="wallet">
-          <h1 class = "title">{{ wallet.name }}</h1>
-          <p> General information : </p>
-          <p> Owner : {{ wallet.nameOwner }}</p>
-          <p> Address : {{ wallet.address }}</p>
-          <p> Last consumptions :</p>
-          <p> Electricity : {{ wallet.lastConsumptionOfWater }}</p>
-          <p> Gas : {{ wallet.lastConsumptionOfGas }}</p>
-          <p> Water : {{ wallet.lastConsumptionOfElectricity }}</p>
-          <p> Associated contracts :</p> 
-          <!-- A voir (wallet.listContracts) -->
-      </div>
-    </div>  
+  <div id="wallet">
+    <h1 class = "title">{{ wallet.name }}</h1>
+    <div class ="list">
+      <p> General information : </p>
+      <p> Owner : {{ wallet.nameOwner }}</p>
+      <p> Address : {{ wallet.address }}</p>
+      <p> Last consumptions :</p>
+      <p> Electricity : {{ wallet.lastConsumptionOfWater }}</p>
+      <p> Gas : {{ wallet.lastConsumptionOfGas }}</p>
+      <p> Water : {{ wallet.lastConsumptionOfElectricity }}</p>
+      <p> Associated contracts :</p> 
+      <!-- A voir (wallet.listContracts) -->  
+    </div>
   </div>
 
-  <!-- Vérifier utilité de @click="notSeeMore(wallet)" -->
   <div id="button_redirection_wallet">
-    <change-page @click="notSeeMore()" css = "backButton leftButton" go="wallet.html" name = "BACK"></change-page>
+    <change-page css = "backButton leftButton positionA" go="wallet.html" name = "BACK"></change-page>
   </div>
 
   <script src="../../vue.js"></script>

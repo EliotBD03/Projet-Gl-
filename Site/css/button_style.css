@@ -41,17 +41,24 @@
 .leftButton {
   position: absolute;
   left : 0;
-  bottom: 10%;
+  bottom: 0;
 }
 
 .rightButton {
-  position: absolute;
   right : 0;
-  bottom: 10%;
+  bottom: 0;
 }
 
 .middleButton {
+  left: 50%;
+  transform: translate(-50%);
+  bottom: 0;
+}
+
+.positionA{
   position: absolute;
-  left: 43%;
-  bottom: 10%;
+}
+
+.positionR{
+  position: relative;
 }

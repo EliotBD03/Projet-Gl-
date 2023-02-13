@@ -4,20 +4,18 @@ new Vue({
     data(){
     return{
       listWallet: [],
-      wallet : null
+      wallet : JSON.parse(sessionStorage.getItem('wallet'))
     }},
     //Get //token = ? (dans le lien) checkaccount faire .token
     created() {
         fetch("https://babawallet.alwaysdata.net:8300/api/client/?/wallets")
           .then(response => response.json())
-          .then(data => (this.walletInfo = data.total)); //data.total modifier ?
+          .then(data => (this.listWallet = data.total));
     },
     methods: {
         seeMore(wallet){
-          this.wallet = wallet;
-        },
-        notSeeMore(){
-          this.wallet = null;
+          this.wallet = sessionStorage.setItem('wallet', JSON.stringify(wallet));
+          window.location.href = "../../html/client/walletFull.html";
         }
       }
     });
