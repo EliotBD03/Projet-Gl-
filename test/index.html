@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>  
+  <link rel="stylesheet" href="css/button_style.css">
+  <link rel="stylesheet" href="css/essential.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <title>Home</title>
+</head>
+
+<body>
+  <h1 class = "title">Home</h1>
+
+  <div class = "allcards">
+    <div class = "card"> 
+      <div id="button_redirection_wallet">
+        <p class = "text">Wallet</p>
+        <change-page css = "blueButton" go="html/client/wallet.html" name = "Go"></change-page>
+      </div>
+    </div>
+
+    <div class = "card"> 
+      <div id="button_redirection_contracts">
+        <p class = "text">Your contracts</p>
+        <change-page css = "blueButton" go="html/client/contracts.html" name = "Go"></change-page>
+      </div>
+    </div>
+
+    <div class = "card"> 
+      <div id="button_redirection_notifications">
+        <p class = "text">Notifications</p>
+        <change-page css = "blueButton" go="html/client/notifications.html" name = "Go"></change-page>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="button_redirection_settings">
+    <change-page css = "greyButton rightButton positionA" go="html/client/settings.html" name = "Settings"></change-page>
+  </div>
+  
+  <div id="button_redirection_newcontracts">
+    <change-page css = "blueButton middleButton positionA" go="html/client/newContracts.html" name = "See new Contracts"></change-page>
+  </div>
+
+  <!-- On fera les fn plus tard mais le bouton est fait -->
+  <div id="button_redirection_disconnect">
+    <change-page css = "redButton leftButton positionA" go="html/client/settings.html" name = "Disconnect"></change-page>
+  </div>
+
+  <script src="vue.js"></script>
+
+  <script src="js/redirection.js"></script>
+</body>
+</html>
+
