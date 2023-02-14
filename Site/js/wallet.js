@@ -16,6 +16,11 @@ new Vue({
         seeMore(wallet){
           this.wallet = sessionStorage.setItem('wallet', JSON.stringify(wallet));
           window.location.href = "../../html/client/walletFull.html";
+        },
+        getIndex(){
+          let index = (item) => item.name == this.wallet.name;
+          //console.log('test:', this.listWallet.findIndex(index));
+          return this.listWallet.findIndex(index);
         }
       }
     });

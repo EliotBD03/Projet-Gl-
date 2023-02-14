@@ -17,9 +17,15 @@
       <p> Electricity : {{ wallet.lastConsumptionOfWater }}</p>
       <p> Gas : {{ wallet.lastConsumptionOfGas }}</p>
       <p> Water : {{ wallet.lastConsumptionOfElectricity }}</p>
-      <p> Associated contracts :</p> 
-      <!-- A voir (wallet.listContracts) -->  
-    </div>
+      <p> Associated contracts :</p>
+        <div v-for="contract in listWallet[getIndex()].listContracts">
+          <p> nom = {{ contract.nom }}</p> 
+          <p> conso = {{ contract.conso }}</p>
+          <p> prix = {{ contract.prix }}</p>
+          <p>--------------------------</p>
+          <!-- A voir pour le bouton Go, il faut que contract.js soit fait-->
+        </div>  
+      </div>
   </div>
 
   <div id="button_redirection_wallet">
