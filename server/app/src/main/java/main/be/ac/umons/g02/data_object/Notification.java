@@ -2,19 +2,19 @@ package main.be.ac.umons.g02.data_object;
 
 public class Notification
 {
-    private String id_notification;
-    private String id_sender;
-    private String nameSender;
-    private String context;
-    private String id_contract;
+    private final String id_notification;
+    private final String senderId;
+    private final String receiverId;
+    private final String contractId;
+    private final String context;
 
-    public Notification(String id_notification, String id_sender, String nameSender, String context, String id_contract)
+    public Notification(String id_notification, String sender_id, String receiverId, String contractId, String context)
     {
         this.id_notification = id_notification;
-        this.id_sender = id_sender;
-        this.nameSender = nameSender;
+        this.senderId = sender_id;
+        this.receiverId = receiverId;
+        this.contractId = contractId;
         this.context = context;
-        this.id_contract = id_contract;
     }
 
     public String getId_notification()
@@ -22,23 +22,23 @@ public class Notification
         return id_notification;
     }
 
-    public String getId_sender()
+    public String getSenderId()
     {
-        return id_sender;
+        return senderId;
     }
 
-    public String getNameSender()
+    public String getReceiverId()
     {
-        return nameSender;
+        return receiverId;
+    }
+
+    public String getContractId()
+    {
+        return contractId;
     }
 
     public String getContext()
     {
         return context;
-    }
-
-    public String getId_contract()
-    {
-        return id_contract;
     }
 }

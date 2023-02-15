@@ -2,50 +2,51 @@ package main.be.ac.umons.g02.data_object;
 
 public class ContractBasic
 {
-    protected String id_contract;
-    protected String id_client;
-    protected String id_provider;
-    protected String nameProvider;
-    protected String nameClient;
+    protected String contractId;
     protected String ean;
+    protected String providerId;
+    protected String clientId;
+    protected String providerName;
+    protected String clientName;
 
-    ContractBasic(String id_contract, String id_client, String id_provider, String nameProvider, String nameClient, String ean)
+
+    ContractBasic(String contractId,  String ean, String providerId, String clientId, String providerName, String clientName)
     {
-        this.id_contract = id_contract;
-        this.id_client = id_client;
-        this.id_provider = id_provider;
-        this.nameClient = nameClient;
-        this.nameProvider = nameProvider;
+        this.contractId = contractId;
         this.ean = ean;
+        this.providerId = providerId;
+        this.clientId = clientId;
+        this.providerName = providerName;
+        this.clientName = clientName;
     }
 
-    public String getId_contract()
+    public String getContractId()
     {
-        return id_contract;
+        return contractId;
     }
 
-    public String getId_client()
+    public String getClientId()
     {
-        return id_client;
+        return clientId;
     }
 
-    public String getId_provider()
+    public String getProviderId()
     {
-        return  id_provider;
-    }
-
-    public String getNameProvider()
-    {
-        return nameProvider;
-    }
-
-    public String getNameClient()
-    {
-        return nameClient;
+        return providerId;
     }
 
     public String getEan()
     {
         return ean;
+    }
+
+    public String getProviderName()
+    {
+        return providerName;
+    }
+
+    public String getClientName()
+    {
+        return clientName;
     }
 }

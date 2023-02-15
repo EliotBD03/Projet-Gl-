@@ -52,7 +52,7 @@ public class LanguageManager
     {
         if(doesTheLanguageNotExist(userId, language))
             addLanguage(userId,language);
-        
+
         DB.getInstance().executeQuery("UPDATE language SET favourite_language=0 WHERE favourite_language=1", false);
         DB.getInstance().executeQuery("UPDATE language SET favourite_language=1 WHERE saved_language='"+language+"'",false);
     }

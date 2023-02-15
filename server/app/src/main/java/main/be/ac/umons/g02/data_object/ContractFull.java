@@ -8,9 +8,9 @@ public class ContractFull extends ContractBasic
     private Calendar openingDate;
     private Calendar closingDate;
 
-    public ContractFull(String id_contract, String id_client, String id_provider, String nameProvider, String nameClient, String ean)
+    public ContractFull(String contractId,  String ean,  String providerId, String clientId, String providerName, String clientName)
     {
-        super(id_contract, id_client, id_provider, nameProvider, nameClient, ean);
+        super(contractId, ean, providerId, clientId, providerName, clientName);
     }
 
     public Calendar getOpeningDate()
