@@ -14,5 +14,5 @@
 .allcards{
     margin-top: 15%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
