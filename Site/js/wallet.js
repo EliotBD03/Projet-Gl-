@@ -19,7 +19,6 @@ new Vue({
         },
         getIndex(){
           let index = (item) => item.name == this.wallet.name;
-          //console.log('test:', this.listWallet.findIndex(index));
           return this.listWallet.findIndex(index);
         }
       }
