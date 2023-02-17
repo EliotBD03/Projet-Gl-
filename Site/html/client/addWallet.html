@@ -9,11 +9,11 @@
 <body>
   <h1 class = "title">Add a wallet</h1>
   
-  <form id="addWallet" method="post" v-on:submit.prevent="checkArgs">
+  <form id="addWallet" method="post" v-on:submit.prevent="post">
     <div class = "list box">
       <p>
         <label>Name: </label>
-        <input type="text"  v-model="name">
+        <input type="text" v-model="name">
       </p>
     
       <p>
