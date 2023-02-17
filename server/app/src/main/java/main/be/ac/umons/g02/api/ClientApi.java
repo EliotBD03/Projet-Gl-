@@ -1,5 +1,7 @@
 package main.be.ac.umons.g02.api;
 
+import main.be.ac.umons.g02.database.CommonDB;
+
 import io.vertx.core.Vertx;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
@@ -11,8 +13,7 @@ public class ClientApi extends AbstractToken implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientApi.class);
 
-    //private final ClientDB clientDB = ClientDB.getInstance();
-    private final ClientDB clientDB = new ClientDB();
+    private final CommonDB commonDB = new CommonDB();
 
     @Override
     public Router getSubRouter(final Vertx vertx)
@@ -33,6 +34,7 @@ public class ClientApi extends AbstractToken implements RouterApi
 
     private void getAllWallets(final RoutingContext routingContext)
     {
+        //final String id = routingContext.request().getParam("id");
     }
 
     private void getWallet(final RoutingContext routingContext)

@@ -24,6 +24,7 @@ public abstract class AbstractToken
             token += chaine.charAt(rand.nextInt(chaine.length()));
 
         listToken.put(token, id);
+        automaticDeleteToken(token);
 
         return token;
     }   

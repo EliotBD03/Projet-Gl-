@@ -1,5 +1,7 @@
 package main.be.ac.umons.g02.api;
 
+import main.be.ac.umons.g02.database.CommonDB;
+
 import io.vertx.core.Vertx;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
@@ -11,8 +13,7 @@ public class ProviderApi extends AbstractToken implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProviderApi.class);
 
-    //private final ProviderDB providerDB = ProviderDB.getInstance();
-    private final ProviderDB providerDB = new ProviderDB();
+    private final CommonDB commonDB = new CommonDB();
 
     @Override
     public Router getSubRouter(final Vertx vertx)
