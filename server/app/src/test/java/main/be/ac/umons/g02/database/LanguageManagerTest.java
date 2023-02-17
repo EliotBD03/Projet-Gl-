@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class LanguageManagerTest {
 
     @BeforeAll
-    public static void setup()
+    public static void setUp()
     {
         try //If LogManagerTest has already been tested
         {

@@ -1,7 +1,5 @@
 package main.be.ac.umons.g02.api;
 
-import main.be.ac.umons.g02.database.ClientDB;
-
 import io.vertx.core.Vertx;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
