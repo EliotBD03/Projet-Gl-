@@ -18,6 +18,10 @@ new Vue({
 });
 
 new Vue({
+  el: '#button_redirection_addWallet'
+});
+
+new Vue({
   el: '#button_redirection_contracts'
 });
 
