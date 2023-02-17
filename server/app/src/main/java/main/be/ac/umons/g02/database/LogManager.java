@@ -15,6 +15,8 @@ public class LogManager
         return Integer.parseInt(instance.getResults(new String[] {"mail"}).get(0).get(0)) == 1;
     }
 
+    //TODO isClient(String id) : boolean
+
     public String checkAccount(String mail, String password)
     {
         if(doesAccountExist(mail))
@@ -30,7 +32,7 @@ public class LogManager
         return null;
     }
 
-    public void saveAccount(String mail, String password, boolean isClient, String name, String language) throws Exception
+    public String saveAccount(String mail, String password, boolean isClient, String name, String language) throws Exception
     {
         DB instance = DB.getInstance();
 
@@ -54,9 +56,11 @@ public class LogManager
             instance.executeQuery("INSERT INTO client(client_id) VALUES(" + id + ")", false);
         else
             instance.executeQuery("INSERT INTO provider(provider_id) VALUES(" + id + ")", false);
+
+        return id;
     }
 
-    public void changePassword(String id, String newPassword) throws Exception
+    public void changePassword(String id, String newPassword)
     {
         DB.getInstance().executeQuery("UPDATE user SET password='" + BCrypt.hashpw(newPassword, BCrypt.gensalt()) + "' WHERE id ='" + id+"'",false);
     }

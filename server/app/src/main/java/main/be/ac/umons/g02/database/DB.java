@@ -1,6 +1,5 @@
 package main.be.ac.umons.g02.database;
 
-import org.checkerframework.checker.units.qual.A;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -8,9 +8,10 @@ import java.util.ArrayList;
 
 public class ContractManager
 {
-    /*TODO
     public ContractFull getContract(String contractId)
     {
+        /*
+        TODO
         DB.getInstance().executeQuery("SELECT * FROM contract WHERE contract_id="+contractId,true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[]
                 {
@@ -21,7 +22,7 @@ public class ContractManager
         {
             contract =
         }
+         */
+        return null;
     }
-
-     */
 }

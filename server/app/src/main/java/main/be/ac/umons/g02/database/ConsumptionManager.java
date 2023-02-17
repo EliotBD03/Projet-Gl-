@@ -18,21 +18,20 @@ public class ConsumptionManager
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"date", "daily_consumption"});
         for(int i = 0; i < results.get(0).size(); i++)
         {
-            String date[] = results.get(0).get(i).split("-");
+            String[] date = results.get(0).get(i).split("-");
             consumptions.put(new GregorianCalendar(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2])), Double.parseDouble(results.get(1).get(1)));
         }
         return consumptions;
     }
-/*
+
     public boolean addConsumption(String ean, ArrayList<Integer> values, ArrayList<Calendar> dates, boolean forcingChange)
     {
-
+        //TODO
+        return false;
     }
 
     public void changeConsumption(String ean, double value, Calendar date)
     {
-
+        //TODO
     }
-    TODO
- */
 }
