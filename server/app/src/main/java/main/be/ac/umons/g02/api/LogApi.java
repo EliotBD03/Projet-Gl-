@@ -47,9 +47,7 @@ public class LogApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            final JsonObject errorJsonResponse = new JsonObject();
-			errorJsonResponse.put("error", "Compte non trouvé, l'adresse mail ou le mot de passe n'est pas correct.");
-			routingContext.response().setStatusCode(404).putHeader("contentType", "babaWallet/api").end(Json.encode(errorJsonResponse));
+            sendMessageError(routingContext, "Compte non trouvé, l'adresse mail ou le mot de passe n'est pas correct.");
 			return;
         }
 
@@ -100,16 +98,14 @@ public class LogApi extends AbstractToken implements RouterApi
             }
             catch(Exception error)
             {
-                final JsonObject errorJsonResponse = new JsonObject();
-                errorJsonResponse.put("error", error.getMessage());
-                routingContext.response().setStatusCode(404).putHeader("contentType", "babaWallet/api").end(Json.encode(errorJsonResponse));
+                sendMessageError(routingContext, error.getMessage());
+                return;
             }
         }
         else
         {
-            final JsonObject errorJsonResponse = new JsonObject();
-            errorJsonResponse.put("error", "Mauvais code");
-            routingContext.response().setStatusCode(404).putHeader("contentType", "babaWallet/api").end(Json.encode(errorJsonResponse));
+            sendMessageError(routingContext, "Mauvais code.");
+            return;
         }
     }
 
@@ -132,16 +128,14 @@ public class LogApi extends AbstractToken implements RouterApi
             }
             catch(Exception error)
             {
-                final JsonObject errorJsonResponse = new JsonObject();
-                errorJsonResponse.put("error", "Une erreur s'est produite");
-                routingContext.response().setStatusCode(404).putHeader("contentType", "babaWallet/api").end(Json.encode(errorJsonResponse));
+                sendMessageError(routingContext, "Une erreur s'est produite.");
+                return;
             }
         }
         else
         {
-            final JsonObject errorJsonResponse = new JsonObject();
-            errorJsonResponse.put("error", "Mauvais code");
-            routingContext.response().setStatusCode(404).putHeader("contentType", "babaWallet/api").end(Json.encode(errorJsonResponse));
+            sendMessageError(routingContext, "Mauvais code.");
+            return;
         }
     }
 
@@ -161,9 +155,8 @@ public class LogApi extends AbstractToken implements RouterApi
         }
         catch(RuntimeException error)
         {
-            final JsonObject errorJsonResponse = new JsonObject();
-			errorJsonResponse.put("error", "Erreur de l'envoie du code");
-			routingContext.response().setStatusCode(404).putHeader("contentType", "babaWallet/api").end(Json.encode(errorJsonResponse));
+            sendMessageError(routingContext, "Erreur de l'envoie du code");
+            return;
         }
     }
 }

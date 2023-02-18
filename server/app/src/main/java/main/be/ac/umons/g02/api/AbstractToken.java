@@ -5,14 +5,19 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Random;
 import io.vertx.ext.web.RoutingContext;
+import io.vertx.core.json.Json;
+import io.vertx.core.json.JsonObject;
 
 public abstract class AbstractToken
 {
     private static HashMap<String, String> listToken = new HashMap<>();
     private static String chaine = "0123456789azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN";
 
-    protected void sendMessageError(final RoutingContext routingContext)
+    protected void sendMessageError(final RoutingContext routingContext, String messageError)
     {
+        final JsonObject errorJsonResponse = new JsonObject();
+        errorJsonResponse.put("error", messageError);
+        routingContext.response().setStatusCode(404).putHeader("contentType", "babaWallet/api").end(Json.encode(errorJsonResponse));
     }
 
     protected String createToken(String id) 
