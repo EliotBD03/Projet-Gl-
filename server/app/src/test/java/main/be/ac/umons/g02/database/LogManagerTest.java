@@ -18,6 +18,12 @@ class LogManagerTest {
     }
 
     @Test
+    void isClient()
+    {
+        assertTrue(new LogManager().isClient("1"));
+    }
+
+    @Test
     void checkAccountTest()
     {
         assertEquals(new LogManager().checkAccount("test@gmail.com", "password"), "1");

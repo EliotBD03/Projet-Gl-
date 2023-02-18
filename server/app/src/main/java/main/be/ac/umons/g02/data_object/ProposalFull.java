@@ -12,9 +12,9 @@ public class ProposalFull extends ProposalBasic
     private Calendar startOffPeakHours;
     private Calendar endOfPeakHours;
 
-    public ProposalFull(String id_provider, String nameProvider, TypeEnergy typeEnergy, String location, String nameProposal)
+    public ProposalFull(String providerId, String nameProvider, TypeEnergy typeEnergy, String location, String nameProposal)
     {
-        super(nameProposal,id_provider,nameProvider,typeEnergy,location);
+        super(nameProposal,providerId,nameProvider,typeEnergy,location);
     }
 
     public double getBasicPrice()

@@ -62,4 +62,16 @@ public class ConsumptionManager
                                             ") ON DUPLICATE KEY UPDATE daily_consumption="+values.get(i), false);
         return true;
     }
+
+    public void deleteAllConsumption(String ean)
+    {
+        DB.getInstance().executeQuery("DELETE FROM consumption WHERE ean='"+ean+"'",false);
+    }
+
+    public void deleteConsumption(String ean, Calendar date)
+    {
+        DB.getInstance().executeQuery("DELETE FROM consumption WHERE ean='"+ean+"' AND daily_consumption="+date,false);
+    }
+
+
 }

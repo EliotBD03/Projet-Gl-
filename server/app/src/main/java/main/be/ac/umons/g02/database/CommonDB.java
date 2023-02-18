@@ -10,6 +10,7 @@ public class CommonDB
     private static final WalletManager walletManager = new WalletManager();
     private static final LogManager logManager = new LogManager();
     private static final ConsumptionManager consumptionManager = new ConsumptionManager();
+    private static final ProposalManager proposalManager = new ProposalManager();
 
     public ConsumptionManager getConsumptionManager()
     {
@@ -35,5 +36,6 @@ public class CommonDB
     {
         return walletManager;
     }
+    public ProposalManager getProposalManager(){return proposalManager;}
 
 }

@@ -15,7 +15,11 @@ public class LogManager
         return Integer.parseInt(instance.getResults(new String[] {"mail"}).get(0).get(0)) == 1;
     }
 
-    //TODO isClient(String id) : boolean
+     public boolean isClient(String id)
+     {
+         DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM client WHERE client_id="+id+") AS r",true);
+         return Integer.parseInt(DB.getInstance().getResults(new String[] {"r"}).get(0).get(0)) == 1;
+     }
 
     public String checkAccount(String mail, String password)
     {

@@ -38,7 +38,7 @@ public class NotificationManager
         //TODO
     }
 
-    public void deleteNofitication(String idNotification)
+    public void deleteNotification(String idNotification)
     {
         DB.getInstance().executeQuery("DELETE FROM notification WHERE id="+idNotification, false);
     }

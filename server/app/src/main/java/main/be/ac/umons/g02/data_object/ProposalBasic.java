@@ -2,29 +2,29 @@ package main.be.ac.umons.g02.data_object;
 
 public class ProposalBasic
 {
-    protected String nameProposal;
-    protected String id_provider;
+    protected String proposalName;
+    protected String providerId;
     protected String nameProvider;
     protected TypeEnergy typeOfEnergy;
     protected String location;
 
-    ProposalBasic(String nameProposal, String id_provider, String nameProvider, TypeEnergy typeOfEnergy, String location)
+    ProposalBasic(String nameProposal, String providerId, String nameProvider, TypeEnergy typeOfEnergy, String location)
     {
-        this.nameProposal = nameProposal;
-        this.id_provider = id_provider;
+        this.proposalName = nameProposal;
+        this.providerId = providerId;
         this.nameProvider = nameProvider;
         this.typeOfEnergy = typeOfEnergy;
         this.location = location;
     }
 
-    public String getNameProposal()
+    public String getProposalName()
     {
-        return nameProposal;
+        return proposalName;
     }
 
-    public String getId_provider()
+    public String getProviderId()
     {
-        return id_provider;
+        return providerId;
     }
 
     public String getNameProvider()

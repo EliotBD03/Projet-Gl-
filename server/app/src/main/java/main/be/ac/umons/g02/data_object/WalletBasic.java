@@ -4,12 +4,12 @@ public class WalletBasic
 {
     protected String address;
     protected String name;
-    protected String nameOwner;
+    protected String clientId;
 
     public WalletBasic(String address, String name, String nameOwner){
         this.address = address;
         this.name = name;
-        this.nameOwner = nameOwner;
+        this.clientId = nameOwner;
     }
 
     public String getAddress()
@@ -22,9 +22,9 @@ public class WalletBasic
         return name;
     }
 
-    public String getNameOwner()
+    public String getClientId()
     {
-        return nameOwner;
+        return clientId;
     }
 
 

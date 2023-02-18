@@ -1,10 +1,7 @@
 package main.be.ac.umons.g02.database;
 
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,9 +21,9 @@ class LanguageManagerTest {
     }
 
     @Test
-    void getLanguage()
+    void getCurrentLanguage()
     {
-        assertEquals(new LanguageManager().getLanguage("1"), "english");
+        assertEquals(new LanguageManager().getCurrentLanguage("1"), "english");
     }
 
     @Test
@@ -45,17 +42,25 @@ class LanguageManagerTest {
     void addLanguage()
     {
         LanguageManager languageManager = new LanguageManager();
-        assertNotEquals(languageManager.getLanguage("5"), "german");
+        assertNotEquals(languageManager.getCurrentLanguage("5"), "german");
         languageManager.addLanguage("5", "german");
-        assertEquals(languageManager.getLanguage("5"), "german");
+        assertEquals(languageManager.getCurrentLanguage("5"), "german");
     }
 
     @Test
-    void changeLanguage()
+    void changeCurrentLanguage()
     {
         LanguageManager languageManager = new LanguageManager();
-        assertNotEquals(languageManager.getLanguage("1"), "english");
-        languageManager.changeLanguage("1", "english");
-        assertEquals(languageManager.getLanguage("1"), "english");
+        assertNotEquals(languageManager.getCurrentLanguage("1"), "english");
+        languageManager.changeCurrentLanguage("1", "english");
+        assertEquals(languageManager.getCurrentLanguage("1"), "english");
+    }
+
+    @Test
+    void changeFavouriteLanguage()
+    {
+        LanguageManager languageManager = new LanguageManager();
+        languageManager.changeFavouriteLanguage("1", "dutch");
+        assertEquals(languageManager.getFavouriteLanguage("1"), "dutch");
     }
 }

@@ -10,7 +10,7 @@ public class LanguageManager
         return Integer.parseInt(DB.getInstance().getResults(new String[]{"result"}).get(0).get(0)) != 1;
     }
 
-    public String getLanguage(String userId)
+    public String getCurrentLanguage(String userId) //more explicit with "current"
     {
         DB.getInstance().executeQuery("SELECT saved_language FROM language WHERE current_language=1 AND id=" + userId, true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"saved_language"});
@@ -39,7 +39,7 @@ public class LanguageManager
         DB.getInstance().executeQuery("INSERT INTO language(id,saved_language,favourite_language,current_language) VALUES ("+userId+",'"+language+"',0,1)", false);
     }
 
-    public void changeLanguage(String userId, String language)
+    public void changeCurrentLanguage(String userId, String language)
     {
         if(doesTheLanguageNotExist(userId, language))
             addLanguage(userId, language);

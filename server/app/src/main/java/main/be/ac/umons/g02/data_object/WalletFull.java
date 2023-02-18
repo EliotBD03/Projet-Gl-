@@ -6,7 +6,7 @@ import java.util.Collections;
 public class WalletFull extends WalletBasic{
 
     private ArrayList<ContractBasic> contracts;
-    private double lastconsumptionOfWater;
+    private double lastConsumptionOfWater;
     private double lastConsumptionOfElectricity;
     private double lastConsumptionOfGas;
 
@@ -27,7 +27,7 @@ public class WalletFull extends WalletBasic{
 
     public double getLastConsumptionOfWater()
     {
-        return lastconsumptionOfWater;
+        return lastConsumptionOfWater;
     }
 
     public double getLastConsumptionOfElectricity()
