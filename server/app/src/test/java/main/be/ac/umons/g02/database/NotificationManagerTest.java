@@ -27,4 +27,16 @@ class NotificationManagerTest {
     {
 
     }
+
+    @Test
+    void testAcceptNotification() {
+    }
+
+    @Test
+    void testRefuseNotification() {
+    }
+
+    @Test
+    void deleteNotification() {
+    }
 }

@@ -17,7 +17,6 @@ public class CommonApi extends AbstractToken implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonApi.class);
 
-    //private final CommonDB commonDB = CommonDB.getInstance();
     private final CommonDB commonDB = new CommonDB();
 
     @Override

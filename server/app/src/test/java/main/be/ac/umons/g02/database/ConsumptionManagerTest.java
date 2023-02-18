@@ -26,4 +26,12 @@ class ConsumptionManagerTest {
     @Test
     void changeConsumption() {
     }
+
+    @Test
+    void deleteAllConsumption() {
+    }
+
+    @Test
+    void deleteConsumption() {
+    }
 }
