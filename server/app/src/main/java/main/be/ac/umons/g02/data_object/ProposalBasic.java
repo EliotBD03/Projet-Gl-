@@ -5,10 +5,10 @@ public class ProposalBasic
     protected String proposalName;
     protected String providerId;
     protected String nameProvider;
-    protected TypeEnergy typeOfEnergy;
-    protected String location;
+    protected TypeEnergy[] typeOfEnergy;
+    protected Location[] location;
 
-    ProposalBasic(String nameProposal, String providerId, String nameProvider, TypeEnergy typeOfEnergy, String location)
+    public ProposalBasic(String nameProposal, String providerId, String nameProvider, TypeEnergy[] typeOfEnergy, Location[] location)
     {
         this.proposalName = nameProposal;
         this.providerId = providerId;
@@ -32,12 +32,12 @@ public class ProposalBasic
         return nameProvider;
     }
 
-    public TypeEnergy getTypeOfEnergy()
+    public TypeEnergy[] getTypeOfEnergy()
     {
         return typeOfEnergy;
     }
 
-    public String getLocation()
+    public Location[] getLocation()
     {
         return location;
     }
