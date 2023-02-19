@@ -15,6 +15,7 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
+import java.util.ArrayList;
 
 public class ClientApi extends AbstractToken implements RouterApi
 {
@@ -53,7 +54,7 @@ public class ClientApi extends AbstractToken implements RouterApi
             return;
         }
 
-        WalletBasic[] wallets = commonDB.getWalletManager().getAllWallets(id);
+        ArrayList<WalletBasic> wallets = commonDB.getWalletManager().getAllWallets(id);
 
         final JsonObject jsonResponse = new JsonObject();
 		jsonResponse.put("wallets", wallets);
@@ -146,7 +147,7 @@ public class ClientApi extends AbstractToken implements RouterApi
             return;
         }
 
-        ContractBasic[] contracts = commonDB.getContractManager().getAllContracts(id);
+        ArrayList<ContractBasic> contracts = commonDB.getContractManager().getAllContracts(id);
 
         final JsonObject jsonResponse = new JsonObject();
 		jsonResponse.put("contracts", contracts);
@@ -166,7 +167,7 @@ public class ClientApi extends AbstractToken implements RouterApi
             return;
         }
 
-        ProposalBasic[] proposals = commonDB.getProposalManager().getAllProposals();
+        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals();
 
         final JsonObject jsonResponse = new JsonObject();
 		jsonResponse.put("proposals", proposals);

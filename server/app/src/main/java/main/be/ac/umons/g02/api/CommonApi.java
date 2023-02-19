@@ -45,6 +45,15 @@ public class CommonApi extends AbstractToken implements RouterApi
         return null;
     }
     
+        /*
+        LOGGER.info("GetAllWallets...");
+        final String token = routingContext.request().getParam("token");
+        final JsonObject body = routingContext.getBodyAsJson();
+		final String mail = body.getString("mail");
+        final JsonObject jsonResponse = new JsonObject();
+		jsonResponse.put("token", token);
+		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api").end(Json.encode(jsonResponse));
+        */
     private void getFavouriteLanguage(final RoutingContext routingContext)
     {
     }
