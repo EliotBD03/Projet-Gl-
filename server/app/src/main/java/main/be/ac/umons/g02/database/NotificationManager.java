@@ -30,6 +30,7 @@ public class NotificationManager
 
     public void acceptNotification(String idNotification)
     {
+        //The fact of answering is only for contracts
         //TODO
     }
 

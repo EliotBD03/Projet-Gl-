@@ -7,6 +7,7 @@ import main.be.ac.umons.g02.data_object.TypeEnergy;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class ProposalManager
 {
@@ -18,21 +19,28 @@ public class ProposalManager
         return Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0)) == 1;
     }
 
-    public ArrayList<ProposalBasic> getAllProposals(String providerId)
+    private GregorianCalendar getFormatTime(String time)
     {
-        String query;
-        if(providerId != null)
-            query = "SELECT * FROM proposal WHERE provider_id="+providerId;
-        else
-            query = "SELECT * FROM proposal";
+        if(time == null)
+            return null;
+        String[] values = time.split(":");
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(values[0]));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(values[1]));
+        calendar.set(Calendar.SECOND, Integer.parseInt(values[2]));
+        return calendar;
+    }
 
-        DB.getInstance().executeQuery(query, true);
+    public ArrayList<ProposalBasic> getAllProposals()
+    {
+        DB.getInstance().executeQuery("SELECT * FROM proposal", true);
         ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults(new String[] {"proposal_name","provider_id",
                 "water", "gas", "electricity", "location"}));
 
         String proposalName;
+        String providerId;
         String nameProvider;
-        TypeEnergy[] typeEnergy = new TypeEnergy[3];
+        TypeEnergy typeEnergy = null;
         Location[] location = new Location[3];
 
         ArrayList<ProposalBasic> proposalBasics = new ArrayList<>();
@@ -40,33 +48,75 @@ public class ProposalManager
         {
             proposalName = results.get(0).get(i);
             providerId = results.get(1).get(i);
-            DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+providerId,true);
-            nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
 
-            for(int j = 0 ; j < typeEnergy.length ; j++)
-                typeEnergy[j] = (results.get(2 + j).get(i).equals("1")) ? TypeEnergy.values()[j] : null;
+            for(int j = 0 ; j < TypeEnergy.values().length ; j++)
+                if(results.get(2+j).get(i).equals("1"))
+                    typeEnergy = TypeEnergy.values()[j];
 
             for(int j = 0; j < location.length; j++)
-                location[j] = (results.get(2 + typeEnergy.length - 1).get(i).substring(j).equals("1")) ? Location.values()[j] : null;
+                location[j] = (results.get(2 + TypeEnergy.values().length - 1).get(i).substring(j).equals("1")) ? Location.values()[j] : null;
+
+            DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+providerId,true);
+            nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
 
             proposalBasics.add(new ProposalBasic(proposalName, providerId, nameProvider, typeEnergy, location));
         }
         return proposalBasics;
     }
 
-    public ProposalFull getProposal(String proposalId)
+    public ProposalFull getProposal(String proposalName, String providerId)
     {
-        return null; //TODO
+        DB.getInstance().executeQuery("SELECT * FROM proposal WHERE proposal_name='"+proposalName+
+                "' AND provider_id="+providerId, true);
+
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[]{"proposal_name","provider_id","water"
+        ,"gas","electricity","fixed_rate","peak_hours","offpeak_hours","start_peak_hours","end_peak_hours","price","location"});
+
+        ProposalFull proposalFull;
+        TypeEnergy typeEnergy = null;
+
+        for(int i = 0; i < TypeEnergy.values().length; i++)
+            if(results.get(i + 2).get(0).equals("1"))
+                typeEnergy = TypeEnergy.values()[i];
+
+        boolean fixeRate = results.get(5).get(0).equals("1");
+        double peakHours = Double.parseDouble(results.get(6).get(0));
+        double offPeakHours = Double.parseDouble(results.get(7).get(0));
+        GregorianCalendar startPeakHours = getFormatTime(results.get(8).get(0));
+        GregorianCalendar endPeakHours = getFormatTime(results.get(9).get(0));
+        double basicPrice = Double.parseDouble(results.get(10).get(0));
+        Location[] location = new Location[3];
+
+        for(int j = 0; j < location.length; j++)
+            location[j] = (results.get(2 + TypeEnergy.values().length - 1).get(0).substring(j).equals("1")) ? Location.values()[j] : null;
+
+
+        String nameProvider;
+        DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+providerId,true);
+        nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
+
+        proposalFull = new ProposalFull(providerId, nameProvider, typeEnergy, location, proposalName);
+        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, peakHours == offPeakHours, startPeakHours, endPeakHours);
+        return proposalFull;
     }
 
-    public void addProposal(ProposalFull proposal) throws Exception
+    public boolean addProposal(ProposalFull proposal)
     {
+        boolean value = false;
         if(doesTheProposalExist(proposal.getProposalName(), proposal.getProviderId()))
-            throw new Exception("The proposal already exists");
+        {
+            deleteProposal(proposal.getProposalName(), proposal.getProviderId());
+            value = true;
+        }
 
 
-        String startOffPeakHours = proposal.getStartOfPeakHours().get(Calendar.HOUR) + ":" + proposal.getStartOfPeakHours().get(Calendar.MINUTE) + proposal.getStartOfPeakHours().get(Calendar.SECOND);
-        String endOffPeakHours = proposal.getEndOfPeakHours().get(Calendar.HOUR) + ":" + proposal.getEndOfPeakHours().get(Calendar.MINUTE) + proposal.getEndOfPeakHours().get(Calendar.SECOND);
+        String startOffPeakHours = "NULL";
+        String endOffPeakHours = "NULL";
+        if(!proposal.getIsSingleHour())
+        {
+            startOffPeakHours = proposal.getStartOfPeakHours().get(Calendar.HOUR) + ":" + proposal.getStartOfPeakHours().get(Calendar.MINUTE) + proposal.getStartOfPeakHours().get(Calendar.SECOND);
+            endOffPeakHours = proposal.getEndOfPeakHours().get(Calendar.HOUR) + ":" + proposal.getEndOfPeakHours().get(Calendar.MINUTE) + proposal.getEndOfPeakHours().get(Calendar.SECOND);
+        }
 
         int location = 0;
         for(int i = 0; i < proposal.getLocation().length; i++)
@@ -76,9 +126,9 @@ public class ProposalManager
                 ",gas,electricity,fixed_rate,peak_hours,offpeak_hours,start_peak_hours,end_peak_hours,price,location"
                 + "VALUES('"+proposal.getProposalName() + "',"
                 + proposal.getProviderId()+ "',"
-                + ((proposal.getTypeOfEnergy()[0] != null) ? 1 : 0) + ","
-                + ((proposal.getTypeOfEnergy()[1] != null) ? 1 : 0) + ","
-                + ((proposal.getTypeOfEnergy()[2] != null) ? 1 : 0) + ","
+                + ((proposal.getTypeOfEnergy().ordinal() == 0) ? 1 : 0) + ","
+                + ((proposal.getTypeOfEnergy().ordinal() == 1) ? 1 : 0) + ","
+                + ((proposal.getTypeOfEnergy().ordinal() == 2) ? 1 : 0) + ","
                 + proposal.isFixedRate() + ","
                 + proposal.getVariableNightPrice() + ","
                 + proposal.getVariableDayPrice() + ","
@@ -86,12 +136,8 @@ public class ProposalManager
                 + endOffPeakHours + ","
                 + proposal.getBasicPrice() + ","
                 + location + ")",false);
-    }
 
-    public void changeProposal(ProposalFull proposalFull) throws Exception
-    {
-        deleteProposal(proposalFull.getProposalName(), proposalFull.getProviderId());
-        addProposal(proposalFull);
+        return value;
     }
 
     public void deleteProposal(String proposalName, String providerId)

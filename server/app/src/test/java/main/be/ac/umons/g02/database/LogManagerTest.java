@@ -36,4 +36,9 @@ class LogManagerTest {
         assertDoesNotThrow(() -> {new LogManager().changePassword("test@gmail.com", "newPassword");});
     }
 
+    @Test
+    void getName()
+    {
+        assertEquals("testname", new LogManager().getName("1"));
+    }
 }

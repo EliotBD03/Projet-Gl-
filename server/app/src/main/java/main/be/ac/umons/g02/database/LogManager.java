@@ -41,7 +41,7 @@ public class LogManager
         DB instance = DB.getInstance();
 
         if(doesAccountExist(mail))
-            throw new Exception("The account already exists"); //TODO make our own exception
+            throw new Exception("The account already exists");
 
         instance.executeQuery("SELECT EXISTS(SELECT * FROM user WHERE mail='"+mail+"') AS 'mail'", true);
 
@@ -67,5 +67,11 @@ public class LogManager
     public void changePassword(String id, String newPassword)
     {
         DB.getInstance().executeQuery("UPDATE user SET password='" + BCrypt.hashpw(newPassword, BCrypt.gensalt()) + "' WHERE id ='" + id+"'",false);
+    }
+
+    public String getName(String id)
+    {
+        DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+id, true);
+        return DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
     }
 }

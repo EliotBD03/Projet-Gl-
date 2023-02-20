@@ -6,7 +6,8 @@ public class LanguageManager
 {
     private boolean doesTheLanguageNotExist(String userId, String language)
     {
-        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM language WHERE saved_language='"+language+"') AS 'result'", true);
+        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM language WHERE saved_language='"+language+
+                "' AND id="+userId+") AS 'result'", true);
         return Integer.parseInt(DB.getInstance().getResults(new String[]{"result"}).get(0).get(0)) != 1;
     }
 
