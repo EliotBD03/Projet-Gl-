@@ -28,14 +28,21 @@
       </div>
   </div>
 
-  <div id="button_redirection_wallet">
-    <change-page css = "backButton leftButton positionA" go="wallet.html" name = "BACK"></change-page>
-  </div>
+  <footer>
+    <div id="button_redirection_wallet">
+      <change-page css = "backButton leftButton" go="wallet.html" name = "BACK"></change-page>
+    </div>
+  
+    <div id="deleteWallet">
+      <button class = "redButton rightButton" v-on:click="delete()"></button>
+    </div>
+  </footer>
 
   <script src="../../vue.js"></script>
   
   <script src="../../js/redirection.js"></script>
   <script src="../../js/wallet.js"></script>
+  <script src="../../js/deleteWallet.js"></script>
 
 </body>
 </html>

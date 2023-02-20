@@ -1,3 +1,4 @@
+//Ne pas oublier gérer les erreurs (avec l'api)
 new Vue({
     el: '#addWallet',
     data(){
@@ -22,6 +23,8 @@ new Vue({
             };
             fetch("https://babawallet.alwaysdata.net:8300/api/client/?/wallets", requestOptions)
               .then(response => response.json())
+            
+            //window.location.href = "../../html/client/wallet.html";
           }
         }
       }

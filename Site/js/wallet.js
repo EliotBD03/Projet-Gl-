@@ -1,3 +1,4 @@
+//Ne pas oublier gérer les erreurs (avec l'api)
 /*https://jasonwatmore.com/post/2020/04/30/vue-fetch-http-get-request-examples*/
 new Vue({
     el: '#wallet',
