@@ -103,10 +103,7 @@ public class LogApi extends AbstractToken implements RouterApi
             }
         }
         else
-        {
             sendMessageError(routingContext, "Mauvais code.");
-            return;
-        }
     }
 
     private void renitializePwd(final RoutingContext routingContext)
@@ -133,10 +130,7 @@ public class LogApi extends AbstractToken implements RouterApi
             }
         }
         else
-        {
             sendMessageError(routingContext, "Mauvais code.");
-            return;
-        }
     }
 
     private void getCode(final RoutingContext routingContext)

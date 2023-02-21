@@ -17,7 +17,6 @@ import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -40,7 +39,6 @@ public class ProviderApi extends AbstractToken implements RouterApi
         subRouter.get("/:token/proposals/:id_provider").handler(this::getAllProposals);
         subRouter.get("/:token/proposals/:id_provider/:name_proposal").handler(this::getProposal);
         subRouter.post("/:token/proposals").handler(this::addProposal);
-        subRouter.put("/:token/proposals").handler(this::changeProposal);
         subRouter.delete("/:token/proposals/:id_provider/:nameProposal").handler(this::deleteProposal);
         subRouter.delete("/:token/consumptions/:ean").handler(this::deleteAllConsumptions);
         subRouter.delete("/:token/consumptions/:ean/:date").handler(this::deleteConsumption);
@@ -218,56 +216,13 @@ public class ProviderApi extends AbstractToken implements RouterApi
         ProposalFull new_proposal = new ProposalFull(id_provider, nameProvider, typeOfEnergy, localization, nameProposal);
         new_proposal.setMoreInformation(basicPrice, variableDayPrice, variableNightPrice, isFixedRate, isSingleHourCounter, startOffPeakHours, endOffPeakHours);
 
-        commonDB.getProposalManager().addProposal(new_proposal);
-
-		routingContext.response().setStatusCode(201).putHeader("contentType", "babaWallet/api");
-    }
-
-    private void changeProposal(final RoutingContext routingContext)
-    {
-        LOGGER.info("ChangeProposal...");
-
-        final String token = routingContext.request().getParam("token");
-        final String id = checkToken(token);
-
-        if(id == null)
+        if(commonDB.getProposalManager().addProposal(new_proposal))
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
-            return;
+            ArrayList<String> listClient = commonDB.getContractManager().getAllClientsOfContract(nameProposal, nameProvider);
+
+            for(String id_client : listClient)
+                commonDB.getNotificationManager().createNotification(id_provider, id_client, nameProposal, "Le contract a été changé");
         }
-
-        final JsonObject body = routingContext.getBodyAsJson();
-		final String nameProposal = body.getString("nameProposal");
-		final String id_provider = body.getString("id_provider");
-		final String nameProvider = body.getString("nameProvider");
-		final String stringTypeOfEnergy = body.getString("typeOfEnergy");
-		final String localization = body.getString("localization");
-		final double basicPrice = body.getDouble("basicPrice");
-		final double variableDayPrice = body.getDouble("variableDayPrice");
-		final double variableNightPrice = body.getDouble("variableNightPrice");
-		final boolean isFixedRate = body.getBoolean("isFixedRate");
-		final boolean isSingleHourCounter = body.getBoolean("isSingleHourCounter");
-		final String stringStartOffPeakHours = body.getString("startOffPeakHours");
-		final String stringEndOffPeakHours = body.getString("endOffPeakHours");
-
-        final TypeEnergy typeOfEnergy;
-        if(stringTypeOfEnergy == "water")
-            typeOfEnergy = TypeEnergy.WATER;
-        else if(stringTypeOfEnergy == "gaz")
-            typeOfEnergy = TypeEnergy.GAS;
-        else
-            typeOfEnergy = TypeEnergy.ELECTRICITY;
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar startOffPeakHours = new GregorianCalendar();
-        Calendar endOffPeakHours = new GregorianCalendar();
-        startOffPeakHours.setTime(format.parse(stringStartOffPeakHours));
-        endOffPeakHours.setTime(format.parse(stringEndOffPeakHours));
-
-        ProposalFull new_proposal = new ProposalFull(id_provider, nameProvider, typeOfEnergy, localization, nameProposal);
-        new_proposal.setMoreInformation(basicPrice, variableDayPrice, variableNightPrice, isFixedRate, isSingleHourCounter, startOffPeakHours, endOffPeakHours);
-
-        commonDB.getProposalManager().changeProposal(new_proposal);
 
 		routingContext.response().setStatusCode(201).putHeader("contentType", "babaWallet/api");
     }
