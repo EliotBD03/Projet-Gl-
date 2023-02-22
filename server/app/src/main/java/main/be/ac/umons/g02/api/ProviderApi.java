@@ -16,9 +16,6 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class ProviderApi extends AbstractToken implements RouterApi
 {
@@ -196,8 +193,8 @@ public class ProviderApi extends AbstractToken implements RouterApi
 		final double variableNightPrice = body.getDouble("variableNightPrice");
 		final boolean isFixedRate = body.getBoolean("isFixedRate");
 		final boolean isSingleHourCounter = body.getBoolean("isSingleHourCounter");
-		final String stringStartOffPeakHours = body.getString("startOffPeakHours");
-		final String stringEndOffPeakHours = body.getString("endOffPeakHours");
+		final String startOffPeakHours = body.getString("startOffPeakHours");
+		final String endOffPeakHours = body.getString("endOffPeakHours");
 
         final TypeEnergy typeOfEnergy;
         if(stringTypeOfEnergy == "water")
@@ -206,12 +203,6 @@ public class ProviderApi extends AbstractToken implements RouterApi
             typeOfEnergy = TypeEnergy.GAS;
         else
             typeOfEnergy = TypeEnergy.ELECTRICITY;
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar startOffPeakHours = new GregorianCalendar();
-        Calendar endOffPeakHours = new GregorianCalendar();
-        startOffPeakHours.setTime(format.parse(stringStartOffPeakHours));
-        endOffPeakHours.setTime(format.parse(stringEndOffPeakHours));
 
         ProposalFull new_proposal = new ProposalFull(id_provider, nameProvider, typeOfEnergy, localization, nameProposal);
         new_proposal.setMoreInformation(basicPrice, variableDayPrice, variableNightPrice, isFixedRate, isSingleHourCounter, startOffPeakHours, endOffPeakHours);
@@ -280,11 +271,7 @@ public class ProviderApi extends AbstractToken implements RouterApi
         }
 
         final String ean = routingContext.request().getParam("ean");
-        final String stringDate = routingContext.request().getParam("date");
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar date = new GregorianCalendar();
-        date.setTime(format.parse(stringDate));
+        final String date = routingContext.request().getParam("date");
 
         commonDB.getConsumptionManager().deleteConsumption(ean, date);
 

@@ -16,9 +16,6 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.GregorianCalendar;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class CommonApi extends AbstractToken implements RouterApi
 {
@@ -327,14 +324,8 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         final JsonObject body = routingContext.getBodyAsJson();
 		final String ean = body.getString("ean");
-		final String stringStartDate = body.getString("startDate");
-		final String stringEndDate = body.getString("endDate");
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar startDate = new GregorianCalendar();
-        Calendar endDate = new GregorianCalendar();
-        startDate.setTime(format.parse(stringStartDate));
-        endDate.setTime(format.parse(stringEndDate));
+		final String startDate = body.getString("startDate");
+		final String endDate = body.getString("endDate");
 
         HashMap<String, Integer> listConsumption = commonDB.getConsumptionManager().getConsumption(ean, startDate, endDate);
 
