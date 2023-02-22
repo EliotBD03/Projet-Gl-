@@ -18,7 +18,13 @@ public class LogApi extends AbstractToken implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(LogApi.class);
 
+    private MyApi api;
     private final CommonDB commonDB = new CommonDB();
+
+    public LogApi(MyApi api)
+    {
+        this.api = api;
+    }
 
     @Override
     public Router getSubRouter(final Vertx vertx)
@@ -47,7 +53,7 @@ public class LogApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Compte non trouvé, l'adresse mail ou le mot de passe n'est pas correct.");
+            api.sendMessageError(routingContext, "Compte non trouvé, l'adresse mail ou le mot de passe n'est pas correct.");
 			return;
         }
 
@@ -98,12 +104,12 @@ public class LogApi extends AbstractToken implements RouterApi
             }
             catch(Exception error)
             {
-                sendMessageError(routingContext, error.getMessage());
+                api.sendMessageError(routingContext, error.getMessage());
                 return;
             }
         }
         else
-            sendMessageError(routingContext, "Mauvais code.");
+            api.sendMessageError(routingContext, "Mauvais code.");
     }
 
     private void renitializePwd(final RoutingContext routingContext)
@@ -125,12 +131,12 @@ public class LogApi extends AbstractToken implements RouterApi
             }
             catch(Exception error)
             {
-                sendMessageError(routingContext, "Une erreur s'est produite.");
+                api.sendMessageError(routingContext, "Une erreur s'est produite.");
                 return;
             }
         }
         else
-            sendMessageError(routingContext, "Mauvais code.");
+            api.sendMessageError(routingContext, "Mauvais code.");
     }
 
     private void getCode(final RoutingContext routingContext)
@@ -149,8 +155,7 @@ public class LogApi extends AbstractToken implements RouterApi
         }
         catch(RuntimeException error)
         {
-            sendMessageError(routingContext, "Erreur de l'envoie du code");
-            return;
+            api.sendMessageError(routingContext, "Erreur de l'envoie du code");
         }
     }
 }

@@ -13,13 +13,6 @@ public abstract class AbstractToken
     private static HashMap<String, String> listToken = new HashMap<>();
     private static String chaine = "0123456789azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN";
 
-    protected void sendMessageError(final RoutingContext routingContext, String messageError)
-    {
-        final JsonObject errorJsonResponse = new JsonObject();
-        errorJsonResponse.put("error", messageError);
-        routingContext.response().setStatusCode(404).putHeader("contentType", "babaWallet/api").end(Json.encode(errorJsonResponse));
-    }
-
     protected String createToken(String id) 
     {   
         String token = ""; 

@@ -21,7 +21,13 @@ public class ProviderApi extends AbstractToken implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProviderApi.class);
 
+    private MyApi api;
     private final CommonDB commonDB = new CommonDB();
+
+    public ProviderApi(MyApi api)
+    {
+        this.api = api;
+    }
 
     @Override
     public Router getSubRouter(final Vertx vertx)
@@ -29,11 +35,12 @@ public class ProviderApi extends AbstractToken implements RouterApi
         final Router subRouter = Router.router(vertx);
         subRouter.route("/*").handler(BodyHandler.create());
 
-        subRouter.get("/:token/clients").handler(this::getAllClients);
-        subRouter.get("/:token/clients/:id_provider").handler(this::getAllHisClients);
+        //exemple de requete de page => /:token/clients/page?page=1&limit=5
+        subRouter.get("/:token/clients/page").handler(this::getAllClients);
+        subRouter.get("/:token/clients/:id_provider/page").handler(this::getAllHisClients);
         subRouter.get("/:token/clients/:id_client").handler(this::getClient);
         subRouter.delete("/:token/clients/:id_provider/:id_client").handler(this::deleteClient);
-        subRouter.get("/:token/proposals/:id_provider").handler(this::getAllProposals);
+        subRouter.get("/:token/proposals/:id_provider/page").handler(this::getAllProposals);
         subRouter.get("/:token/proposals/:id_provider/:name_proposal").handler(this::getProposal);
         subRouter.post("/:token/proposals").handler(this::addProposal);
         subRouter.delete("/:token/proposals/:id_provider/:nameProposal").handler(this::deleteProposal);
@@ -53,11 +60,22 @@ public class ProviderApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
-        ArrayList<ClientBasic> allClients = commonDB.getClientManager().getAllClients();
+        final String stringPage = routingContext.request().getParam("page");
+        int page = api.convertStringToInt(routingContext, stringPage);
+
+        if(page == 0)
+            return;
+
+        page *= 10;
+        
+        final String stringLimit = routingContext.request().getParam("limit");
+        int limit = api.getLimit(stringLimit);
+
+        ArrayList<ClientBasic> allClients = commonDB.getClientManager().getAllClients(page, limit);
 
         final JsonObject jsonResponse = new JsonObject();
 		jsonResponse.put("allClients", allClients);
@@ -73,12 +91,23 @@ public class ProviderApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
+        final String stringPage = routingContext.request().getParam("page");
+        int page = api.convertStringToInt(routingContext, stringPage);
+
+        if(page == 0)
+            return;
+
+        page *= 10;
+        
+        final String stringLimit = routingContext.request().getParam("limit");
+        int limit = api.getLimit(stringLimit);
+
         final String id_provider = routingContext.request().getParam("id_provider");
-        ArrayList<ClientBasic> allHisClients = commonDB.getClientManager().getAllHisClients(id_provider);
+        ArrayList<ClientBasic> allHisClients = commonDB.getClientManager().getAllHisClients(id_provider, page, limit);
 
         final JsonObject jsonResponse = new JsonObject();
 		jsonResponse.put("allHisClients", allHisClients);
@@ -94,7 +123,7 @@ public class ProviderApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -115,7 +144,7 @@ public class ProviderApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -135,12 +164,23 @@ public class ProviderApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
+ 
+        final String stringPage = routingContext.request().getParam("page");
+        int page = api.convertStringToInt(routingContext, stringPage);
+
+        if(page == 0)
+            return;
+
+        page *= 10;
         
+        final String stringLimit = routingContext.request().getParam("limit");
+        int limit = api.getLimit(stringLimit);
+       
         final String id_provider = routingContext.request().getParam("id_provider");
-        ArrayList<ProposalBasic> allProposals = commonDB.getProposalManager().getAllProposals(id_provider);
+        ArrayList<ProposalBasic> allProposals = commonDB.getProposalManager().getAllProposals(id_provider, page, limit);
 
         final JsonObject jsonResponse = new JsonObject();
 		jsonResponse.put("allProposals", allProposals);
@@ -156,7 +196,7 @@ public class ProviderApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -178,7 +218,7 @@ public class ProviderApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -227,7 +267,7 @@ public class ProviderApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -247,7 +287,7 @@ public class ProviderApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -266,7 +306,7 @@ public class ProviderApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -287,7 +327,7 @@ public class ProviderApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 

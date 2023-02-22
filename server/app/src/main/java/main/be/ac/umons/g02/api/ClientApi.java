@@ -21,7 +21,13 @@ public class ClientApi extends AbstractToken implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientApi.class);
 
+    private MyApi api;
     private final CommonDB commonDB = new CommonDB();
+
+    public ClientApi(MyApi api)
+    {
+        this.api = api;
+    }
 
     @Override
     public Router getSubRouter(final Vertx vertx)
@@ -29,12 +35,12 @@ public class ClientApi extends AbstractToken implements RouterApi
         final Router subRouter = Router.router(vertx);
         subRouter.route("/*").handler(BodyHandler.create());
 
-        subRouter.get("/:token/wallets").handler(this::getAllWallets);
+        subRouter.get("/:token/wallets/page").handler(this::getAllWallets);
         subRouter.get("/:token/wallets/:address").handler(this::getWallet);
         subRouter.post("/:token/wallets").handler(this::createWallet);
         subRouter.delete("/:token/wallets/:address").handler(this::deleteWallet);
-        subRouter.get("/:token/contracts").handler(this::getAllContracts);
-        subRouter.get("/:token/proposals").handler(this::getAllProposals);
+        subRouter.get("/:token/contracts/page").handler(this::getAllContracts);
+        subRouter.get("/:token/proposals/page").handler(this::getAllProposals);
         subRouter.get("/:token/proposals/:id_proposal").handler(this::getProposal);
         subRouter.post("/:token/proposeContract").handler(this::clientProposeContract);
 
@@ -50,11 +56,22 @@ public class ClientApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
-        ArrayList<WalletBasic> wallets = commonDB.getWalletManager().getAllWallets(id);
+        final String stringPage = routingContext.request().getParam("page");
+        int page = api.convertStringToInt(routingContext, stringPage);
+
+        if(page == 0)
+            return;
+
+        page *= 10;
+        
+        final String stringLimit = routingContext.request().getParam("limit");
+        int limit = api.getLimit(stringLimit);
+
+        ArrayList<WalletBasic> wallets = commonDB.getWalletManager().getAllWallets(id, page, limit);
 
         final JsonObject jsonResponse = new JsonObject();
 		jsonResponse.put("wallets", wallets);
@@ -70,7 +87,7 @@ public class ClientApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -91,7 +108,7 @@ public class ClientApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -115,7 +132,7 @@ public class ClientApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
         
@@ -143,11 +160,22 @@ public class ClientApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
-        ArrayList<ContractBasic> contracts = commonDB.getContractManager().getAllContracts(id);
+        final String stringPage = routingContext.request().getParam("page");
+        int page = api.convertStringToInt(routingContext, stringPage);
+
+        if(page == 0)
+            return;
+
+        page *= 10;
+        
+        final String stringLimit = routingContext.request().getParam("limit");
+        int limit = api.getLimit(stringLimit);
+
+        ArrayList<ContractBasic> contracts = commonDB.getContractManager().getAllContracts(id, page, limit);
 
         final JsonObject jsonResponse = new JsonObject();
 		jsonResponse.put("contracts", contracts);
@@ -163,11 +191,22 @@ public class ClientApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
-        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals();
+        final String stringPage = routingContext.request().getParam("page");
+        int page = api.convertStringToInt(routingContext, stringPage);
+
+        if(page == 0)
+            return;
+
+        page *= 10;
+        
+        final String stringLimit = routingContext.request().getParam("limit");
+        int limit = api.getLimit(stringLimit);
+
+        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals(page, limit);
 
         final JsonObject jsonResponse = new JsonObject();
 		jsonResponse.put("proposals", proposals);
@@ -183,7 +222,7 @@ public class ClientApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -205,7 +244,7 @@ public class ClientApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 

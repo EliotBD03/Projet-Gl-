@@ -21,7 +21,13 @@ public class CommonApi extends AbstractToken implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonApi.class);
 
+    private MyApi api;
     private final CommonDB commonDB = new CommonDB();
+
+    public CommonApi(MyApi api)
+    {
+        this.api = api;
+    }
 
     @Override
     public Router getSubRouter(final Vertx vertx)
@@ -29,14 +35,14 @@ public class CommonApi extends AbstractToken implements RouterApi
         final Router subRouter = Router.router(vertx);
         subRouter.route("/*").handler(BodyHandler.create());
 
-        subRouter.get("/:token/languages").handler(this::getAllLanguages);
+        subRouter.get("/:token/languages/page").handler(this::getAllLanguages);
         subRouter.get("/:token/languages/language").handler(this::getLanguage);
         subRouter.get("/:token/languages/favourite_language").handler(this::getFavouriteLanguage);
         subRouter.post("/:token/languages/:language").handler(this::addLanguage);
         subRouter.put("/:token/languages/actual_language/:language").handler(this::changeCurrentLanguage);
         subRouter.put("/:token/languages/favourite_language/:language").handler(this::changeFavouriteLanguage);
         subRouter.put("/:token/change_pwd").handler(this::changePassword);
-        subRouter.get("/:token/notifications").handler(this::getAllNotifications);
+        subRouter.get("/:token/notifications/page").handler(this::getAllNotifications);
         subRouter.post("/:token/notifications/accept_notification/:id_notification").handler(this::acceptNotification);
         subRouter.post("/:token/notifications/refuse_notification/:id_notification").handler(this::refuseNotification);
         subRouter.delete("/:token/notifications/:id_notification").handler(this::deleteNotification);
@@ -58,11 +64,22 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
-        ArrayList<String> allLanguages = commonDB.getLanguageManager().getAllLanguages(id);
+        final String stringPage = routingContext.request().getParam("page");
+        int page = api.convertStringToInt(routingContext, stringPage);
+
+        if(page == 0)
+            return;
+
+        page *= 10;
+        
+        final String stringLimit = routingContext.request().getParam("limit");
+        int limit = api.getLimit(stringLimit);
+
+        ArrayList<String> allLanguages = commonDB.getLanguageManager().getAllLanguages(id, page, limit);
 
         final JsonObject jsonResponse = new JsonObject();
 		jsonResponse.put("allLanguages", allLanguages);
@@ -78,7 +95,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -98,7 +115,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -118,7 +135,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -137,7 +154,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -156,7 +173,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -175,7 +192,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -189,7 +206,7 @@ public class CommonApi extends AbstractToken implements RouterApi
             routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api");
         }
         else
-            sendMessageError(routingContext, "Mauvais code.");
+            api.sendMessageError(routingContext, "Mauvais code.");
     }
     
     private void getAllNotifications(final RoutingContext routingContext)
@@ -201,11 +218,22 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
-        ArrayList<Notification> allNotifications = commonDB.getNotificationManager().getAllNotifications(id);
+        final String stringPage = routingContext.request().getParam("page");
+        int page = api.convertStringToInt(routingContext, stringPage);
+
+        if(page == 0)
+            return;
+
+        page *= 10;
+        
+        final String stringLimit = routingContext.request().getParam("limit");
+        int limit = api.getLimit(stringLimit);
+
+        ArrayList<Notification> allNotifications = commonDB.getNotificationManager().getAllNotifications(id, page, limit);
 
         final JsonObject jsonResponse = new JsonObject();
 		jsonResponse.put("allNotifications", allNotifications);
@@ -221,7 +249,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -240,7 +268,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -259,7 +287,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -278,7 +306,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -299,7 +327,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -318,7 +346,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -343,7 +371,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
@@ -359,9 +387,9 @@ public class CommonApi extends AbstractToken implements RouterApi
             for(Object value : arrayListValue)
                 listValue.add((Double) value);
         }
-        catch(Exception error)
+        catch(NumberFormatException error)
         {
-            sendMessageError(routingContext, "Le tableau ne contient pas que des nombres.");
+            api.sendMessageError(routingContext, "Le tableau ne contient pas que des nombres.");
             return;
         }
 
@@ -382,7 +410,7 @@ public class CommonApi extends AbstractToken implements RouterApi
 
         if(id == null)
         {
-            sendMessageError(routingContext, "Le token est incorrecte.");
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
             return;
         }
 
