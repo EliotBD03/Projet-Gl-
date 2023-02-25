@@ -35,7 +35,6 @@ public class ProviderApi extends AbstractToken implements RouterApi
         final Router subRouter = Router.router(vertx);
         subRouter.route("/*").handler(BodyHandler.create());
 
-        //exemple de requete de page => /:token/clients/page?page=1&limit=5
         subRouter.get("/:token/clients/page").handler(this::getAllClients);
         subRouter.get("/:token/clients/:id_provider/page").handler(this::getAllHisClients);
         subRouter.get("/:token/clients/:id_client").handler(this::getClient);
@@ -101,10 +100,10 @@ public class ProviderApi extends AbstractToken implements RouterApi
         if(page == 0)
             return;
 
-        page *= 10;
-        
         final String stringLimit = routingContext.request().getParam("limit");
         int limit = api.getLimit(stringLimit);
+
+        page = (page -1) * limit;
 
         final String id_provider = routingContext.request().getParam("id_provider");
         ArrayList<ClientBasic> allHisClients = commonDB.getClientManager().getAllHisClients(id_provider, page, limit);
@@ -174,11 +173,11 @@ public class ProviderApi extends AbstractToken implements RouterApi
         if(page == 0)
             return;
 
-        page *= 10;
-        
         final String stringLimit = routingContext.request().getParam("limit");
         int limit = api.getLimit(stringLimit);
        
+        page = (page -1) * limit;
+
         final String id_provider = routingContext.request().getParam("id_provider");
         ArrayList<ProposalBasic> allProposals = commonDB.getProposalManager().getAllProposals(id_provider, page, limit);
 

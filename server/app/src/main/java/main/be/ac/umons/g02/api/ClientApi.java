@@ -66,10 +66,10 @@ public class ClientApi extends AbstractToken implements RouterApi
         if(page == 0)
             return;
 
-        page *= 10;
-        
         final String stringLimit = routingContext.request().getParam("limit");
         int limit = api.getLimit(stringLimit);
+
+        page = (page -1) * limit;
 
         ArrayList<WalletBasic> wallets = commonDB.getWalletManager().getAllWallets(id, page, limit);
 
@@ -170,10 +170,10 @@ public class ClientApi extends AbstractToken implements RouterApi
         if(page == 0)
             return;
 
-        page *= 10;
-        
         final String stringLimit = routingContext.request().getParam("limit");
         int limit = api.getLimit(stringLimit);
+
+        page = (page -1) * limit;
 
         ArrayList<ContractBasic> contracts = commonDB.getContractManager().getAllContracts(id, page, limit);
 
@@ -201,10 +201,10 @@ public class ClientApi extends AbstractToken implements RouterApi
         if(page == 0)
             return;
 
-        page *= 10;
-        
         final String stringLimit = routingContext.request().getParam("limit");
         int limit = api.getLimit(stringLimit);
+
+        page = (page -1) * limit;
 
         ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals(page, limit);
 

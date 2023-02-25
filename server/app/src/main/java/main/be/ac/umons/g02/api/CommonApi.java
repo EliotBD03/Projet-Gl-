@@ -48,6 +48,7 @@ public class CommonApi extends AbstractToken implements RouterApi
         subRouter.delete("/:token/notifications/:id_notification").handler(this::deleteNotification);
         subRouter.get("/:token/contracts/:id_contract").handler(this::getContract);
         subRouter.delete("/:token/contracts/:id_contract").handler(this::deleteContract);
+        subRouter.get("/:token/consumptions_month").handler(this::getConsumptionOfMonth);
         subRouter.get("/:token/consumptions").handler(this::getConsumption);
         subRouter.post("/:token/consumptions").handler(this::addConsumption);
         subRouter.put("/:token/consumptions").handler(this::changeConsumption);
@@ -74,10 +75,10 @@ public class CommonApi extends AbstractToken implements RouterApi
         if(page == 0)
             return;
 
-        page *= 10;
-        
         final String stringLimit = routingContext.request().getParam("limit");
         int limit = api.getLimit(stringLimit);
+
+        page = (page -1) * limit;
 
         ArrayList<String> allLanguages = commonDB.getLanguageManager().getAllLanguages(id, page, limit);
 
@@ -228,10 +229,10 @@ public class CommonApi extends AbstractToken implements RouterApi
         if(page == 0)
             return;
 
-        page *= 10;
-        
         final String stringLimit = routingContext.request().getParam("limit");
         int limit = api.getLimit(stringLimit);
+
+        page = (page -1) * limit;
 
         ArrayList<Notification> allNotifications = commonDB.getNotificationManager().getAllNotifications(id, page, limit);
 
@@ -337,6 +338,31 @@ public class CommonApi extends AbstractToken implements RouterApi
         routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet.api");
     }
     
+    private void getConsumptionOfMonth(final RoutingContext routingContext)
+    {
+        LOGGER.info("GetConsumptionOfMonth...");
+
+        final String token = routingContext.request().getParam("token");
+        final String id = checkToken(token);
+
+        if(id == null)
+        {
+            api.sendMessageError(routingContext, "Le token est incorrecte.");
+            return;
+        }
+
+        final JsonObject body = routingContext.getBodyAsJson();
+		final String ean = body.getString("ean");
+		final String startDate = body.getString("startDate");
+		final String endDate = body.getString("endDate");
+
+        HashMap<String, Integer> listConsumption = commonDB.getConsumptionManager().getConsumptionOfMonth(ean, startDate, endDate);
+
+        final JsonObject jsonResponse = new JsonObject();
+		jsonResponse.put("listConsumption", listConsumption);
+		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api").end(Json.encode(jsonResponse));
+    }
+
     private void getConsumption(final RoutingContext routingContext)
     {
         LOGGER.info("GetConsumption...");
