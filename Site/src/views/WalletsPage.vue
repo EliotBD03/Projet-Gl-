@@ -4,8 +4,12 @@
       <MainHeader text="Wallets"/>
     </div>
     <div class="allcards">
-      <WalletsCard name="Nom 1" owner="Owner 1" adress="Adress 1"/>
-      <WalletsCard name="Nom 2" owner="Owner 2" adress="Adress 2"/>
+      <div v-for="wallet in listWallet" :key="wallet.id">
+          <p> {{ wallet.name }} :</p>
+          <p> {{ wallet.nameOwner }}</p>
+          <p> {{ wallet.address }}</p>   
+          <GoButton text="Go" redirect= "/walletFull" v-on:click="seeMore(wallet)"/>
+      </div> 
       <AddWalletForm/>
     </div>
     <div class="homebutton">
@@ -24,8 +28,29 @@ export default {
     WalletsCard,
     MainHeader,
     AddWalletForm
+  }, 
+  data(){
+    return{
+      listWallet: [],
+      wallet : JSON.parse(sessionStorage.getItem('wallet'))
+    }},
+    //Get //token = ? (dans le lien) checkaccount faire .token
+    created() {
+        fetch("https://babawallet.alwaysdata.net:8300/api/client/?/wallets")
+          .then(response => response.json())
+          .then(data => (this.listWallet = data.total));
+    },
+    methods: {
+        seeMore(wallet){
+          this.wallet = sessionStorage.setItem('wallet', JSON.stringify(wallet));
+          window.location.href = "../../html/client/walletFull.html";
+        },
+        getIndex(){
+          let index = (item) => item.name == this.wallet.name;
+          return this.listWallet.findIndex(index);
+        }
+      }
   }
-}
 </script>
 
 <style scoped>
