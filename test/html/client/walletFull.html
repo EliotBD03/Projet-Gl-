@@ -6,7 +6,7 @@
   <title></title>
 </head>
 <body>
-  <div id="wallet">
+  <div id="walletFull">
     <h1 class = "title">{{ wallet.name }}</h1>
     <div class ="list">
       <p> General information : </p>
@@ -17,7 +17,7 @@
       <p> Gas : {{ wallet.lastConsumptionOfGas }}</p>
       <p> Water : {{ wallet.lastConsumptionOfElectricity }}</p>
       <p> Associated contracts :</p>
-        <div v-for="contract in listWallet[getIndex()].listContracts">
+        <div v-for="contract in wallet.listContracts">
           <p> nom = {{ contract.nom }}</p> 
           <p> conso = {{ contract.conso }}</p>
           <p> prix = {{ contract.prix }}</p>
@@ -33,7 +33,7 @@
 
   <script src="../../vue.js"></script>
   <script src="../../js/redirection.js"></script>
-  <script src="../../js/wallet.js"></script>
+  <script src="../../js/walletFull.js"></script>
 
     
 </body>

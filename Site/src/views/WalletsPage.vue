@@ -4,13 +4,16 @@
       <MainHeader text="Wallets"/>
     </div>
     <div class="allcards">
-      <div v-for="wallet in listWallet" :key="wallet.id">
-          <p> {{ wallet.name }} :</p>
-          <p> {{ wallet.nameOwner }}</p>
-          <p> {{ wallet.address }}</p>   
-          <GoButton text="Go" redirect= "/walletFull" v-on:click="seeMore(wallet)"/>
-      </div> 
-      <AddWalletForm/>
+      <div v-infinite-scroll="loader">
+        <div v-for="wallet in listWallet" :key="wallet.id">
+            <p> {{ wallet.name }} :</p>
+            <p> {{ wallet.nameOwner }}</p>
+            <p> {{ wallet.address }}</p>   
+            <GoButton text="Go" redirect= "/walletFull" v-on:click="seeMore(wallet)"/>
+            <div v-if="loading">Loading...</div>
+        </div> 
+        <AddWalletForm/>
+      </div>
     </div>
     <div class="homebutton">
       <GoButton text="Home" redirect="/"/>
@@ -30,17 +33,36 @@ export default {
     AddWalletForm
   }, 
   data(){
+    //Get //token = ? checkaccount faire .token -> regarder le token dans header.
     return{
+      linkApi : "https://babawallet.alwaysdata.net:8300/api/client/wallets",
+      nbr : 1,
+      loading : false,
       listWallet: [],
       wallet : JSON.parse(sessionStorage.getItem('wallet'))
     }},
-    //Get //token = ? (dans le lien) checkaccount faire .token
-    created() {
-        fetch("https://babawallet.alwaysdata.net:8300/api/client/?/wallets")
-          .then(response => response.json())
-          .then(data => (this.listWallet = data.total));
+    created() { 
+      this.getData(this.nbr);
     },
-    methods: {
+    methods: { //async -> requête qui peut prendre du temps
+        async getData(nbr){
+          this.loading = true; //bloquer les demandes de loader pendant ce temps.
+          response = await fetch("${linkApi}page?page=${nbr}");
+          data = await reponse.json();
+          if(data != null || data != undefined) //voir comment on gère l'arrivée à la fin des pages erreur/vide?
+          {
+            this.listWallet = this.listWallet.concat(data); //ajouter la suite de la réponse à la liste
+          }
+          this.loading = false;
+        },
+        loader()
+        {
+          if(!this.loading)
+          {
+            this.nbr++;
+            this.getData(this.nbr);
+          }
+        },
         seeMore(wallet){
           this.wallet = sessionStorage.setItem('wallet', JSON.stringify(wallet));
           window.location.href = "../../html/client/walletFull.html";

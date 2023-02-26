@@ -26,7 +26,7 @@ export default {
       name: '',
       address: ''
     }},
-    //Post //token = ? (dans le lien) checkaccount faire .token
+    //Post //token = ? checkaccount faire .token -> regarder le token dans header.
     methods: {
       checkArgs(){
         if(!this.name) alert("Please enter your name");
