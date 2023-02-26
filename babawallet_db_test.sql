@@ -23,9 +23,9 @@ DROP TABLE IF EXISTS `client`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `client` (
-  `client_id` int(10) NOT NULL,
-  PRIMARY KEY (`client_id`),
-  CONSTRAINT `client_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `user` (`id`)
+                          `client_id` int(10) NOT NULL,
+                          PRIMARY KEY (`client_id`),
+                          CONSTRAINT `client_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -46,9 +46,9 @@ DROP TABLE IF EXISTS `consumption`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `consumption` (
-  `ean` varchar(18) NOT NULL,
-  `date` date NOT NULL,
-  `daily_consumption` double(6,2) DEFAULT NULL,
+                               `ean` varchar(18) NOT NULL,
+                               `date` date NOT NULL,
+                               `daily_consumption` double(6,2) DEFAULT NULL,
   PRIMARY KEY (`ean`,`date`),
   CONSTRAINT `consumption_ibfk_1` FOREIGN KEY (`ean`) REFERENCES `counter` (`ean`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -71,23 +71,23 @@ DROP TABLE IF EXISTS `contract`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contract` (
-  `contract_id` int(10) NOT NULL,
-  `proposal_name` varchar(10) DEFAULT NULL,
-  `ean` varchar(18) DEFAULT NULL,
-  `provider_id` int(10) DEFAULT NULL,
-  `address` varchar(42) DEFAULT NULL,
-  `client_id` varchar(10) DEFAULT NULL,
-  `opening_date` date DEFAULT NULL,
-  `closing_date` date DEFAULT NULL,
-  PRIMARY KEY (`contract_id`),
-  KEY `provider_id` (`provider_id`,`contract_id`),
-  KEY `proposal_name` (`proposal_name`),
-  KEY `address` (`address`,`contract_id`),
-  KEY `ean` (`ean`),
-  CONSTRAINT `contract_ibfk_1` FOREIGN KEY (`proposal_name`) REFERENCES proposal(`proposal_name`),
-  CONSTRAINT `contract_ibfk_2` FOREIGN KEY (`provider_id`) REFERENCES provider_contract(`provider_id`),
-  CONSTRAINT `contract_ibfk_3` FOREIGN KEY (`address`) REFERENCES wallet_contract(`address`),
-  CONSTRAINT `contract_ibfk_4` FOREIGN KEY (`ean`) REFERENCES `counter`(`ean`)
+                            `contract_id` int(10) NOT NULL,
+                            `proposal_name` varchar(10) DEFAULT NULL,
+                            `ean` varchar(18) DEFAULT NULL,
+                            `provider_id` int(10) DEFAULT NULL,
+                            `address` varchar(42) DEFAULT NULL,
+                            `client_id` varchar(10) DEFAULT NULL,
+                            `opening_date` date DEFAULT NULL,
+                            `closing_date` date DEFAULT NULL,
+                            PRIMARY KEY (`contract_id`),
+                            KEY `provider_id` (`provider_id`,`contract_id`),
+                            KEY `proposal_name` (`proposal_name`),
+                            KEY `address` (`address`,`contract_id`),
+                            KEY `ean` (`ean`),
+                            CONSTRAINT `contract_ibfk_1` FOREIGN KEY (`proposal_name`) REFERENCES proposal(`proposal_name`),
+                            CONSTRAINT `contract_ibfk_2` FOREIGN KEY (`provider_id`) REFERENCES provider_contract(`provider_id`),
+                            CONSTRAINT `contract_ibfk_3` FOREIGN KEY (`address`) REFERENCES wallet_contract(`address`),
+                            CONSTRAINT `contract_ibfk_4` FOREIGN KEY (`ean`) REFERENCES `counter`(`ean`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -108,10 +108,10 @@ DROP TABLE IF EXISTS `counter`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `counter` (
-  `ean` varchar(18) NOT NULL,
-  `contract_id` int(10) DEFAULT NULL,
-  PRIMARY KEY (`ean`),
-  KEY `contract_id` (`contract_id`)
+                           `ean` varchar(18) NOT NULL,
+                           `contract_id` int(10) DEFAULT NULL,
+                           PRIMARY KEY (`ean`),
+                           KEY `contract_id` (`contract_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -132,12 +132,12 @@ DROP TABLE IF EXISTS `language`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `language` (
-  `id` int(10) NOT NULL,
-  `saved_language` varchar(255) NOT NULL,
-  `favourite_language` binary(1) DEFAULT NULL,
-  `current_language` binary(1) DEFAULT NULL,
-  PRIMARY KEY (`id`,`saved_language`),
-  CONSTRAINT `language_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
+                            `id` int(10) NOT NULL,
+                            `saved_language` varchar(255) NOT NULL,
+                            `favourite_language` binary(1) DEFAULT NULL,
+                            `current_language` binary(1) DEFAULT NULL,
+                            PRIMARY KEY (`id`,`saved_language`),
+                            CONSTRAINT `language_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -158,12 +158,12 @@ DROP TABLE IF EXISTS `notification`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `notification` (
-  `notification_id` int(10) NOT NULL AUTO_INCREMENT,
-  `sender_id` int(10) DEFAULT NULL,
-  `receiver_id` int(10) DEFAULT NULL,
-  `linked_contract` varchar(30) DEFAULT NULL,
-  `context` varchar(25) DEFAULT NULL,
-  PRIMARY KEY (`notification_id`)
+                                `notification_id` int(10) NOT NULL AUTO_INCREMENT,
+                                `sender_id` int(10) DEFAULT NULL,
+                                `receiver_id` int(10) DEFAULT NULL,
+                                `linked_contract` varchar(30) DEFAULT NULL,
+                                `context` varchar(25) DEFAULT NULL,
+                                PRIMARY KEY (`notification_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -184,13 +184,13 @@ DROP TABLE IF EXISTS `proposal`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `proposal` (
-  `proposal_name` varchar(30) NOT NULL,
-  `provider_id` int(10) NOT NULL,
-  `water` binary(1) DEFAULT NULL,
-  `gas` binary(1) DEFAULT NULL,
-  `electricity` binary(1) DEFAULT NULL,
-  `fixed_rate` binary(1) DEFAULT NULL,
-  `peak_hours` double(6,2) DEFAULT NULL,
+                            `proposal_name` varchar(30) NOT NULL,
+                            `provider_id` int(10) NOT NULL,
+                            `water` binary(1) DEFAULT NULL,
+                            `gas` binary(1) DEFAULT NULL,
+                            `electricity` binary(1) DEFAULT NULL,
+                            `fixed_rate` binary(1) DEFAULT NULL,
+                            `peak_hours` double(6,2) DEFAULT NULL,
   `offpeak_hours` double(6,2) DEFAULT NULL,
   `start_peak_hours` time DEFAULT NULL,
   `end_peak_hours` time DEFAULT NULL,
@@ -219,9 +219,9 @@ DROP TABLE IF EXISTS `provider`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `provider` (
-  `provider_id` int(10) NOT NULL,
-  PRIMARY KEY (`provider_id`),
-  CONSTRAINT `provider_ibfk_1` FOREIGN KEY (`provider_id`) REFERENCES `user` (`id`)
+                            `provider_id` int(10) NOT NULL,
+                            PRIMARY KEY (`provider_id`),
+                            CONSTRAINT `provider_ibfk_1` FOREIGN KEY (`provider_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -242,11 +242,11 @@ DROP TABLE IF EXISTS `provider_contract`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `provider_contract` (
-  `provider_id` int(10) NOT NULL,
-  `contract_id` int(10) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`provider_id`,`contract_id`),
-  KEY `contract_id` (`contract_id`),
-  CONSTRAINT `provider_contract_ibfk_1` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`provider_id`)
+                                     `provider_id` int(10) NOT NULL,
+                                     `contract_id` int(10) NOT NULL AUTO_INCREMENT,
+                                     PRIMARY KEY (`provider_id`,`contract_id`),
+                                     KEY `contract_id` (`contract_id`),
+                                     CONSTRAINT `provider_contract_ibfk_1` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`provider_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -267,11 +267,11 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `mail` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+                        `id` int(10) NOT NULL AUTO_INCREMENT,
+                        `mail` varchar(255) DEFAULT NULL,
+                        `password` varchar(255) DEFAULT NULL,
+                        `name` varchar(255) DEFAULT NULL,
+                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -292,12 +292,12 @@ DROP TABLE IF EXISTS `wallet`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wallet` (
-  `address` varchar(42) NOT NULL,
-  `client_id` int(10) DEFAULT NULL,
-  `wallet_name` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`address`),
-  KEY `client_id` (`client_id`),
-  CONSTRAINT `wallet_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`)
+                          `address` varchar(42) NOT NULL,
+                          `client_id` int(10) DEFAULT NULL,
+                          `wallet_name` varchar(30) DEFAULT NULL,
+                          PRIMARY KEY (`address`),
+                          KEY `client_id` (`client_id`),
+                          CONSTRAINT `wallet_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -318,11 +318,11 @@ DROP TABLE IF EXISTS `wallet_contract`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wallet_contract` (
-  `address` varchar(42) NOT NULL,
-  `contract_id` int(10) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`address`,`contract_id`),
-  KEY `contract_id` (`contract_id`),
-  CONSTRAINT `wallet_contract_ibfk_1` FOREIGN KEY (`address`) REFERENCES `wallet` (`address`)
+                                   `address` varchar(42) NOT NULL,
+                                   `contract_id` int(10) NOT NULL AUTO_INCREMENT,
+                                   PRIMARY KEY (`address`,`contract_id`),
+                                   KEY `contract_id` (`contract_id`),
+                                   CONSTRAINT `wallet_contract_ibfk_1` FOREIGN KEY (`address`) REFERENCES `wallet` (`address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
