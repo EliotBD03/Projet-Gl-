@@ -25,6 +25,7 @@ dependencies {
 
     implementation group: 'io.vertx', name: 'vertx-core', version: '3.9.14'
 	implementation group: 'io.vertx', name: 'vertx-web', version: '3.9.14'
+    implementation group: 'io.vertx', name: 'vertx-auth-jwt', version: '3.9.15'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.31'
     implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.7.5'
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'

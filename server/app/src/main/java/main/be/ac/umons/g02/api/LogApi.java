@@ -13,18 +13,13 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
+import io.vertx.ext.auth.jwt.JWTOptions;
 
-public class LogApi extends AbstractToken implements RouterApi
+public class LogApi extends MyApi implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(LogApi.class);
 
-    private MyApi api;
     private final CommonDB commonDB = new CommonDB();
-
-    public LogApi(MyApi api)
-    {
-        this.api = api;
-    }
 
     @Override
     public Router getSubRouter(final Vertx vertx)
@@ -34,11 +29,11 @@ public class LogApi extends AbstractToken implements RouterApi
 
         subRouter.post("/check_account").handler(this::checkAccount);
         subRouter.post("/disconnect").handler(this::disconnect);
-        subRouter.post("/create_account").handler(this::saveAccount);
+        subRouter.post("/save_account").handler(this::saveAccount);
         subRouter.put("/renitialize_pwd").handler(this::renitializePwd);
         subRouter.get("/code").handler(this::getCode);
 
-        return null;
+        return subRouter;
     }
 
     private void checkAccount(final RoutingContext routingContext)
@@ -46,35 +41,43 @@ public class LogApi extends AbstractToken implements RouterApi
         LOGGER.info("CheckAccount...");
 
         final JsonObject body = routingContext.getBodyAsJson();
-		final String mail = body.getString("mail");
-		final String pwd = body.getString("pwd");
+        final String mail = body.getString("mail");
+        final String pwd = body.getString("pwd");
 
         String id = commonDB.getLogManager().checkAccount(mail, pwd);
 
         if(id == null)
         {
-            api.sendMessageError(routingContext, "Compte non trouvé, l'adresse mail ou le mot de passe n'est pas correct.");
-			return;
+            routingContext.response()
+                .setStatusCode(401)
+                .putHeader("error", "Compte non trouvé, l'adresse mail ou le mot de passe n'est pas correct.");
+            return;
         }
 
-        boolean isClient = commonDB.getLogManager().isClient(id);
-        String token = createToken(id);
-        final JsonObject jsonResponse = new JsonObject();
-		jsonResponse.put("token", token);
-		jsonResponse.put("isClient", isClient);
-		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api").end(Json.encode(jsonResponse));
+        String role = "";
+        if(commonDB.getLogManager().isClient(id))
+            role = "client";
+        else
+            role = "provider";
+
+        JsonObject userInfo = new JsonObject()
+            .put("id", id)
+            .put("role", role);
+
+        String token = jwt.generateToken(userInfo, new JWTOptions().setExpiresInSeconds(3600));
+
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("content-type", "checkAccount")
+            .end(Json.encodePrettily(new JsonObject()
+                        .put("token", token)
+                        .put("role", role)));
     }
 
+    // A refaire
     private void disconnect(final RoutingContext routingContext)
     {
         LOGGER.info("Disconnect...");
-
-        final JsonObject body = routingContext.getBodyAsJson();
-		final String token = body.getString("token");
-
-        deleteToken(token);
-
-		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api");
     }
 
     private void saveAccount(final RoutingContext routingContext)
@@ -82,34 +85,51 @@ public class LogApi extends AbstractToken implements RouterApi
         LOGGER.info("SaveAccount...");
 
         final JsonObject body = routingContext.getBodyAsJson();
-		final String mail = body.getString("mail");
-		final String code = body.getString("code");
+        final String mail = body.getString("mail");
+        final String code = body.getString("code");
 
         if(App.checkCode(mail, code))
         {
             final String pwd = body.getString("pwd");
-            final boolean isClient = body.getBoolean("isClient");
+            final boolean isClient = body.getBoolean("is_client");
             final String name = body.getString("name");
             final String language = body.getString("language");
 
             try
             {
                 String id = commonDB.getLogManager().saveAccount(mail, pwd, isClient, name, language);
-                String token = createToken(id);
 
-                final JsonObject jsonResponse = new JsonObject();
-                jsonResponse.put("token", token);
+                String role = "";
+                if(isClient)
+                    role = "client";
+                else
+                    role = "provider";
 
-                routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api").end(Json.encode(jsonResponse));
+                JsonObject userInfo = new JsonObject()
+                    .put("id", id)
+                    .put("role", role);
+
+                String token = jwt.generateToken(userInfo, new JWTOptions().setExpiresInSeconds(3600));
+
+                routingContext.response()
+                    .setStatusCode(200)
+                    .putHeader("content-type", "saveAccount")
+                    .end(Json.encodePrettily(new JsonObject()
+                                .put("token", token)
+                                .put("role", role)));
+
             }
             catch(Exception error)
             {
-                api.sendMessageError(routingContext, error.getMessage());
-                return;
+                routingContext.response()
+                    .setStatusCode(503)
+                    .putHeader("error", "La sauvegarde du compte n'a pas pu se faire.");
             }
         }
         else
-            api.sendMessageError(routingContext, "Mauvais code.");
+            routingContext.response()
+                .setStatusCode(401)
+                .putHeader("error", "Mauvais code.");
     }
 
     private void renitializePwd(final RoutingContext routingContext)
@@ -117,26 +137,31 @@ public class LogApi extends AbstractToken implements RouterApi
         LOGGER.info("RenitializePwd...");
 
         final JsonObject body = routingContext.getBodyAsJson();
-		final String mail = body.getString("mail");
-		final String code = body.getString("code");
+        final String mail = body.getString("mail");
+        final String code = body.getString("code");
 
         if(App.checkCode(mail, code))
         {
-            final String newPwd = body.getString("newPwd");
+            final String newPwd = body.getString("new_pwd");
 
             try
             {
                 commonDB.getLogManager().changePassword(mail, newPwd);
-                routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api");
+                routingContext.response()
+                    .setStatusCode(200)
+                    .putHeader("content-type", "renitializePwd");
             }
             catch(Exception error)
             {
-                api.sendMessageError(routingContext, "Une erreur s'est produite.");
-                return;
+                routingContext.response()
+                    .setStatusCode(503)
+                    .putHeader("error", "Erreur de rénitialisation de mot de passe.");
             }
         }
         else
-            api.sendMessageError(routingContext, "Mauvais code.");
+            routingContext.response()
+                .setStatusCode(401)
+                .putHeader("error", "Le code entré n'est pas correct.");
     }
 
     private void getCode(final RoutingContext routingContext)
@@ -144,18 +169,20 @@ public class LogApi extends AbstractToken implements RouterApi
         LOGGER.info("GetCode...");
 
         final JsonObject body = routingContext.getBodyAsJson();
-		final String mail = body.getString("mail");
+        final String mail = body.getString("mail");
 
         String code = App.createCode(mail);
 
         try
         {
             App.sendEmail(mail, "BabaWallet", "Voici le code " + code);
-            routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api");
+            routingContext.response().setStatusCode(200).putHeader("content-type", "getCode");
         }
         catch(RuntimeException error)
         {
-            api.sendMessageError(routingContext, "Erreur de l'envoie du code");
+            routingContext.response()
+                .setStatusCode(503)
+                .putHeader("error", "Erreur de l'envoie du code.");
         }
     }
 }

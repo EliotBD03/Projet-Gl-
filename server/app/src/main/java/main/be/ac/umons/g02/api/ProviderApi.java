@@ -17,17 +17,11 @@ import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import java.util.ArrayList;
 
-public class ProviderApi extends AbstractToken implements RouterApi
+public class ProviderApi extends MyApi implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProviderApi.class);
 
-    private MyApi api;
     private final CommonDB commonDB = new CommonDB();
-
-    public ProviderApi(MyApi api)
-    {
-        this.api = api;
-    }
 
     @Override
     public Router getSubRouter(final Vertx vertx)
@@ -35,17 +29,17 @@ public class ProviderApi extends AbstractToken implements RouterApi
         final Router subRouter = Router.router(vertx);
         subRouter.route("/*").handler(BodyHandler.create());
 
-        subRouter.get("/:token/clients/page").handler(this::getAllClients);
-        subRouter.get("/:token/clients/:id_provider/page").handler(this::getAllHisClients);
-        subRouter.get("/:token/clients/:id_client").handler(this::getClient);
-        subRouter.delete("/:token/clients/:id_provider/:id_client").handler(this::deleteClient);
-        subRouter.get("/:token/proposals/:id_provider/page").handler(this::getAllProposals);
-        subRouter.get("/:token/proposals/:id_provider/:name_proposal").handler(this::getProposal);
-        subRouter.post("/:token/proposals").handler(this::addProposal);
-        subRouter.delete("/:token/proposals/:id_provider/:nameProposal").handler(this::deleteProposal);
-        subRouter.delete("/:token/consumptions/:ean").handler(this::deleteAllConsumptions);
-        subRouter.delete("/:token/consumptions/:ean/:date").handler(this::deleteConsumption);
-        subRouter.post("/:token/propose_contract").handler(this::providerProposeContract);
+        subRouter.get("/clients/page").handler(this::getAllClients);
+        subRouter.get("/clients/clients_of_provider/page").handler(this::getAllHisClients);
+        subRouter.get("/clients/:id_client").handler(this::getClient);
+        subRouter.delete("/clients/clients_of_provider/:id_client").handler(this::deleteClient);
+        subRouter.get("/proposals/:id_provider/page").handler(this::getAllProposals);
+        subRouter.get("/proposals/:id_provider/:name_proposal").handler(this::getProposal);
+        subRouter.post("/proposals").handler(this::addProposal);
+        subRouter.delete("/proposals/:id_provider/:nameProposal").handler(this::deleteProposal);
+        subRouter.delete("/consumptions/:ean").handler(this::deleteAllConsumptions);
+        subRouter.delete("/consumptions/:ean/:date").handler(this::deleteConsumption);
+        subRouter.post("/propose_contract").handler(this::providerProposeContract);
 
         return subRouter;
     }
@@ -54,186 +48,119 @@ public class ProviderApi extends AbstractToken implements RouterApi
     {
         LOGGER.info("GetAllClients...");
 
-        final String token = routingContext.request().getParam("token");
-        final String id = checkToken(token);
-
-        if(id == null)
-        {
-            api.sendMessageError(routingContext, "Le token est incorrecte.");
-            return;
-        }
-
-        final String stringPage = routingContext.request().getParam("page");
-        int page = api.convertStringToInt(routingContext, stringPage);
-
-        if(page == 0)
+        int[] slice = getSlice(routingContext);
+        if(slice == null)
             return;
 
-        page *= 10;
-        
-        final String stringLimit = routingContext.request().getParam("limit");
-        int limit = api.getLimit(stringLimit);
+        ArrayList<ClientBasic> allClients = commonDB.getClientManager().getAllClients(slice[0], slice[1]);
 
-        ArrayList<ClientBasic> allClients = commonDB.getClientManager().getAllClients(page, limit);
-
-        final JsonObject jsonResponse = new JsonObject();
-		jsonResponse.put("allClients", allClients);
-		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api").end(Json.encode(jsonResponse));
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("content-type", "getAllClients")
+            .end(Json.encodePrettily(new JsonObject()
+                        .put("allClients", allClients)));
     }
 
     private void getAllHisClients(final RoutingContext routingContext)
     {
         LOGGER.info("GetAllHisClients...");
 
-        final String token = routingContext.request().getParam("token");
-        final String id = checkToken(token);
+        String id = routingContext.user().principal().getString("id");
 
-        if(id == null)
-        {
-            api.sendMessageError(routingContext, "Le token est incorrecte.");
-            return;
-        }
-
-        final String stringPage = routingContext.request().getParam("page");
-        int page = api.convertStringToInt(routingContext, stringPage);
-
-        if(page == 0)
+        int[] slice = getSlice(routingContext);
+        if(slice == null)
             return;
 
-        final String stringLimit = routingContext.request().getParam("limit");
-        int limit = api.getLimit(stringLimit);
+        ArrayList<ClientBasic> allHisClients = commonDB.getClientManager().getAllHisClients(id, slice[0], slice[1]);
 
-        page = (page -1) * limit;
-
-        final String id_provider = routingContext.request().getParam("id_provider");
-        ArrayList<ClientBasic> allHisClients = commonDB.getClientManager().getAllHisClients(id_provider, page, limit);
-
-        final JsonObject jsonResponse = new JsonObject();
-		jsonResponse.put("allHisClients", allHisClients);
-		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api").end(Json.encode(jsonResponse));
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("content-type", "getAllHisClients")
+            .end(Json.encodePrettily(new JsonObject()
+                        .put("allHisClients", allHisClients)));
     }
 
     private void getClient(final RoutingContext routingContext)
     {
         LOGGER.info("GetClient...");
 
-        final String token = routingContext.request().getParam("token");
-        final String id = checkToken(token);
-
-        if(id == null)
-        {
-            api.sendMessageError(routingContext, "Le token est incorrecte.");
-            return;
-        }
-
         final String id_client = routingContext.request().getParam("id_client");
         ClientFull client = commonDB.getClientManager().getClient(id_client);
 
-        final JsonObject jsonResponse = new JsonObject();
-		jsonResponse.put("client", client);
-		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api").end(Json.encode(jsonResponse));
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("content-type", "getClient")
+            .end(Json.encodePrettily(new JsonObject()
+                        .put("client", client)));
     }
 
     private void deleteClient(final RoutingContext routingContext)
     {
         LOGGER.info("DeleteClient...");
 
-        final String token = routingContext.request().getParam("token");
-        final String id = checkToken(token);
+        String id = routingContext.user().principal().getString("id");
 
-        if(id == null)
-        {
-            api.sendMessageError(routingContext, "Le token est incorrecte.");
-            return;
-        }
-
-        final String id_provider = routingContext.request().getParam("id_provider");
         final String id_client = routingContext.request().getParam("id_client");
-        commonDB.getClientManager().deleteClient(id_provider, id_client);
+        commonDB.getClientManager().deleteClient(id, id_client);
 
-        routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api");
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("content-type", "deleteClient");
     }
 
     private void getAllProposals(final RoutingContext routingContext)
     {
         LOGGER.info("GetAllProposals...");
 
-        final String token = routingContext.request().getParam("token");
-        final String id = checkToken(token);
+        String id = routingContext.user().principal().getString("id");
 
-        if(id == null)
-        {
-            api.sendMessageError(routingContext, "Le token est incorrecte.");
-            return;
-        }
- 
-        final String stringPage = routingContext.request().getParam("page");
-        int page = api.convertStringToInt(routingContext, stringPage);
-
-        if(page == 0)
+        int[] slice = getSlice(routingContext);
+        if(slice == null)
             return;
 
-        final String stringLimit = routingContext.request().getParam("limit");
-        int limit = api.getLimit(stringLimit);
-       
-        page = (page -1) * limit;
+        ArrayList<ProposalBasic> allProposals = commonDB.getProposalManager().getAllProposals(id, slice[0], slice[1]);
 
-        final String id_provider = routingContext.request().getParam("id_provider");
-        ArrayList<ProposalBasic> allProposals = commonDB.getProposalManager().getAllProposals(id_provider, page, limit);
-
-        final JsonObject jsonResponse = new JsonObject();
-		jsonResponse.put("allProposals", allProposals);
-		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api").end(Json.encode(jsonResponse));
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("content-type", "getAllProposals")
+            .end(Json.encodePrettily(new JsonObject()
+                        .put("allProposals", allProposals)));
     }
 
     private void getProposal(final RoutingContext routingContext)
     {
         LOGGER.info("GetProposals...");
 
-        final String token = routingContext.request().getParam("token");
-        final String id = checkToken(token);
+        String id = routingContext.user().principal().getString("id");
 
-        if(id == null)
-        {
-            api.sendMessageError(routingContext, "Le token est incorrecte.");
-            return;
-        }
+        final String nameProposal = routingContext.request().getParam("name_proposal");
+        ProposalFull proposal = commonDB.getProposalManager().getProposal(nameProposal, id);
 
-        final String name_proposal = routingContext.request().getParam("name_proposal");
-        final String id_provider = routingContext.request().getParam("id_provider");
-        ProposalFull proposal = commonDB.getProposalManager().getProposal(name_proposal, id_provider);
-
-        final JsonObject jsonResponse = new JsonObject();
-		jsonResponse.put("proposal", proposal);
-		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api").end(Json.encode(jsonResponse));
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("content-type", "getProposal")
+            .end(Json.encodePrettily(new JsonObject()
+                        .put("proposal", proposal)));
     }
 
     private void addProposal(final RoutingContext routingContext)
     {
         LOGGER.info("AddProposal...");
 
-        final String token = routingContext.request().getParam("token");
-        final String id = checkToken(token);
-
-        if(id == null)
-        {
-            api.sendMessageError(routingContext, "Le token est incorrecte.");
-            return;
-        }
+        String id = routingContext.user().principal().getString("id");
 
         final JsonObject body = routingContext.getBodyAsJson();
-		final String nameProposal = body.getString("nameProposal");
-		final String id_provider = body.getString("id_provider");
-		final String nameProvider = body.getString("nameProvider");
-		final String stringTypeOfEnergy = body.getString("typeOfEnergy");
-		final String localization = body.getString("localization");
-		final double basicPrice = body.getDouble("basicPrice");
-		final double variableDayPrice = body.getDouble("variableDayPrice");
-		final double variableNightPrice = body.getDouble("variableNightPrice");
-		final boolean isFixedRate = body.getBoolean("isFixedRate");
-		final boolean isSingleHourCounter = body.getBoolean("isSingleHourCounter");
-		final String startOffPeakHours = body.getString("startOffPeakHours");
-		final String endOffPeakHours = body.getString("endOffPeakHours");
+        final String nameProposal = body.getString("name_proposal");
+        final String nameProvider = body.getString("name_provider");
+        final String stringTypeOfEnergy = body.getString("type_of_energy");
+        final String localization = body.getString("localization");
+        final double basicPrice = body.getDouble("basic_price");
+        final double variableDayPrice = body.getDouble("variable_day_price");
+        final double variableNightPrice = body.getDouble("variable_night_price");
+        final boolean isFixedRate = body.getBoolean("is_fixed_rate");
+        final boolean isSingleHourCounter = body.getBoolean("is_single_hour_counter");
+        final String startOffPeakHours = body.getString("start_off_peak_hours");
+        final String endOffPeakHours = body.getString("end_off_peak_hours");
 
         final TypeEnergy typeOfEnergy;
         if(stringTypeOfEnergy == "water")
@@ -243,7 +170,7 @@ public class ProviderApi extends AbstractToken implements RouterApi
         else
             typeOfEnergy = TypeEnergy.ELECTRICITY;
 
-        ProposalFull new_proposal = new ProposalFull(id_provider, nameProvider, typeOfEnergy, localization, nameProposal);
+        ProposalFull new_proposal = new ProposalFull(id, nameProvider, typeOfEnergy, localization, nameProposal);
         new_proposal.setMoreInformation(basicPrice, variableDayPrice, variableNightPrice, isFixedRate, isSingleHourCounter, startOffPeakHours, endOffPeakHours);
 
         if(commonDB.getProposalManager().addProposal(new_proposal))
@@ -251,92 +178,68 @@ public class ProviderApi extends AbstractToken implements RouterApi
             ArrayList<String> listClient = commonDB.getContractManager().getAllClientsOfContract(nameProposal, nameProvider);
 
             for(String id_client : listClient)
-                commonDB.getNotificationManager().createNotification(id_provider, id_client, nameProposal, "Le contract a été changé");
+                commonDB.getNotificationManager().createNotification(id, id_client, nameProposal, "Le contract a été changé.");
         }
 
-		routingContext.response().setStatusCode(201).putHeader("contentType", "babaWallet/api");
+        routingContext.response()
+            .setStatusCode(201)
+            .putHeader("content-type", "addProposal");
     }
 
     private void deleteProposal(final RoutingContext routingContext)
     {
         LOGGER.info("DeleteProposal...");
 
-        final String token = routingContext.request().getParam("token");
-        final String id = checkToken(token);
+        String id = routingContext.user().principal().getString("id");
 
-        if(id == null)
-        {
-            api.sendMessageError(routingContext, "Le token est incorrecte.");
-            return;
-        }
-
-        final String id_provider = routingContext.request().getParam("id_provider");
         final String name_proposal = routingContext.request().getParam("name_proposal");
-        commonDB.getProposalManager().deleteProposal(id_provider, name_proposal);
+        commonDB.getProposalManager().deleteProposal(id, name_proposal);
 
-		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api");
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("content-type", "deleteProposal");
     }
 
     private void deleteAllConsumptions(final RoutingContext routingContext)
     {
         LOGGER.info("DeleteAllConsumptions...");
 
-        final String token = routingContext.request().getParam("token");
-        final String id = checkToken(token);
-
-        if(id == null)
-        {
-            api.sendMessageError(routingContext, "Le token est incorrecte.");
-            return;
-        }
-
         final String ean = routingContext.request().getParam("ean");
         commonDB.getConsumptionManager().deleteAllConsumptions(ean);
 
-		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api");
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("content-type", "deleteAllConsumptions");
     }
 
     private void deleteConsumption(final RoutingContext routingContext)
     {
         LOGGER.info("DeleteConsumption...");
 
-        final String token = routingContext.request().getParam("token");
-        final String id = checkToken(token);
-
-        if(id == null)
-        {
-            api.sendMessageError(routingContext, "Le token est incorrecte.");
-            return;
-        }
-
         final String ean = routingContext.request().getParam("ean");
         final String date = routingContext.request().getParam("date");
 
         commonDB.getConsumptionManager().deleteConsumption(ean, date);
 
-		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api");
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("content-type", "deleteConsumption");
     }
 
     private void providerProposeContract(final RoutingContext routingContext)
     {
-        LOGGER.info("...");
+        LOGGER.info("ProviderProposeContract...");
 
-        final String token = routingContext.request().getParam("token");
-        final String id = checkToken(token);
-
-        if(id == null)
-        {
-            api.sendMessageError(routingContext, "Le token est incorrecte.");
-            return;
-        }
+        String id = routingContext.user().principal().getString("id");
 
         final JsonObject body = routingContext.getBodyAsJson();
-		final String name_proposal = body.getString("name_proposal");
-		final String id_provider = body.getString("id_provider");
-		final String id_client = body.getString("id_client");
-        
-        commonDB.getContractManager().providerProposeContract(name_proposal, id_provider, id_client);
+        final String name_proposal = body.getString("name_proposal");
+        final String id_client = body.getString("id_client");
 
-		routingContext.response().setStatusCode(200).putHeader("contentType", "babaWallet/api");
+        commonDB.getContractManager().providerProposeContract(name_proposal, id, id_client);
+
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("content-type", "providerProposeContract");
     }
 }
