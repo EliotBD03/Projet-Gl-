@@ -21,7 +21,7 @@
         </div>  
     </div>
     <div class="bottombutton">
-      <GoButton text="Back" redirect="walletsPage.html" />
+      <GoButton text="Back" redirect="/walletsPage" />
       <GoButton text="Consumptions"/>
       <GoButton text="Close the wallet" v-on:click="deleteWallet()"/>
     </div>
@@ -46,11 +46,19 @@ export default {
         deleteWallet() {
           const requestOptions = {
               method: "DELETE",
-              headers: { "Content-Type": "application/json" },
+              //headers: { }, -> token
             };
             fetch("https://babawallet.alwaysdata.net:8300/api/client/?/wallets/:${address}", requestOptions)
-              .then(response => response.json())
-          
+              .then(response => {
+                if(response.ok){ //permet de vérifier si la requête est 200-OK
+                  return response.json();}
+                else {
+                  throw new Error("Requête incorrecte");
+                }
+              }) 
+              .catch(error => {
+                console.error(error);
+            });
           //window.location.href = "../../html/client/wallet.html";
         }
       }

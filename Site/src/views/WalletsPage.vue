@@ -44,11 +44,20 @@ export default {
     created() { 
       this.getData(this.nbr);
     },
-    methods: { //async -> requête qui peut prendre du temps
+    methods: { //async -> requête qui peut prendre du temps, utile pour récupérer des données volumineuses
+        //headers: { }, -> token
         async getData(nbr){
           this.loading = true; //bloquer les demandes de loader pendant ce temps.
-          response = await fetch("${linkApi}page?page=${nbr}");
-          data = await reponse.json();
+          try {
+            response = await fetch("${linkApi}page?page=${nbr}");
+            if (response.ok) {
+              data = await reponse.json(); //await-> attendre la fin du traitement pour continuer
+            } else {
+              throw new Error("Requête incorrecte");
+            }
+          } catch (error) {
+            console.error(error);
+          }
           if(data != null || data != undefined) //voir comment on gère l'arrivée à la fin des pages erreur/vide?
           {
             this.listWallet = this.listWallet.concat(data); //ajouter la suite de la réponse à la liste
@@ -66,10 +75,6 @@ export default {
         seeMore(wallet){
           this.wallet = sessionStorage.setItem('wallet', JSON.stringify(wallet));
           window.location.href = "../../html/client/walletFull.html";
-        },
-        getIndex(){
-          let index = (item) => item.name == this.wallet.name;
-          return this.listWallet.findIndex(index);
         }
       }
   }

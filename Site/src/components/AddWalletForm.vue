@@ -38,12 +38,17 @@ export default {
         {
           const requestOptions = {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            //headers: { }, -> token
             body: JSON.stringify({ name: this.name, address: this.address })
           };
           fetch("https://babawallet.alwaysdata.net:8300/api/client/?/wallets", requestOptions)
-            .then(response => response.json())
-          
+            .then(response => {
+                if(response.ok){ 
+                  return response.json();}
+                else {
+                  throw new Error("Requête incorrecte");
+                }
+            }) 
           //window.location.href = "../../html/client/wallet.html";
         }
       }
