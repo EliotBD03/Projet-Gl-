@@ -13,7 +13,6 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
-import io.vertx.ext.auth.jwt.JWTOptions;
 
 public class LogApi extends MyApi implements RouterApi
 {
@@ -50,7 +49,9 @@ public class LogApi extends MyApi implements RouterApi
         {
             routingContext.response()
                 .setStatusCode(401)
-                .putHeader("error", "Compte non trouvé, l'adresse mail ou le mot de passe n'est pas correct.");
+                .putHeader("content-type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "Compte non trouvé, l'adresse mail ou le mot de passe n'est pas correct.")));
             return;
         }
 
@@ -64,11 +65,11 @@ public class LogApi extends MyApi implements RouterApi
             .put("id", id)
             .put("role", role);
 
-        String token = jwt.generateToken(userInfo, new JWTOptions().setExpiresInSeconds(3600));
+        String token = jwt.generateToken(userInfo);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "checkAccount")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("token", token)
                         .put("role", role)));
@@ -109,11 +110,11 @@ public class LogApi extends MyApi implements RouterApi
                     .put("id", id)
                     .put("role", role);
 
-                String token = jwt.generateToken(userInfo, new JWTOptions().setExpiresInSeconds(3600));
+                String token = jwt.generateToken(userInfo);
 
                 routingContext.response()
                     .setStatusCode(200)
-                    .putHeader("content-type", "saveAccount")
+                    .putHeader("content-type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
                                 .put("token", token)
                                 .put("role", role)));
@@ -123,13 +124,17 @@ public class LogApi extends MyApi implements RouterApi
             {
                 routingContext.response()
                     .setStatusCode(503)
-                    .putHeader("error", "La sauvegarde du compte n'a pas pu se faire.");
+                    .putHeader("content-type", "application/json")
+                    .end(Json.encodePrettily(new JsonObject()
+                                .put("error", "La sauvegarde du compte n'a pas pu se faire.")));
             }
         }
         else
             routingContext.response()
                 .setStatusCode(401)
-                .putHeader("error", "Mauvais code.");
+                .putHeader("content-type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "Mauvais code.")));
     }
 
     private void renitializePwd(final RoutingContext routingContext)
@@ -149,19 +154,23 @@ public class LogApi extends MyApi implements RouterApi
                 commonDB.getLogManager().changePassword(mail, newPwd);
                 routingContext.response()
                     .setStatusCode(200)
-                    .putHeader("content-type", "renitializePwd");
+                    .putHeader("content-type", "application/json");
             }
             catch(Exception error)
             {
                 routingContext.response()
                     .setStatusCode(503)
-                    .putHeader("error", "Erreur de rénitialisation de mot de passe.");
+                    .putHeader("content-type", "application/json")
+                    .end(Json.encodePrettily(new JsonObject()
+                                .put("error", "Erreur de rénitialisation de mot de passe.")));
             }
         }
         else
             routingContext.response()
                 .setStatusCode(401)
-                .putHeader("error", "Le code entré n'est pas correct.");
+                .putHeader("content-type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "Le code entré n'est pas correct.")));
     }
 
     private void getCode(final RoutingContext routingContext)
@@ -176,13 +185,17 @@ public class LogApi extends MyApi implements RouterApi
         try
         {
             App.sendEmail(mail, "BabaWallet", "Voici le code " + code);
-            routingContext.response().setStatusCode(200).putHeader("content-type", "getCode");
+            routingContext.response()
+                .setStatusCode(200)
+                .putHeader("content-type", "application/json");
         }
         catch(RuntimeException error)
         {
             routingContext.response()
                 .setStatusCode(503)
-                .putHeader("error", "Erreur de l'envoie du code.");
+                .putHeader("content-type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "Erreur de l'envoie du code.")));
         }
     }
 }

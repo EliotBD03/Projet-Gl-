@@ -35,7 +35,7 @@ public class ClientApi extends MyApi implements RouterApi
         subRouter.delete("/wallets/:address").handler(this::deleteWallet);
         subRouter.get("/contracts/page").handler(this::getAllContracts);
         subRouter.get("/proposals/page").handler(this::getAllProposals);
-        subRouter.get("/proposals/:id_proposal").handler(this::getProposal);
+        subRouter.get("/proposals/:id_provider/:name_proposal").handler(this::getProposal);
         subRouter.post("/proposeContract").handler(this::clientProposeContract);
 
         return subRouter;
@@ -55,7 +55,7 @@ public class ClientApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getAllWallets")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("wallets", wallets)));
     }
@@ -69,7 +69,7 @@ public class ClientApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getWallet")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("wallet", wallet)));
     }
@@ -86,10 +86,9 @@ public class ClientApi extends MyApi implements RouterApi
         WalletBasic wallet = new WalletBasic(address, name, nameOwner);
         commonDB.getWalletManager().createWallet(wallet);
 
-        routingContext
-            .response()
+        routingContext.response()
             .setStatusCode(201)
-            .putHeader("content-type", "createWallet");
+            .putHeader("content-type", "application/json");
     }
 
     private void deleteWallet(final RoutingContext routingContext)
@@ -101,16 +100,16 @@ public class ClientApi extends MyApi implements RouterApi
         if(commonDB.getWalletManager().walletIsEmpty(address))
         {
             commonDB.getWalletManager().deleteWallet(address);
-            routingContext
-                .response()
+            routingContext.response()
                 .setStatusCode(200)
-                .putHeader("content-type", "deleteWallet");
+                .putHeader("content-type", "application/json");
         }
         else
-            routingContext
-                .response()
+            routingContext.response()
                 .setStatusCode(405)
-                .putHeader("error", "Le portefeuille n'est pas vide.");
+                .putHeader("content-type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "Le portefeuille n'est pas vide.")));
     }
 
     private void getAllContracts(final RoutingContext routingContext)
@@ -127,7 +126,7 @@ public class ClientApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getAllContracts")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("contracts", contracts)));
     }
@@ -144,7 +143,7 @@ public class ClientApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getAllProposals")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("proposals", proposals)));
     }
@@ -153,13 +152,14 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetProposal...");
 
-        final String id_proposal = routingContext.request().getParam("id_proposal");
+        final String idProvider = routingContext.request().getParam("id_provider");
+        final String nameProposal = routingContext.request().getParam("name_proposal");
 
-        ProposalFull proposal = commonDB.getProposalManager().getProposal(id_proposal); //TODO doit changer en providerId, proposalName
+        ProposalFull proposal = commonDB.getProposalManager().getProposal(nameProposal, idProvider);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getProposal")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("proposal", proposal)));
     }
@@ -171,16 +171,15 @@ public class ClientApi extends MyApi implements RouterApi
         String id = routingContext.user().principal().getString("id");
 
         final JsonObject body = routingContext.getBodyAsJson();
-        final String id_proposal = body.getString("id_proposal");
-        final String id_provider = body.getString("id_provider");
+        final String idProposal = body.getString("id_proposal");
+        final String idProvider = body.getString("id_provider");
         final String mail = body.getString("mail");
         final String ean = body.getString("ean");
 
-        commonDB.getProposalManager().clientProposeContract(id_proposal, id, id_provider, mail, ean);
+        commonDB.getProposalManager().clientProposeContract(idProposal, id, idProvider, mail, ean);
 
-        routingContext
-            .response()
+        routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "clientProposeContract");
+            .putHeader("content-type", "application/json");
     }
 }

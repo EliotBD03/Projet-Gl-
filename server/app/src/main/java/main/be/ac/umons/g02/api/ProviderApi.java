@@ -56,7 +56,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getAllClients")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("allClients", allClients)));
     }
@@ -75,7 +75,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getAllHisClients")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("allHisClients", allHisClients)));
     }
@@ -84,12 +84,12 @@ public class ProviderApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetClient...");
 
-        final String id_client = routingContext.request().getParam("id_client");
-        ClientFull client = commonDB.getClientManager().getClient(id_client);
+        final String idClient = routingContext.request().getParam("id_client");
+        ClientFull client = commonDB.getClientManager().getClient(idClient);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getClient")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("client", client)));
     }
@@ -100,12 +100,12 @@ public class ProviderApi extends MyApi implements RouterApi
 
         String id = routingContext.user().principal().getString("id");
 
-        final String id_client = routingContext.request().getParam("id_client");
-        commonDB.getClientManager().deleteClient(id, id_client); //TODO pq un id autre que celui du client
+        final String idClient = routingContext.request().getParam("id_client");
+        commonDB.getClientManager().deleteClient(id, idClient);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "deleteClient");
+            .putHeader("content-type", "application/json");
     }
 
     private void getAllProposals(final RoutingContext routingContext)
@@ -122,7 +122,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getAllProposals")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("allProposals", allProposals)));
     }
@@ -138,7 +138,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getProposal")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("proposal", proposal)));
     }
@@ -170,20 +170,20 @@ public class ProviderApi extends MyApi implements RouterApi
         else
             typeOfEnergy = TypeEnergy.ELECTRICITY;
 
-        ProposalFull new_proposal = new ProposalFull(id, nameProvider, typeOfEnergy, localization, nameProposal); //TODO on fait quoi ? un tableau ou une loc pour une proposal
-        new_proposal.setMoreInformation(basicPrice, variableDayPrice, variableNightPrice, isFixedRate, isSingleHourCounter, startOffPeakHours, endOffPeakHours);
+        ProposalFull newProposal = new ProposalFull(id, nameProvider, typeOfEnergy, localization, nameProposal);
+        newProposal.setMoreInformation(basicPrice, variableDayPrice, variableNightPrice, isFixedRate, isSingleHourCounter, startOffPeakHours, endOffPeakHours);
 
-        if(commonDB.getProposalManager().addProposal(new_proposal))
+        if(commonDB.getProposalManager().addProposal(newProposal))
         {
-            ArrayList<String> listClient = commonDB.getContractManager().getAllClientsOfContract(nameProposal, nameProvider); //TODO ATTENTION : providerID
+            ArrayList<String> listClient = commonDB.getContractManager().getAllClientsOfContract(nameProposal, id);
 
-            for(String id_client : listClient)
-                commonDB.getNotificationManager().createNotification(id, id_client, nameProposal, "Le contract a été changé.");
+            for(String idClient : listClient)
+                commonDB.getNotificationManager().createNotification(id, idClient, nameProposal, "Le contract a été changé.");
         }
 
         routingContext.response()
             .setStatusCode(201)
-            .putHeader("content-type", "addProposal");
+            .putHeader("content-type", "application/json");
     }
 
     private void deleteProposal(final RoutingContext routingContext)
@@ -192,12 +192,12 @@ public class ProviderApi extends MyApi implements RouterApi
 
         String id = routingContext.user().principal().getString("id");
 
-        final String name_proposal = routingContext.request().getParam("name_proposal");
-        commonDB.getProposalManager().deleteProposal(id, name_proposal);
+        final String nameProposal = routingContext.request().getParam("name_proposal");
+        commonDB.getProposalManager().deleteProposal(id, nameProposal);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "deleteProposal");
+            .putHeader("content-type", "application/json");
     }
 
     private void deleteAllConsumptions(final RoutingContext routingContext)
@@ -209,7 +209,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "deleteAllConsumptions");
+            .putHeader("content-type", "application/json");
     }
 
     private void deleteConsumption(final RoutingContext routingContext)
@@ -223,7 +223,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "deleteConsumption");
+            .putHeader("content-type", "application/json");
     }
 
     private void providerProposeContract(final RoutingContext routingContext)
@@ -233,13 +233,13 @@ public class ProviderApi extends MyApi implements RouterApi
         String id = routingContext.user().principal().getString("id");
 
         final JsonObject body = routingContext.getBodyAsJson();
-        final String name_proposal = body.getString("name_proposal");
-        final String id_client = body.getString("id_client");
+        final String nameProposal = body.getString("name_proposal");
+        final String idClient = body.getString("id_client");
 
-        commonDB.getContractManager().providerProposeContract(name_proposal, id, id_client);
+        commonDB.getContractManager().providerProposeContract(nameProposal, id, idClient);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "providerProposeContract");
+            .putHeader("content-type", "application/json");
     }
 }

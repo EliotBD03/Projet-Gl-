@@ -29,7 +29,6 @@ public class CommonApi extends MyApi implements RouterApi
         final Router subRouter = Router.router(vertx);
         subRouter.route("/*").handler(BodyHandler.create());
 
-        //Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6ImNsaWVudCJ9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
         subRouter.get("/languages/page").handler(this::getAllLanguages);
         subRouter.get("/languages/current_language").handler(this::getCurrentLanguage);
         subRouter.get("/languages/favourite_language").handler(this::getFavouriteLanguage);
@@ -44,7 +43,7 @@ public class CommonApi extends MyApi implements RouterApi
         subRouter.get("/contracts/:id_contract").handler(this::getContract);
         subRouter.delete("/contracts/:id_contract").handler(this::deleteContract);
         subRouter.get("/consumptions_month").handler(this::getConsumptionOfMonth);
-        subRouter.get("/consumptions").handler(this::getConsumption);
+        subRouter.get("/consumptions").handler(this::getConsumptions);
         subRouter.post("/consumptions").handler(this::addConsumption);
         subRouter.put("/consumptions").handler(this::changeConsumption);
 
@@ -65,7 +64,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getAllLanguages")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("allLanguages", allLanguages)));
     } 
@@ -80,7 +79,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getFavouriteLanguage")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("language", language)));
     }
@@ -95,7 +94,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getLanguage")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("language", language)));
     }
@@ -111,7 +110,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "addLanguage");
+            .putHeader("content-type", "application/json");
     }
 
     private void changeCurrentLanguage(final RoutingContext routingContext)
@@ -125,7 +124,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "changeCurrentLanguage");
+            .putHeader("content-type", "application/json");
     }
 
     private void changeFavouriteLanguage(final RoutingContext routingContext)
@@ -139,7 +138,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "changeFavouriteLanguage");
+            .putHeader("content-type", "application/json");
     }
 
     private void changePassword(final RoutingContext routingContext)
@@ -153,17 +152,19 @@ public class CommonApi extends MyApi implements RouterApi
         {
             String id = routingContext.user().principal().getString("id");
 
-            final String new_pwd = routingContext.request().getParam("new_pwd");
+            final String newPwd = routingContext.request().getParam("new_pwd");
 
-            commonDB.getLogManager().changePassword(id, new_pwd);
+            commonDB.getLogManager().changePassword(id, newPwd);
             routingContext.response()
                 .setStatusCode(200)
-                .putHeader("content-type", "changePassword");
+                .putHeader("content-type", "application/json");
         }
         else
             routingContext.response()
                 .setStatusCode(401)
-                .putHeader("error", "Code incorrect.");
+                .putHeader("content-type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "Code incorrect.")));
     }
 
     private void getAllNotifications(final RoutingContext routingContext)
@@ -180,7 +181,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getAllNotifications")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("allNotifications", allNotifications)));
     }
@@ -189,48 +190,48 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("AcceptNotification...");
 
-        final String id_notification = routingContext.request().getParam("id_notification");
-        commonDB.getNotificationManager().acceptNotification(id_notification);
+        final String idNotification = routingContext.request().getParam("id_notification");
+        commonDB.getNotificationManager().acceptNotification(idNotification);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "acceptNotification");
+            .putHeader("content-type", "application/json");
     }
 
     private void refuseNotification(final RoutingContext routingContext)
     {
         LOGGER.info("RefuseNotification...");
 
-        final String id_notification = routingContext.request().getParam("id_notification");
-        commonDB.getNotificationManager().refuseNotification(id_notification);
+        final String idNotification = routingContext.request().getParam("id_notification");
+        commonDB.getNotificationManager().refuseNotification(idNotification);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "refuseNotification");
+            .putHeader("content-type", "application/json");
     }
 
     private void deleteNotification(final RoutingContext routingContext)
     {
         LOGGER.info("DeleteNotification...");
 
-        final String id_notification = routingContext.request().getParam("id_notification");
-        commonDB.getNotificationManager().deleteNotification(id_notification);
+        final String idNotification = routingContext.request().getParam("id_notification");
+        commonDB.getNotificationManager().deleteNotification(idNotification);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "deleteNotification");
+            .putHeader("content-type", "application/json");
     }
 
     private void getContract(final RoutingContext routingContext)
     {
         LOGGER.info("GetContract...");
 
-        final String id_contract = routingContext.request().getParam("id_contract");
-        ContractFull contract = commonDB.getContractManager().getContract(id_contract);
+        final String idContract = routingContext.request().getParam("id_contract");
+        ContractFull contract = commonDB.getContractManager().getContract(idContract);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getContract")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("contract", contract)));
     }
@@ -244,7 +245,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "deleteContract");
+            .putHeader("content-type", "application/json");
     }
 
     private void getConsumptionOfMonth(final RoutingContext routingContext)
@@ -260,12 +261,12 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getConsumptionOfMonth")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("listConsumption", listConsumption)));
     }
 
-    private void getConsumption(final RoutingContext routingContext)
+    private void getConsumptions(final RoutingContext routingContext)
     {
         LOGGER.info("GetConsumption...");
 
@@ -278,7 +279,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "getConsumption")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("listConsumption", listConsumption)));
     }
@@ -303,7 +304,9 @@ public class CommonApi extends MyApi implements RouterApi
         {
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("error", "Le tableau ne contient pas que des nombres.");
+                .putHeader("content-type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "Le tableau ne contient pas que des nombres.")));
             return;
         }
 
@@ -312,7 +315,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "addConsumption")
+            .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("valueAlreadyDefine", valueAlreadyDefine)));
     }
@@ -330,6 +333,6 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "changeConsumption");
+            .putHeader("content-type", "application/json");
     }
 }

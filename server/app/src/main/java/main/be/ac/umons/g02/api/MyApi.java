@@ -10,9 +10,9 @@ import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.web.handler.JWTAuthHandler;
-import io.vertx.ext.auth.jwt.JWTOptions;
-//import io.vertx.ext.auth.jwt.JWTAuthOptions;
-//import io.vertx.ext.auth.KeyStoreOptions;
+import io.vertx.ext.auth.jwt.JWTAuthOptions;
+import io.vertx.ext.auth.PubSecKeyOptions;
+import io.vertx.core.Handler;
 import java.util.Map;
 import java.lang.Integer;
 
@@ -51,33 +51,50 @@ public class MyApi extends AbstractVerticle
 
         final Router router = Router.router(vertx);
 
-        /*
-           JWTAuthOptions options = new JWTAuthOptions()
-           .addAudience("https://babawallet.alwaysdata.net")
-           .setKeyStore(new KeyStoreOptions()
-           .setType("jceks")
-           .setPath("keystore.jceks")
-           .setPassword("keystorePwd"));
+        jwt = JWTAuth.create(vertx, new JWTAuthOptions()
+                .addPubSecKey(new PubSecKeyOptions()
+                    .setAlgorithm("HS256")
+                    .setBuffer("mqkfj m( mlksqe ç' mlksf, mqsldjf ? qsf / :")));
 
-           jwt = JWTAuth.create(vertx, options);
-           */
+        Handler<RoutingContext> roleHandlerClient = ctx ->
+        {
+            String role = ctx.user().principal().getString("role");
+            if (role.equals("client"))
+                ctx.next();
+            else
+                ctx.fail(401);
+        };
 
-        jwt = JWTAuth.create(vertx, new JsonObject().put("keyStore", new JsonObject()
-                    .put("type", "jceks")
-                    .put("path", "keystore.jceks")
-                    .put("password", keystorePwd)));
+        Handler<RoutingContext> roleHandlerProvider = ctx ->
+        {
+            String role = ctx.user().principal().getString("role");
+            if (role.equals("provider"))
+                ctx.next();
+            else
+                ctx.fail(401);
+        };
+
+        Handler<RoutingContext> roleHandlerCommon = ctx ->
+        {
+            String role = ctx.user().principal().getString("role");
+            if (role.equals("client") || role.equals("provider"))
+                ctx.next();
+            else
+                ctx.fail(401);
+        };
+
+        router.route("/api/*").handler(JWTAuthHandler.create(jwt));
+        router.route("/api/client/*").handler(roleHandlerClient);
+        router.route("/api/provider/*").handler(roleHandlerProvider);
+        router.route("/api/common/*").handler(roleHandlerCommon);
 
         logApi = new LogApi();
         clientApi = new ClientApi();
         providerApi = new ProviderApi();
         commonApi = new CommonApi();
 
-        router.route("/api/client/*").handler(JWTAuthHandler.create(jwt).addAuthority("client"));
-        router.route("/api/provider/*").handler(JWTAuthHandler.create(jwt).addAuthority("provider"));
-        router.route("/api/common/*").handler(JWTAuthHandler.create(jwt).addAuthority("client").addAuthority("provider"));
-
         final Router logApiRouter = logApi.getSubRouter(vertx);
-        router.mountSubRouter("api/log", logApiRouter);
+        router.mountSubRouter("/log", logApiRouter);
 
         final Router clientApiRouter = clientApi.getSubRouter(vertx);
         router.mountSubRouter("/api/client", clientApiRouter);
@@ -114,8 +131,10 @@ public class MyApi extends AbstractVerticle
             {
                 routingContext.response()
                     .setStatusCode(400)
-                    .putHeader("error", "Le numéro de page doit être strictement plus grand que 0.");
-                    return null;
+                    .putHeader("content-type", "application/json")
+                    .end(Json.encodePrettily(new JsonObject()
+                                .put("error", "Le numéro de page doit être strictement plus grand que 0.")));
+                return null;
             }
 
             if (limit <= 0 || limit > pageMaxSize)
@@ -131,7 +150,9 @@ public class MyApi extends AbstractVerticle
         {
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("error", "Les numéros de pages et de limites doivent être des entiers.");
+                .putHeader("content-type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "Les numéros de pages et de limites doivent être des entiers.")));
             return null;
         }
     }
