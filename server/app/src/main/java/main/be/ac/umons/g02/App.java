@@ -12,18 +12,35 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Classe principale pour lancer le programme
+ */
 public class App
 {
     private static HashMap<String, String> listCode;
     private static String username = "";
     private static String password = "";
 
+    /**
+     * Méthode pour lancer le verticle
+     *
+     * @param args - Les arguments au lancement du programme
+     * @see MyApi
+     */
     public static void main(String[] args)
     {
         final Vertx vertx = Vertx.vertx();
         vertx.deployVerticle(new MyApi());
     }
 
+    /**
+     * Méthode qui permet d'envoyer un mail à un utilisateur
+     * Cela peut se produire quand un utilisateur souhaite créer un compte, changer ou rénitialiser son mot de passe
+     *
+     * @param recipient - L'utilisateur a qui on doit envoyer le mail
+     * @param subjet - Le sujet du mail
+     * @param text - Le contenue du mail
+     */
     public static void sendEmail(String recipient, String subject, String text)
     {
         Map<String, String> env  = System.getenv();
@@ -50,7 +67,6 @@ public class App
                         return new PasswordAuthentication(username, password);
                     }
                 });
-        //session.setDebug(true);
 
         try
         {
@@ -69,7 +85,12 @@ public class App
         }
     }
 
-    public static String createCode(String mailOrId)
+    /**
+     * Méthode qui permet de créer un code pour changer ou rénitialiser son mot de passe
+     *
+     * @param mail - Le mail de l'utilisateur
+     */
+    public static String createCode(String mail)
     {
         String code = "";
         Random rand = new Random();
@@ -80,19 +101,26 @@ public class App
             code += number;
         }
 
-        listCode.put(mailOrId, code);
-        automaticDeleteCode(mailOrId);
+        listCode.put(mail, code);
+        automaticDeleteCode(mail);
 
         return code;
     }
 
-    public static boolean checkCode(String mailOrId, String code)
+    /**
+     * Méthode qui permet de vérifier que l'utilisateur a entré le bon code
+     * pour changer ou rénitialiser son mot de passe 
+     *
+     * @param mail - Le mail de l'utilisateur
+     * @param code - Le code qu'il a normalement recu par mail
+     */
+    public static boolean checkCode(String mail, String code)
     {
-        if(listCode.containsKey(mailOrId))
+        if(listCode.containsKey(mail))
         {
-            if(listCode.get(mailOrId) == code)
+            if(listCode.get(mail) == code)
             {
-                listCode.remove(mailOrId);
+                listCode.remove(mail);
                 return true;
             }
         }
@@ -100,7 +128,12 @@ public class App
         return false;
     }
 
-    private static void automaticDeleteCode(String mailOrId)
+    /**
+     * Méthode qui permet de supprimer le code après un certain pour qu'il ne serve plus a rien 
+     *
+     * @param mail - Le mail de l'utilisateur
+     */
+    private static void automaticDeleteCode(String mail)
     {
         Timer timer = new Timer();
         TimerTask task = new TimerTask()
@@ -108,12 +141,12 @@ public class App
             @Override
             public void run()
             {
-                if(listCode.containsKey(mailOrId))
-                    listCode.remove(mailOrId);
+                if(listCode.containsKey(mail))
+                    listCode.remove(mail);
                 timer.cancel();
             }
         };
-        
+
         timer.schedule(task, 3 * 60 * 1000);
     }
 }
