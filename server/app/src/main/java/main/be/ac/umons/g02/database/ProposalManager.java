@@ -31,7 +31,7 @@ public class ProposalManager
         return calendar;
     }
 
-    public ArrayList<ProposalBasic> getAllProposals(String id, int base, int limit)
+    public ArrayList<ProposalBasic> getAllProposals(int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM proposal", true);
         ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults(new String[] {"proposal_name","provider_id",
@@ -96,7 +96,7 @@ public class ProposalManager
         nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
 
         proposalFull = new ProposalFull(providerId, nameProvider, typeEnergy, location, proposalName);
-        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, peakHours == offPeakHours, startPeakHours, endPeakHours);
+        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, peakHours == offPeakHours, "TODO", "TODO"); //TODO
         return proposalFull;
     }
 
@@ -114,8 +114,8 @@ public class ProposalManager
         String endOffPeakHours = "NULL";
         if(!proposal.getIsSingleHour())
         {
-            startOffPeakHours = proposal.getStartOfPeakHours().get(Calendar.HOUR) + ":" + proposal.getStartOfPeakHours().get(Calendar.MINUTE) + proposal.getStartOfPeakHours().get(Calendar.SECOND);
-            endOffPeakHours = proposal.getEndOfPeakHours().get(Calendar.HOUR) + ":" + proposal.getEndOfPeakHours().get(Calendar.MINUTE) + proposal.getEndOfPeakHours().get(Calendar.SECOND);
+          //  startOffPeakHours = proposal.getStartOfPeakHours().get(Calendar.HOUR) + ":" + proposal.getStartOfPeakHours().get(Calendar.MINUTE) + proposal.getStartOfPeakHours().get(Calendar.SECOND);
+           // endOffPeakHours = proposal.getEndOfPeakHours().get(Calendar.HOUR) + ":" + proposal.getEndOfPeakHours().get(Calendar.MINUTE) + proposal.getEndOfPeakHours().get(Calendar.SECOND);
         }
 
         int location = 0;
@@ -143,6 +143,11 @@ public class ProposalManager
     public void deleteProposal(String proposalName, String providerId)
     {
         DB.getInstance().executeQuery("DELETE FROM proposal WHERE proposal_name='"+proposalName+"' AND provider_id="+providerId, false);
+    }
+
+    public void clientProposesContract(String proposalName, String clientId, String providerId, String mail, String ean)
+    {
+
     }
 
 }

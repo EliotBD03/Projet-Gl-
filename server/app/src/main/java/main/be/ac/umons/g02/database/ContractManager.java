@@ -44,6 +44,6 @@ public class ContractManager
 
     public void providerProposeContract(String proposalName, String providerId, String clientId)
     {
-        
+
     }
 }

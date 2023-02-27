@@ -48,12 +48,12 @@ public class ContractFull extends ContractBasic
         return proposal.getVariableNightPrice();
     }
 
-    public Calendar getStartOfPeakHours()
+    public String getStartOfPeakHours()
     {
         return proposal.getStartOfPeakHours();
     }
 
-    public Calendar getEndOfPeakHours()
+    public String getEndOfPeakHours()
     {
         return proposal.getEndOfPeakHours();
     }

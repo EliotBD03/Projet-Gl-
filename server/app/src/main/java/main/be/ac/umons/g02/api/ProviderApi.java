@@ -101,7 +101,7 @@ public class ProviderApi extends MyApi implements RouterApi
         String id = routingContext.user().principal().getString("id");
 
         final String idClient = routingContext.request().getParam("id_client");
-        commonDB.getClientManager().deleteClient(id, idClient);
+        commonDB.getClientManager().deleteClient(id, idClient); //TODO c'est quoi id ?
 
         routingContext.response()
             .setStatusCode(200)
@@ -118,7 +118,7 @@ public class ProviderApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<ProposalBasic> allProposals = commonDB.getProposalManager().getAllProposals(id, slice[0], slice[1]);
+        ArrayList<ProposalBasic> allProposals = commonDB.getProposalManager().getAllProposals(id, slice[0], slice[1]); //TODO HUH
 
         routingContext.response()
             .setStatusCode(200)
@@ -170,7 +170,7 @@ public class ProviderApi extends MyApi implements RouterApi
         else
             typeOfEnergy = TypeEnergy.ELECTRICITY;
 
-        ProposalFull newProposal = new ProposalFull(id, nameProvider, typeOfEnergy, localization, nameProposal);
+        ProposalFull newProposal = new ProposalFull(id, nameProvider, typeOfEnergy, localization, nameProposal); //TODO loc ou enum ?
         newProposal.setMoreInformation(basicPrice, variableDayPrice, variableNightPrice, isFixedRate, isSingleHourCounter, startOffPeakHours, endOffPeakHours);
 
         if(commonDB.getProposalManager().addProposal(newProposal))

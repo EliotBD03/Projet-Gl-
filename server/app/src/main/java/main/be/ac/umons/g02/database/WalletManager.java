@@ -7,16 +7,16 @@ import java.util.ArrayList;
 
 public class WalletManager
 {
-    public ArrayList<WalletBasic> getAllWallets(String clientId, int base, int limit) throws Exception
+    public ArrayList<WalletBasic> getAllWallets(String clientId, int base, int limit)
     {
-        if(!new LogManager().isClient(clientId))
-            throw new Exception("the client doesn't exist");
+        //if(!new LogManager().isClient(clientId))
+          //  throw new Exception("the client doesn't exist");
 
         DB.getInstance().executeQuery("SELECT * FROM wallet WHERE id="+clientId,true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"address","client_id","wallet_name"});
 
-        if(results.get(0).size() == 0)
-            throw new Exception("The client doesn't have any wallet");
+        //if(results.get(0).size() == 0)
+          //  throw new Exception("The client doesn't have any wallet");
 
         ArrayList<WalletBasic> walletBasics = new ArrayList<>();
 
@@ -43,10 +43,10 @@ public class WalletManager
                 walletBasic.getAddress()+"',"+walletBasic.getClientId()+",'"+walletBasic.getName()+"')",false);
     }
 
-    public void deleteWallet(String address) throws Exception
+    public void deleteWallet(String address)
     {
-        if(!walletIsEmpty(address))
-            throw new Exception("Cannot remove a wallet while it is not empty");
+    //    if(!walletIsEmpty(address))
+      //      throw new Exception("Cannot remove a wallet while it is not empty");
 
         DB.getInstance().executeQuery("DELETE FROM wallet WHERE address='"+address+"'", false);
     }

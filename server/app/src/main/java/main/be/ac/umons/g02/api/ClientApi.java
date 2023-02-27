@@ -139,7 +139,7 @@ public class ClientApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals(slice[0], slice[1]);
+        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals(slice[0], slice[1]); //TODO HUH
 
         routingContext.response()
             .setStatusCode(200)
@@ -176,7 +176,7 @@ public class ClientApi extends MyApi implements RouterApi
         final String mail = body.getString("mail");
         final String ean = body.getString("ean");
 
-        commonDB.getProposalManager().clientProposeContract(idProposal, id, idProvider, mail, ean);
+        commonDB.getProposalManager().clientProposesContract(idProposal, id, idProvider, mail, ean);
 
         routingContext.response()
             .setStatusCode(200)

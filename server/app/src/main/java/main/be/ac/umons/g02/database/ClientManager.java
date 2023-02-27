@@ -19,7 +19,11 @@ public class ClientManager
 
     public ClientFull getClient(String clientId)
     {
-
+        return null;
     }
 
+    public void deleteClient(String id, String clientId)
+    {
+
+    }
 }
