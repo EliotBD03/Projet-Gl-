@@ -11,10 +11,11 @@
           <input type="text" v-model="address">
         </p>
       <GoButton text="Add" type="submit"/> 
+      <!-- <button class = "greenButton rightButton fixed" type="submit"> ADD </button>-->
     </form>
   </div>
-  
 </template>
+
 <script>
 import GoButton from "@/components/GoButton.vue";
 
@@ -41,14 +42,17 @@ export default {
             //headers: { }, -> token
             body: JSON.stringify({ name: this.name, address: this.address })
           };
-          fetch("https://babawallet.alwaysdata.net:8300/api/client/?/wallets", requestOptions)
+          fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets", requestOptions)
             .then(response => {
                 if(response.ok){ 
                   return response.json();}
                 else {
-                  throw new Error("Requête incorrecte");
+                  throw new Error("Incorrect request");
                 }
-            }) 
+            })
+            .catch(error => {
+                console.error(error);
+            });
           //window.location.href = "../../html/client/wallet.html";
         }
       }

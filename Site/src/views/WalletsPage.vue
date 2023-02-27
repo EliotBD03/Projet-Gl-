@@ -53,7 +53,7 @@ export default {
             if (response.ok) {
               data = await reponse.json(); //await-> attendre la fin du traitement pour continuer
             } else {
-              throw new Error("Requête incorrecte");
+              throw new Error("Incorrect request");
             }
           } catch (error) {
             console.error(error);

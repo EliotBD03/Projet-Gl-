@@ -48,12 +48,12 @@ export default {
               method: "DELETE",
               //headers: { }, -> token
             };
-            fetch("https://babawallet.alwaysdata.net:8300/api/client/?/wallets/:${address}", requestOptions)
+            fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets/:${address}", requestOptions)
               .then(response => {
                 if(response.ok){ //permet de vérifier si la requête est 200-OK
                   return response.json();}
                 else {
-                  throw new Error("Requête incorrecte");
+                  throw new Error("Incorrect request");
                 }
               }) 
               .catch(error => {
