@@ -12,7 +12,7 @@ public class NotificationManager
                 "VALUES ('" + senderId + "','" + receiverId + "','" + contractId + "','" + context + "')",false);
     }
 
-    public ArrayList<Notification> getAllNotifications(String idUser)
+    public ArrayList<Notification> getAllNotifications(String idUser, int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM notification WHERE id="+idUser, true);
 

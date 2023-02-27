@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class WalletManager
 {
-    public ArrayList<WalletBasic> getAllWallets(String clientId) throws Exception
+    public ArrayList<WalletBasic> getAllWallets(String clientId, int base, int limit) throws Exception
     {
         if(!new LogManager().isClient(clientId))
             throw new Exception("the client doesn't exist");

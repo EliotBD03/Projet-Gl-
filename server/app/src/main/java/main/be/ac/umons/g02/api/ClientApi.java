@@ -155,7 +155,7 @@ public class ClientApi extends MyApi implements RouterApi
 
         final String id_proposal = routingContext.request().getParam("id_proposal");
 
-        ProposalFull proposal = commonDB.getProposalManager().getProposal(id_proposal);
+        ProposalFull proposal = commonDB.getProposalManager().getProposal(id_proposal); //TODO doit changer en providerId, proposalName
 
         routingContext.response()
             .setStatusCode(200)

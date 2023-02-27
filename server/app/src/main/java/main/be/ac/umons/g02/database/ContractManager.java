@@ -1,11 +1,10 @@
 package main.be.ac.umons.g02.database;
 
+
 import main.be.ac.umons.g02.data_object.ContractBasic;
 import main.be.ac.umons.g02.data_object.ContractFull;
-import main.be.ac.umons.g02.data_object.ProposalBasic;
-import org.checkerframework.checker.units.qual.A;
 
-import java.beans.BeanDescriptor;
+
 import java.util.ArrayList;
 
 public class ContractManager
@@ -28,8 +27,23 @@ public class ContractManager
         return null;
     }
 
-    public ArrayList<ContractBasic> getAllContracts(String clientId)
+    public ArrayList<ContractBasic> getAllContracts(String clientId, int base, int limit)
     {
         return null; //TODO
+    }
+
+    public void deleteContract(String contractId)
+    {
+
+    }
+
+    public ArrayList<String> getAllClientsOfContract(String proposalName, String providerId)
+    {
+        return null;
+    }
+
+    public void providerProposeContract(String proposalName, String providerId, String clientId)
+    {
+        
     }
 }

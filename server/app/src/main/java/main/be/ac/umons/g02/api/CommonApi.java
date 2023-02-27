@@ -274,7 +274,7 @@ public class CommonApi extends MyApi implements RouterApi
         final String startDate = body.getString("start_date");
         final String endDate = body.getString("end_date");
 
-        HashMap<String, Integer> listConsumption = commonDB.getConsumptionManager().getConsumption(ean, startDate, endDate);
+        HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptions(ean, startDate, endDate);
 
         routingContext.response()
             .setStatusCode(200)

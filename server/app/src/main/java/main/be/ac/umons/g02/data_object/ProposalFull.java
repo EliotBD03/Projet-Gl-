@@ -9,8 +9,8 @@ public class ProposalFull extends ProposalBasic
     private double variableNightPrice;
     private boolean isFixedRate;
     private boolean isSingleHourCounter;
-    private Calendar startOffPeakHours;
-    private Calendar endOfPeakHours;
+    private String startOffPeakHours;
+    private String endOfPeakHours;
 
     public ProposalFull(String providerId, String nameProvider, TypeEnergy typeEnergy, Location[] location, String nameProposal)
     {
@@ -42,17 +42,17 @@ public class ProposalFull extends ProposalBasic
         return isSingleHourCounter;
     }
 
-    public Calendar getStartOfPeakHours()
+    public String getStartOfPeakHours()
     {
         return startOffPeakHours;
     }
 
-    public Calendar getEndOfPeakHours()
+    public String getEndOfPeakHours()
     {
         return endOfPeakHours;
     }
 
-    public void setMoreInformation(double basicPrice, double variableDayPrice, double variableNightPrice, boolean isFixedRate, boolean isSingleHourCounter, Calendar startOffPeakHours, Calendar endOfPeakHours)
+    public void setMoreInformation(double basicPrice, double variableDayPrice, double variableNightPrice, boolean isFixedRate, boolean isSingleHourCounter, String startOffPeakHours, String endOfPeakHours)
     {
         this.basicPrice = basicPrice;
         this.variableDayPrice = variableDayPrice;

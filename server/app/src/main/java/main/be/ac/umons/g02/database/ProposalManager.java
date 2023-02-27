@@ -31,7 +31,7 @@ public class ProposalManager
         return calendar;
     }
 
-    public ArrayList<ProposalBasic> getAllProposals()
+    public ArrayList<ProposalBasic> getAllProposals(String id, int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM proposal", true);
         ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults(new String[] {"proposal_name","provider_id",

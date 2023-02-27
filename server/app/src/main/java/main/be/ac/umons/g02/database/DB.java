@@ -10,9 +10,9 @@ import java.util.ArrayList;
  */
 public class DB
 {
-    private final String DATABASENAME = "babawallet_db";
-    private final String USERNAME = "297895";
-    private final String PASSWORD = "walletbaba_great";
+    private static String dataBaseName = "babawallet_db";
+    private static String userName = "297895";
+    private static String password = "walletbaba_great";
     private static DB instance;
     private Connection connection;
     private ResultSet resultSet;
@@ -38,12 +38,27 @@ public class DB
         return instance;
     }
 
+    public static void setDataBaseName(String dataBaseName)
+    {
+        DB.dataBaseName = dataBaseName;
+    }
+
+    public static void setUserName(String userName)
+    {
+        DB.userName = userName;
+    }
+
+    public static void setPassword(String password)
+    {
+        DB.password = password;
+    }
+
     private void establishConnection() throws SQLException, ClassNotFoundException
     {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/" + DATABASENAME,
-                USERNAME, PASSWORD);
+                "jdbc:mysql://localhost:3306/" + dataBaseName,
+                userName, password);
     }
 
     public boolean executeQuery(String query, boolean returnData)

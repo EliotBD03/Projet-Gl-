@@ -101,7 +101,7 @@ public class ProviderApi extends MyApi implements RouterApi
         String id = routingContext.user().principal().getString("id");
 
         final String id_client = routingContext.request().getParam("id_client");
-        commonDB.getClientManager().deleteClient(id, id_client);
+        commonDB.getClientManager().deleteClient(id, id_client); //TODO pq un id autre que celui du client
 
         routingContext.response()
             .setStatusCode(200)
@@ -170,12 +170,12 @@ public class ProviderApi extends MyApi implements RouterApi
         else
             typeOfEnergy = TypeEnergy.ELECTRICITY;
 
-        ProposalFull new_proposal = new ProposalFull(id, nameProvider, typeOfEnergy, localization, nameProposal);
+        ProposalFull new_proposal = new ProposalFull(id, nameProvider, typeOfEnergy, localization, nameProposal); //TODO on fait quoi ? un tableau ou une loc pour une proposal
         new_proposal.setMoreInformation(basicPrice, variableDayPrice, variableNightPrice, isFixedRate, isSingleHourCounter, startOffPeakHours, endOffPeakHours);
 
         if(commonDB.getProposalManager().addProposal(new_proposal))
         {
-            ArrayList<String> listClient = commonDB.getContractManager().getAllClientsOfContract(nameProposal, nameProvider);
+            ArrayList<String> listClient = commonDB.getContractManager().getAllClientsOfContract(nameProposal, nameProvider); //TODO ATTENTION : providerID
 
             for(String id_client : listClient)
                 commonDB.getNotificationManager().createNotification(id, id_client, nameProposal, "Le contract a été changé.");

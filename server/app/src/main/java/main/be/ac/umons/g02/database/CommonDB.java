@@ -1,5 +1,7 @@
 package main.be.ac.umons.g02.database;
 
+import main.be.ac.umons.g02.data_object.ClientBasic;
+
 import java.util.ArrayList;
 
 public class CommonDB
@@ -11,6 +13,8 @@ public class CommonDB
     private static final LogManager logManager = new LogManager();
     private static final ConsumptionManager consumptionManager = new ConsumptionManager();
     private static final ProposalManager proposalManager = new ProposalManager();
+
+    private static final ClientManager clientManager = new ClientManager();
 
     public ConsumptionManager getConsumptionManager()
     {
@@ -37,5 +41,10 @@ public class CommonDB
         return walletManager;
     }
     public ProposalManager getProposalManager(){return proposalManager;}
+
+    public ClientManager getClientManager()
+    {
+        return clientManager;
+    }
 
 }
