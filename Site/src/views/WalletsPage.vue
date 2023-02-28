@@ -33,7 +33,6 @@ export default {
     AddWalletForm
   }, 
   data(){
-    //Get //token = ? checkaccount faire .token -> regarder le token dans header.
     return{
       linkApi : "https://babawallet.alwaysdata.net:8300/api/client/wallets",
       nbr : 1,
@@ -45,38 +44,42 @@ export default {
       this.getData(this.nbr);
     },
     methods: { //async -> requête qui peut prendre du temps, utile pour récupérer des données volumineuses
-        //headers: { }, -> token
-        async getData(nbr){
-          this.loading = true; //bloquer les demandes de loader pendant ce temps.
-          try {
-            response = await fetch("${linkApi}page?page=${nbr}");
-            if (response.ok) {
-              data = await reponse.json(); //await-> attendre la fin du traitement pour continuer
-            } else {
-              throw new Error("Incorrect request");
-            }
-          } catch (error) {
-            console.error(error);
+      async getData(nbr){
+        const requestOptions = {
+            method: "GET",
+            headers: this.$cookies.get("token"),
+            body: JSON.stringify({ name: this.name, address: this.address})
+        };
+        this.loading = true; //bloquer les demandes de loader pendant ce temps.
+        try {
+          response = await fetch("${linkApi}page?page=${nbr}");
+          if (response.ok) {
+            data = await reponse.json(); //await-> attendre la fin du traitement pour continuer
+          } else {
+            throw new Error("Incorrect request");
           }
-          if(data != null || data != undefined) //voir comment on gère l'arrivée à la fin des pages erreur/vide?
-          {
-            this.listWallet = this.listWallet.concat(data); //ajouter la suite de la réponse à la liste
-          }
-          this.loading = false;
-        },
-        loader()
-        {
-          if(!this.loading)
-          {
-            this.nbr++;
-            this.getData(this.nbr);
-          }
-        },
-        seeMore(wallet){
-          this.wallet = sessionStorage.setItem('wallet', JSON.stringify(wallet));
-          window.location.href = "../../html/client/walletFull.html";
+        } catch (error) {
+          console.error(error);
         }
+        if(data != null || data != undefined) //voir comment on gère l'arrivée à la fin des pages erreur/vide?
+        {
+          this.listWallet = this.listWallet.concat(data); //ajouter la suite de la réponse à la liste
+        }
+        this.loading = false;
+      },
+      loader()
+      {
+        if(!this.loading)
+        {
+          this.nbr++;
+          this.getData(this.nbr);
+        }
+      },
+      seeMore(wallet){
+        this.wallet = sessionStorage.setItem('wallet', JSON.stringify(wallet));
+        window.location.href = "../../html/client/walletFull.html";
       }
+    }
   }
 </script>
 

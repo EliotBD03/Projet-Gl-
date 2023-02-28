@@ -30,8 +30,8 @@ export default {
     //Post //token = ? checkaccount faire .token -> regarder le token dans header.
     methods: {
       checkArgs(){
-        if(!this.name) alert("Please enter your name");
-        if(!this.address) alert("Please enter your address");
+        if(!this.name) Swal.fire("Please enter your name");
+        if(!this.address) Swal.fire("Please enter your address");
         else return true;
       },
       post(){
@@ -39,8 +39,8 @@ export default {
         {
           const requestOptions = {
             method: "POST",
-            //headers: { }, -> token
-            body: JSON.stringify({ name: this.name, address: this.address })
+            headers: this.$cookies.get("token"),
+            body: JSON.stringify({ name: this.name, address: this.address})
           };
           fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets", requestOptions)
             .then(response => {

@@ -16,7 +16,7 @@
             <GoButton text="Login" type="submit"/> 
             <!--Attention gérer le log en fonction de s'il est client/fourni-->
             <!-- + Accepter le log seulement si tout est OK voir les erreurs API -->
-            <!--Est-ce que je vérifie si le token est vide ou quoi pr ça ? -->
+            <!--Est-ce que je vérifie si le token est vide ou quoi pr ça ? -> vérif si error vide -->
             <!--Ajouter bouton Create an account et Forgotten password-->
         </form>
       </div>
@@ -25,7 +25,7 @@
 
   <script>
   import GoButton from "@/components/GoButton.vue";
-  
+  /*Gérer la déconnexion partout : /!\ seulement 401 */ 
   export default {
     name: "ContactForm",
     components: {GoButton},
@@ -33,14 +33,13 @@
       return{
         mail: '',
         password: '',
-        token: '',
-        role: ''
+        role: '',
+        errorApi: ''
       }},
-      //Récupérer le token pour l'avoir partout, cookies?
       methods: {
         checkArgs(){
-          if(!this.mail) alert("Please enter your mail");
-          if(!this.password) alert("Please enter your password");
+          if(!this.mail) Swal.fire("Please enter your mail");
+          if(!this.password) Swal.fire("Please enter your password");
           else return true;
         },
         post(){
@@ -48,23 +47,34 @@
           {
             const requestOptions = {
               method: "POST",
-              //Voir comment est géré le mauvais mail/password
               body: JSON.stringify({ mail: this.mail, password: this.password })
             };
             fetch("https://babawallet.alwaysdata.net:8300/api/check_account", requestOptions)
               .then(response => {
-                  if(response.ok){ 
-                    return response.json();}
-                  else {
-                    throw new Error("Incorrect request");
+                  data = response.json();
+                  if(!response.ok){
+                    if(response.status != 500 ) //500 -> problème serveur et 401 -> juste problème token PAS DE MSG, 400->pb requête (on a un msg)
+                    {
+                      this.errorApi = data.error;
+                    }
+                    else
+                    {
+                      this.errorApi = response.status;
+                    }
+                    throw new Error(this.errorApi);
                   }
               }) 
               .then(data => {
-                this.token = data.token;
+                this.$cookies.set("token", data.token);
                 this.role = data.role;
               })
               .catch(error => {
-                console.error(error);
+                console.error("Error", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'OH NO !',
+                    text: this.errorApi
+                  })
               });
           }
         }

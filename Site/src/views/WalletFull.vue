@@ -46,7 +46,7 @@ export default {
         deleteWallet() {
           const requestOptions = {
               method: "DELETE",
-              //headers: { }, -> token
+              headers: this.$cookies.get("token")
             };
             fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets/:${address}", requestOptions)
               .then(response => {
