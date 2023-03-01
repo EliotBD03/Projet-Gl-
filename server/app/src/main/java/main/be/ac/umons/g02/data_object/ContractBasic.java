@@ -10,7 +10,7 @@ public class ContractBasic
     protected String clientName;
 
 
-    ContractBasic(String contractId,  String ean, String providerId, String clientId, String providerName, String clientName)
+    public ContractBasic(String contractId,  String ean, String providerId, String clientId, String providerName, String clientName)
     {
         this.contractId = contractId;
         this.ean = ean;

@@ -12,7 +12,7 @@ public class ProposalFull extends ProposalBasic
     private String startOffPeakHours;
     private String endOfPeakHours;
 
-    public ProposalFull(String providerId, String nameProvider, TypeEnergy typeEnergy, Location[] location, String nameProposal)
+    public ProposalFull(String providerId, String nameProvider, String typeEnergy, String location, String nameProposal)
     {
         super(nameProposal,providerId,nameProvider,typeEnergy,location);
     }

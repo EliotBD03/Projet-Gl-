@@ -1,11 +1,7 @@
 package main.be.ac.umons.g02.database;
 
-import main.be.ac.umons.g02.data_object.Location;
 import main.be.ac.umons.g02.data_object.ProposalFull;
-import main.be.ac.umons.g02.data_object.TypeEnergy;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

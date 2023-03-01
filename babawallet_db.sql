@@ -25,6 +25,9 @@ DROP TABLE IF EXISTS `client`;
 CREATE TABLE `client` (
   `client_id` int(10) NOT NULL,
   PRIMARY KEY (`client_id`),
+  `latest_consumption_elec` double(6, 2) DEFAULT NULL,
+  `latest_consumption_water` double(6, 2) DEFAULT NULL,
+  `latest_consumption_gas` double(6, 2) DEFAULT NULL,
   CONSTRAINT `client_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

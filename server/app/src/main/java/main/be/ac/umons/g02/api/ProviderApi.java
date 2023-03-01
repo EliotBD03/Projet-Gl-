@@ -5,7 +5,6 @@ import main.be.ac.umons.g02.data_object.ClientBasic;
 import main.be.ac.umons.g02.data_object.ClientFull;
 import main.be.ac.umons.g02.data_object.ProposalBasic;
 import main.be.ac.umons.g02.data_object.ProposalFull;
-import main.be.ac.umons.g02.data_object.TypeEnergy;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.logging.Logger;

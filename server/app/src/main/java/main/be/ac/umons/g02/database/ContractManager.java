@@ -3,6 +3,7 @@ package main.be.ac.umons.g02.database;
 
 import main.be.ac.umons.g02.data_object.ContractBasic;
 import main.be.ac.umons.g02.data_object.ContractFull;
+import org.checkerframework.checker.units.qual.C;
 
 
 import java.util.ArrayList;
@@ -29,21 +30,45 @@ public class ContractManager
 
     public ArrayList<ContractBasic> getAllContracts(String clientId, int base, int limit)
     {
-        return null; //TODO
+        DB.getInstance().executeQuery("SELECT * FROM contract WHERE client_id="
+        + clientId +" LIMIT "+base + ", " + (limit + base), true);
+
+        ArrayList<ContractBasic> contractBasics = new ArrayList<>();
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"contract_id", "ean",
+                "provider_id", "client_id"});
+
+        DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+clientId,true);
+        String clientName = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
+
+        String providerId;
+        String providerName;
+        String contractId;
+        String ean;
+        for(int i = 0; i < results.get(0).size(); i++)
+        {
+            providerId = results.get(2).get(i);
+            DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+providerId, true);
+            providerName = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
+            contractId = results.get(0).get(i);
+            ean = results.get(1).get(i);
+            contractBasics.add(new ContractBasic(contractId,ean, providerId, clientId, providerName, clientName));
+        }
+        return contractBasics;
     }
 
     public void deleteContract(String contractId)
     {
-
+        DB.getInstance().executeQuery("DELETE FROM provider_contract WHERE contract_id="+contractId,false);
+        DB.getInstance().executeQuery("DELETE FROM wallet_contract WHERE contract_id="+contractId,false);
+        DB.getInstance().executeQuery("DELETE FROM counter WHERE contract_id="+contractId, false);
+        DB.getInstance().executeQuery("DELETE FROM contract WHERE contract_id="+contractId, false);
     }
 
     public ArrayList<String> getAllClientsOfContract(String proposalName, String providerId)
     {
-        return null;
+        DB.getInstance().executeQuery("SELECT client_id FROM contract WHERE proposal_name='"+proposalName
+        +"' AND provider_id="+providerId,true);
+        return DB.getInstance().getResults(new String[] {"client_id"}).get(0);
     }
 
-    public void providerProposeContract(String proposalName, String providerId, String clientId)
-    {
-
-    }
 }
