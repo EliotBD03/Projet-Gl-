@@ -12,6 +12,15 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+// Les variables d'envirronements:
+// EMAIL
+// EMAILPWD
+// IP
+// PORT
+// NAMEDB
+// PWDDB
+// USERNAME
+
 /**
  * Classe principale pour lancer le programme
  */
@@ -46,9 +55,9 @@ public class App
         Map<String, String> env  = System.getenv();
 
 
-        if(env.containsKey("EMAILID") && env.containsKey("EMAILPWD"))
+        if(env.containsKey("EMAIL") && env.containsKey("EMAILPWD"))
         {
-            username = env.get("EMAILID");
+            username = env.get("EMAIL");
             password = env.get("EMAILPWD");
         }
 

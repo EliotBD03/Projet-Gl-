@@ -56,8 +56,6 @@ public class MyApi extends AbstractVerticle
             bind = env.get("IP");
             port = new Integer(env.get("PORT"));
         }
-        if(env.containsKey("KEYSTOREPWD"))
-            keystorePwd = env.get("KEYSTOREPWD");
 
         final Router router = Router.router(vertx);
 
