@@ -1,0 +1,98 @@
+\documentclass{article}
+%for the accent
+\usepackage[utf8]{inputenc}
+%to put an image
+\usepackage{graphicx}
+\usepackage[french]{babel}
+\usepackage[]{amsmath, amsfonts, amssymb, enumerate}
+\usepackage{pdfpages} 
+\usepackage[linkbordercolor=white]{hyperref}
+
+%all the things to make a good title
+\title{PROJET GENIE LOGICIEL (SINFO015) :\\ Rapport de modélisation}
+\author{\textbf{Auteurs}: \\ Adrien Fievet \\ Claire D'Haene \\ Julien Ladeuze \\ Maxime Dupuis}
+\date{2022-2023}
+
+\begin{document}
+
+\maketitle
+
+%to skip lines
+\vspace{7\baselineskip}
+
+\begin{minipage}{0.4\textwidth}
+	\begin{flushleft}
+		\large
+		\textit{Titulaire}\\
+		Tom \textsc{Mens}\\
+		\textit{Enseignants}\\
+		Sébastien \textsc{Bonte}\\
+		Jeremy \textsc{Dubrulle}\\
+		Pierre \textsc{Hauweele}	
+	\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.5\textwidth}
+	\begin{flushright}
+		\large
+		\textit{Equipe 7}\\
+		Adrien (220625) 4\\
+		Claire (220323) 1\\
+		Julien (220101) 10\\
+		Maxime (212107) 7\\
+	\end{flushright}
+\end{minipage}
+
+%insert the image
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.3\textwidth]{images/umons.jpeg}
+    \hspace{5em}
+    \includegraphics[width = 0.3\textwidth]{images/facSciences.png}
+\end{figure}
+
+%hide the number of the actual page just for the cover page
+\thispagestyle{empty}
+
+\newpage
+\tableofcontents
+\newpage
+
+\include{Base/use_case/use_case-base}
+\include{Base/overview/overview-base}
+\include{Base/bdd/bdd-base}
+\include{Base/classDiagram/classDiagram-base}
+\include{Base/sequence/sequence-base}
+\include{Base/apirest/api-rest-base}
+\include{Base/interface/interface-base}
+\include{Base/intro/intro-ext}
+\include{Extension-claire/Introduction/introduction-claire}
+\include{Extension-claire/Usecase-claire/use_case-claire}
+\include{Extension-claire/Overview-claire/overview-claire}
+\include{Extension-claire/BDD-claire/bdd-claire}
+\include{Extension-claire/Class-claire/class-claire}
+\include{Extension-claire/Sequence-claire/sequence-claire}
+\include{Extension-claire/API-claire/api-claire}
+\include{Extension-claire/Interface-claire/interface-claire}
+\include{extension-adrien/Intro/introduction}
+\include{extension-adrien/Use-case/use-case}
+\include{extension-adrien/Overview/overview}
+\include{extension-adrien/Bdd/bdd}
+\include{extension-adrien/ClassDiagram/classDiagram}
+\include{extension-adrien/Sequence/sequence}
+\include{extension-adrien/Api-rest/api-rest}
+\include{extension-adrien/Interface/interface}
+
+\include{extension-julien/android}
+
+\include{extension-maxime/intro/intro-extension}
+\include{extension-maxime/usescases/usescases-extension}
+\include{extension-maxime/interaction/interaction-extension}
+\include{extension-maxime/class/class-extension}
+\include{extension-maxime/bdd/bdd-extension}
+\include{extension-maxime/sequence/sequence-extension}
+\include{extension-maxime/apirest/apirest-extension}
+\include{extension-maxime/interface/interface-extension}
+\include{extension-maxime/conclusion/conclusion-extension}
+
+\end{document}
