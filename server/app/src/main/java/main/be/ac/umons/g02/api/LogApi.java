@@ -13,6 +13,7 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
+import io.vertx.ext.auth.JWTOptions;
 
 public class LogApi extends MyApi implements RouterApi
 {
@@ -65,7 +66,7 @@ public class LogApi extends MyApi implements RouterApi
             .put("id", id)
             .put("role", role);
 
-        String token = jwt.generateToken(userInfo);
+        String token = jwt.generateToken(userInfo, (new JWTOptions()).setExpiresInMinutes(60));
 
         routingContext.response()
             .setStatusCode(200)
@@ -75,10 +76,14 @@ public class LogApi extends MyApi implements RouterApi
                         .put("role", role)));
     }
 
-    // A refaire
     private void disconnect(final RoutingContext routingContext)
     {
         LOGGER.info("Disconnect...");
+
+        String token = routingContext.request().headers().get("Authorization");
+        token = token.substring(7);
+
+        blackList.add(token);
     }
 
     private void saveAccount(final RoutingContext routingContext)
@@ -110,7 +115,7 @@ public class LogApi extends MyApi implements RouterApi
                     .put("id", id)
                     .put("role", role);
 
-                String token = jwt.generateToken(userInfo);
+                String token = jwt.generateToken(userInfo, (new JWTOptions()).setExpiresInMinutes(60));
 
                 routingContext.response()
                     .setStatusCode(200)

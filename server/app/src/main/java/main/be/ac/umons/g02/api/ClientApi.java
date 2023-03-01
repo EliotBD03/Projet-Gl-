@@ -139,7 +139,7 @@ public class ClientApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals(slice[0], slice[1]); //TODO HUH
+        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals(slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
@@ -173,10 +173,10 @@ public class ClientApi extends MyApi implements RouterApi
         final JsonObject body = routingContext.getBodyAsJson();
         final String idProposal = body.getString("id_proposal");
         final String idProvider = body.getString("id_provider");
-        final String mail = body.getString("mail");
         final String ean = body.getString("ean");
 
-        commonDB.getProposalManager().clientProposesContract(idProposal, id, idProvider, mail, ean);
+        String nameClient = commonDB.getLogManager().getName(id);
+        commonDB.getNotificationManager().createNotification(id, idProvider, nameProposal, idProvider, "Demande de contrat de la part de " + nameClient + ", ean: " + ean + ".");
 
         routingContext.response()
             .setStatusCode(200)

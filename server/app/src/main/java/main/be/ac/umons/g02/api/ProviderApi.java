@@ -100,7 +100,7 @@ public class ProviderApi extends MyApi implements RouterApi
         String id = routingContext.user().principal().getString("id");
 
         final String idClient = routingContext.request().getParam("id_client");
-        commonDB.getClientManager().deleteClient(id, idClient); //TODO c'est quoi id ?
+        commonDB.getClientManager().deleteClient(id, idClient);
 
         routingContext.response()
             .setStatusCode(200)
@@ -117,7 +117,7 @@ public class ProviderApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<ProposalBasic> allProposals = commonDB.getProposalManager().getAllProposals(id, slice[0], slice[1]); //TODO HUH
+        ArrayList<ProposalBasic> allProposals = commonDB.getProposalManager().getAllProposals(id, slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
@@ -151,7 +151,7 @@ public class ProviderApi extends MyApi implements RouterApi
         final JsonObject body = routingContext.getBodyAsJson();
         final String nameProposal = body.getString("name_proposal");
         final String nameProvider = body.getString("name_provider");
-        final String stringTypeOfEnergy = body.getString("type_of_energy");
+        final String typeOfEnergy = body.getString("type_of_energy");
         final String localization = body.getString("localization");
         final double basicPrice = body.getDouble("basic_price");
         final double variableDayPrice = body.getDouble("variable_day_price");
@@ -161,15 +161,7 @@ public class ProviderApi extends MyApi implements RouterApi
         final String startOffPeakHours = body.getString("start_off_peak_hours");
         final String endOffPeakHours = body.getString("end_off_peak_hours");
 
-        final TypeEnergy typeOfEnergy;
-        if(stringTypeOfEnergy == "water")
-            typeOfEnergy = TypeEnergy.WATER;
-        else if(stringTypeOfEnergy == "gaz")
-            typeOfEnergy = TypeEnergy.GAS;
-        else
-            typeOfEnergy = TypeEnergy.ELECTRICITY;
-
-        ProposalFull newProposal = new ProposalFull(id, nameProvider, typeOfEnergy, localization, nameProposal); //TODO loc ou enum ?
+        ProposalFull newProposal = new ProposalFull(id, nameProvider, typeOfEnergy, localization, nameProposal);
         newProposal.setMoreInformation(basicPrice, variableDayPrice, variableNightPrice, isFixedRate, isSingleHourCounter, startOffPeakHours, endOffPeakHours);
 
         if(commonDB.getProposalManager().addProposal(newProposal))
@@ -235,7 +227,8 @@ public class ProviderApi extends MyApi implements RouterApi
         final String nameProposal = body.getString("name_proposal");
         final String idClient = body.getString("id_client");
 
-        commonDB.getContractManager().providerProposeContract(nameProposal, id, idClient);
+        String nameProvider = commonDB.getLogManager().getName(id);
+        commonDB.getNotificationManager().createNotification(id, idClient, nameProposal, id, "Demande de contrat de la part de "+ nameProvider + ".");
 
         routingContext.response()
             .setStatusCode(200)
