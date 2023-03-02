@@ -171,7 +171,7 @@ public class ClientApi extends MyApi implements RouterApi
         String id = routingContext.user().principal().getString("id");
 
         final JsonObject body = routingContext.getBodyAsJson();
-        final String idProposal = body.getString("id_proposal");
+        final String nameProposal = body.getString("name_proposal");
         final String idProvider = body.getString("id_provider");
         final String ean = body.getString("ean");
 
