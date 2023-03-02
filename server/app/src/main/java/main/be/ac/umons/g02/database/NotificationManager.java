@@ -20,7 +20,7 @@ public class NotificationManager
 
     public ArrayList<Notification> getAllNotifications(String idUser, int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM notification WHERE id="+idUser, true);
+        DB.getInstance().executeQuery("SELECT * FROM notification WHERE id="+idUser + " LIMIT "+ base+", "+(base+limit), true);
 
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {
                 "notification_id", "sender_id", "receiver_id", "linked_contract, context"});

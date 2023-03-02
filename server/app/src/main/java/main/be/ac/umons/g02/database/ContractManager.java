@@ -3,6 +3,7 @@ package main.be.ac.umons.g02.database;
 
 import main.be.ac.umons.g02.data_object.ContractBasic;
 import main.be.ac.umons.g02.data_object.ContractFull;
+import main.be.ac.umons.g02.data_object.ProposalFull;
 import org.checkerframework.checker.units.qual.C;
 
 
@@ -12,20 +13,25 @@ public class ContractManager
 {
     public ContractFull getContract(String contractId)
     {
-        /*
-        TODO
+        CommonDB commonDB = new CommonDB();
+
         DB.getInstance().executeQuery("SELECT * FROM contract WHERE contract_id="+contractId,true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[]
                 {
                 "contract_id","proposal_name", "ean","provider_id","address", "client_id", "opening_date", "closing_date"
                 });
         ContractFull contract;
-        for(int i = 0; i < results.size(); i++)
-        {
-            contract =
-        }
-         */
-        return null;
+        String providerId = results.get(3).get(0);
+        ProposalFull proposalFull = commonDB.getProposalManager().getProposal(results.get(1).get(0), providerId);
+        String ean = results.get(2).get(0);
+        String clientId = results.get(5).get(0);
+        String providerName = commonDB.getLogManager().getName(providerId);
+        String clientName = commonDB.getLogManager().getName(clientId);
+        String openingDate = results.get(6).get(0);
+        String closingDate = results.get(7).get(0);
+        contract = new ContractFull(contractId,ean,providerId,clientId,providerName,clientName);
+        contract.setMoreInformation(proposalFull,openingDate,closingDate);
+        return contract;
     }
 
     public ArrayList<ContractBasic> getAllContracts(String clientId, int base, int limit)
