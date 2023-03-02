@@ -34,8 +34,12 @@ class DBTest {
     void getResults()
     {
         DB db = DB.getInstance();
-        String query = "SELECT name FROM user WHERE password='test'";
+        DB.getInstance().executeQuery("INSERT INTO user(mail, password, name) VALUES('test@gmail.com', 'testPassword', 'testName')",false);
+        String query = "SELECT name FROM user WHERE password='testPassword'";
         db.executeQuery(query, true);
-        assertEquals(db.getResults(new String[] {"name"}).get(0).get(0), "test");
+        assertEquals(db.getResults(new String[] {"name"}).get(0).get(0), "testName");
+        DB.getInstance().executeQuery("DELETE FROM user WHERE mail='test@gmail.com'",false);
+        db.executeQuery("SELECT * FROM user WHERE name='testName'",true);
+        assertEquals(0, db.getResults(new String[]{"name"}).get(0).size());
     }
 }

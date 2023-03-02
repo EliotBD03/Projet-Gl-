@@ -1,5 +1,6 @@
 package main.be.ac.umons.g02.database;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,12 +10,24 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class LogManagerTest {
 
+    @BeforeAll
+    static void setUp()
+    {
+        DBTest.setUp();
+    }
 
     @Test
     void saveAccountTest()
     {
-        assertDoesNotThrow(() -> {new LogManager().saveAccount("test@gmail.com", "password", true, "testname","english");});
-        assertThrows(Exception.class,() -> {new LogManager().saveAccount("test@gmail.com", "password", true, "testname","english");});
+        assertDoesNotThrow(() -> {new LogManager().saveAccount("test@gmail.com", "password", true, "testName","english");});
+        assertThrows(Exception.class,() -> {new LogManager().saveAccount("test@gmail.com", "password", true, "testName","english");});
+    }
+
+    @Test
+    void deleteAccount()
+    {
+        new LogManager().deleteAccount("1");
+        assertNull(new LogManager().checkAccount("test@gmail.com", "password"));
     }
 
     @Test
@@ -39,6 +52,8 @@ class LogManagerTest {
     @Test
     void getName()
     {
-        assertEquals("testname", new LogManager().getName("1"));
+        assertEquals("testName", new LogManager().getName("1"));
     }
+
+
 }

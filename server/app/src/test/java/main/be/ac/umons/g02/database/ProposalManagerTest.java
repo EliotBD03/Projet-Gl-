@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProposalManagerTest {
 //TODO EFFECTUER LES TESTS !!!
-    static final ProposalFull reference = new ProposalFull("2","jackie", TypeEnergy.ELECTRICITY, new Location[] {Location.BRUSSELS}, "elec");
+    static final ProposalFull reference = new ProposalFull("2","jackie", "electricity", "100", "elec");
 
     @BeforeAll
     static void setUp()
@@ -25,7 +25,7 @@ class ProposalManagerTest {
     void getAllProposals()
     {
 
-        assertEquals(reference.getProposalName(), new ProposalManager().getAllProposals().get(0).getProposalName());
+        assertEquals(reference.getProposalName(), new ProposalManager().getAllProposals(0,0).get(0).getProposalName());
     }
 
     @Test
@@ -39,7 +39,7 @@ class ProposalManagerTest {
     {
         ProposalManager proposalManager = new ProposalManager();
         proposalManager.deleteProposal(reference.getProposalName(), reference.getProviderId());
-        assertEquals(proposalManager.getAllProposals().size(),0);
+        assertEquals(proposalManager.getAllProposals(0,0).size(),0);
     }
 
     @Test
@@ -47,6 +47,6 @@ class ProposalManagerTest {
     {
         ProposalManager proposalManager = new ProposalManager();
         proposalManager.addProposal(reference);
-        assertNotEquals(proposalManager.getAllProposals().size(),0);
+        assertNotEquals(proposalManager.getAllProposals(0,0).size(),0);
     }
 }

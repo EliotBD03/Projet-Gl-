@@ -34,15 +34,26 @@ public class NotificationManager
         return notifications;
     }
 
-    public void acceptNotification(String idNotification)
+    public void acceptNotification(String notificationId)
     {
         //The fact of answering is only for contracts
         //TODO
     }
 
-    public void refuseNotification(String idNotification)
+    public void refuseNotification(String notificationId)
     {
-        //TODO
+        //TODO delete notif and notice the sender
+        String context = "Votre demande de contrat a été refusé.";
+        DB.getInstance().executeQuery("SELECT * FROM notification WHERE notification_id="+notificationId,true);
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[]
+                {"sender_id","receiver_id","linked_proposal_name", "provider_id_proposal"});
+        String senderId = results.get(1).get(0);
+        String receiverId = results.get(0).get(0);
+        String linkedProposalName = results.get(2).get(0);
+        String providerIdProposal = results.get(3).get(0);
+        DB.getInstance().executeQuery("DELETE FROM notification WHERE notification_id="+notificationId,false);
+        DB.getInstance().executeQuery("INSERT INTO notification VALUES(sender_id, receiver_id, linked_proposal_name, provider_id_proposal, context)"+
+                " VALUES("+senderId+","+receiverId+",'"+linkedProposalName+"',"+providerIdProposal+",'"+context+"')",false);
     }
 
     public void deleteNotification(String idNotification)

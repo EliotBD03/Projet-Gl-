@@ -64,6 +64,20 @@ public class LogManager
         return id;
     }
 
+    public void deleteAccount(String id)
+    {
+        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM client WHERE client_id="+id+") as c",true);
+        boolean isClient = DB.getInstance().getResults(new String[]{"c"}).get(0).get(0).equals("1");
+
+        if(isClient)
+            DB.getInstance().executeQuery("DELETE FROM client WHERE client_id="+id, false);
+        else
+            DB.getInstance().executeQuery("DELETE FROM provider WHERE provider_id="+id, false);
+
+        DB.getInstance().executeQuery("DELETE FROM language WHERE id="+id, false);
+        DB.getInstance().executeQuery("DELETE FROM user WHERE id="+id,false);
+    }
+
     public void changePassword(String id, String newPassword)
     {
         DB.getInstance().executeQuery("UPDATE user SET password='" + BCrypt.hashpw(newPassword, BCrypt.gensalt()) + "' WHERE id ='" + id+"'",false);

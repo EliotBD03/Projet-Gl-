@@ -49,7 +49,7 @@ public class ClientManager
         return null;
 
     }
-    
+
     public void deleteClient(String providerId, String clientId)
     {
         DB.getInstance().executeQuery("SELECT contract_id FROM contract WHERE provider_id="+providerId+ " AND client_id=" +clientId, true);

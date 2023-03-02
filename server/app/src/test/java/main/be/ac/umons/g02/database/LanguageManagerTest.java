@@ -35,7 +35,7 @@ class LanguageManagerTest {
     @Test
     void getAllLanguages()
     {
-        assertEquals(new LanguageManager().getAllLanguages("1").get(0), "english");
+        assertEquals(new LanguageManager().getAllLanguages("1", 0 , 0).get(0), "english");
     }
 
     @Test
