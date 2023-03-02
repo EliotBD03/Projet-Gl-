@@ -27,7 +27,7 @@ export default {
       name: '',
       address: ''
     }},
-    //Post //token = ? checkaccount faire .token -> regarder le token dans header.
+    /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
     methods: {
       checkArgs(){
         if(!this.name) Swal.fire("Please enter your name");
@@ -45,6 +45,7 @@ export default {
           fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets", requestOptions)
             .then(response => {
                 if(response.ok){ 
+                  //repasser sur les erreurs
                   return response.json();}
                 else {
                   throw new Error("Incorrect request");

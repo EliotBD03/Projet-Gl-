@@ -15,14 +15,14 @@ const routes = [
     component: () => import('@/views/WalletsPage.vue')
   },
   {
-    path: '/wallets/walletfull',
-    name: 'WalletFull',
-    component: () => import('@/views/WalletFull.vue')
-  },
-  {
     path: '/contracts',
     name: 'Contracts',
     component: () => import('@/views/ContractPage.vue')
+  },
+  {
+    path: '/createAccount',
+    name: 'createAccount',
+    component: () => import('@/views/CreateAccount.vue')
   }
 ]
 

@@ -19,7 +19,9 @@ new Vue({
         addWallet(name, address){
           if (this.checkArgs()) {
             this.listWallet.push(name + address);
-            console.log(this.listWallet[2]);}
+            console.log(this.listWallet[2]);
+            alert("Great!");
+            window.location.href = "../../html/client/wallet.html";}
         }
       }
     });

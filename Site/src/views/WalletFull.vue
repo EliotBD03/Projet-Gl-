@@ -37,12 +37,14 @@ export default {
     GoButton,
     MainHeader
   }, 
+  /*On récupère le wallet sur lequel on veut plus d'informations*/
   data(){
     return{
       wallet : JSON.parse(sessionStorage.getItem('wallet')),
       address : wallet.address
     }},
     methods: {
+      /* Méthode permettant de supprimer un portefeuille (il faut utiliser l'adresse)*/
         deleteWallet() {
           const requestOptions = {
               method: "DELETE",
@@ -51,6 +53,7 @@ export default {
             fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets/:${address}", requestOptions)
               .then(response => {
                 if(response.ok){ //permet de vérifier si la requête est 200-OK
+                  //repasser sur les erreurs
                   return response.json();}
                 else {
                   throw new Error("Incorrect request");

@@ -9,7 +9,7 @@
             <p> {{ wallet.name }} :</p>
             <p> {{ wallet.nameOwner }}</p>
             <p> {{ wallet.address }}</p>   
-            <GoButton text="Go" redirect= "/walletFull" v-on:click="seeMore(wallet)"/>
+            <GoButton text="Go" v-on:click="seeMore(wallet)"/> <!--Avec bête bouton fonctionne sûr--> 
             <div v-if="loading">Loading...</div>
         </div> 
         <AddWalletForm/>
@@ -40,6 +40,7 @@ export default {
       listWallet: [],
       wallet : JSON.parse(sessionStorage.getItem('wallet'))
     }},
+    /*Au moment de la création on récupère déjà la première page de l'api*/
     created() { 
       this.getData(this.nbr);
     },
@@ -53,6 +54,7 @@ export default {
         this.loading = true; //bloquer les demandes de loader pendant ce temps.
         try {
           response = await fetch("${linkApi}page?page=${nbr}");
+          //repasser sur les erreurs
           if (response.ok) {
             data = await reponse.json(); //await-> attendre la fin du traitement pour continuer
           } else {
@@ -75,9 +77,11 @@ export default {
           this.getData(this.nbr);
         }
       },
+    /*On sauvegarde le wallet sur lequel on veut plus d'informations 
+    et on redirige vers walletFull*/
       seeMore(wallet){
         this.wallet = sessionStorage.setItem('wallet', JSON.stringify(wallet));
-        window.location.href = "../../html/client/walletFull.html";
+        window.location.href = "/walletFull.vue";
       }
     }
   }
