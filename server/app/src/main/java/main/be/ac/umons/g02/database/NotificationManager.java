@@ -12,6 +12,12 @@ public class NotificationManager
                 "VALUES ('" + senderId + "','" + receiverId + "','" + contractId + "','" + context + "')",false);
     }
 
+    public void createNotification(String senderId, String receiverId, String proposalName, String proposalOwnerId, String context)
+    {
+        DB.getInstance().executeQuery("INSERT INTO notification(sender_id, receiver_id, linked_proposal_name, provider_id_proposal, context) " +
+                "VALUES('"+senderId+","+ receiverId +",'"+ proposalName+"',"+proposalOwnerId+",'"+context+"')", false);
+    }
+
     public ArrayList<Notification> getAllNotifications(String idUser, int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM notification WHERE id="+idUser, true);
