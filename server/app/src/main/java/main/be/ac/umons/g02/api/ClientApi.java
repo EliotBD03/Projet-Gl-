@@ -17,6 +17,9 @@ import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import java.util.ArrayList;
 
+/**
+ * Classe qui gère la catégorie client des requêtes de l'API
+ */
 public class ClientApi extends MyApi implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientApi.class);
@@ -41,6 +44,13 @@ public class ClientApi extends MyApi implements RouterApi
         return subRouter;
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour renvoyer une partie de la liste des portefeuilles d'un client
+     * Cette méthode utilise la pagination 
+     *
+     * @param - Le context de la requête
+     * @see WalletManager
+     */
     private void getAllWallets(final RoutingContext routingContext)
     {
         LOGGER.info("GetAllWallets...");
@@ -60,6 +70,12 @@ public class ClientApi extends MyApi implements RouterApi
                         .put("wallets", wallets)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour renvoyer un portefeuille en particulier d'un client en particulier
+     *
+     * @param - Le context de la requête
+     * @see WalletManager
+     */
     private void getWallet(final RoutingContext routingContext)
     {
         LOGGER.info("GetWallet...");
@@ -74,6 +90,12 @@ public class ClientApi extends MyApi implements RouterApi
                         .put("wallet", wallet)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour créer un nouveau portefeuille dans le base de donnée
+     *
+     * @param - Le context de la requête
+     * @see WalletManager
+     */
     private void createWallet(final RoutingContext routingContext)
     {
         LOGGER.info("CreateWallet...");
@@ -91,6 +113,13 @@ public class ClientApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour supprimer un portefeuille en particulier
+     * Cette méthode renvoie le code 405 avec une explication dans le cas où le portefeuille contient encore des contrats
+     *
+     * @param - Le context de la requête
+     * @see WalletManager
+     */
     private void deleteWallet(final RoutingContext routingContext)
     {
         LOGGER.info("DeleteWallet...");
@@ -112,6 +141,13 @@ public class ClientApi extends MyApi implements RouterApi
                             .put("error", "Le portefeuille n'est pas vide.")));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour renvoyer une partie de la liste des contrats d'un client 
+     * Cette méthode utilise la pagination
+     *
+     * @param - Le context de la requête
+     * @see ContractManager
+     */
     private void getAllContracts(final RoutingContext routingContext)
     {
         LOGGER.info("GetAllContracts...");
@@ -131,6 +167,13 @@ public class ClientApi extends MyApi implements RouterApi
                         .put("contracts", contracts)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour renvoyer une partie de la liste de toutes les propositions de tous les fournisseurs
+     * Cette méthode utilise la pagination
+     *
+     * @param - Le context de la requête
+     * @see ProposalManager
+     */
     private void getAllProposals(final RoutingContext routingContext)
     {
         LOGGER.info("GetAllProposals...");
@@ -148,6 +191,12 @@ public class ClientApi extends MyApi implements RouterApi
                         .put("proposals", proposals)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour renvoyer une proposition en particulier 
+     *
+     * @param - Le context de la requête
+     * @see ProposalManager
+     */
     private void getProposal(final RoutingContext routingContext)
     {
         LOGGER.info("GetProposal...");
@@ -164,6 +213,12 @@ public class ClientApi extends MyApi implements RouterApi
                         .put("proposal", proposal)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour créer une nofication afin de prévenir le fournisseur d'une nouvelle proposition de contrat
+     *
+     * @param - Le context de la requête
+     * @see NotificationManager
+     */
     private void clientProposeContract(final RoutingContext routingContext)
     {
         LOGGER.info("ClientProposeContract...");

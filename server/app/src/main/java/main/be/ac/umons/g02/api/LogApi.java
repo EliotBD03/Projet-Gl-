@@ -15,6 +15,9 @@ import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.auth.JWTOptions;
 
+/**
+ * Classe qui gère la catégorie login des requêtes de l'API
+ */
 public class LogApi extends MyApi implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(LogApi.class);
@@ -36,6 +39,15 @@ public class LogApi extends MyApi implements RouterApi
         return subRouter;
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour vérifier le mail et le mot de passe de l'utilisateur
+     * Si tout se passe bien, cette méthode génère un token et l'envoie à l'émetteur
+     * En cas d'erreur, elle renvoie le code 401 avec une explication
+     * Note que le token contient l'id et le rôle de l'utilisateur
+     *
+     * @param - Le context de la requête
+     * @see LogManager
+     */
     private void checkAccount(final RoutingContext routingContext)
     {
         LOGGER.info("CheckAccount...");
@@ -76,6 +88,11 @@ public class LogApi extends MyApi implements RouterApi
                         .put("role", role)));
     }
 
+    /** 
+     * Méthode qui permet de simuler une déconnexion en mettant le token de l'utilisateur dans une blacklist
+     *
+     * @param - Le context de la requête
+     */
     private void disconnect(final RoutingContext routingContext)
     {
         LOGGER.info("Disconnect...");
@@ -86,6 +103,16 @@ public class LogApi extends MyApi implements RouterApi
         blackList.add(token);
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour sauvegarder le compte de l'utilisateur
+     * Elle vérifie le code que l'utilisateur a recu pour créer le compte de manière sécuriser
+     * Si le code est incorrect, cette méthode renvoie le code 401 avec une explication
+     * S'il y a eu une erreur lors de la création du compte, cette méthode renvoie le code 503 avec une explication 
+     *
+     * @param - Le context de la requête
+     * @see App
+     * @see LogManager
+     */
     private void saveAccount(final RoutingContext routingContext)
     {
         LOGGER.info("SaveAccount...");
@@ -142,6 +169,16 @@ public class LogApi extends MyApi implements RouterApi
                             .put("error", "Mauvais code.")));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour rénitialiser le mot de passe de l'utilisateur
+     * Elle vérifie le code que l'utilisateur a recu pour changer le mot de passe sans usurpation
+     * Si le code est incorrect, cette méthode renvoie le code 401 avec une explication
+     * S'il y a eu une erreur lors de la création du compte, cette méthode renvoie le code 503 avec une explication 
+     *
+     * @param - Le context de la requête
+     * @see App
+     * @see LogManager
+     */
     private void renitializePwd(final RoutingContext routingContext)
     {
         LOGGER.info("RenitializePwd...");
@@ -178,6 +215,13 @@ public class LogApi extends MyApi implements RouterApi
                             .put("error", "Le code entré n'est pas correct.")));
     }
 
+    /** 
+     * Méthode qui utilise la classe App pour envoyer un code qui sera lié au mail
+     * Elle renvoie le code 503 avec une explication si le mail n'a pas pu s'envoyer
+     *
+     * @param - Le context de la requête
+     * @see App
+     */
     private void getCode(final RoutingContext routingContext)
     {
         LOGGER.info("GetCode...");

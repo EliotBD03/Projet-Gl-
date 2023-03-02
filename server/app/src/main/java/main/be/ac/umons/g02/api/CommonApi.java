@@ -17,6 +17,9 @@ import io.vertx.ext.web.handler.BodyHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Classe qui gère la catégorie commune des requêtes de l'API
+ */
 public class CommonApi extends MyApi implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonApi.class);
@@ -50,6 +53,13 @@ public class CommonApi extends MyApi implements RouterApi
         return subRouter;
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour renvoyer une partie de la liste des langues de l'utilisateur
+     * Cette méthode utilise la pagination 
+     *
+     * @param - Le context de la requête
+     * @see LanguageManager
+     */
     private void getAllLanguages(final RoutingContext routingContext)
     {
         LOGGER.info("GetAllLanguages...");
@@ -69,6 +79,12 @@ public class CommonApi extends MyApi implements RouterApi
                         .put("allLanguages", allLanguages)));
     } 
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour renvoyer la langue favorite de l'utilisateur 
+     *
+     * @param - Le context de la requête
+     * @see LanguageManager
+     */
     private void getFavouriteLanguage(final RoutingContext routingContext)
     {
         LOGGER.info("GetFavouriteLanguage...");
@@ -84,6 +100,12 @@ public class CommonApi extends MyApi implements RouterApi
                         .put("language", language)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour renvoyer la langue actuelle de l'utilisateur
+     *
+     * @param - Le context de la requête
+     * @see LanguageManager
+     */
     private void getCurrentLanguage(final RoutingContext routingContext)
     {
         LOGGER.info("GetCurrentLanguage...");
@@ -99,6 +121,12 @@ public class CommonApi extends MyApi implements RouterApi
                         .put("language", language)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour ajouter une nouvelle langue à la liste des langues de l'utilisateur 
+     *
+     * @param - Le context de la requête
+     * @see LanguageManager
+     */
     private void addLanguage(final RoutingContext routingContext)
     {
         LOGGER.info("AddLanguage...");
@@ -113,6 +141,12 @@ public class CommonApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour changer la langue actuelle de l'utilisateur 
+     *
+     * @param - Le context de la requête
+     * @see LanguageManager
+     */
     private void changeCurrentLanguage(final RoutingContext routingContext)
     {
         LOGGER.info("ChangeCurrentLanguage...");
@@ -127,6 +161,12 @@ public class CommonApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour changer la langue favorite de l'utilisateur 
+     *
+     * @param - Le context de la requête
+     * @see LanguageManager
+     */
     private void changeFavouriteLanguage(final RoutingContext routingContext)
     {
         LOGGER.info("ChangeFavouriteLanguage...");
@@ -141,6 +181,12 @@ public class CommonApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour changer le mot de passe de l'utilisateur
+     * Si le code de vérification est incorrect, cette méthode renvoie le code 401 avec une explication  
+     *
+     * @param - Le context de la requête
+     */
     private void changePassword(final RoutingContext routingContext)
     {
         LOGGER.info("ChangePassword...");
@@ -167,6 +213,13 @@ public class CommonApi extends MyApi implements RouterApi
                             .put("error", "Code incorrect.")));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour renvoyer une partie de la liste des notifications de l'utilisateur
+     * Cette méthode utilise la pagination 
+     *
+     * @param - Le context de la requête
+     * @see NotificationManager
+     */
     private void getAllNotifications(final RoutingContext routingContext)
     {
         LOGGER.info("GetAllNotifications...");
@@ -186,6 +239,13 @@ public class CommonApi extends MyApi implements RouterApi
                         .put("allNotifications", allNotifications)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour faire passer la notification qui a été acceptée 
+     * La traitement est différent selon la requête, tout se passe côté base de donnée
+     *
+     * @param - Le context de la requête
+     * @see NotificationManager
+     */
     private void acceptNotification(final RoutingContext routingContext)
     {
         LOGGER.info("AcceptNotification...");
@@ -198,6 +258,12 @@ public class CommonApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour supprimer la notification et prévenir l'émetteur
+     *
+     * @param - Le context de la requête
+     * @see NotificationManager
+     */
     private void refuseNotification(final RoutingContext routingContext)
     {
         LOGGER.info("RefuseNotification...");
@@ -210,6 +276,12 @@ public class CommonApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour juste supprimer la notification 
+     *
+     * @param - Le context de la requête
+     * @see NotificationManager
+     */
     private void deleteNotification(final RoutingContext routingContext)
     {
         LOGGER.info("DeleteNotification...");
@@ -222,6 +294,12 @@ public class CommonApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour renvoyer un contrat en particulier
+     *
+     * @param - Le context de la requête
+     * @see ContractManager
+     */
     private void getContract(final RoutingContext routingContext)
     {
         LOGGER.info("GetContract...");
@@ -236,6 +314,12 @@ public class CommonApi extends MyApi implements RouterApi
                         .put("contract", contract)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour supprimer un contrat
+     *
+     * @param - Le context de la requête
+     * @see ContractManager
+     */
     private void deleteContract(final RoutingContext routingContext)
     {
         LOGGER.info("DeleteContract...");
@@ -248,6 +332,12 @@ public class CommonApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour renvoyer les données de consommation par moi
+     *
+     * @param - Le context de la requête
+     * @see ConsumptionManager
+     */
     private void getConsumptionOfMonth(final RoutingContext routingContext)
     {
         LOGGER.info("GetConsumptionOfMonth...");
@@ -266,6 +356,12 @@ public class CommonApi extends MyApi implements RouterApi
                         .put("listConsumption", listConsumption)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour renvoyer toutes les données de consommations sur un moi 
+     *
+     * @param - Le context de la requête
+     * @see ConsumptionManager
+     */
     private void getConsumptions(final RoutingContext routingContext)
     {
         LOGGER.info("GetConsumption...");
@@ -284,6 +380,12 @@ public class CommonApi extends MyApi implements RouterApi
                         .put("listConsumption", listConsumption)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour ajouter une liste de données de consommations par rapport à un contrat
+     *
+     * @param - Le context de la requête
+     * @see ConsumptionManager
+     */
     private void addConsumption(final RoutingContext routingContext)
     {
         LOGGER.info("AddConsumption...");
@@ -320,6 +422,12 @@ public class CommonApi extends MyApi implements RouterApi
                         .put("valueAlreadyDefine", valueAlreadyDefine)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour changer une donnée de consommation par rapport à un contrat
+     *
+     * @param - Le context de la requête
+     * @see ConsumptionManager
+     */
     private void changeConsumption(final RoutingContext routingContext)
     {
         LOGGER.info("ChangeConsumption...");

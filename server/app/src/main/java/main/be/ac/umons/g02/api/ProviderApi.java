@@ -16,6 +16,9 @@ import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import java.util.ArrayList;
 
+/**
+ * Classe qui gère la catégorie provider des requêtes de l'API
+ */
 public class ProviderApi extends MyApi implements RouterApi
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProviderApi.class);
@@ -43,6 +46,13 @@ public class ProviderApi extends MyApi implements RouterApi
         return subRouter;
     }
 
+    /**
+     * Méthode qui utilise le package base de donnée pour renvoyer une partie de la liste de tous les clients de l'application
+     * Cette méthode utilise la pagination
+     *
+     * @param - Le context de la requête
+     * @see ClientManager
+     */
     private void getAllClients(final RoutingContext routingContext)
     {
         LOGGER.info("GetAllClients...");
@@ -60,6 +70,13 @@ public class ProviderApi extends MyApi implements RouterApi
                         .put("allClients", allClients)));
     }
 
+    /**
+     * Méthode qui utilise le package base de donnée pour renvoyer une partie de la liste de tous les clients du fournisseurs en question
+     * Cette méthode utilise la pagination
+     *
+     * @param - Le context de la requête
+     * @see ClientManager
+     */
     private void getAllHisClients(final RoutingContext routingContext)
     {
         LOGGER.info("GetAllHisClients...");
@@ -79,6 +96,12 @@ public class ProviderApi extends MyApi implements RouterApi
                         .put("allHisClients", allHisClients)));
     }
 
+    /** 
+     * Méthode qui utilise le package base de donnée pour renvoyer un client en particulier
+     *
+     * @param - Le context de la requête
+     * @see ClientManager
+     */
     private void getClient(final RoutingContext routingContext)
     {
         LOGGER.info("GetClient...");
@@ -93,6 +116,13 @@ public class ProviderApi extends MyApi implements RouterApi
                         .put("client", client)));
     }
 
+    /** 
+     * Méthode qui utilise le package base de donnée pour effacer tous les contracts du client par rapport à ce fournisseur
+     * Le fournisseur n'aura donc plus aucun lien avec le client
+     *
+     * @param - Le context de la requête
+     * @see ClientManager
+     */
     private void deleteClient(final RoutingContext routingContext)
     {
         LOGGER.info("DeleteClient...");
@@ -107,6 +137,13 @@ public class ProviderApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package base de donnée pour renvoyer une partie de la liste des propositions que le fournisseurs a créées
+     * Cette méthode utilise la pagination
+     *
+     * @param - Le context de la requête
+     * @see ProposalManager
+     */
     private void getAllProposals(final RoutingContext routingContext)
     {
         LOGGER.info("GetAllProposals...");
@@ -126,6 +163,12 @@ public class ProviderApi extends MyApi implements RouterApi
                         .put("allProposals", allProposals)));
     }
 
+    /** 
+     * Méthode qui utilise le package base de donnée pour renvoyer une proposition du fournisseur en particulier
+     *
+     * @param - Le context de la requête
+     * @see ProposalManager
+     */
     private void getProposal(final RoutingContext routingContext)
     {
         LOGGER.info("GetProposals...");
@@ -142,6 +185,15 @@ public class ProviderApi extends MyApi implements RouterApi
                         .put("proposal", proposal)));
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour ajouter une nouvelle proposition à celles du fournisseurs ou en modifie une déjà présente
+     * Le cas dépend de si le nom  de la proposition existe déjà ou non
+     * Dans le cas où la proposition a changé, on crée une notification pour prévenir tous les clients du changements
+     *
+     * @param - Le context de la requête
+     * @see ProposalManager
+     * @see ContractManager
+     */
     private void addProposal(final RoutingContext routingContext)
     {
         LOGGER.info("AddProposal...");
@@ -177,6 +229,12 @@ public class ProviderApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour effacer une proposition parmi celles que le fournisseur avait crées
+     *
+     * @param - Le context de la requête
+     * @see ProposalManager
+     */
     private void deleteProposal(final RoutingContext routingContext)
     {
         LOGGER.info("DeleteProposal...");
@@ -191,6 +249,12 @@ public class ProviderApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour effacer tous les données de consommations du client par rapport à un contrat en particulier
+     *
+     * @param - Le context de la requête
+     * @see ConsumptionManager
+     */
     private void deleteAllConsumptions(final RoutingContext routingContext)
     {
         LOGGER.info("DeleteAllConsumptions...");
@@ -203,6 +267,12 @@ public class ProviderApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour effacer une consommation précise d'un client en particulier pour un contrat en particulier
+     *
+     * @param - Le context de la requête
+     * @see ConsumptionManager
+     */
     private void deleteConsumption(final RoutingContext routingContext)
     {
         LOGGER.info("DeleteConsumption...");
@@ -217,6 +287,12 @@ public class ProviderApi extends MyApi implements RouterApi
             .putHeader("content-type", "application/json");
     }
 
+    /** 
+     * Méthode qui utilise le package de base de donnée pour créer une nofication afin de prévenir le client d'une nouvelle proposition de contrat
+     *
+     * @param - Le context de la requête
+     * @see NotificationManager
+     */
     private void providerProposeContract(final RoutingContext routingContext)
     {
         LOGGER.info("ProviderProposeContract...");

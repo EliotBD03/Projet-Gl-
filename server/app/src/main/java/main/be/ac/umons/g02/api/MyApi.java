@@ -24,6 +24,9 @@ import javax.json.JsonReader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Classe qui représente le centre d'API
+ */
 public class MyApi extends AbstractVerticle
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyApi.class);
@@ -39,6 +42,14 @@ public class MyApi extends AbstractVerticle
 
     protected ArrayList<String> blackList = new ArrayList<>();
 
+    /**
+     * Méthode pour lancer l'API, elle est lancé par Vertx
+     * Elle défini l'ip et le port de l'API
+     * Elle crée un JWTAuth avec une phrase secrête pour avoir des tokens uniques
+     * Elle initie les classes sous-routes et les handler liés au token
+     *
+     * @see App
+     */
     @SuppressWarnings("removal")
     @Override
     public void start() throws Exception
@@ -139,6 +150,12 @@ public class MyApi extends AbstractVerticle
         System.exit(1);
     }
 
+    /**
+     * Méthode qui permet de supprimer les tokens qui sont dans la blacklist et qui sont périmés
+     * Cette méthode est appelée toutes les 5 minutes
+     *
+     * @param timerId - Paramètre obligatoire pour pouvoir arrêter le timer si on le souhaite
+     */
     private void cleanExpiredTokens(long timerId)
     {
         Iterator<String> iterator = blackList.iterator();
@@ -158,6 +175,13 @@ public class MyApi extends AbstractVerticle
         }
     }
 
+    /**
+     * Méthode qui permet de gérer la pagination
+     * Elle récupère la page et la limite et effectue toutes les vérifications
+     * Si il y a un problème, elle renvoie une erreur à l'émetteur
+     *
+     * @param routingContext - Le contexte de la requête
+     */
     protected int[] getSlice(final RoutingContext routingContext)
     {
         final String stringPage = routingContext.request().getParam("page");
