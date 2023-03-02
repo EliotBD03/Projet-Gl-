@@ -18,9 +18,39 @@ public class ProposalManager
         return Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0)) == 1;
     }
 
+    public ArrayList<ProposalBasic> getAllProposals(String providerId, int base, int limit)
+    {
+        DB.getInstance().executeQuery("SELECT * FROM proposal WHERE provider_id ="+providerId+" LIMIT "+base+", "+(base+limit), true);
+        ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults(new String[] {"proposal_name","provider_id",
+                "water", "gas", "electricity", "location"}));
+
+        String proposalName;
+        String nameProvider;
+        String typeEnergy = null;
+        String location;
+
+        ArrayList<ProposalBasic> proposalBasics = new ArrayList<>();
+        for(int i = 0; i < results.get(0).size(); i ++)
+        {
+            proposalName = results.get(0).get(i);
+
+            for(int j = 0 ; j < typeOfEnergy.length; j++)
+                if(results.get(2+j).get(i).equals("1"))
+                    typeEnergy = typeOfEnergy[j];
+
+            location = results.get(results.size() - 1).get(i);
+
+            DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+providerId,true);
+            nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
+
+            proposalBasics.add(new ProposalBasic(proposalName, providerId, nameProvider, typeEnergy, location));
+        }
+        return proposalBasics;
+    }
+
     public ArrayList<ProposalBasic> getAllProposals(int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM proposal", true);
+        DB.getInstance().executeQuery("SELECT * FROM proposal LIMIT"+base+", "+(base+limit), true);
         ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults(new String[] {"proposal_name","provider_id",
                 "water", "gas", "electricity", "location"}));
 
@@ -79,7 +109,7 @@ public class ProposalManager
         nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
 
         proposalFull = new ProposalFull(providerId, nameProvider, typeEnergy, location, proposalName);
-        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, peakHours == offPeakHours, "TODO", "TODO"); //TODO
+        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, peakHours == offPeakHours, startPeakHours, endPeakHours);
         return proposalFull;
     }
 

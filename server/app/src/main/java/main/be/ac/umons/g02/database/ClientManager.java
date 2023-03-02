@@ -50,8 +50,16 @@ public class ClientManager
 
     }
 
-    public void deleteClient(String id, String clientId)
+    public void deleteClient(String providerId, String clientId)
     {
-
+        DB.getInstance().executeQuery("SELECT contract_id FROM contract WHERE provider_id="+providerId+ " AND client_id=" +clientId, true);
+        ArrayList<String> contracts = DB.getInstance().getResults(new String [] {"address"}).get(0);
+        for(int i = 0; i < contracts.size(); i++)
+        {
+            DB.getInstance().executeQuery("DELETE FROM wallet_contract WHERE contract_id="+contracts.get(i), false);
+            DB.getInstance().executeQuery("DELETE FROM provider_contract WHERE contract_id="+contracts.get(i), false);
+            DB.getInstance().executeQuery("DELETE FROM counter WHERE contract_id="+contracts.get(i), false);
+            DB.getInstance().executeQuery("DELETE FROM contract WHERE contract_id="+contracts.get(i), false);
+        }
     }
 }

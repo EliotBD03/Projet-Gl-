@@ -12,7 +12,7 @@ public class WalletManager
         //if(!new LogManager().isClient(clientId))
           //  throw new Exception("the client doesn't exist");
 
-        DB.getInstance().executeQuery("SELECT * FROM wallet WHERE id="+clientId,true);
+        DB.getInstance().executeQuery("SELECT * FROM wallet WHERE id="+clientId+ " LIMIT " + base+", " + (base+limit),true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"address","client_id","wallet_name"});
 
         //if(results.get(0).size() == 0)
