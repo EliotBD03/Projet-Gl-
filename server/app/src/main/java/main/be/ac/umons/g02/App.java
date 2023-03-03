@@ -12,23 +12,24 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/*
 // Les variables d'envirronements:
-// EMAIL
-// EMAILPWD
-// IP
-// PORT
-// NAMEDB
-// NAMEDBTEST
-// PWDDB
-// USERNAMEDB
-// USERNAME
+EMAIL=
+EMAILPWD=
+IP=
+PORT=
+PASSPHRASE=
+NAMEDB=
+USERNAME=
+PWDDB=
+*/
 
 /**
  * Classe principale pour lancer le programme
  */
 public class App
 {
-    private static HashMap<String, String> listCode;
+    private static HashMap<String, String> listCode = new HashMap<>();
     private static String username = "";
     private static String password = "";
 
