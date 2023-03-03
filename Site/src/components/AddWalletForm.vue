@@ -45,8 +45,15 @@ export default {
           fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets", requestOptions)
             .then(response => {
                 if(!response.ok){ 
-                  //repasser sur les erreurs
-                  throw new Error("Incorrect request");
+                  if(response.status == 401){
+                    this.$cookies.remove("token");
+                    Swal.fire('Your connection has expired');
+                    window.location.href = "/Login.vue";
+                  }
+                  else{
+                    this.errorApi(response.status);
+                    throw new Error(response.status);
+                  }
                 }
             })
             .catch(error => {
@@ -54,6 +61,14 @@ export default {
             });
           //window.location.href = "../../html/client/wallet.html";
         }
+      },
+      /*Affiche le message d'erreur venant de l'api dans une pop-up*/
+      errorApi(error){
+        Swal.fire({
+          icon: 'error',
+          title: 'OH NO !',
+          text: error
+        })
       }
   }
 }

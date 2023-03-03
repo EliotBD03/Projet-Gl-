@@ -23,6 +23,16 @@ const routes = [
     path: '/createAccount',
     name: 'createAccount',
     component: () => import('@/views/CreateAccount.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/Login.vue')
+  },
+  {
+    path: '/forgottenPassword',
+    name: 'forgottenPassword',
+    component: () => import('@/views/ForgottenPassword.vue')
   }
 ]
 

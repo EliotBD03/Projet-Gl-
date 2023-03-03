@@ -6,34 +6,34 @@
       </div>
       <div class="login-form">
         <form id="loginForm" method="post" v-on:submit.prevent="post">
-            <p>
-              <label>Mail: </label>
-              <input type="text" v-model="mail">
-            </p>
-            <p>
-              <label>Password: </label>
-              <input type="text" v-model="password">
-            </p>
-            <GoButton text="Login" type="submit"/> 
-            <GoButton text="Create an account" redirect= "/createAccount"/>
-            <GoButton text="Forgotten password" v-on:click="goForgot()"/>
+          <p>
+            <label>Mail: </label>
+            <input type="text" v-model="mail">
+          </p>
+          <p>
+            <label>Password: </label>
+            <input type="text" v-model="password">
+          </p>
+          <GoButton text="Login" type="submit"/> 
         </form>
+        <GoButton text="Create an account" redirect= "/createAccount"/>
+        <GoButton text="Forgotten password" v-on:click="goForgot()"/>
       </div>
     </div>
   </template>
 
   <script>
   import GoButton from "@/components/GoButton.vue";
+  import MainHeader from "@/components/MainHeader.vue";
   import Swal from 'sweetalert2';
   export default {
     name: "loginForm",
-    components: {GoButton},
+    components: {GoButton, MainHeader},
     data(){
       return{
         mail: '',
         password: '',
         role: '',
-        errorApi: ''
       }},
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
@@ -58,32 +58,24 @@
             fetch("https://babawallet.alwaysdata.net:8300/api/check_account", requestOptions)
               .then(response => {
                   if(!response.ok){
-                    if(response.status != 400){
-                      this.errorApi = response.status;
-                      throw new Error(this.errorApi);
+                    if(response.status == 400){
+                      const data = response.json();
+                      this.errorApi(data.error);
+                      throw new Error(data.error);
                     }
                     else{
-                      this.flag = true;
+                      this.errorApi(response.status);
+                      throw new Error(response.status);
                     }
                   }
               }) 
               .then(data => {
-                if(this.flag){
-                  this.flag = false;
-                  this.errorApi = data.error;
-                  throw new Error(this.errorApi);
-                }
                 this.$cookies.set("token", data.token);
                 this.role = data.role;
                 this.isClient();
               })
               .catch(error => {
                 console.error("Error", error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'OH NO !',
-                    text: this.errorApi
-                  })
               });
           }
         },
@@ -104,8 +96,16 @@
             this.$cookies.set("mail", this.mail);
             window.location.href = "/ForgottenPassword.vue";
           }
-        } 
-      }
+        },
+        /*Affiche le message d'erreur venant de l'api dans une pop-up*/
+        errorApi(error){
+          Swal.fire({
+            icon: 'error',
+            title: 'OH NO !',
+            text: error
+          }) 
+      } 
+    }
   }
   </script>
   
@@ -127,6 +127,10 @@
     background-color: #f2f2f2;
     padding: 50px;
     border-radius: 10px;
+    width: 50%;
+    left: 50%;
+    transform: translate(-50%);
+    position: absolute;
   }
   
   .login-form label {

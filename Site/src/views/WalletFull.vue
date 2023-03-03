@@ -21,7 +21,7 @@
         </div>  
     </div>
     <div class="bottombutton">
-      <GoButton text="Back" redirect="/walletsPage" />
+      <GoButton text="Back" v-on:click="back()" />
       <GoButton text="Consumptions"/>
       <GoButton text="Close the wallet" v-on:click="deleteWallet()"/>
     </div>
@@ -31,7 +31,7 @@
 <script>
 import GoButton from "@/components/GoButton.vue";
 import MainHeader from "@/components/MainHeader.vue";
-
+import Swal from 'sweetalert2';
 export default {
   components: {
     GoButton,
@@ -50,18 +50,25 @@ export default {
         };
         try {
           const response = await fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets/:${address}",requestOptions);
-          //repasser sur les erreurs
-          if (response.ok) {
-            this.wallet = await response.json(); //await-> attendre la fin du traitement pour continuers
+          if (!response.ok) {
+            if(response.status == 401){
+              this.$cookies.remove("token");
+              Swal.fire('Your connection has expired');
+              window.location.href = "/Login.vue";
+            }
+            else{
+              this.errorApi(response.status);
+              throw new Error(response.status);
+            }
           } else {
-            throw new Error("Incorrect request");
+            this.wallet = await response.json();
           }
         } catch (error) {
           console.error(error);
         }
       },
     methods: {
-      /* Méthode permettant de supprimer un portefeuille (il faut utiliser l'adresse)*/
+      /* Méthode permettant de supprimer un portefeuille*/
         deleteWallet() {
           const requestOptions = {
               method: "DELETE",
@@ -69,17 +76,47 @@ export default {
             };
             fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets/:${address}", requestOptions)
               .then(response => {
-                if(response.ok){ //permet de vérifier si la requête est 200-OK
-                  //repasser sur les erreurs
-                  return response.json();}
-                else {
-                  throw new Error("Incorrect request");
+                if(!response.ok){ 
+                  if(response.status == 405){
+                    const data = response.json();
+                    this.errorApi(data.error);
+                    throw new Error(data.error);
+                  }
+                  if(response.status == 401){
+                    this.$cookies.remove("token");
+                    Swal.fire('Your connection has expired');
+                    window.location.href = "/Login.vue";
+                  }
+                  else{
+                    this.errorApi(response.status);
+                    throw new Error(response.status);
+                  }
+                }
+                else{
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Good !',
+                      text: 'Wallet deleted !'
+                    })
+                  window.location.href = "/WalletsPage.vue";
                 }
               }) 
               .catch(error => {
                 console.error(error);
             });
-          //window.location.href = "../../html/client/wallet.html";
+        },
+        /*Retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
+        back(){
+          sessionStorage.removeItem('address');
+          window.location.href = "/WalletsPage.vue";
+        },
+        /*Affiche le message d'erreur venant de l'api dans une pop-up*/
+        errorApi(error){
+          Swal.fire({
+            icon: 'error',
+            title: 'OH NO !',
+            text: error
+          })
         }
       }
 };

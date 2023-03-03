@@ -24,6 +24,7 @@
 import MainHeader from "@/components/MainHeader.vue";
 import GoButton from "@/components/GoButton.vue";
 import AddWalletForm from "@/components/AddWalletForm.vue";
+import Swal from 'sweetalert2';
 export default {
   components : {
     GoButton,
@@ -51,16 +52,19 @@ export default {
         this.loading = true; //bloquer les demandes de loader pendant ce temps.
         try {
           const response = await fetch("${linkApi}page?page=${nbr}", requestOptions);
-          //repasser sur les erreurs
-          if (response.ok) {
-            const data = await response.json(); //await-> attendre la fin du traitement pour continuer
-
-            if(data != null || data != undefined) //voir comment on gère l'arrivée à la fin des pages erreur/vide?
-            {
-              this.listWallet = this.listWallet.concat(data); //ajouter la suite de la réponse à la liste
+          if (!response.ok) { //voir comment on gère l'arrivée à la fin des pages erreur/vide?
+            if(response.status == 401){
+              this.$cookies.remove("token");
+              Swal.fire('Your connection has expired');
+              window.location.href = "/Login.vue";
+            }
+            else{
+              this.errorApi(response.status);
+              throw new Error(response.status);
             }
           } else {
-            throw new Error("Incorrect request");
+            const data = await response.json(); //await-> attendre la fin du traitement pour continuer
+            this.listWallet = this.listWallet.concat(data); //ajouter la suite de la réponse à la liste
           }
         } catch (error) {
           console.error(error);
@@ -80,6 +84,14 @@ export default {
       seeMore(wallet){
         sessionStorage.setItem('address', wallet.address);
         window.location.href = "/walletFull.vue";
+      },
+      /*Affiche le message d'erreur venant de l'api dans une pop-up*/
+      errorApi(error){
+        Swal.fire({
+          icon: 'error',
+          title: 'OH NO !',
+          text: error
+        })
       }
     }
   }
