@@ -40,7 +40,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'main.App'
+    mainClass = 'main.be.ac.umons.g02.App'
 }
 
 tasks.named('test') {

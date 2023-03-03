@@ -55,7 +55,8 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetAllWallets...");
 
-        String id = routingContext.user().principal().getString("id");
+        String id = null;
+        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
         int[] slice = getSlice(routingContext);
         if(slice == null)
@@ -80,7 +81,9 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetWallet...");
 
-        final String address = routingContext.request().getParam("address");
+        String address = null;
+        if(checkParam((address = routingContext.request().getParam("address")), routingContext)) return;
+
         WalletFull wallet = commonDB.getWalletManager().getWallet(address);
 
         routingContext.response()
@@ -100,17 +103,25 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("CreateWallet...");
 
-        final JsonObject body = routingContext.getBodyAsJson();
-        final String address = body.getString("address");
-        final String name = body.getString("name");
-        final String nameOwner = body.getString("name_owner");
+        JsonObject body = null;
+        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
+
+        String address = null;
+        if(checkParam((address = body.getString("address")), routingContext)) return;
+
+        String name = null;
+        if(checkParam((name = body.getString("name")), routingContext)) return;
+
+        String nameOwner = null;
+        if(checkParam((nameOwner = body.getString("name_owner")), routingContext)) return;
 
         WalletBasic wallet = new WalletBasic(address, name, nameOwner);
         commonDB.getWalletManager().createWallet(wallet);
 
         routingContext.response()
             .setStatusCode(201)
-            .putHeader("content-type", "application/json");
+            .putHeader("content-type", "application/json")
+            .end();
     }
 
     /** 
@@ -124,14 +135,16 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("DeleteWallet...");
 
-        final String address = routingContext.request().getParam("address");
+        String address = null;
+        if(checkParam((address = routingContext.request().getParam("address")), routingContext)) return;
 
         if(commonDB.getWalletManager().walletIsEmpty(address))
         {
             commonDB.getWalletManager().deleteWallet(address);
             routingContext.response()
                 .setStatusCode(200)
-                .putHeader("content-type", "application/json");
+                .putHeader("content-type", "application/json")
+                .end();
         }
         else
             routingContext.response()
@@ -152,7 +165,8 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetAllContracts...");
 
-        String id = routingContext.user().principal().getString("id");
+        String id = null;
+        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
         int[] slice = getSlice(routingContext);
         if(slice == null)
@@ -201,8 +215,11 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetProposal...");
 
-        final String idProvider = routingContext.request().getParam("id_provider");
-        final String nameProposal = routingContext.request().getParam("name_proposal");
+        String idProvider = null;
+        if(checkParam((idProvider = routingContext.request().getParam("id_provider")), routingContext)) return;
+
+        String nameProposal = null;
+        if(checkParam((nameProposal = routingContext.request().getParam("name_proposal")), routingContext)) return;
 
         ProposalFull proposal = commonDB.getProposalManager().getProposal(nameProposal, idProvider);
 
@@ -223,18 +240,27 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("ClientProposeContract...");
 
-        String id = routingContext.user().principal().getString("id");
+        String id = null;
+        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        final JsonObject body = routingContext.getBodyAsJson();
-        final String nameProposal = body.getString("name_proposal");
-        final String idProvider = body.getString("id_provider");
-        final String ean = body.getString("ean");
+        JsonObject body = null;
+        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
+
+        String nameProposal = null;
+        if(checkParam((nameProposal = body.getString("name_proposal")), routingContext)) return;
+
+        String idProvider = null;
+        if(checkParam((idProvider = body.getString("id_provider")), routingContext)) return;
+
+        String ean = null;
+        if(checkParam((ean = body.getString("ean")), routingContext)) return;
 
         String nameClient = commonDB.getLogManager().getName(id);
         commonDB.getNotificationManager().createNotification(id, idProvider, nameProposal, idProvider, "Demande de contrat de la part de " + nameClient + ", ean: " + ean + ".");
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json");
+            .putHeader("content-type", "application/json")
+            .end();
     }
 }

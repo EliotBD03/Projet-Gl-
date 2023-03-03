@@ -34,7 +34,7 @@ public class LogApi extends MyApi implements RouterApi
         subRouter.post("/disconnect").handler(this::disconnect);
         subRouter.post("/save_account").handler(this::saveAccount);
         subRouter.put("/renitialize_pwd").handler(this::renitializePwd);
-        subRouter.get("/code").handler(this::getCode);
+        subRouter.post("/code").handler(this::getCode);
 
         return subRouter;
     }
@@ -42,7 +42,7 @@ public class LogApi extends MyApi implements RouterApi
     /** 
      * Méthode qui utilise le package de base de donnée pour vérifier le mail et le mot de passe de l'utilisateur
      * Si tout se passe bien, cette méthode génère un token et l'envoie à l'émetteur
-     * En cas d'erreur, elle renvoie le code 401 avec une explication
+     * En cas d'erreur, elle renvoie le code 400 avec une explication
      * Note que le token contient l'id et le rôle de l'utilisateur
      *
      * @param - Le context de la requête
@@ -52,16 +52,21 @@ public class LogApi extends MyApi implements RouterApi
     {
         LOGGER.info("CheckAccount...");
 
-        final JsonObject body = routingContext.getBodyAsJson();
-        final String mail = body.getString("mail");
-        final String pwd = body.getString("pwd");
+        JsonObject body = null;
+        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
+
+        String mail = null;
+        if(checkParam((mail = body.getString("mail")), routingContext)) return;
+
+        String pwd = null;
+        if(checkParam((pwd = body.getString("pwd")), routingContext)) return;
 
         String id = commonDB.getLogManager().checkAccount(mail, pwd);
 
         if(id == null)
         {
             routingContext.response()
-                .setStatusCode(401)
+                .setStatusCode(400)
                 .putHeader("content-type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "Compte non trouvé, l'adresse mail ou le mot de passe n'est pas correct.")));
@@ -97,16 +102,23 @@ public class LogApi extends MyApi implements RouterApi
     {
         LOGGER.info("Disconnect...");
 
-        String token = routingContext.request().headers().get("Authorization");
+        String token = null;
+        if(checkParam((token = routingContext.request().headers().get("Authorization")), routingContext)) return;
+
         token = token.substring(7);
 
         blackList.add(token);
+
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("content-type", "application/json")
+            .end();
     }
 
     /** 
      * Méthode qui utilise le package de base de donnée pour sauvegarder le compte de l'utilisateur
      * Elle vérifie le code que l'utilisateur a recu pour créer le compte de manière sécuriser
-     * Si le code est incorrect, cette méthode renvoie le code 401 avec une explication
+     * Si le code est incorrect, cette méthode renvoie le code 400 avec une explication
      * S'il y a eu une erreur lors de la création du compte, cette méthode renvoie le code 503 avec une explication 
      *
      * @param - Le context de la requête
@@ -117,16 +129,29 @@ public class LogApi extends MyApi implements RouterApi
     {
         LOGGER.info("SaveAccount...");
 
-        final JsonObject body = routingContext.getBodyAsJson();
-        final String mail = body.getString("mail");
-        final String code = body.getString("code");
+        JsonObject body = null;
+        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
+
+        String mail = null;
+        if(checkParam((mail = body.getString("mail")), routingContext)) return;
+
+        String code = null;
+        if(checkParam((code = body.getString("code")), routingContext)) return;
+
 
         if(App.checkCode(mail, code))
         {
-            final String pwd = body.getString("pwd");
-            final boolean isClient = body.getBoolean("is_client");
-            final String name = body.getString("name");
-            final String language = body.getString("language");
+            String pwd = null;
+            if(checkParam((pwd = body.getString("pwd")), routingContext)) return;
+
+            boolean isClient = false;
+            if(checkParam((isClient = body.getBoolean("is_client")), routingContext)) return;
+
+            String name = null;
+            if(checkParam((name = body.getString("name")), routingContext)) return;
+
+            String language = null;
+            if(checkParam((language = body.getString("language")), routingContext)) return;
 
             try
             {
@@ -163,7 +188,7 @@ public class LogApi extends MyApi implements RouterApi
         }
         else
             routingContext.response()
-                .setStatusCode(401)
+                .setStatusCode(400)
                 .putHeader("content-type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "Mauvais code.")));
@@ -172,7 +197,7 @@ public class LogApi extends MyApi implements RouterApi
     /** 
      * Méthode qui utilise le package de base de donnée pour rénitialiser le mot de passe de l'utilisateur
      * Elle vérifie le code que l'utilisateur a recu pour changer le mot de passe sans usurpation
-     * Si le code est incorrect, cette méthode renvoie le code 401 avec une explication
+     * Si le code est incorrect, cette méthode renvoie le code 400 avec une explication
      * S'il y a eu une erreur lors de la création du compte, cette méthode renvoie le code 503 avec une explication 
      *
      * @param - Le context de la requête
@@ -183,20 +208,27 @@ public class LogApi extends MyApi implements RouterApi
     {
         LOGGER.info("RenitializePwd...");
 
-        final JsonObject body = routingContext.getBodyAsJson();
-        final String mail = body.getString("mail");
-        final String code = body.getString("code");
+        JsonObject body = null;
+        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
+
+        String mail = null;
+        if(checkParam((mail = body.getString("mail")), routingContext)) return;
+
+        String code = null;
+        if(checkParam((code = body.getString("code")), routingContext)) return;
 
         if(App.checkCode(mail, code))
         {
-            final String newPwd = body.getString("new_pwd");
+            String newPwd = null;
+            if(checkParam((newPwd = body.getString("new_pwd")), routingContext)) return;
 
             try
             {
                 commonDB.getLogManager().changePassword(mail, newPwd);
                 routingContext.response()
                     .setStatusCode(200)
-                    .putHeader("content-type", "application/json");
+                    .putHeader("content-type", "application/json")
+                    .end();
             }
             catch(Exception error)
             {
@@ -209,7 +241,7 @@ public class LogApi extends MyApi implements RouterApi
         }
         else
             routingContext.response()
-                .setStatusCode(401)
+                .setStatusCode(400)
                 .putHeader("content-type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "Le code entré n'est pas correct.")));
@@ -226,8 +258,11 @@ public class LogApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetCode...");
 
-        final JsonObject body = routingContext.getBodyAsJson();
-        final String mail = body.getString("mail");
+        JsonObject body = null;
+        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
+
+        String mail = null;
+        if(checkParam((mail = body.getString("mail")), routingContext)) return;
 
         String code = App.createCode(mail);
 
@@ -236,7 +271,8 @@ public class LogApi extends MyApi implements RouterApi
             App.sendEmail(mail, "BabaWallet", "Voici le code " + code);
             routingContext.response()
                 .setStatusCode(200)
-                .putHeader("content-type", "application/json");
+                .putHeader("content-type", "application/json")
+                .end();
         }
         catch(RuntimeException error)
         {

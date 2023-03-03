@@ -81,7 +81,8 @@ public class ProviderApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetAllHisClients...");
 
-        String id = routingContext.user().principal().getString("id");
+        String id = null;
+        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
         int[] slice = getSlice(routingContext);
         if(slice == null)
@@ -106,7 +107,9 @@ public class ProviderApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetClient...");
 
-        final String idClient = routingContext.request().getParam("id_client");
+        String idClient = null;
+        if(checkParam((idClient = routingContext.request().getParam("id_client")), routingContext)) return;
+
         ClientFull client = commonDB.getClientManager().getClient(idClient);
 
         routingContext.response()
@@ -127,14 +130,18 @@ public class ProviderApi extends MyApi implements RouterApi
     {
         LOGGER.info("DeleteClient...");
 
-        String id = routingContext.user().principal().getString("id");
+        String id = null;
+        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        final String idClient = routingContext.request().getParam("id_client");
+        String idClient = null;
+        if(checkParam((idClient = routingContext.request().getParam("id_client")), routingContext)) return;
+        
         commonDB.getClientManager().deleteClient(id, idClient);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json");
+            .putHeader("content-type", "application/json")
+            .end();
     }
 
     /** 
@@ -148,7 +155,8 @@ public class ProviderApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetAllProposals...");
 
-        String id = routingContext.user().principal().getString("id");
+        String id = null;
+        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
         int[] slice = getSlice(routingContext);
         if(slice == null)
@@ -173,9 +181,12 @@ public class ProviderApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetProposals...");
 
-        String id = routingContext.user().principal().getString("id");
+        String id = null;
+        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        final String nameProposal = routingContext.request().getParam("name_proposal");
+        String nameProposal = null;
+        if(checkParam((nameProposal = routingContext.request().getParam("name_proposal")), routingContext)) return;
+
         ProposalFull proposal = commonDB.getProposalManager().getProposal(nameProposal, id);
 
         routingContext.response()
@@ -198,20 +209,44 @@ public class ProviderApi extends MyApi implements RouterApi
     {
         LOGGER.info("AddProposal...");
 
-        String id = routingContext.user().principal().getString("id");
+        String id = null;
+        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        final JsonObject body = routingContext.getBodyAsJson();
-        final String nameProposal = body.getString("name_proposal");
-        final String nameProvider = body.getString("name_provider");
-        final String typeOfEnergy = body.getString("type_of_energy");
-        final String localization = body.getString("localization");
-        final double basicPrice = body.getDouble("basic_price");
-        final double variableDayPrice = body.getDouble("variable_day_price");
-        final double variableNightPrice = body.getDouble("variable_night_price");
-        final boolean isFixedRate = body.getBoolean("is_fixed_rate");
-        final boolean isSingleHourCounter = body.getBoolean("is_single_hour_counter");
-        final String startOffPeakHours = body.getString("start_off_peak_hours");
-        final String endOffPeakHours = body.getString("end_off_peak_hours");
+        JsonObject body = null;
+        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
+
+        String nameProposal = null;
+        if(checkParam((nameProposal = body.getString("name_proposal")), routingContext)) return;
+
+        String nameProvider = null;
+        if(checkParam((nameProvider = body.getString("name_provider")), routingContext)) return;
+
+        String typeOfEnergy = null;
+        if(checkParam((typeOfEnergy = body.getString("type_of_energy")), routingContext)) return;
+
+        String localization = null;
+        if(checkParam((localization = body.getString("localization")), routingContext)) return;
+
+        double basicPrice = 0;
+        if(checkParam((basicPrice = body.getDouble("basic_price")), routingContext)) return;
+
+        double variableDayPrice = 0;
+        if(checkParam((variableDayPrice = body.getDouble("variable_day_price")), routingContext)) return;
+
+        double variableNightPrice = 0;
+        if(checkParam((variableNightPrice = body.getDouble("variable_night_price")), routingContext)) return;
+
+        boolean isFixedRate = false;
+        if(checkParam((isFixedRate = body.getBoolean("is_fixed_rate")), routingContext)) return;
+
+        boolean isSingleHourCounter = false;
+        if(checkParam((isSingleHourCounter = body.getBoolean("is_single_hour_counter")), routingContext)) return;
+
+        String startOffPeakHours = null;
+        if(checkParam((startOffPeakHours = body.getString("start_off_peak_hours")), routingContext)) return;
+
+        String endOffPeakHours = null;
+        if(checkParam((endOffPeakHours = body.getString("end_off_peak_hours")), routingContext)) return;
 
         ProposalFull newProposal = new ProposalFull(id, nameProvider, typeOfEnergy, localization, nameProposal);
         newProposal.setMoreInformation(basicPrice, variableDayPrice, variableNightPrice, isFixedRate, isSingleHourCounter, startOffPeakHours, endOffPeakHours);
@@ -226,7 +261,8 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(201)
-            .putHeader("content-type", "application/json");
+            .putHeader("content-type", "application/json")
+            .end();
     }
 
     /** 
@@ -239,14 +275,18 @@ public class ProviderApi extends MyApi implements RouterApi
     {
         LOGGER.info("DeleteProposal...");
 
-        String id = routingContext.user().principal().getString("id");
+        String id = null;
+        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        final String nameProposal = routingContext.request().getParam("name_proposal");
+        String nameProposal = null;
+        if(checkParam((nameProposal = routingContext.request().getParam("name_proposal")), routingContext)) return;
+
         commonDB.getProposalManager().deleteProposal(id, nameProposal);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json");
+            .putHeader("content-type", "application/json")
+            .end();
     }
 
     /** 
@@ -259,12 +299,15 @@ public class ProviderApi extends MyApi implements RouterApi
     {
         LOGGER.info("DeleteAllConsumptions...");
 
-        final String ean = routingContext.request().getParam("ean");
+        String ean = null;
+        if(checkParam((ean = routingContext.request().getParam("ean")), routingContext)) return;
+
         commonDB.getConsumptionManager().deleteAllConsumptions(ean);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json");
+            .putHeader("content-type", "application/json")
+            .end();
     }
 
     /** 
@@ -277,14 +320,18 @@ public class ProviderApi extends MyApi implements RouterApi
     {
         LOGGER.info("DeleteConsumption...");
 
-        final String ean = routingContext.request().getParam("ean");
-        final String date = routingContext.request().getParam("date");
+        String ean = null;
+        if(checkParam((ean = routingContext.request().getParam("ean")), routingContext)) return;
+
+        String date = null;
+        if(checkParam((date = routingContext.request().getParam("date")), routingContext)) return;
 
         commonDB.getConsumptionManager().deleteConsumption(ean, date);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json");
+            .putHeader("content-type", "application/json")
+            .end();
     }
 
     /** 
@@ -297,17 +344,24 @@ public class ProviderApi extends MyApi implements RouterApi
     {
         LOGGER.info("ProviderProposeContract...");
 
-        String id = routingContext.user().principal().getString("id");
+        String id = null;
+        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        final JsonObject body = routingContext.getBodyAsJson();
-        final String nameProposal = body.getString("name_proposal");
-        final String idClient = body.getString("id_client");
+        JsonObject body = null;
+        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
+        
+        String nameProposal = null;
+        if(checkParam((nameProposal = body.getString("name_proposal")), routingContext)) return;
+
+        String idClient = null;
+        if(checkParam((idClient = body.getString("id_client")), routingContext)) return;
 
         String nameProvider = commonDB.getLogManager().getName(id);
         commonDB.getNotificationManager().createNotification(id, idClient, nameProposal, id, "Demande de contrat de la part de "+ nameProvider + ".");
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json");
+            .putHeader("content-type", "application/json")
+            .end();
     }
 }

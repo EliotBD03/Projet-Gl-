@@ -23,6 +23,7 @@ import java.util.Base64;
 import javax.json.JsonReader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.*;
 
 /**
  * Classe qui représente le centre d'API
@@ -58,7 +59,8 @@ public class MyApi extends AbstractVerticle
 
         String bind = "localhost";
         int port = 8080;
-        String keystorePwd = "";
+        String passPhrase = "";
+
 
         Map<String, String> env  = System.getenv();
 
@@ -68,18 +70,29 @@ public class MyApi extends AbstractVerticle
             port = new Integer(env.get("PORT"));
         }
 
+        if(!env.containsKey("PASSPHRASE"))
+            System.exit(1);
+
+        passPhrase = env.get("PASSPHRASE");
+
         final Router router = Router.router(vertx);
 
         jwt = JWTAuth.create(vertx, new JWTAuthOptions()
                 .addPubSecKey(new PubSecKeyOptions()
                     .setAlgorithm("HS256")
-                    .setBuffer("mqkfj m( mlksqe ç' mlksf, mqsldjf ? qsf / :")));
+                    .setBuffer(passPhrase)));
 
         Handler<RoutingContext> handleToken = ctx ->
         {
             JWTAuthHandler.create(jwt);
 
             String token = ctx.request().headers().get("Authorization");
+            if(token == null)
+            {
+                ctx.fail(401);
+                return;
+            }
+
             token = token.substring(7);
 
             if(blackList.contains(token))
@@ -91,7 +104,7 @@ public class MyApi extends AbstractVerticle
         Handler<RoutingContext> roleHandlerClient = ctx ->
         {
             String role = ctx.user().principal().getString("role");
-            if(role.equals("client"))
+            if(role != null && role.equals("client"))
                 ctx.next();
             else
                 ctx.fail(401);
@@ -100,7 +113,7 @@ public class MyApi extends AbstractVerticle
         Handler<RoutingContext> roleHandlerProvider = ctx ->
         {
             String role = ctx.user().principal().getString("role");
-            if(role.equals("provider"))
+            if(role != null && role.equals("provider"))
                 ctx.next();
             else
                 ctx.fail(401);
@@ -109,7 +122,7 @@ public class MyApi extends AbstractVerticle
         Handler<RoutingContext> roleHandlerCommon = ctx ->
         {
             String role = ctx.user().principal().getString("role");
-            if(role.equals("client") || role.equals("provider"))
+            if(role != null && (role.equals("client") || role.equals("provider")))
                 ctx.next();
             else
                 ctx.fail(401);
@@ -137,10 +150,14 @@ public class MyApi extends AbstractVerticle
         final Router commonApiRouter = commonApi.getSubRouter(vertx);
         router.mountSubRouter("/api/common", commonApiRouter);
 
-        LOGGER.info("Lancement du serveur...");
         vertx.createHttpServer().requestHandler(router).listen(port, bind);
 
-        Vertx.vertx().setPeriodic(5 * 60 * 1000, this::cleanExpiredTokens);
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(() -> {
+            cleanExpiredTokens();
+        }, 5, 5, TimeUnit.MINUTES);
+
+        LOGGER.info("Lancement du serveur...");
     }
 
     @Override
@@ -154,9 +171,8 @@ public class MyApi extends AbstractVerticle
      * Méthode qui permet de supprimer les tokens qui sont dans la blacklist et qui sont périmés
      * Cette méthode est appelée toutes les 5 minutes
      *
-     * @param timerId - Paramètre obligatoire pour pouvoir arrêter le timer si on le souhaite
      */
-    private void cleanExpiredTokens(long timerId)
+    private void cleanExpiredTokens()
     {
         Iterator<String> iterator = blackList.iterator();
         while(iterator.hasNext())
@@ -221,5 +237,27 @@ public class MyApi extends AbstractVerticle
                             .put("error", "Les numéros de pages et de limites doivent être des entiers.")));
             return null;
         }
+    }
+
+    /**
+     * Méthode qui permet de vérifier que les paramètres envoyé lors des requêtes ne soient pas null
+     * Cette méthode retourne le code erreur 400 à l'émetteur s'il y a un problème dans la requêtea ainsi que true
+     *
+     * @param param - Le paramètre a tester
+     * @param routingContext - Le contexte de la requête
+     */
+    protected boolean checkParam(Object param, final RoutingContext routingContext)
+    {
+        if(param == null)
+        {
+            routingContext.response()
+                .setStatusCode(400)
+                .putHeader("content-type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "Il manque des informations dans la requête.")));
+            return true;
+        }
+
+        return false;
     }
 }
