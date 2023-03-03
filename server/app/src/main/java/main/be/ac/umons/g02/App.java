@@ -18,7 +18,9 @@ import java.util.TimerTask;
 // IP
 // PORT
 // NAMEDB
+// NAMEDBTEST
 // PWDDB
+// USERNAMEDB
 // USERNAME
 
 /**

@@ -3,6 +3,7 @@ package main.be.ac.umons.g02.database;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Effectue toutes les opérations à réaliser dans la base de données
@@ -10,9 +11,10 @@ import java.util.ArrayList;
  */
 public class DB
 {
-    private static String dataBaseName = "babawallet_db";
-    private static String userName = "297895";
-    private static String password = "walletbaba_great";
+    private static String dataBaseName = "NAMEDB";
+    private static String userName = "USERNAMEDB";
+    private static String password = "PWDDB";
+    private static final Map<String, String> env = System.getenv();
     private static DB instance;
     private Connection connection;
     private ResultSet resultSet;
@@ -55,10 +57,27 @@ public class DB
 
     private void establishConnection() throws SQLException, ClassNotFoundException
     {
+        String dataBaseNameV = null;
+        String userNameV = null;
+        String passwordV = null;
+        System.out.println(dataBaseName);
+
+        if(env.containsKey(dataBaseName) && env.containsKey(userName) && env.containsKey(password))
+        {
+            dataBaseNameV = env.get(dataBaseName);
+            userNameV = env.get(userName);
+            passwordV = env.get(password);
+        }
+
+        System.out.println(env.containsKey(dataBaseName));
+        System.out.println(env.containsKey(userName));
+        System.out.println(env.containsKey(password));
+        System.out.println(env.get(userName));
+
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/" + dataBaseName,
-                userName, password);
+                "jdbc:mysql://localhost:3306/" + dataBaseNameV,
+                userNameV, passwordV);
     }
 
     public boolean executeQuery(String query, boolean returnData)

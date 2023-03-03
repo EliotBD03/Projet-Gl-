@@ -7,15 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DBTest {
 
-    private static final String userName = "297895";
-    private static final String password = "walletbaba_great";
-    private static final String dataBaseName = "babawallet_db_test";
     @BeforeAll
     static void setUp()
     {
-        DB.setUserName(userName);
-        DB.setDataBaseName(dataBaseName);
-        DB.setPassword(password);
+        DB.setDataBaseName("NAMEDBTEST");
     }
 
     @Test
