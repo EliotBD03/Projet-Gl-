@@ -22,30 +22,27 @@
 </template>
 <script>
 import MainHeader from "@/components/MainHeader.vue";
-import WalletsCard from "@/components/WalletsCard.vue"
 import GoButton from "@/components/GoButton.vue";
 import AddWalletForm from "@/components/AddWalletForm.vue";
 export default {
   components : {
     GoButton,
-    WalletsCard,
     MainHeader,
     AddWalletForm
   }, 
   data(){
     return{
-      linkApi : "https://babawallet.alwaysdata.net:8300/api/client/wallets",
+      linkApi : "https://babawallet.alwaysdata.net:8300/api/client/wallets/",
       nbr : 1,
       loading : false,
-      listWallet: [],
-      wallet : JSON.parse(sessionStorage.getItem('wallet'))
+      listWallet: []
     }},
     /*Au moment de la création on récupère déjà la première page de l'api*/
     created() { 
-      this.getData(this.nbr);
+      this.getPage();
     },
     methods: { //async -> requête qui peut prendre du temps, utile pour récupérer des données volumineuses
-      async getData(nbr){
+      async getPage(){
         const requestOptions = {
             method: "GET",
             headers: this.$cookies.get("token"),
@@ -53,19 +50,20 @@ export default {
         };
         this.loading = true; //bloquer les demandes de loader pendant ce temps.
         try {
-          response = await fetch("${linkApi}page?page=${nbr}");
+          const response = await fetch("${linkApi}page?page=${nbr}", requestOptions);
           //repasser sur les erreurs
           if (response.ok) {
-            data = await reponse.json(); //await-> attendre la fin du traitement pour continuer
+            const data = await response.json(); //await-> attendre la fin du traitement pour continuer
+
+            if(data != null || data != undefined) //voir comment on gère l'arrivée à la fin des pages erreur/vide?
+            {
+              this.listWallet = this.listWallet.concat(data); //ajouter la suite de la réponse à la liste
+            }
           } else {
             throw new Error("Incorrect request");
           }
         } catch (error) {
           console.error(error);
-        }
-        if(data != null || data != undefined) //voir comment on gère l'arrivée à la fin des pages erreur/vide?
-        {
-          this.listWallet = this.listWallet.concat(data); //ajouter la suite de la réponse à la liste
         }
         this.loading = false;
       },
@@ -74,13 +72,13 @@ export default {
         if(!this.loading)
         {
           this.nbr++;
-          this.getData(this.nbr);
+          this.getPage(this.nbr);
         }
       },
     /*On sauvegarde le wallet sur lequel on veut plus d'informations 
     et on redirige vers walletFull*/
       seeMore(wallet){
-        this.wallet = sessionStorage.setItem('wallet', JSON.stringify(wallet));
+        sessionStorage.setItem('address', wallet.address);
         window.location.href = "/walletFull.vue";
       }
     }

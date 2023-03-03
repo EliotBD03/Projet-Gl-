@@ -18,7 +18,7 @@
 
 <script>
 import GoButton from "@/components/GoButton.vue";
-
+import Swal from 'sweetalert2';
 export default {
   name: "ContactForm",
   components: {GoButton},
@@ -44,10 +44,8 @@ export default {
           };
           fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets", requestOptions)
             .then(response => {
-                if(response.ok){ 
+                if(!response.ok){ 
                   //repasser sur les erreurs
-                  return response.json();}
-                else {
                   throw new Error("Incorrect request");
                 }
             })

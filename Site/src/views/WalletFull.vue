@@ -12,7 +12,7 @@
       <p> Gas : {{ wallet.lastConsumptionOfGas }}</p>
       <p> Water : {{ wallet.lastConsumptionOfElectricity }}</p>
       <p> Associated contracts :</p>
-        <div v-for="contract in wallet.listContracts">
+        <div v-for="contract in wallet.listContracts" :key="contract.id">
           <p> nom = {{ contract.nom }}</p> 
           <p> conso = {{ contract.conso }}</p>
           <p> prix = {{ contract.prix }}</p>
@@ -40,9 +40,26 @@ export default {
   /*On récupère le wallet sur lequel on veut plus d'informations*/
   data(){
     return{
-      wallet : JSON.parse(sessionStorage.getItem('wallet')),
-      address : wallet.address
+      address : JSON.parse(sessionStorage.getItem('address')),
+      wallet : ''
     }},
+    async created(){
+      const requestOptions = {
+            method: "GET",
+            headers: this.$cookies.get("token")
+        };
+        try {
+          const response = await fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets/:${address}",requestOptions);
+          //repasser sur les erreurs
+          if (response.ok) {
+            this.wallet = await response.json(); //await-> attendre la fin du traitement pour continuers
+          } else {
+            throw new Error("Incorrect request");
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      },
     methods: {
       /* Méthode permettant de supprimer un portefeuille (il faut utiliser l'adresse)*/
         deleteWallet() {

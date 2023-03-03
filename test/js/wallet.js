@@ -10,12 +10,11 @@ new Vue({
       { name: "Item 3", nameOwner: "Josh", address: "Rue pp", lastConsumptionOfWater: 50, lastConsumptionOfGas: 70, lastConsumptionOfElectricity: 700, listContracts: [{nom: "Pooppps", conso: "90000", prix : "4000"}]},
       
       { name: "Item 4", nameOwner: "nag", address: "Rue gg", lastConsumptionOfWater: 90, lastConsumptionOfGas: 30, lastConsumptionOfElectricity: 790, listContracts: [{nom: "Aht", conso: "450000", prix : "3000"}]},
-    ],
-    wallet : JSON.parse(sessionStorage.getItem('wallet'))
+    ]
   },
     methods: {
         seeMore(wallet){          
-          this.wallet = sessionStorage.setItem('wallet', JSON.stringify(wallet));
+          sessionStorage.setItem('wallet', JSON.stringify(wallet));
           window.location.href = "../../html/client/walletFull.html";
         },
         getIndex(){

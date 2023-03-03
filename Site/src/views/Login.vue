@@ -24,6 +24,7 @@
 
   <script>
   import GoButton from "@/components/GoButton.vue";
+  import Swal from 'sweetalert2';
   export default {
     name: "loginForm",
     components: {GoButton},
@@ -57,25 +58,24 @@
             fetch("https://babawallet.alwaysdata.net:8300/api/check_account", requestOptions)
               .then(response => {
                   if(!response.ok){
-                    if(response.status != 400)
-                    {
+                    if(response.status != 400){
                       this.errorApi = response.status;
+                      throw new Error(this.errorApi);
                     }
-                    else
-                    {
-                      data = response.json();
-                      this.errorApi = data.error;
+                    else{
+                      this.flag = true;
                     }
-                    throw new Error(this.errorApi);
-                  }
-                  else{
-                    data = response.json();
                   }
               }) 
               .then(data => {
+                if(this.flag){
+                  this.flag = false;
+                  this.errorApi = data.error;
+                  throw new Error(this.errorApi);
+                }
                 this.$cookies.set("token", data.token);
                 this.role = data.role;
-                isClient();
+                this.isClient();
               })
               .catch(error => {
                 console.error("Error", error);

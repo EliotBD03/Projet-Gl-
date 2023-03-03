@@ -26,6 +26,7 @@
 
 <script>
   import GoButton from "@/components/GoButton.vue";
+  import Swal from 'sweetalert2';
   export default {
     name: "forgotForm",
     components: {GoButton},
@@ -34,8 +35,14 @@
         mailCode: '',
         newPassword: '',
         repeatedPassword: '',
-        errorApi: ''
+        errorApi1: '',
+        errorApi2:'',
+        flag: ''
       }},
+      /*Récupère le mail dans les cookies et l'envoie vers l'api pour que l'utilisateur puisse avoir le code*/
+      created(){
+          this.sendCode();
+      },
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up.
           Vérifie également si les mots de passe sont identiques*/
@@ -45,10 +52,6 @@
           if(!this.repeatedPassword) Swal.fire("Please enter your repetead password");
           if(this.repeatedPassword != this.newPassword) Swal.fire("Passwords must be identical");
           else return true;
-        },
-        /*Récupère le mail dans les cookies et l'envoie vers l'api pour que l'utilisateur puisse avoir le code*/
-        created(){
-          sendCode();
         },
         /*Méthode qui envoie le code reçu par mail et le nouveau mot de passe vers l'api si checkArgs() 
           est true quand l'utilisateur clique sur submit.
@@ -63,24 +66,29 @@
             };
             fetch("https://babawallet.alwaysdata.net:8300/log/renitialize_pwd", requestOptions)
               .then(response => {
-                data = response.json();
                   if(!response.ok){
-                    this.errorApi = data.error;
-                    throw new Error(this.errorApi);
+                    this.flag = true;
                   }
               }) 
               .then(data => {
-                this.$cookies.delete('mail');
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Good !',
-                    text: 'Password changed !'
-                  })
-                window.location.href = "/Login.vue";
+                if(this.flag){
+                  this.flag = false
+                  this.errorApi1 = data.error;
+                  throw new Error(this.errorApi1);
+                }
+                else{
+                  this.$cookies.delete('mail');
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Good !',
+                      text: 'Password changed !'
+                    })
+                  window.location.href = "/Login.vue";
+                }
               })
               .catch(error => {
-                console.error("Error", error);
-                errorApi();
+                console.error(error);
+                this.errorApi(this.errorApi1);
               });
           }
         },
@@ -90,24 +98,26 @@
             method: "GET",
             body: JSON.stringify({ mail: this.$cookies.get("mail") })
           };
+          let response = null;
+          let data = null;
           try {
-            response = await fetch("https://babawallet.alwaysdata.net:8300/log/code");
+            response = await fetch("https://babawallet.alwaysdata.net:8300/log/code", requestOptions);
             data = await response.json();
             if(!response.ok){
-              this.errorApi = data.error;
-              throw new Error(this.errorApi);
+              this.errorApi2 = data.error;
+              throw new Error(this.errorApi2);
             }
           } catch (error) {
             console.error(error);
-            errorApi();
+            this.errorApi(this.errorApi2);
           }
         },
         /*Affiche le message d'erreur venant de l'api dans une pop-up*/
-        errorApi(){
+        errorApi(error){
           Swal.fire({
             icon: 'error',
             title: 'OH NO !',
-            text: this.errorApi
+            text: error
           })
         }
       }
