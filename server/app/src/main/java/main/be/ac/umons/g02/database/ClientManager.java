@@ -9,9 +9,28 @@ import java.util.Objects;
 
 public class ClientManager
 {
+    private ArrayList<ClientBasic> getClientBasics()
+    {
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"id", "name", "mail"});
+
+        ArrayList<ClientBasic> clientBasics = new ArrayList<>();
+        if(results.get(0) == null)
+        {
+            System.out.println("je passe ici");
+
+        }
+
+        for(int i = 0; i < results.get(0).size();i++)
+        {
+            System.out.println("je passe");
+            clientBasics.add(new ClientBasic(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i)));
+        }
+
+        return clientBasics;
+    }
     public ArrayList<ClientBasic> getAllClients(int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM user WHERE id in(SELECT id FROM client limit "+base+", "+(limit - base) + ")",true);
+        DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN (SELECT id FROM client) LIMIT "+base+", "+(base+limit),true);
         return getClientBasics();
     }
 
@@ -21,21 +40,6 @@ public class ClientManager
                 "AND id IN (SELECT id FROM contract WHERE provider_id="+providerId+")",true);
 
         return getClientBasics();
-    }
-
-    private ArrayList<ClientBasic> getClientBasics()
-    {
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"id", "mail", "name"});
-
-        ArrayList<ClientBasic> clientBasics = new ArrayList<>();
-        if(results.get(0) == null)
-            return null;
-        for(int i = 0; i < results.get(0).size();i++)
-        {
-            clientBasics.add(new ClientBasic(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i)));
-        }
-
-        return clientBasics;
     }
 
     public ClientFull getClient(String clientId)

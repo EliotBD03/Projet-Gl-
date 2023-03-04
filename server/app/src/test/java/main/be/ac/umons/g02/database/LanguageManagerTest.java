@@ -1,53 +1,59 @@
 package main.be.ac.umons.g02.database;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class LanguageManagerTest {
 
     @BeforeAll
-    public static void setUp()
+    static void setUp() throws Exception {
+
+        DBTest.setUp();
+        new LogManager().saveAccount("test@gmail.com", "password", true, "name", "english");
+    }
+
+    @AfterAll
+    static void clean()
     {
-        try //If LogManagerTest has already been tested
-        {
-            new LogManager().saveAccount("test@gmail.com", "password", true, "name", "english");
-        }
-        catch (Exception e)
-        {
-            System.out.println("account already exists");
-        }
+        new LogManager().deleteAccount("1");
+        DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
     }
 
     @Test
+    @Order(1)
     void getCurrentLanguage()
     {
         assertEquals(new LanguageManager().getCurrentLanguage("1"), "english");
     }
 
     @Test
+    @Order(2)
     void getFavouriteLanguage()
     {
         assertNotEquals(new LanguageManager().getFavouriteLanguage("1"), "dutch");
     }
 
     @Test
+    @Order(3)
     void getAllLanguages()
     {
         assertEquals(new LanguageManager().getAllLanguages("1", 0 , 0).get(0), "english");
     }
 
     @Test
+    @Order(4)
     void addLanguage()
     {
         LanguageManager languageManager = new LanguageManager();
-        assertNotEquals(languageManager.getCurrentLanguage("5"), "german");
-        languageManager.addLanguage("5", "german");
-        assertEquals(languageManager.getCurrentLanguage("5"), "german");
+        assertNotEquals(languageManager.getCurrentLanguage("1"), "german");
+        languageManager.addLanguage("1", "german");
+        assertEquals(languageManager.getCurrentLanguage("1"), "german");
     }
 
     @Test
+    @Order(5)
     void changeCurrentLanguage()
     {
         LanguageManager languageManager = new LanguageManager();
@@ -57,6 +63,7 @@ class LanguageManagerTest {
     }
 
     @Test
+    @Order(6)
     void changeFavouriteLanguage()
     {
         LanguageManager languageManager = new LanguageManager();

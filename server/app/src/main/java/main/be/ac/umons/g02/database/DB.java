@@ -60,7 +60,6 @@ public class DB
         String dataBaseNameV = null;
         String userNameV = null;
         String passwordV = null;
-        System.out.println(dataBaseName);
 
         if(env.containsKey(dataBaseName) && env.containsKey(userName) && env.containsKey(password))
         {
@@ -68,11 +67,6 @@ public class DB
             userNameV = env.get(userName);
             passwordV = env.get(password);
         }
-
-        System.out.println(env.containsKey(dataBaseName));
-        System.out.println(env.containsKey(userName));
-        System.out.println(env.containsKey(password));
-        System.out.println(env.get(userName));
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(

@@ -17,8 +17,10 @@ public class LogManager
 
      public boolean isClient(String id)
      {
-         DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM client WHERE client_id="+id+") AS r",true);
-         return Integer.parseInt(DB.getInstance().getResults(new String[] {"r"}).get(0).get(0)) == 1;
+         DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM client WHERE client_id="+id+" ) AS r",true);
+         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"r"});
+         System.out.println(results.get(0).get(0));
+         return Integer.parseInt(results.get(0).get(0)) == 1;
      }
 
     public String checkAccount(String mail, String password)

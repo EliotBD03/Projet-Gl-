@@ -20,7 +20,8 @@ public class ProposalManager
 
     public ArrayList<ProposalBasic> getAllProposals(String providerId, int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM proposal WHERE provider_id ="+providerId+" LIMIT "+base+", "+(base+limit), true);
+        String query = "SELECT * FROM proposal WHERE provider_id ="+providerId+" LIMIT "+base+","+(base+limit);
+        DB.getInstance().executeQuery(query, true);
         ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults(new String[] {"proposal_name","provider_id",
                 "water", "gas", "electricity", "location"}));
 
@@ -50,7 +51,7 @@ public class ProposalManager
 
     public ArrayList<ProposalBasic> getAllProposals(int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM proposal LIMIT"+base+", "+(base+limit), true);
+        DB.getInstance().executeQuery("SELECT * FROM proposal LIMIT "+base+", "+(base+limit), true);
         ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults(new String[] {"proposal_name","provider_id",
                 "water", "gas", "electricity", "location"}));
 
@@ -109,7 +110,7 @@ public class ProposalManager
         nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
 
         proposalFull = new ProposalFull(providerId, nameProvider, typeEnergy, location, proposalName);
-        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, peakHours == offPeakHours, startPeakHours, endPeakHours);
+        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, startPeakHours.equals(endPeakHours), startPeakHours, endPeakHours);
         return proposalFull;
     }
 
@@ -122,29 +123,22 @@ public class ProposalManager
             value = true;
         }
 
-
-        String startOffPeakHours = "NULL";
-        String endOffPeakHours = "NULL";
-        if(!proposal.getIsSingleHour())
-        {
-          //  startOffPeakHours = proposal.getStartOfPeakHours().get(Calendar.HOUR) + ":" + proposal.getStartOfPeakHours().get(Calendar.MINUTE) + proposal.getStartOfPeakHours().get(Calendar.SECOND);
-           // endOffPeakHours = proposal.getEndOfPeakHours().get(Calendar.HOUR) + ":" + proposal.getEndOfPeakHours().get(Calendar.MINUTE) + proposal.getEndOfPeakHours().get(Calendar.SECOND);
-        }
-
-        DB.getInstance().executeQuery("INSERT INTO consumption(proposal_name, provider_id, water"+
-                ",gas,electricity,fixed_rate,peak_hours,offpeak_hours,start_peak_hours,end_peak_hours,price,location"
-                + "VALUES('"+proposal.getProposalName() + "',"
-                + proposal.getProviderId()+ "',"
+        String query = "INSERT INTO proposal(proposal_name, provider_id, water"+
+                ",gas,electricity,fixed_rate,peak_hours,offpeak_hours,start_peak_hours,end_peak_hours,price,location)"
+                + " VALUES('"+proposal.getProposalName() + "',"
+                + proposal.getProviderId()+ ","
                 + ((proposal.getTypeOfEnergy().equals("water")) ? 1 : 0) + ","
                 + ((proposal.getTypeOfEnergy().equals("gas")) ? 1 : 0) + ","
                 + ((proposal.getTypeOfEnergy().equals("electricity")) ? 1 : 0) + ","
-                + proposal.isFixedRate() + ","
+                + (proposal.isFixedRate() ? 1 : 0) + ","
                 + proposal.getVariableNightPrice() + ","
-                + proposal.getVariableDayPrice() + ","
-                + startOffPeakHours + ","
-                + endOffPeakHours + ","
+                + proposal.getVariableDayPrice() + ",'"
+                + proposal.getStartOfPeakHours() + "','"
+                + proposal.getEndOfPeakHours() + "',"
                 + proposal.getBasicPrice() + ","
-                + proposal.getLocation() + ")",false);
+                + proposal.getLocation() + ");";
+
+        DB.getInstance().executeQuery(query,false);
 
         return value;
     }

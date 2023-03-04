@@ -1,5 +1,6 @@
 package main.be.ac.umons.g02.database;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,13 @@ class DBTest {
     static void setUp()
     {
         DB.setDataBaseName("NAMEDBTEST");
+    }
+
+    @AfterAll
+    static void clean()
+    {
+        DB.getInstance().executeQuery("DELETE FROM user", false);
+        DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
     }
 
     @Test
@@ -33,8 +41,5 @@ class DBTest {
         String query = "SELECT name FROM user WHERE password='testPassword'";
         db.executeQuery(query, true);
         assertEquals(db.getResults(new String[] {"name"}).get(0).get(0), "testName");
-        DB.getInstance().executeQuery("DELETE FROM user WHERE mail='test@gmail.com'",false);
-        db.executeQuery("SELECT * FROM user WHERE name='testName'",true);
-        assertEquals(0, db.getResults(new String[]{"name"}).get(0).size());
     }
 }
