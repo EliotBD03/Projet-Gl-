@@ -5,12 +5,12 @@
     </div>
     <div class="create-form">
       <div class="line">
-        <checkButton name="Client"></checkButton>
-        <checkButton name="Supplier"></checkButton>
+        <checkButton name="Client" @event="save('Client')"></checkButton>
+        <checkButton name="Supplier" @event="save('Supplier')"></checkButton>
       </div>
       <div class="line">
-        <checkButton name="Français"></checkButton>
-        <checkButton name="English"></checkButton>
+        <checkButton name="Français" @event="save('Français')"></checkButton>
+        <checkButton name="English" @event="save('English')"></checkButton>
       </div>
       <form id="createForm" method="post" v-on:submit.prevent="post">
         <p>
@@ -27,7 +27,7 @@
         </p>
         <p>
           <label>Mail Code: </label>
-          <input type="text" v-model="mailCode">
+          <input type="text" v-model="code">
         </p>
         <GoButton text="Create an account" type="submit"/> 
       </form>
@@ -55,7 +55,7 @@
         code: '',
         isClient: false,
         language: 'english',
-        selectedList:''
+        selectedList:[]
       }},
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
@@ -128,17 +128,21 @@
       /*Méthode permettant de vérifier si les checkboxes sont cochées correctement et 
         assigner les bonnes valeurs en fonction*/
       selected(){
-        this.selectedList = CheckButton.getListCheck(); //Soucis à régler récupérer les éléments sélectionnés
-        console.log(this.selectedList);
-
-        if((this.selectedList.includes("English") && this.selectedList.includes("Français")) &&
-        (!this.selectedList.includes("English") && !this.selectedList.includes("Français"))){
+        console.log(this.selectedList)
+        if(this.selectedList.includes("Client") && this.selectedList.includes("Supplier")){
           Swal.fire("Please make a choice between Client and Supplier!");
           return false;
         }
-        if((this.selectedList.includes("Client") && this.selectedList.includes("Supplier")) && 
-        (!this.selectedList.includes("Client") && !this.selectedList.includes("Supplier"))){
+        if(!this.selectedList.includes("Client") && !this.selectedList.includes("Supplier")){
           Swal.fire("Please make a choice between Client and Supplier!");
+          return false;
+        }
+        if(this.selectedList.includes("English") && this.selectedList.includes("Français")){
+          Swal.fire("Please make a choice between English and Français!");
+          return false;
+        }
+        if(!this.selectedList.includes("English") && !this.selectedList.includes("Français")){
+          Swal.fire("Please make a choice between English and Français!");
           return false;
         }
         else{
@@ -152,7 +156,15 @@
           }
           return true;
         }
-      } 
+      },
+      save(item){
+        if(this.selectedList.includes(item)){
+          this.selectedList.splice(this.selectedList.indexOf(item),1);
+        }
+        else{
+          this.selectedList.push(item);
+        }
+      }
     }
   }
   </script>

@@ -1,7 +1,8 @@
 <template>
   <div>
     <div>
-      <input type="checkbox" :id="name" :value="name" v-model="listCheck">
+      <input type="checkbox" :id="name" :value="name" @click="$emit('event')"> 
+      <!--Pour Maxime : @click ici est une solution pour GoButton-->
       <label :for="name">{{ name }}</label>
     </div>
   </div>
@@ -10,16 +11,6 @@
 <script>
 export default {
   name: "checkButton",
-  props: ["name"],
-  data(){
-    return{
-      listCheck:[]
-    }
-  },
-  methods:{
-    getListCheck(){
-      return this.listCheck;
-    }
-  }
+  props: ["name"]
 }
 </script>

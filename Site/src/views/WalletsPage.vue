@@ -65,7 +65,7 @@ export default {
             }
           } else {
             const data = await response.json(); //await-> attendre la fin du traitement pour continuer
-            this.listWallet = this.listWallet.concat(data); //ajouter la suite de la réponse à la liste
+            this.listWallet.push(data); //ajouter la suite de la réponse à la liste
           }
         } catch (error) {
           console.error(error);

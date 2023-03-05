@@ -9,7 +9,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 Vue.config.productionTip = false
 
 Vue.use(VueCookies)
-Vue. use(infiniteScroll)
+Vue.use(infiniteScroll)
 Vue.use(VueSweetalert2);
 
 new Vue({

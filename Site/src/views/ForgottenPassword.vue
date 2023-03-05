@@ -8,7 +8,7 @@
         <form id="forgotForm" method="post" v-on:submit.prevent="post">
             <p>
               <label>Mail Code: </label>
-              <input type="text" v-model="mailCode">
+              <input type="text" v-model="code">
             </p>
             <p>
               <label>New Password: </label>
