@@ -2,6 +2,7 @@ package main.be.ac.umons.g02.api;
 
 import main.be.ac.umons.g02.database.CommonDB;
 import main.be.ac.umons.g02.data_object.ClientBasic;
+import main.be.ac.umons.g02.data_object.ContractBasic;
 import main.be.ac.umons.g02.data_object.ProposalBasic;
 import main.be.ac.umons.g02.data_object.ProposalFull;
 
@@ -32,7 +33,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         subRouter.get("/clients/page").handler(this::getAllClients);
         subRouter.get("/clients/clients_of_provider/page").handler(this::getAllHisClients);
-        subRouter.get("/clients/:id_client").handler(this::getClient);
+        subRouter.get("/clients/:id_client/contrats/page").handler(this::getContractOfClient);
         subRouter.delete("/clients/clients_of_provider/:id_client").handler(this::deleteClient);
         subRouter.get("/proposals/:id_provider/page").handler(this::getAllProposals);
         subRouter.get("/proposals/:id_provider/:name_proposal").handler(this::getProposal);
@@ -97,25 +98,33 @@ public class ProviderApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package base de donnée pour renvoyer un client en particulier
+     * Méthode qui utilise le package base de donnée pour renvoyer une partie de la liste des contrats en commun entre un fournisseur et un client
+     * Cette méthode utilise la pagination
      *
      * @param - Le context de la requête
-     * @see ClientManager
+     * @see ContractManager
      */
-    private void getClient(final RoutingContext routingContext)
+    private void getContractOfClient(final RoutingContext routingContext)
     {
-        LOGGER.info("GetClient...");
+        LOGGER.info("GetContractOfClient...");
+
+        String id = null;
+        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
         String idClient = null;
         if(checkParam((idClient = routingContext.request().getParam("id_client")), routingContext)) return;
 
-        ClientFull client = commonDB.getClientManager().getClient(idClient);
+        int[] slice = getSlice(routingContext);
+        if(slice == null)
+            return;
+
+        ArrayList<ContractBasic> contracts = commonDB.getContractManager().getCommonContracts(id, idClient, slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
-                        .put("client", client)));
+                        .put("contracts", contracts)));
     }
 
     /** 
