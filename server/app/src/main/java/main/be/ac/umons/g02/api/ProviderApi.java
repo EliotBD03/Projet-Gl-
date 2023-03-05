@@ -2,7 +2,6 @@ package main.be.ac.umons.g02.api;
 
 import main.be.ac.umons.g02.database.CommonDB;
 import main.be.ac.umons.g02.data_object.ClientBasic;
-import main.be.ac.umons.g02.data_object.ClientFull;
 import main.be.ac.umons.g02.data_object.ProposalBasic;
 import main.be.ac.umons.g02.data_object.ProposalFull;
 

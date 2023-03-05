@@ -16,6 +16,7 @@ class ClientManagerTest {
         DBTest.setUp();
         new LogManager().saveAccount("NEVER", "GIVE", true, "YOU", "UP");
         new LogManager().saveAccount("NEVERE", "LET", false, "YOU", "DOWN");
+
     }
 
     @AfterAll
@@ -42,10 +43,6 @@ class ClientManagerTest {
         //TODO do it when finished proposalManagerTest
     }
 
-    @Test
-    void getClient()
-    {
-    }
 
     @Test
     void deleteClient()

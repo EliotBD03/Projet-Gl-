@@ -390,7 +390,7 @@ public class CommonApi extends MyApi implements RouterApi
         String endDate = null;
         if(checkParam((endDate = body.getString("end_date")), routingContext)) return;
 
-        HashMap<String, Integer> listConsumption = commonDB.getConsumptionManager().getConsumptionOfMonth(ean, startDate, endDate);
+        HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptionOfMonth(ean, startDate, endDate);
 
         routingContext.response()
             .setStatusCode(200)

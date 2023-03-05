@@ -1,8 +1,7 @@
 package main.be.ac.umons.g02.database;
 
 import main.be.ac.umons.g02.data_object.ClientBasic;
-import main.be.ac.umons.g02.data_object.ClientFull;
-import org.checkerframework.checker.units.qual.A;
+import main.be.ac.umons.g02.data_object.ContractBasic;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -16,13 +15,11 @@ public class ClientManager
         ArrayList<ClientBasic> clientBasics = new ArrayList<>();
         if(results.get(0) == null)
         {
-            System.out.println("je passe ici");
-
+            return null;
         }
 
         for(int i = 0; i < results.get(0).size();i++)
         {
-            System.out.println("je passe");
             clientBasics.add(new ClientBasic(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i)));
         }
 
@@ -36,22 +33,10 @@ public class ClientManager
 
     public ArrayList<ClientBasic> getAllHisClients(String providerId, int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM user WHERE id in(SELECT id FROM client limit "+base+", "+(limit - base) + ")"+
-                "AND id IN (SELECT id FROM contract WHERE provider_id="+providerId+")",true);
+        DB.getInstance().executeQuery("SELECT * FROM user WHERE id in(SELECT client_id FROM contract WHERE "+
+                "provider_id = "+providerId+") "+base+", "+(base + limit) + "",true);
 
         return getClientBasics();
-    }
-
-    public ClientFull getClient(String clientId)
-    {
-        DB.getInstance().executeQuery("SELECT * FROM user WHERE id="+clientId, true);
-        ClientBasic temp = Objects.requireNonNull(getClientBasics()).get(0);
-        ClientFull clientFull = new ClientFull(temp.getClientId(), temp.getName(), temp.getMail());
-        DB.getInstance().executeQuery("SELECT * FROM client WHERE id="+clientId, true);
-        ArrayList<ArrayList<String>> latestConsumptions = DB.getInstance().getResults(new String[] {"latest_consumption_elec","latest_consumption_water", "latest_consumption_gas"});
-        //DB.getInstance().executeQuery("")//TODO doit passer par les méthodes de contractBasic
-        return null;
-
     }
 
     public void deleteClient(String providerId, String clientId)

@@ -4,7 +4,6 @@ package main.be.ac.umons.g02.database;
 import main.be.ac.umons.g02.data_object.ContractBasic;
 import main.be.ac.umons.g02.data_object.ContractFull;
 import main.be.ac.umons.g02.data_object.ProposalFull;
-import org.checkerframework.checker.units.qual.C;
 
 
 import java.util.ArrayList;
@@ -36,8 +35,11 @@ public class ContractManager
 
     public ArrayList<ContractBasic> getAllContracts(String clientId, int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM contract WHERE client_id="
-        + clientId +" LIMIT "+base + ", " + (limit + base), true);
+        String query = "SELECT * FROM contract WHERE client_id=" + clientId +" LIMIT "+base + ", " + (limit + base);
+        if(base < 0)
+            query = "SELECT * FROM contract WHERE client_id=" + clientId +" LIMIT "+base + ", " + "18446744073709551615"; //18446744073709551615 max(BigInt) in mysql
+
+        DB.getInstance().executeQuery(query, true);
 
         ArrayList<ContractBasic> contractBasics = new ArrayList<>();
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"contract_id", "ean",
@@ -60,6 +62,16 @@ public class ContractManager
             contractBasics.add(new ContractBasic(contractId,ean, providerId, clientId, providerName, clientName));
         }
         return contractBasics;
+    }
+
+    public ArrayList<ContractBasic> getCommonContracts(String clientId, String providerId)
+    {
+        ArrayList<ContractBasic> contractBasics = getAllContracts(clientId, 0, -1);
+        ArrayList<ContractBasic> results = new ArrayList<>();
+        for(int i = 0; i < contractBasics.size(); i++)
+            if(contractBasics.get(i).getProviderId().equals(providerId))
+                results.add(contractBasics.get(i));
+        return results;
     }
 
     public void deleteContract(String contractId)
