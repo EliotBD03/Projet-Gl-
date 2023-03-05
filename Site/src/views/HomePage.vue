@@ -12,7 +12,7 @@
         <GoButton text="See new contracts"/>
       </div>
       <div class="bottombutton">
-        <GoButton text="Disconnect"/>
+        <GoButton text="Disconnect" v-on:click="disconnect()"/>
         <GoButton text="Settings"/>
       </div>
     </div>
@@ -22,11 +22,44 @@
 import MainCard from "@/components/MainCard.vue";
 import GoButton from "@/components/GoButton.vue";
 import MainHeader from "@/components/MainHeader.vue";
+import Swal from 'sweetalert2';
+import GlobalMethods from "@/components/GlobalMethods.vue";
 export default {
   components: {
     GoButton,
     MainCard,
     MainHeader
+  }, 
+  methods: {
+    /*Méthode qui permet la déconnexion de l'utilisateur*/
+    disconnect(){
+      const requestOptions = {
+        method: "POST",
+        headers: this.$cookies.get("token")
+      };
+      fetch("https://babawallet.alwaysdata.net:8300/api/disconnect", requestOptions)
+        .then(response => {
+            if(!response.ok){
+              if(response.status == 401){
+                this.$cookies.remove("token");
+                Swal.fire('Your connection has expired');
+                window.location.href = "/Login.vue";
+              }
+              else{
+                GlobalMethods.methods.errorApi(response.status);
+                throw new Error(response.status);
+              }
+            }
+            else{
+              this.$cookies.remove("token");
+              Swal.fire('See you soon!');
+              window.location.href = "/Login.vue";
+            }
+        }) 
+        .catch(error => {
+          console.error("Error", error);
+        });
+    }
   }
 };
 </script>

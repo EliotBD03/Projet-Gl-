@@ -1,5 +1,4 @@
 <template>
-    <!-- Regarder pour mettre le formulaire globalement en css-->
     <div class="main">
       <div class="header">
       <MainHeader text="BABA WALLET"/>
@@ -25,6 +24,7 @@
   <script>
   import GoButton from "@/components/GoButton.vue";
   import MainHeader from "@/components/MainHeader.vue";
+  import GlobalMethods from "@/components/GlobalMethods.vue";
   import Swal from 'sweetalert2';
   export default {
     name: "loginForm",
@@ -33,7 +33,6 @@
       return{
         mail: '',
         password: '',
-        role: '',
       }},
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
@@ -60,31 +59,23 @@
                   if(!response.ok){
                     if(response.status == 400){
                       const data = response.json();
-                      this.errorApi(data.error);
+                      GlobalMethods.methods.errorApi(data.error);
                       throw new Error(data.error);
                     }
                     else{
-                      this.errorApi(response.status);
+                      GlobalMethods.methods.errorApi(response.status);
                       throw new Error(response.status);
                     }
                   }
               }) 
               .then(data => {
                 this.$cookies.set("token", data.token);
-                this.role = data.role;
-                this.isClient();
+                GlobalMethods.methods.isAClient(data.role);
               })
               .catch(error => {
                 console.error("Error", error);
               });
           }
-        },
-        /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle*/
-        isClient(){
-          if(this.role == "client"){
-            window.location.href = "/HomePage.vue"; //HomePageClient.vue
-          } 
-          //window.location.href = "/HomePageProvider.vue"
         },
         /* Méthode permettant de vérifier si le champ "adresse mail" est bien rempli.
            Si c'est le cas, enregistre dans les cookies le mail et redirige vers la page
@@ -96,15 +87,7 @@
             this.$cookies.set("mail", this.mail);
             window.location.href = "/ForgottenPassword.vue";
           }
-        },
-        /*Affiche le message d'erreur venant de l'api dans une pop-up*/
-        errorApi(error){
-          Swal.fire({
-            icon: 'error',
-            title: 'OH NO !',
-            text: error
-          }) 
-      } 
+        }
     }
   }
   </script>

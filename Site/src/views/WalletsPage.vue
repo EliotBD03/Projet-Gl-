@@ -25,6 +25,7 @@ import MainHeader from "@/components/MainHeader.vue";
 import GoButton from "@/components/GoButton.vue";
 import AddWalletForm from "@/components/AddWalletForm.vue";
 import Swal from 'sweetalert2';
+import GlobalMethods from "@/components/GlobalMethods.vue";
 export default {
   components : {
     GoButton,
@@ -59,7 +60,7 @@ export default {
               window.location.href = "/Login.vue";
             }
             else{
-              this.errorApi(response.status);
+              GlobalMethods.methods.errorApi(response.status);
               throw new Error(response.status);
             }
           } else {
@@ -84,14 +85,6 @@ export default {
       seeMore(wallet){
         sessionStorage.setItem('address', wallet.address);
         window.location.href = "/walletFull.vue";
-      },
-      /*Affiche le message d'erreur venant de l'api dans une pop-up*/
-      errorApi(error){
-        Swal.fire({
-          icon: 'error',
-          title: 'OH NO !',
-          text: error
-        })
       }
     }
   }

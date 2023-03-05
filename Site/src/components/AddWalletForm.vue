@@ -18,6 +18,7 @@
 
 <script>
 import GoButton from "@/components/GoButton.vue";
+import GlobalMethods from "@/components/GlobalMethods.vue";
 import Swal from 'sweetalert2';
 export default {
   name: "ContactForm",
@@ -51,7 +52,7 @@ export default {
                     window.location.href = "/Login.vue";
                   }
                   else{
-                    this.errorApi(response.status);
+                    GlobalMethods.methods.errorApi(response.status);
                     throw new Error(response.status);
                   }
                 }
@@ -61,14 +62,6 @@ export default {
             });
           //window.location.href = "../../html/client/wallet.html";
         }
-      },
-      /*Affiche le message d'erreur venant de l'api dans une pop-up*/
-      errorApi(error){
-        Swal.fire({
-          icon: 'error',
-          title: 'OH NO !',
-          text: error
-        })
       }
   }
 }

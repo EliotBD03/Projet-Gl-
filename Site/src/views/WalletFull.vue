@@ -32,6 +32,7 @@
 import GoButton from "@/components/GoButton.vue";
 import MainHeader from "@/components/MainHeader.vue";
 import Swal from 'sweetalert2';
+import GlobalMethods from "@/components/GlobalMethods.vue";
 export default {
   components: {
     GoButton,
@@ -57,7 +58,7 @@ export default {
               window.location.href = "/Login.vue";
             }
             else{
-              this.errorApi(response.status);
+              GlobalMethods.methods.errorApi(response.status);
               throw new Error(response.status);
             }
           } else {
@@ -79,7 +80,7 @@ export default {
                 if(!response.ok){ 
                   if(response.status == 405){
                     const data = response.json();
-                    this.errorApi(data.error);
+                    GlobalMethods.methods.errorApi(data.error);
                     throw new Error(data.error);
                   }
                   if(response.status == 401){
@@ -88,7 +89,7 @@ export default {
                     window.location.href = "/Login.vue";
                   }
                   else{
-                    this.errorApi(response.status);
+                    GlobalMethods.methods.errorApi(response.status);
                     throw new Error(response.status);
                   }
                 }
@@ -109,14 +110,6 @@ export default {
         back(){
           sessionStorage.removeItem('address');
           window.location.href = "/WalletsPage.vue";
-        },
-        /*Affiche le message d'erreur venant de l'api dans une pop-up*/
-        errorApi(error){
-          Swal.fire({
-            icon: 'error',
-            title: 'OH NO !',
-            text: error
-          })
         }
       }
 };

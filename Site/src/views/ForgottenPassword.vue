@@ -1,7 +1,7 @@
 <template>
     <div class="main">
       <div class="header">
-      <MainHeader text="BABA WALLET"/>
+      <MainHeader text="Password"/>
       </div>
       <div class="forgot-form">
         <p>An email is sent : Follow the instructions</p>
@@ -20,8 +20,8 @@
             </p>
             <GoButton text="Submit" type="submit"/> 
           </form>
-          <GoButton text="SEND A NEW CODE" v-on:click="sendCode()"/>
-          <GoButton text="Back" v-on:click="back()" />
+          <GoButton text="SEND A NEW CODE" v-on:click="getCode()"/>
+          <GoButton text="Back" v-on:click="back()"/>
       </div>
     </div>
   </template>
@@ -29,13 +29,14 @@
 <script>
   import GoButton from "@/components/GoButton.vue";
   import MainHeader from "@/components/MainHeader.vue";
+  import GlobalMethods from "@/components/GlobalMethods.vue";
   import Swal from 'sweetalert2';
   export default {
     name: "forgotForm",
     components: {GoButton,MainHeader},
     data(){
       return{
-        mailCode: '',
+        code: '',
         newPassword: '',
         repeatedPassword: ''
       }},
@@ -47,7 +48,7 @@
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up.
           Vérifie également si les mots de passe sont identiques*/
         checkArgs(){
-          if(!this.mailCode) Swal.fire("Please enter your mail");
+          if(!this.code) Swal.fire("Please enter your mail");
           if(!this.newPassword) Swal.fire("Please enter your new password");
           if(!this.repeatedPassword) Swal.fire("Please enter your repetead password");
           if(this.repeatedPassword != this.newPassword) Swal.fire("Passwords must be identical");
@@ -62,18 +63,18 @@
           {
             const requestOptions = {
               method: "PUT",
-              body: JSON.stringify({ codeMail: this.codeMail, newPassword: this.newPassword })
+              body: JSON.stringify({ code: this.code, newPassword: this.newPassword })
             };
             fetch("https://babawallet.alwaysdata.net:8300/log/renitialize_pwd", requestOptions)
               .then(response => {
                   if(!response.ok){
                     if(response.status == 503 || response.status == 400){
                       const data = response.json();
-                      this.errorApi(data.error);
+                      GlobalMethods.methods.errorApi(data.error);
                       throw new Error(data.error);
                     }
                     else{
-                      this.errorApi(response.status);
+                      GlobalMethods.methods.errorApi(response.status);
                       throw new Error(response.status);
                     }
                   }
@@ -93,41 +94,13 @@
           }
         },
         /*Méthode permettant d'obtenir un (nouveau) code pour valider le changement de mot de passe*/
-        async sendCode(){
-          const requestOptions = {
-            method: "GET",
-            body: JSON.stringify({ mail: this.$cookies.get("mail") })
-          };
-          let response = null;
-          try {
-            response = await fetch("https://babawallet.alwaysdata.net:8300/log/code", requestOptions);
-            if(!response.ok){
-              if(response.status == 503 || response.status == 400){ //voir si Adrien garde l'erreur 400 -> mail dans la BDD?
-                const data = await response.json();
-                this.errorApi(data.error);
-                throw new Error(data.error);
-              }
-              else{
-                this.errorApi(response.status);
-                throw new Error(response.status);
-              }
-            }
-          } catch (error) {
-            console.error(error);
-          }
+        getCode(){
+          GlobalMethods.methods.sendCode();
         },
         /*Retourner à la page login en supprimant le mail des cookies*/
         back(){
           this.$cookies.delete('mail');
           window.location.href = "/Login.vue";
-        },
-        /*Affiche le message d'erreur venant de l'api dans une pop-up*/
-        errorApi(error){
-          Swal.fire({
-            icon: 'error',
-            title: 'OH NO !',
-            text: error
-          })
         }
       }
   }
