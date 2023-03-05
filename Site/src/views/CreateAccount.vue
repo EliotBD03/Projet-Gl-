@@ -1,50 +1,61 @@
 <template>
-    <!-- Manque le isClient-->
-    <div class="main">
-      <div class="header">
-      <MainHeader text="BABA WALLET"/>
-      </div>
-      <div class="create-form">
-        <form id="createForm" method="post" v-on:submit.prevent="post">
-          <p>
-            <label>Mail: </label>
-            <input type="text" v-model="mail">
-          </p>
-          <p>
-            <label>Password: </label>
-            <input type="text" v-model="password">
-          </p>
-          <p>
-            <label>Repeated Password: </label>
-            <input type="text" v-model="repeatedPassword">
-          </p>
-          <p>
-            <label>Mail Code: </label>
-            <input type="text" v-model="mailCode">
-          </p>
-          <GoButton text="Create an account" type="submit"/> 
-        </form>
-        <GoButton text="Send a code" v-on:click="getCode()"/>
-        <GoButton text="back" redirect="/login"/>
-      </div>
+  <div class="main">
+    <div class="header">
+    <MainHeader text="BABA WALLET"/>
     </div>
-  </template>
+    <div class="create-form">
+      <div class="line">
+        <checkButton name="Client"></checkButton>
+        <checkButton name="Supplier"></checkButton>
+      </div>
+      <div class="line">
+        <checkButton name="Français"></checkButton>
+        <checkButton name="English"></checkButton>
+      </div>
+      <form id="createForm" method="post" v-on:submit.prevent="post">
+        <p>
+          <label>Mail: </label>
+          <input type="text" v-model="mail">
+        </p>
+        <p>
+          <label>Password: </label>
+          <input type="text" v-model="password">
+        </p>
+        <p>
+          <label>Repeated Password: </label>
+          <input type="text" v-model="repeatedPassword">
+        </p>
+        <p>
+          <label>Mail Code: </label>
+          <input type="text" v-model="mailCode">
+        </p>
+        <GoButton text="Create an account" type="submit"/> 
+      </form>
+      <GoButton text="Send a code" v-on:click="getCode()"/>
+      <GoButton text="back" v-on:click="back()"/>
+      <button v-on:click="selected()" >ICI</button> <!--Pour le test-->
+    </div>
+  </div>
+</template>
 
   <script>
   import GoButton from "@/components/GoButton.vue";
   import MainHeader from "@/components/MainHeader.vue";
   import GlobalMethods from "@/components/GlobalMethods.vue";
+  import checkButton from "@/components/CheckButton.vue";
   import Swal from 'sweetalert2';
   export default {
     name: "createForm",
-    components: {GoButton, MainHeader},
+    components: {GoButton, MainHeader, checkButton},
     data(){
       return{
         mail: '',
         password: '',
         repeatedPassword: '',
         code: '',
-        isClient:''
+        isClient: false,
+        language: 'english',
+        selectedList:''
       }},
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
@@ -61,7 +72,7 @@
           Si la requête est incorrecte, l'api renvoie un message d'erreur
           Si elle est correcte affiche une pop-up de succès et redirige*/
         post(){
-          if(this.checkArgs())
+          if(this.checkArgs() && this.selected())
           {
             const requestOptions = {
               method: "POST",
@@ -82,6 +93,7 @@
                   }
               }) 
               .then(data => {
+                this.$cookies.delete('mail');
                 this.$cookies.set("token", data.token);
                 Swal.fire({
                   icon: 'success',
@@ -95,7 +107,7 @@
               });
           }
         },
-        /*Méthode permettant d'obtenir un (nouveau) code pour valider le changement de mot de passe*/
+        /*Méthode permettant d'obtenir un code pour valider le création de compte*/
         getCode(){
           if(this.mail)
           {
@@ -105,6 +117,41 @@
           else{
             Swal.fire("Please enter your mail to get a code !");
           }
+      },
+      /*Retourner à la page login en supprimant le mail des cookies si besoin*/
+      back(){
+        if(this.$cookies.isKey("mail")){
+          this.$cookies.delete('mail');
+        }
+        window.location.href = "/login.vue";
+      },
+      /*Méthode permettant de vérifier si les checkboxes sont cochées correctement et 
+        assigner les bonnes valeurs en fonction*/
+      selected(){
+        this.selectedList = CheckButton.getListCheck(); //Soucis à régler récupérer les éléments sélectionnés
+        console.log(this.selectedList);
+
+        if((this.selectedList.includes("English") && this.selectedList.includes("Français")) &&
+        (!this.selectedList.includes("English") && !this.selectedList.includes("Français"))){
+          Swal.fire("Please make a choice between Client and Supplier!");
+          return false;
+        }
+        if((this.selectedList.includes("Client") && this.selectedList.includes("Supplier")) && 
+        (!this.selectedList.includes("Client") && !this.selectedList.includes("Supplier"))){
+          Swal.fire("Please make a choice between Client and Supplier!");
+          return false;
+        }
+        else{
+          if(this.selectedList.includes("Client"))
+          {
+            this.isClient = true;
+          }
+          if(this.selectedList.includes("Français"))
+          {
+            this.language = "français";
+          }
+          return true;
+        }
       } 
     }
   }
@@ -168,4 +215,9 @@
     transition: transform 0.3s ease-in-out;
   }
   
+  .line{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
   </style>
