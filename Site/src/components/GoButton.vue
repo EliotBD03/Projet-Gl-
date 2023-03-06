@@ -1,5 +1,5 @@
 <template>
-  <div class="button" @click.prevent.left="choose(expr)" @click="$event => $emit('event')">
+  <div class="button" @click.prevent.left="choose(expr)">
     <button>{{ text }}</button>
   </div>
 </template>

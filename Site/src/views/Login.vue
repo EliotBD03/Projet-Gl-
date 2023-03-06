@@ -13,9 +13,9 @@
             <label>Password: </label>
             <input type="text" v-model="password">
           </p>
-          <GoButton text="Login" type="submit"/> 
+          <GoButton text="Login" type="submit" :color="'green'"/>
         </form>
-        <GoButton text="Create an account" redirect= "/createAccount"/>
+        <GoButton text="Create an account" redirect="/createAccount" expr="change" :color="'#B1B9FC'"/>
         <GoButton text="Forgotten password" v-on:click="goForgot()"/>
       </div>
     </div>

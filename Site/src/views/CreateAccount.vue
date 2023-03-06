@@ -29,7 +29,7 @@
           <label>Mail Code: </label>
           <input type="text" v-model="code">
         </p>
-        <GoButton text="Create an account" type="submit"/> 
+        <GoButton text="Create an account" type="submit" :color="'green'"/>
       </form>
       <GoButton text="Send a code" v-on:click="getCode()"/>
       <GoButton text="back" v-on:click="back()"/>
