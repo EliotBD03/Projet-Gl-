@@ -2,6 +2,7 @@
   <label class="checkbox-btn">
     <label for="checkbox"></label>
     <input id="checkbox" type="checkbox">
+    <p>{{ text }}</p>
     <div class="checkmark"></div>
   </label>
 </template>
@@ -9,12 +10,15 @@
 <script>
 export default {
   name: "CheckBox",
+  props: ["text"],
 };
 </script>
 
 <style scoped>
 .checkbox-btn {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   padding-left: 30px;
   margin-bottom: 10px;
