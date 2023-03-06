@@ -24,8 +24,8 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Sources 
- *   cookies : https://www.npmjs.com/package/vue-cookie
+ *   cookies : https://www.vuescript.com/handling-cookies-vue-js-vue-cookies/
  *   pop-ups : https://sweetalert2.github.io/
- *   requêtes : https://www.vuescript.com/handling-cookies-vue-js-vue-cookies/
+ *   requêtes : https://jasonwatmore.com/post/2020/04/30/vue-fetch-http-get-request-examples
  *   sessionStorage: https://developer.mozilla.org/fr/docs/Web/API/Window/sessionStorage
  *   checkBox/Options: https://v2.vuejs.org/v2/guide/forms.html
