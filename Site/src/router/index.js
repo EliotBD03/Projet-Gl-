@@ -6,18 +6,23 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'login',
+    component: () => import('@/views/Login.vue')
+  },
+  {
+    path: '/homeC',
     name: 'Home',
-    component: () => import('@/views/HomePage.vue')
+    component: () => import('@/views/HomeClient.vue')
+  },
+  {
+    path: '/homeS',
+    name: 'Home',
+    component: () => import('@/views/HomeSupplier.vue')
   },
   {
     path: '/wallets',
     name: 'Wallets',
     component: () => import('@/views/WalletsPage.vue')
-  },
-  {
-    path: '/wallets/walletfull',
-    name: 'WalletFull',
-    component: () => import('@/views/WalletFull.vue')
   },
   {
     path: '/contracts',
@@ -48,11 +53,6 @@ const routes = [
     path: '/createAccount',
     name: 'createAccount',
     component: () => import('@/views/CreateAccount.vue')
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/Login.vue')
   },
   {
     path: '/forgottenPassword',

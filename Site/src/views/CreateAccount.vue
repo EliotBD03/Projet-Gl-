@@ -33,7 +33,6 @@
       </form>
       <GoButton text="Send a code" v-on:click="getCode()"/>
       <GoButton text="back" v-on:click="back()"/>
-      <button v-on:click="selected()" >ICI</button> <!--Pour le test-->
     </div>
   </div>
 </template>

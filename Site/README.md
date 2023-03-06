@@ -29,4 +29,3 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  *   requêtes : https://www.vuescript.com/handling-cookies-vue-js-vue-cookies/
  *   sessionStorage: https://developer.mozilla.org/fr/docs/Web/API/Window/sessionStorage
  *   checkBox/Options: https://v2.vuejs.org/v2/guide/forms.html
- *   v-infinite-scroll : https://www.npmjs.com/package/v-infinite-scroll

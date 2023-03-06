@@ -12,7 +12,7 @@
         <GoButton text="See new contracts" :color="'#B1B9FC'" redirect="/newcontracts" expr="change"/>
       </div>
       <div class="bottombutton">
-        <GoButton text="Disconnect" :color="'red'" expr="test"/>
+        <GoButton text="Disconnect" :color="'red'" expr="test" v-on:click="disconnect()"/>
         <GoButton text="Settings" :color="'gray'" redirect="/settings" expr="change"/>
       </div>
     </div>
