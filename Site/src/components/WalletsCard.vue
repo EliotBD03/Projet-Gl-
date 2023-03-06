@@ -1,49 +1,45 @@
 <template>
-    <div class="container">
-      <div class="title">
-        {{ text }}
-      </div>
-      <div class="button">
-        <GoButton text="Go" :redirect="redir" :color="'#B1B9FC'" :expr="choose"/>
-      </div>
+  <div class="container">
+    <div class="title">
+      {{ name }}
+      {{ owner }}
+      {{ adress }}
     </div>
+    <div class="button">
+      <GoButton text="Go" :color="'green'" :redirect="redir" :expr="choose"/>
+    </div>
+  </div>
 </template>
 <script>
 import GoButton from "@/components/GoButton.vue";
 export default {
-  name: "MainCard",
-  props: ["text","redir","choose"],
+  name: "WalletsCard.vue",
+  props: ["name", "owner", "adress", "redir", "choose"],
   components: {
-    GoButton,
-  },
-
-};
+    GoButton
+  }
+}
 </script>
 
 <style scoped>
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   width: 400px;
-  height: 300px;
+  height: 500px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 10px;
 }
 
 .title {
-  background: #B1B9FC;
-  width: 100%;
-  height: 50%;
-
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  font-weight: 1000;
-  font-size: 40px;
-  line-height: 48px;
-  text-align: center;
+  margin: 50px;
 }
 
 .button {

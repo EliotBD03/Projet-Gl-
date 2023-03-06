@@ -1,5 +1,5 @@
 <template>
-  <div class="button" @click.prevent.left="handler()">
+  <div class="button" @click.prevent.left="choose(expr)" @click="$event => $emit('event')">
     <button>{{ text }}</button>
   </div>
 </template>
@@ -7,12 +7,26 @@
 <script>
 export default {
   name: "GoButton",
-  props: ["text","color","redirect"],
+  props: ["text","color","redirect","expr"],
   methods: {
     handler() {
-      console.log(this.redirect);
       this.$router.push(this.redirect);
-    }
+    },
+    choose(expr) {
+      switch (expr) {
+        case "change":
+          this.handler();
+          break;
+        case "test":
+          console.log("test");
+          break;
+      }
+    },
+    data() {
+      return {
+        color: this.color,
+      };
+    },
   }
 }
 </script>
@@ -32,6 +46,7 @@ button {
   box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
   transition: all 250ms;
   overflow: hidden;
+  cursor: pointer;
 }
 
 button::before {
@@ -41,8 +56,8 @@ button::before {
   left: 0;
   height: 100%;
   width: 0;
+  background-color: v-bind(color);
   border-radius: 15px;
-  background-color: #B1B9FC;
   z-index: -1;
   -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
   box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);

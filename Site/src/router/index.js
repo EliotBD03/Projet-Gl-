@@ -15,9 +15,34 @@ const routes = [
     component: () => import('@/views/WalletsPage.vue')
   },
   {
+    path: '/wallets/walletfull',
+    name: 'WalletFull',
+    component: () => import('@/views/WalletFull.vue')
+  },
+  {
     path: '/contracts',
     name: 'Contracts',
     component: () => import('@/views/ContractPage.vue')
+  },
+  {
+    path: '/notifications',
+    name: 'Notifications',
+    component: () => import('@/views/NotificationsPage.vue')
+  },
+  {
+    path: '/newcontracts',
+    name: 'NewContracts',
+    component: () => import('@/views/NewContractsPage.vue')
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('@/views/SettingsPage.vue')
+  },
+  {
+    path: '/wallets/walletfull/consumptions',
+    name: 'Consumptions',
+    component: () => import('@/views/ConsumptionPage.vue')
   },
   {
     path: '/createAccount',

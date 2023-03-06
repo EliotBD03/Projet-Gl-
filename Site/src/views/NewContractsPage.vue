@@ -1,50 +1,31 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text="Your contracts"/>
+      <MainHeader text="New contracts"/>
     </div>
-    <div class="searchbar">
-      <SearchBar/>
-    </div>
-    <div class="homeButton">
+    <div class="container">
+      <div class="list">
+        <SelectListContract/>
+      </div>
       <GoButton text="Home" redirect="/" :color="'#B1B9FC'" expr="change"/>
-    </div>
+  </div>
   </div>
 </template>
-
 <script>
 import MainHeader from "@/components/MainHeader.vue";
-import SearchBar from "@/components/SearchBar.vue";
 import GoButton from "@/components/GoButton.vue";
+import SelectListContract from "@/components/SelectListContract.vue";
 export default {
   components: {
     MainHeader,
-    SearchBar,
     GoButton,
-  },
-  props: {
-    contract: [
-      {
-        name: "Dupuis",
-        EAN: "1234567890123",
-        date: "01/01/2020",
-      },
-      {
-        name: "Bourgies",
-        EAN: "2356789012345",
-        date: "02/02/2020",
-      },
-      {
-        name: "D'Haene",
-        EAN: "3456789012345",
-        date: "03/03/2020",
-      }
-    ]
-  },
+    SelectListContract,
+  }
 };
 </script>
 
 <style scoped>
+
 .main {
   display: flex;
   flex-direction: column;
@@ -58,8 +39,16 @@ export default {
   justify-content: center;
 }
 
-.homeButton {
+
+.container {
   display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.list {
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 </style>

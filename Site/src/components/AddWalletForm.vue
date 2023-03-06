@@ -2,15 +2,15 @@
   <!--Voir si cela ne cause pas pb pour actualiser après ajout-->
   <div class="contact-form">
     <form id="addWallet" method="post" v-on:submit.prevent="post">
-        <p>
-          <label>Name: </label>
-          <input type="text" v-model="name">
-        </p>
-        <p>
-          <label>Address: </label>
-          <input type="text" v-model="address">
-        </p>
-      <GoButton text="Add" type="submit"/> 
+      <p>
+        <label>Name: </label>
+        <input type="text" v-model="name">
+      </p>
+      <p>
+        <label>Address: </label>
+        <input type="text" v-model="address">
+      </p>
+      <GoButton text="Add" type="submit"/>
       <!-- <button class = "greenButton rightButton fixed" type="submit"> ADD </button>-->
     </form>
   </div>
@@ -28,47 +28,50 @@ export default {
       name: '',
       address: ''
     }},
-    /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
-    methods: {
-      checkArgs(){
-        if(!this.name) Swal.fire("Please enter your name");
-        if(!this.address) Swal.fire("Please enter your address");
-        else return true;
-      },
-      post(){
-        if(this.checkArgs())
-        {
-          const requestOptions = {
-            method: "POST",
-            headers: this.$cookies.get("token"),
-            body: JSON.stringify({ name: this.name, address: this.address})
-          };
-          fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets", requestOptions)
+  /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
+  methods: {
+    checkArgs(){
+      if(!this.name) Swal.fire("Please enter your name");
+      if(!this.address) Swal.fire("Please enter your address");
+      else return true;
+    },
+    post(){
+      if(this.checkArgs())
+      {
+        const requestOptions = {
+          method: "POST",
+          headers: this.$cookies.get("token"),
+          body: JSON.stringify({ name: this.name, address: this.address})
+        };
+        fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets", requestOptions)
             .then(response => {
-                if(!response.ok){ 
-                  if(response.status == 401){
-                    this.$cookies.remove("token");
-                    Swal.fire('Your connection has expired');
-                    window.location.href = "/Login.vue";
-                  }
-                  else{
-                    GlobalMethods.methods.errorApi(response.status);
-                    throw new Error(response.status);
-                  }
+              if(!response.ok){
+                if(response.status == 401){
+                  this.$cookies.remove("token");
+                  Swal.fire('Your connection has expired');
+                  window.location.href = "/Login.vue";
                 }
+                else{
+                  GlobalMethods.methods.errorApi(response.status);
+                  throw new Error(response.status);
+                }
+              }
             })
             .catch(error => {
-                console.error(error);
+              console.error(error);
             });
-          //window.location.href = "../../html/client/wallet.html";
-        }
+        //window.location.href = "../../html/client/wallet.html";
       }
+    }
   }
 }
 </script>
 
 <style scoped>
 .contact-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #f2f2f2;
   padding: 50px;
   border-radius: 10px;
@@ -82,6 +85,8 @@ export default {
 .contact-form form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .contact-form label {
