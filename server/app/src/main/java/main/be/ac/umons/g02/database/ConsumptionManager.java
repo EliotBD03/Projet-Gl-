@@ -11,7 +11,7 @@ public class ConsumptionManager
     {
         for(String date: dates)
         {
-            DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM consumption WHERE ean='"+ean+"' AND date='"+date+"') AS c", true);
+            DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM consumption WHERE ean='"+ean+"' AND date_recorded='"+date+"') AS c", true);
             if(Integer.parseInt(DB.getInstance().getResults(new String[]{"c"}).get(0).get(0)) != 0)
                 return true;
         }
@@ -30,17 +30,15 @@ public class ConsumptionManager
        //if(!isThereSomeValues(ean, new ArrayList<Calendar>(Arrays.asList(startingDate, closingDate))))
          //   throw new Exception("The table doesn't contain any consumption with the ean code: "+ ean + " within the interval : "+ startingDate + "and " + closingDate);
 
-        DB.getInstance().executeQuery("SELECT daily_consumption FROM consumption WHERE ean ='"+ean+"' AND date BETWEEN "+ startingDate + " AND " + closingDate, true);
-        HashMap<Calendar,Double> consumptions= new HashMap<>();
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"date", "daily_consumption"});
-
+        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded BETWEEN '"+ startingDate + "' AND '" + closingDate + "'";
+        System.out.println(query);
+        DB.getInstance().executeQuery(query, true);
+        HashMap<String,Double> consumptions= new HashMap<>();
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"date_recorded", "daily_consumption"});
         for(int i = 0; i < results.get(0).size(); i++)
-        {
-            String[] date = results.get(0).get(i).split("-");
-            consumptions.put(new GregorianCalendar(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2])), Double.parseDouble(results.get(1).get(1)));
-        }
+            consumptions.put(results.get(0).get(i), Double.parseDouble(results.get(1).get(i)));
 
-        return null; //TODO
+        return consumptions;
     }
 
     /**
@@ -56,14 +54,29 @@ public class ConsumptionManager
         if(isThereSomeValues(ean, dates) && !forcingChange)
            return false;
 
-        String previousConsumption = "SELECT daily_consumption FROM consumption WHERE date=DATE_SUB(CUR_DATE(), INTERVAL 1 DAY)";
-        DB.getInstance().executeQuery(previousConsumption, true);
-        double value = Double.parseDouble(DB.getInstance().getResults(new String[] {"daily_consumption"}).get(0).get(0));
+        String previousConsumption = "SELECT CASE daily_consumption"+
+                " WHEN MONTH(DATE_SUB(daily_consumption, INTERVAL 1 DAY)) = MONTH(MAX(date_recorded)) THEN daily_consumption ELSE 0.0 END "+
+                " AS daily_consumption"+
+                " FROM consumption"+
+                " WHERE date_recorded IN (SELECT max(date_recorded) FROM consumption) AND ean='"+ean+"'";
 
+        double value = 0.0;
         for(int i = 0; i < values.size(); i++)
-            DB.getInstance().executeQuery("INSERT INTO consumption(ean, date, daily_consumption) VALUES('"+
-                                            ean+"','"+dates.get(i)+"',"+(values.get(i)+value)+
-                                            ") ON DUPLICATE KEY UPDATE daily_consumption="+values.get(i), false);
+        {
+            DB.getInstance().executeQuery(previousConsumption, true);
+            ArrayList<ArrayList<String>> consumptions = DB.getInstance().getResults(new String[] {"daily_consumption"});
+
+            if(consumptions.get(0).size() != 0)
+                value = Double.parseDouble(consumptions.get(0).get(0));
+
+            System.out.println(value);
+
+            DB.getInstance().executeQuery("INSERT INTO consumption(ean, date_recorded, daily_consumption) VALUES('"+
+                    ean+"','"+dates.get(i)+"',"+(values.get(i)+value)+
+                    ") ON DUPLICATE KEY UPDATE daily_consumption="+values.get(i), false);
+
+            value = 0.0;
+        }
         return true;
     }
 
@@ -81,7 +94,7 @@ public class ConsumptionManager
     public void changeConsumption(String ean, double value, String date)
     {
         DB.getInstance().executeQuery("UPDATE consumption SET daily_consumption="+value+
-                " WHERE date="+date+" AND ean="+ean,false);
+                " WHERE date_recorded="+date+" AND ean="+ean,false);
     }
 
 }

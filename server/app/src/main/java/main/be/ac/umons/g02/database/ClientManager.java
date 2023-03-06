@@ -33,7 +33,7 @@ public class ClientManager
 
     public ArrayList<ClientBasic> getAllHisClients(String providerId, int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM user WHERE id in(SELECT client_id FROM contract WHERE "+
+        DB.getInstance().executeQuery("SELECT * FROM user WHERE id in(SELECT client_id FROM  WHERE "+
                 "provider_id = "+providerId+") "+base+", "+(base + limit) + "",true);
 
         return getClientBasics();

@@ -50,9 +50,9 @@ DROP TABLE IF EXISTS `consumption`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `consumption` (
   `ean` varchar(18) NOT NULL,
-  `date` date NOT NULL,
+  `date_recorded` date NOT NULL,
   `daily_consumption` double(6,2) DEFAULT NULL,
-  PRIMARY KEY (`ean`,`date`),
+  PRIMARY KEY (`ean`,`date_recorded`),
   CONSTRAINT `consumption_ibfk_1` FOREIGN KEY (`ean`) REFERENCES `counter` (`ean`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

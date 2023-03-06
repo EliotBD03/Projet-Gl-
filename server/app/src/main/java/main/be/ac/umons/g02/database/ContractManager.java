@@ -64,9 +64,9 @@ public class ContractManager
         return contractBasics;
     }
 
-    public ArrayList<ContractBasic> getCommonContracts(String clientId, String providerId)
+    public ArrayList<ContractBasic> getCommonContracts(String clientId, String providerId, int base, int limit)
     {
-        ArrayList<ContractBasic> contractBasics = getAllContracts(clientId, 0, -1);
+        ArrayList<ContractBasic> contractBasics = getAllContracts(clientId, base, limit);
         ArrayList<ContractBasic> results = new ArrayList<>();
         for(int i = 0; i < contractBasics.size(); i++)
             if(contractBasics.get(i).getProviderId().equals(providerId))

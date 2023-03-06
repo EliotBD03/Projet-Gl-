@@ -8,9 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ContractManagerTest
 {
 
-    @BeforeAll
-    static void
-
     @Test
     void getContract()
     {
