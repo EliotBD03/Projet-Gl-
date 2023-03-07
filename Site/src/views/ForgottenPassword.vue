@@ -20,8 +20,8 @@
             </p>
             <GoButton text="Submit" type="submit"/> 
           </form>
-          <GoButton text="SEND A NEW CODE" v-on:click="getCode()"/>
-          <GoButton text="Back" v-on:click="back()"/>
+          <GoButton text="SEND A NEW CODE" @click.prevent.left="getCode()" :colore="'gray'"/>
+          <GoButton text="Back" @click.prevent.left="back()" :colore="'gray'"/>
       </div>
     </div>
   </template>

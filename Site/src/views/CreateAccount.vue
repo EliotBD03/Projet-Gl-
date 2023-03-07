@@ -29,10 +29,10 @@
           <label>Mail Code: </label>
           <input type="text" v-model="code">
         </p>
-        <GoButton text="Create an account" type="submit" :color="'green'"/>
+        <GoButton text="Create an account" type="submit" :colore="'green'"/>
       </form>
-      <GoButton text="Send a code" v-on:click="getCode()"/>
-      <GoButton text="back" v-on:click="back()"/>
+      <GoButton text="Send a code" @click.prevent.left="getCode()" :colore="'#B1B9FC'"/>
+      <GoButton text="Back" @click.prevent.left="back()" :colore="'#B1B9FC'"/>
       <button v-on:click="selected()" >ICI</button> <!--Pour le test-->
     </div>
   </div>
@@ -63,7 +63,7 @@
           if(!this.code) Swal.fire("Please enter your mail");
           if(!this.newPassword) Swal.fire("Please enter your new password");
           if(!this.repeatedPassword) Swal.fire("Please enter your repetead password");
-          if(this.repeatedPassword != this.newPassword) Swal.fire("Passwords must be identical");
+          if(this.repeatedPassword !== this.newPassword) Swal.fire("Passwords must be identical");
           else return true;
         },
         /*Méthode qui envoie le mail, le code reçu par mail, le nouveau mot de passe
@@ -231,5 +231,6 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
+    align-items: center;
   }
   </style>

@@ -21,9 +21,15 @@
       </div>
     </div>
     <div class="bottombutton">
-      <GoButton text="Back" v-on:click="back()" />
+      <div class="backbutton" @click.prevent.left="back()">
+      <GoButton text="Back"/>
+      </div>
+      <div class="consumptionsbutton" @click.prevent.left="$router.push('/Consumptions')">
       <GoButton text="Consumptions"/>
-      <GoButton text="Close the wallet" v-on:click="deleteWallet()"/>
+      </div>
+      <div class="closebutton" @click.prevent.left="deleteWallet()">
+      <GoButton text="Close the wallet"/>
+        </div>
     </div>
   </div>
 

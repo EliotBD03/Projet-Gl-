@@ -7,7 +7,9 @@
       <div class="list">
         <SelectListContract/>
       </div>
-      <GoButton text="Home" redirect="/" :color="'#B1B9FC'" expr="change"/>
+      <div class="homeButton" @click.prevent.left="$router.push('/')">
+      <GoButton text="Home" :colore="'#B1B9FC'"/>
+        </div>
   </div>
   </div>
 </template>

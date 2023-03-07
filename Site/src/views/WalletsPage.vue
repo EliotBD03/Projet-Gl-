@@ -15,8 +15,8 @@
         <AddWalletForm/>
       </div>
     </div>
-    <div class="homebutton">
-      <GoButton text="Home" redirect="/"/>
+    <div class="homebutton" @click.prevent.left="$router.push('/')">
+      <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
   </div>
 </template>

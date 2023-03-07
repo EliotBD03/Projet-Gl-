@@ -4,14 +4,23 @@
       <MainHeader text="Settings"/>
     </div>
     <div class="forms">
-      <div class="formlanguage">
+      <div class="form">
         <DropdownMain text="Choose your language..."/>
         <DropdownMain text="Add a language..."/>
-        <GoButton text="Change language" :color="'#B1B9FC'"/>
+        <div class="langbutton" @click.prevent.left="langChanged()">
+        <GoButton text="Change language" :colore="'#B1B9FC'"/>
+          </div>
+      </div>
+      <div class="form">
+        <InputMain text="Old password"/>
+        <InputMain text="New password"/>
+        <div class="changebutton" @click.prevent.left="changed()">
+          <GoButton text="Change password" :colore="'#B1B9FC'"/>
+        </div>
       </div>
     </div>
-    <div class="bottombutton">
-      <GoButton text="Home" redirect="/" :color="'#B1B9FC'" expr="change"/>
+    <div class="bottombutton" @click.prevent.left="$router.push('/')">
+      <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
   </div>
 </template>
@@ -20,11 +29,22 @@
 import MainHeader from "@/components/MainHeader.vue";
 import GoButton from "@/components/GoButton.vue";
 import DropdownMain from "@/components/DropdownMain.vue";
+import Swal from 'sweetalert2';
+import InputMain from "@/components/InputMain.vue";
 export default {
   components: {
+    InputMain,
     DropdownMain,
     MainHeader,
     GoButton,
+  },
+  methods: {
+    changed() {
+      Swal.fire("Your password has been changed !");
+    },
+    langChanged() {
+      Swal.fire("Your language has been changed !");
+    }
   }
 };
 </script>
@@ -53,7 +73,7 @@ export default {
   margin-top: 50px;
 }
 
-.formlanguage {
+.form {
   display: flex;
   align-items: center;
   justify-content: center;

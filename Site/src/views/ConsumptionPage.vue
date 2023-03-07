@@ -21,8 +21,12 @@
       </div>
     </div>
     <div class="bottombutton">
-      <GoButton text="Back" :color="'darkblue'" redirect="/wallets/walletfull" expr="change"/>
+      <div class="returnbutton" @click.prevent.left="$router.push('/wallets/walletfull')">
+      <GoButton text="Back" :color="'darkblue'"/>
+      </div>
+      <div class="closebutton">
       <GoButton text="Close the wallet" :color="'red'"/>
+        </div>
     </div>
   </div>
 </template>

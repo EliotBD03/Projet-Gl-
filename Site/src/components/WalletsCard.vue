@@ -5,8 +5,8 @@
       {{ owner }}
       {{ adress }}
     </div>
-    <div class="button">
-      <GoButton text="Go" :color="'green'" :redirect="redir" :expr="choose"/>
+    <div class="button" @click.prevent.left="$router.push('redir')">
+      <GoButton text="Go" :colore="'green'"/>
     </div>
   </div>
 </template>

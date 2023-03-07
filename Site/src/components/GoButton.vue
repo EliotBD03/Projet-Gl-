@@ -1,5 +1,5 @@
 <template>
-  <div class="button" @click.prevent.left="choose(expr)">
+  <div class="button">
     <button>{{ text }}</button>
   </div>
 </template>
@@ -7,27 +7,15 @@
 <script>
 export default {
   name: "GoButton",
-  props: ["text","color","redirect","expr"],
+  props: ["text","colore"],
   methods: {
-    handler() {
-      this.$router.push(this.redirect);
-    },
-    choose(expr) {
-      switch (expr) {
-        case "change":
-          this.handler();
-          break;
-        case "test":
-          console.log("test");
-          break;
-      }
+
     },
     data() {
       return {
-        color: this.color,
+        color: this.colore,
       };
     },
-  }
 }
 </script>
 

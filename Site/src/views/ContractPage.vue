@@ -6,8 +6,8 @@
     <div class="searchbar">
       <SearchBar/>
     </div>
-    <div class="homeButton">
-      <GoButton text="Home" redirect="/" :color="'#B1B9FC'" expr="change"/>
+    <div class="homeButton" @click.prevent.left="$router.push('/')">
+      <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
   </div>
 </template>

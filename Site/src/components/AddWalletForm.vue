@@ -10,7 +10,7 @@
         <label>Address: </label>
         <input type="text" v-model="address">
       </p>
-      <GoButton text="Add" type="submit"/>
+      <GoButton text="Add" type="submit" :colore="'gray'"/>
       <!-- <button class = "greenButton rightButton fixed" type="submit"> ADD </button>-->
     </form>
   </div>

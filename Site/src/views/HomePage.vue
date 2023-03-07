@@ -4,16 +4,20 @@
         <MainHeader text="Home"/>
       </div>
       <div class="allcards">
-        <MainCard text="Wallet" redir="/wallets" choose="change"/>
-        <MainCard text="Your Contracts" redir="/contracts" choose="change"/>
-        <MainCard text="Notifications" redir="/notifications" choose="change"/>
+        <MainCard text="Wallet" redir="/wallets"/>
+        <MainCard text="Your Contracts" redir="/contracts"/>
+        <MainCard text="Notifications" redir="/notifications"/>
       </div>
-      <div class="newcontract">
-        <GoButton text="See new contracts" :color="'#B1B9FC'" redirect="/newcontracts" expr="change"/>
+      <div class="newcontract" @click.prevent.left="$router.push('/newcontracts')">
+        <GoButton text="See new contracts" :colore="'#B1B9FC'"/>
       </div>
       <div class="bottombutton">
-        <GoButton text="Disconnect" :color="'red'" expr="test"/>
-        <GoButton text="Settings" :color="'gray'" redirect="/settings" expr="change"/>
+        <div class="disconnectbutton">
+        <GoButton text="Disconnect" :colore="'red'" expr="test"/>
+        </div>
+        <div class="settingsbutton" @click.prevent.left="$router.push('/settings')">
+        <GoButton text="Settings" :colore="'gray'"/>
+          </div>
       </div>
     </div>
 </template>
@@ -31,6 +35,9 @@ export default {
     MainHeader
   },
   methods: {
+    handler() {
+      console.log("test");
+    },
     /*Méthode qui permet la déconnexion de l'utilisateur*/
     disconnect(){
       const requestOptions = {

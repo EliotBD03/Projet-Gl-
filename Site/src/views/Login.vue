@@ -4,7 +4,7 @@
       <MainHeader text="BABA WALLET"/>
       </div>
       <div class="login-form">
-        <form id="loginForm" method="post" v-on:submit.prevent="post">
+        <form id="loginForm" method="post" @submit.prevent="post">
           <p>
             <label>Mail: </label>
             <input type="text" v-model="mail">
@@ -13,10 +13,14 @@
             <label>Password: </label>
             <input type="text" v-model="password">
           </p>
-          <GoButton text="Login" type="submit" :color="'green'"/>
+          <GoButton text="Login" type="submit" :colore="'green'"/>
         </form>
-        <GoButton text="Create an account" redirect="/createAccount" expr="change" :color="'#B1B9FC'"/>
-        <GoButton text="Forgotten password" v-on:click="goForgot()"/>
+        <div class="createbutton" @click.prevent.left="$router.push('/createAccount')">
+        <GoButton text="Create an account" :colore="'#B1B9FC'"/>
+        </div>
+        <div class="forgotbutton" @click.prevent.left="goForgot()">
+        <GoButton text="Forgotten password" :colore="'#B1B9FC'"/>
+          </div>
       </div>
     </div>
   </template>
@@ -114,6 +118,10 @@
     left: 50%;
     transform: translate(-50%);
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
   }
   
   .login-form label {

@@ -3,8 +3,8 @@
       <div class="title">
         {{ text }}
       </div>
-      <div class="button">
-        <GoButton text="Go" :redirect="redir" :color="'#B1B9FC'" :expr="choose"/>
+      <div class="button" @click.prevent.left="$router.push(redir)">
+        <GoButton text="Go" :colore="'#B1B9FC'"/>
       </div>
     </div>
 </template>
