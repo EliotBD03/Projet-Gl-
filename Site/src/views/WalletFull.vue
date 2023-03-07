@@ -60,6 +60,7 @@ export default {
       if (!response.ok) {
         if(response.status == 401){
           this.$cookies.remove("token");
+          this.$cookies.remove("role");
           Swal.fire('Your connection has expired');
           this.$router.push("/");
         }
@@ -90,6 +91,7 @@ export default {
                 throw new Error(data.error);
               }
               if(response.status == 401){
+                this.$cookies.remove("role");
                 this.$cookies.remove("token");
                 Swal.fire('Your connection has expired');
                 this.$router.push("/");

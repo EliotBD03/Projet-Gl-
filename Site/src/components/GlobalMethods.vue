@@ -44,7 +44,7 @@
       }
     },
     /*Méthode qui permet la déconnexion de l'utilisateur*/
-    disconnect(){
+    disconnect(chemin){
       const requestOptions = {
         method: "POST",
         headers: this.$cookies.get("token")
@@ -54,6 +54,7 @@
           if(!response.ok){
             if(response.status == 401){
               this.$cookies.remove("token");
+              this.$cookies.remove("role");
               Swal.fire('Your connection has expired');
               this.$router.push("/");
             }
@@ -64,8 +65,9 @@
           }
           else{
             this.$cookies.remove("token");
+            this.$cookies.remove("role");
             Swal.fire('See you soon!');
-            this.$router.push("/");
+            this.$router.push(chemin);
           }
         })
         .catch(error => {

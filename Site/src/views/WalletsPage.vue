@@ -56,6 +56,7 @@ export default {
         if (!response.ok) { //voir comment on gère l'arrivée à la fin des pages erreur/vide?
           if(response.status == 401){
             this.$cookies.remove("token");
+            this.$cookies.remove("role");
             Swal.fire('Your connection has expired');
             this.$router.push("/");
           }

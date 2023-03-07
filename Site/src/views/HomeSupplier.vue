@@ -36,7 +36,7 @@ components: {
   methods: {
     /*Méthode qui permet la déconnexion de l'utilisateur*/
     disconnect(){
-      GlobalMethods.disconnect();
+      GlobalMethods.disconnect("/");
     }
   }
 };
