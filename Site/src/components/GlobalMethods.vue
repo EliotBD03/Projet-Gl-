@@ -15,9 +15,9 @@
     /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle*/
     isAClient(role){
       if(role == "client"){
-        window.location.href = "/HomeClient.vue";
+        this.$router.push({ name: 'HomeClient' });
       } 
-      window.location.href = "/HomeProvider.vue"
+      this.$router.push({ name: 'HomeSupplier' });
     },
     /*Méthode permettant d'obtenir un (nouveau) code pour valider le changement de mot de passe ou la création de compte*/
     async sendCode(){
@@ -45,7 +45,6 @@
     },
     /*Méthode qui permet la déconnexion de l'utilisateur*/
     disconnect(){
-      window.location.href = "/";
       const requestOptions = {
         method: "POST",
         headers: this.$cookies.get("token")
@@ -56,7 +55,7 @@
             if(response.status == 401){
               this.$cookies.remove("token");
               Swal.fire('Your connection has expired');
-              window.location.href = "/Login.vue";
+              this.$router.push("/");
             }
             else{
               this.errorApi(response.status);
@@ -66,7 +65,7 @@
           else{
             this.$cookies.remove("token");
             Swal.fire('See you soon!');
-            window.location.href = "/";
+            this.$router.push("/");
           }
         })
         .catch(error => {

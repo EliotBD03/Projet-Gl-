@@ -85,7 +85,7 @@
                         title: 'Good !',
                         text: 'Password changed !'
                       })
-                    window.location.href = "/Login.vue";
+                    this.$router.push("/");
                   }
               }) 
               .catch(error => {
@@ -100,7 +100,7 @@
         /*Retourner à la page login en supprimant le mail des cookies*/
         back(){
           this.$cookies.delete('mail');
-          window.location.href = "/Login.vue";
+          this.$router.push("/");
         }
       }
   }

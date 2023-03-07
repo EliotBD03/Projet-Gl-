@@ -123,7 +123,7 @@
         if(this.$cookies.isKey("mail")){
           this.$cookies.delete('mail');
         }
-        window.location.href = "/login.vue";
+        this.$router.push("/");
       },
       /*Méthode permettant de vérifier si les checkboxes sont cochées correctement et 
         assigner les bonnes valeurs en fonction*/

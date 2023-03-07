@@ -20,7 +20,9 @@
         </div>
         <div class="forgotbutton" @click.prevent.left="goForgot()">
         <GoButton text="Forgotten password" :colore="'#B1B9FC'"/>
-          </div>
+        </div>
+        <button v-on:click="test1()">TEST1Client</button>
+        <button v-on:click="test2()">TEST2Supplier</button>
       </div>
     </div>
   </template>
@@ -89,8 +91,15 @@
           if(!this.mail) Swal.fire("Please enter your mail to reset the password !");
           else{
             this.$cookies.set("mail", this.mail);
-            window.location.href = "/ForgottenPassword.vue";
+            this.$router.push("/forgottenPassword");
           }
+        },
+        //Temp
+        test1(){
+          this.$router.push({ name: 'HomeClient' });
+        },
+        test2(){
+          this.$router.push({ name: 'HomeSupplier' });
         }
     }
   }

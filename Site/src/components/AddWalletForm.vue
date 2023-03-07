@@ -48,7 +48,7 @@ export default {
                 if(response.status === 401){
                   this.$cookies.remove("token");
                   Swal.fire('Your connection has expired');
-                  window.location.href = "/Login.vue";
+                  this.$router.push("/");
                 }
                 else{
                   GlobalMethods.errorApi(response.status);
@@ -59,7 +59,7 @@ export default {
             .catch(error => {
               console.error(error);
             });
-        //window.location.href = "../../html/client/wallet.html";
+        this.$router.push("/wallets");
       }
     }
   }

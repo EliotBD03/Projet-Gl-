@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueCookies from 'vue-cookies';
+const cookies = VueCookies;
 
 Vue.use(VueRouter)
 
@@ -7,16 +9,30 @@ const routes = [
   {
     path: '/',
     name: 'login',
-    component: () => import('@/views/Login.vue')
+    component: () => import('@/views/Login.vue'),
+    beforeRouteEnter: (to, from, next) => {
+      if(cookies.isKey("token") && cookies.isKey("role"))
+      {
+        if(cookies.get("role") === 'client'){
+          next({ name: 'HomeClient' });
+        }
+        else{
+          next({ name: 'HomeSupplier' });
+        }
+      }
+      else {
+        next();
+      }
+    }
   },
   {
-    path: '/homeC',
-    name: 'Home',
+    path: '/Home',
+    name: 'HomeClient',
     component: () => import('@/views/HomeClient.vue')
   },
   {
-    path: '/homeS',
-    name: 'Home',
+    path: '/Home',
+    name: 'HomeSupplier',
     component: () => import('@/views/HomeSupplier.vue')
   },
   {

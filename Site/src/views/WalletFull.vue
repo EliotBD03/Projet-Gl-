@@ -61,7 +61,7 @@ export default {
         if(response.status == 401){
           this.$cookies.remove("token");
           Swal.fire('Your connection has expired');
-          window.location.href = "/Login.vue";
+          this.$router.push("/");
         }
         else{
           GlobalMethods.errorApi(response.status);
@@ -92,7 +92,7 @@ export default {
               if(response.status == 401){
                 this.$cookies.remove("token");
                 Swal.fire('Your connection has expired');
-                window.location.href = "/Login.vue";
+                this.$router.push("/");
               }
               else{
                 GlobalMethods.errorApi(response.status);
@@ -105,7 +105,7 @@ export default {
                 title: 'Good !',
                 text: 'Wallet deleted !'
               })
-              window.location.href = "/WalletsPage.vue";
+              this.$router.push("/wallets");
             }
           })
           .catch(error => {
@@ -115,7 +115,7 @@ export default {
     /*Retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
     back(){
       sessionStorage.removeItem('address');
-      window.location.href = "/WalletsPage.vue";
+      this.$router.push("/wallets");
     }
   }
 };
