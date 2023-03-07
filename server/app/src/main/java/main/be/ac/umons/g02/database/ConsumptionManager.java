@@ -82,7 +82,7 @@ public class ConsumptionManager
 
     public void deleteConsumption(String ean, String date)
     {
-        DB.getInstance().executeQuery("DELETE FROM consumption WHERE ean='"+ean+"' AND daily_consumption="+date,false);
+        DB.getInstance().executeQuery("DELETE FROM consumption WHERE ean='"+ean+"' AND date_recorded='"+date+"'",false);
     }
 
     public void deleteAllConsumptions(String ean)
@@ -94,7 +94,7 @@ public class ConsumptionManager
     public void changeConsumption(String ean, double value, String date)
     {
         DB.getInstance().executeQuery("UPDATE consumption SET daily_consumption="+value+
-                " WHERE date_recorded="+date+" AND ean="+ean,false);
+                " WHERE date_recorded='"+date+"' AND ean='"+ean+"'",false);
     }
 
 }

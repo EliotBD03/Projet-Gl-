@@ -1,14 +1,14 @@
 package main.be.ac.umons.g02.database;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ConsumptionManagerTest {
 
     private static String ean = "123456789123456789";
@@ -27,6 +27,7 @@ class ConsumptionManagerTest {
     }
 
     @Test
+    @Order(1)
     void addConsumption()
     {
         ConsumptionManager consumptionManager = new ConsumptionManager();
@@ -51,12 +52,14 @@ class ConsumptionManagerTest {
     }
 
     @Test
+    @Order(2)
     void getConsumptionOfMonth()
     {
         //TODO voir pour plus tard
     }
 
     @Test
+    @Order(3)
     void getConsumptions()
     {
         HashMap<String, Double> expected = new HashMap<>()
@@ -71,16 +74,35 @@ class ConsumptionManagerTest {
     }
 
     @Test
+    @Order(4)
     void changeConsumption()
     {
-
+        ConsumptionManager consumptionManager = new ConsumptionManager();
+        consumptionManager.changeConsumption(ean, 15.0, "2023-03-05");
+        assertEquals(consumptionManager.getConsumptions(ean, "2023-00-00", "2023-12-31").get("2023-03-05"), 15.0);
     }
 
     @Test
-    void deleteAllConsumption() {
+    @Order(5)
+    void deleteConsumption()
+    {
+        ConsumptionManager consumptionManager = new ConsumptionManager();
+        consumptionManager.deleteConsumption(ean, "2023-03-05");
+        HashMap<String, Double> expected = new HashMap<>()
+        {
+            {
+                put("2021-03-05",10.0);
+                put("2022-03-05",11.0);
+            }
+        };
+        assertEquals(consumptionManager.getConsumptions(ean, "2021-00-00", "2024-00-00"),expected);
     }
-
     @Test
-    void deleteConsumption() {
+    @Order(6)
+    void deleteAllConsumption()
+    {
+        ConsumptionManager consumptionManager = new ConsumptionManager();
+        consumptionManager.deleteAllConsumptions(ean);
+        assertEquals(consumptionManager.getConsumptions(ean, "2021-00-00", "2024-00-00"), new HashMap<String, Double>());
     }
 }
