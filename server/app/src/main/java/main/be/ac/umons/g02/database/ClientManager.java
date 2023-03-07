@@ -31,10 +31,16 @@ public class ClientManager
         return getClientBasics();
     }
 
+    /**
+     * "SELECT * FROM user WHERE id in (SELECT client_id FROM wallet WHERE address IN (SELECT address FROM wallet_contract WHERE contract_id IN (SELECT contract_id FROM provider_contract WHERE provider_id="+provider_id+"))) LIMIT "+base+","+base+limit
+     */
     public ArrayList<ClientBasic> getAllHisClients(String providerId, int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM user WHERE id in(SELECT client_id FROM  WHERE "+
-                "provider_id = "+providerId+") "+base+", "+(base + limit) + "",true);
+        DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN "+
+                "(SELECT client_id FROM wallet WHERE address IN "+
+                "(SELECT address FROM wallet_contract WHERE contract_id IN "+
+                "(SELECT contract_id FROM provider_contract WHERE provider_id="+providerId+"))) "+
+                "LIMIT "+base+", "+base+limit,true);
 
         return getClientBasics();
     }
