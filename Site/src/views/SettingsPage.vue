@@ -1,4 +1,8 @@
 <template>
+  <!--Note pour Maxime, pour le change password, fais un mini formulaire qui prend l'adresse mail.
+  Vérifie que l'utilisateur a bien rempli le champ.
+  Stocke l'adresse mail dans les cookies puis redirige vers forgotten password
+  ça évitera les répétitions :) -->
   <div class="main">
     <div class="header">
       <MainHeader text="Settings"/>

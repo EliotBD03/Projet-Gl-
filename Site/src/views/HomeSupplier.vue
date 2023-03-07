@@ -1,18 +1,25 @@
 <template>
-    <div class="home">
-      <div class="title">
-        <MainHeader text="Home"/>
-      </div>
-      <div class="allcards">
-        <MainCard text="Your clients" redir="/" choose="change"/>
-        <MainCard text="Your Contracts" redir="/" choose="change"/>
-        <MainCard text="Notifications" redir="/" choose="change"/>
-      </div>
-      <div class="bottombutton">
-        <GoButton text="Disconnect" :color="'red'" expr="test" v-on:click="disconnect()"/>
-        <GoButton text="Settings" :color="'gray'" redirect="/settings" expr="change"/>
-      </div>
+  <div class="home">
+    <div class="title">
+      <MainHeader text="Home"/>
     </div>
+    <div class="allcards">
+      <MainCard text="Your clients" redir="/wallets"/>
+      <MainCard text="Your Contracts" redir="/contracts"/>
+      <MainCard text="Notifications" redir="/notifications"/>
+    </div>
+    <div class="newcontract" @click.prevent.left="$router.push('/newcontracts')">
+      <GoButton text="See new contracts" :colore="'#B1B9FC'"/>
+    </div>
+    <div class="bottombutton">
+      <div class="disconnectbutton" @click.prevent.left="disconnect()">
+      <GoButton text="Disconnect" :colore="'red'"/>
+      </div>
+      <div class="settingsbutton" @click.prevent.left="$router.push('/settings')">
+      <GoButton text="Settings" :colore="'gray'"/>
+        </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -20,42 +27,16 @@ import MainCard from "@/components/MainCard.vue";
 import GoButton from "@/components/GoButton.vue";
 import MainHeader from "@/components/MainHeader.vue";
 import GlobalMethods from "@/components/GlobalMethods.vue";
-import Swal from 'sweetalert2';
 export default {
-  components: {
-    GoButton,
-    MainCard,
-    MainHeader
+components: {
+  GoButton,
+  MainCard,
+  MainHeader
   },
   methods: {
     /*Méthode qui permet la déconnexion de l'utilisateur*/
     disconnect(){
-      const requestOptions = {
-        method: "POST",
-        headers: this.$cookies.get("token")
-      };
-      fetch("https://babawallet.alwaysdata.net:8300/api/disconnect", requestOptions)
-          .then(response => {
-            if(!response.ok){
-              if(response.status == 401){
-                this.$cookies.remove("token");
-                Swal.fire('Your connection has expired');
-                window.location.href = "/Login.vue";
-              }
-              else{
-                GlobalMethods.methods.errorApi(response.status);
-                throw new Error(response.status);
-              }
-            }
-            else{
-              this.$cookies.remove("token");
-              Swal.fire('See you soon!');
-              window.location.href = "/Login.vue";
-            }
-          })
-          .catch(error => {
-            console.error("Error", error);
-          });
+      GlobalMethods.methods.disconnect();
     }
   }
 };

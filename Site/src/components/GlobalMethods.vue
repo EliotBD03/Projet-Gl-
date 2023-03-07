@@ -42,6 +42,35 @@
       } catch (error) {
         console.error(error);
       }
+    },
+    /*Méthode qui permet la déconnexion de l'utilisateur*/
+    disconnect(){
+      const requestOptions = {
+        method: "POST",
+        headers: this.$cookies.get("token")
+      };
+      fetch("https://babawallet.alwaysdata.net:8300/api/disconnect", requestOptions)
+        .then(response => {
+          if(!response.ok){
+            if(response.status == 401){
+              this.$cookies.remove("token");
+              Swal.fire('Your connection has expired');
+              window.location.href = "/Login.vue";
+            }
+            else{
+              this.errorApi(response.status);
+              throw new Error(response.status);
+            }
+          }
+          else{
+            this.$cookies.remove("token");
+            Swal.fire('See you soon!');
+            window.location.href = "/Login.vue";
+          }
+        })
+        .catch(error => {
+          console.error("Error", error);
+        });
     }
   }
   </script>

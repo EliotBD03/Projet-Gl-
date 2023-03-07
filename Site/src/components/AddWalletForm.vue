@@ -6,7 +6,7 @@
         <InputMain text="Enter your name" v-model="name"/>
       </p>
       <p>
-        <InputMain text="Enter your adress" v-model="address"/>
+        <InputMain text="Enter your address" v-model="address"/>
       </p>
       <GoButton text="Add" type="submit" :colore="'gray'"/>
       <!-- <button class = "greenButton rightButton fixed" type="submit"> ADD </button>-->
