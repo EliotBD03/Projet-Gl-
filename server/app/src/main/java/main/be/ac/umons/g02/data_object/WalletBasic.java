@@ -6,10 +6,10 @@ public class WalletBasic
     protected String name;
     protected String clientId;
 
-    public WalletBasic(String address, String name, String nameOwner){
+    public WalletBasic(String address, String name, String ownerId){
         this.address = address;
         this.name = name;
-        this.clientId = nameOwner;
+        this.clientId = ownerId;
     }
 
     public String getAddress()

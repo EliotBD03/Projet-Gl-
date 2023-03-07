@@ -89,4 +89,19 @@ public class ContractManager
         return DB.getInstance().getResults(new String[] {"client_id"}).get(0);
     }
 
+    public WalletManager.energyType getTypeOfEnergy(String address)
+    {
+        DB.getInstance().executeQuery("SELECT water, gas, electricity "
+                +"FROM proposal "
+                +"WHERE (proposal_name,provider_id) "
+                +"IN (SELECT proposal_name, provider_id FROM contract WHERE address='"+address + "')",false);
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"water","gas","energy"});
+        for(int i = 0; i < 3 ; i++)
+        {
+            if(results.get(i).get(0).equals("1"))
+                return WalletManager.energyType.values()[i];
+        }
+        return null;
+    }
+
 }

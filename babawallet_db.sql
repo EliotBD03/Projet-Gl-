@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS `consumption`;
 CREATE TABLE `consumption` (
   `ean` varchar(18) NOT NULL,
   `date_recorded` date NOT NULL,
-  `daily_consumption` double(6,2) DEFAULT NULL,
+  `daily_consumption` double(6,2) DEFAULT 0,
   PRIMARY KEY (`ean`,`date_recorded`),
   CONSTRAINT `consumption_ibfk_1` FOREIGN KEY (`ean`) REFERENCES `counter` (`ean`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -300,6 +300,9 @@ CREATE TABLE `wallet` (
   `address` varchar(42) NOT NULL,
   `client_id` int(10) DEFAULT NULL,
   `wallet_name` varchar(30) DEFAULT NULL,
+  `latest_consumption_elec` double(6, 2) DEFAULT 0,
+  `latest_consumption_water` double(6, 2) DEFAULT 0,
+  `latest_consumption_gas` double(6, 2) DEFAULT 0,
   PRIMARY KEY (`address`),
   KEY `client_id` (`client_id`),
   CONSTRAINT `wallet_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`)

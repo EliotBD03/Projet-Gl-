@@ -74,9 +74,22 @@ public class ConsumptionManager
             DB.getInstance().executeQuery("INSERT INTO consumption(ean, date_recorded, daily_consumption) VALUES('"+
                     ean+"','"+dates.get(i)+"',"+(values.get(i)+value)+
                     ") ON DUPLICATE KEY UPDATE daily_consumption="+values.get(i), false);
-
             value = 0.0;
         }
+
+        DB.getInstance().executeQuery("SELECT daily_consumption" +
+                " FROM consumption " +
+                "WHERE date_recorded IN " +
+                "(SELECT max(date_recorded) FROM consumption) " +
+                "AND " +
+                "ean = '"+ean+"'",true);
+
+        double maxVal = Double.parseDouble(DB.getInstance().getResults(new String[] {"daily_consumption"}).get(0).get(0));
+        DB.getInstance().executeQuery("SELECT address FROM contract WHERE ean='"+ean+"'",true);
+        String address = DB.getInstance().getResults(new String[] {"address"}).get(0).get(0);
+        new WalletManager().addLastConsumption(address, maxVal, new ContractManager().getTypeOfEnergy(address));
+
+
         return true;
     }
 

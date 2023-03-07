@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class WalletManager
 {
+    public enum energyType {ELECTRICITY, WATER, GAS};
+
     public ArrayList<WalletBasic> getAllWallets(String clientId, int base, int limit)
     {
         //if(!new LogManager().isClient(clientId))
@@ -33,14 +35,19 @@ public class WalletManager
     {
         if(walletIsEmpty(address))
             return null;
-        DB.getInstance().executeQuery("SELECT * FROM ",true);
+        DB.getInstance().executeQuery("SELECT * FROM wallet WHERE address='"+address+"'",true);
+
         return null; //TODO pas encore finis
     }
 
-    public void createWallet(WalletBasic walletBasic)
+    public boolean createWallet(WalletBasic walletBasic)
     {
+        if(!walletIsEmpty(walletBasic.getAddress()))
+            return false; //TODO add exception ?
+
         DB.getInstance().executeQuery("INSERT INTO wallet(address,client_id,wallet_name) VALUES('"+
                 walletBasic.getAddress()+"',"+walletBasic.getClientId()+",'"+walletBasic.getName()+"')",false);
+        return true;
     }
 
     public void deleteWallet(String address)
@@ -56,4 +63,13 @@ public class WalletManager
         DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM wallet_contract WHERE address='"+address+"') AS c",true);
         return Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0)) == 0;
     }
+
+    public void addLastConsumption(String address,double value, energyType energyType)
+    {
+
+        String[] columns = {"latest_consumption_elec", "latest_consumption_water", "latest_consumption_gas"};
+        String column = columns[energyType.ordinal()];
+        DB.getInstance().executeQuery("UPDATE wallet SET "+column+"="+value+" WHERE address="+address, false);
+    }
+
 }
