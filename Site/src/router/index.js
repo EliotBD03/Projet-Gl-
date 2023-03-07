@@ -45,7 +45,7 @@ const routes = [
     component: () => import('@/views/SettingsPage.vue')
   },
   {
-    path: '/wallets/walletfull/consumptions',
+    path: '/wallets/consumptions',
     name: 'Consumptions',
     component: () => import('@/views/ConsumptionPage.vue')
   },
