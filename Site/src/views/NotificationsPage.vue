@@ -6,7 +6,7 @@
     <div class="notifs">
       <MainNotification class="notif" v-for="notif in notifications" :key="notif" :title="notif.title" :time="notif.time" :text="notif.text" />
     </div>
-    <div class="homebutton" @click.prevent.left="$router.push('/')">
+    <div class="homebutton" @click.prevent.left="$router.push('/homeC')">
       <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
   </div>

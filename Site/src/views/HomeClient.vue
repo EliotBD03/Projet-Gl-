@@ -12,8 +12,8 @@
         <GoButton text="See new contracts" :colore="'#B1B9FC'"/>
       </div>
       <div class="bottombutton">
-        <div class="disconnectbutton">
-        <GoButton text="Disconnect" :colore="'red'" expr="test"/>
+        <div class="disconnectbutton" @click.prevent.left="disconnect()">
+        <GoButton text="Disconnect" :colore="'red'"/>
         </div>
         <div class="settingsbutton" @click.prevent.left="$router.push('/settings')">
         <GoButton text="Settings" :colore="'gray'"/>

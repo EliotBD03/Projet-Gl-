@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div class="bottombutton" @click.prevent.left="$router.push('/')">
+    <div class="bottombutton" @click.prevent.left="$router.push('/homeC')">
       <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
   </div>

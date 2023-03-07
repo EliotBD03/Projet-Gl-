@@ -4,28 +4,28 @@
       <MainHeader text="Consumptions"/>
     </div>
     <div class="topbutton">
-      <GoButton text="Table" :color="'green'"/>
-      <GoButton text="Export" :color="'green'"/>
-      <GoButton text="Graphic" :color="'green'"/>
+      <GoButton text="Table" :colore="'green'"/>
+      <GoButton text="Export" :colore="'green'"/>
+      <GoButton text="Graphic" :colore="'green'"/>
     </div>
     <div class="infos">
       <div class="container">
       </div>
       <div class="newconsumption">
       <p>New consumption : 12/02/2024</p>
-        <GoButton text="Add" :color="'green'"/>
+        <GoButton text="Add" :colore="'green'"/>
       </div>
       <div class="changeconsumption">
         <p>Change consumption : 12/02/2024</p>
-        <GoButton text="Change" :color="'green'"/>
+        <GoButton text="Change" :colore="'green'"/>
       </div>
     </div>
     <div class="bottombutton">
-      <div class="returnbutton" @click.prevent.left="$router.push('/wallets/walletfull')">
-      <GoButton text="Back" :color="'darkblue'"/>
+      <div class="returnbutton" @click.prevent.left="$router.push('/wallets')">
+      <GoButton text="Back" :colore="'darkblue'"/>
       </div>
       <div class="closebutton">
-      <GoButton text="Close the wallet" :color="'red'"/>
+      <GoButton text="Close the wallet" :colore="'red'"/>
         </div>
     </div>
   </div>

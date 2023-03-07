@@ -24,7 +24,7 @@
       <div class="backbutton" @click.prevent.left="back()">
       <GoButton text="Back"/>
       </div>
-      <div class="consumptionsbutton" @click.prevent.left="$router.push('/Consumptions')">
+      <div class="consumptionsbutton" @click.prevent.left="$router.push('homeC/consumptions')">
       <GoButton text="Consumptions"/>
       </div>
       <div class="closebutton" @click.prevent.left="deleteWallet()">
