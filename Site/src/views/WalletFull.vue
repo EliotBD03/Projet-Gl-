@@ -64,7 +64,7 @@ export default {
           window.location.href = "/Login.vue";
         }
         else{
-          GlobalMethods.methods.errorApi(response.status);
+          GlobalMethods.errorApi(response.status);
           throw new Error(response.status);
         }
       } else {
@@ -86,7 +86,7 @@ export default {
             if(!response.ok){
               if(response.status == 405){
                 const data = response.json();
-                GlobalMethods.methods.errorApi(data.error);
+                GlobalMethods.errorApi(data.error);
                 throw new Error(data.error);
               }
               if(response.status == 401){
@@ -95,7 +95,7 @@ export default {
                 window.location.href = "/Login.vue";
               }
               else{
-                GlobalMethods.methods.errorApi(response.status);
+                GlobalMethods.errorApi(response.status);
                 throw new Error(response.status);
               }
             }

@@ -70,11 +70,11 @@
                   if(!response.ok){
                     if(response.status == 503 || response.status == 400){
                       const data = response.json();
-                      GlobalMethods.methods.errorApi(data.error);
+                      GlobalMethods.errorApi(data.error);
                       throw new Error(data.error);
                     }
                     else{
-                      GlobalMethods.methods.errorApi(response.status);
+                      GlobalMethods.errorApi(response.status);
                       throw new Error(response.status);
                     }
                   }
@@ -95,7 +95,7 @@
         },
         /*Méthode permettant d'obtenir un (nouveau) code pour valider le changement de mot de passe*/
         getCode(){
-          GlobalMethods.methods.sendCode();
+          GlobalMethods.sendCode();
         },
         /*Retourner à la page login en supprimant le mail des cookies*/
         back(){

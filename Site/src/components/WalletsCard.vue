@@ -1,4 +1,5 @@
 <template>
+  <!--Est-ce encore utile vu qu'il y a walletPage?-->
   <div class="container">
     <div class="title">
       {{ name }}

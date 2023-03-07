@@ -51,7 +51,7 @@ export default {
                   window.location.href = "/Login.vue";
                 }
                 else{
-                  GlobalMethods.methods.errorApi(response.status);
+                  GlobalMethods.errorApi(response.status);
                   throw new Error(response.status);
                 }
               }

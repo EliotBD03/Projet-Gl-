@@ -15,9 +15,9 @@
     /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle*/
     isAClient(role){
       if(role == "client"){
-        window.location.href = "/HomePageClient.vue";
+        window.location.href = "/HomeClient.vue";
       } 
-      window.location.href = "/HomePageProvider.vue"
+      window.location.href = "/HomeProvider.vue"
     },
     /*Méthode permettant d'obtenir un (nouveau) code pour valider le changement de mot de passe ou la création de compte*/
     async sendCode(){
@@ -45,6 +45,7 @@
     },
     /*Méthode qui permet la déconnexion de l'utilisateur*/
     disconnect(){
+      window.location.href = "/";
       const requestOptions = {
         method: "POST",
         headers: this.$cookies.get("token")
@@ -65,7 +66,7 @@
           else{
             this.$cookies.remove("token");
             Swal.fire('See you soon!');
-            window.location.href = "/Login.vue";
+            window.location.href = "/";
           }
         })
         .catch(error => {

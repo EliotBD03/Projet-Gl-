@@ -20,6 +20,11 @@ const routes = [
     component: () => import('@/views/HomeSupplier.vue')
   },
   {
+    path: '/walletsFull',
+    name: 'WalletsFull',
+    component: () => import('@/views/WalletFull.vue')
+  },
+  {
     path: '/wallets',
     name: 'Wallets',
     component: () => import('@/views/WalletsPage.vue')

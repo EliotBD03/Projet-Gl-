@@ -39,7 +39,7 @@ export default {
     },
     /*Méthode qui permet la déconnexion de l'utilisateur*/
     disconnect(){
-      GlobalMethods.methods.disconnect();
+      GlobalMethods.disconnect();
     }
   }
 };

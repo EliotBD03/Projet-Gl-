@@ -63,18 +63,18 @@
                   if(!response.ok){
                     if(response.status == 400){
                       const data = response.json();
-                      GlobalMethods.methods.errorApi(data.error);
+                      GlobalMethods.errorApi(data.error);
                       throw new Error(data.error);
                     }
                     else{
-                      GlobalMethods.methods.errorApi(response.status);
+                      GlobalMethods.errorApi(response.status);
                       throw new Error(response.status);
                     }
                   }
               }) 
               .then(data => {
                 this.$cookies.set("token", data.token);
-                GlobalMethods.methods.isAClient(data.role);
+                GlobalMethods.isAClient(data.role);
               })
               .catch(error => {
                 console.error("Error", error);
