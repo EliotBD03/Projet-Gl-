@@ -15,7 +15,7 @@
         <AddWalletForm/>
       </div>
     </div>
-    <div class="homebutton" @click.prevent.left="$router.push('/homeC')">
+    <div class="homebutton" @click.prevent.left="$router.push('{name: HomeClient}')">
       <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
   </div>

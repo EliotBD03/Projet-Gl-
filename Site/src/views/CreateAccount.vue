@@ -5,12 +5,20 @@
     </div>
     <div class="create-form">
       <div class="line">
-        <checkButton name="Client" @event="save('Client')"></checkButton>
-        <checkButton name="Supplier" @event="save('Supplier')"></checkButton>
+        <input type="radio" id="Client" value="Client" v-model="role">
+        <label for="Client">Client</label>
+        <br>
+        <input type="radio" id="Supplier" value="Supplier" v-model="role">
+        <label for="Supplier">Supplier</label>
+        <br>
       </div>
       <div class="line">
-        <checkButton name="Français" @event="save('Français')"></checkButton>
-        <checkButton name="English" @event="save('English')"></checkButton>
+        <input type="radio" id="français" value="français" v-model="language">
+        <label for="français">Français</label>
+        <br>
+        <input type="radio" id="english" value="english" v-model="language">
+        <label for="english">English</label>
+        <br>
       </div>
       <form id="createForm" method="post" v-on:submit.prevent="post">
         <p>
@@ -42,20 +50,20 @@
   import GoButton from "@/components/GoButton.vue";
   import MainHeader from "@/components/MainHeader.vue";
   import GlobalMethods from "@/components/GlobalMethods.vue";
-  import checkButton from "@/components/CheckButton.vue";
   import Swal from 'sweetalert2';
   export default {
     name: "createForm",
-    components: {GoButton, MainHeader, checkButton},
+    components: {GoButton, MainHeader},
     data(){
       return{
         mail: '',
         password: '',
         repeatedPassword: '',
         code: '',
-        isClient: false,
-        language: 'english',
-        selectedList:[]
+        language: '',
+        selectedList:[],
+        role: '',
+        isClient: false
       }},
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
@@ -76,7 +84,7 @@
           {
             const requestOptions = {
               method: "POST",
-              body: JSON.stringify({ mail: this.mail, password: this.password, code: this.code, isClient: this.isClient })
+              body: JSON.stringify({ mail: this.mail, password: this.password, code: this.code, isClient: this.isClient, language: this.language })
             };
             fetch("https://babawallet.alwaysdata.net:8300/api/check_account", requestOptions)
               .then(response => {
@@ -128,41 +136,22 @@
       /*Méthode permettant de vérifier si les checkboxes sont cochées correctement et 
         assigner les bonnes valeurs en fonction*/
       selected(){
-        console.log(this.selectedList)
-        if(this.selectedList.includes("Client") && this.selectedList.includes("Supplier")){
-          Swal.fire("Please make a choice between Client and Supplier!");
-          return false;
-        }
-        if(!this.selectedList.includes("Client") && !this.selectedList.includes("Supplier")){
-          Swal.fire("Please make a choice between Client and Supplier!");
-          return false;
-        }
-        if(this.selectedList.includes("English") && this.selectedList.includes("Français")){
-          Swal.fire("Please make a choice between English and Français!");
-          return false;
-        }
-        if(!this.selectedList.includes("English") && !this.selectedList.includes("Français")){
-          Swal.fire("Please make a choice between English and Français!");
-          return false;
-        }
-        else{
-          if(this.selectedList.includes("Client"))
+        if(this.role != '' && this.language != '')
+        {
+          if(this.role == "Client")
           {
             this.isClient = true;
           }
-          if(this.selectedList.includes("Français"))
-          {
-            this.language = "français";
-          }
           return true;
         }
-      },
-      save(item){
-        if(this.selectedList.includes(item)){
-          this.selectedList.splice(this.selectedList.indexOf(item),1);
-        }
         else{
-          this.selectedList.push(item);
+          if(this.role == ''){
+            Swal.fire("Please make a choice between Client and Supplier !");
+          }
+          if(this.language == ''){
+            Swal.fire("Please make a choice between English and Français !");
+          }
+          return false;
         }
       }
     }
@@ -185,7 +174,7 @@
 
   .create-form {
     background-color: #f2f2f2;
-    padding: 50px;
+    padding: 10px;
     border-radius: 10px;
     width: 50%;
     left: 50%;
