@@ -26,41 +26,29 @@ const routes = [
     }
   },
   {
-    path: '/Home',
-    name: 'HomeClient',
-    component: () => import('@/views/HomeClient.vue')
-    /*,
-    beforeRouteEnter: (to, from, next) => {
-      if(cookies.isKey("token") && cookies.isKey("role"))
+    path: '/account',
+    component: () => import('@/views/GroupAccount.vue'),
+    children: [
       {
-        if(cookies.get("role") === 'client'){
-          next();
-        }
-        else{
+        path: '/createAccount',
+        name: 'createAccount',
+        component: () => import('@/views/CreateAccount.vue')
+      },
+      {
+        path: '/forgottenPassword',
+        name: 'forgottenPassword',
+        component: () => import('@/views/ForgottenPassword.vue')
+      },
+    ]/*,
+      beforeRouteEnter: (to, from, next) => {
+        if(cookies.isKey("token") && cookies.isKey("role"))
+        {
           next(false);
         }
-      }
-    }*/
-  },
-  {
-    path: '/Home',
-    name: 'HomeSupplier',
-    component: () => import('@/views/HomeSupplier.vue')
-  },
-  {
-    path: '/walletsFull',
-    name: 'WalletsFull',
-    component: () => import('@/views/WalletFull.vue')
-  },
-  {
-    path: '/wallets',
-    name: 'Wallets',
-    component: () => import('@/views/WalletsPage.vue')
-  },
-  {
-    path: '/contracts',
-    name: 'Contracts',
-    component: () => import('@/views/ContractPage.vue')
+        else{
+            next();
+          }
+      }*/
   },
   {
     path: '/notifications',
@@ -68,29 +56,86 @@ const routes = [
     component: () => import('@/views/NotificationsPage.vue')
   },
   {
-    path: '/newcontracts',
-    name: 'NewContracts',
-    component: () => import('@/views/NewContractsPage.vue')
-  },
-  {
     path: '/settings',
     name: 'Settings',
     component: () => import('@/views/SettingsPage.vue')
   },
   {
-    path: '/wallets/consumptions',
-    name: 'Consumptions',
-    component: () => import('@/views/ConsumptionPage.vue')
+    path: '/client',
+    component: () => import('@/views/GroupClient.vue'),
+    children: [
+      {
+        path: '/Home',
+        name: 'HomeClient',
+        component: () => import('@/views/HomeClient.vue')
+      },
+      {
+        path: '/walletsFull',
+        name: 'WalletsFull',
+        component: () => import('@/views/WalletFull.vue')
+      },
+      {
+        path: '/wallets',
+        name: 'Wallets',
+        component: () => import('@/views/WalletsPage.vue')
+      },
+      {
+        path: '/newcontracts',
+        name: 'NewContracts',
+        component: () => import('@/views/NewContractsPage.vue')
+      },
+      {
+        path: '/contracts',
+        name: 'Contracts',
+        component: () => import('@/views/ContractPage.vue')
+      },
+      {
+        path: '/consumptions',
+        name: 'Consumptions',
+        component: () => import('@/views/ConsumptionPage.vue')
+      },
+    ]/*,
+        beforeRouteEnter: (to, from, next) => {
+          if(cookies.isKey("token") && cookies.isKey("role"))
+          {
+            if(cookies.get("role") === 'client'){
+              next();
+            }
+            else{
+              next(false);
+            }
+          }
+        }*/
   },
   {
-    path: '/createAccount',
-    name: 'createAccount',
-    component: () => import('@/views/CreateAccount.vue')
+    path: '/supplier',
+    component: () => import('@/views/GroupSupplier.vue'),
+    children: [
+      {
+        path: '/Home',
+        name: 'HomeSupplier',
+        component: () => import('@/views/HomeSupplier.vue')
+      }
+    ]/*,
+      beforeRouteEnter: (to, from, next) => {
+        if(cookies.isKey("token") && cookies.isKey("role"))
+        {
+          if(cookies.get("role") === 'supplier'){
+            next();
+          }
+          else{
+            next(false);
+          }
+        }
+      }*/
   },
   {
-    path: '/forgottenPassword',
-    name: 'forgottenPassword',
-    component: () => import('@/views/ForgottenPassword.vue')
+    path: '/methods',
+    name: 'methods',
+    component: () => import('@/components/GlobalMethods.vue'),
+      beforeRouteEnter: (to, from, next) => {
+        next(false);        
+    }
   }
 ]
 

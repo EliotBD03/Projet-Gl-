@@ -4,12 +4,9 @@
       <MainHeader text="Home"/>
     </div>
     <div class="allcards">
-      <MainCard text="Your clients" redir="/wallets"/>
-      <MainCard text="Your Contracts" redir="/contracts"/>
+      <MainCard text="Your clients"/>
+      <MainCard text="Your Contracts"/>
       <MainCard text="Notifications" redir="/notifications"/>
-    </div>
-    <div class="newcontract" @click.prevent.left="$router.push('/newcontracts')">
-      <GoButton text="See new contracts" :colore="'#B1B9FC'"/>
     </div>
     <div class="bottombutton">
       <div class="disconnectbutton" @click.prevent.left="disconnect()">

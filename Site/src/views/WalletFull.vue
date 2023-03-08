@@ -24,7 +24,7 @@
       <div class="backbutton" @click.prevent.left="back()">
       <GoButton text="Back"/>
       </div>
-      <div class="consumptionsbutton" @click.prevent.left="$router.push('homeC/consumptions')">
+      <div class="consumptionsbutton" @click.prevent.left="$router.push({name: 'Consumptions'})">
       <GoButton text="Consumptions"/>
       </div>
       <div class="closebutton" @click.prevent.left="deleteWallet()">
@@ -108,7 +108,7 @@ export default {
                 title: 'Good !',
                 text: 'Wallet deleted !'
               })
-              this.$router.push("/wallets");
+              this.$router.push({name: 'Wallets'});
             }
           })
           .catch(error => {
@@ -118,7 +118,7 @@ export default {
     /*Retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
     back(){
       sessionStorage.removeItem('address');
-      this.$router.push("/wallets");
+      this.$router.push({name: 'Wallets'});
     }
   }
 };

@@ -15,9 +15,9 @@
     /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle*/
     isAClient(role){
       if(role == "client"){
-        this.$router.push({ name: 'HomeClient' });
+        this.$router.push({name: "HomeClient"}); //ou utiliser name: A voir avec les tests
       } 
-      this.$router.push({ name: 'HomeSupplier' });
+      this.$router.push('/supplier/Home');
     },
     /*Méthode permettant d'obtenir un (nouveau) code pour valider le changement de mot de passe ou la création de compte*/
     async sendCode(){

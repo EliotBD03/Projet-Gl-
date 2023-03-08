@@ -6,7 +6,8 @@
     <div class="notifs">
       <MainNotification class="notif" v-for="notif in notifications" :key="notif" :title="notif.title" :time="notif.time" :text="notif.text" />
     </div>
-    <div class="homebutton" @click.prevent.left="$router.push('{name: HomeClient}')">
+    <div class="homebutton" @click.prevent.left="$router.push('')">
+      <!--Il va falloir vérif le rôle pour revenir il y a une méthode dans globalMethods-->
       <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
   </div>

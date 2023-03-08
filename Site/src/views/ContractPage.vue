@@ -6,7 +6,7 @@
     <div class="searchbar">
       <SearchBar/>
     </div>
-    <div class="homeButton" @click.prevent.left="$router.push('/homeC')">
+    <div class="homeButton" @click.prevent.left="$router.push('/Home')">
       <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
   </div>

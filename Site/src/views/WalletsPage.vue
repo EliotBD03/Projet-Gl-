@@ -15,7 +15,7 @@
         <AddWalletForm/>
       </div>
     </div>
-    <div class="homebutton" @click.prevent.left="$router.push('{name: HomeClient}')">
+    <div class="homebutton" @click.prevent.left="$router.push('/Home')">
       <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
   </div>
@@ -85,7 +85,7 @@ export default {
     et on redirige vers walletFull*/
     seeMore(wallet){
       sessionStorage.setItem('address', wallet.address);
-      this.$router.push("/walletsFull");
+      this.$router.push({name: "WalletsFull"});
     }
   }
 }

@@ -23,7 +23,8 @@
         </div>
       </div>
     </div>
-    <div class="bottombutton" @click.prevent.left="$router.push('/homeC')">
+    <div class="bottombutton" @click.prevent.left="$router.push('')">
+      <!--Il va falloir vérif le rôle pour revenir il y a une méthode dans globalMethods-->
       <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
   </div>

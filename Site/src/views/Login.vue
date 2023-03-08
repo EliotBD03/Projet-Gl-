@@ -15,7 +15,7 @@
           </p>
           <GoButton text="Login" type="submit" :colore="'green'"/>
         </form>
-        <div class="createbutton" @click.prevent.left="$router.push('/createAccount')">
+        <div class="createbutton" @click.prevent.left="$router.push({name: 'createAccount'})">
         <GoButton text="Create an account" :colore="'#B1B9FC'"/>
         </div>
         <div class="forgotbutton" @click.prevent.left="goForgot()">
@@ -54,6 +54,8 @@
             -Une erreur serveur dans ce cas, on n'affiche que le status associé
             Dans ces cas, il y aura une pop-up explicative*/
         post(){
+          //GlobalMethods.isAClient("client");
+          
           if(this.checkArgs())
           {
             const requestOptions = {
@@ -91,7 +93,7 @@
           if(!this.mail) Swal.fire("Please enter your mail to reset the password !");
           else{
             this.$cookies.set("mail", this.mail);
-            this.$router.push("/forgottenPassword");
+            this.$router.push({name: 'forgottenPassword'});
           }
         },
         //Temp
