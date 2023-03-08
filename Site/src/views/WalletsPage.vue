@@ -9,8 +9,10 @@
           <p> {{ wallet.name }} :</p>
           <p> {{ wallet.nameOwner }}</p>
           <p> {{ wallet.address }}</p>
-          <GoButton text="Go" v-on:click="seeMore(wallet)"/> <!--Avec bête bouton fonctionne sûr-->
-          <div v-if="loading">Loading...</div>
+          <div @click.prevent.left="seeMore(wallet)">
+            <GoButton text="Go" :colore="'#B1B9FC'"/>
+          </div>
+         <div v-if="loading">Loading...</div>
         </div>
         <AddWalletForm/>
       </div>

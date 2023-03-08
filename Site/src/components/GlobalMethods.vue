@@ -1,5 +1,6 @@
 <script>
   import Swal from 'sweetalert2';
+  import router from '@/router/index'
   export default {
     name: 'GlobalMethods',
     methods: {
@@ -15,9 +16,11 @@
     /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle*/
     isAClient(role){
       if(role == "client"){
-        this.$router.push({name: "HomeClient"}); //ou utiliser name: A voir avec les tests
+        router.push({name: "HomeClient"}); //ou utiliser name: A voir avec les tests
       } 
-      this.$router.push('/supplier/Home');
+      else{
+        router.push({name: "HomeSupplier"});
+      }
     },
     /*Méthode permettant d'obtenir un (nouveau) code pour valider le changement de mot de passe ou la création de compte*/
     async sendCode(){
@@ -56,7 +59,7 @@
               this.$cookies.remove("token");
               this.$cookies.remove("role");
               Swal.fire('Your connection has expired');
-              this.$router.push("/");
+              router.push("/");
             }
             else{
               this.errorApi(response.status);
@@ -67,7 +70,7 @@
             this.$cookies.remove("token");
             this.$cookies.remove("role");
             Swal.fire('See you soon!');
-            this.$router.push(chemin);
+            router.push(chemin);
           }
         })
         .catch(error => {

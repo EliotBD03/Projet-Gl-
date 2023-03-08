@@ -51,16 +51,6 @@ const routes = [
       }*/
   },
   {
-    path: '/notifications',
-    name: 'Notifications',
-    component: () => import('@/views/NotificationsPage.vue')
-  },
-  {
-    path: '/settings',
-    name: 'Settings',
-    component: () => import('@/views/SettingsPage.vue')
-  },
-  {
     path: '/client',
     component: () => import('@/views/GroupClient.vue'),
     children: [
@@ -129,12 +119,33 @@ const routes = [
         }
       }*/
   },
+  //Redirections valables pour les 2
   {
-    path: '/methods',
-    name: 'methods',
-    component: () => import('@/components/GlobalMethods.vue'),
-      beforeRouteEnter: (to, from, next) => {
-        next(false);        
+    path: '/notifications',
+    name: 'Notifications',
+    component: () => import('@/views/NotificationsPage.vue'),
+    beforeRouteEnter: (to, from, next) => {
+      if(cookies.isKey("token") && cookies.isKey("role"))
+      {
+        next();
+      }
+      else {
+        next(false);
+      }
+    }
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('@/views/SettingsPage.vue'),
+    beforeRouteEnter: (to, from, next) => {
+      if(cookies.isKey("token") && cookies.isKey("role"))
+      {
+        next();
+      }
+      else {
+        next(false);
+      }
     }
   }
 ]

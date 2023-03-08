@@ -29,7 +29,7 @@
       </div>
       <div class="closebutton" @click.prevent.left="deleteWallet()">
       <GoButton text="Close the wallet"/>
-        </div>
+      </div>
     </div>
   </div>
 

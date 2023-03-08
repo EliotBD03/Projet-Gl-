@@ -39,8 +39,12 @@
         </p>
         <GoButton text="Create an account" type="submit" :colore="'green'"/>
       </form>
-      <GoButton text="Send a code" @click.prevent.left="getCode()" :colore="'#B1B9FC'"/>
-      <GoButton text="Back" @click.prevent.left="back()" :colore="'#B1B9FC'"/>
+      <div @click.prevent.left="getCode()">
+        <GoButton text="Send a code" :colore="'#B1B9FC'"/>
+      </div>
+      <div @click.prevent.left="back()">
+        <GoButton text="Back" :colore="'#B1B9FC'"/>
+      </div>
       <button v-on:click="selected()" >ICI</button> <!--Pour le test-->
     </div>
   </div>
@@ -101,7 +105,7 @@
                   }
               }) 
               .then(data => {
-                this.$cookies.delete('mail');
+                this.$cookies.remove('mail');
                 this.$cookies.set("token", data.token);
                 Swal.fire({
                   icon: 'success',
@@ -128,8 +132,9 @@
       },
       /*Retourner à la page login en supprimant le mail des cookies si besoin*/
       back(){
+        console.log("coucou")
         if(this.$cookies.isKey("mail")){
-          this.$cookies.delete('mail');
+          this.$cookies.remove('mail');
         }
         this.$router.push("/");
       },

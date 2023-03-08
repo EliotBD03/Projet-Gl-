@@ -23,6 +23,7 @@
         </div>
         <button v-on:click="test1()">TEST1Client</button>
         <button v-on:click="test2()">TEST2Supplier</button>
+        <button v-on:click="test3()">GlobalMethods</button>
       </div>
     </div>
   </template>
@@ -38,7 +39,7 @@
     data(){
       return{
         mail: '',
-        password: '',
+        password: ''
       }},
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
@@ -54,8 +55,6 @@
             -Une erreur serveur dans ce cas, on n'affiche que le status associé
             Dans ces cas, il y aura une pop-up explicative*/
         post(){
-          //GlobalMethods.isAClient("client");
-          
           if(this.checkArgs())
           {
             const requestOptions = {
@@ -102,6 +101,9 @@
         },
         test2(){
           this.$router.push({ name: 'HomeSupplier' });
+        },
+        test3(){
+          GlobalMethods.isAClient("client");
         }
     }
   }

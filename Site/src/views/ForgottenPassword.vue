@@ -20,8 +20,12 @@
             </p>
             <GoButton text="Submit" type="submit"/> 
           </form>
-          <GoButton text="SEND A NEW CODE" @click.prevent.left="getCode()" :colore="'gray'"/>
-          <GoButton text="Back" @click.prevent.left="back()" :colore="'gray'"/>
+          <div @click.prevent.left="getCode()">
+          <GoButton text="SEND A NEW CODE" :colore="'gray'"/>
+          </div>
+          <div @click.prevent.left="back()">
+          <GoButton text="Back" :colore="'gray'"/>
+          </div>
       </div>
     </div>
   </template>
@@ -42,7 +46,7 @@
       }},
       /*Récupère le mail dans les cookies et l'envoie vers l'api pour que l'utilisateur puisse avoir le code*/
       created(){
-          this.sendCode();
+          this.getCode();
       },
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up.
@@ -79,7 +83,7 @@
                     }
                   }
                   else{
-                    this.$cookies.delete('mail');
+                    this.$cookies.remove('mail');
                     Swal.fire({
                         icon: 'success',
                         title: 'Good !',
@@ -99,7 +103,7 @@
         },
         /*Retourner à la page login en supprimant le mail des cookies*/
         back(){
-          this.$cookies.delete('mail');
+          this.$cookies.remove('mail');
           this.$router.push("/");
         }
       }
