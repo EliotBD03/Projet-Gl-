@@ -1,6 +1,9 @@
 <script>
   import Swal from 'sweetalert2';
   import router from '@/router/index'
+  import VueCookies from 'vue-cookies';
+  const cookies = VueCookies;
+  
   export default {
     name: 'GlobalMethods',
     methods: {
@@ -26,7 +29,7 @@
     async sendCode(){
       const requestOptions = {
         method: "GET",
-        body: JSON.stringify({ mail: this.$cookies.get("mail") })
+        body: JSON.stringify({ mail: cookies.get("mail") })
       };
       let response = null;
       try {
@@ -50,14 +53,14 @@
     disconnect(chemin){
       const requestOptions = {
         method: "POST",
-        headers: this.$cookies.get("token")
+        headers: cookies.get("token")
       };
       fetch("http://services-babawallet.alwaysdata.net:8300/log/disconnect", requestOptions)
         .then(response => {
           if(!response.ok){
             if(response.status == 401){
-              this.$cookies.remove("token");
-              this.$cookies.remove("role");
+              cookies.remove("token");
+              cookies.remove("role");
               Swal.fire('Your connection has expired');
               router.push("/");
             }
@@ -67,8 +70,8 @@
             }
           }
           else{
-            this.$cookies.remove("token");
-            this.$cookies.remove("role");
+            cookies.remove("token");
+            cookies.remove("role");
             Swal.fire('See you soon!');
             router.push(chemin);
           }
