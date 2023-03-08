@@ -1,5 +1,6 @@
 package main.be.ac.umons.g02.database;
 
+import com.mysql.cj.log.Log;
 import main.be.ac.umons.g02.data_object.WalletBasic;
 import main.be.ac.umons.g02.data_object.WalletFull;
 
@@ -14,8 +15,9 @@ public class WalletManager
         //if(!new LogManager().isClient(clientId))
           //  throw new Exception("the client doesn't exist");
 
-        DB.getInstance().executeQuery("SELECT * FROM wallet WHERE id="+clientId+ " LIMIT " + base+", " + (base+limit),true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"address","client_id","wallet_name"});
+
+        DB.getInstance().executeQuery("SELECT * FROM wallet WHERE client_id="+clientId+ " LIMIT " + base+", " + (base+limit),true);
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"address","wallet_name","client_id"});
 
         //if(results.get(0).size() == 0)
           //  throw new Exception("The client doesn't have any wallet");
@@ -36,8 +38,17 @@ public class WalletManager
         if(walletIsEmpty(address))
             return null;
         DB.getInstance().executeQuery("SELECT * FROM wallet WHERE address='"+address+"'",true);
-
-        return null; //TODO pas encore finis
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {
+                "address",
+                "wallet_name",
+                "client_id",
+                "latest_consumption_elec",
+                "latest_consumption_water",
+                "latest_consumption_gas"
+        });
+        WalletFull walletFull = new WalletFull(results.get(0).get(0),results.get(1).get(0), results.get(2).get(0));
+        walletFull.setLastConsumption(Double.parseDouble(results.get(4).get(0)), Double.parseDouble(results.get(3).get(0)), Double.parseDouble(results.get(5).get(0)));
+        return walletFull; //TODO pas encore finis
     }
 
     public boolean createWallet(WalletBasic walletBasic)
@@ -50,17 +61,18 @@ public class WalletManager
         return true;
     }
 
-    public void deleteWallet(String address)
+    public boolean deleteWallet(String address)
     {
-    //    if(!walletIsEmpty(address))
-      //      throw new Exception("Cannot remove a wallet while it is not empty");
+        if(walletIsEmpty(address))
+            return false;
 
         DB.getInstance().executeQuery("DELETE FROM wallet WHERE address='"+address+"'", false);
+        return true;
     }
 
     public boolean walletIsEmpty(String address)
     {
-        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM wallet_contract WHERE address='"+address+"') AS c",true);
+        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM wallet WHERE address='"+address+"') AS c",true);
         return Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0)) == 0;
     }
 

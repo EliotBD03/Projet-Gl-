@@ -10,9 +10,9 @@ public class WalletFull extends WalletBasic{
     private double lastConsumptionOfElectricity;
     private double lastConsumptionOfGas;
 
-    public WalletFull(String address, String name, String nameOwner)
+    public WalletFull(String address, String name, String ownerId)
     {
-        super(address, name, nameOwner);
+        super(address, name, ownerId);
     }
 
     public ArrayList<ContractBasic> getContracts()
@@ -38,6 +38,13 @@ public class WalletFull extends WalletBasic{
     public double getLastConsumptionOfGas()
     {
         return lastConsumptionOfGas;
+    }
+
+    public void setLastConsumption(double lastConsumptionOfWater, double lastConsumptionOfElectricity, double lastConsumptionOfGas)
+    {
+        this.lastConsumptionOfWater = lastConsumptionOfWater;
+        this.lastConsumptionOfElectricity = lastConsumptionOfElectricity;
+        this.lastConsumptionOfGas = lastConsumptionOfGas;
     }
 }
 
