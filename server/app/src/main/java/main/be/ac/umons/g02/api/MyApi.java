@@ -194,7 +194,7 @@ public class MyApi extends AbstractVerticle
 	/**
 	 * Méthode qui permet de gérer la pagination
 	 * Elle récupère la page, la limite et la phrase  de recherche et effectue toutes les vérifications
-	 * L'émetteur doit envoyer obligatoirement un numéro de page ou une phrase de recherche non vide
+	 * L'émetteur doit envoyer obligatoirement un numéro de page
 	 * Si il y a un problème, elle renvoie une erreur à l'émetteur
 	 *
 	 * @param routingContext - Le contexte de la requête
@@ -213,11 +213,14 @@ public class MyApi extends AbstractVerticle
 		try
 		{
 			if(stringPage == null)
-				page = -1;
+				throw new NumberFormatException();
 			else
 				page = Integer.parseInt(stringPage);
 
-			limit = Integer.parseInt(stringLimit);
+			if(stringLimit == null)
+				limit = pageDefaultSize;
+			else
+				limit = Integer.parseInt(stringLimit);
 		}
 		catch(NumberFormatException error)
 		{
@@ -236,25 +239,21 @@ public class MyApi extends AbstractVerticle
 
 		if(page <= 0)
 		{
-			if(search == null || search.length() == 0)
-			{
-				routingContext.response()
-					.setStatusCode(400)
-					.putHeader("content-type", "application/json")
-					.end(Json.encodePrettily(new JsonObject()
-								.put("error", "Le numéro de page doit être strictement plus grand que 0 ou la phrase de recherche ne doit pas être vide.")));
-				return null;
-			}
-			else
-			{
-				slice[0] = -1;
-				slice[2] = search;
-			}
+			routingContext.response()
+				.setStatusCode(400)
+				.putHeader("content-type", "application/json")
+				.end(Json.encodePrettily(new JsonObject()
+							.put("error", "Le numéro de page doit être strictement plus grand que 0 ou la phrase de recherche ne doit pas être vide.")));
+			return null;
 		}
 		else
 		{
 			slice[0] = "" + ((page - 1) * ((int) slice[1]));
-			slice[2] = "";
+
+			if(search == null || search.length() == 0)
+				slice[2] = null;
+			else
+				slice[2] = search;
 		}
 
 		return slice;
