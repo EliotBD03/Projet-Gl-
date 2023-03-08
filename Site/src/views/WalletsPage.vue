@@ -34,7 +34,7 @@ export default {
   },
   data(){
     return{
-      linkApi : "https://babawallet.alwaysdata.net:8300/api/client/wallets/",
+      linkApi : "http://services-babawallet.alwaysdata.net:8300/api/client/wallets/",
       nbr : 1,
       loading : false,
       listWallet: []

@@ -60,7 +60,7 @@
               method: "POST",
               body: JSON.stringify({ mail: this.mail, password: this.password })
             };
-            fetch("https://babawallet.alwaysdata.net:8300/api/check_account", requestOptions)
+            fetch("http://services-babawallet.alwaysdata.net:8300/log/check_account", requestOptions)
               .then(response => {
                   if(!response.ok){
                     if(response.status == 400){

@@ -42,7 +42,7 @@ export default {
           headers: this.$cookies.get("token"),
           body: JSON.stringify({ name: this.name, address: this.address})
         };
-        fetch("https://babawallet.alwaysdata.net:8300/api/client/wallets", requestOptions)
+        fetch("http://services-babawallet.alwaysdata.net:8300/api/client/wallets", requestOptions)
             .then(response => {
               if(!response.ok){
                 if(response.status === 401){

@@ -29,6 +29,18 @@ const routes = [
     path: '/Home',
     name: 'HomeClient',
     component: () => import('@/views/HomeClient.vue')
+    /*,
+    beforeRouteEnter: (to, from, next) => {
+      if(cookies.isKey("token") && cookies.isKey("role"))
+      {
+        if(cookies.get("role") === 'client'){
+          next();
+        }
+        else{
+          next(false);
+        }
+      }
+    }*/
   },
   {
     path: '/Home',

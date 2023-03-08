@@ -27,7 +27,7 @@
       };
       let response = null;
       try {
-        response = await fetch("https://babawallet.alwaysdata.net:8300/log/code", requestOptions);
+        response = await fetch("http://services-babawallet.alwaysdata.net:8300/log/code", requestOptions);
         if(!response.ok){
           if(response.status == 503 || response.status == 400){ //voir si Adrien garde l'erreur 400 -> mail dans la BDD?
             const data = await response.json();
@@ -49,7 +49,7 @@
         method: "POST",
         headers: this.$cookies.get("token")
       };
-      fetch("https://babawallet.alwaysdata.net:8300/api/disconnect", requestOptions)
+      fetch("http://services-babawallet.alwaysdata.net:8300/log/disconnect", requestOptions)
         .then(response => {
           if(!response.ok){
             if(response.status == 401){
