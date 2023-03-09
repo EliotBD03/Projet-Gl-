@@ -67,11 +67,11 @@ public class CommonApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        int[] slice = getSlice(routingContext);
+        Object[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<String> allLanguages = commonDB.getLanguageManager().getAllLanguages(id, slice[0], slice[1]);
+        ArrayList<String> allLanguages = commonDB.getLanguageManager().getAllLanguages(id, (int) slice[0], (int) slice[1], (String) slice[2]);
 
         routingContext.response()
             .setStatusCode(200)
@@ -248,11 +248,11 @@ public class CommonApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        int[] slice = getSlice(routingContext);
+        Object[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<Notification> allNotifications = commonDB.getNotificationManager().getAllNotifications(id, slice[0], slice[1]);
+        ArrayList<Notification> allNotifications = commonDB.getNotificationManager().getAllNotifications(id, (int) slice[0], (int) slice[1], (String) slice[2]);
 
         routingContext.response()
             .setStatusCode(200)

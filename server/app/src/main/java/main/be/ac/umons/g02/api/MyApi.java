@@ -30,234 +30,254 @@ import java.util.concurrent.*;
  */
 public class MyApi extends AbstractVerticle
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MyApi.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MyApi.class);
 
-    private static final int pageDefaultSize = 10;
-    private static final int pageMaxSize = 20;
+	private static final int pageDefaultSize = 10;
+	private static final int pageMaxSize = 20;
 
-    protected JWTAuth jwt;
-    private LogApi logApi;
-    private ClientApi clientApi;
-    private ProviderApi providerApi;
-    private CommonApi commonApi;
+	protected JWTAuth jwt;
+	private LogApi logApi;
+	private ClientApi clientApi;
+	private ProviderApi providerApi;
+	private CommonApi commonApi;
 
-    protected ArrayList<String> blackList = new ArrayList<>();
+	protected ArrayList<String> blackList = new ArrayList<>();
 
-    /**
-     * Méthode pour lancer l'API, elle est lancé par Vertx
-     * Elle défini l'ip et le port de l'API
-     * Elle crée un JWTAuth avec une phrase secrête pour avoir des tokens uniques
-     * Elle initie les classes sous-routes et les handler liés au token
-     *
-     * @see App
-     */
-    @SuppressWarnings("removal")
-    @Override
-    public void start() throws Exception
-    {
-        LOGGER.info("Start...");
+	/**
+	 * Méthode pour lancer l'API, elle est lancé par Vertx
+	 * Elle défini l'ip et le port de l'API
+	 * Elle crée un JWTAuth avec une phrase secrête pour avoir des tokens uniques
+	 * Elle initie les classes sous-routes et les handler liés au token
+	 *
+	 * @see App
+	 */
+	@SuppressWarnings("removal")
+	@Override
+	public void start() throws Exception
+	{
+		LOGGER.info("Start...");
 
-        String bind = "localhost";
-        int port = 8080;
-        String passPhrase = "";
+		String bind = "localhost";
+		int port = 8080;
+		String passPhrase = "";
 
 
-        Map<String, String> env  = System.getenv();
+		Map<String, String> env  = System.getenv();
 
-        if(env.containsKey("IP") && env.containsKey("PORT"))
-        {
-            bind = env.get("IP");
-            port = new Integer(env.get("PORT"));
-        }
+		if(env.containsKey("IP") && env.containsKey("PORT"))
+		{
+			bind = env.get("IP");
+			port = new Integer(env.get("PORT"));
+		}
 
-        if(!env.containsKey("PASSPHRASE"))
-            System.exit(1);
+		if(!env.containsKey("PASSPHRASE"))
+			System.exit(1);
 
-        passPhrase = env.get("PASSPHRASE");
+		passPhrase = env.get("PASSPHRASE");
 
-        final Router router = Router.router(vertx);
+		final Router router = Router.router(vertx);
 
-        jwt = JWTAuth.create(vertx, new JWTAuthOptions()
-                .addPubSecKey(new PubSecKeyOptions()
-                    .setAlgorithm("HS256")
-                    .setBuffer(passPhrase)));
+		jwt = JWTAuth.create(vertx, new JWTAuthOptions()
+				.addPubSecKey(new PubSecKeyOptions()
+					.setAlgorithm("HS256")
+					.setBuffer(passPhrase)));
 
-        Handler<RoutingContext> handleToken = ctx ->
-        {
-            JWTAuthHandler.create(jwt);
+		Handler<RoutingContext> handleToken = ctx ->
+		{
+			JWTAuthHandler.create(jwt);
 
-            String token = ctx.request().headers().get("Authorization");
-            if(token == null)
-            {
-                ctx.fail(401);
-                return;
-            }
+			String token = ctx.request().headers().get("Authorization");
+			if(token == null || token.length() <= 7 || !token.substring(7).equals("Bearer "))
+			{
+				ctx.fail(401);
+				return;
+			}
 
-            token = token.substring(7);
+			token = token.substring(7);
 
-            if(blackList.contains(token))
-                ctx.fail(401);
-            else
-                ctx.next();
-        };
+			if(blackList.contains(token))
+				ctx.fail(401);
+			else
+				ctx.next();
+		};
 
-        Handler<RoutingContext> roleHandlerClient = ctx ->
-        {
-            String role = ctx.user().principal().getString("role");
-            if(role != null && role.equals("client"))
-                ctx.next();
-            else
-                ctx.fail(401);
-        };
+		Handler<RoutingContext> roleHandlerClient = ctx ->
+		{
+			String role = ctx.user().principal().getString("role");
+			if(role != null && role.equals("client"))
+				ctx.next();
+			else
+				ctx.fail(401);
+		};
 
-        Handler<RoutingContext> roleHandlerProvider = ctx ->
-        {
-            String role = ctx.user().principal().getString("role");
-            if(role != null && role.equals("provider"))
-                ctx.next();
-            else
-                ctx.fail(401);
-        };
+		Handler<RoutingContext> roleHandlerProvider = ctx ->
+		{
+			String role = ctx.user().principal().getString("role");
+			if(role != null && role.equals("provider"))
+				ctx.next();
+			else
+				ctx.fail(401);
+		};
 
-        Handler<RoutingContext> roleHandlerCommon = ctx ->
-        {
-            String role = ctx.user().principal().getString("role");
-            if(role != null && (role.equals("client") || role.equals("provider")))
-                ctx.next();
-            else
-                ctx.fail(401);
-        };
+		Handler<RoutingContext> roleHandlerCommon = ctx ->
+		{
+			String role = ctx.user().principal().getString("role");
+			if(role != null && (role.equals("client") || role.equals("provider")))
+				ctx.next();
+			else
+				ctx.fail(401);
+		};
 
-        router.route("/api/*").handler(handleToken);
-        router.route("/api/client/*").handler(roleHandlerClient);
-        router.route("/api/provider/*").handler(roleHandlerProvider);
-        router.route("/api/common/*").handler(roleHandlerCommon);
+		router.route("/api/*").handler(handleToken);
+		router.route("/api/client/*").handler(roleHandlerClient);
+		router.route("/api/provider/*").handler(roleHandlerProvider);
+		router.route("/api/common/*").handler(roleHandlerCommon);
 
-        logApi = new LogApi();
-        clientApi = new ClientApi();
-        providerApi = new ProviderApi();
-        commonApi = new CommonApi();
+		logApi = new LogApi();
+		clientApi = new ClientApi();
+		providerApi = new ProviderApi();
+		commonApi = new CommonApi();
 
-        final Router logApiRouter = logApi.getSubRouter(vertx);
-        router.mountSubRouter("/log", logApiRouter);
+		final Router logApiRouter = logApi.getSubRouter(vertx);
+		router.mountSubRouter("/log", logApiRouter);
 
-        final Router clientApiRouter = clientApi.getSubRouter(vertx);
-        router.mountSubRouter("/api/client", clientApiRouter);
+		final Router clientApiRouter = clientApi.getSubRouter(vertx);
+		router.mountSubRouter("/api/client", clientApiRouter);
 
-        final Router providerApiRouter = providerApi.getSubRouter(vertx);
-        router.mountSubRouter("/api/provider", providerApiRouter);
+		final Router providerApiRouter = providerApi.getSubRouter(vertx);
+		router.mountSubRouter("/api/provider", providerApiRouter);
 
-        final Router commonApiRouter = commonApi.getSubRouter(vertx);
-        router.mountSubRouter("/api/common", commonApiRouter);
+		final Router commonApiRouter = commonApi.getSubRouter(vertx);
+		router.mountSubRouter("/api/common", commonApiRouter);
 
-        vertx.createHttpServer().requestHandler(router).listen(port, bind);
+		vertx.createHttpServer().requestHandler(router).listen(port, bind);
 
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(() -> {
-            cleanExpiredTokens();
-        }, 5, 5, TimeUnit.MINUTES);
+		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+		scheduler.scheduleAtFixedRate(() -> {
+			cleanExpiredTokens();
+		}, 5, 5, TimeUnit.MINUTES);
 
-        LOGGER.info("Lancement du serveur...");
-    }
+		LOGGER.info("Lancement du serveur...");
+	}
 
-    @Override
-    public void stop() throws Exception
-    {
-        LOGGER.info("Stop...");
-        System.exit(1);
-    }
+	@Override
+	public void stop() throws Exception
+	{
+		LOGGER.info("Stop...");
+		System.exit(1);
+	}
 
-    /**
-     * Méthode qui permet de supprimer les tokens qui sont dans la blacklist et qui sont périmés
-     * Cette méthode est appelée toutes les 5 minutes
-     *
-     */
-    private void cleanExpiredTokens()
-    {
-        Iterator<String> iterator = blackList.iterator();
-        while(iterator.hasNext())
-        {
-            String token = iterator.next();
+	/**
+	 * Méthode qui permet de supprimer les tokens qui sont dans la blacklist et qui sont périmés
+	 * Cette méthode est appelée toutes les 5 minutes
+	 *
+	 */
+	private void cleanExpiredTokens()
+	{
+		Iterator<String> iterator = blackList.iterator();
+		while(iterator.hasNext())
+		{
+			String token = iterator.next();
 
-            String[] parts = token.split("\\.");
-            String payload = new String(Base64.getDecoder().decode(parts[1]), StandardCharsets.UTF_8);
+			String[] parts = token.split("\\.");
+			String payload = new String(Base64.getDecoder().decode(parts[1]), StandardCharsets.UTF_8);
 
-            javax.json.JsonObject jsonPayload = javax.json.Json.createReader(new StringReader(payload)).readObject();
+			javax.json.JsonObject jsonPayload = javax.json.Json.createReader(new StringReader(payload)).readObject();
 
-            long exp = jsonPayload.getJsonNumber("exp").longValueExact();
+			long exp = jsonPayload.getJsonNumber("exp").longValueExact();
 
-            if(Instant.ofEpochSecond(exp).isBefore(Instant.now()))
-                iterator.remove();
-        }
-    }
+			if(Instant.ofEpochSecond(exp).isBefore(Instant.now()))
+				iterator.remove();
+		}
+	}
 
-    /**
-     * Méthode qui permet de gérer la pagination
-     * Elle récupère la page et la limite et effectue toutes les vérifications
-     * Si il y a un problème, elle renvoie une erreur à l'émetteur
-     *
-     * @param routingContext - Le contexte de la requête
-     */
-    protected int[] getSlice(final RoutingContext routingContext)
-    {
-        final String stringPage = routingContext.request().getParam("page");
-        final String stringLimit = routingContext.request().getParam("limit");
+	/**
+	 * Méthode qui permet de gérer la pagination
+	 * Elle récupère la page, la limite et la phrase  de recherche et effectue toutes les vérifications
+	 * L'émetteur doit envoyer obligatoirement un numéro de page
+	 * Si il y a un problème, elle renvoie une erreur à l'émetteur
+	 *
+	 * @param routingContext - Le contexte de la requête
+	 */
+	protected Object[] getSlice(final RoutingContext routingContext)
+	{
+		final String stringPage = routingContext.request().getParam("page");
+		final String search = routingContext.request().getParam("search");
+		final String stringLimit = routingContext.request().getParam("limit");
 
-        try
-        {
-            int[] slice = {0, 0};
-            int page = Integer.parseInt(stringPage);
-            int limit = Integer.parseInt(stringLimit);
+		Object[] slice = {null, null, null};
 
-            if(page <= 0)
-            {
-                routingContext.response()
-                    .setStatusCode(400)
-                    .putHeader("content-type", "application/json")
-                    .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "Le numéro de page doit être strictement plus grand que 0.")));
-                return null;
-            }
+		int page;
+		int limit;
 
-            if (limit <= 0 || limit > pageMaxSize)
-                slice[1] = pageDefaultSize;
-            else
-                slice[1] = limit;
+		try
+		{
+			if(stringPage == null)
+				throw new NumberFormatException();
+			else
+				page = Integer.parseInt(stringPage);
 
-            slice[0] = (page - 1) * slice[1];
+			if(stringLimit == null)
+				limit = pageDefaultSize;
+			else
+				limit = Integer.parseInt(stringLimit);
+		}
+		catch(NumberFormatException error)
+		{
+			routingContext.response()
+				.setStatusCode(400)
+				.putHeader("content-type", "application/json")
+				.end(Json.encodePrettily(new JsonObject()
+							.put("error", "Les numéros de pages et de limites doivent être des entiers.")));
+			return null;
+		}
 
-            return slice;
-        }
-        catch(NumberFormatException error)
-        {
-            routingContext.response()
-                .setStatusCode(400)
-                .putHeader("content-type", "application/json")
-                .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Les numéros de pages et de limites doivent être des entiers.")));
-            return null;
-        }
-    }
+		if (limit <= 0 || limit > pageMaxSize)
+			slice[1] = "" + pageDefaultSize;
+		else
+			slice[1] = "" + limit;
 
-    /**
-     * Méthode qui permet de vérifier que les paramètres envoyé lors des requêtes ne soient pas null
-     * Cette méthode retourne le code erreur 400 à l'émetteur s'il y a un problème dans la requêtea ainsi que true
-     *
-     * @param param - Le paramètre a tester
-     * @param routingContext - Le contexte de la requête
-     */
-    protected boolean checkParam(Object param, final RoutingContext routingContext)
-    {
-        if(param == null)
-        {
-            routingContext.response()
-                .setStatusCode(400)
-                .putHeader("content-type", "application/json")
-                .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Il manque des informations dans la requête.")));
-            return true;
-        }
+		if(page <= 0)
+		{
+			routingContext.response()
+				.setStatusCode(400)
+				.putHeader("content-type", "application/json")
+				.end(Json.encodePrettily(new JsonObject()
+							.put("error", "Le numéro de page doit être strictement plus grand que 0 ou la phrase de recherche ne doit pas être vide.")));
+			return null;
+		}
+		else
+		{
+			slice[0] = "" + ((page - 1) * ((int) slice[1]));
 
-        return false;
-    }
+			if(search == null || search.length() == 0)
+				slice[2] = null;
+			else
+				slice[2] = search;
+		}
+
+		return slice;
+	}
+
+	/**
+	 * Méthode qui permet de vérifier que les paramètres envoyé lors des requêtes ne soient pas null
+	 * Cette méthode retourne le code erreur 400 à l'émetteur s'il y a un problème dans la requêtea ainsi que true
+	 *
+	 * @param param - Le paramètre a tester
+	 * @param routingContext - Le contexte de la requête
+	 */
+	protected boolean checkParam(Object param, final RoutingContext routingContext)
+	{
+		if(param == null)
+		{
+			routingContext.response()
+				.setStatusCode(400)
+				.putHeader("content-type", "application/json")
+				.end(Json.encodePrettily(new JsonObject()
+							.put("error", "Il manque des informations dans la requête.")));
+			return true;
+		}
+
+		return false;
+	}
 }

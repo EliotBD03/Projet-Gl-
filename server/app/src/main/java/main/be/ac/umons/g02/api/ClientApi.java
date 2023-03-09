@@ -58,11 +58,11 @@ public class ClientApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        int[] slice = getSlice(routingContext);
+        Object[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<WalletBasic> wallets = commonDB.getWalletManager().getAllWallets(id, slice[0], slice[1]);
+        ArrayList<WalletBasic> wallets = commonDB.getWalletManager().getAllWallets(id, (int) slice[0], (int) slice[1], (String) slice[2]);
 
         routingContext.response()
             .setStatusCode(200)
@@ -168,11 +168,11 @@ public class ClientApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        int[] slice = getSlice(routingContext);
+        Object[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<ContractBasic> contracts = commonDB.getContractManager().getAllContracts(id, slice[0], slice[1]);
+        ArrayList<ContractBasic> contracts = commonDB.getContractManager().getAllContracts(id, (int) slice[0], (int ) slice[1], (String) slice[2]);
 
         routingContext.response()
             .setStatusCode(200)
@@ -192,11 +192,11 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetAllProposals...");
 
-        int[] slice = getSlice(routingContext);
+        Object[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals(slice[0], slice[1]);
+        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals((int) slice[0], (int) slice[1], (String) slice[2]);
 
         routingContext.response()
             .setStatusCode(200)

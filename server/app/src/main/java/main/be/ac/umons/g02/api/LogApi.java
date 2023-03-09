@@ -77,7 +77,7 @@ public class LogApi extends MyApi implements RouterApi
         if(commonDB.getLogManager().isClient(id))
             role = "client";
         else
-            role = "provider";
+            role = "supplier";
 
         JsonObject userInfo = new JsonObject()
             .put("id", id)
@@ -89,7 +89,7 @@ public class LogApi extends MyApi implements RouterApi
             .setStatusCode(200)
             .putHeader("content-type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
-                        .put("token", token)
+                        .put("token", "Bearer " + token)
                         .put("role", role)));
     }
 
@@ -104,6 +104,8 @@ public class LogApi extends MyApi implements RouterApi
 
         String token = null;
         if(checkParam((token = routingContext.request().headers().get("Authorization")), routingContext)) return;
+
+		if(token.length() <= 7 || !token.substring(7).equals("Bearer ")) return;
 
         token = token.substring(7);
 
@@ -161,7 +163,7 @@ public class LogApi extends MyApi implements RouterApi
                 if(isClient)
                     role = "client";
                 else
-                    role = "provider";
+                    role = "supplier";
 
                 JsonObject userInfo = new JsonObject()
                     .put("id", id)
@@ -173,7 +175,7 @@ public class LogApi extends MyApi implements RouterApi
                     .setStatusCode(200)
                     .putHeader("content-type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("token", token)
+                                .put("token", "Bearer " + token)
                                 .put("role", role)));
 
             }
@@ -282,5 +284,5 @@ public class LogApi extends MyApi implements RouterApi
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "Erreur de l'envoie du code.")));
         }
-    }
+   }
 }
