@@ -110,4 +110,9 @@ public class ConsumptionManager
                 " WHERE date_recorded='"+date+"' AND ean='"+ean+"'",false);
     }
 
+    public void createCounterOrReplaceContract(String ean, String contractId)
+    {
+        DB.getInstance().executeQuery("INSERT INTO counter(ean,contract_id) VALUES('"+ean+"',"+contractId+") ON DUPLICATE KEY UPDATE contract_id="+contractId,false);
+    }
+
 }

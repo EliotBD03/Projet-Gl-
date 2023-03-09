@@ -88,7 +88,7 @@ public class ProposalManager
                 "' AND provider_id="+providerId, true);
 
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[]{"proposal_name","provider_id","water"
-        ,"gas","electricity","fixed_rate","peak_hours","offpeak_hours","start_peak_hours","end_peak_hours","price","location"});
+        ,"gas","electricity","fixed_rate","peak_hours","offpeak_hours","start_peak_hours","end_peak_hours","price","location", "duration"});
 
         ProposalFull proposalFull;
         String typeEnergy = null;
@@ -104,13 +104,14 @@ public class ProposalManager
         String endPeakHours = results.get(9).get(0);
         double basicPrice = Double.parseDouble(results.get(10).get(0));
         String location = results.get(11).get(0);
+        String duration = results.get(12).get(0);
 
         String nameProvider;
         DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+providerId,true);
         nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
 
         proposalFull = new ProposalFull(providerId, nameProvider, typeEnergy, location, proposalName);
-        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, startPeakHours.equals(endPeakHours), startPeakHours, endPeakHours);
+        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, startPeakHours.equals(endPeakHours), startPeakHours, endPeakHours, Integer.parseInt(duration));
         return proposalFull;
     }
 

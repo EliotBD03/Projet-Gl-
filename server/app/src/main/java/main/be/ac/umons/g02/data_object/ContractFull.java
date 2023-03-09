@@ -5,6 +5,7 @@ import java.util.Calendar;
 public class ContractFull extends ContractBasic
 {
     private ProposalFull proposal;
+    private String address;
     private String openingDate;
     private String closingDate;
 
@@ -57,11 +58,15 @@ public class ContractFull extends ContractBasic
     {
         return proposal.getEndOfPeakHours();
     }
+    public String getProposalName(){return proposal.getProposalName();}
 
-    public void setMoreInformation(ProposalFull proposal, String openingDate, String closingDate)
+    public String getAddress(){return address;}
+
+    public void setMoreInformation(ProposalFull proposal, String openingDate, String closingDate, String address)
     {
         this.proposal = proposal;
         this.openingDate = openingDate;
         this.closingDate = closingDate;
+        this.address = address;
     }
 }

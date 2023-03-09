@@ -71,7 +71,7 @@ DROP TABLE IF EXISTS `contract`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contract` (
-  `contract_id` int(10) NOT NULL,
+  `contract_id` int(10) NOT NULL AUTO_INCREMENT,
   `proposal_name` varchar(10) DEFAULT NULL,
   `ean` varchar(18) DEFAULT NULL,
   `provider_id` int(10) DEFAULT NULL,
@@ -165,6 +165,7 @@ CREATE TABLE `notification` (
   `linked_proposal_name` varchar(30) DEFAULT NULL,
   `provider_id_proposal` int(10) DEFAULT NULL,
   `context` varchar(25) DEFAULT NULL,
+  `creation_date` timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`notification_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -198,6 +199,7 @@ CREATE TABLE `proposal` (
   `end_peak_hours` time DEFAULT NULL,
   `price` double(6,2) DEFAULT NULL,
   `location` binary(3) DEFAULT NULL,
+  `duration` int(10) DEFAULT NULL,
   PRIMARY KEY (`proposal_name`,`provider_id`),
   KEY `provider_id` (`provider_id`),
   CONSTRAINT `proposal_ibfk_1` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`provider_id`)

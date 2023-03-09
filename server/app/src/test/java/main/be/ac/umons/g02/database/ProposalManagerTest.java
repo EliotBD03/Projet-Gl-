@@ -19,7 +19,7 @@ class ProposalManagerTest
         DBTest.setUp();
         new LogManager().saveAccount("jackie@gmail.com", "johnie", false, "jackie", "english");
         //We suppose the method "addProposal" works well
-        reference.setMoreInformation(20.0,20.0,20.0,true,false,"20:15:00","06:15:00");
+        reference.setMoreInformation(20.0,20.0,20.0,true,false,"20:15:00","06:15:00", 6);
     }
 
     @AfterAll

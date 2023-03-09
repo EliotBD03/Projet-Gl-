@@ -8,13 +8,16 @@ public class Notification
     private final String contractId;
     private final String context;
 
-    public Notification(String id_notification, String sender_id, String receiverId, String contractId, String context)
+    private final String creationDate;
+
+    public Notification(String id_notification, String sender_id, String receiverId, String contractId, String context, String creationDate)
     {
         this.id_notification = id_notification;
         this.senderId = sender_id;
         this.receiverId = receiverId;
         this.contractId = contractId;
         this.context = context;
+        this.creationDate = creationDate;
     }
 
     public String getId_notification()
@@ -41,4 +44,5 @@ public class Notification
     {
         return context;
     }
+    public String getCreationDate(){return creationDate;}
 }

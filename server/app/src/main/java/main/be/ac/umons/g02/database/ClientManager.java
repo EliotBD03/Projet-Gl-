@@ -1,7 +1,7 @@
 package main.be.ac.umons.g02.database;
 
 import main.be.ac.umons.g02.data_object.ClientBasic;
-import main.be.ac.umons.g02.data_object.ContractBasic;
+
 
 import java.util.ArrayList;
 import java.util.Objects;

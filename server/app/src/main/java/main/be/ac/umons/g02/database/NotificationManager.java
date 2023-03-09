@@ -23,21 +23,22 @@ public class NotificationManager
         DB.getInstance().executeQuery("SELECT * FROM notification WHERE id="+idUser + " LIMIT "+ base+", "+(base+limit), true);
 
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {
-                "notification_id", "sender_id", "receiver_id", "linked_contract, context"});
+                "notification_id", "sender_id", "receiver_id", "linked_contract", "context", "creation_date"});
 
         ArrayList<Notification> notifications = new ArrayList<>();
-        for (ArrayList<String> result : results)
+        for (int i = 0; i < results.get(0).size(); i++)
         {
-            notifications.add(new Notification(result.get(0), result.get(1), result.get(2), result.get(3), result.get(4)));
+            notifications.add(new Notification(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i), results.get(3).get(i), results.get(4).get(i), results.get(5).get(i)));
         }
 
         return notifications;
     }
 
-    public void acceptNotification(String notificationId)
+    public void acceptNotification(String notificationId, String ean, String address)
     {
-        //The fact of answering is only for contracts
-        //TODO
+        DB.getInstance().executeQuery("SELECT * FROM notification", true);
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"sender_id", "receiver_id", "linked_proposal_name", "provider_id_proposal"});
+
     }
 
     public void refuseNotification(String notificationId)

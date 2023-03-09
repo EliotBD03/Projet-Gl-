@@ -24,8 +24,8 @@ class LogManagerTest {
     @AfterAll
     static void clean()
     {
-        DB.getInstance().executeQuery("DELETE FROM client", false);
-        DB.getInstance().executeQuery("DELETE FROM language", false);
+       // DB.getInstance().executeQuery("DELETE FROM client", false);
+       // DB.getInstance().executeQuery("DELETE FROM language", false);
         DBTest.clean();
     }
 
@@ -33,7 +33,6 @@ class LogManagerTest {
     @Order(1)
     void saveAccountTest()
     {
-        System.out.println("1");
         assertDoesNotThrow(() -> {new LogManager().saveAccount("test@gmail.com", "password", true, "testName","english");});
         assertThrows(Exception.class,() -> {new LogManager().saveAccount("test@gmail.com", "password", true, "testName","english");});
     }
@@ -42,7 +41,6 @@ class LogManagerTest {
     @Order(2)
     void isClient()
     {
-        System.out.println("2");
         assertTrue(new LogManager().isClient("1"));
     }
 
@@ -50,7 +48,6 @@ class LogManagerTest {
     @Order(3)
     void checkAccountTest()
     {
-        System.out.println("3");
         assertEquals(new LogManager().checkAccount("test@gmail.com", "password"), "1");
         assertNull(new LogManager().checkAccount("test@gmail.com", "mdp"));
     }
@@ -59,7 +56,6 @@ class LogManagerTest {
     @Order(4)
     void changePasswordTest()
     {
-        System.out.println("4");
         assertDoesNotThrow(() -> {new LogManager().changePassword("test@gmail.com", "newPassword");});
     }
 
@@ -67,7 +63,6 @@ class LogManagerTest {
     @Order(5)
     void getName()
     {
-        System.out.println("5");
         assertEquals("testName", new LogManager().getName("1"));
     }
 
@@ -75,7 +70,6 @@ class LogManagerTest {
     @Order(6)
     void deleteAccount()
     {
-        System.out.println("6");
         new LogManager().deleteAccount("1");
         assertNull(new LogManager().checkAccount("test@gmail.com", "password"));
     }
