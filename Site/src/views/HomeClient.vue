@@ -8,7 +8,7 @@
         <MainCard text="Your Contracts" redir="Contracts"/>
         <MainCard text="Notifications" redir="Notifications"/>
       </div>
-      <div class="globalcontracts">
+      <div class="globalcontracts"> <!-- div for the button to avoid the 100% width on clicking -->
         <div class="newcontract" @click.prevent.left="$router.push('/newcontracts')">
           <GoButton text="See new contracts" :colore="'#B1B9FC'"/>
         </div>
