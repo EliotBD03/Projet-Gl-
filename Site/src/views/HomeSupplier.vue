@@ -6,7 +6,7 @@
     <div class="allcards">
       <MainCard text="Your clients"/>
       <MainCard text="Your Contracts"/>
-      <MainCard text="Notifications" redir="/notifications"/>
+      <MainCard text="Notifications"/>
     </div>
     <div class="bottombutton">
       <div class="disconnectbutton" @click.prevent.left="disconnect()">

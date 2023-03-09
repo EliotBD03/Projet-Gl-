@@ -10,7 +10,7 @@
           <p> {{ wallet.nameOwner }}</p>
           <p> {{ wallet.address }}</p>
           <div @click.prevent.left="seeMore(wallet)">
-            <GoButton text="Go" :colore="'#B1B9FC'"/>
+            <GoButton text="Go" :colore="'#34c98e'"/>
           </div>
          <div v-if="loading">Loading...</div>
         </div>
@@ -56,7 +56,7 @@ export default {
       try {
         const response = await fetch("${linkApi}page?page=${nbr}", requestOptions);
         if (!response.ok) { //voir comment on gère l'arrivée à la fin des pages erreur/vide?
-          if(response.status == 401){
+          if(response.status === 401){
             this.$cookies.remove("token");
             this.$cookies.remove("role");
             Swal.fire('Your connection has expired');

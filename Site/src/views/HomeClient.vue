@@ -4,12 +4,14 @@
         <MainHeader text="Home"/>
       </div>
       <div class="allcards">
-        <MainCard text="Wallet" redir="/wallets"/>
-        <MainCard text="Your Contracts" redir="/contracts"/>
-        <MainCard text="Notifications" redir="/notifications"/>
+        <MainCard text="Wallet" redir="Wallets"/>
+        <MainCard text="Your Contracts" redir="Contracts"/>
+        <MainCard text="Notifications" redir="Notifications"/>
       </div>
-      <div class="newcontract" @click.prevent.left="$router.push('/newcontracts')">
-        <GoButton text="See new contracts" :colore="'#B1B9FC'"/>
+      <div class="globalcontracts">
+        <div class="newcontract" @click.prevent.left="$router.push('/newcontracts')">
+          <GoButton text="See new contracts" :colore="'#B1B9FC'"/>
+        </div>
       </div>
       <div class="bottombutton">
         <div class="disconnectbutton" @click.prevent.left="disconnect()">
@@ -54,10 +56,7 @@ export default {
 }
 
 .newcontract {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px;
+  width: fit-content;
 }
 
 .bottombutton {
@@ -81,4 +80,13 @@ export default {
   justify-content: space-evenly;
   height: 100vh;
 }
+
+.globalcontracts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+
 </style>

@@ -35,6 +35,7 @@ button {
   transition: all 250ms;
   overflow: hidden;
   cursor: pointer;
+  margin: 10px;
 }
 
 button::before {

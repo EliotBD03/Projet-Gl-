@@ -4,20 +4,20 @@
       <MainHeader text="Consumptions"/>
     </div>
     <div class="topbutton">
-      <GoButton text="Table" :colore="'green'"/>
-      <GoButton text="Export" :colore="'green'"/>
-      <GoButton text="Graphic" :colore="'green'"/>
+      <GoButton text="Table" :colore="'#34c98e'"/>
+      <GoButton text="Export" :colore="'#34c98e'"/>
+      <GoButton text="Graphic" :colore="'#34c98e'"/>
     </div>
     <div class="infos">
       <div class="container">
       </div>
       <div class="newconsumption">
       <p>New consumption : 12/02/2024</p>
-        <GoButton text="Add" :colore="'green'"/>
+        <GoButton text="Add" :colore="'#34c98e'"/>
       </div>
       <div class="changeconsumption">
         <p>Change consumption : 12/02/2024</p>
-        <GoButton text="Change" :colore="'green'"/>
+        <GoButton text="Change" :colore="'#34c98e'"/>
       </div>
     </div>
     <div class="bottombutton">

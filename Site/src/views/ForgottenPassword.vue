@@ -6,22 +6,13 @@
       <div class="forgot-form">
         <p>An email is sent : Follow the instructions</p>
         <form id="forgotForm" method="post" v-on:submit.prevent="post">
-            <p>
-              <label>Mail Code: </label>
-              <input type="text" v-model="code">
-            </p>
-            <p>
-              <label>New Password: </label>
-              <input type="text" v-model="newPassword">
-            </p>
-            <p>
-              <label>Repeated Password: </label>
-              <input type="text" v-model="repeatedPassword">
-            </p>
-            <GoButton text="Submit" type="submit"/> 
+            <InputMain text="Mail code" type="text" v-model="code"/>
+            <InputMain text="New password" type="password" v-model="newPassword"/>
+            <InputMain text="Repeated password" type="password" v-model="repeatedPassword"/>
+            <GoButton text="Submit" type="submit" :colore="'#34c98e'"/>
           </form>
           <div @click.prevent.left="getCode()">
-          <GoButton text="SEND A NEW CODE" :colore="'gray'"/>
+          <GoButton text="Send a new code" :colore="'gray'"/>
           </div>
           <div @click.prevent.left="back()">
           <GoButton text="Back" :colore="'gray'"/>
@@ -35,9 +26,10 @@
   import MainHeader from "@/components/MainHeader.vue";
   import GlobalMethods from "@/components/GlobalMethods.vue";
   import Swal from 'sweetalert2';
+  import InputMain from "@/components/InputMain.vue";
   export default {
     name: "forgotForm",
-    components: {GoButton,MainHeader},
+    components: {InputMain, GoButton,MainHeader},
     data(){
       return{
         code: '',
@@ -121,17 +113,21 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  align-items: center;
   height: 100vh;
 }
 
   .forgot-form {
-    background-color: #f2f2f2;
-    padding: 50px;
-    border-radius: 10px;
-    width: 50%;
-    left: 50%;
-    transform: translate(-50%);
-    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 500px;
+    height: 700px;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe,
+    -20px -20px 60px #ffffff;
   }
   
   .forgot-form label {

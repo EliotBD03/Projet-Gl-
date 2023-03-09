@@ -16,14 +16,13 @@
           </div>
       </div>
       <div class="form">
-        <InputMain text="Old password"/>
-        <InputMain text="New password"/>
+        <InputMain text="Enter your mail" type="mail" v-model="mail"/>
         <div class="changebutton" @click.prevent.left="changed()">
           <GoButton text="Change password" :colore="'#B1B9FC'"/>
         </div>
       </div>
     </div>
-    <div class="bottombutton" @click.prevent.left="$router.push('')">
+    <div class="bottombutton" @click.prevent.left="redirecting()">
       <!--Il va falloir vérif le rôle pour revenir il y a une méthode dans globalMethods-->
       <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
@@ -36,6 +35,7 @@ import GoButton from "@/components/GoButton.vue";
 import DropdownMain from "@/components/DropdownMain.vue";
 import Swal from 'sweetalert2';
 import InputMain from "@/components/InputMain.vue";
+import GlobalMethods from "@/components/GlobalMethods.vue";
 export default {
   components: {
     InputMain,
@@ -43,12 +43,24 @@ export default {
     MainHeader,
     GoButton,
   },
+  data() {
+    return {
+      mail: "",
+    }
+  },
   methods: {
     changed() {
-      Swal.fire("Your password has been changed !");
+      if (!this.mail) Swal.fire("Please enter your mail");
+      else {
+        this.$cookies.set('mail', this.mail);
+        this.$router.push({ name: 'ForgottenPassword' });
+      }
     },
     langChanged() {
       Swal.fire("Your language has been changed !");
+    },
+    redirecting() {
+      GlobalMethods.isAClient(this.$cookies.get('role'));
     }
   }
 };

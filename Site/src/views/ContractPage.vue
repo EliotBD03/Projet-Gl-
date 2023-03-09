@@ -6,7 +6,7 @@
     <div class="searchbar">
       <SearchBar/>
     </div>
-    <div class="homeButton" @click.prevent.left="$router.push('/Home')">
+    <div class="homeButton" @click.prevent.left="redirecting()">
       <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
   </div>
@@ -16,11 +16,17 @@
 import MainHeader from "@/components/MainHeader.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import GoButton from "@/components/GoButton.vue";
+import GlobalMethods from "@/components/GlobalMethods.vue";
 export default {
   components: {
     MainHeader,
     SearchBar,
     GoButton,
+  },
+  methods: {
+    redirecting() {
+      GlobalMethods.isAClient(this.$cookies.get("role"));
+    }
   },
   props: {
     contract: [

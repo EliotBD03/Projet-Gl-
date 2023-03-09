@@ -21,23 +21,11 @@
         <br>
       </div>
       <form id="createForm" method="post" v-on:submit.prevent="post">
-        <p>
-          <label>Mail: </label>
-          <input type="text" v-model="mail">
-        </p>
-        <p>
-          <label>Password: </label>
-          <input type="text" v-model="password">
-        </p>
-        <p>
-          <label>Repeated Password: </label>
-          <input type="text" v-model="repeatedPassword">
-        </p>
-        <p>
-          <label>Mail Code: </label>
-          <input type="text" v-model="code">
-        </p>
-        <GoButton text="Create an account" type="submit" :colore="'green'"/>
+        <InputMain text="Mail" type="mail" v-model="mail"/>
+        <InputMain text="Password" type="password" v-model="password"/>
+        <InputMain text="Repeated password" type="password" v-model="repeatedPassword"/>
+        <InputMain text="Code" type="text" v-model="code"/>
+        <GoButton text="Create an account" type="submit" :colore="'#34c98e'"/>
       </form>
       <div @click.prevent.left="getCode()">
         <GoButton text="Send a code" :colore="'#B1B9FC'"/>
@@ -55,9 +43,10 @@
   import MainHeader from "@/components/MainHeader.vue";
   import GlobalMethods from "@/components/GlobalMethods.vue";
   import Swal from 'sweetalert2';
+  import InputMain from "@/components/InputMain.vue";
   export default {
     name: "createForm",
-    components: {GoButton, MainHeader},
+    components: {InputMain, GoButton, MainHeader},
     data(){
       return{
         mail: '',
@@ -178,13 +167,16 @@
 }
 
   .create-form {
-    background-color: #f2f2f2;
-    padding: 10px;
-    border-radius: 10px;
-    width: 50%;
-    left: 50%;
-    transform: translate(-50%);
-    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe,
+    -20px -20px 60px #ffffff;
   }
   
   .create-form label {

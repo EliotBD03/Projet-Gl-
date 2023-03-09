@@ -3,7 +3,7 @@
       <div class="title">
         {{ text }}
       </div>
-      <div class="button" @click.prevent.left="$router.push(redir)">
+      <div class="button" @click.prevent.left="$router.push({name: redir})">
         <GoButton text="Go" :colore="'#B1B9FC'"/>
       </div>
     </div>

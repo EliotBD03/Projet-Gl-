@@ -5,15 +5,9 @@
       </div>
       <div class="login-form">
         <form id="loginForm" method="post" @submit.prevent="post">
-          <p>
-            <label>Mail: </label>
-            <input type="text" v-model="mail">
-          </p>
-          <p>
-            <label>Password: </label>
-            <input type="text" v-model="password">
-          </p>
-          <GoButton text="Login" type="submit" :colore="'green'"/>
+          <InputMain text="Mail" v-model="mail" type="mail"/>
+          <InputMain text="Password" v-model="password" type="password"/>
+          <GoButton text="Login" type="submit" :colore="'#34c98e'"/>
         </form>
         <div class="createbutton" @click.prevent.left="$router.push({name: 'createAccount'})">
         <GoButton text="Create an account" :colore="'#B1B9FC'"/>
@@ -33,9 +27,10 @@
   import MainHeader from "@/components/MainHeader.vue";
   import GlobalMethods from "@/components/GlobalMethods.vue";
   import Swal from 'sweetalert2';
+  import InputMain from "@/components/InputMain.vue";
   export default {
     name: "loginForm",
-    components: {GoButton, MainHeader},
+    components: {InputMain, GoButton, MainHeader},
     data(){
       return{
         mail: '',
@@ -64,7 +59,7 @@
             fetch("http://services-babawallet.alwaysdata.net:8300/log/check_account", requestOptions)
               .then(response => {
                   if(!response.ok){
-                    if(response.status == 400){
+                    if(response.status === 400){
                       const data = response.json();
                       GlobalMethods.errorApi(data.error);
                       throw new Error(data.error);
@@ -97,9 +92,11 @@
         },
         //Temp
         test1(){
+          this.$cookies.set("role", "client");
           this.$router.push({ name: 'HomeClient' });
         },
         test2(){
+          this.$cookies.set("role", "supplier");
           this.$router.push({ name: 'HomeSupplier' });
         },
         test3(){
@@ -119,22 +116,22 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 }
 
-  .login-form {
-    background-color: #f2f2f2;
-    padding: 50px;
-    border-radius: 10px;
-    width: 50%;
-    left: 50%;
-    transform: translate(-50%);
-    position: absolute;
+.login-form {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe,
+    -20px -20px 60px #ffffff;
   }
   
   .login-form label {

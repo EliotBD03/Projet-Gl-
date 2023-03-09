@@ -6,7 +6,7 @@
     <div class="notifs">
       <MainNotification class="notif" v-for="notif in notifications" :key="notif" :title="notif.title" :time="notif.time" :text="notif.text" />
     </div>
-    <div class="homebutton" @click.prevent.left="$router.push('')">
+    <div class="homebutton" @click.prevent.left="redirecting()">
       <!--Il va falloir vérif le rôle pour revenir il y a une méthode dans globalMethods-->
       <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
@@ -17,11 +17,17 @@
 import MainHeader from "@/components/MainHeader.vue";
 import MainNotification from "@/components/MainNotification.vue";
 import GoButton from "@/components/GoButton.vue";
+import GlobalMethods from "@/components/GlobalMethods.vue";
 export default {
   components: {
     MainNotification,
     MainHeader,
     GoButton
+  },
+  methods: {
+    redirecting() {
+      GlobalMethods.isAClient(this.$cookies.get("role"));
+    }
   },
   data () {
     return {

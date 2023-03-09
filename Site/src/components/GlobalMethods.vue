@@ -18,7 +18,7 @@
     },
     /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle*/
     isAClient(role){
-      if(role == "client"){
+      if(role === "client"){
         router.push({name: "HomeClient"}); //ou utiliser name: A voir avec les tests
       } 
       else{
@@ -35,7 +35,7 @@
       try {
         response = await fetch("http://services-babawallet.alwaysdata.net:8300/log/code", requestOptions);
         if(!response.ok){
-          if(response.status == 503 || response.status == 400){ //voir si Adrien garde l'erreur 400 -> mail dans la BDD?
+          if(response.status === 503 || response.status === 400){ //voir si Adrien garde l'erreur 400 -> mail dans la BDD?
             const data = await response.json();
             this.errorApi(data.error);
             throw new Error(data.error);
@@ -58,7 +58,7 @@
       fetch("http://services-babawallet.alwaysdata.net:8300/log/disconnect", requestOptions)
         .then(response => {
           if(!response.ok){
-            if(response.status == 401){
+            if(response.status === 401){
               cookies.remove("token");
               cookies.remove("role");
               Swal.fire('Your connection has expired');
@@ -72,7 +72,7 @@
           else{
             cookies.remove("token");
             cookies.remove("role");
-            Swal.fire('See you soon!');
+            Swal.fire('See you soon !');
             router.push(chemin);
           }
         })
