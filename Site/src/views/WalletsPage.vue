@@ -49,7 +49,7 @@ export default {
     async getPage(){
       const requestOptions = {
         method: "GET",
-        headers: this.$cookies.get("token"),
+        headers: {'Authorization' : this.$cookies.get("token")},
       };
       this.loading = true; //bloquer les demandes de loader pendant ce temps.
       try {

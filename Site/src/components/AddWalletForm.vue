@@ -39,7 +39,7 @@ export default {
       {
         const requestOptions = {
           method: "POST",
-          headers: {'token': this.$cookies.get("token")},
+          headers: {'Authorization': this.$cookies.get("token")},
           body: JSON.stringify({ name: this.name, address: this.address })
         };
         fetch("http://services-babawallet.alwaysdata.net:8300/api/client/wallets", requestOptions)

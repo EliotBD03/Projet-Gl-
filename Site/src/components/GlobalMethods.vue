@@ -58,7 +58,7 @@
       //ça vient de la requếte j'ai testé si la méthode était bien appelée
       const requestOptions = {
         method: "POST",
-        headers: {'token' : cookies.get("token")}
+        headers: {'Authorization' : cookies.get("token")}
       };
       fetch("http://services-babawallet.alwaysdata.net:8300/log/disconnect", requestOptions)
         .then(response => {
