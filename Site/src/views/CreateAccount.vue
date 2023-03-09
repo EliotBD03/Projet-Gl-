@@ -33,7 +33,6 @@
       <div @click.prevent.left="back()">
         <GoButton text="Back" :colore="'#B1B9FC'"/>
       </div>
-      <button v-on:click="selected()" >ICI</button> <!--Pour le test-->
     </div>
   </div>
 </template>
@@ -53,9 +52,9 @@
         password: '',
         repeatedPassword: '',
         code: '',
-        language: '',
+        language: 'english',
         selectedList:[],
-        role: '',
+        role: 'Client',
         isClient: false
       }},
       methods: {
@@ -73,8 +72,9 @@
           Si la requête est incorrecte, l'api renvoie un message d'erreur
           Si elle est correcte affiche une pop-up de succès et redirige*/
         post(){
-          if(this.checkArgs() && this.selected())
+          if(this.checkArgs())
           {
+            this.isRole();
             const requestOptions = {
               method: "POST",
               body: JSON.stringify({ mail: this.mail, password: this.password, code: this.code, isClient: this.isClient, language: this.language })
@@ -121,7 +121,6 @@
       },
       /*Retourner à la page login en supprimant le mail des cookies si besoin*/
       back(){
-        console.log("coucou")
         if(this.$cookies.isKey("mail")){
           this.$cookies.remove('mail');
         }
@@ -129,23 +128,10 @@
       },
       /*Méthode permettant de vérifier si les checkboxes sont cochées correctement et 
         assigner les bonnes valeurs en fonction*/
-      selected(){
-        if(this.role != '' && this.language != '')
+      isRole(){
+        if(this.role == "Client")
         {
-          if(this.role == "Client")
-          {
-            this.isClient = true;
-          }
-          return true;
-        }
-        else{
-          if(this.role == ''){
-            Swal.fire("Please make a choice between Client and Supplier !");
-          }
-          if(this.language == ''){
-            Swal.fire("Please make a choice between English and Français !");
-          }
-          return false;
+          this.isClient = true;
         }
       }
     }
@@ -162,8 +148,9 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  height: 110vh;
 }
 
   .create-form {
@@ -171,8 +158,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 500px;
-    height: 500px;
+    width: 600px;
+    height: 710px;
     border-radius: 50px;
     background: #e0e0e0;
     box-shadow: 20px 20px 60px #bebebe,

@@ -50,7 +50,6 @@ export default {
       const requestOptions = {
         method: "GET",
         headers: this.$cookies.get("token"),
-        body: JSON.stringify({ name: this.name, address: this.address})
       };
       this.loading = true; //bloquer les demandes de loader pendant ce temps.
       try {

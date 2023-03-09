@@ -15,9 +15,8 @@
         <div class="forgotbutton" @click.prevent.left="goForgot()">
         <GoButton text="Forgotten password" :colore="'#B1B9FC'"/>
         </div>
-        <button v-on:click="test1()">TEST1Client</button>
-        <button v-on:click="test2()">TEST2Supplier</button>
-        <button v-on:click="test3()">GlobalMethods</button>
+        <button v-on:click="test1()">TEST1 Client</button>
+        <button v-on:click="test2()">TEST2 Supplier</button>
       </div>
     </div>
   </template>
@@ -100,9 +99,6 @@
           this.$cookies.set("role", "supplier");
           this.$cookies.set("token", 987654321);
           this.$router.push({ name: 'HomeSupplier' });
-        },
-        test3(){
-          GlobalMethods.isAClient("client");
         }
     }
   }

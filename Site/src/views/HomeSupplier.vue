@@ -9,7 +9,7 @@
       <MainCard text="Notifications"/>
     </div>
     <div class="bottombutton">
-      <div class="disconnectbutton" @click.prevent.left="disconnect()">
+      <div class="disconnectbutton" @click.prevent.left="callDisconnect()">
       <GoButton text="Disconnect" :colore="'red'"/>
       </div>
       <div class="settingsbutton" @click.prevent.left="$router.push('/settings')">
@@ -32,7 +32,8 @@ components: {
   },
   methods: {
     /*Méthode qui permet la déconnexion de l'utilisateur*/
-    disconnect(){
+    callDisconnect(){
+      console.log("OK")
       GlobalMethods.disconnect("/");
     }
   }

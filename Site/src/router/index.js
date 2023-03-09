@@ -10,7 +10,7 @@ const routes = [
     path: '/',
     name: 'login',
     component: () => import('@/views/Login.vue'),
-    beforeRouteEnter: (to, from, next) => {
+    beforeEnter: (to, from, next) => {
       if(cookies.isKey("token") && cookies.isKey("role"))
       {
         if(cookies.get("role") === 'client'){
@@ -39,16 +39,15 @@ const routes = [
         name: 'forgottenPassword',
         component: () => import('@/views/ForgottenPassword.vue')
       },
-    ]/*,
-      beforeRouteEnter: (to, from, next) => {
+    ],beforeEnter: (to, from, next) => {
         if(cookies.isKey("token") && cookies.isKey("role"))
         {
-          next(false);
+          next(from.path);
         }
         else{
             next();
-          }
-      }*/
+        }
+      }
   },
   {
     path: '/client',
@@ -83,19 +82,18 @@ const routes = [
         path: '/consumptions',
         name: 'Consumptions',
         component: () => import('@/views/ConsumptionPage.vue')
-      },
-    ]/*,
-        beforeRouteEnter: (to, from, next) => {
-          if(cookies.isKey("token") && cookies.isKey("role"))
-          {
-            if(cookies.get("role") === 'client'){
-              next();
-            }
-            else{
-              next(false);
-            }
+      }
+    ],beforeEnter: (to, from, next) => {
+        if(cookies.isKey("token") && cookies.isKey("role"))
+        {
+          if(cookies.get("role") === 'client'){
+            next();
           }
-        }*/
+          else{
+            next(from.path);
+          }
+        }
+    }
   },
   {
     path: '/supplier',
@@ -106,31 +104,30 @@ const routes = [
         name: 'HomeSupplier',
         component: () => import('@/views/HomeSupplier.vue')
       }
-    ]/*,
-      beforeRouteEnter: (to, from, next) => {
+    ],beforeEnter: (to, from, next) => {
         if(cookies.isKey("token") && cookies.isKey("role"))
         {
           if(cookies.get("role") === 'supplier'){
             next();
           }
           else{
-            next(false);
+            next(from.path);
           }
         }
-      }*/
+      }
   },
   //Redirections valables pour les 2
   {
     path: '/notifications',
     name: 'Notifications',
     component: () => import('@/views/NotificationsPage.vue'),
-    beforeRouteEnter: (to, from, next) => {
+    beforeEnter: (to, from, next) => {
       if(cookies.isKey("token") && cookies.isKey("role"))
       {
         next();
       }
       else {
-        next(false);
+        next(from.path);
       }
     }
   },
@@ -138,13 +135,13 @@ const routes = [
     path: '/settings',
     name: 'Settings',
     component: () => import('@/views/SettingsPage.vue'),
-    beforeRouteEnter: (to, from, next) => {
+    beforeEnter: (to, from, next) => {
       if(cookies.isKey("token") && cookies.isKey("role"))
       {
         next();
       }
       else {
-        next(false);
+        next(from.path);
       }
     }
   }
@@ -155,9 +152,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
-router.beforeEach((to, from, next) => {
-  next();
-});
 
 export default router

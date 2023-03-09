@@ -53,7 +53,7 @@ export default {
   async created(){
     const requestOptions = {
       method: "GET",
-      headers: this.$cookies.get("token")
+      headers: {'token' : this.$cookies.get("token")}
     };
     try {
       const response = await fetch("http://services-babawallet.alwaysdata.net:8300/api/client/wallets/:${address}",requestOptions);
@@ -81,7 +81,7 @@ export default {
     deleteWallet() {
       const requestOptions = {
         method: "DELETE",
-        headers: this.$cookies.get("token")
+        headers: {'token' : this.$cookies.get("token")}
       };
       fetch("http://services-babawallet.alwaysdata.net:8300/api/client/wallets/:${address}", requestOptions)
           .then(response => {

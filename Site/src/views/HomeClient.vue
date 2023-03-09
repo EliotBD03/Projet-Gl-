@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="bottombutton">
-        <div class="disconnectbutton" @click.prevent.left="disconnect()">
+        <div class="disconnectbutton" @click.prevent.left="callDisconnect()">
         <GoButton text="Disconnect" :colore="'red'"/>
         </div>
         <div class="settingsbutton" @click.prevent.left="$router.push('/settings')">
@@ -40,7 +40,7 @@ export default {
       console.log("test");
     },
     /*Méthode qui permet la déconnexion de l'utilisateur*/
-    disconnect(){
+    callDisconnect(){
       GlobalMethods.disconnect("/");
     }
   }

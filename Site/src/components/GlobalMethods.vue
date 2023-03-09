@@ -29,7 +29,7 @@
     async sendCode(){
       const requestOptions = {
         method: "GET",
-        body: JSON.stringify({ mail: cookies.get("mail") })
+        headers: {'mail' : cookies.get("mail")}
       };
       let response = null;
       try {
@@ -45,15 +45,20 @@
             throw new Error(response.status);
           }
         }
+        else{
+          Swal.fire('A mail is sent');
+        }
       } catch (error) {
         console.error(error);
       }
     },
     /*Méthode qui permet la déconnexion de l'utilisateur*/
     disconnect(chemin){
+      //Si le disconnect ne fonctionne pas Adri, 
+      //ça vient de la requếte j'ai testé si la méthode était bien appelée
       const requestOptions = {
         method: "POST",
-        headers: cookies.get("token")
+        headers: {'token' : cookies.get("token")}
       };
       fetch("http://services-babawallet.alwaysdata.net:8300/log/disconnect", requestOptions)
         .then(response => {
