@@ -81,8 +81,7 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetWallet...");
 
-        String address = null;
-        if(checkParam((address = routingContext.request().getParam("address")), routingContext)) return;
+        String address = routingContext.pathParam("address");
 
         WalletFull wallet = commonDB.getWalletManager().getWallet(address);
 
@@ -104,7 +103,7 @@ public class ClientApi extends MyApi implements RouterApi
         LOGGER.info("CreateWallet...");
 
         JsonObject body = null;
-        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
+        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
 
         String address = null;
         if(checkParam((address = body.getString("address")), routingContext)) return;
@@ -135,8 +134,7 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("DeleteWallet...");
 
-        String address = null;
-        if(checkParam((address = routingContext.request().getParam("address")), routingContext)) return;
+        String address = routingContext.pathParam("address");
 
         if(commonDB.getWalletManager().walletIsEmpty(address))
         {
@@ -151,7 +149,7 @@ public class ClientApi extends MyApi implements RouterApi
                 .setStatusCode(405)
                 .putHeader("content-type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Le portefeuille n'est pas vide.")));
+                            .put("error", "The portfolio is not empty.")));
     }
 
     /** 
@@ -215,11 +213,8 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetProposal...");
 
-        String idProvider = null;
-        if(checkParam((idProvider = routingContext.request().getParam("id_provider")), routingContext)) return;
-
-        String nameProposal = null;
-        if(checkParam((nameProposal = routingContext.request().getParam("name_proposal")), routingContext)) return;
+        String idProvider = routingContext.pathParam("id_provider");
+        String nameProposal = routingContext.pathParam("name_proposal");
 
         ProposalFull proposal = commonDB.getProposalManager().getProposal(nameProposal, idProvider);
 
@@ -244,7 +239,7 @@ public class ClientApi extends MyApi implements RouterApi
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
         JsonObject body = null;
-        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
+        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
 
         String nameProposal = null;
         if(checkParam((nameProposal = body.getString("name_proposal")), routingContext)) return;
@@ -256,7 +251,7 @@ public class ClientApi extends MyApi implements RouterApi
         if(checkParam((ean = body.getString("ean")), routingContext)) return;
 
         String nameClient = commonDB.getLogManager().getName(id);
-        commonDB.getNotificationManager().createNotification(id, idProvider, nameProposal, idProvider, "Demande de contrat de la part de " + nameClient + ", ean: " + ean + ".");
+        commonDB.getNotificationManager().createNotification(id, idProvider, nameProposal, idProvider, "Contract request from " + nameClient + ", ean: " + ean + ".");
 
         routingContext.response()
             .setStatusCode(200)
