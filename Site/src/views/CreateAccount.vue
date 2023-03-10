@@ -21,7 +21,7 @@
         <br>
       </div>
       <form id="createForm" method="post" v-on:submit.prevent="post">
-        <InputMain text="Name" type="name" v-model="name"/>
+        <InputMain v-model="name" type="name" text="Name"/>
         <InputMain text="Mail" type="mail" v-model="mail"/>
         <InputMain text="Password" type="password" v-model="password"/>
         <InputMain text="Repeated password" type="password" v-model="repeatedPassword"/>
@@ -144,9 +144,9 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  height: 130vh;
+  height: 100vh;
 }
 
   .create-form {
@@ -155,46 +155,13 @@
     justify-content: center;
     flex-direction: column;
     width: 600px;
-    height: 800px;
+    height: 700px;
     border-radius: 50px;
     background: #e0e0e0;
     box-shadow: 20px 20px 60px #bebebe,
     -20px -20px 60px #ffffff;
   }
-  
-  .create-form label {
-    color: black;
-  }
-  
-  
-  .create-form form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .create-form label {
-    margin-bottom: 10px;
-  }
-  
-  textarea {
-    resize: none;
-    height: 80px;
-    width: 200px;
-  }
-  
-  .create-form input, .create-form textarea {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .create-form input:focus, .create-form textarea:focus {
-    outline: none;
-    box-shadow: 0 0 5px #B1B9FC;
-    transform: scale(1.05);
-    transition: transform 0.3s ease-in-out;
-  }
+
   
   .line{
     display: flex;

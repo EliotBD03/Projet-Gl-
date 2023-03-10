@@ -4,7 +4,10 @@
       <MainHeader text="Password"/>
       </div>
       <div class="forgot-form">
-        <p>An email is sent : Follow the instructions</p>
+        <div class="totalTexte">
+        <div class="headText">An email was sent</div>
+        <div class="headText">Follow the instructions</div>
+        </div>
         <form id="forgotForm" method="post" v-on:submit.prevent="post">
             <InputMain text="Mail code" type="text" v-model="code"/>
             <InputMain text="New password" type="password" v-model="newPassword"/>
@@ -47,7 +50,7 @@
           if(!this.code) Swal.fire("Please enter your mail");
           if(!this.newPassword) Swal.fire("Please enter your new password");
           if(!this.repeatedPassword) Swal.fire("Please enter your repetead password");
-          if(this.repeatedPassword != this.newPassword) Swal.fire("Passwords must be identical");
+          if(this.repeatedPassword !== this.newPassword) Swal.fire("Passwords must be identical");
           else return true;
         },
         /*Méthode qui envoie le code reçu par mail et le nouveau mot de passe vers l'api si checkArgs() 
@@ -123,39 +126,18 @@
     box-shadow: 20px 20px 60px #bebebe,
     -20px -20px 60px #ffffff;
   }
-  
-  .forgot-form label {
-    color: black;
+
+  .headText {
+    font-size: 30px;
+    font-weight: bold;
   }
-  
-  
-  .forgot-form form {
+
+  .totalTexte {
     display: flex;
     flex-direction: column;
-  }
-  
-  .forgot-form label {
-    margin-bottom: 10px;
-  }
-  
-  textarea {
-    resize: none;
-    height: 80px;
-    width: 200px;
-  }
-  
-  .forgot-form input, .forgot-form textarea {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 20px;
-  }
-  
-  .forgot-form input:focus, .forgot-form textarea:focus {
-    outline: none;
-    box-shadow: 0 0 5px #B1B9FC;
-    transform: scale(1.05);
-    transition: transform 0.3s ease-in-out;
   }
   
   </style>

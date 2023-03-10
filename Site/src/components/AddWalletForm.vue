@@ -79,38 +79,4 @@ export default {
   border-radius: 10px;
 }
 
-.contact-form label {
-  color: black;
-}
-
-
-.contact-form form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.contact-form label {
-  margin-bottom: 10px;
-}
-
-textarea {
-  resize: none;
-  height: 80px;
-  width: 200px;
-}
-
-.contact-form input, .contact-form textarea {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-
-.contact-form input:focus, .contact-form textarea:focus {
-  transform: scale(1.05);
-  transition: transform 0.3s ease-in-out;
-}
-
 </style>

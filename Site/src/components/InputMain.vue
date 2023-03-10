@@ -1,11 +1,16 @@
 <template>
-  <input type="text" name="text" class="input" :placeholder=text v-model= "name">
+  <input class="input" :value="value" @input="updateValue" :placeholder=text />
 </template>
 
 <script>
 export default {
   name: "InputMain",
-  props: ["text"]
+  props: ["value", "text"],
+  methods: {
+    updateValue(event) {
+      this.$emit('input', event.target.value)
+    }
+  }
 }
 </script>
 

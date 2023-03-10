@@ -125,39 +125,4 @@
     box-shadow: 20px 20px 60px #bebebe,
     -20px -20px 60px #ffffff;
   }
-  
-  .login-form label {
-    color: black;
-  }
-  
-  
-  .login-form form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .login-form label {
-    margin-bottom: 10px;
-  }
-  
-  textarea {
-    resize: none;
-    height: 80px;
-    width: 200px;
-  }
-  
-  .login-form input, .login-form textarea {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .login-form input:focus, .login-form textarea:focus {
-    outline: none;
-    box-shadow: 0 0 5px #B1B9FC;
-    transform: scale(1.05);
-    transition: transform 0.3s ease-in-out;
-  }
-  
   </style>
