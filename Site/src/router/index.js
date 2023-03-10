@@ -40,7 +40,7 @@ const routes = [
         component: () => import('@/views/ForgottenPassword.vue')
       },
     ],beforeEnter: (to, from, next) => {
-        if(cookies.isKey("token") && cookies.isKey("role"))
+        if((cookies.isKey("token") && cookies.isKey("role")) || (!cookies.isKey("role")))
         {
           next(from.path);
         }
