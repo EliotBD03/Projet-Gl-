@@ -45,7 +45,8 @@ export default {
   created() {
     this.getPage();
   },
-  methods: { //async -> requête qui peut prendre du temps, utile pour récupérer des données volumineuses
+  methods: {
+    /*Méthode permettant de récupérer les pages des wallets de l'Api en scrollant */
     async getPage(){
       const requestOptions = {
         method: "GET",
@@ -54,19 +55,21 @@ export default {
       this.loading = true; //bloquer les demandes de loader pendant ce temps.
       try {
         const response = await fetch("${linkApi}page?page=${nbr}", requestOptions);
-        if (!response.ok) { //voir comment on gère l'arrivée à la fin des pages erreur/vide?
-          if(response.status === 401){
+        if (!response.ok) { 
+          if(response.status == 401){
             this.$cookies.remove("token");
             this.$cookies.remove("role");
             Swal.fire('Your connection has expired');
             this.$router.push("/");
-          }
-          else{
-            GlobalMethods.errorApi(response.status);
             throw new Error(response.status);
           }
+          else{
+            const data = await response.json();
+            GlobalMethods.errorApi(data.error);
+            throw new Error(data.error);
+          }
         } else {
-          const data = await response.json(); //await-> attendre la fin du traitement pour continuer
+          const data = await response.json(); 
           this.listWallet.push(data); //ajouter la suite de la réponse à la liste
         }
       } catch (error) {
@@ -74,6 +77,8 @@ export default {
       }
       this.loading = false;
     },
+    /*Lorsque l'utilisateur scrolle, cette méthode est appelée 
+    pour augmenter le nombre de la page et appeler getPage avec ce nombre*/
     loader()
     {
       if(!this.loading)
@@ -82,7 +87,7 @@ export default {
         this.getPage(this.nbr);
       }
     },
-    /*On sauvegarde le wallet sur lequel on veut plus d'informations
+    /*On sauvegarde l'adresse du wallet sur lequel on veut plus d'informations
     et on redirige vers walletFull*/
     seeMore(wallet){
       sessionStorage.setItem('address', wallet.address);

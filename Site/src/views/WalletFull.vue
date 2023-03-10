@@ -44,12 +44,12 @@ export default {
     GoButton,
     MainHeader
   },
-  /*On récupère le wallet sur lequel on veut plus d'informations*/
   data(){
     return{
       address : JSON.parse(sessionStorage.getItem('address')),
       wallet : ''
     }},
+  /*Méthode qui récupère le wallet pour lequel on veut plus d'informations à la création de la vue*/
   async created(){
     const requestOptions = {
       method: "GET",
@@ -63,10 +63,12 @@ export default {
           this.$cookies.remove("role");
           Swal.fire('Your connection has expired');
           this.$router.push("/");
+          throw new Error(response.status);
         }
         else{
-          GlobalMethods.errorApi(response.status);
-          throw new Error(response.status);
+          const data = await response.json();
+          GlobalMethods.errorApi(data.error);
+          throw new Error(data.error);
         }
       } else {
         const data = await response.json();
@@ -86,20 +88,17 @@ export default {
       fetch("http://services-babawallet.alwaysdata.net:8300/api/client/wallets/:${address}", requestOptions)
           .then(response => {
             if(!response.ok){
-              if(response.status == 405){
-                const data = response.json();
-                GlobalMethods.errorApi(data.error);
-                throw new Error(data.error);
-              }
               if(response.status == 401){
                 this.$cookies.remove("role");
                 this.$cookies.remove("token");
                 Swal.fire('Your connection has expired');
                 this.$router.push("/");
+                throw new Error(response.status);
               }
               else{
-                GlobalMethods.errorApi(response.status);
-                throw new Error(response.status);
+                const data = response.json();
+                GlobalMethods.errorApi(data.error);
+                throw new Error(data.error);
               }
             }
             else{

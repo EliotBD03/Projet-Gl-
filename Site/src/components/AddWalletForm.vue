@@ -45,15 +45,17 @@ export default {
         fetch("http://services-babawallet.alwaysdata.net:8300/api/client/wallets", requestOptions)
             .then(response => {
               if(!response.ok){
-                if(response.status === 401){
+                if(response.status == 401){
                   this.$cookies.remove("role");
                   this.$cookies.remove("token");
                   Swal.fire('Your connection has expired');
                   this.$router.push("/");
+                  throw new Error(response.status);
                 }
                 else{
-                  GlobalMethods.errorApi(response.status);
-                  throw new Error(response.status);
+                  const data = response.json();
+                  GlobalMethods.errorApi(data.error);
+                  throw new Error(data.error);
                 }
               }
             })

@@ -35,15 +35,9 @@
       try {
         response = await fetch("http://services-babawallet.alwaysdata.net:8300/log/code", requestOptions);
         if(!response.ok){
-          if(response.status === 503 || response.status === 400){ //voir si Adrien garde l'erreur 400 -> mail dans la BDD?
-            const data = await response.json();
-            this.errorApi(data.error);
-            throw new Error(data.error);
-          }
-          else{
-            this.errorApi(response.status);
-            throw new Error(response.status);
-          }
+          const data = await response.json();
+          this.errorApi(data.error);
+          throw new Error(data.error);
         }
         else{
           Swal.fire('A mail is sent');
@@ -63,15 +57,17 @@
       fetch("http://services-babawallet.alwaysdata.net:8300/log/disconnect", requestOptions)
         .then(response => {
           if(!response.ok){
-            if(response.status === 401){
+            if(response.status == 401){
               cookies.remove("token");
               cookies.remove("role");
               Swal.fire('Your connection has expired');
               router.push("/");
+              throw new Error(response.status);
             }
             else{
-              this.errorApi(response.status);
-              throw new Error(response.status);
+              const data = response.json();
+              this.errorApi(data.error);
+              throw new Error(data.error);
             }
           }
           else{

@@ -21,6 +21,7 @@
         <br>
       </div>
       <form id="createForm" method="post" v-on:submit.prevent="post">
+        <InputMain text="Name" type="name" v-model="name"/>
         <InputMain text="Mail" type="mail" v-model="mail"/>
         <InputMain text="Password" type="password" v-model="password"/>
         <InputMain text="Repeated password" type="password" v-model="repeatedPassword"/>
@@ -48,6 +49,7 @@
     components: {InputMain, GoButton, MainHeader},
     data(){
       return{
+        name: '',
         mail: '',
         password: '',
         repeatedPassword: '',
@@ -77,20 +79,14 @@
             this.isRole();
             const requestOptions = {
               method: "POST",
-              body: JSON.stringify({ mail: this.mail, password: this.password, code: this.code, isClient: this.isClient, language: this.language })
+              body: JSON.stringify({ name: this.name, mail: this.mail, password: this.password, code: this.code, isClient: this.isClient, language: this.language })
             };
             fetch("https://babawallet.alwaysdata.net:8300/log/save_account", requestOptions)
               .then(response => {
                   if(!response.ok){
-                    if(response.status == 400 || response.status == 503){
-                      const data = response.json();
-                      GlobalMethods.errorApi(data.error);
-                      throw new Error(data.error);
-                    }
-                    else{
-                      GlobalMethods.errorApi(response.status);
-                      throw new Error(response.status);
-                    }
+                    const data = response.json();
+                    GlobalMethods.errorApi(data.error);
+                    throw new Error(data.error);    
                   }
               }) 
               .then(data => {
@@ -150,7 +146,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 110vh;
+  height: 130vh;
 }
 
   .create-form {
@@ -159,7 +155,7 @@
     justify-content: center;
     flex-direction: column;
     width: 600px;
-    height: 710px;
+    height: 800px;
     border-radius: 50px;
     background: #e0e0e0;
     box-shadow: 20px 20px 60px #bebebe,

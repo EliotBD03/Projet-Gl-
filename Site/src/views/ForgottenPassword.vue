@@ -64,15 +64,9 @@
             fetch("http://services-babawallet.alwaysdata.net:8300/log/renitialize_pwd", requestOptions)
               .then(response => {
                   if(!response.ok){
-                    if(response.status == 503 || response.status == 400){
-                      const data = response.json();
-                      GlobalMethods.errorApi(data.error);
-                      throw new Error(data.error);
-                    }
-                    else{
-                      GlobalMethods.errorApi(response.status);
-                      throw new Error(response.status);
-                    }
+                    const data = response.json();
+                    GlobalMethods.errorApi(data.error);
+                    throw new Error(data.error);   
                   }
                   else{
                     this.$cookies.remove('mail');
