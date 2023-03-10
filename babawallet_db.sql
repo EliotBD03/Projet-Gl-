@@ -168,6 +168,8 @@ CREATE TABLE `notification` (
   `linked_proposal_name` varchar(30) DEFAULT NULL,
   `provider_id_proposal` int(10) DEFAULT NULL,
   `context` varchar(25) DEFAULT NULL,
+  `linked_ean`varchar(18) DEFAULT NULL,
+  `linked_address`varchar(42) DEFAULT NULL,
   `creation_date` timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`notification_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
