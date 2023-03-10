@@ -250,8 +250,11 @@ public class ClientApi extends MyApi implements RouterApi
         String ean = null;
         if(checkParam((ean = body.getString("ean")), routingContext)) return;
 
+        String address = null;
+        if(checkParam((address = body.getString("address")), routingContext)) return;
+
         String nameClient = commonDB.getLogManager().getName(id);
-        commonDB.getNotificationManager().createNotification(id, idProvider, nameProposal, idProvider, "Contract request from " + nameClient + ", ean: " + ean + ".");
+        commonDB.getNotificationManager().createNotification(id, idProvider, nameProposal, idProvider, "Contract request from " + nameClient + ", ean: " + ean + ".", eean, address);
 
         routingContext.response()
             .setStatusCode(200)
