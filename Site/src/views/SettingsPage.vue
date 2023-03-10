@@ -1,8 +1,4 @@
 <template>
-  <!--Note pour Maxime, pour le change password, fais un mini formulaire qui prend l'adresse mail.
-  Vérifie que l'utilisateur a bien rempli le champ.
-  Stocke l'adresse mail dans les cookies puis redirige vers forgotten password
-  ça évitera les répétitions :) -->
   <div class="main">
     <div class="header">
       <MainHeader text="Settings"/>
@@ -17,13 +13,12 @@
       </div>
       <div class="form">
         <InputMain text="Enter your mail" type="mail" v-model="mail"/>
-        <div class="changebutton" @click.prevent.left="changed()">
+        <div class="changebutton" @click.prevent.left="goForgot()">
           <GoButton text="Change password" :colore="'#B1B9FC'"/>
         </div>
       </div>
     </div>
     <div class="bottombutton" @click.prevent.left="redirecting()">
-      <!--Il va falloir vérif le rôle pour revenir il y a une méthode dans globalMethods-->
       <GoButton text="Home" :colore="'#B1B9FC'"/>
     </div>
   </div>
@@ -61,7 +56,10 @@ export default {
     },
     redirecting() {
       GlobalMethods.isAClient(this.$cookies.get('role'));
-    }
+    },
+    goForgot(){
+      GlobalMethods.disconnect("/forgottenpassword")
+    },
   }
 };
 </script>
