@@ -137,8 +137,7 @@ public class CommonApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        String language = null;
-        if(checkParam((language = routingContext.request().getParam("language")), routingContext)) return;
+        String language = routingContext.pathParam("language");
 
         commonDB.getLanguageManager().addLanguage(id, language);
 
@@ -161,8 +160,7 @@ public class CommonApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        String language = null;
-        if(checkParam((language = routingContext.request().getParam("language")), routingContext)) return;
+        String language = routingContext.pathParam("language");
 
         commonDB.getLanguageManager().changeCurrentLanguage(id, language);
 
@@ -185,8 +183,7 @@ public class CommonApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        String language = null;
-        if(checkParam((language = routingContext.request().getParam("language")), routingContext)) return;
+        String language = routingContext.pathParam("language");
 
         commonDB.getLanguageManager().changeFavouriteLanguage(id, language);
 
@@ -206,19 +203,15 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("ChangePassword...");
 
-        String mail = null;
-        if(checkParam((mail = routingContext.request().getParam("mail")), routingContext)) return;
-
-        String code = null;
-        if(checkParam((code = routingContext.request().getParam("code")), routingContext)) return;
+        String mail = routingContext.pathParam("mail");
+        String code = routingContext.pathParam("code");
 
         if(App.checkCode(mail, code))
         {
             String id = null;
             if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-            String newPwd = null;
-            if(checkParam((newPwd = routingContext.request().getParam("new_pwd")), routingContext)) return;
+            String newPwd = routingContext.pathParam("new_pwd");
 
             commonDB.getLogManager().changePassword(id, newPwd);
             routingContext.response()
@@ -231,7 +224,7 @@ public class CommonApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("content-type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Code incorrect.")));
+                            .put("error", "Invalid code.")));
     }
 
     /** 
@@ -272,10 +265,18 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("AcceptNotification...");
 
-        String idNotification = null;
-        if(checkParam((idNotification = routingContext.request().getParam("id_notification")), routingContext)) return;
+        String idNotification = routingContext.pathParam("id_notification");
 
-        commonDB.getNotificationManager().acceptNotification(idNotification);
+        JsonObject body = null;
+        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
+
+        String ean = null;
+        if(checkParam((ean = body.getString("ean")), routingContext)) return;
+
+        String address = null;
+        if(checkParam((address = body.getString("address")), routingContext)) return;
+
+        commonDB.getNotificationManager().acceptNotification(idNotification, ean, address);
 
         routingContext.response()
             .setStatusCode(200)
@@ -293,8 +294,7 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("RefuseNotification...");
 
-        String idNotification = null;
-        if(checkParam((idNotification = routingContext.request().getParam("id_notification")), routingContext)) return;
+        String idNotification = routingContext.pathParam("id_notification");
 
         commonDB.getNotificationManager().refuseNotification(idNotification);
 
@@ -314,8 +314,7 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("DeleteNotification...");
 
-        String idNotification = null;
-        if(checkParam((idNotification = routingContext.request().getParam("id_notification")), routingContext)) return;
+        String idNotification = routingContext.pathParam("id_notification");
 
         commonDB.getNotificationManager().deleteNotification(idNotification);
 
@@ -335,8 +334,7 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetContract...");
 
-        String idContract = null;
-        if(checkParam((idContract = routingContext.request().getParam("id_contract")), routingContext)) return;
+        String idContract = routingContext.pathParam("id_contract");
 
         ContractFull contract = commonDB.getContractManager().getContract(idContract);
 
@@ -357,9 +355,8 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("DeleteContract...");
 
-        String idContract = null;
-        if(checkParam((idContract = routingContext.request().getParam("id_contract")), routingContext)) return;
-        
+        String idContract = routingContext.pathParam("id_contract");
+
         commonDB.getContractManager().deleteContract(idContract);
 
         routingContext.response()
@@ -378,17 +375,14 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetConsumptionOfMonth...");
 
-        JsonObject body = null;
-        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
-
         String ean = null;
-        if(checkParam((ean = body.getString("ean")), routingContext)) return;
+        if(checkParam((ean = routingContext.request().getHeader("tete")), routingContext)) return;
 
         String startDate = null;
-        if(checkParam((startDate = body.getString("start_date")), routingContext)) return;
+        if(checkParam((startDate = routingContext.request().getHeader("start_date")), routingContext)) return;
 
         String endDate = null;
-        if(checkParam((endDate = body.getString("end_date")), routingContext)) return;
+        if(checkParam((endDate = routingContext.request().getHeader("end_date")), routingContext)) return;
 
         HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptionOfMonth(ean, startDate, endDate);
 
@@ -409,17 +403,14 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetConsumption...");
 
-        JsonObject body = null;
-        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
-
         String ean = null;
-        if(checkParam((ean = body.getString("ean")), routingContext)) return;
+        if(checkParam((ean = routingContext.request().getHeader("ean")), routingContext)) return;
 
         String startDate = null;
-        if(checkParam((startDate = body.getString("start_date")), routingContext)) return;
+        if(checkParam((startDate = routingContext.request().getHeader("start_date")), routingContext)) return;
 
         String endDate = null;
-        if(checkParam((endDate = body.getString("end_date")), routingContext)) return;
+        if(checkParam((endDate = routingContext.request().getHeader("end_date")), routingContext)) return;
 
         HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptions(ean, startDate, endDate);
 
@@ -441,19 +432,30 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("AddConsumption...");
 
         JsonObject body = null;
-        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
+        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
 
         String ean = null;
         if(checkParam((ean = body.getString("ean")), routingContext)) return;
 
         JsonArray arrayListValue = null;
-        if(checkParam((arrayListValue = body.getJsonArray("list_value")), routingContext)) return;
-
         JsonArray arrayListDate = null;
-        if(checkParam((arrayListDate = body.getJsonArray("list_date")), routingContext)) return;
-
         boolean forcingChange = false;
-        if(checkParam((forcingChange = body.getBoolean("forcing")), routingContext)) return;
+
+        try
+        {
+            if(checkParam((arrayListValue = body.getJsonArray("list_value")), routingContext)) return;
+            if(checkParam((arrayListDate = body.getJsonArray("list_date")), routingContext)) return;
+            if(checkParam((forcingChange = body.getBoolean("forcing")), routingContext)) return;
+        }
+        catch(ClassCastException error)
+        {
+            routingContext.response()
+                .setStatusCode(400)
+                .putHeader("content-type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "The query is missing information.")));
+            return;
+        }
 
         ArrayList<Double> listValue = new ArrayList<>();
         try
@@ -467,7 +469,7 @@ public class CommonApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("content-type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Le tableau ne contient pas que des nombres.")));
+                            .put("error", "The table does not only contain numbers.")));
             return;
         }
 
@@ -492,13 +494,26 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("ChangeConsumption...");
 
         JsonObject body = null;
-        if(checkParam((body = routingContext.getBodyAsJson()), routingContext)) return;
+        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
 
         String ean = null;
         if(checkParam((ean = body.getString("ean")), routingContext)) return;
 
         double value = 0;
-        if(checkParam((value = body.getDouble("value")), routingContext)) return;
+
+        try
+        {
+            if(checkParam((value = body.getDouble("value")), routingContext)) return;
+        }
+        catch(ClassCastException error)
+        {
+            routingContext.response()
+                .setStatusCode(400)
+                .putHeader("content-type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "The query is missing information.")));
+            return;
+        }
 
         String date = null;
         if(checkParam((date = body.getString("date")), routingContext)) return;
