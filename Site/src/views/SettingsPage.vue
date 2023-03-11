@@ -52,7 +52,13 @@ export default {
       GlobalMethods.isAClient(this.$cookies.get('role'));
     },
     goForgot(){
-      GlobalMethods.disconnect("/forgottenpassword")
+      if (!this.mail) {
+        Swal.fire("Please enter your mail");
+        return;
+      }
+      else {
+        GlobalMethods.disconnect("/forgottenpassword");
+      }
     },
     setLocale(locale) {
       this.$i18n.locale = locale;
