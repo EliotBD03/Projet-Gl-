@@ -1,6 +1,6 @@
 <template>
   <div class="title">
-    {{ text }}
+    {{ $t(text) }}
   </div>
 </template>
 

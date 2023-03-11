@@ -1,11 +1,11 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text="Settings"/>
+      <MainHeader text="header.settings"/>
     </div>
     <div class="forms">
       <div class="form">
-        <DropdownMain text="Choose your language..."/>
+        <DropdownMain text="Choose your language..." v-model="$i18n.locale"/>
         <DropdownMain text="Add a language..."/>
         <div class="langbutton" @click.prevent.left="langChanged()">
         <GoButton text="Change language" :colore="'#B1B9FC'"/>
@@ -41,16 +41,10 @@ export default {
   data() {
     return {
       mail: "",
+      test: "",
     }
   },
   methods: {
-    changed() {
-      if (!this.mail) Swal.fire("Please enter your mail");
-      else {
-        this.$cookies.set('mail', this.mail);
-        this.$router.push({ name: 'ForgottenPassword' });
-      }
-    },
     langChanged() {
       Swal.fire("Your language has been changed !");
     },
@@ -60,6 +54,9 @@ export default {
     goForgot(){
       GlobalMethods.disconnect("/forgottenpassword")
     },
+    setLocale(locale) {
+      this.$i18n.locale = locale;
+    }
   }
 };
 </script>

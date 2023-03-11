@@ -1,27 +1,28 @@
 <template>
   <div class="selectdiv">
     <label>
-      <select>
-        <option selected> {{ text }} </option>
-        <option v-for="element in elements" :key="element">{{ element }}</option>
+      <select :value="value" @input="updateValue">
+        <option :value="null" disabled> {{ text }} </option>
+        <option :value="locale.code" v-for="locale in locales" :key="locale.code">{{ locale.name }}</option>
       </select>
     </label>
   </div>
 </template>
 
 <script>
+import { getSupportedLocales} from "@/util/i18n/supported-locales";
+
 export default {
   name: "DropdownMain",
-  props: ["text"],
+  props: ["text","value"],
   data() {
     return {
-      elements: [
-          "French",
-          "English",
-          "Nederlands",
-          "Deutsch",
-          "Español",
-      ]
+      locales: getSupportedLocales(),
+    }
+  },
+  methods: {
+    updateValue(event) {
+      this.$emit('input', event.target.value)
     }
   }
 };
