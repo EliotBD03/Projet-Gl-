@@ -1,7 +1,5 @@
 package main.be.ac.umons.g02.database;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.*;
 
 public class ConsumptionManager
@@ -110,7 +108,7 @@ public class ConsumptionManager
                 " WHERE date_recorded='"+date+"' AND ean='"+ean+"'",false);
     }
 
-    public void createCounterOrReplaceContract(String ean, String contractId)
+    public void createCounterOrReplace(String ean, String contractId)
     {
         DB.getInstance().executeQuery("INSERT INTO counter(ean,contract_id) VALUES('"+ean+"',"+contractId+") ON DUPLICATE KEY UPDATE contract_id="+contractId,false);
     }

@@ -52,6 +52,7 @@ public class ProposalFull extends ProposalBasic
     {
         return endOfPeakHours;
     }
+    public int getDuration(){return duration;}
 
     public void setMoreInformation(double basicPrice, double variableDayPrice, double variableNightPrice, boolean isFixedRate, boolean isSingleHourCounter, String startOffPeakHours, String endOfPeakHours, int duration)
     {

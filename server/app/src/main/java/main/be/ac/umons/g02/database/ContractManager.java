@@ -90,20 +90,17 @@ public class ContractManager
         return DB.getInstance().getResults(new String[] {"client_id"}).get(0);
     }
 
-    public void createContract(ContractFull contractFull)
+    public void createContract(String proposalName, String ean, String providerId, String address, String clientId)
     {
-        DB.getInstance().executeQuery("INSERT INTO wallet_contract(address) VALUES('"+contractFull.getAddress()+"')", false);
-        DB.getInstance().executeQuery("INSERT INTO provider_contract(provider_id) VALUES("+contractFull.getProviderId()+")",false);
+        DB.getInstance().executeQuery("INSERT INTO wallet_contract(address) VALUES('"+address+"')", false);
+        DB.getInstance().executeQuery("INSERT INTO provider_contract(provider_id) VALUES("+providerId+")",false);
         DB.getInstance().executeQuery("SELECT max(contract_id) AS m FROM provider_contract", true);
 
-        contractFull = new ContractFull(DB.getInstance().getResults(new String[] {"m"}).get(0).get(0),
-                contractFull.getEan(),
-                contractFull.getProviderId(),
-                contractFull.getClientId(),
-                contractFull.getProviderName(),
-                contractFull.getClientName());
+        String contractId = DB.getInstance().getResults(new String[] {"m"}).get(0).get(0);
+        String openingDate = "NOW()";
+        String closingDate = "DATE_ADD(NOW(), INTERVAL "+new ProposalManager().getProposal(proposalName, providerId).getDuration()+" MONTH)";
 
-        new ConsumptionManager().createCounterOrReplaceContract(contractFull.getEan(), contractFull.getContractId());
+        new ConsumptionManager().createCounterOrReplace(ean, contractId);
 
         DB.getInstance().executeQuery("INSERT INTO contract(" +
                 " proposal_name," +
@@ -113,13 +110,13 @@ public class ContractManager
                 " client_id," +
                 " opening_date," +
                 " closing_date)" +
-                " VALUES('"+contractFull.getProposalName()+"','" +
-                contractFull.getEan() + "'," +
-                contractFull.getProviderId() + ",'" +
-                contractFull.getAddress() + "'," +
-                contractFull.getClientId() + ",'" +
-                contractFull.getOpeningDate() + "','" +
-                contractFull.getClosingDate() + "')",false);
+                " VALUES('"+proposalName+"','" +
+                ean + "'," +
+                providerId + ",'" +
+                address + "'," +
+                clientId + ",'" +
+                openingDate + "','" +
+                closingDate + "')",false);
     }
 
     public WalletManager.energyType getTypeOfEnergy(String address)
