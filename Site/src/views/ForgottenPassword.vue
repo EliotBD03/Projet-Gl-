@@ -1,24 +1,24 @@
 <template>
     <div class="main">
       <div class="header">
-      <MainHeader text="Password"/>
+      <MainHeader text="header.forgotpwd"/>
       </div>
       <div class="forgot-form">
         <div class="totalTexte">
-        <div class="headText">An email was sent</div>
-        <div class="headText">Follow the instructions</div>
+        <div class="headText">{{ $t("account.emailsent") }}</div>
+        <div class="headText">{{ $t("account.instructions") }}</div>
         </div>
         <form id="forgotForm" method="post" v-on:submit.prevent="post">
-            <InputMain text="Mail code" type="text" v-model="code"/>
-            <InputMain text="New password" type="password" v-model="newPassword"/>
-            <InputMain text="Repeated password" type="password" v-model="repeatedPassword"/>
-            <GoButton text="Submit" type="submit" :colore="'#34c98e'"/>
+            <InputMain :text="$t('account.mailcode')" type="text" v-model="code"/>
+            <InputMain :text="$t('account.newpwd')" type="password" v-model="newPassword"/>
+            <InputMain :text="$t('account.pwdconfirm')" type="password" v-model="repeatedPassword"/>
+            <GoButton text="button.submit" type="submit" :colore="'#34c98e'"/>
           </form>
           <div @click.prevent.left="getCode()">
-          <GoButton text="Send a new code" :colore="'gray'"/>
+          <GoButton text="button.newcode" :colore="'gray'"/>
           </div>
           <div @click.prevent.left="back()">
-          <GoButton text="Back" :colore="'gray'"/>
+          <GoButton text="button.back" :colore="'gray'"/>
           </div>
       </div>
     </div>
@@ -47,10 +47,10 @@
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up.
           Vérifie également si les mots de passe sont identiques*/
         checkArgs(){
-          if(!this.code) Swal.fire("Please enter your mail");
-          if(!this.newPassword) Swal.fire("Please enter your new password");
-          if(!this.repeatedPassword) Swal.fire("Please enter your repetead password");
-          if(this.repeatedPassword !== this.newPassword) Swal.fire("Passwords must be identical");
+          if(!this.code) Swal.fire(this.$t("alerts.entercode"));
+          if(!this.newPassword) Swal.fire(this.$t("alerts.pwd"));
+          if(!this.repeatedPassword) Swal.fire(this.$t("alerts.pwdconfirm"));
+          if(this.repeatedPassword !== this.newPassword) Swal.fire(this.$t("alerts.pwdmatch"));
           else return true;
         },
         /*Méthode qui envoie le code reçu par mail et le nouveau mot de passe vers l'api si checkArgs() 
@@ -75,8 +75,8 @@
                     this.$cookies.remove('mail');
                     Swal.fire({
                         icon: 'success',
-                        title: 'Good !',
-                        text: 'Password changed !'
+                        title: this.$t("alerts.good"),
+                        text: this.$t("alerts.pwdchanged"),
                       })
                     this.$router.push("/");
                   }
@@ -128,7 +128,7 @@
   }
 
   .headText {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: bold;
   }
 

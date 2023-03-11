@@ -1,24 +1,24 @@
 <template>
     <div class="home">
       <div class="title">
-        <MainHeader text="Home"/>
+        <MainHeader text="header.home"/>
       </div>
       <div class="allcards">
-        <MainCard text="Wallet" redir="Wallets"/>
-        <MainCard text="Your Contracts" redir="Contracts"/>
-        <MainCard text="Notifications" redir="Notifications"/>
+        <MainCard :text="$t('header.wallets')" redir="Wallets"/>
+        <MainCard :text="$t('header.contracts')" redir="Contracts"/>
+        <MainCard :text="$t('header.notifications')" redir="Notifications"/>
       </div>
       <div class="globalcontracts"> <!-- div for the button to avoid the 100% width on clicking -->
         <div class="newcontract" @click.prevent.left="$router.push('/newcontracts')">
-          <GoButton text="See new contracts" :colore="'#B1B9FC'"/>
+          <GoButton text="maincard.newcontracts" :colore="'#B1B9FC'"/>
         </div>
       </div>
       <div class="bottombutton">
         <div class="disconnectbutton" @click.prevent.left="callDisconnect()">
-        <GoButton text="Disconnect" :colore="'red'"/>
+        <GoButton text="button.disconnect" :colore="'red'"/>
         </div>
         <div class="settingsbutton" @click.prevent.left="$router.push('/settings')">
-        <GoButton text="Settings" :colore="'gray'"/>
+        <GoButton text="header.settings" :colore="'gray'"/>
           </div>
       </div>
     </div>

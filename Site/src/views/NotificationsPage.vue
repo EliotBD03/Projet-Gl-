@@ -1,14 +1,13 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text="Notifications"/>
+      <MainHeader text="header.notifications"/>
     </div>
     <div class="notifs">
       <MainNotification class="notif" v-for="notif in notifications" :key="notif" :title="notif.title" :time="notif.time" :text="notif.text" />
     </div>
     <div class="homebutton" @click.prevent.left="redirecting()">
-      <!--Il va falloir vérif le rôle pour revenir il y a une méthode dans globalMethods-->
-      <GoButton text="Home" :colore="'#B1B9FC'"/>
+      <GoButton text="header.home" :colore="'#B1B9FC'"/>
     </div>
   </div>
 </template>
@@ -34,27 +33,27 @@ export default {
       notifications: [
         {
           title: "Maxime",
-          time: "12",
+          time: "12 minutes",
           text: "has updated his contract"
         },
         {
           title: "Claire",
-          time: "25",
+          time: "1 hour",
           text: "has accepted your proposal"
         },
         {
           title: "Adrien",
-          time: "35",
+          time: "35 seconds",
           text: "has closed the contract"
         },
         {
           title: "Jean",
-          time: "45",
+          time: "45 minutes",
           text: "has updated his contract"
         },
         {
           title: "Kiefer",
-          time: "55",
+          time: "2 days",
           text: "has accepted your proposal"
         }
       ]

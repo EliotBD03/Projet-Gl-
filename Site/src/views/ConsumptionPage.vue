@@ -1,31 +1,31 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text="Consumptions"/>
+      <MainHeader text="header.consumption"/>
     </div>
     <div class="topbutton">
-      <GoButton text="Table" :colore="'#34c98e'"/>
-      <GoButton text="Export" :colore="'#34c98e'"/>
-      <GoButton text="Graphic" :colore="'#34c98e'"/>
+      <GoButton text="button.table" :colore="'#34c98e'"/>
+      <GoButton text="button.export" :colore="'#34c98e'"/>
+      <GoButton text="button.graphic" :colore="'#34c98e'"/>
     </div>
     <div class="infos">
       <div class="container">
       </div>
       <div class="newconsumption">
-      <p>New consumption : 12/02/2024</p>
-        <GoButton text="Add" :colore="'#34c98e'"/>
+      <p>{{ $t("consumptions.newconsumption", {date: "12/02/2024"}) }}</p>
+        <GoButton text="button.add" :colore="'#34c98e'"/>
       </div>
       <div class="changeconsumption">
-        <p>Change consumption : 12/02/2024</p>
-        <GoButton text="Change" :colore="'#34c98e'"/>
+        <p>{{ $t("consumptions.changeconsumption", {date: "12/02/2024"}) }}</p>
+        <GoButton text="button.change" :colore="'#34c98e'"/>
       </div>
     </div>
     <div class="bottombutton">
       <div class="returnbutton" @click.prevent.left="$router.push('/wallets')">
-      <GoButton text="Back" :colore="'darkblue'"/>
+      <GoButton text="button.back" :colore="'darkblue'"/>
       </div>
       <div class="closebutton">
-      <GoButton text="Close the wallet" :colore="'red'"/>
+      <GoButton text="button.closewallet" :colore="'red'"/>
         </div>
     </div>
   </div>

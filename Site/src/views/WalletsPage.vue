@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text="Wallets"/>
+      <MainHeader text="header.wallets"/>
     </div>
     <div class="allcards">
       <div v-infinite-scroll="loader">
@@ -10,15 +10,15 @@
           <p> {{ wallet.nameOwner }}</p>
           <p> {{ wallet.address }}</p>
           <div @click.prevent.left="seeMore(wallet)">
-            <GoButton text="Go" :colore="'#34c98e'"/>
+            <GoButton text="button.go" :colore="'#34c98e'"/>
           </div>
-         <div v-if="loading">Loading...</div>
+         <div v-if="loading">{{ $t("wallets.loading") }}</div>
         </div>
         <AddWalletForm/>
       </div>
     </div>
     <div class="homebutton" @click.prevent.left="$router.push('/Home')">
-      <GoButton text="Home" :colore="'#B1B9FC'"/>
+      <GoButton text="header.home" :colore="'#B1B9FC'"/>
     </div>
   </div>
 </template>

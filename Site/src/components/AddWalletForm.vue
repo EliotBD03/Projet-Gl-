@@ -3,12 +3,12 @@
   <div class="contact-form">
     <form id="addWallet" method="post" v-on:submit.prevent="post">
       <p>
-        <InputMain text="Enter your name" v-model="name"/>
+        <InputMain :text="$t('walletform.name')" v-model="name"/>
       </p>
       <p>
-        <InputMain text="Enter your address" v-model="address"/>
+        <InputMain :text="$t('walletform.adress')" v-model="address"/>
       </p>
-      <GoButton text="Add" type="submit" :colore="'gray'"/>
+      <GoButton text="button.add" type="submit" :colore="'gray'"/>
       <!-- <button class = "greenButton rightButton fixed" type="submit"> ADD </button>-->
     </form>
   </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="cont">
     <div class="box">
-      <input type="text" class="input" placeholder="EAN Code or Provider" v-on:mouseenter="hide=true" v-model="text">
+      <input type="text" class="input" :placeholder="$t('searchbar.placeholder')" v-on:mouseenter="hide=true" v-model="text">
       <i class="fas fa-search"></i>
     </div>
     <div class="containerSearch" v-on:mouseleave="hide=false">
@@ -9,7 +9,7 @@
         <p>{{ element.name }} {{ element.EAN }}</p>
       </div>
       <div class="search" v-if="filterFunction().length === 0" v-show="hide">
-        <p>No results</p>
+        <p>{{ $t("searchbar.noresult") }}</p>
     </div>
   </div>
 </div>

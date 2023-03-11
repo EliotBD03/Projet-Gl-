@@ -5,21 +5,21 @@
     </div>
     <div class="forms">
       <div class="form">
-        <DropdownMain text="Choose your language..." v-model="$i18n.locale"/>
-        <DropdownMain text="Add a language..."/>
-        <div class="langbutton" @click.prevent.left="langChanged()">
-        <GoButton text="Change language" :colore="'#B1B9FC'"/>
+        <DropdownMain :text="$t('settings.chooselanguage')" v-model="$i18n.locale"/>
+        <DropdownMain :text="$t('settings.addlanguage')"/>
+        <div class="langbutton" @click.prevent.left="setLocale($i18n.locale)">
+        <GoButton text="button.changelanguage" :colore="'#B1B9FC'"/>
           </div>
       </div>
       <div class="form">
-        <InputMain text="Enter your mail" type="mail" v-model="mail"/>
+        <InputMain :text="$t('settings.entermail')" type="mail" v-model="mail"/>
         <div class="changebutton" @click.prevent.left="goForgot()">
-          <GoButton text="Change password" :colore="'#B1B9FC'"/>
+          <GoButton text="button.changepwd" :colore="'#B1B9FC'"/>
         </div>
       </div>
     </div>
     <div class="bottombutton" @click.prevent.left="redirecting()">
-      <GoButton text="Home" :colore="'#B1B9FC'"/>
+      <GoButton text="header.home" :colore="'#B1B9FC'"/>
     </div>
   </div>
 </template>
@@ -46,14 +46,14 @@ export default {
   },
   methods: {
     langChanged() {
-      Swal.fire("Your language has been changed !");
+      Swal.fire(this.$t("alerts.changelanguage"));
     },
     redirecting() {
       GlobalMethods.isAClient(this.$cookies.get('role'));
     },
     goForgot(){
       if (!this.mail) {
-        Swal.fire("Please enter your mail");
+        Swal.fire(this.$t("alerts.entermail"));
         return;
       }
       else {

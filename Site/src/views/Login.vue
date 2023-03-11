@@ -1,19 +1,19 @@
 <template>
     <div class="main">
       <div class="header">
-      <MainHeader text="BABA WALLET"/>
+      <MainHeader text="header.login"/>
       </div>
       <div class="login-form">
         <form id="loginForm" method="post" @submit.prevent="post">
-          <InputMain text="Mail" v-model="mail" type="mail"/>
-          <InputMain text="Password" v-model="password" type="password"/>
-          <GoButton text="Login" type="submit" :colore="'#34c98e'"/>
+          <InputMain :text="$t('account.mail')" v-model="mail" type="mail"/>
+          <InputMain :text="$t('account.pwd')" v-model="password" type="password"/>
+          <GoButton text="button.login" type="submit" :colore="'#34c98e'"/>
         </form>
         <div class="createbutton" @click.prevent.left="$router.push({name: 'createAccount'})">
-        <GoButton text="Create an account" :colore="'#B1B9FC'"/>
+        <GoButton text="button.createaccount" :colore="'#B1B9FC'"/>
         </div>
         <div class="forgotbutton" @click.prevent.left="goForgot()">
-        <GoButton text="Forgotten password" :colore="'#B1B9FC'"/>
+        <GoButton text="button.forgotpwd" :colore="'#B1B9FC'"/>
         </div>
         <button v-on:click="test1()">TEST1 Client</button>
         <button v-on:click="test2()">TEST2 Supplier</button>
@@ -38,8 +38,8 @@
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
         checkArgs(){
-          if(!this.mail) Swal.fire("Please enter your mail");
-          if(!this.password) Swal.fire("Please enter your password");
+          if(!this.mail) Swal.fire(this.$t("alerts.mail"));
+          if(!this.password) Swal.fire(this.$t("alerts.pwd"));
           else return true;
         },
         /*Méthode qui envoie le mail et le mot de passe vers l'api si les champs sont remplis 
@@ -77,7 +77,7 @@
            ForgottenPassword.
            Sinon affichage d'une pop-up*/
         goForgot(){
-          if(!this.mail) Swal.fire("Please enter your mail to reset the password !");
+          if(!this.mail) Swal.fire(this.$t("alerts.entermail"));
           else{
             this.$cookies.set("mail", this.mail);
             this.$router.push({name: 'forgottenPassword'});

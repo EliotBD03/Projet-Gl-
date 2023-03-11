@@ -1,38 +1,38 @@
 <template>
   <div class="main">
     <div class="header">
-    <MainHeader text="BABA WALLET"/>
+    <MainHeader text="header.main"/>
     </div>
     <div class="create-form">
       <div class="line">
         <input type="radio" id="Client" value="Client" v-model="role">
-        <label for="Client">Client</label>
+        <label for="Client">{{ $t("account.client") }}</label>
         <br>
         <input type="radio" id="Supplier" value="Supplier" v-model="role">
-        <label for="Supplier">Supplier</label>
+        <label for="Supplier">{{ $t("account.supplier") }}</label>
         <br>
       </div>
       <div class="line">
         <input type="radio" id="français" value="français" v-model="language">
-        <label for="français">Français</label>
+        <label for="français">{{ $t("account.french") }}</label>
         <br>
         <input type="radio" id="english" value="english" v-model="language">
-        <label for="english">English</label>
+        <label for="english">{{ $t("account.english") }}</label>
         <br>
       </div>
       <form id="createForm" method="post" v-on:submit.prevent="post">
-        <InputMain v-model="name" type="name" text="Name"/>
-        <InputMain text="Mail" type="mail" v-model="mail"/>
-        <InputMain text="Password" type="password" v-model="password"/>
-        <InputMain text="Repeated password" type="password" v-model="repeatedPassword"/>
-        <InputMain text="Code" type="text" v-model="code"/>
-        <GoButton text="Create an account" type="submit" :colore="'#34c98e'"/>
+        <InputMain v-model="name" type="name" :text="$t('account.name')"/>
+        <InputMain :text="$t('account.mail')" type="mail" v-model="mail"/>
+        <InputMain :text="$t('account.pwd')" type="password" v-model="password"/>
+        <InputMain :text="$t('account.pwdconfirm')" type="password" v-model="repeatedPassword"/>
+        <InputMain :text="$t('account.code')" type="text" v-model="code"/>
+        <GoButton text="button.createaccount" type="submit" :colore="'#34c98e'"/>
       </form>
       <div @click.prevent.left="getCode()">
-        <GoButton text="Send a code" :colore="'#B1B9FC'"/>
+        <GoButton text="button.sendcode" :colore="'#B1B9FC'"/>
       </div>
       <div @click.prevent.left="back()">
-        <GoButton text="Back" :colore="'#B1B9FC'"/>
+        <GoButton text="button.back" :colore="'#B1B9FC'"/>
       </div>
     </div>
   </div>
@@ -62,10 +62,11 @@
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
         checkArgs(){
-          if(!this.code) Swal.fire("Please enter your mail");
-          if(!this.newPassword) Swal.fire("Please enter your new password");
-          if(!this.repeatedPassword) Swal.fire("Please enter your repetead password");
-          if(this.repeatedPassword !== this.newPassword) Swal.fire("Passwords must be identical");
+          if(!this.name) Swal.fire(this.$t("alerts.name"));
+          if(!this.mail) Swal.fire(this.$t("alerts.mail"));
+          if(!this.password) Swal.fire(this.$t("alerts.pwd"));
+          if(!this.repeatedPassword) Swal.fire(this.$t("alerts.pwdconfirm"));
+          if(this.repeatedPassword !== this.password) Swal.fire(this.$t("alerts.pwdmatch"));
           else return true;
         },
         /*Méthode qui envoie le mail, le code reçu par mail, le nouveau mot de passe
@@ -94,8 +95,8 @@
                 this.$cookies.set("token", data.token);
                 Swal.fire({
                   icon: 'success',
-                  title: 'Good !',
-                  text: 'Account created !'
+                  title: this.$t('alerts.good'),
+                  text: this.$t('alerts.accountcreated'),
                 })
                 GlobalMethods.isAClient(data.role);
               })

@@ -1,14 +1,14 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text="New contracts"/>
+      <MainHeader text="header.newcontracts"/>
     </div>
     <div class="container">
       <div class="list">
         <SelectListContract/>
       </div>
       <div class="homeButton" @click.prevent.left="$router.push('/Home')">
-      <GoButton text="Home" :colore="'#B1B9FC'"/>
+      <GoButton text="header.home" :colore="'#B1B9FC'"/>
         </div>
   </div>
   </div>

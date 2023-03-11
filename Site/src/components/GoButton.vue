@@ -1,6 +1,6 @@
 <template>
   <div class="button">
-    <button>{{ text }}</button>
+    <button>{{ $t(text)}}</button>
   </div>
 </template>
 

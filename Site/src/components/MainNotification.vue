@@ -3,10 +3,10 @@
     <div class="img"></div>
     <div class="textBox">
       <div class="textContent">
-        <div class="h1">{{ title }}</div>
-        <span class="span">{{ time }} minutes ago</span>
+        <div class="h1">{{ $t("notifications.title",{name: title}) }}</div>
+        <span class="span">{{ $t("notifications.time",{time: time}) }}</span>
       </div>
-      <div class="p">{{  text }}</div>
+      <div class="p">{{  $t("notifications.text",{text: text}) }}</div>
       <div>
       </div>
     </div>
@@ -48,7 +48,6 @@ export default {
 
 .card:hover > .img {
   transition: 0.5s ease-in-out;
-  background-image: url("@/assets/check.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 50px;

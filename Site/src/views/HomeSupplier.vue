@@ -1,19 +1,19 @@
 <template>
   <div class="home">
     <div class="title">
-      <MainHeader text="Home"/>
+      <MainHeader text="header.home"/>
     </div>
     <div class="allcards">
-      <MainCard text="Your clients"/>
-      <MainCard text="Your Contracts"/>
-      <MainCard text="Notifications"/>
+      <MainCard :text="$t('maincard.clients')"/>
+      <MainCard :text="$t('header.contracts')"/>
+      <MainCard text="$t('header.notifications')"/>
     </div>
     <div class="bottombutton">
       <div class="disconnectbutton" @click.prevent.left="callDisconnect()">
-      <GoButton text="Disconnect" :colore="'red'"/>
+      <GoButton text="button.disconnect" :colore="'red'"/>
       </div>
       <div class="settingsbutton" @click.prevent.left="$router.push('/settings')">
-      <GoButton text="Settings" :colore="'gray'"/>
+      <GoButton text="header.settings" :colore="'gray'"/>
         </div>
     </div>
   </div>

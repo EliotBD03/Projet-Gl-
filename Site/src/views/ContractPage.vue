@@ -1,13 +1,13 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text="Your contracts"/>
+      <MainHeader text="header.contracts"/>
     </div>
     <div class="searchbar">
       <SearchBar/>
     </div>
     <div class="homeButton" @click.prevent.left="redirecting()">
-      <GoButton text="Home" :colore="'#B1B9FC'"/>
+      <GoButton text="header.home" :colore="'#B1B9FC'"/>
     </div>
   </div>
 </template>

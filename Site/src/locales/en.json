@@ -1,6 +1,93 @@
 {
   "header": {
     "home": "Home",
-    "settings": "Settings"
+    "settings": "Settings",
+    "consumption": "Consumption",
+    "contracts": "Your contracts",
+    "main": "BABA WALLET",
+    "forgotpwd": "Password",
+    "login": "Login",
+    "newcontracts": "New Contracts",
+    "notifications": "Notifications",
+    "wallets": "Wallets",
+    "other": "{name}"
+  },
+  "walletform": {
+    "name": "Enter your name",
+    "adress": "Enter your adress"
+  },
+  "button": {
+    "changepwd": "Change password",
+    "changelanguage": "Change language",
+    "forgotpwd": "Forgot password",
+    "login": "Login",
+    "back": "Back",
+    "closewallet": "Close wallet",
+    "createaccount": "Create account",
+    "sendcode": "Send code",
+    "submit": "Submit",
+    "newcode": "Send a new code",
+    "disconnect": "Disconnect",
+    "go": "Go",
+    "table": "Table",
+    "export": "Export",
+    "graphic": "Graphic",
+    "add": "Add",
+    "change": "Change"
+  },
+  "maincard": {
+    "newcontracts": "See new contracts",
+    "clients": "Your clients"
+  },
+  "searchbar": {
+    "placeholder": "EAN Code or Provider name",
+    "noresult": "No result"
+  },
+  "alerts": {
+    "mail": "Enter your mail",
+    "name": "Enter your name",
+    "pwd": "Enter your password",
+    "pwdconfirm": "Enter a password confirmation",
+    "pwdmatch": "Passwords don't match",
+    "good": "Good !",
+    "accountcreated": "Account created",
+    "entermail": "Please enter your mail to change your password",
+    "pwdchanged": "Password changed",
+    "checkmail": "Please check your mails to reset your password",
+    "languagechanged": "Language changed",
+    "connectionexpired": "Connection expired",
+    "entercode": "Please enter the code sent to your mail"
+  },
+  "wallet": {
+    "loading": "Loading..."
+  },
+  "consumptions": {
+    "newconsumption": "New consumption : {date}",
+    "changeconsumption": "Change consumption : {date}"
+  },
+  "account" : {
+    "client": "Client",
+    "supplier": "Supplier",
+    "french": "French",
+    "english": "English",
+    "name": "Name",
+    "mail": "Mail",
+    "pwd": "Password",
+    "pwdconfirm": "Confirm password",
+    "code": "Code",
+    "emailsent": "An email was sent",
+    "instructions": "Follow the instructions in the email",
+    "mailcode" : "Mail code",
+    "newpwd": "New password"
+  },
+  "settings": {
+    "chooselanguage": "Choose your language",
+    "addlanguage": "Add a language",
+    "entermail": "Enter your mail"
+  },
+  "notifications": {
+    "title": "{name}",
+    "time": "{time} ago",
+    "text": "{text}"
   }
 }

@@ -1,6 +1,15 @@
 {
   "header": {
     "home": "Accueil",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "consumption": "Consommation",
+    "contracts": "Vos contrats",
+    "main": "BABA WALLET",
+    "forgotpwd": "Mot de passe",
+    "login": "Connexion",
+    "newcontracts": "Nouveaux contrats",
+    "notifications": "Notifications",
+    "wallets": "Portefeuilles",
+    "other": "{name}"
   }
 }
