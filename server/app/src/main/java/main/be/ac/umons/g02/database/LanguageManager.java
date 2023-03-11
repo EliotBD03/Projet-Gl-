@@ -28,7 +28,7 @@ public class LanguageManager
         return DB.getInstance().getResults(new String[] {"saved_language"}).get(0).get(0);
     }
 
-    public ArrayList<String> getAllLanguages(String userId, int base, int limit)
+    public ArrayList<String> getAllLanguages(String userId, int base, int limit,  String pattern)
     {
         DB.getInstance().executeQuery("SELECT saved_language FROM language WHERE id=" + userId,true);
         return DB.getInstance().getResults(new String[] {"saved_language"}).get(0);

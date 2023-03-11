@@ -194,7 +194,7 @@ public class ClientApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals((int) slice[0], (int) slice[1], (String) slice[2]);
+        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals((String) slice[2], (int) slice[0], (int) slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
@@ -254,7 +254,7 @@ public class ClientApi extends MyApi implements RouterApi
         if(checkParam((address = body.getString("address")), routingContext)) return;
 
         String nameClient = commonDB.getLogManager().getName(id);
-        commonDB.getNotificationManager().createNotification(id, idProvider, nameProposal, idProvider, "Contract request from " + nameClient + ", ean: " + ean + ".", eean, address);
+        commonDB.getNotificationManager().createNotification(id, idProvider, nameProposal, idProvider, "Contract request from " + nameClient + ", ean: " + ean + ".", ean, address);
 
         routingContext.response()
             .setStatusCode(200)

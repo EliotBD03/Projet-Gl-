@@ -1,6 +1,5 @@
 package main.be.ac.umons.g02.database;
 
-import com.mysql.cj.log.Log;
 import main.be.ac.umons.g02.data_object.Notification;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class NotificationManager
         DB.getInstance().executeQuery("INSERT INTO notification(sender_id, receiver_id, linked_proposal_name, provider_id_proposal, context, ean, address)"+
                 " VALUES("+senderId+","+receiverId+",'"+proposalName+"',"+proposalOwnerId+",'"+context+"','"+ean+"','"+address+"')",false);
     }
-    public ArrayList<Notification> getAllNotifications(String idUser, int base, int limit)
+    public ArrayList<Notification> getAllNotifications(String idUser, int base, int limit,  String pattern)
     {
         DB.getInstance().executeQuery("SELECT * FROM notification WHERE id="+idUser + " LIMIT "+ base+", "+(base+limit), true);
 

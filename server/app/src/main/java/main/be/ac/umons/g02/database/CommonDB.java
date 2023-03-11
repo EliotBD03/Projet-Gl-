@@ -1,8 +1,5 @@
 package main.be.ac.umons.g02.database;
 
-import main.be.ac.umons.g02.data_object.ClientBasic;
-
-import java.util.ArrayList;
 
 public class CommonDB
 {
