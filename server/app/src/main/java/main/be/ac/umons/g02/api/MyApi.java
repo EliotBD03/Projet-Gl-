@@ -254,14 +254,11 @@ public class MyApi extends AbstractVerticle
             String origin = routingContext.request().getHeader(HttpHeaders.ORIGIN);
             if (origin != null && origin.equals("https://babawallet.alwaysdata.net"))
             {
-                routingContext.response()
-                    .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin)
-                    .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET")
-                    .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "POST")
-                    .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "PUT")
-                    .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "DELETE")
-                    .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type")
-                    .end();
+                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin);
+                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE");
+                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type");
+
+                routingContext.next();
             }
             else
                 routingContext.response()

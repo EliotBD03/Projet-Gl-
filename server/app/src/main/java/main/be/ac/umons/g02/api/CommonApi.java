@@ -267,16 +267,22 @@ public class CommonApi extends MyApi implements RouterApi
 
         String idNotification = routingContext.pathParam("id_notification");
 
-        JsonObject body = null;
-        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
+        String role = routingContext.user().principal().getString("role");
+        if(role.equals("client"))
+        {
+            JsonObject body = null;
+            if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
 
-        String ean = null;
-        if(checkParam((ean = body.getString("ean")), routingContext)) return;
+            String ean = null;
+            if(checkParam((ean = body.getString("ean")), routingContext)) return;
 
-        String address = null;
-        if(checkParam((address = body.getString("address")), routingContext)) return;
+            String address = null;
+            if(checkParam((address = body.getString("address")), routingContext)) return;
 
-        commonDB.getNotificationManager().acceptNotification(idNotification, ean, address);
+            commonDB.getNotificationManager().acceptNotification(idNotification, ean, address);
+        }
+        else
+            commonDB.getNotificationManager().acceptNotification(idNotification);
 
         routingContext.response()
             .setStatusCode(200)
