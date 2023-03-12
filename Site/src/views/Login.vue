@@ -36,7 +36,7 @@
         password: ''
       }},
       methods: {
-        /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
+        /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up*/
         checkArgs(){
           if(!this.mail) Swal.fire(this.$t("alerts.mail"));
           if(!this.password) Swal.fire(this.$t("alerts.pwd"));
@@ -44,10 +44,8 @@
         },
         /*Méthode qui envoie le mail et le mot de passe vers l'api si les champs sont remplis 
           quand l'utilisateur clique sur login.
-          Si la requête est incorrecte, il y a 2 possibilités :
-            -L'api renvoie son propre message d'erreur (mot de passe incorrect, mail non trouvé)
-            -Une erreur serveur dans ce cas, on n'affiche que le status associé
-            Dans ces cas, il y aura une pop-up explicative*/
+          Si la requête est incorrecte, 
+          l'api renvoie un message d'erreur et il y aura une pop-up explicative*/
         post(){
           if(this.checkArgs())
           {

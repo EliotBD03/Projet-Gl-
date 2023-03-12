@@ -57,6 +57,7 @@ export default {
         return;
       }
       else {
+        this.$cookies.set("mail", this.mail);
         GlobalMethods.disconnect("/forgottenpassword");
       }
     },

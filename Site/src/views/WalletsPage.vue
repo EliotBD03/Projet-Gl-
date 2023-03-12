@@ -87,7 +87,7 @@ export default {
         this.getPage(this.nbr);
       }
     },
-    /*On sauvegarde l'adresse du wallet sur lequel on veut plus d'informations
+    /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
     et on redirige vers walletFull*/
     seeMore(wallet){
       sessionStorage.setItem('address', wallet.address);

@@ -4,6 +4,7 @@
     <MainHeader text="header.main"/>
     </div>
     <div class="create-form">
+      <p>Click on send a code after entering your mail</p>
       <div class="line">
         <input type="radio" id="Client" value="Client" v-model="role">
         <label for="Client">{{ $t("account.client") }}</label>
@@ -65,12 +66,15 @@
           if(!this.name) Swal.fire(this.$t("alerts.name"));
           if(!this.mail) Swal.fire(this.$t("alerts.mail"));
           if(!this.password) Swal.fire(this.$t("alerts.pwd"));
+          if(!this.code) Swal.fire(this.$t("alerts.entercode"));
           if(!this.repeatedPassword) Swal.fire(this.$t("alerts.pwdconfirm"));
           if(this.repeatedPassword !== this.password) Swal.fire(this.$t("alerts.pwdmatch"));
           else return true;
         },
-        /*Méthode qui envoie le mail, le code reçu par mail, le nouveau mot de passe
-          et s'il s'agit d'un client vers l'api si checkArgs() est true quand l'utilisateur 
+        /*Méthode qui, si checkArgs() est true, envoie le nom de l'utilisateur, 
+          le mail, le code reçu par mail, 
+          le mot de passe choisi, la langue choisie
+          et s'il s'agit d'un client vers l'api lorsque l'utilisateur 
           clique sur create an account.
           Si la requête est incorrecte, l'api renvoie un message d'erreur
           Si elle est correcte affiche une pop-up de succès et redirige*/
@@ -105,7 +109,7 @@
               });
           }
         },
-        /*Méthode permettant d'obtenir un code pour valider le création de compte*/
+        /*Méthode permettant d'obtenir un code pour valider la création de compte*/
         getCode(){
           if(this.mail)
           {
@@ -123,8 +127,7 @@
         }
         this.$router.push("/");
       },
-      /*Méthode permettant de vérifier si les checkboxes sont cochées correctement et 
-        assigner les bonnes valeurs en fonction*/
+      /*Méthode permettant de assigner les bonnes valeurs en fonction des checkboxes*/
       isRole(){
         if(this.role == "Client")
         {
@@ -147,7 +150,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 100vh;
+  height: 105vh;
 }
 
   .create-form {

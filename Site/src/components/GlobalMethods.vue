@@ -19,7 +19,7 @@
     /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle*/
     isAClient(role){
       if(role === "client"){
-        router.push({name: "HomeClient"}); //ou utiliser name: A voir avec les tests
+        router.push({name: "HomeClient"});
       } 
       else{
         router.push({name: "HomeSupplier"});
@@ -48,8 +48,6 @@
     },
     /*Méthode qui permet la déconnexion de l'utilisateur*/
     disconnect(chemin){
-      //Si le disconnect ne fonctionne pas Adri, 
-      //ça vient de la requếte j'ai testé si la méthode était bien appelée
       const requestOptions = {
         method: "POST",
         headers: {'Authorization' : cookies.get("token")}

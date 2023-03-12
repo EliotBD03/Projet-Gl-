@@ -1,4 +1,5 @@
 <template>
+  <!--Idée de la page de consommations des portefeuilles-->
   <div class="main">
     <div class="header">
       <MainHeader text="header.consumption"/>

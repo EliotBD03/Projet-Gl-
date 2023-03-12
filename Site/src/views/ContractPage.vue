@@ -1,4 +1,5 @@
 <template>
+  <!--Idée de la page des contrats (clients)-->
   <div class="main">
     <div class="header">
       <MainHeader text="header.contracts"/>
