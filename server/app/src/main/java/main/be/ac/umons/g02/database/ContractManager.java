@@ -34,7 +34,7 @@ public class ContractManager
         return contract;
     }
 
-    public ArrayList<ContractBasic> getAllContracts(String clientId, int base, int limit, String pattern)
+    public ArrayList<ContractBasic> getAllContracts(String clientId, int base, int limit)
     {
         String query = "SELECT * FROM contract WHERE client_id=" + clientId +" LIMIT "+base + ", " + (limit + base);
         if(base < 0)
@@ -65,9 +65,9 @@ public class ContractManager
         return contractBasics;
     }
 
-    public ArrayList<ContractBasic> getCommonContracts(String clientId, String providerId, int base, int limit, String pattern)
+    public ArrayList<ContractBasic> getCommonContracts(String clientId, String providerId, int base, int limit)
     {
-        ArrayList<ContractBasic> contractBasics = getAllContracts(clientId, base, limit, "TODO"); //TODO
+        ArrayList<ContractBasic> contractBasics = getAllContracts(clientId, base, limit);
         ArrayList<ContractBasic> results = new ArrayList<>();
         for(int i = 0; i < contractBasics.size(); i++)
             if(contractBasics.get(i).getProviderId().equals(providerId))

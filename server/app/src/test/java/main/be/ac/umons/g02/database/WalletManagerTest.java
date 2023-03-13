@@ -48,7 +48,7 @@ class WalletManagerTest
     @Order(3)
     void getAllWallets()
     {
-        ArrayList<WalletBasic> expected = new WalletManager().getAllWallets("1",0,1, "");
+        ArrayList<WalletBasic> expected = new WalletManager().getAllWallets("1",0,1);
         assertNotNull(expected);
         assertEquals(expected.get(0).getAddress(), walletBasic.getAddress());
         assertEquals(expected.get(0).getName(), walletBasic.getName());

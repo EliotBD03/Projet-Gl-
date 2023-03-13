@@ -16,9 +16,9 @@ public class ConsumptionManager
         return false;
     }
 
-    public HashMap<String, Double> getConsumptionOfMonth(String ean, String startingDate, String closingDate)
+    public HashMap<String, Double> getConsumptionOfMonth(String ean, String month, String year)
     {
-        return null; //TODO on doit en parler avec les autres ?
+        return null; //TODO avoir la conso du dernier jour de month de year
     }
 
     public HashMap<String, Double> getConsumptions(String ean, String startingDate, String closingDate)

@@ -55,7 +55,7 @@ class ConsumptionManagerTest {
     @Order(2)
     void getConsumptionOfMonth()
     {
-        //TODO voir pour plus tard
+        //TODO
     }
 
     @Test

@@ -18,7 +18,7 @@ public class ProposalManager
         return Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0)) == 1;
     }
 
-    public ArrayList<ProposalBasic> getAllProposals(String providerId, int base, int limit, String pattern)
+    public ArrayList<ProposalBasic> getAllProposals(String providerId, int base, int limit)
     {
         String query = "SELECT * FROM proposal WHERE provider_id ="+providerId+" LIMIT "+base+","+(base+limit);
         DB.getInstance().executeQuery(query, true);
@@ -49,7 +49,7 @@ public class ProposalManager
         return proposalBasics;
     }
 
-    public ArrayList<ProposalBasic> getAllProposals(String pattern, int base, int limit)
+    public ArrayList<ProposalBasic> getAllProposals(int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM proposal LIMIT "+base+", "+(base+limit), true);
         ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults(new String[] {"proposal_name","provider_id",

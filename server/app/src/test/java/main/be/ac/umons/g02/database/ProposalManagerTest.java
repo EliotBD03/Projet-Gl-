@@ -36,7 +36,7 @@ class ProposalManagerTest
     {
         ProposalManager proposalManager = new ProposalManager();
         proposalManager.addProposal(reference);
-        assertNotEquals(proposalManager.getAllProposals("",0,1 ).size(),0);
+        assertNotEquals(proposalManager.getAllProposals(0,1 ).size(),0);
     }
 
     /**
@@ -46,7 +46,7 @@ class ProposalManagerTest
     @Order(2)
     void getAllProposals()
     {
-        ProposalBasic toBeTested = new ProposalManager().getAllProposals("",0,1, "").get(0);
+        ProposalBasic toBeTested = new ProposalManager().getAllProposals(0,1).get(0);
         assertEquals(toBeTested.getLocation(), reference.getLocation());
         assertEquals(toBeTested.getProposalName(), reference.getProposalName());
         assertEquals(toBeTested.getTypeOfEnergy(), reference.getTypeOfEnergy());

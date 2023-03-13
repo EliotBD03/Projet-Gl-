@@ -23,7 +23,7 @@ public class NotificationManager
         DB.getInstance().executeQuery("INSERT INTO notification(sender_id, receiver_id, linked_proposal_name, provider_id_proposal, context, ean, address)"+
                 " VALUES("+senderId+","+receiverId+",'"+proposalName+"',"+proposalOwnerId+",'"+context+"','"+ean+"','"+address+"')",false);
     }
-    public ArrayList<Notification> getAllNotifications(String idUser, int base, int limit,  String pattern)
+    public ArrayList<Notification> getAllNotifications(String idUser, int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM notification WHERE id="+idUser + " LIMIT "+ base+", "+(base+limit), true);
 

@@ -10,7 +10,7 @@ public class WalletManager
 {
     public enum energyType {ELECTRICITY, WATER, GAS};
 
-    public ArrayList<WalletBasic> getAllWallets(String clientId, int base, int limit, String pattern)
+    public ArrayList<WalletBasic> getAllWallets(String clientId, int base, int limit)
     {
         //if(!new LogManager().isClient(clientId))
           //  throw new Exception("the client doesn't exist");

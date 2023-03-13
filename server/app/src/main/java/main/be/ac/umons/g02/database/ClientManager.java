@@ -25,7 +25,7 @@ public class ClientManager
 
         return clientBasics;
     }
-    public ArrayList<ClientBasic> getAllClients(int base, int limit, String pattern)
+    public ArrayList<ClientBasic> getAllClients(int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN (SELECT id FROM client) LIMIT "+base+", "+(base+limit),true);
         return getClientBasics();
@@ -34,7 +34,7 @@ public class ClientManager
     /**
      * "SELECT * FROM user WHERE id in (SELECT client_id FROM wallet WHERE address IN (SELECT address FROM wallet_contract WHERE contract_id IN (SELECT contract_id FROM provider_contract WHERE provider_id="+provider_id+"))) LIMIT "+base+","+base+limit
      */
-    public ArrayList<ClientBasic> getAllHisClients(String providerId, int base, int limit, String pattern)
+    public ArrayList<ClientBasic> getAllHisClients(String providerId, int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN "+
                 "(SELECT client_id FROM wallet WHERE address IN "+
