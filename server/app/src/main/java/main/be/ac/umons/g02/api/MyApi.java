@@ -25,6 +25,8 @@ import javax.json.JsonReader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.*;
+import io.vertx.core.http.HttpMethod;
+import io.vertx.ext.web.handler.CorsHandler;
 
 /**
  * Classe qui représente le centre d'API
@@ -84,6 +86,18 @@ public class MyApi extends AbstractVerticle
 
         final Router router = Router.router(vertx);
 
+        CorsHandler corsHandler = CorsHandler.create("https://babawallet-site.alwaysdata.net/*")
+            .allowedMethod(HttpMethod.GET)
+            .allowedMethod(HttpMethod.POST)
+            .allowedMethod(HttpMethod.PUT)
+            .allowedMethod(HttpMethod.DELETE)
+            .allowedHeader("Access-Control-Allow-Method")
+            .allowedHeader("Access-Control-Allow-Origin")
+            .allowedHeader("Access-Control-Allow-Credentials")
+            .exposedHeader("Content-Type")
+            .maxAgeSeconds(86400);
+
+        router.route().handler(corsHandler);
         router.route("/*").handler(routingContext -> HandlerUtils.handleSite(routingContext));
         router.route("/api/*").handler(routingContext -> HandlerUtils.handleToken(routingContext));
         router.route("/api/client/*").handler(routingContext -> HandlerUtils.handleRoleClient(routingContext));
@@ -156,13 +170,12 @@ public class MyApi extends AbstractVerticle
      *
      * @param routingContext - Le contexte de la requête
      */
-    protected Object[] getSlice(final RoutingContext routingContext)
+    protected int[] getSlice(final RoutingContext routingContext)
     {
         final String stringPage = routingContext.request().getParam("page");
-        final String search = routingContext.request().getParam("search");
         final String stringLimit = routingContext.request().getParam("limit");
 
-        Object[] slice = {null, null, null};
+        int[] slice = {0, 0};
 
         int page;
         int limit;
@@ -177,41 +190,36 @@ public class MyApi extends AbstractVerticle
             if(stringLimit == null)
                 limit = pageDefaultSize;
             else
+            {
                 limit = Integer.parseInt(stringLimit);
+                if (limit <= 0 || limit > pageMaxSize)
+                    slice[1] = pageDefaultSize;
+                else
+                    slice[1] = limit;
+            }
+
         }
         catch(NumberFormatException error)
         {
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "Page and limit numbers must be integers.")));
             return null;
         }
 
-        if (limit <= 0 || limit > pageMaxSize)
-            slice[1] = "" + pageDefaultSize;
-        else
-            slice[1] = "" + limit;
-
         if(page <= 0)
         {
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "The page number must be strictly greater than 0 or the search phrase must not be empty.")));
             return null;
         }
-        else
-        {
-            slice[0] = "" + ((page - 1) * ((int) slice[1]));
 
-            if(search == null || search.length() == 0)
-                slice[2] = null;
-            else
-                slice[2] = search;
-        }
+        slice[0] =(page - 1) * slice[1];
 
         return slice;
     }
@@ -229,7 +237,7 @@ public class MyApi extends AbstractVerticle
         {
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "The query is missing information.")));
             return true;
@@ -251,21 +259,27 @@ public class MyApi extends AbstractVerticle
          */
         public static void handleSite(RoutingContext routingContext)
         {
-            String origin = routingContext.request().getHeader(HttpHeaders.ORIGIN);
-            if (origin != null && origin.equals("https://babawallet.alwaysdata.net"))
-            {
-                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin);
-                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE");
-                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type");
+            LOGGER.info("Check Origin...");
 
-                routingContext.next();
-            }
-            else
-                routingContext.response()
-                    .setStatusCode(401)
-                    .putHeader("content-type", "application/json")
-                    .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this site.")));
+            String origin = routingContext.request().getHeader(HttpHeaders.ORIGIN);
+            LOGGER.info("origin " + origin);
+            routingContext.next();
+            /*
+               if (origin != null && origin.startsWith("http://babawallet.alwaysdata.net"))
+               {
+               routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin);
+               routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE");
+               routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type");
+
+               routingContext.next();
+               }
+               else
+               routingContext.response()
+               .setStatusCode(401)
+               .putHeader("content-type", "application/json")
+               .end(Json.encodePrettily(new JsonObject()
+               .put("error", "You are not authorized to access this site.")));
+               */
         }
 
         /**
@@ -278,6 +292,8 @@ public class MyApi extends AbstractVerticle
          */
         public static void handleToken(RoutingContext routingContext)
         {
+            LOGGER.info("Check Token...");
+
             JWTAuthHandler.create(MyApi.jwt);
 
             String token = routingContext.request().headers().get("Authorization");
@@ -285,7 +301,7 @@ public class MyApi extends AbstractVerticle
             {
                 routingContext.response()
                     .setStatusCode(401)
-                    .putHeader("content-type", "application/json")
+                    .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
                                 .put("error", "You are not authorized to access this part of the site.")));
                 return;
@@ -296,7 +312,7 @@ public class MyApi extends AbstractVerticle
             if(MyApi.blackList.contains(token))
                 routingContext.response()
                     .setStatusCode(401)
-                    .putHeader("content-type", "application/json")
+                    .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
                                 .put("error", "You are not authorized to access this part of the site.")));
             else
@@ -311,13 +327,15 @@ public class MyApi extends AbstractVerticle
          */         
         public static void handleRoleClient(RoutingContext routingContext)
         {
+            LOGGER.info("Check Role Client...");
+
             String role = routingContext.user().principal().getString("role");
             if(role != null && role.equals("client"))
                 routingContext.next();
             else
                 routingContext.response()
                     .setStatusCode(401)
-                    .putHeader("content-type", "application/json")
+                    .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
                                 .put("error", "You are not authorized to access this part of the site.")));
         };
@@ -330,13 +348,15 @@ public class MyApi extends AbstractVerticle
          */
         public static void handleRoleProvider(RoutingContext routingContext)
         {
+            LOGGER.info("Check Role Provider...");
+
             String role = routingContext.user().principal().getString("role");
             if(role != null && role.equals("provider"))
                 routingContext.next();
             else
                 routingContext.response()
                     .setStatusCode(401)
-                    .putHeader("content-type", "application/json")
+                    .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
                                 .put("error", "You are not authorized to access this part of the site.")));
         };
@@ -349,13 +369,15 @@ public class MyApi extends AbstractVerticle
          */
         public static void handleRoleCommon(RoutingContext routingContext)
         {
+            LOGGER.info("Check Role Common...");
+
             String role = routingContext.user().principal().getString("role");
             if(role != null && (role.equals("client") || role.equals("provider")))
                 routingContext.next();
             else
                 routingContext.response()
                     .setStatusCode(401)
-                    .putHeader("content-type", "application/json")
+                    .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
                                 .put("error", "You are not authorized to access this part of the site.")));
         };

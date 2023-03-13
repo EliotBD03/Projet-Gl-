@@ -67,15 +67,15 @@ public class CommonApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        Object[] slice = getSlice(routingContext);
+        int[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<String> allLanguages = commonDB.getLanguageManager().getAllLanguages(id, (int) slice[0], (int) slice[1], (String) slice[2]);
+        ArrayList<String> allLanguages = commonDB.getLanguageManager().getAllLanguages(id, slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("allLanguages", allLanguages)));
     } 
@@ -97,7 +97,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("language", language)));
     }
@@ -119,7 +119,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("language", language)));
     }
@@ -143,7 +143,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -166,7 +166,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -189,7 +189,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -216,13 +216,13 @@ public class CommonApi extends MyApi implements RouterApi
             commonDB.getLogManager().changePassword(id, newPwd);
             routingContext.response()
                 .setStatusCode(200)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end();
         }
         else
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "Invalid code.")));
     }
@@ -241,15 +241,15 @@ public class CommonApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        Object[] slice = getSlice(routingContext);
+        int[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<Notification> allNotifications = commonDB.getNotificationManager().getAllNotifications(id, (int) slice[0], (int) slice[1], (String) slice[2]);
+        ArrayList<Notification> allNotifications = commonDB.getNotificationManager().getAllNotifications(id, slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("allNotifications", allNotifications)));
     }
@@ -286,7 +286,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -306,7 +306,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -326,7 +326,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -346,7 +346,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("contract", contract)));
     }
@@ -367,7 +367,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -384,17 +384,17 @@ public class CommonApi extends MyApi implements RouterApi
         String ean = null;
         if(checkParam((ean = routingContext.request().getHeader("tete")), routingContext)) return;
 
-        String startDate = null;
-        if(checkParam((startDate = routingContext.request().getHeader("start_date")), routingContext)) return;
+        String month = null;
+        if(checkParam((month = routingContext.request().getHeader("month")), routingContext)) return;
 
-        String endDate = null;
-        if(checkParam((endDate = routingContext.request().getHeader("end_date")), routingContext)) return;
+        String year = null;
+        if(checkParam((year = routingContext.request().getHeader("year")), routingContext)) return;
 
-        HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptionOfMonth(ean, startDate, endDate);
+        HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptionOfMonth(ean, month, year);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("listConsumption", listConsumption)));
     }
@@ -422,7 +422,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("listConsumption", listConsumption)));
     }
@@ -457,7 +457,7 @@ public class CommonApi extends MyApi implements RouterApi
         {
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "The query is missing information.")));
             return;
@@ -473,7 +473,7 @@ public class CommonApi extends MyApi implements RouterApi
         {
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "The table does not only contain numbers.")));
             return;
@@ -484,7 +484,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("valueAlreadyDefine", valueAlreadyDefine)));
     }
@@ -515,7 +515,7 @@ public class CommonApi extends MyApi implements RouterApi
         {
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "The query is missing information.")));
             return;
@@ -528,7 +528,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 }

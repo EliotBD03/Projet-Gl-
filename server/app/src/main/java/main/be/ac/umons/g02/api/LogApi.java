@@ -67,7 +67,7 @@ public class LogApi extends MyApi implements RouterApi
         {
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "Account not found, email address or password is not correct.")));
             return;
@@ -87,7 +87,7 @@ public class LogApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("token", "Bearer " + token)
                         .put("role", role)));
@@ -107,7 +107,7 @@ public class LogApi extends MyApi implements RouterApi
         {
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "You have to send the token to disconnect.")));
             return;
@@ -121,7 +121,7 @@ public class LogApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -164,7 +164,7 @@ public class LogApi extends MyApi implements RouterApi
             {
                 routingContext.response()
                     .setStatusCode(400)
-                    .putHeader("content-type", "application/json")
+                    .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
                                 .put("error", "The query is missing information.")));
                 return;
@@ -194,7 +194,7 @@ public class LogApi extends MyApi implements RouterApi
 
                 routingContext.response()
                     .setStatusCode(200)
-                    .putHeader("content-type", "application/json")
+                    .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
                                 .put("token", "Bearer " + token)
                                 .put("role", role)));
@@ -204,7 +204,7 @@ public class LogApi extends MyApi implements RouterApi
             {
                 routingContext.response()
                     .setStatusCode(503)
-                    .putHeader("content-type", "application/json")
+                    .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
                                 .put("error", "The account could not be saved.")));
             }
@@ -212,7 +212,7 @@ public class LogApi extends MyApi implements RouterApi
         else
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "Mauvais code.")));
     }
@@ -250,14 +250,14 @@ public class LogApi extends MyApi implements RouterApi
                 commonDB.getLogManager().changePassword(mail, newPwd);
                 routingContext.response()
                     .setStatusCode(200)
-                    .putHeader("content-type", "application/json")
+                    .putHeader("Content-Type", "application/json")
                     .end();
             }
             catch(Exception error)
             {
                 routingContext.response()
                     .setStatusCode(503)
-                    .putHeader("content-type", "application/json")
+                    .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
                                 .put("error", "Password reset error.")));
             }
@@ -265,7 +265,7 @@ public class LogApi extends MyApi implements RouterApi
         else
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "The code entered is not correct.")));
     }
@@ -291,14 +291,14 @@ public class LogApi extends MyApi implements RouterApi
             App.sendEmail(mail, "BabaWallet", "Thank you for your registration.\nHere is the code " + code + ".\nJust go back to the site and enter it in the right place.");
             routingContext.response()
                 .setStatusCode(200)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end();
         }
         catch(RuntimeException error)
         {
             routingContext.response()
                 .setStatusCode(503)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "Error in sending the code.")));
         }

@@ -58,15 +58,15 @@ public class ClientApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        Object[] slice = getSlice(routingContext);
+        int[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<WalletBasic> wallets = commonDB.getWalletManager().getAllWallets(id, (int) slice[0], (int) slice[1], (String) slice[2]);
+        ArrayList<WalletBasic> wallets = commonDB.getWalletManager().getAllWallets(id, slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("wallets", wallets)));
     }
@@ -87,7 +87,7 @@ public class ClientApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("wallet", wallet)));
     }
@@ -119,7 +119,7 @@ public class ClientApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(201)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -141,13 +141,13 @@ public class ClientApi extends MyApi implements RouterApi
             commonDB.getWalletManager().deleteWallet(address);
             routingContext.response()
                 .setStatusCode(200)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end();
         }
         else
             routingContext.response()
                 .setStatusCode(405)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "The portfolio is not empty.")));
     }
@@ -166,15 +166,15 @@ public class ClientApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        Object[] slice = getSlice(routingContext);
+        int[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<ContractBasic> contracts = commonDB.getContractManager().getAllContracts(id, (int) slice[0], (int ) slice[1], (String) slice[2]);
+        ArrayList<ContractBasic> contracts = commonDB.getContractManager().getAllContracts(id, slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("contracts", contracts)));
     }
@@ -190,15 +190,24 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetAllProposals...");
 
-        Object[] slice = getSlice(routingContext);
+        int[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals((String) slice[2], (int) slice[0], (int) slice[1]);
+        JsonObject body = null;
+        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
+
+        String energyCategory = null;
+        if(checkParam((energyCategory = body.getString("energy_category")), routingContext)) return;
+
+        String regionCategory = null;
+        if(checkParam((regionCategory = body.getString("region_category")), routingContext)) return;
+
+        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals(energyCategory, regionCategory, slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("proposals", proposals)));
     }
@@ -220,7 +229,7 @@ public class ClientApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("proposal", proposal)));
     }
@@ -258,7 +267,7 @@ public class ClientApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 }

@@ -57,15 +57,15 @@ public class ProviderApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetAllClients...");
 
-        Object[] slice = getSlice(routingContext);
+        int[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<ClientBasic> allClients = commonDB.getClientManager().getAllClients((int) slice[0], (int) slice[1], (String) slice[2]);
+        ArrayList<ClientBasic> allClients = commonDB.getClientManager().getAllClients(slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("allClients", allClients)));
     }
@@ -84,15 +84,15 @@ public class ProviderApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        Object[] slice = getSlice(routingContext);
+        int[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<ClientBasic> allHisClients = commonDB.getClientManager().getAllHisClients(id, (int) slice[0], (int) slice[1], (String) slice[2]);
+        ArrayList<ClientBasic> allHisClients = commonDB.getClientManager().getAllHisClients(id, slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("allHisClients", allHisClients)));
     }
@@ -113,15 +113,15 @@ public class ProviderApi extends MyApi implements RouterApi
 
         String idClient = routingContext.pathParam("id_client");
 
-        Object[] slice = getSlice(routingContext);
+        int[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<ContractBasic> contracts = commonDB.getContractManager().getCommonContracts(id, idClient, (int) slice[0], (int) slice[1], (String) slice[2]);
+        ArrayList<ContractBasic> contracts = commonDB.getContractManager().getCommonContracts(id, idClient, slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("contracts", contracts)));
     }
@@ -146,7 +146,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -164,15 +164,15 @@ public class ProviderApi extends MyApi implements RouterApi
         String id = null;
         if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
 
-        Object[] slice = getSlice(routingContext);
+        int[] slice = getSlice(routingContext);
         if(slice == null)
             return;
 
-        ArrayList<ProposalBasic> allProposals = commonDB.getProposalManager().getAllProposals(id, (int) slice[0], (int) slice[1], (String) slice[2]);
+        ArrayList<ProposalBasic> allProposals = commonDB.getProposalManager().getAllProposals(id, slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("allProposals", allProposals)));
     }
@@ -196,7 +196,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("proposal", proposal)));
     }
@@ -258,7 +258,7 @@ public class ProviderApi extends MyApi implements RouterApi
         {
             routingContext.response()
                 .setStatusCode(400)
-                .putHeader("content-type", "application/json")
+                .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "The query is missing information.")));
             return;
@@ -277,7 +277,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(201)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -300,7 +300,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -320,7 +320,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -341,7 +341,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 
@@ -372,7 +372,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         routingContext.response()
             .setStatusCode(200)
-            .putHeader("content-type", "application/json")
+            .putHeader("Content-Type", "application/json")
             .end();
     }
 }
