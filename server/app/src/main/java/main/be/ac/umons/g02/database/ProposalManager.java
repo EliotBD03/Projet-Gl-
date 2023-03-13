@@ -49,7 +49,7 @@ public class ProposalManager
         return proposalBasics;
     }
 
-    public ArrayList<ProposalBasic> getAllProposals(int base, int limit)
+    public ArrayList<ProposalBasic> getAllProposals(String energyCategory, String regionCategory, int base, int limit) //TODO je suis amnésique je pense
     {
         DB.getInstance().executeQuery("SELECT * FROM proposal LIMIT "+base+", "+(base+limit), true);
         ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults(new String[] {"proposal_name","provider_id",
