@@ -63,6 +63,7 @@
               }) 
               .then(data => {
                 this.$cookies.set("token", data.token);
+                this.$cookies.set("role", data.role);
                 GlobalMethods.isAClient(data.role);
               })
               .catch(error => {

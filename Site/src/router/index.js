@@ -37,7 +37,14 @@ const routes = [
       {
         path: '/forgottenPassword',
         name: 'forgottenPassword',
-        component: () => import('@/views/ForgottenPassword.vue')
+        component: () => import('@/views/ForgottenPassword.vue'),
+        beforeEnter: (to, from, next) => {
+          if (!cookies.isKey("mail")) {
+            next(from.path);
+          } else {
+            next();
+          }
+        }
       },
     ],beforeEnter: (to, from, next) => {
         if((cookies.isKey("token") && cookies.isKey("role")))

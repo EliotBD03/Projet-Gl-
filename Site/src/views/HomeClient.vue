@@ -36,9 +36,6 @@ export default {
     MainHeader
   },
   methods: {
-    handler() {
-      console.log("test");
-    },
     /*Méthode qui permet la déconnexion de l'utilisateur*/
     callDisconnect(){
       GlobalMethods.disconnect("/");

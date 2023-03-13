@@ -1,5 +1,4 @@
 <template>
-  <!--Voir si cela ne cause pas pb pour actualiser après ajout-->
   <div class="contact-form">
     <form id="addWallet" method="post" v-on:submit.prevent="post">
       <p>
@@ -9,7 +8,6 @@
         <InputMain :text="$t('walletform.adress')" v-model="address"/>
       </p>
       <GoButton text="button.add" type="submit" :colore="'gray'"/>
-      <!-- <button class = "greenButton rightButton fixed" type="submit"> ADD </button>-->
     </form>
   </div>
 </template>
@@ -27,7 +25,7 @@ export default {
       name: '',
       address: ''
     }},
-  /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
+  /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up*/
   methods: {
     checkArgs(){
       if(!this.name) Swal.fire("Please enter your name");

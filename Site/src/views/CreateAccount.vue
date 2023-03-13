@@ -71,11 +71,11 @@
           if(this.repeatedPassword !== this.password) Swal.fire(this.$t("alerts.pwdmatch"));
           else return true;
         },
-        /*Méthode qui, si checkArgs() est true, envoie le nom de l'utilisateur, 
+        /*Méthode qui, lorsque l'utilisateur 
+          clique sur create an account, envoie le nom de l'utilisateur, 
           le mail, le code reçu par mail, 
           le mot de passe choisi, la langue choisie
-          et s'il s'agit d'un client vers l'api lorsque l'utilisateur 
-          clique sur create an account.
+          et s'il s'agit d'un client vers l'api si checkArgs() est true.
           Si la requête est incorrecte, l'api renvoie un message d'erreur
           Si elle est correcte affiche une pop-up de succès et redirige*/
         post(){
@@ -97,6 +97,7 @@
               .then(data => {
                 this.$cookies.remove('mail');
                 this.$cookies.set("token", data.token);
+                this.$cookies.set("role", data.role);
                 Swal.fire({
                   icon: 'success',
                   title: this.$t('alerts.good'),

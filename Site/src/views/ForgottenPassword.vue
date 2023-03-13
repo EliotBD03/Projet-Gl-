@@ -44,7 +44,7 @@
           this.getCode();
       },
       methods: {
-        /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up.
+        /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up.
           Vérifie également si les mots de passe sont identiques*/
         checkArgs(){
           if(!this.code) Swal.fire(this.$t("alerts.entercode"));
@@ -69,6 +69,8 @@
                   if(!response.ok){
                     const data = response.json();
                     GlobalMethods.errorApi(data.error);
+                    this.$cookies.remove('mail');
+                    this.$router.push("/");
                     throw new Error(data.error);   
                   }
                   else{
@@ -111,7 +113,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 100vh;
+  height: 105vh;
 }
 
   .forgot-form {

@@ -33,7 +33,6 @@ components: {
   methods: {
     /*Méthode qui permet la déconnexion de l'utilisateur*/
     callDisconnect(){
-      console.log("OK")
       GlobalMethods.disconnect("/");
     }
   }

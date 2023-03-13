@@ -78,13 +78,13 @@ export default {
       this.loading = false;
     },
     /*Lorsque l'utilisateur scrolle, cette méthode est appelée 
-    pour augmenter le nombre de la page et appeler getPage avec ce nombre*/
+    pour augmenter le nombre de la page et appeler getPage*/
     loader()
     {
       if(!this.loading)
       {
         this.nbr++;
-        this.getPage(this.nbr);
+        this.getPage();
       }
     },
     /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
