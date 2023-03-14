@@ -25,8 +25,6 @@ import javax.json.JsonReader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.*;
-import io.vertx.core.http.HttpMethod;
-import io.vertx.ext.web.handler.CorsHandler;
 
 /**
  * Classe qui représente le centre d'API
@@ -37,6 +35,8 @@ public class MyApi extends AbstractVerticle
 
     private static final int pageDefaultSize = 10;
     private static final int pageMaxSize = 20;
+
+    private String codeToClean = "";
 
     protected static JWTAuth jwt;
     private LogApi logApi;
@@ -64,7 +64,6 @@ public class MyApi extends AbstractVerticle
         int port = 8080;
         String passPhrase = "";
 
-
         Map<String, String> env  = System.getenv();
 
         if(env.containsKey("IP") && env.containsKey("PORT"))
@@ -73,11 +72,11 @@ public class MyApi extends AbstractVerticle
             port = new Integer(env.get("PORT"));
         }
 
-        if(!env.containsKey("PASSPHRASE"))
+        if(!env.containsKey("PASSPHRASE") || !env.containsKey("CODETOCLEAN"))
             System.exit(1);
 
         passPhrase = env.get("PASSPHRASE");
-
+        codeToClean = env.get("CODETOCLEAN");
 
         jwt = JWTAuth.create(vertx, new JWTAuthOptions()
                 .addPubSecKey(new PubSecKeyOptions()
@@ -86,23 +85,12 @@ public class MyApi extends AbstractVerticle
 
         final Router router = Router.router(vertx);
 
-        CorsHandler corsHandler = CorsHandler.create("https://babawallet-site.alwaysdata.net/*")
-            .allowedMethod(HttpMethod.GET)
-            .allowedMethod(HttpMethod.POST)
-            .allowedMethod(HttpMethod.PUT)
-            .allowedMethod(HttpMethod.DELETE)
-            .allowedHeader("Access-Control-Allow-Method")
-            .allowedHeader("Access-Control-Allow-Origin")
-            .allowedHeader("Access-Control-Allow-Credentials")
-            .exposedHeader("Content-Type")
-            .maxAgeSeconds(86400);
-
-        router.route().handler(corsHandler);
         router.route("/*").handler(routingContext -> HandlerUtils.handleSite(routingContext));
         router.route("/api/*").handler(routingContext -> HandlerUtils.handleToken(routingContext));
         router.route("/api/client/*").handler(routingContext -> HandlerUtils.handleRoleClient(routingContext));
         router.route("/api/provider/*").handler(routingContext -> HandlerUtils.handleRoleProvider(routingContext));
         router.route("/api/common/*").handler(routingContext -> HandlerUtils.handleRoleCommon(routingContext));
+        router.get("/clear_blacklist/:code").handler(this::cleanExpiredTokens);
 
         logApi = new LogApi();
         clientApi = new ClientApi();
@@ -123,11 +111,6 @@ public class MyApi extends AbstractVerticle
 
         vertx.createHttpServer().requestHandler(router).listen(port, bind);
 
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(() -> {
-            cleanExpiredTokens();
-        }, 5, 5, TimeUnit.MINUTES);
-
         LOGGER.info("Launching the server...");
     }
 
@@ -140,26 +123,44 @@ public class MyApi extends AbstractVerticle
 
     /**
      * Méthode qui permet de supprimer les tokens qui sont dans la blacklist et qui sont périmés
-     * Cette méthode est appelée toutes les 5 minutes
+     * Cette méthode est appelée toutes les 5 minutes par une tâche planifiée d'alwaysdata
      *
      */
-    private void cleanExpiredTokens()
+    private void cleanExpiredTokens(final RoutingContext routingContext)
     {
-        Iterator<String> iterator = blackList.iterator();
-        while(iterator.hasNext())
+        LOGGER.info("CleanExpiredTokens...");
+
+        String code = routingContext.pathParam("code");
+
+        if(codeToClean.equals(code))
         {
-            String token = iterator.next();
+            Iterator<String> iterator = blackList.iterator();
+            while(iterator.hasNext())
+            {
+                String token = iterator.next();
 
-            String[] parts = token.split("\\.");
-            String payload = new String(Base64.getDecoder().decode(parts[1]), StandardCharsets.UTF_8);
+                String[] parts = token.split("\\.");
+                String payload = new String(Base64.getDecoder().decode(parts[1]), StandardCharsets.UTF_8);
 
-            javax.json.JsonObject jsonPayload = javax.json.Json.createReader(new StringReader(payload)).readObject();
+                javax.json.JsonObject jsonPayload = javax.json.Json.createReader(new StringReader(payload)).readObject();
 
-            long exp = jsonPayload.getJsonNumber("exp").longValueExact();
+                long exp = jsonPayload.getJsonNumber("exp").longValueExact();
 
-            if(Instant.ofEpochSecond(exp).isBefore(Instant.now()))
-                iterator.remove();
+                if(Instant.ofEpochSecond(exp).isBefore(Instant.now()))
+                    iterator.remove();
+            }
+
+            routingContext.response()
+                .setStatusCode(200)
+                .putHeader("Content-Type", "application/json")
+                .end();
         }
+        else
+            routingContext.response()
+                .setStatusCode(401)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "You are not authorized to do this operation.")));
     }
 
     /**
@@ -263,23 +264,21 @@ public class MyApi extends AbstractVerticle
 
             String origin = routingContext.request().getHeader(HttpHeaders.ORIGIN);
             LOGGER.info("origin " + origin);
-            routingContext.next();
-            /*
-               if (origin != null && origin.startsWith("http://babawallet.alwaysdata.net"))
-               {
-               routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin);
-               routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE");
-               routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type");
 
-               routingContext.next();
-               }
-               else
-               routingContext.response()
-               .setStatusCode(401)
-               .putHeader("content-type", "application/json")
-               .end(Json.encodePrettily(new JsonObject()
-               .put("error", "You are not authorized to access this site.")));
-               */
+            if(routingContext.request().path().contains("/clear_blacklist/") || origin != null && origin.startsWith("https://babawallet-site.alwaysdata.net"))
+            {
+                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin);
+                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE");
+                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type");
+
+                routingContext.next();
+            }
+            else
+                routingContext.response()
+                    .setStatusCode(401)
+                    .putHeader("content-type", "application/json")
+                    .end(Json.encodePrettily(new JsonObject()
+                                .put("error", "You are not authorized to access this site.")));
         }
 
         /**
