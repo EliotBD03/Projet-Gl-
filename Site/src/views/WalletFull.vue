@@ -49,6 +49,13 @@ export default {
       address : JSON.parse(sessionStorage.getItem('address')),
       wallet : ''
     }},
+  mounted() {
+    if (this.$cookies.get("lang")) {
+      this.$i18n.locale = this.$cookies.get("lang");
+    } else {
+      this.$cookies.set("lang", this.$i18n.locale)
+    }
+  },
   /*Méthode qui récupère le wallet pour lequel on veut plus d'informations à la création de la vue*/
   async created(){
     const requestOptions = {

@@ -44,6 +44,13 @@ export default {
       test: "",
     }
   },
+  mounted() {
+    if (this.$cookies.get("lang")) {
+      this.$i18n.locale = this.$cookies.get("lang");
+    } else {
+      this.$cookies.set("lang", this.$i18n.locale)
+    }
+  },
   methods: {
     langChanged() {
       this.$cookies.set("lang", this.$i18n.locale);

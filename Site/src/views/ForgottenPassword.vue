@@ -39,6 +39,13 @@
         newPassword: '',
         repeatedPassword: ''
       }},
+    mounted() {
+      if (this.$cookies.get("lang")) {
+        this.$i18n.locale = this.$cookies.get("lang");
+      } else {
+        this.$cookies.set("lang", this.$i18n.locale)
+      }
+    },
       /*Récupère le mail dans les cookies et l'envoie vers l'api pour que l'utilisateur puisse avoir le code*/
       created(){
           this.getCode();

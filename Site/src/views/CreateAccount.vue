@@ -60,6 +60,13 @@
         role: 'Client',
         isClient: false
       }},
+    mounted() {
+      if (this.$cookies.get("lang")) {
+        this.$i18n.locale = this.$cookies.get("lang");
+      } else {
+        this.$cookies.set("lang", this.$i18n.locale)
+      }
+    },
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
         checkArgs(){

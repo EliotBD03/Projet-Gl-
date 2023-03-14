@@ -40,6 +40,13 @@ export default {
   components: {
     GoButton,
     MainHeader
+  },
+  mounted() {
+    if (this.$cookies.get("lang")) {
+      this.$i18n.locale = this.$cookies.get("lang");
+    } else {
+      this.$cookies.set("lang", this.$i18n.locale)
+    }
   }
 };
 </script>
