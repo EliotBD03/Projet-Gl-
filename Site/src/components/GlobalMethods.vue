@@ -33,7 +33,7 @@
       };
       let response = null;
       try {
-        response = await fetch("http://services-babawallet.alwaysdata.net:8300/log/code", requestOptions);
+        response = await fetch("https://babawallet.alwaysdata.net/log/code", requestOptions);
         if(!response.ok){
           const data = await response.json();
           this.errorApi(data.error);
@@ -52,7 +52,7 @@
         method: "POST",
         headers: {'Authorization' : cookies.get("token")}
       };
-      fetch("http://services-babawallet.alwaysdata.net:8300/log/disconnect", requestOptions)
+      fetch("https://babawallet.alwaysdata.net/log/disconnect", requestOptions)
         .then(response => {
           if(!response.ok){
             if(response.status == 401){

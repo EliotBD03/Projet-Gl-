@@ -63,7 +63,7 @@ export default {
       headers: {'Authorization' : this.$cookies.get("token")}
     };
     try {
-      const response = await fetch("http://services-babawallet.alwaysdata.net:8300/api/client/wallets/:${address}",requestOptions);
+      const response = await fetch("https://babawallet.alwaysdata.net/api/client/wallets/:${address}",requestOptions);
       if (!response.ok) {
         if(response.status == 401){
           this.$cookies.remove("token");
@@ -92,7 +92,7 @@ export default {
         method: "DELETE",
         headers: {'Authorization' : this.$cookies.get("token")}
       };
-      fetch("http://services-babawallet.alwaysdata.net:8300/api/client/wallets/:${address}", requestOptions)
+      fetch("https://babawallet.alwaysdata.net/api/client/wallets/:${address}", requestOptions)
           .then(response => {
             if(!response.ok){
               if(response.status == 401){
