@@ -7,7 +7,7 @@
       <div class="form">
         <DropdownMain :text="$t('settings.chooselanguage')" v-model="$i18n.locale"/>
         <DropdownMain :text="$t('settings.addlanguage')"/>
-        <div class="langbutton" @click.prevent.left="setLocale($i18n.locale)">
+        <div class="langbutton" @click.prevent.left="langChanged()">
         <GoButton text="button.changelanguage" :colore="'#B1B9FC'"/>
           </div>
       </div>
@@ -46,7 +46,8 @@ export default {
   },
   methods: {
     langChanged() {
-      Swal.fire(this.$t("alerts.changelanguage"));
+      this.$cookies.set("lang", this.$i18n.locale);
+      Swal.fire(this.$t("alerts.languagechanged"));
     },
     redirecting() {
       GlobalMethods.isAClient(this.$cookies.get('role'));
@@ -61,9 +62,6 @@ export default {
         GlobalMethods.disconnect("/forgottenpassword");
       }
     },
-    setLocale(locale) {
-      this.$i18n.locale = locale;
-    }
   }
 };
 </script>

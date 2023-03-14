@@ -4,7 +4,7 @@
         {{ text }}
       </div>
       <div class="button" @click.prevent.left="$router.push({name: redir})">
-        <GoButton text="Go" :colore="'#B1B9FC'"/>
+        <GoButton text="button.go" :colore="'#B1B9FC'"/>
       </div>
     </div>
 </template>

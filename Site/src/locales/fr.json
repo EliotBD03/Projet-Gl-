@@ -11,5 +11,83 @@
     "notifications": "Notifications",
     "wallets": "Portefeuilles",
     "other": "{name}"
+  },
+  "walletform": {
+    "name": "Entrez votre nom",
+    "adress": "Entrez votre adresse"
+  },
+  "button": {
+    "changepwd": "Changer de mot de passe",
+    "changelanguage": "Changer de langue",
+    "forgotpwd": "Mot de passe oublié",
+    "login": "Connexion",
+    "back": "Retour",
+    "closewallet": "Fermer le portefeuille",
+    "createaccount": "Créer un compte",
+    "sendcode": "Envoyer le code",
+    "submit": "Valider",
+    "newcode": "Envoyer un nouveau code",
+    "disconnect": "Déconnexion",
+    "go": "Se rendre",
+    "table": "Tableau",
+    "export": "Exporter",
+    "graphic": "Graphique",
+    "add": "Ajouter",
+    "change": "Changer"
+  },
+  "maincard": {
+    "newcontracts": "Voir les nouveaux contrats",
+    "clients": "Clients"
+  },
+  "searchbar": {
+    "placeholder": "Code EAN ou nom du fournisseur",
+    "noresult": "Aucun résultat"
+  },
+  "alerts": {
+    "mail": "Entrez votre mail",
+    "name": "Entrez votre nom",
+    "pwd": "Entrez un mot de passe",
+    "pwdconfirm": "Confirmez votre mot de passe",
+    "pwdmatch": "Les mots de passe ne correspondent pas",
+    "good": "Parfait !",
+    "accountcreated": "Votre compte a bien été créé",
+    "entermail": "Entrez votre mail",
+    "pwdchanged": "Votre mot de passe a bien été changé",
+    "checkmail": "Vérifiez votre boîte mail pour changer votre mot de passe",
+    "languagechanged": "Votre langue a bien été changée",
+    "connectionexpired": "Votre connexion a expiré",
+    "entercode": "Entrez le code reçu par mail"
+  },
+  "wallet": {
+    "loading": "Chargement en cours..."
+  },
+  "consumptions": {
+    "newconsumption": "Nouvelle consommation : {date}",
+    "changeconsumption": "Changer la consommation : {date}"
+  },
+  "account" : {
+    "client": "Client",
+    "supplier": "Fournisseur",
+    "french": "Français",
+    "english": "Anglais",
+    "name": "Nom",
+    "mail": "Mail",
+    "pwd": "Mot de passe",
+    "pwdconfirm": "Confirmez votre mot de passe",
+    "code": "Code",
+    "emailsent": "Un email vous a été envoyé",
+    "instructions": "Suivez les instructions.",
+    "mailcode" : "Code de vérification",
+    "newpwd": "Nouveau mot de passe"
+  },
+  "settings": {
+    "chooselanguage": "Choisissez votre langue",
+    "addlanguage": "Ajouter une langue",
+    "entermail": "Entrez votre mail"
+  },
+  "notifications": {
+    "title": "{name}",
+    "time": "il y a {time}",
+    "text": "{text}"
   }
 }
