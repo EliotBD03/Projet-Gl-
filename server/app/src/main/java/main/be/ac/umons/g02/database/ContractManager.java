@@ -90,8 +90,11 @@ public class ContractManager
         return DB.getInstance().getResults(new String[] {"client_id"}).get(0);
     }
 
-    public void createContract(String proposalName, String ean, String providerId, String address, String clientId)
+    public boolean createContract(String proposalName, String ean, String providerId, String address, String clientId)
     {
+        if(!new ProposalManager().doesTheProposalExist(proposalName, providerId) || !new WalletManager().doesTheWalletExists(address))
+            return false;
+
         DB.getInstance().executeQuery("INSERT INTO wallet_contract(address) VALUES('"+address+"')", false);
         DB.getInstance().executeQuery("INSERT INTO provider_contract(provider_id) VALUES("+providerId+")",false);
         DB.getInstance().executeQuery("SELECT max(contract_id) AS m FROM provider_contract", true);
@@ -117,6 +120,7 @@ public class ContractManager
                 clientId + ",'" +
                 openingDate + "','" +
                 closingDate + "')",false);
+        return true;
     }
 
     public WalletManager.energyType getTypeOfEnergy(String address)

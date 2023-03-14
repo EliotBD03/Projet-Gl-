@@ -11,7 +11,7 @@ public class ProposalManager
 
     private final String[] typeOfEnergy = new String[] {"water", "gas", "electricity"};
 
-    private boolean doesTheProposalExist(String proposalName, String providerId)
+    public boolean doesTheProposalExist(String proposalName, String providerId)
     {
         DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM proposal WHERE proposal_name='"+proposalName
                 +"' AND provider_id="+providerId+") AS c",true);
@@ -51,6 +51,14 @@ public class ProposalManager
 
     public ArrayList<ProposalBasic> getAllProposals(String energyCategory, String regionCategory, int base, int limit) //TODO je suis amnésique je pense
     {
+        String query = "SELECT * FROM proposal LIMIT "+base+", "+(base+limit);
+        if(energyCategory != null && regionCategory != null)
+            query = "SELECT * FROM proposal WHERE "+energyCategory+"=1 AND location="+regionCategory + " LIMIT "+base+", "+(base+limit);
+        else if(energyCategory != null)
+            query = "SELECT * FROM proposal WHERE "+energyCategory+"=1 LIMIT "+base+", "+(base+limit);
+        else if(regionCategory != null)
+            query = "SELECT * FROM proposal WHERE location="+regionCategory + " LIMIT "+base+", "+(base+limit);
+
         DB.getInstance().executeQuery("SELECT * FROM proposal LIMIT "+base+", "+(base+limit), true);
         ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults(new String[] {"proposal_name","provider_id",
                 "water", "gas", "electricity", "location"}));
@@ -125,7 +133,7 @@ public class ProposalManager
         }
 
         String query = "INSERT INTO proposal(proposal_name, provider_id, water"+
-                ",gas,electricity,fixed_rate,peak_hours,offpeak_hours,start_peak_hours,end_peak_hours,price,location)"
+                ",gas,electricity,fixed_rate,peak_hours,offpeak_hours,start_peak_hours,end_peak_hours,price,location, duration)"
                 + " VALUES('"+proposal.getProposalName() + "',"
                 + proposal.getProviderId()+ ","
                 + ((proposal.getTypeOfEnergy().equals("water")) ? 1 : 0) + ","
@@ -137,7 +145,8 @@ public class ProposalManager
                 + proposal.getStartOfPeakHours() + "','"
                 + proposal.getEndOfPeakHours() + "',"
                 + proposal.getBasicPrice() + ","
-                + proposal.getLocation() + ");";
+                + proposal.getLocation() + ","
+                + proposal.getDuration() +");";
 
         DB.getInstance().executeQuery(query,false);
 

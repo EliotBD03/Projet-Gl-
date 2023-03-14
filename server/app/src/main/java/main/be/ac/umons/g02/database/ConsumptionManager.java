@@ -83,8 +83,11 @@ public class ConsumptionManager
                 "ean = '"+ean+"'",true);
 
         double maxVal = Double.parseDouble(DB.getInstance().getResults(new String[] {"daily_consumption"}).get(0).get(0));
-        DB.getInstance().executeQuery("SELECT address FROM contract WHERE ean='"+ean+"'",true);
-        String address = DB.getInstance().getResults(new String[] {"address"}).get(0).get(0);
+        DB.getInstance().executeQuery("SELECT address FROM " +
+                "wallet_contract WHERE " +
+                "contract_id IN " +
+                "(SELECT contract_id FROM counter WHERE ean='"+ean+"')",true);
+        String address = DB.getInstance().getResults(new String[] {"address"}).get(0).get(0); //we suppose there is only one contract for one wallet
         new WalletManager().addLastConsumption(address, maxVal, new ContractManager().getTypeOfEnergy(address));
 
 

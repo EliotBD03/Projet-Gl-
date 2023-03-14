@@ -119,4 +119,25 @@ public class DB
             return null;
         }
     }
+
+    boolean isThereSomething(String table, String[] attributes, String[] values)
+    {
+        if(attributes.length != values.length)
+            throw new IllegalArgumentException("the size of the two arrays are not the same");
+        if(attributes.length == 1)
+            executeQuery("SELECT EXISTS(SELECT * FROM "+table+ " WHERE "+attributes+"="+values+") AS c", true);
+        else
+        {
+            String query = "SELECT EXISTS(SELECT * FROM " +table+ " WHERE ";
+            for(int i = 0; i < attributes.length; i++)
+            {
+                if(i == attributes.length - 1)
+                    query += attributes[i] + "=" + values[i];
+                query += attributes[i] + "=" + values[i]  + "AND ";
+            }
+            query += " ) AS c";
+            executeQuery(query, true);
+        }
+        return getResults(new String[] {"c"}).get(0).get(0).equals("1");
+    }
 }

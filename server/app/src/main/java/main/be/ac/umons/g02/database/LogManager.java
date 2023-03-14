@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class LogManager
 {
 
-    private boolean doesAccountExist(String mail)
+    public boolean doesAccountExist(String mail)
     {
         DB instance = DB.getInstance();
         instance.executeQuery("SELECT EXISTS(SELECT * FROM user WHERE mail='"+mail+"') AS 'mail'", true);

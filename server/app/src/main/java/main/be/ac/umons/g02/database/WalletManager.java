@@ -10,6 +10,11 @@ public class WalletManager
 {
     public enum energyType {ELECTRICITY, WATER, GAS};
 
+
+    public boolean doesTheWalletExists(String address)
+    {
+       return DB.getInstance().isThereSomething("wallet", new String[] {"address"}, new String[] {"'" +address+ "'"});
+    }
     public ArrayList<WalletBasic> getAllWallets(String clientId, int base, int limit)
     {
         //if(!new LogManager().isClient(clientId))
