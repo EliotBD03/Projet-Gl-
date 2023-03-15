@@ -142,8 +142,8 @@ public class ProposalManager
                 + (proposal.isFixedRate() ? 1 : 0) + ","
                 + proposal.getVariableNightPrice() + ","
                 + proposal.getVariableDayPrice() + ",'"
-                + proposal.getStartOfPeakHours() + "','"
-                + proposal.getEndOfPeakHours() + "',"
+                + (proposal.getStartOfPeakHours() == null ? "DEFAULT" : proposal.getStartOfPeakHours()) + "','"
+                + (proposal.getEndOfPeakHours() == null ? "DEFAULT" : proposal.getEndOfPeakHours()) + "',"
                 + proposal.getBasicPrice() + ","
                 + proposal.getLocation() + ","
                 + proposal.getDuration() +");";
