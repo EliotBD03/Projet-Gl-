@@ -1,0 +1,152 @@
+<template>
+    <div class="main">
+      <div class="header">
+      <MainHeader text="header.forgotpwd"/>
+      </div>
+      <div class="forgot-form">
+        <div class="totalTexte">
+        <div class="headText">{{ $t("account.emailsent") }}</div>
+        <div class="headText">{{ $t("account.instructions") }}</div>
+        </div>
+        <form id="forgotForm" method="post" v-on:submit.prevent="post">
+            <InputMain :text="$t('account.mailcode')" type="text" v-model="code"/>
+            <InputMain :text="$t('account.newpwd')" type="password" v-model="newPassword"/>
+            <InputMain :text="$t('account.pwdconfirm')" type="password" v-model="repeatedPassword"/>
+            <GoButton text="button.submit" type="submit" :colore="'#34c98e'"/>
+          </form>
+          <div @click.prevent.left="getCode()">
+          <GoButton text="button.newcode" :colore="'gray'"/>
+          </div>
+          <div @click.prevent.left="back()">
+          <GoButton text="button.back" :colore="'gray'"/>
+          </div>
+      </div>
+    </div>
+  </template>
+
+<script>
+  import GoButton from "@/components/GoButton.vue";
+  import MainHeader from "@/components/MainHeader.vue";
+  import GlobalMethods from "@/components/GlobalMethods.vue";
+  import Swal from 'sweetalert2';
+  import InputMain from "@/components/InputMain.vue";
+  export default {
+    name: "forgotForm",
+    components: {InputMain, GoButton,MainHeader},
+    data(){
+      return{
+        code: '',
+        newPassword: '',
+        repeatedPassword: ''
+      }},
+    mounted() {
+      if (this.$cookies.get("lang")) {
+        this.$i18n.locale = this.$cookies.get("lang");
+      } else {
+        this.$cookies.set("lang", this.$i18n.locale)
+      }
+    },
+      /*Récupère le mail dans les cookies et l'envoie vers l'api pour que l'utilisateur puisse avoir le code*/
+      created(){
+          this.getCode();
+      },
+      methods: {
+        /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up.
+          Vérifie également si les mots de passe sont identiques*/
+        checkArgs(){
+          if(!this.code) Swal.fire(this.$t("alerts.entercode"));
+          if(!this.newPassword) Swal.fire(this.$t("alerts.pwd"));
+          if(!this.repeatedPassword) Swal.fire(this.$t("alerts.pwdconfirm"));
+          if(this.repeatedPassword !== this.newPassword) Swal.fire(this.$t("alerts.pwdmatch"));
+          else return true;
+        },
+        /*Méthode qui envoie le code reçu par mail et le nouveau mot de passe vers l'api si checkArgs() 
+          est true quand l'utilisateur clique sur submit.
+          Si la requête est incorrecte, l'api renvoie un message d'erreur
+          Si elle est correcte affiche une pop-up de succès et redirige*/
+        post(){
+          if(this.checkArgs())
+          {
+            const requestOptions = {
+              method: "PUT",
+              body: JSON.stringify({ code: this.code, newPassword: this.newPassword })
+            };
+            fetch("https://babawallet.alwaysdata.net/log/renitialize_pwd", requestOptions)
+              .then(response => {
+                  if(!response.ok){
+                    const data = response.json();
+                    GlobalMethods.errorApi(data.error);
+                    this.$cookies.remove('mail');
+                    this.$router.push("/");
+                    throw new Error(data.error);   
+                  }
+                  else{
+                    this.$cookies.remove('mail');
+                    Swal.fire({
+                        icon: 'success',
+                        title: this.$t("alerts.good"),
+                        text: this.$t("alerts.pwdchanged"),
+                      })
+                    this.$router.push("/");
+                  }
+              }) 
+              .catch(error => {
+                console.error(error);
+              });
+          }
+        },
+        /*Méthode permettant d'obtenir un (nouveau) code pour valider le changement de mot de passe*/
+        getCode(){
+          GlobalMethods.sendCode();
+        },
+        /*Retourner à la page login en supprimant le mail des cookies*/
+        back(){
+          this.$cookies.remove('mail');
+          this.$router.push("/");
+        }
+      }
+  }
+  </script>
+  
+  <style scoped>
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 105vh;
+}
+
+  .forgot-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 500px;
+    height: 700px;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe,
+    -20px -20px 60px #ffffff;
+  }
+
+  .headText {
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .totalTexte {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  </style>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../../css/button_style.css">
+  <link rel="stylesheet" href="../../css/essential.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <title>Add a wallet</title>
+</head>
+<body>
+  <h1 class = "title">Add a wallet</h1>
+  
+  <form id="addWallet" method="post" v-on:submit.prevent=" addWallet(name, address);">
+    <div class = "list box">
+      <p>
+        <label>Name: </label>
+        <input type="text"  v-model="name">
+      </p>
+    
+      <p>
+        <label>Address: </label>
+        <input type="text" v-model="address">
+      </p>
+    </div>
+
+    <footer>
+      <button class = "greenButton rightButton fixed" type="submit"> ADD </button>  
+    </footer>
+  </form>
+
+    <div id="button_redirection_wallet">
+      <change-page css = "backButton leftButton fixed" go="wallet.html" name = "BACK"></change-page>
+    </div>
+
+  <script src="../../vue.js"></script>
+  
+  <script src="../../js/redirection.js"></script>
+  <script src="../../js/addWallet.js"></script>
+</body>
+</html>

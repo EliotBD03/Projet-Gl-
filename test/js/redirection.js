@@ -14,6 +14,14 @@ new Vue({
 });
 
 new Vue({
+  el: '#button_redirection_walletFull'
+});
+
+new Vue({
+  el: '#button_redirection_addWallet'
+});
+
+new Vue({
   el: '#button_redirection_contracts'
 });
 
@@ -32,3 +40,8 @@ new Vue({
 new Vue({
   el: '#button_redirection_disconnect'
 });
+
+new Vue({
+  el: '#button_redirection_home'
+});
+
