@@ -6,18 +6,17 @@
   
   export default {
     name: 'GlobalMethods',
-    methods: {
-      /*Affiche le message d'erreur venant de l'api dans une pop-up*/
-      errorApi(error){
-        Swal.fire({
-        icon: 'error',
-        title: 'OH NO !',
-        text: error
-        }) 
-      } 
+    /*Affiche le message d'erreur venant de l'api dans une pop-up*/
+    errorApi(error){
+      Swal.fire({
+      icon: 'error',
+      title: 'OH NO !',
+      text: error
+      })  
     },
     /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle*/
-    isAClient(role){
+    isAClient(){
+      const role = cookies.get("role");
       if(role === "client"){
         router.push({name: "HomeClient"});
       } 
@@ -28,22 +27,20 @@
     /*Méthode permettant d'obtenir un (nouveau) code pour valider le changement de mot de passe ou la création de compte*/
     async sendCode(){
       const requestOptions = {
-        method: "GET",
-        headers: {'mail' : cookies.get("mail")}
+        method: "GET"
       };
       let response = null;
       try {
-        response = await fetch("https://babawallet.alwaysdata.net/log/code", requestOptions);
+        response = await fetch("https://babawallet.alwaysdata.net/log/code?mail=" + cookies.get("mail"), requestOptions);
         if(!response.ok){
           const data = await response.json();
-          this.errorApi(data.error);
           throw new Error(data.error);
         }
         else{
           Swal.fire('A mail is sent');
         }
       } catch (error) {
-        console.error(error);
+        this.errorApi(error.message);
       }
     },
     /*Méthode qui permet la déconnexion de l'utilisateur*/
@@ -55,17 +52,14 @@
       fetch("https://babawallet.alwaysdata.net/log/disconnect", requestOptions)
         .then(response => {
           if(!response.ok){
-            if(response.status == 401){
-              cookies.remove("token");
-              cookies.remove("role");
-              Swal.fire('Your connection has expired');
-              router.push("/");
-              throw new Error(response.status);
+            const data = response.text();
+            //On vérifie cela car la promesse lorsqu'il s'agit d'un token expiré est vide
+            if(response.status == 401 && data.trim() === ''){
+              //trim permet de supprimer les espaces blancs au début et à la fin d'une chaîne de caractères.
+                throw new Error("Token");
             }
             else{
-              const data = response.json();
-              this.errorApi(data.error);
-              throw new Error(data.error);
+              throw response.json();
             }
           }
           else{
@@ -76,8 +70,19 @@
           }
         })
         .catch(error => {
-          console.error("Error", error);
+          if (error.message === "Token") {
+            cookies.remove("token");
+            cookies.remove("role");
+            Swal.fire('See you soon !');
+            router.push("/");
+          } 
+          else {
+            error.then(data => {
+              this.errorApi(data.error);
+            });
+          }
         });
     }
   }
   </script>
+

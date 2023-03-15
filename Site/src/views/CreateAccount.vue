@@ -58,7 +58,7 @@
         language: 'english',
         selectedList:[],
         role: 'Client',
-        isClient: false
+        is_client: false
       }},
     /*Méthode pour charger la langue sauvegardée en cookie*/
     mounted() {
@@ -92,14 +92,12 @@
             this.isRole();
             const requestOptions = {
               method: "POST",
-              body: JSON.stringify({ name: this.name, mail: this.mail, pwd: this.password, code: this.code, isClient: this.isClient, language: this.language })
+              body: JSON.stringify({ name: this.name, mail: this.mail, pwd: this.password, code: this.code, is_client: this.is_client, language: this.language })
             };
             fetch("https://babawallet.alwaysdata.net/log/save_account", requestOptions)
               .then(response => {
                   if(!response.ok){
-                    const data = response.json();
-                    GlobalMethods.errorApi(data.error);
-                    throw new Error(data.error);    
+                    throw response.json();
                   }
               }) 
               .then(data => {
@@ -111,10 +109,12 @@
                   title: this.$t('alerts.good'),
                   text: this.$t('alerts.accountcreated'),
                 })
-                GlobalMethods.isAClient(data.role);
+                GlobalMethods.isAClient();
               })
               .catch(error => {
-                console.error("Error", error);
+                error.then(data => {
+                  GlobalMethods.errorApi(data.error);
+                });
               });
           }
         },
@@ -140,7 +140,7 @@
       isRole(){
         if(this.role == "Client")
         {
-          this.isClient = true;
+          this.is_client = true;
         }
       }
     }

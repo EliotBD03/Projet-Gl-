@@ -69,24 +69,28 @@ export default {
       try {
         const response = await fetch("${linkApi}page?page=${nbr}", requestOptions);
         if (!response.ok) { 
-          if(response.status == 401){
-            this.$cookies.remove("token");
-            this.$cookies.remove("role");
-            Swal.fire('Your connection has expired');
-            this.$router.push("/");
-            throw new Error(response.status);
+          const data = await response.text();
+          if(response.status == 401 && data.trim() === ''){
+            throw new Error("Token");
           }
           else{
             const data = await response.json();
-            GlobalMethods.errorApi(data.error);
             throw new Error(data.error);
           }
         } else {
           const data = await response.json(); 
           this.listWallet.push(data); //ajouter la suite de la réponse à la liste
         }
-      } catch (error) {
-        console.error(error);
+      } catch(error) {
+          if(error.message === "Token") {
+            this.$cookies.remove("token");
+            this.$cookies.remove("role");
+            Swal.fire('Your connection has expired');
+            this.$router.push("/");
+          } 
+          else {
+            GlobalMethods.errorApi(error.message);
+          }
       }
       this.loading = false;
     },

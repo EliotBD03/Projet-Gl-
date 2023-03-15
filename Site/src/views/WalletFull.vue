@@ -65,25 +65,30 @@ export default {
     };
     try {
       const response = await fetch("https://babawallet.alwaysdata.net/api/client/wallets/:${address}",requestOptions);
-      if (!response.ok) {
-        if(response.status == 401){
+        if (!response.ok) { 
+          const data = await response.text();
+          if(response.status == 401 && data.trim() === ''){
+            throw new Error("Token");
+          }
+          else{
+            const data = await response.json();
+            throw new Error(data.error);
+          }
+        } 
+        else {
+        const data = await response.json();
+        this.wallet = data.wallet;
+        }
+    } catch(error) {
+        if(error.message === "Token") {
           this.$cookies.remove("token");
           this.$cookies.remove("role");
           Swal.fire('Your connection has expired');
           this.$router.push("/");
-          throw new Error(response.status);
+        } 
+        else {
+          GlobalMethods.errorApi(error.message);
         }
-        else{
-          const data = await response.json();
-          GlobalMethods.errorApi(data.error);
-          throw new Error(data.error);
-        }
-      } else {
-        const data = await response.json();
-        this.wallet = data.wallet;
-      }
-    } catch (error) {
-      console.error(error);
     }
   },
   methods: {
@@ -96,17 +101,12 @@ export default {
       fetch("https://babawallet.alwaysdata.net/api/client/wallets/:${address}", requestOptions)
           .then(response => {
             if(!response.ok){
-              if(response.status == 401){
-                this.$cookies.remove("role");
-                this.$cookies.remove("token");
-                Swal.fire('Your connection has expired');
-                this.$router.push("/");
-                throw new Error(response.status);
+              const data = response.text();
+              if(response.status == 401 && data.trim() === ''){
+                  throw new Error("Token");
               }
               else{
-                const data = response.json();
-                GlobalMethods.errorApi(data.error);
-                throw new Error(data.error);
+                throw response.json();
               }
             }
             else{
@@ -119,7 +119,17 @@ export default {
             }
           })
           .catch(error => {
-            console.error(error);
+            if(error.message === "Token") {
+              this.$cookies.remove("token");
+              this.$cookies.remove("role");
+              Swal.fire('Your connection has expired');
+              this.$router.push("/");
+            } 
+            else {
+              error.then(data => {
+                GlobalMethods.errorApi(data.error);
+              });
+            }
           });
     },
     /*Retourner à la page des wallets en supprimant l'adresse du sessionStorage*/

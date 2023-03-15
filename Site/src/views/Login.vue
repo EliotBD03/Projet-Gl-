@@ -64,18 +64,18 @@
             fetch("https://babawallet.alwaysdata.net/log/check_account", requestOptions)
               .then(response => {
                   if(!response.ok){
-                    const data = response.json();
-                    GlobalMethods.errorApi(data.error);
-                    throw new Error(data.error);   
+                    throw response.json(); 
                   }
               }) 
               .then(data => {
                 this.$cookies.set("token", data.token);
                 this.$cookies.set("role", data.role);
-                GlobalMethods.isAClient(data.role);
+                GlobalMethods.isAClient();
               })
               .catch(error => {
-                console.error("Error", error);
+                error.then(data => {
+                  GlobalMethods.errorApi(data.error);
+                });
               });
           }
         },
@@ -90,6 +90,7 @@
             this.$router.push({name: 'forgottenPassword'});
           }
         },
+        /*
         //Temp
         test1(){
           this.$cookies.set("role", "client");
@@ -101,6 +102,7 @@
           this.$cookies.set("token", 987654321);
           this.$router.push({ name: 'HomeSupplier' });
         }
+        */
     }
   }
   </script>
