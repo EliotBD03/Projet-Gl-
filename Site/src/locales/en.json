@@ -78,7 +78,8 @@
     "emailsent": "An email was sent",
     "instructions": "Follow the instructions in the email",
     "mailcode" : "Mail code",
-    "newpwd": "New password"
+    "newpwd": "New password",
+    "clickcode": "Click on 'Send a code' after entering your mail."
   },
   "settings": {
     "chooselanguage": "Choose your language",

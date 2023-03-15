@@ -4,7 +4,7 @@
     <MainHeader text="header.main"/>
     </div>
     <div class="create-form">
-      <p>Click on send a code after entering your mail</p>
+      <div class="texte">{{ $t("account.clickcode") }}</div>
       <div class="line">
         <input type="radio" id="Client" value="Client" v-model="role">
         <label for="Client">{{ $t("account.client") }}</label>
@@ -159,7 +159,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 105vh;
+  height: 100vh;
 }
 
   .create-form {
@@ -181,5 +181,15 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    margin: 5px;
+  }
+
+  .texte {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
   }
   </style>

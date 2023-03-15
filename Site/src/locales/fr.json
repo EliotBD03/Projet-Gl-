@@ -78,7 +78,8 @@
     "emailsent": "Un email vous a été envoyé",
     "instructions": "Suivez les instructions.",
     "mailcode" : "Code de vérification",
-    "newpwd": "Nouveau mot de passe"
+    "newpwd": "Nouveau mot de passe",
+    "clickcode": "Cliquez sur 'Envoyer le code' après avoir entré votre email."
   },
   "settings": {
     "chooselanguage": "Choisissez votre langue",

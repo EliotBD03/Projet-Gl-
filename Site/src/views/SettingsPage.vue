@@ -6,7 +6,6 @@
     <div class="forms">
       <div class="form">
         <DropdownMain :text="$t('settings.chooselanguage')" v-model="$i18n.locale"/>
-        <DropdownMain :text="$t('settings.addlanguage')"/>
         <div class="langbutton" @click.prevent.left="langChanged()">
         <GoButton text="button.changelanguage" :colore="'#B1B9FC'"/>
           </div>
