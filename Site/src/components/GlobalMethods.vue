@@ -29,11 +29,12 @@
     async sendCode(){
       const requestOptions = {
         method: "GET",
-        headers: {'mail' : cookies.get("mail")}
+        //headers: {'mail' : cookies.get("mail")}
       };
       let response = null;
       try {
-        response = await fetch("https://babawallet.alwaysdata.net/log/code", requestOptions);
+        //https://babawallet.alwaysdata.net/log/code
+        response = await fetch("https://babawallet.alwaysdata.net/clear_blacklist/sdfbfdgxhsdfgcvsdfhsfcvc", requestOptions);
         if(!response.ok){
           const data = await response.json();
           this.errorApi(data.error);
