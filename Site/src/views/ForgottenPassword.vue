@@ -75,11 +75,8 @@
             fetch("https://babawallet.alwaysdata.net/log/renitialize_pwd", requestOptions)
               .then(response => {
                   if(!response.ok){
-                    const data = response.json();
-                    GlobalMethods.errorApi(data.error);
                     this.$cookies.remove('mail');
-                    this.$router.push("/");
-                    throw new Error(data.error);   
+                    throw response.json();  
                   }
                   else{
                     this.$cookies.remove('mail');
@@ -92,7 +89,11 @@
                   }
               }) 
               .catch(error => {
-                console.error(error);
+                error.then(data => {
+                  GlobalMethods.errorApi(data.error);
+                  console.error("Error", data.error);
+                  this.$router.push("/");
+                });
               });
           }
         },

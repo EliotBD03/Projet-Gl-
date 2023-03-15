@@ -59,7 +59,7 @@ export default {
     },
     /*Méthode pour rediriger vers la page d'accueil*/
     redirecting() {
-      GlobalMethods.isAClient(this.$cookies.get('role'));
+      GlobalMethods.isAClient();
     },
     /*Méthode pour rediriger vers la page de changement de mot de passe*/
     goForgot(){

@@ -26,7 +26,7 @@ export default {
   /*Méthode pour rediriger vers la page d'accueil*/
   methods: {
     redirecting() {
-      GlobalMethods.isAClient(this.$cookies.get("role"));
+      GlobalMethods.isAClient();
     }
   },
   /*Méthode pour charger la langue sauvegardée en cookie*/
