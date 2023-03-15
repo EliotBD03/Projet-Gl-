@@ -1,6 +1,5 @@
 package main.be.ac.umons.g02;
 
-import java.util.HashMap;
 import io.vertx.core.Vertx;
 import main.be.ac.umons.g02.api.MyApi;
 import javax.mail.*;
@@ -8,9 +7,16 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import io.vertx.ext.web.RoutingContext;
+import io.vertx.core.json.Json;
+import io.vertx.core.json.JsonObject;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /*
 // Les variables d'envirronements:
@@ -19,6 +25,8 @@ EMAILPWD=
 IP=
 PORT=
 PASSPHRASE=
+CODETOCLEAN=
+CODETODELETECODE=
 NAMEDB=
 USERNAME=
 PWDDB=
@@ -29,9 +37,14 @@ PWDDB=
  */
 public class App
 {
-    private static HashMap<String, String> listCode = new HashMap<>();
+    private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+
+    private static HashMap<String, String[]> listCode = new HashMap<>();
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     private static String username = "";
     private static String password = "";
+    private static String codeToDeleteCode = "";
 
     /**
      * Méthode pour lancer le verticle
@@ -113,8 +126,10 @@ public class App
             code += number;
         }
 
-        listCode.put(mail, code);
-        automaticDeleteCode(mail);
+        LocalDateTime now = LocalDateTime.now();
+        String nowString = now.format(formatter);
+        String[] data = {code, nowString};
+        listCode.put(mail, data);
 
         return code;
     }
@@ -130,7 +145,7 @@ public class App
     {
         if(listCode.containsKey(mail))
         {
-            if(listCode.get(mail) == code)
+            if(listCode.get(mail)[0].equals(code))
             {
                 listCode.remove(mail);
                 return true;
@@ -142,23 +157,45 @@ public class App
 
     /**
      * Méthode qui permet de supprimer le code après un certain pour qu'il ne serve plus a rien 
+     * Cette méthode est appelée toutes les 10 minutes par une tâche planifiée d'alwaysdata
      *
-     * @param mail - Le mail de l'utilisateur
+     * @param routingContext - Le contexte de la requête
      */
-    private static void automaticDeleteCode(String mail)
+    public static void automaticDeleteCode(RoutingContext routingContext)
     {
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask()
-        {
-            @Override
-            public void run()
-            {
-                if(listCode.containsKey(mail))
-                    listCode.remove(mail);
-                timer.cancel();
-            }
-        };
+        LOGGER.info("AutomaticDeleteCode...");
 
-        timer.schedule(task, 3 * 60 * 1000);
+        Map<String, String> env  = System.getenv();
+
+        if(env.containsKey("CODETODELETECODE"))
+            codeToDeleteCode = env.get("CODETODELETECODE");
+
+        String code = routingContext.pathParam("code");
+
+        if(codeToDeleteCode.equals(code))
+        {
+            for(int i = listCode.size()-1; i >= 0; i--)
+            {
+                String stringTime = listCode.get(i)[1];
+
+                LocalDateTime now = LocalDateTime.now();
+                LocalDateTime time = LocalDateTime.parse(stringTime, formatter);
+                long minutes = ChronoUnit.MINUTES.between(time, now);
+
+                if(minutes > 30)
+                    listCode.remove(i);
+
+                routingContext.response()
+                    .setStatusCode(200)
+                    .putHeader("Content-Type", "application/json")
+                    .end();
+            }
+        }
+        else
+            routingContext.response()
+                .setStatusCode(401)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "You are not authorized to do this operation.")));
     }
 }
