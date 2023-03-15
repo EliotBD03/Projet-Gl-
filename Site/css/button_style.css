@@ -1,0 +1,57 @@
+.blueButton {
+  background-color: rgba(177, 185, 252, 1);
+  width: 200px;
+  height: 50px;
+  margin-top: 1rem;
+  border-radius: 3em;
+}
+
+.redButton {
+  background-color: rgba(218, 66, 66, 1);
+  width: 200px;
+  height: 50px;
+  margin-top: 1rem;
+  border-radius: 3em;
+}
+
+.greyButton {
+  background-color: rgba(0, 0, 0, 0.57);
+  width: 200px;
+  height: 50px;
+  margin-top: 1rem;
+  border-radius: 3em;
+}
+
+.greenButton {
+  background-color: rgba(104, 193, 102, 1);
+  width: 200px;
+  height: 50px;
+  margin-top: 1rem;
+  border-radius: 3em;
+}
+
+.backButton {
+  background-color: rgba(101, 116, 255, 1);
+  width: 200px;
+  height: 50px;
+  margin-top: 1rem;
+  border-radius: 3em;
+}
+
+.leftButton {
+  position: absolute;
+  left : 0;
+  bottom: 10%;
+}
+
+.rightButton {
+  position: absolute;
+  right : 0;
+  bottom: 10%;
+}
+
+.middleButton {
+  position: absolute;
+  left: 43%;
+  bottom: 10%;
+}
