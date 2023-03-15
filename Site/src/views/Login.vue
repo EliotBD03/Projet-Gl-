@@ -15,8 +15,8 @@
         <div class="forgotbutton" @click.prevent.left="goForgot()">
         <GoButton text="button.forgotpwd" :colore="'#B1B9FC'"/>
         </div>
-        <button v-on:click="test1()">TEST1 Client</button>
-        <button v-on:click="test2()">TEST2 Supplier</button>
+        <!--<button v-on:click="test1()">TEST1 Client</button>
+        <button v-on:click="test2()">TEST2 Supplier</button>-->
       </div>
     </div>
   </template>
