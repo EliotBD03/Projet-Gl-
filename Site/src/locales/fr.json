@@ -83,7 +83,11 @@
   "settings": {
     "chooselanguage": "Choisissez votre langue",
     "addlanguage": "Ajouter une langue",
-    "entermail": "Entrez votre mail"
+    "entermail": "Entrez votre mail",
+    "seconds": "secondes",
+    "minutes": "minutes",
+    "hours": "heures",
+    "days": "jours"
   },
   "notifications": {
     "title": "{name}",

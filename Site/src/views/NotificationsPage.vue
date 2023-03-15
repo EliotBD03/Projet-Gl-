@@ -42,28 +42,8 @@ export default {
       notifications: [
         {
           title: "Maxime",
-          time: "12 minutes",
+          time: "12 " + this.$t("settings.minutes"),
           text: "has updated his contract"
-        },
-        {
-          title: "Claire",
-          time: "1 hour",
-          text: "has accepted your proposal"
-        },
-        {
-          title: "Adrien",
-          time: "35 seconds",
-          text: "has closed the contract"
-        },
-        {
-          title: "Jean",
-          time: "45 minutes",
-          text: "has updated his contract"
-        },
-        {
-          title: "Kiefer",
-          time: "2 days",
-          text: "has accepted your proposal"
         }
       ]
     }
