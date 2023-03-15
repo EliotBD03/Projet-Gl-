@@ -92,7 +92,7 @@
             this.isRole();
             const requestOptions = {
               method: "POST",
-              body: JSON.stringify({ name: this.name, mail: this.mail, password: this.password, code: this.code, isClient: this.isClient, language: this.language })
+              body: JSON.stringify({ name: this.name, mail: this.mail, pwd: this.password, code: this.code, isClient: this.isClient, language: this.language })
             };
             fetch("https://babawallet.alwaysdata.net/log/save_account", requestOptions)
               .then(response => {
