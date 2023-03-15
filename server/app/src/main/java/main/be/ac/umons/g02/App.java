@@ -172,13 +172,14 @@ public class App
 
         String code = routingContext.pathParam("code");
 
-        if(codeToDeleteCode.equals(code))
+        if(codeToDeleteCode.equals(code) && listCode.size() != 0)
         {
+            LocalDateTime now = LocalDateTime.now();
+
             for(int i = listCode.size()-1; i >= 0; i--)
             {
                 String stringTime = listCode.get(i)[1];
 
-                LocalDateTime now = LocalDateTime.now();
                 LocalDateTime time = LocalDateTime.parse(stringTime, formatter);
                 long minutes = ChronoUnit.MINUTES.between(time, now);
 
