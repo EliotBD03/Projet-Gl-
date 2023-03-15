@@ -85,7 +85,8 @@ public class MyApi extends AbstractVerticle
 
         final Router router = Router.router(vertx);
 
-        router.route("/*").handler(routingContext -> HandlerUtils.handleSite(routingContext));
+		router.route().handler(routingContext -> HandlerUtils.handleSite(routingContext));
+        router.options("/*").handler(this::handleOptionsRequest);
         router.route("/api/*").handler(routingContext -> HandlerUtils.handleToken(routingContext));
         router.route("/api/client/*").handler(routingContext -> HandlerUtils.handleRoleClient(routingContext));
         router.route("/api/provider/*").handler(routingContext -> HandlerUtils.handleRoleProvider(routingContext));
@@ -246,6 +247,22 @@ public class MyApi extends AbstractVerticle
 
         return false;
     }
+    
+    /**
+     * Méthode qui permet de vérifier que les headers de CORS sont corrects
+     *
+     * @param routingContext - Le contexte de la requête
+     */
+    private void handleOptionsRequest(RoutingContext routingContext)
+    {
+        String origin = routingContext.request().getHeader(HttpHeaders.ORIGIN);
+        routingContext.response()
+            .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin)
+            .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE,OPTIONS")
+            .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type")
+            .setStatusCode(200)
+            .end();
+    }
 
     /**
      * class qui permet de créer des handler afin de faire des vérifications sur les requêtes à plusieurs niveau
@@ -268,7 +285,7 @@ public class MyApi extends AbstractVerticle
             if(routingContext.request().path().contains("/clear_blacklist/") || origin != null && origin.startsWith("https://babawallet-site.alwaysdata.net"))
             {
                 routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin);
-                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE");
+                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE, OPTIONS");
                 routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type");
 
                 routingContext.next();

@@ -16,6 +16,7 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
+import io.vertx.core.http.HttpHeaders;
 
 /**
  * Classe qui gère la catégorie commune des requêtes de l'API
@@ -395,6 +396,7 @@ public class CommonApi extends MyApi implements RouterApi
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
+            .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, tete, month, year")
             .end(Json.encodePrettily(new JsonObject()
                         .put("listConsumption", listConsumption)));
     }
@@ -423,6 +425,7 @@ public class CommonApi extends MyApi implements RouterApi
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
+            .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, ean, start_date, end_date")
             .end(Json.encodePrettily(new JsonObject()
                         .put("listConsumption", listConsumption)));
     }

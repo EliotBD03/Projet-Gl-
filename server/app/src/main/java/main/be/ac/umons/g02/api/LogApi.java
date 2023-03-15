@@ -14,6 +14,7 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.auth.JWTOptions;
+import io.vertx.core.http.HttpHeaders;
 
 /**
  * Classe qui gère la catégorie login des requêtes de l'API
@@ -292,6 +293,7 @@ public class LogApi extends MyApi implements RouterApi
             routingContext.response()
                 .setStatusCode(200)
                 .putHeader("Content-Type", "application/json")
+                .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, mail")
                 .end();
         }
         catch(RuntimeException error)
@@ -299,6 +301,7 @@ public class LogApi extends MyApi implements RouterApi
             routingContext.response()
                 .setStatusCode(503)
                 .putHeader("Content-Type", "application/json")
+                .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, mail")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "Error in sending the code.")));
         }
