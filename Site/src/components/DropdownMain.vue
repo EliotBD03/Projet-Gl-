@@ -17,9 +17,11 @@ export default {
   props: ["text","value"],
   data() {
     return {
+      /*Liste des langues*/
       locales: getSupportedLocales(),
     }
   },
+  /*Methode pour changer la langue*/
   methods: {
     updateValue(event) {
       this.$emit('input', event.target.value)

@@ -20,6 +20,7 @@
 export default {
   name: "SearchBar",
   methods: {
+    /*Méthode qui filtre les éléments de la liste en fonction de la valeur de l'input*/
     filterFunction() {
       return this.elements.filter((element) => {
         return element.EAN.includes(this.text) || element.name.includes(this.text);
@@ -88,6 +89,7 @@ export default {
       ],
     };
   },
+  /*Méthode appelant la fonction filterFunction() à chaque fois que la valeur de l'input change*/
   computed: function() {
     this.filterFunction();
   }

@@ -60,6 +60,7 @@
         role: 'Client',
         isClient: false
       }},
+    /*Méthode pour charger la langue sauvegardée en cookie*/
     mounted() {
       if (this.$cookies.get("lang")) {
         this.$i18n.locale = this.$cookies.get("lang");

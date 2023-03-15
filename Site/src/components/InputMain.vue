@@ -8,6 +8,7 @@ export default {
   props: ["value", "text"],
   methods: {
     updateValue(event) {
+      /*Méthode pour changer la valeur de l'input via le v-model*/
       this.$emit('input', event.target.value)
     }
   }

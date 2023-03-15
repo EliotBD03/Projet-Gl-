@@ -44,6 +44,7 @@ export default {
       test: "",
     }
   },
+  /*Méthode pour charger la langue sauvegardée en cookie*/
   mounted() {
     if (this.$cookies.get("lang")) {
       this.$i18n.locale = this.$cookies.get("lang");
@@ -52,13 +53,16 @@ export default {
     }
   },
   methods: {
+    /*Sauvegarder la langue dans les cookies et afficher un message de confirmation*/
     langChanged() {
       this.$cookies.set("lang", this.$i18n.locale);
       Swal.fire(this.$t("alerts.languagechanged"));
     },
+    /*Méthode pour rediriger vers la page d'accueil*/
     redirecting() {
       GlobalMethods.isAClient(this.$cookies.get('role'));
     },
+    /*Méthode pour rediriger vers la page de changement de mot de passe*/
     goForgot(){
       if (!this.mail) {
         Swal.fire(this.$t("alerts.entermail"));
