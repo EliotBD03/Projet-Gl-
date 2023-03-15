@@ -4,7 +4,7 @@ import main.be.ac.umons.g02.data_object.ProposalBasic;
 import main.be.ac.umons.g02.data_object.ProposalFull;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
+
 
 public class ProposalManager
 {
@@ -119,7 +119,7 @@ public class ProposalManager
         nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
 
         proposalFull = new ProposalFull(providerId, nameProvider, typeEnergy, location, proposalName);
-        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, startPeakHours.equals(endPeakHours), startPeakHours, endPeakHours, Integer.parseInt(duration));
+        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, startPeakHours != null, startPeakHours, endPeakHours, Integer.parseInt(duration));
         return proposalFull;
     }
 
@@ -141,9 +141,9 @@ public class ProposalManager
                 + ((proposal.getTypeOfEnergy().equals("electricity")) ? 1 : 0) + ","
                 + (proposal.isFixedRate() ? 1 : 0) + ","
                 + proposal.getVariableNightPrice() + ","
-                + proposal.getVariableDayPrice() + ",'"
-                + (proposal.getStartOfPeakHours() == null ? "DEFAULT" : proposal.getStartOfPeakHours()) + "','"
-                + (proposal.getEndOfPeakHours() == null ? "DEFAULT" : proposal.getEndOfPeakHours()) + "',"
+                + proposal.getVariableDayPrice() + ","
+                + (proposal.getStartOfPeakHours() == null ? "DEFAULT" : "'"+proposal.getStartOfPeakHours()+"'") + ","
+                + (proposal.getEndOfPeakHours() == null ? "DEFAULT" : "'"+proposal.getEndOfPeakHours()+"'") + ","
                 + proposal.getBasicPrice() + ","
                 + proposal.getLocation() + ","
                 + proposal.getDuration() +");";

@@ -14,6 +14,8 @@ public class ContractManager
     {
         CommonDB commonDB = new CommonDB();
 
+        String query = "SELECT * FROM contract WHERE contract_id="+contractId;
+        System.out.println(query);
         DB.getInstance().executeQuery("SELECT * FROM contract WHERE contract_id="+contractId,true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[]
                 {
@@ -55,6 +57,7 @@ public class ContractManager
         String ean;
         for(int i = 0; i < results.get(0).size(); i++)
         {
+            System.out.println("je passe");
             providerId = results.get(2).get(i);
             DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+providerId, true);
             providerName = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
@@ -100,8 +103,8 @@ public class ContractManager
         DB.getInstance().executeQuery("SELECT max(contract_id) AS m FROM provider_contract", true);
 
         String contractId = DB.getInstance().getResults(new String[] {"m"}).get(0).get(0);
-        String openingDate = "NOW()";
-        String closingDate = "DATE_ADD(NOW(), INTERVAL "+new ProposalManager().getProposal(proposalName, providerId).getDuration()+" MONTH)";
+        String openingDate = "CURDATE()";
+        String closingDate = "DATE_ADD(CURDATE(), INTERVAL "+new ProposalManager().getProposal(proposalName, providerId).getDuration()+" MONTH)";
 
         new ConsumptionManager().createCounterOrReplace(ean, contractId);
 
@@ -117,9 +120,9 @@ public class ContractManager
                 ean + "'," +
                 providerId + ",'" +
                 address + "'," +
-                clientId + ",'" +
-                openingDate + "','" +
-                closingDate + "')",false);
+                clientId + "," +
+                openingDate + "," +
+                closingDate + ")",false);
         return true;
     }
 

@@ -125,7 +125,7 @@ public class DB
         if(attributes.length != values.length)
             throw new IllegalArgumentException("the size of the two arrays are not the same");
         if(attributes.length == 1)
-            executeQuery("SELECT EXISTS(SELECT * FROM "+table+ " WHERE "+attributes+"="+values+") AS c", true);
+            executeQuery("SELECT EXISTS(SELECT * FROM "+table+ " WHERE "+attributes[0]+"="+values[0]+") AS c", true);
         else
         {
             String query = "SELECT EXISTS(SELECT * FROM " +table+ " WHERE ";
