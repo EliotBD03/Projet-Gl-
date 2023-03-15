@@ -56,9 +56,9 @@
           Vérifie également si les mots de passe sont identiques*/
         checkArgs(){
           if(!this.code) Swal.fire(this.$t("alerts.entercode"));
-          if(!this.newPassword) Swal.fire(this.$t("alerts.pwd"));
-          if(!this.repeatedPassword) Swal.fire(this.$t("alerts.pwdconfirm"));
-          if(this.repeatedPassword !== this.newPassword) Swal.fire(this.$t("alerts.pwdmatch"));
+          else if(!this.newPassword) Swal.fire(this.$t("alerts.pwd"));
+          else if(!this.repeatedPassword) Swal.fire(this.$t("alerts.pwdconfirm"));
+          else if(this.repeatedPassword !== this.newPassword) Swal.fire(this.$t("alerts.pwdmatch"));
           else return true;
         },
         /*Méthode qui envoie le code reçu par mail et le nouveau mot de passe vers l'api si checkArgs() 

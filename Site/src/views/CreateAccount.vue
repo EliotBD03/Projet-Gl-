@@ -72,11 +72,11 @@
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
         checkArgs(){
           if(!this.name) Swal.fire(this.$t("alerts.name"));
-          if(!this.mail) Swal.fire(this.$t("alerts.mail"));
-          if(!this.password) Swal.fire(this.$t("alerts.pwd"));
-          if(!this.code) Swal.fire(this.$t("alerts.entercode"));
-          if(!this.repeatedPassword) Swal.fire(this.$t("alerts.pwdconfirm"));
-          if(this.repeatedPassword !== this.password) Swal.fire(this.$t("alerts.pwdmatch"));
+          else if(!this.mail) Swal.fire(this.$t("alerts.mail"));
+          else if(!this.password) Swal.fire(this.$t("alerts.pwd"));
+          else if(!this.code) Swal.fire(this.$t("alerts.entercode"));
+          else if(!this.repeatedPassword) Swal.fire(this.$t("alerts.pwdconfirm"));
+          else if(this.repeatedPassword !== this.password) Swal.fire(this.$t("alerts.pwdmatch"));
           else return true;
         },
         /*Méthode qui, lorsque l'utilisateur 

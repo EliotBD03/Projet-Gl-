@@ -47,7 +47,7 @@
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up*/
         checkArgs(){
           if(!this.mail) Swal.fire(this.$t("alerts.mail"));
-          if(!this.password) Swal.fire(this.$t("alerts.pwd"));
+          else if(!this.password) Swal.fire(this.$t("alerts.pwd"));
           else return true;
         },
         /*Méthode qui envoie le mail et le mot de passe vers l'api si les champs sont remplis 

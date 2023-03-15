@@ -29,7 +29,7 @@ export default {
   methods: {
     checkArgs(){
       if(!this.name) Swal.fire("Please enter your name");
-      if(!this.address) Swal.fire("Please enter your address");
+      else if(!this.address) Swal.fire("Please enter your address");
       else return true;
     },
     /*Méthode qui, si checkArgs() est true, envoie le nom et l'adresse du portefeuille vers l'api 
