@@ -5,10 +5,12 @@
     </div>
     <div class="allcards">
       <div v-infinite-scroll="loader">
-        <div v-for="wallet in listWallet" :key="wallet.id">
+        <div class=cards v-for="wallet in listWallet" :key="wallet.id">
+          <div class="texte">
           <p> {{ wallet.name }} :</p>
           <p> {{ wallet.nameOwner }}</p>
           <p> {{ wallet.address }}</p>
+          </div>
           <div @click.prevent.left="seeMore(wallet)">
             <GoButton text="button.go" :colore="'#34c98e'"/>
           </div>
@@ -47,7 +49,10 @@ export default {
       linkApi : "https://babawallet.alwaysdata.net/api/client/wallets/",
       nbr : 1,
       loading : false,
-      listWallet: []
+      listWallet: [
+        { name: "Item 1", nameOwner: "BOb", address: "Rue ll", lastConsumptionOfWater: 10, lastConsumptionOfGas: 44, lastConsumptionOfElectricity: 90, listContracts: [{nom: "Engie", conso: "10000", prix : "400000"}, {nom: "paee", conso: "9000", prix : "5000"}]},
+
+        ]
     }},
   /*Au moment de la création on récupère déjà la première page de l'api*/
   created() {
@@ -117,6 +122,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  align-items: center;
   height: 100vh;
 }
 
@@ -128,7 +134,26 @@ export default {
 .allcards {
   display: flex;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 400px;
+  height: 500px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 10px;
+}
+
+.texte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 50px;
 }
 </style>
