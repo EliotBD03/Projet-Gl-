@@ -1,5 +1,7 @@
 package main.be.ac.umons.g02.api;
 
+import main.be.ac.umons.g02.App;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
@@ -91,7 +93,8 @@ public class MyApi extends AbstractVerticle
         router.route("/api/client/*").handler(routingContext -> HandlerUtils.handleRoleClient(routingContext));
         router.route("/api/provider/*").handler(routingContext -> HandlerUtils.handleRoleProvider(routingContext));
         router.route("/api/common/*").handler(routingContext -> HandlerUtils.handleRoleCommon(routingContext));
-        router.get("/clear_blacklist/:code").handler(this::cleanExpiredTokens);
+        router.get("/timer_task/clear_blacklist/:code").handler(this::cleanExpiredTokens);
+        router.get("/timer_task/clear_codelist/:code").handler(routingContext -> App.automaticDeleteCode(routingContext));
 
         logApi = new LogApi();
         clientApi = new ClientApi();
@@ -124,8 +127,9 @@ public class MyApi extends AbstractVerticle
 
     /**
      * Méthode qui permet de supprimer les tokens qui sont dans la blacklist et qui sont périmés
-     * Cette méthode est appelée toutes les 5 minutes par une tâche planifiée d'alwaysdata
+     * Cette méthode est appelée toutes les 10 minutes par une tâche planifiée d'alwaysdata
      *
+     * @param routingContext - Le contexte de la requête
      */
     private void cleanExpiredTokens(final RoutingContext routingContext)
     {
@@ -174,8 +178,8 @@ public class MyApi extends AbstractVerticle
      */
     protected int[] getSlice(final RoutingContext routingContext)
     {
-        final String stringPage = routingContext.request().getParam("page");
-        final String stringLimit = routingContext.request().getParam("limit");
+        String stringPage = routingContext.request().getParam("page");
+        String stringLimit = routingContext.request().getParam("limit");
 
         int[] slice = {0, 0};
 
@@ -282,7 +286,7 @@ public class MyApi extends AbstractVerticle
             String origin = routingContext.request().getHeader(HttpHeaders.ORIGIN);
             LOGGER.info("origin " + origin);
 
-            if(routingContext.request().path().contains("/clear_blacklist/") || origin != null && origin.startsWith("https://babawallet-site.alwaysdata.net"))
+            if(true)//routingContext.request().path().contains("/timer_task/") || origin != null && origin.startsWith("https://babawallet-site.alwaysdata.net"))
             {
                 routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin);
                 routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE, OPTIONS");

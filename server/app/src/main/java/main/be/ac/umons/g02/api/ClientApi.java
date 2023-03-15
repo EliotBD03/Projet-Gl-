@@ -196,17 +196,16 @@ public class ClientApi extends MyApi implements RouterApi
             return;
 
         String energyCategory = null;
-        if(checkParam((energyCategory = routingContext.request().getHeader("energy_category")), routingContext)) return;
+        if(checkParam((energyCategory = routingContext.request().getParam("energy_category")), routingContext)) return;
 
         String regionCategory = null;
-        if(checkParam((regionCategory = routingContext.request().getHeader("region_category")), routingContext)) return;
+        if(checkParam((regionCategory = routingContext.request().getParam("region_category")), routingContext)) return;
 
         ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals(energyCategory, regionCategory, slice[0], slice[1]);
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
-            .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, energy_category, region_category")
             .end(Json.encodePrettily(new JsonObject()
                         .put("proposals", proposals)));
     }

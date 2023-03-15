@@ -383,20 +383,19 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("GetConsumptionOfMonth...");
 
         String ean = null;
-        if(checkParam((ean = routingContext.request().getHeader("tete")), routingContext)) return;
+        if(checkParam((ean = routingContext.request().getParam("tete")), routingContext)) return;
 
         String month = null;
-        if(checkParam((month = routingContext.request().getHeader("month")), routingContext)) return;
+        if(checkParam((month = routingContext.request().getParam("month")), routingContext)) return;
 
         String year = null;
-        if(checkParam((year = routingContext.request().getHeader("year")), routingContext)) return;
+        if(checkParam((year = routingContext.request().getParam("year")), routingContext)) return;
 
         HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptionOfMonth(ean, month, year);
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
-            .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, tete, month, year")
             .end(Json.encodePrettily(new JsonObject()
                         .put("listConsumption", listConsumption)));
     }
@@ -412,20 +411,19 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("GetConsumption...");
 
         String ean = null;
-        if(checkParam((ean = routingContext.request().getHeader("ean")), routingContext)) return;
+        if(checkParam((ean = routingContext.request().getParam("ean")), routingContext)) return;
 
         String startDate = null;
-        if(checkParam((startDate = routingContext.request().getHeader("start_date")), routingContext)) return;
+        if(checkParam((startDate = routingContext.request().getParam("start_date")), routingContext)) return;
 
         String endDate = null;
-        if(checkParam((endDate = routingContext.request().getHeader("end_date")), routingContext)) return;
+        if(checkParam((endDate = routingContext.request().getParam("end_date")), routingContext)) return;
 
         HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptions(ean, startDate, endDate);
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
-            .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, ean, start_date, end_date")
             .end(Json.encodePrettily(new JsonObject()
                         .put("listConsumption", listConsumption)));
     }

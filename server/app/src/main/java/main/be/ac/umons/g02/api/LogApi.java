@@ -215,7 +215,7 @@ public class LogApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Mauvais code.")));
+                            .put("error", "Incorrect code.")));
     }
 
     /** 
@@ -283,8 +283,8 @@ public class LogApi extends MyApi implements RouterApi
         LOGGER.info("GetCode...");
 
         String mail = null;
-        if(checkParam((mail = routingContext.request().getHeader("mail")), routingContext)) return;
-
+        if(checkParam(mail = routingContext.request().getParam("mail"), routingContext)) return;
+        
         String code = App.createCode(mail);
 
         try
@@ -293,7 +293,6 @@ public class LogApi extends MyApi implements RouterApi
             routingContext.response()
                 .setStatusCode(200)
                 .putHeader("Content-Type", "application/json")
-                .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, mail")
                 .end();
         }
         catch(RuntimeException error)
@@ -301,7 +300,6 @@ public class LogApi extends MyApi implements RouterApi
             routingContext.response()
                 .setStatusCode(503)
                 .putHeader("Content-Type", "application/json")
-                .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, mail")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "Error in sending the code.")));
         }
