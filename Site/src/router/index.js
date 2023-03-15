@@ -151,6 +151,20 @@ const routes = [
         next(from.path);
       }
     }
+  },
+  {
+    path: '/factures',
+    name: 'Factures',
+    component: () => import('@/views/FacturesPage.vue'),
+    beforeEnter: (to, from, next) => {
+        if(cookies.isKey("token") && cookies.isKey("role"))
+        {
+            next();
+        }
+        else {
+            next(from.path);
+        }
+    }
   }
 ]
 

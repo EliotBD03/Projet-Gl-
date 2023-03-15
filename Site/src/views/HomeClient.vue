@@ -12,6 +12,9 @@
         <div class="newcontract" @click.prevent.left="$router.push('/newcontracts')">
           <GoButton text="maincard.newcontracts" :colore="'#B1B9FC'"/>
         </div>
+        <div class="facturelist" @click.prevent.left="$router.push('/factures')">
+          <GoButton text="maincard.factures" :colore="'#34c98e'"/>
+        </div>
       </div>
       <div class="bottombutton">
         <div class="disconnectbutton" @click.prevent.left="callDisconnect()">
@@ -91,6 +94,7 @@ export default {
   align-items: center;
   justify-content: center;
   margin-top: 50px;
+  flex-direction: column;
 }
 
 
