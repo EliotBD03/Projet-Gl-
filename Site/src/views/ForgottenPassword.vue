@@ -70,7 +70,7 @@
           {
             const requestOptions = {
               method: "PUT",
-              body: JSON.stringify({ code: this.code, newPassword: this.newPassword })
+              body: JSON.stringify({ code: this.code, newPwd: this.newPassword })
             };
             fetch("https://babawallet.alwaysdata.net/log/renitialize_pwd", requestOptions)
               .then(response => {
