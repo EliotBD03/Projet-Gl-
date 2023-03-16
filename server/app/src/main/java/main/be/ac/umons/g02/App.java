@@ -172,24 +172,27 @@ public class App
 
         String code = routingContext.pathParam("code");
 
-        if(codeToDeleteCode.equals(code) && listCode.size() != 0)
+        if(codeToDeleteCode.equals(code))
         {
-            LocalDateTime now = LocalDateTime.now();
-
-            for(int i = listCode.size()-1; i >= 0; i--)
+            if(listCode.size() != 0)
             {
-                String stringTime = listCode.get(i)[1];
+                LocalDateTime now = LocalDateTime.now();
 
-                LocalDateTime time = LocalDateTime.parse(stringTime, formatter);
-                long minutes = ChronoUnit.MINUTES.between(time, now);
+                for(int i = listCode.size()-1; i >= 0; i--)
+                {
+                    String stringTime = listCode.get(i)[1];
 
-                if(minutes > 30)
-                    listCode.remove(i);
+                    LocalDateTime time = LocalDateTime.parse(stringTime, formatter);
+                    long minutes = ChronoUnit.MINUTES.between(time, now);
 
-                routingContext.response()
-                    .setStatusCode(200)
-                    .putHeader("Content-Type", "application/json")
-                    .end();
+                    if(minutes > 30)
+                        listCode.remove(i);
+
+                    routingContext.response()
+                        .setStatusCode(200)
+                        .putHeader("Content-Type", "application/json")
+                        .end();
+                }
             }
         }
         else
