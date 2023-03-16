@@ -28,6 +28,7 @@ dependencies {
     implementation group: 'io.vertx', name: 'vertx-auth-jwt', version: '4.3.8'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.31'
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.1.2'
     implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.7.5'
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 	implementation group: 'com.google.apis', name: 'google-api-services-gmail', version: 'v1-rev20220404-2.0.0'

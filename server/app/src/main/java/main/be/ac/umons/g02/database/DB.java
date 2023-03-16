@@ -69,9 +69,7 @@ public class DB
         }
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/" + dataBaseNameV,
-                userNameV, passwordV);
+        connection = DriverManager.getConnection("mysql-babawallet.alwaysdata.net", userNameV, passwordV);
     }
 
     public boolean executeQuery(String query, boolean returnData)
