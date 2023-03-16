@@ -24,8 +24,8 @@ class LogManagerTest {
     @AfterAll
     static void clean()
     {
-       // DB.getInstance().executeQuery("DELETE FROM client", false);
-       // DB.getInstance().executeQuery("DELETE FROM language", false);
+        DB.getInstance().executeQuery("DELETE FROM client", false);
+        DB.getInstance().executeQuery("DELETE FROM language", false);
         DBTest.clean();
     }
 

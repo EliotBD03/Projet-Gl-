@@ -4,12 +4,13 @@ import main.be.ac.umons.g02.data_object.ContractBasic;
 import main.be.ac.umons.g02.data_object.ContractFull;
 import main.be.ac.umons.g02.data_object.ProposalFull;
 import main.be.ac.umons.g02.data_object.WalletBasic;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ContractManagerTest
 {
     private static ProposalFull proposalFull = new ProposalFull("2", "provider", "electricity","100","elec");
@@ -31,7 +32,6 @@ class ContractManagerTest
     {
         DB.getInstance().executeQuery("DELETE FROM contract",false);
         DB.getInstance().executeQuery("DELETE FROM counter",false);
-        System.out.println("je passe là");
         new ProposalManager().deleteProposal("elec", "2");
         DB.getInstance().executeQuery("DELETE FROM provider_contract", false);
         DB.getInstance().executeQuery("DELETE FROM wallet_contract", false);
@@ -43,16 +43,19 @@ class ContractManagerTest
         DB.getInstance().executeQuery("ALTER TABLE contract AUTO_INCREMENT = 1", false);
         DB.getInstance().executeQuery("ALTER TABLE wallet_contract AUTO_INCREMENT = 1", false);
         DB.getInstance().executeQuery("ALTER TABLE provider_contract AUTO_INCREMENT = 1", false);
+
     }
 
 
     @Test
+    @Order(1)
     void createContract()
     {
         assertTrue(new ContractManager().createContract("elec", "785", "2", "address", "1"));
     }
 
     @Test
+    @Order(2)
     void getContract()
     {
         ContractFull toBeTested = new ContractManager().getContract("1");
@@ -66,6 +69,7 @@ class ContractManagerTest
     }
 
     @Test
+    @Order(3)
     void getAllContracts()
     {
         ContractBasic toBeTested = new ContractManager().getAllContracts("1", 0,1).get(0);
@@ -78,24 +82,45 @@ class ContractManagerTest
     }
 
     @Test
-    void deleteContract()
-    {
-    }
-
-    @Test
+    @Order(4)
     void getCommonContracts()
     {
-
+        ContractBasic toBeTested = new ContractManager().getCommonContracts("1", "2", 0, 1).get(0);
+        assertEquals(toBeTested.getContractId(), expected.getContractId());
+        assertEquals(toBeTested.getProviderId(), expected.getProviderId());
+        assertEquals(toBeTested.getEan(), expected.getEan());
+        assertEquals(toBeTested.getClientId(), expected.getClientId());
+        assertEquals(toBeTested.getClientName(), expected.getClientName());
+        assertEquals(toBeTested.getProviderName(), expected.getProviderName());
     }
 
     @Test
-    void getAllClientsOfContract() {
+    @Order(5)
+    void getAllClientsOfContract()
+    {
+        ArrayList<String> arrayList = new ArrayList<>()
+        {{
+            add("1");
+        }};
+        assertEquals(arrayList, new ContractManager().getAllClientsOfContract(proposalFull.getProposalName(), proposalFull.getProviderId()));
     }
 
     @Test
+    @Order(6)
     void getTypeOfEnergy()
     {
+        WalletManager.energyType expected = WalletManager.energyType.ELECTRICITY;
+        assertEquals(expected, new ContractManager().getTypeOfEnergy(ContractManagerTest.expected.getAddress()));
+    }
 
+    @Test
+    @Order(7)
+    void deleteContract()
+    {
+        new ContractManager().deleteContract("1");
+        DB.getInstance().executeQuery("SELECT * from provider_contract e, wallet_contract, counter, contract WHERE e.contract_id=1",true);
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"*"});
+        assertEquals(results.get(0).size(), 0);
     }
 
 }

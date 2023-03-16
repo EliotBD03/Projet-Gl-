@@ -1,7 +1,6 @@
 package main.be.ac.umons.g02.database;
 
 
-import com.mysql.cj.log.Log;
 import main.be.ac.umons.g02.data_object.WalletBasic;
 import org.junit.jupiter.api.*;
 

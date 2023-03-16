@@ -15,7 +15,6 @@ public class ContractManager
         CommonDB commonDB = new CommonDB();
 
         String query = "SELECT * FROM contract WHERE contract_id="+contractId;
-        System.out.println(query);
         DB.getInstance().executeQuery("SELECT * FROM contract WHERE contract_id="+contractId,true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[]
                 {
@@ -42,14 +41,14 @@ public class ContractManager
         if(base < 0)
             query = "SELECT * FROM contract WHERE client_id=" + clientId +" LIMIT "+base + ", " + "18446744073709551615"; //18446744073709551615 max(BigInt) in mysql
 
+        DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+clientId,true);
+        String clientName = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
+
         DB.getInstance().executeQuery(query, true);
 
         ArrayList<ContractBasic> contractBasics = new ArrayList<>();
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"contract_id", "ean",
                 "provider_id", "client_id"});
-
-        DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+clientId,true);
-        String clientName = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
 
         String providerId;
         String providerName;
@@ -57,7 +56,6 @@ public class ContractManager
         String ean;
         for(int i = 0; i < results.get(0).size(); i++)
         {
-            System.out.println("je passe");
             providerId = results.get(2).get(i);
             DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+providerId, true);
             providerName = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
@@ -80,10 +78,10 @@ public class ContractManager
 
     public void deleteContract(String contractId)
     {
+        DB.getInstance().executeQuery("DELETE FROM contract WHERE contract_id="+contractId, false);
+        DB.getInstance().executeQuery("DELETE FROM counter WHERE contract_id="+contractId, false);
         DB.getInstance().executeQuery("DELETE FROM provider_contract WHERE contract_id="+contractId,false);
         DB.getInstance().executeQuery("DELETE FROM wallet_contract WHERE contract_id="+contractId,false);
-        DB.getInstance().executeQuery("DELETE FROM counter WHERE contract_id="+contractId, false);
-        DB.getInstance().executeQuery("DELETE FROM contract WHERE contract_id="+contractId, false);
     }
 
     public ArrayList<String> getAllClientsOfContract(String proposalName, String providerId)
@@ -131,8 +129,8 @@ public class ContractManager
         DB.getInstance().executeQuery("SELECT water, gas, electricity "
                 +"FROM proposal "
                 +"WHERE (proposal_name,provider_id) "
-                +"IN (SELECT proposal_name, provider_id FROM contract WHERE address='"+address + "')",false);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"water","gas","energy"});
+                +"IN (SELECT proposal_name, provider_id FROM contract WHERE address='"+address + "')",true);
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"water","gas","electricity"});
         for(int i = 0; i < 3 ; i++)
         {
             if(results.get(i).get(0).equals("1"))

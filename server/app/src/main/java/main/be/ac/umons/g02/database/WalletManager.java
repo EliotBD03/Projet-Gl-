@@ -1,6 +1,5 @@
 package main.be.ac.umons.g02.database;
 
-import com.mysql.cj.log.Log;
 import main.be.ac.umons.g02.data_object.WalletBasic;
 import main.be.ac.umons.g02.data_object.WalletFull;
 
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 
 public class WalletManager
 {
-    public enum energyType {ELECTRICITY, WATER, GAS};
+    public enum energyType {WATER, GAS, ELECTRICITY};
 
 
     public boolean doesTheWalletExists(String address)
