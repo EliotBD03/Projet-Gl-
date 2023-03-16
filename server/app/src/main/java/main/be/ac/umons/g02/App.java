@@ -156,7 +156,7 @@ public class App
     }
 
     /**
-     * Méthode qui permet de supprimer le code après un certain pour qu'il ne serve plus a rien 
+     * Méthode qui permet de supprimer les codes qui ont été créés il y a plus de 15 minutes
      * Cette méthode est appelée toutes les 10 minutes par une tâche planifiée d'alwaysdata
      *
      * @param routingContext - Le contexte de la requête
@@ -174,25 +174,29 @@ public class App
 
         if(codeToDeleteCode.equals(code))
         {
-            if(listCode.size() != 0)
+            LocalDateTime now = LocalDateTime.now();
+
+            for(int i = listCode.size()-1; i >= 0; i--)
             {
-                LocalDateTime now = LocalDateTime.now();
+                String[] tab = listCode.get(i);
 
-                for(int i = listCode.size()-1; i >= 0; i--)
+                if(tab != null)
                 {
-                    String stringTime = listCode.get(i)[1];
-
+                    String stringTime = tab[1];
                     LocalDateTime time = LocalDateTime.parse(stringTime, formatter);
                     long minutes = ChronoUnit.MINUTES.between(time, now);
 
-                    if(minutes > 30)
+                    if(minutes > 15)
+                    {
+                        LOGGER.info("Un code a été effacé.");
                         listCode.remove(i);
-
-                    routingContext.response()
-                        .setStatusCode(200)
-                        .putHeader("Content-Type", "application/json")
-                        .end();
+                    }
                 }
+
+                routingContext.response()
+                    .setStatusCode(200)
+                    .putHeader("Content-Type", "application/json")
+                    .end();
             }
         }
         else
