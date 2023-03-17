@@ -71,15 +71,11 @@ public class DB
             dbHostV = env.get(dbHost);
         }
 
-<<<<<<< HEAD
         Class.forName("com.mysql.cj.jdbc.Driver");
-        connection = DriverManager.getConnection("mysql-babawallet.alwaysdata.net", userNameV, passwordV);
-=======
-        //Class.forName("com.mysql.cj.jdbc.Driver");
+        //Class.forName("com.mysql.cj.jdbc.Driver"); //TODO useless and erase it
         connection = DriverManager.getConnection(
                 "jdbc:mysql://"+dbHostV+":3306/" + dataBaseNameV,
                 userNameV, passwordV);
->>>>>>> 35f0665 (added environment variable to host)
     }
 
     public boolean executeQuery(String query, boolean returnData)
