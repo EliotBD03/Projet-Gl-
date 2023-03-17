@@ -11,7 +11,7 @@ public class LogManager
     public boolean doesAccountExist(String mail)
     {
         DB instance = DB.getInstance();
-        instance.executeQuery("SELECT EXISTS(SELECT * FROM user WHERE mail='"+mail+"') AS 'mail'", true);
+        instance.executeQuery("SELECT EXISTS(SELECT * FROM user WHERE mail LIKE '"+mail+"') AS 'mail'", true);
         return Integer.parseInt(instance.getResults(new String[] {"mail"}).get(0).get(0)) == 1;
     }
 
