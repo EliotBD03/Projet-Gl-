@@ -65,7 +65,7 @@ export default {
                 GlobalMethods.errorApi(error.error);
               }
             });
-        this.$router.push("/wallets");
+        this.$router.push({ name: 'HomeClient' });
       }
     }
   }

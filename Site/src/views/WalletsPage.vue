@@ -49,10 +49,7 @@ export default {
       linkApi : "https://babawallet.alwaysdata.net/api/client/wallets/",
       nbr : 1,
       loading : false,
-      listWallet: [
-        { name: "Item 1", nameOwner: "BOb", address: "Rue ll", lastConsumptionOfWater: 10, lastConsumptionOfGas: 44, lastConsumptionOfElectricity: 90, listContracts: [{nom: "Engie", conso: "10000", prix : "400000"}, {nom: "paee", conso: "9000", prix : "5000"}]},
-
-        ]
+      listWallet: []
     }},
   /*Au moment de la création on récupère déjà la première page de l'api*/
   created() {
@@ -91,9 +88,8 @@ export default {
           } 
           else {
             if(this.nbr == 1){
-              console.log("hey")
               this.loading = true;
-              Swal.fire('Aucun wallet à présenter');
+              Swal.fire('No wallet');
             }
             else{
               GlobalMethods.errorApi(error.message);
@@ -134,7 +130,7 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 150vh;
+  height: 120vh;
 }
 
 .homebutton {
