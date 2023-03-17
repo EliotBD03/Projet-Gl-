@@ -24,8 +24,8 @@
       <form id="createForm" method="post" v-on:submit.prevent="post">
         <InputMain v-model="name" type="name" :text="$t('account.name')"/>
         <InputMain :text="$t('account.mail')" type="mail" v-model="mail"/>
-        <InputMain :text="$t('account.pwd')" type="password" v-model="password"/>
-        <InputMain :text="$t('account.pwdconfirm')" type="password" v-model="repeatedPassword"/>
+        <InputMain :text="$t('account.pwd')" type="password" v-model="pwd"/>
+        <InputMain :text="$t('account.pwdconfirm')" type="password" v-model="repeatedpwd"/>
         <InputMain :text="$t('account.code')" type="text" v-model="code"/>
         <GoButton text="button.createaccount" type="submit" :colore="'#34c98e'"/>
       </form>
@@ -52,8 +52,8 @@
       return{
         name: '',
         mail: '',
-        password: '',
-        repeatedPassword: '',
+        pwd: '',
+        repeatedpwd: '',
         code: '',
         language: 'english',
         selectedList:[],
@@ -73,10 +73,10 @@
         checkArgs(){
           if(!this.name) Swal.fire(this.$t("alerts.name"));
           else if(!this.mail) Swal.fire(this.$t("alerts.mail"));
-          else if(!this.password) Swal.fire(this.$t("alerts.pwd"));
+          else if(!this.pwd) Swal.fire(this.$t("alerts.pwd"));
           else if(!this.code) Swal.fire(this.$t("alerts.entercode"));
-          else if(!this.repeatedPassword) Swal.fire(this.$t("alerts.pwdconfirm"));
-          else if(this.repeatedPassword !== this.password) Swal.fire(this.$t("alerts.pwdmatch"));
+          else if(!this.repeatedpwd) Swal.fire(this.$t("alerts.pwdconfirm"));
+          else if(this.repeatedpwd !== this.pwd) Swal.fire(this.$t("alerts.pwdmatch"));
           else return true;
         },
         /*Méthode qui, lorsque l'utilisateur 
@@ -92,7 +92,7 @@
             this.isRole();
             const requestOptions = {
               method: "POST",
-              body: JSON.stringify({ name: this.name, mail: this.mail, pwd: this.password, code: this.code, is_client: this.is_client, language: this.language })
+              body: JSON.stringify({ name: this.name, mail: this.mail, pwd: this.pwd, code: this.code, is_client: this.is_client, language: this.language })
             };
             fetch("https://babawallet.alwaysdata.net/log/save_account", requestOptions)
               .then(response => {
