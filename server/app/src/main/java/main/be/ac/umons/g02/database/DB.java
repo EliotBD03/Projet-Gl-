@@ -14,6 +14,7 @@ public class DB
     private static String dataBaseName = "NAMEDB";
     private static String userName = "USERNAMEDB";
     private static String password = "PWDDB";
+    private static String dbHost = "DBHOST"; //TODO added variable environment
     private static final Map<String, String> env = System.getenv();
     private static DB instance;
     private Connection connection;
@@ -60,16 +61,25 @@ public class DB
         String dataBaseNameV = null;
         String userNameV = null;
         String passwordV = null;
+        String dbHostV = null;
 
-        if(env.containsKey(dataBaseName) && env.containsKey(userName) && env.containsKey(password))
+        if(env.containsKey(dataBaseName) && env.containsKey(userName) && env.containsKey(password) && env.containsKey(dbHost))
         {
             dataBaseNameV = env.get(dataBaseName);
             userNameV = env.get(userName);
             passwordV = env.get(password);
+            dbHostV = env.get(dbHost);
         }
 
+<<<<<<< HEAD
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection("mysql-babawallet.alwaysdata.net", userNameV, passwordV);
+=======
+        //Class.forName("com.mysql.cj.jdbc.Driver");
+        connection = DriverManager.getConnection(
+                "jdbc:mysql://"+dbHostV+":3306/" + dataBaseNameV,
+                userNameV, passwordV);
+>>>>>>> 35f0665 (added environment variable to host)
     }
 
     public boolean executeQuery(String query, boolean returnData)
