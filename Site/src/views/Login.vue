@@ -90,19 +90,18 @@
             this.$router.push({name: 'forgottenPassword'});
           }
         },
-        /*
-        //Temp
+        
+        /*//Temp
         test1(){
           this.$cookies.set("role", "client");
-          this.$cookies.set("token", 123456789);
-          this.$router.push({ name: 'HomeClient' });
+          this.$cookies.set("token", 123456789); 
         },
         test2(){
           this.$cookies.set("role", "supplier");
           this.$cookies.set("token", 987654321);
           this.$router.push({ name: 'HomeSupplier' });
-        }
-        */
+        }*/
+        
     }
   }
   </script>
