@@ -127,7 +127,7 @@ public class MyApi extends AbstractVerticle
 
     /**
      * Méthode qui permet de supprimer les tokens qui sont dans la blacklist et qui sont périmés
-     * Cette méthode est appelée toutes les 10 minutes par une tâche planifiée d'alwaysdata
+     * Cette méthode est appelée toutes les 5 minutes par une tâche planifiée d'alwaysdata
      *
      * @param routingContext - Le contexte de la requête
      */
