@@ -59,7 +59,7 @@
                 throw new Error("Token");
             }
             else{
-              throw response.json();
+              return response.json().then(json => Promise.reject(json)); 
             }
           }
           else{
@@ -77,9 +77,7 @@
             router.push("/");
           } 
           else {
-            error.then(data => {
-              this.errorApi(data.error);
-            });
+            this.errorApi(error.error);
           }
         });
     }
