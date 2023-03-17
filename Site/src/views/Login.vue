@@ -6,7 +6,7 @@
       <div class="login-form">
         <form id="loginForm" method="post" @submit.prevent="post">
           <InputMain :text="$t('account.mail')" v-model="mail" type="mail"/>
-          <InputMain :text="$t('account.pwd')" v-model="password" type="password"/>
+          <InputMain :text="$t('account.pwd')" v-model="pwd" type="password"/>
           <GoButton text="button.login" type="submit" :colore="'#34c98e'"/>
         </form>
         <div class="createbutton" @click.prevent.left="$router.push({name: 'createAccount'})">
@@ -33,7 +33,7 @@
     data(){
       return{
         mail: '',
-        password: ''
+        pwd: ''
       }},
     /*Méthode pour charger la langue sauvegardée en cookie*/
     mounted() {
@@ -47,7 +47,7 @@
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up*/
         checkArgs(){
           if(!this.mail) Swal.fire(this.$t("alerts.mail"));
-          else if(!this.password) Swal.fire(this.$t("alerts.pwd"));
+          else if(!this.pwd) Swal.fire(this.$t("alerts.pwd"));
           else return true;
         },
         /*Méthode qui envoie le mail et le mot de passe vers l'api si les champs sont remplis 
@@ -59,7 +59,7 @@
           {
             const requestOptions = {
               method: "POST",
-              body: JSON.stringify({ mail: this.mail, password: this.password })
+              body: JSON.stringify({ mail: this.mail, pwd: this.pwd })
             };
             fetch("https://babawallet.alwaysdata.net/log/check_account", requestOptions)
               .then(response => {
