@@ -50,7 +50,7 @@ export default {
                     throw new Error("Token");
                 }
                 else{
-                  throw response.json();
+                  return response.json().then(json => Promise.reject(json)); 
                 }
               }
             })
@@ -62,9 +62,7 @@ export default {
               this.$router.push("/");
               } 
               else {
-                error.then(data => {
-                  GlobalMethods.errorApi(data.error);
-                });
+                GlobalMethods.errorApi(error.error);
               }
             });
         this.$router.push("/wallets");

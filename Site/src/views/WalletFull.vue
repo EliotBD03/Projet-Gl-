@@ -106,7 +106,7 @@ export default {
                   throw new Error("Token");
               }
               else{
-                throw response.json();
+                return response.json().then(json => Promise.reject(json));
               }
             }
             else{
@@ -126,9 +126,7 @@ export default {
               this.$router.push("/");
             } 
             else {
-              error.then(data => {
-                GlobalMethods.errorApi(data.error);
-              });
+              GlobalMethods.errorApi(error.error);
             }
           });
     },

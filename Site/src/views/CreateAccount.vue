@@ -96,9 +96,10 @@
             };
             fetch("https://babawallet.alwaysdata.net/log/save_account", requestOptions)
               .then(response => {
-                  if(!response.ok){
-                    throw response.json();
-                  }
+                if(!response.ok){
+                  return response.json().then(json => Promise.reject(json)); 
+                }
+                return response.json();
               }) 
               .then(data => {
                 this.$cookies.remove('mail');
@@ -112,9 +113,7 @@
                 GlobalMethods.isAClient();
               })
               .catch(error => {
-                error.then(data => {
-                  GlobalMethods.errorApi(data.error);
-                });
+                GlobalMethods.errorApi(error.error);
               });
           }
         },

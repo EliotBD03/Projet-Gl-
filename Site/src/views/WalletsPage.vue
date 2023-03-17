@@ -67,7 +67,7 @@ export default {
       };
       this.loading = true; //bloquer les demandes de loader pendant ce temps.
       try {
-        const response = await fetch("${linkApi}page?page=${nbr}", requestOptions);
+        const response = await fetch(`${this.linkApi}page?page=${this.nbr}`, requestOptions);
         if (!response.ok) { 
           const data = await response.text();
           if(response.status == 401 && data.trim() === ''){
@@ -81,6 +81,7 @@ export default {
           const data = await response.json(); 
           this.listWallet.push(data); //ajouter la suite de la réponse à la liste
         }
+        this.loading = false;
       } catch(error) {
           if(error.message === "Token") {
             this.$cookies.remove("token");
@@ -89,10 +90,16 @@ export default {
             this.$router.push("/");
           } 
           else {
-            GlobalMethods.errorApi(error.message);
+            if(this.nbr == 1){
+              console.log("hey")
+              this.loading = true;
+              Swal.fire('Aucun wallet à présenter');
+            }
+            else{
+              GlobalMethods.errorApi(error.message);
+            }
           }
       }
-      this.loading = false;
     },
     /*Lorsque l'utilisateur scrolle, cette méthode est appelée 
     pour augmenter le nombre de la page et appeler getPage*/
@@ -127,7 +134,7 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 100vh;
+  height: 150vh;
 }
 
 .homebutton {
