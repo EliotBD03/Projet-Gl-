@@ -13,9 +13,9 @@
       <p> Water : {{ wallet.lastConsumptionOfElectricity }}</p>
       <p> Associated contracts :</p>
       <div v-for="contract in wallet.listContracts" :key="contract.id">
-        <p> nom = {{ contract.nom }}</p>
-        <p> conso = {{ contract.conso }}</p>
-        <p> prix = {{ contract.prix }}</p>
+        <p> nom = {{ contract.name }}</p>
+        <p> conso = {{ contract.consumption }}</p>
+        <p> prix = {{ contract.price }}</p>
         <p>--------------------------</p>
         <!-- A voir pour le bouton Go, il faut que contract.vue soit fait-->
       </div>
