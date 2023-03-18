@@ -1,6 +1,7 @@
 package main.be.ac.umons.g02.api;
 
 import main.be.ac.umons.g02.App;
+import main.be.ac.umons.g02.database.CommonDB;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
@@ -35,10 +36,13 @@ public class MyApi extends AbstractVerticle
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyApi.class);
 
+    private final CommonDB commonDB = new CommonDB();
+
     private static final int pageDefaultSize = 10;
     private static final int pageMaxSize = 20;
 
     private String codeToClean = "";
+    private String codeToDeleteClient = "";
 
     protected static JWTAuth jwt;
     private LogApi logApi;
@@ -74,11 +78,13 @@ public class MyApi extends AbstractVerticle
             port = new Integer(env.get("PORT"));
         }
 
-        if(!env.containsKey("PASSPHRASE") || !env.containsKey("CODETOCLEAN"))
+        if(!env.containsKey("PASSPHRASE") || !env.containsKey("CODETOCLEAN") || !env.containsKey("CODETODELETECLIENT") || !env.containsKey("CODETODELETECODE"))
             System.exit(1);
 
         passPhrase = env.get("PASSPHRASE");
         codeToClean = env.get("CODETOCLEAN");
+        codeToDeleteClient = env.get("CODETODELETECLIENT");
+        App.setCodeToDeleteCode(env.get("CODETODELETECODE"));
 
         jwt = JWTAuth.create(vertx, new JWTAuthOptions()
                 .addPubSecKey(new PubSecKeyOptions()
@@ -95,6 +101,7 @@ public class MyApi extends AbstractVerticle
         router.route("/api/common/*").handler(routingContext -> HandlerUtils.handleRoleCommon(routingContext));
         router.get("/timer_task/clear_blacklist/:code").handler(this::cleanExpiredTokens);
         router.get("/timer_task/clear_codelist/:code").handler(routingContext -> App.automaticDeleteCode(routingContext));
+        router.get("/delete_user/:id/:code").handler(this::deleteUser);
 
         logApi = new LogApi();
         clientApi = new ClientApi();
@@ -154,6 +161,37 @@ public class MyApi extends AbstractVerticle
                 if(Instant.ofEpochSecond(exp).isBefore(Instant.now()))
                     iterator.remove();
             }
+
+            routingContext.response()
+                .setStatusCode(200)
+                .putHeader("Content-Type", "application/json")
+                .end();
+        }
+        else
+            routingContext.response()
+                .setStatusCode(401)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "You are not authorized to do this operation.")));
+    }
+
+    /**
+     * Méthode qui permet de supprimer un compte
+     * Il faut que se compte soit vide pour être correctement supprimé
+     * Il y a un code à passer en paramètre pour un minimum de sécurité
+     *
+     * @param routingContext - Le contexte de la requête
+     */
+    private void deleteUser(final RoutingContext routingContext)
+    {
+        LOGGER.info("DeleteUser...");
+
+        String id = routingContext.pathParam("id");
+        String code = routingContext.pathParam("code");
+
+        if(codeToDeleteClient.equals(code))
+        {
+            commonDB.getLogManager().deleteAccount(id);
 
             routingContext.response()
                 .setStatusCode(200)

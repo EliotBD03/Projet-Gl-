@@ -72,13 +72,16 @@ public class CommonApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<String> allLanguages = commonDB.getLanguageManager().getAllLanguages(id, slice[0], slice[1]);
+        Object[] res = commonDB.getLanguageManager().getAllLanguages(id, slice[0], slice[1]);
+        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        ArrayList<String> allLanguages = (ArrayList<String>) res[1];
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
-                        .put("allLanguages", allLanguages)));
+                        .put("allLanguages", allLanguages)
+                        .put("last_page", numberOfPagesRemaining)));
     } 
 
     /** 
@@ -246,13 +249,16 @@ public class CommonApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<Notification> allNotifications = commonDB.getNotificationManager().getAllNotifications(id, slice[0], slice[1]);
+        Object[] res = commonDB.getNotificationManager().getAllNotifications(id, slice[0], slice[1]);
+        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        ArrayList<Notification> allNotifications = (ArrayList<Notification>) res[1];
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
-                        .put("allNotifications", allNotifications)));
+                        .put("allNotifications", allNotifications)
+                        .put("last_page", numberOfPagesRemaining)));
     }
 
     /** 

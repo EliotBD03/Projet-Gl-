@@ -61,13 +61,16 @@ public class ProviderApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<ClientBasic> allClients = commonDB.getClientManager().getAllClients(slice[0], slice[1]);
+        Object[] res = commonDB.getClientManager().getAllClients(slice[0], slice[1]);
+        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        ArrayList<ClientBasic> allClients = (ArrayList<ClientBasic>) res[1];
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
-                        .put("allClients", allClients)));
+                        .put("allClients", allClients)
+                        .put("last_page", numberOfPagesRemaining)));
     }
 
     /**
@@ -88,13 +91,16 @@ public class ProviderApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<ClientBasic> allHisClients = commonDB.getClientManager().getAllHisClients(id, slice[0], slice[1]);
+        Object[] res = commonDB.getClientManager().getAllHisClients(id, slice[0], slice[1]);
+        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        ArrayList<ClientBasic> allHisClients = (ArrayList<ClientBasic>) res[1];
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
-                        .put("allHisClients", allHisClients)));
+                        .put("allHisClients", allHisClients)
+                        .put("last_page", numberOfPagesRemaining)));
     }
 
     /** 
@@ -117,13 +123,16 @@ public class ProviderApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<ContractBasic> contracts = commonDB.getContractManager().getCommonContracts(id, idClient, slice[0], slice[1]);
+        Object[] res = commonDB.getContractManager().getCommonContracts(id, idClient, slice[0], slice[1]);
+        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        ArrayList<ContractBasic> contracts = (ArrayList<ContractBasic>) res[1];
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
-                        .put("contracts", contracts)));
+                        .put("contracts", contracts)
+                        .put("last_page", numberOfPagesRemaining)));
     }
 
     /** 
@@ -168,13 +177,16 @@ public class ProviderApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<ProposalBasic> allProposals = commonDB.getProposalManager().getAllProposals(id, slice[0], slice[1]);
+        Object[] res = commonDB.getProposalManager().getAllProposals(id, slice[0], slice[1]);
+        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        ArrayList<ProposalBasic> allProposals = (ArrayList<ProposalBasic>) res[1];
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
-                        .put("allProposals", allProposals)));
+                        .put("allProposals", allProposals)
+                        .put("last_page", numberOfPagesRemaining)));
     }
 
     /** 

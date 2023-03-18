@@ -63,13 +63,16 @@ public class ClientApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<WalletBasic> wallets = commonDB.getWalletManager().getAllWallets(id, slice[0], slice[1]);
+        Object[] res = commonDB.getWalletManager().getAllWallets(id, slice[0], slice[1]);
+        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        ArrayList<WalletBasic> wallets = (ArrayList<WalletBasic>) res[1];
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
-                        .put("wallets", wallets)));
+                        .put("wallets", wallets)
+                        .put("last_page", numberOfPagesRemaining)));
     }
 
     /** 
@@ -171,13 +174,16 @@ public class ClientApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        ArrayList<ContractBasic> contracts = commonDB.getContractManager().getAllContracts(id, slice[0], slice[1]);
+        Object[] res = commonDB.getContractManager().getAllContracts(id, slice[0], slice[1]);
+        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        ArrayList<ContractBasic> contracts = (ArrayList<ContractBasic>) res[1];
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
-                        .put("contracts", contracts)));
+                        .put("contracts", contracts)
+                        .put("last_page", numberOfPagesRemaining)));
     }
 
     /** 
@@ -201,13 +207,16 @@ public class ClientApi extends MyApi implements RouterApi
         String regionCategory = null;
         if(checkParam((regionCategory = routingContext.request().getParam("region_category")), routingContext)) return;
 
-        ArrayList<ProposalBasic> proposals = commonDB.getProposalManager().getAllProposals(energyCategory, regionCategory, slice[0], slice[1]);
+        Object[] res = commonDB.getProposalManager().getAllProposals(energyCategory, regionCategory, slice[0], slice[1]);
+        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        ArrayList<ProposalBasic> proposals = (ArrayList<ProposalBasic>) res[1];
 
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
-                        .put("proposals", proposals)));
+                        .put("proposals", proposals)
+                        .put("last_page", numberOfPagesRemaining)));
     }
 
     /** 

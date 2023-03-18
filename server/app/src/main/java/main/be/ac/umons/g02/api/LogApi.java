@@ -284,7 +284,7 @@ public class LogApi extends MyApi implements RouterApi
 
         String mail = null;
         if(checkParam(mail = routingContext.request().getParam("mail"), routingContext)) return;
-        
+
         String code = App.createCode(mail);
 
         try

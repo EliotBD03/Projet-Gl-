@@ -27,6 +27,7 @@ PORT=
 PASSPHRASE=
 CODETOCLEAN=
 CODETODELETECODE=
+CODETODELETECLIENT=
 NAMEDB=
 USERNAME=
 PWDDB=
@@ -165,11 +166,6 @@ public class App
     {
         LOGGER.info("AutomaticDeleteCode...");
 
-        Map<String, String> env  = System.getenv();
-
-        if(env.containsKey("CODETODELETECODE"))
-            codeToDeleteCode = env.get("CODETODELETECODE");
-
         String code = routingContext.pathParam("code");
 
         if(codeToDeleteCode.equals(code))
@@ -200,5 +196,10 @@ public class App
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "You are not authorized to do this operation.")));
+    }
+
+    public static void setCodeToDeleteCode(String code)
+    {
+        codeToDeleteCode = code;
     }
 }
