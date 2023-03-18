@@ -4,37 +4,37 @@
       <MainHeader text="header.wallets"/>
     </div>
     <div class="allcards">
-      <div v-infinite-scroll="loader">
         <div class=cards v-for="wallet in listWallet" :key="wallet.id">
           <div class="texte">
-          <p> {{ wallet.name }} :</p>
+          <p class="name"> {{ wallet.name }} :</p>
           <p> {{ wallet.nameOwner }}</p>
           <p> {{ wallet.address }}</p>
           </div>
           <div @click.prevent.left="seeMore(wallet)">
             <GoButton text="button.go" :colore="'#34c98e'"/>
           </div>
-         <div v-if="loading">{{ $t("wallets.loading") }}</div>
         </div>
-        <AddWalletForm/>
+        <div v-if="notLastPage()" @click.prevent.left="loader()">
+          <GoButton text="See more wallets" :colore="'#B1B9FC'"/>
+        </div>
       </div>
-    </div>
     <div class="homebutton" @click.prevent.left="$router.push('/Home')">
       <GoButton text="header.home" :colore="'#B1B9FC'"/>
+    </div>
+    <div @click.prevent.left="$router.push('/addWallet')">
+      <GoButton text="Add a wallet" :colore="'#B1B9FC'"/>
     </div>
   </div>
 </template>
 <script>
 import MainHeader from "@/components/MainHeader.vue";
 import GoButton from "@/components/GoButton.vue";
-import AddWalletForm from "@/components/AddWalletForm.vue";
 import Swal from 'sweetalert2';
 import GlobalMethods from "@/components/GlobalMethods.vue";
 export default {
   components : {
     GoButton,
     MainHeader,
-    AddWalletForm
   },
   /*Méthode pour charger la langue sauvegardée en cookie*/
   mounted() {
@@ -49,6 +49,7 @@ export default {
       linkApi : "https://babawallet.alwaysdata.net/api/client/wallets/",
       nbr : 1,
       loading : false,
+      lastPage : 0,
       listWallet: []
     }},
   /*Au moment de la création on récupère déjà la première page de l'api*/
@@ -64,7 +65,7 @@ export default {
       };
       this.loading = true; //bloquer les demandes de loader pendant ce temps.
       try {
-        const response = await fetch(`${this.linkApi}page?page=${this.nbr}`, requestOptions);
+        const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
         if (!response.ok) { 
           const data = await response.text();
           if(response.status == 401 && data.trim() === ''){
@@ -76,7 +77,8 @@ export default {
           }
         } else {
           const data = await response.json(); 
-          this.listWallet.push(data); //ajouter la suite de la réponse à la liste
+          this.listWallet.push(data.wallets); //ajouter la suite de la réponse à la liste
+          this.lastPage = data.last_page;
         }
         this.loading = false;
       } catch(error) {
@@ -107,6 +109,14 @@ export default {
         this.getPage();
       }
     },
+    /*Méthode permettant de vérifier si la dernière page n'a pas encore été chargée 
+    et si on est pas en cours de chargement*/
+    notLastPage(){
+      if(this.lastPage == this.nbr || this.loading == true){
+        return false;
+      }
+      return true;
+    },
     /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
     et on redirige vers walletFull*/
     seeMore(wallet){
@@ -130,7 +140,7 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 120vh;
+  height: 100vh;
 }
 
 .homebutton {
@@ -139,21 +149,22 @@ export default {
 }
 
 .allcards {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
+   display: flex;
+   align-items: center;
+   flex-direction: row;
+   justify-content: space-evenly;
+ }
 
 .cards {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  width: 400px;
-  height: 500px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  margin: 10px;
+  width: 250px;
+  height: 400px;
+  box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+  margin: 20px;
+  border-radius: 30px;
 }
 
 .texte {
@@ -163,4 +174,9 @@ export default {
   justify-content: center;
   margin: 50px;
 }
+
+.name {
+  color: rgb(138, 150, 253);
+  font-size: 30px;
+ }
 </style>

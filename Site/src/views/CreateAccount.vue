@@ -33,7 +33,7 @@
         <GoButton text="button.sendcode" :colore="'#B1B9FC'"/>
       </div>
       <div @click.prevent.left="back()">
-        <GoButton text="button.back" :colore="'#B1B9FC'"/>
+        <GoButton text="button.back" :colore="'red'"/>
       </div>
     </div>
   </div>
@@ -170,8 +170,7 @@
     height: 700px;
     border-radius: 50px;
     background: #e0e0e0;
-    box-shadow: 20px 20px 60px #bebebe,
-    -20px -20px 60px #ffffff;
+    box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
   }
 
   

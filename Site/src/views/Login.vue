@@ -90,16 +90,19 @@
           }
         },
         
-        /*//Temp
+        /*
+        //Temp
         test1(){
           this.$cookies.set("role", "client");
           this.$cookies.set("token", 123456789); 
+          this.$router.push({ name: 'HomeClient' });
         },
         test2(){
           this.$cookies.set("role", "supplier");
           this.$cookies.set("token", 987654321);
           this.$router.push({ name: 'HomeSupplier' });
-        }*/
+        }
+        */
         
     }
   }
@@ -129,7 +132,6 @@
     height: 500px;
     border-radius: 50px;
     background: #e0e0e0;
-    box-shadow: 20px 20px 60px #bebebe,
-    -20px -20px 60px #ffffff;
+    box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
   }
   </style>

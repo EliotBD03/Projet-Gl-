@@ -22,13 +22,13 @@
     </div>
     <div class="bottombutton">
       <div class="backbutton" @click.prevent.left="back()">
-      <GoButton text="Back"/>
+      <GoButton text="Back" :colore="'red'"/>
       </div>
       <div class="consumptionsbutton" @click.prevent.left="$router.push({name: 'Consumptions'})">
-      <GoButton text="Consumptions"/>
+      <GoButton text="Consumptions" :colore="'#B1B9FC'"/>
       </div>
       <div class="closebutton" @click.prevent.left="deleteWallet()">
-      <GoButton text="Close the wallet"/>
+      <GoButton text="Close the wallet" :colore="'red'"/>
       </div>
     </div>
   </div>
