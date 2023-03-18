@@ -13,7 +13,7 @@ export default {
 
 <style scoped>
 .title{
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 75px;
   left: 0;

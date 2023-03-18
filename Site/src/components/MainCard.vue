@@ -28,7 +28,7 @@ export default {
   justify-content: center;
   width: 400px;
   height: 300px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
 }
 
 .title {
