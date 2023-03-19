@@ -19,6 +19,7 @@ class ContractManagerTest
     static void setUp() throws Exception
     {
         DBTest.setUp();
+        proposalFull.setMoreInformation(20.0,20.0,20.0,true,true,null,null,6);
         expected.setMoreInformation(proposalFull, null, null,  "address");
         LogManager logManager = new LogManager();
         logManager.saveAccount("client@gmail.com", "clientPassword", true, "client", "english");

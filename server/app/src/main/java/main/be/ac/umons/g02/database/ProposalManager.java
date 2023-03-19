@@ -129,7 +129,7 @@ public class ProposalManager
         nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
 
         proposalFull = new ProposalFull(providerId, nameProvider, typeEnergy, location, proposalName);
-        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, startPeakHours.equals("NULL"), startPeakHours, endPeakHours, Integer.parseInt(duration));
+        proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, peakHours == offPeakHours, startPeakHours, endPeakHours, Integer.parseInt(duration));
         return proposalFull;
     }
 
