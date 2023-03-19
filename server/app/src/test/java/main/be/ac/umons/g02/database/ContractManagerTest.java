@@ -72,7 +72,7 @@ class ContractManagerTest
     @Order(3)
     void getAllContracts()
     {
-        ContractBasic toBeTested = new ContractManager().getAllContracts("1", 0,1).get(0);
+        ContractBasic toBeTested = ((ArrayList<ContractBasic>)new ContractManager().getAllContracts("1", 0,1)[1]).get(0);
         assertEquals(toBeTested.getContractId(), expected.getContractId());
         assertEquals(toBeTested.getProviderId(), expected.getProviderId());
         assertEquals(toBeTested.getEan(), expected.getEan());
@@ -85,7 +85,7 @@ class ContractManagerTest
     @Order(4)
     void getCommonContracts()
     {
-        ContractBasic toBeTested = new ContractManager().getCommonContracts("1", "2", 0, 1).get(0);
+        ContractBasic toBeTested = ((ArrayList<ContractBasic>)new ContractManager().getCommonContracts("1", "2", 0, 1)[1]).get(0);
         assertEquals(toBeTested.getContractId(), expected.getContractId());
         assertEquals(toBeTested.getProviderId(), expected.getProviderId());
         assertEquals(toBeTested.getEan(), expected.getEan());

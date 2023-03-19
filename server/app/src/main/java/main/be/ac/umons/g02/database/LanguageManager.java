@@ -30,10 +30,11 @@ public class LanguageManager
 
     public Object[] getAllLanguages(String userId, int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT saved_language FROM language WHERE id=" + userId + " LIMIT "+base+", "+(base+limit),true);
-        ArrayList<String> languages = DB.getInstance().getResults(new String[] {"saved_language"}).get(0);
         DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM language WHERE id="+userId, true);
-        return new Object[] {Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0)), languages};
+        int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
+        DB.getInstance().executeQuery("SELECT saved_language FROM language WHERE id=" + userId + " LIMIT "+base+", "+(base+limit),true);
+        ArrayList<String> languages = new ArrayList<>(DB.getInstance().getResults(new String[] {"saved_language"}).get(0));
+        return new Object[] {count, languages};
     }
 
     public void addLanguage(String userId, String language)

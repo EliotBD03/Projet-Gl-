@@ -2,6 +2,8 @@ package main.be.ac.umons.g02.database;
 
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -39,7 +41,7 @@ class LanguageManagerTest {
     @Order(3)
     void getAllLanguages()
     {
-        assertEquals(new LanguageManager().getAllLanguages("1", 0 , 0).get(0), "english");
+        assertEquals(((ArrayList<String>) new LanguageManager().getAllLanguages("1", 0 , 1)[1]).get(0), "english");
     }
 
     @Test

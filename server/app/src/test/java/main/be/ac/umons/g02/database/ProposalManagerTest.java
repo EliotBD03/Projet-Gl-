@@ -4,6 +4,8 @@ import main.be.ac.umons.g02.data_object.ProposalBasic;
 import main.be.ac.umons.g02.data_object.ProposalFull;
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -33,7 +35,7 @@ class ProposalManagerTest
     {
         ProposalManager proposalManager = new ProposalManager();
         proposalManager.addProposal(reference);
-        assertNotEquals(proposalManager.getAllProposals(null, null,0,1 ).size(),0);
+        assertNotEquals(((ArrayList<ProposalBasic>)proposalManager.getAllProposals(null, null,0,1 )[1]).size(),0);
     }
 
     /**
@@ -43,7 +45,7 @@ class ProposalManagerTest
     @Order(2)
     void getAllProposals()
     {
-        ProposalBasic toBeTested = new ProposalManager().getAllProposals(null, null,0,1).get(0);
+        ProposalBasic toBeTested = ((ArrayList<ProposalBasic>)new ProposalManager().getAllProposals(null, null,0,1)[1]).get(0);
         assertEquals(toBeTested.getLocation(), reference.getLocation());
         assertEquals(toBeTested.getProposalName(), reference.getProposalName());
         assertEquals(toBeTested.getTypeOfEnergy(), reference.getTypeOfEnergy());
@@ -55,7 +57,7 @@ class ProposalManagerTest
     @Order(3)
     void getAllProposalsFromAProvider()
     {
-        ProposalBasic toBeTested = new ProposalManager().getAllProposals("1",0,1).get(0);
+        ProposalBasic toBeTested = ((ArrayList<ProposalBasic>)new ProposalManager().getAllProposals("1",0,1)[1]).get(0);
         assertEquals(toBeTested.getLocation(), reference.getLocation());
         assertEquals(toBeTested.getProposalName(), reference.getProposalName());
         assertEquals(toBeTested.getTypeOfEnergy(), reference.getTypeOfEnergy());
@@ -83,6 +85,6 @@ class ProposalManagerTest
     {
         ProposalManager proposalManager = new ProposalManager();
         proposalManager.deleteProposal(reference.getProposalName(), reference.getProviderId());
-        assertEquals(proposalManager.getAllProposals("1",0,0).size(),0);
+        assertEquals(((ArrayList<ProposalBasic>) proposalManager.getAllProposals("1",0,0)[1]).size(),0);
     }
 }
