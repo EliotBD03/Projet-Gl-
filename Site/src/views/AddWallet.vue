@@ -62,6 +62,7 @@
                     return response.json().then(json => Promise.reject(json)); 
                   }
                 }
+                this.$router.push({ name: 'Wallets' });
               })
               .catch(error => {
                 if (error.message === "Token") {
@@ -74,7 +75,6 @@
                   GlobalMethods.errorApi(error.error);
                 }
               });
-          this.$router.push({ name: 'wallet' });
         }
       }
     }

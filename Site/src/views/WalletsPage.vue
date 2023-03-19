@@ -7,7 +7,6 @@
         <div class=cards v-for="wallet in listWallet" :key="wallet.id">
           <div class="texte">
           <p class="name"> {{ wallet.name }} :</p>
-          <p> {{ wallet.nameOwner }}</p>
           <p> {{ wallet.address }}</p>
           </div>
           <div @click.prevent.left="seeMore(wallet)">
@@ -65,7 +64,7 @@ export default {
       };
       this.loading = true; //bloquer les demandes de loader pendant ce temps.
       try {
-        const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
+        const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=1`, requestOptions);
         if (!response.ok) { 
           const data = await response.text();
           if(response.status == 401 && data.trim() === ''){
@@ -77,10 +76,17 @@ export default {
           }
         } else {
           const data = await response.json(); 
-          this.listWallet.push(data.wallets); //ajouter la suite de la réponse à la liste
           this.lastPage = data.last_page;
+          if(this.lastPage == -1){
+              this.loading = true;
+              Swal.fire('No wallet');          
+          }
+          else{
+            this.listWallet.push(data.wallets); //ajouter la suite de la réponse à la liste
+            this.listWallet = this.listWallet.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
+            this.loading = false;
+          }
         }
-        this.loading = false;
       } catch(error) {
           if(error.message === "Token") {
             this.$cookies.remove("token");
@@ -88,14 +94,8 @@ export default {
             Swal.fire('Your connection has expired');
             this.$router.push("/");
           } 
-          else {
-            if(this.nbr == 1){
-              this.loading = true;
-              Swal.fire('No wallet');
-            }
-            else{
-              GlobalMethods.errorApi(error.message);
-            }
+          else {  
+            GlobalMethods.errorApi(error.message);
           }
       }
     },
@@ -140,20 +140,20 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 100vh;
 }
 
 .homebutton {
   display: flex;
   justify-content: center;
 }
-
 .allcards {
-   display: flex;
-   align-items: center;
-   flex-direction: row;
-   justify-content: space-evenly;
- }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin-top: 10vh;
+}
 
 .cards {
   display: flex;
@@ -165,7 +165,9 @@ export default {
   box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
   margin: 20px;
   border-radius: 30px;
+  
 }
+
 
 .texte {
   display: flex;
