@@ -103,8 +103,8 @@ public class LogApi extends MyApi implements RouterApi
     {
         LOGGER.info("Disconnect...");
 
-        String token = null;
-        if(checkParam((token = routingContext.request().getHeader("Authorization")), routingContext))
+        String token = routingContext.request().getHeader("Authorization");
+        if(token == null || token.length() <= 7 || !(token.substring(0, 7).equals("Bearer ")))
         {
             routingContext.response()
                 .setStatusCode(400)
@@ -113,8 +113,6 @@ public class LogApi extends MyApi implements RouterApi
                             .put("error", "You have to send the token to disconnect.")));
             return;
         }
-
-        if(token.length() <= 7 || !token.substring(7).equals("Bearer ")) return;
 
         token = token.substring(7);
 

@@ -297,11 +297,13 @@ public class MyApi extends AbstractVerticle
      */
     private void handleOptionsRequest(RoutingContext routingContext)
     {
+        LOGGER.info("Check CORS...");
+
         String origin = routingContext.request().getHeader(HttpHeaders.ORIGIN);
         routingContext.response()
             .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin)
             .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE,OPTIONS")
-            .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type")
+            .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization")
             .setStatusCode(200)
             .end();
     }
@@ -355,7 +357,7 @@ public class MyApi extends AbstractVerticle
             JWTAuthHandler.create(MyApi.jwt);
 
             String token = routingContext.request().headers().get("Authorization");
-            if(token == null || token.length() <= 7 || !token.substring(7).equals("Bearer "))
+            if(token == null || token.length() <= 7 || !(token.substring(0, 7).equals("Bearer ")))
             {
                 routingContext.response()
                     .setStatusCode(401)
