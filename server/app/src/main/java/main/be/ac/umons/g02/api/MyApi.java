@@ -93,7 +93,7 @@ public class MyApi extends AbstractVerticle
 
         final Router router = Router.router(vertx);
 
-		router.route().handler(routingContext -> HandlerUtils.handleSite(routingContext));
+        router.route().handler(routingContext -> HandlerUtils.handleSite(routingContext));
         router.options("/*").handler(this::handleOptionsRequest);
         router.route("/api/*").handler(routingContext -> HandlerUtils.handleToken(routingContext));
         router.route("/api/client/*").handler(routingContext -> HandlerUtils.handleRoleClient(routingContext));
@@ -289,7 +289,7 @@ public class MyApi extends AbstractVerticle
 
         return false;
     }
-    
+
     /**
      * Méthode qui permet de vérifier que les headers de CORS sont corrects
      *
@@ -306,6 +306,31 @@ public class MyApi extends AbstractVerticle
             .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization")
             .setStatusCode(200)
             .end();
+    }
+
+    /**
+     * Méthode qui permet de récupérer la valeur d'une clé qui est dans le token
+     *
+     * @param token - Le token qui contient l'objet
+     * @param routingContext - Le contexte de la requête
+     */
+    public static String getDataInToken(RoutingContext routingContext, String key)
+    {
+        String token = routingContext.request().getHeader("Authorization");
+        String[] parts = token.split("\\.");
+        String payload = new String(Base64.getDecoder().decode(parts[1]), StandardCharsets.UTF_8);
+
+        javax.json.JsonObject jsonPayload = javax.json.Json.createReader(new StringReader(payload)).readObject();
+
+        String data = jsonPayload.getString(key, null);
+
+        if(data == null)
+            routingContext.response()
+                .setStatusCode(400)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "The token does not contain all the necessary information.")));
+        return data;
     }
 
     /**
@@ -389,8 +414,10 @@ public class MyApi extends AbstractVerticle
         {
             LOGGER.info("Check Role Client...");
 
-            String role = routingContext.user().principal().getString("role");
-            if(role != null && role.equals("client"))
+            String role = null;
+            if(((role = MyApi.getDataInToken(routingContext, "role")) == null)) return;
+
+            if(role.equals("client"))
                 routingContext.next();
             else
                 routingContext.response()
@@ -410,8 +437,10 @@ public class MyApi extends AbstractVerticle
         {
             LOGGER.info("Check Role Provider...");
 
-            String role = routingContext.user().principal().getString("role");
-            if(role != null && role.equals("provider"))
+            String role = null;
+            if(((role = MyApi.getDataInToken(routingContext, "role")) == null)) return;
+
+            if(role.equals("provider"))
                 routingContext.next();
             else
                 routingContext.response()
@@ -431,8 +460,10 @@ public class MyApi extends AbstractVerticle
         {
             LOGGER.info("Check Role Common...");
 
-            String role = routingContext.user().principal().getString("role");
-            if(role != null && (role.equals("client") || role.equals("provider")))
+            String role = null;
+            if(((role = MyApi.getDataInToken(routingContext, "role")) == null)) return;
+
+            if(role.equals("client") || role.equals("provider"))
                 routingContext.next();
             else
                 routingContext.response()

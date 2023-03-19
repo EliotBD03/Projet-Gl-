@@ -1,6 +1,7 @@
 package main.be.ac.umons.g02.api;
 
 import main.be.ac.umons.g02.App;
+import main.be.ac.umons.g02.api.MyApi;
 import main.be.ac.umons.g02.database.CommonDB;
 import main.be.ac.umons.g02.data_object.Notification;
 import main.be.ac.umons.g02.data_object.ContractFull;
@@ -66,7 +67,7 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("GetAllLanguages...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         int[] slice = getSlice(routingContext);
         if(slice == null)
@@ -95,7 +96,7 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("GetFavouriteLanguage...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         String language = commonDB.getLanguageManager().getFavouriteLanguage(id);
 
@@ -117,7 +118,7 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("GetCurrentLanguage...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         String language = commonDB.getLanguageManager().getCurrentLanguage(id);
 
@@ -139,7 +140,7 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("AddLanguage...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         String language = routingContext.pathParam("language");
 
@@ -162,7 +163,7 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("ChangeCurrentLanguage...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         String language = routingContext.pathParam("language");
 
@@ -185,7 +186,7 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("ChangeFavouriteLanguage...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         String language = routingContext.pathParam("language");
 
@@ -213,7 +214,7 @@ public class CommonApi extends MyApi implements RouterApi
         if(App.checkCode(mail, code))
         {
             String id = null;
-            if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+            if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
             String newPwd = routingContext.pathParam("new_pwd");
 
@@ -243,7 +244,7 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("GetAllNotifications...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         int[] slice = getSlice(routingContext);
         if(slice == null)
@@ -274,7 +275,9 @@ public class CommonApi extends MyApi implements RouterApi
 
         String idNotification = routingContext.pathParam("id_notification");
 
-        String role = routingContext.user().principal().getString("role");
+        String role = null;
+        if(((role = MyApi.getDataInToken(routingContext, "role")) == null)) return;
+
         if(role.equals("client"))
         {
             JsonObject body = null;

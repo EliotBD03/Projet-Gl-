@@ -1,5 +1,7 @@
 package main.be.ac.umons.g02.api;
 
+import main.be.ac.umons.g02.api.MyApi;
+
 import main.be.ac.umons.g02.database.CommonDB;
 import main.be.ac.umons.g02.data_object.ClientBasic;
 import main.be.ac.umons.g02.data_object.ContractBasic;
@@ -85,7 +87,7 @@ public class ProviderApi extends MyApi implements RouterApi
         LOGGER.info("GetAllHisClients...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         int[] slice = getSlice(routingContext);
         if(slice == null)
@@ -115,7 +117,7 @@ public class ProviderApi extends MyApi implements RouterApi
         LOGGER.info("GetContractOfClient...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         String idClient = routingContext.pathParam("id_client");
 
@@ -147,7 +149,7 @@ public class ProviderApi extends MyApi implements RouterApi
         LOGGER.info("DeleteClient...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         String idClient = routingContext.pathParam("id_client");
 
@@ -171,7 +173,7 @@ public class ProviderApi extends MyApi implements RouterApi
         LOGGER.info("GetAllProposals...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         int[] slice = getSlice(routingContext);
         if(slice == null)
@@ -200,7 +202,7 @@ public class ProviderApi extends MyApi implements RouterApi
         LOGGER.info("GetProposals...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         String nameProposal = routingContext.pathParam("name_proposal");
 
@@ -227,7 +229,7 @@ public class ProviderApi extends MyApi implements RouterApi
         LOGGER.info("AddProposal...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         JsonObject body = null;
         if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
@@ -304,7 +306,7 @@ public class ProviderApi extends MyApi implements RouterApi
         LOGGER.info("DeleteProposal...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         String nameProposal = routingContext.pathParam("name_proposal");
 
@@ -368,7 +370,7 @@ public class ProviderApi extends MyApi implements RouterApi
         LOGGER.info("ProviderProposeContract...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         JsonObject body = null;
         if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;

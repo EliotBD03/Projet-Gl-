@@ -1,5 +1,7 @@
 package main.be.ac.umons.g02.api;
 
+import main.be.ac.umons.g02.api.MyApi;
+
 import main.be.ac.umons.g02.database.CommonDB;
 import main.be.ac.umons.g02.data_object.WalletBasic;
 import main.be.ac.umons.g02.data_object.WalletFull;
@@ -57,7 +59,7 @@ public class ClientApi extends MyApi implements RouterApi
         LOGGER.info("GetAllWallets...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         int[] slice = getSlice(routingContext);
         if(slice == null)
@@ -168,7 +170,7 @@ public class ClientApi extends MyApi implements RouterApi
         LOGGER.info("GetAllContracts...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         int[] slice = getSlice(routingContext);
         if(slice == null)
@@ -252,7 +254,7 @@ public class ClientApi extends MyApi implements RouterApi
         LOGGER.info("ClientProposeContract...");
 
         String id = null;
-        if(checkParam((id = routingContext.user().principal().getString("id")), routingContext)) return;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
         JsonObject body = null;
         if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
