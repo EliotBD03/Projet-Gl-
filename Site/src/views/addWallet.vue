@@ -51,7 +51,7 @@
             headers: {'Authorization': this.$cookies.get("token")},
             body: JSON.stringify({ name: this.name, address: this.address })
           };
-          fetch("https://babawallet.alwaysdata.net/client/wallets", requestOptions)
+          fetch("https://babawallet.alwaysdata.net/api/client/wallets", requestOptions)
               .then(response => {
                 if(!response.ok){
                   const data = response.text();
