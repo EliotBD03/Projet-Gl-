@@ -164,7 +164,7 @@ CREATE TABLE `notification` (
   `linked_contract` varchar(30) DEFAULT NULL,
   `linked_proposal_name` varchar(30) DEFAULT NULL,
   `provider_id_proposal` int(10) DEFAULT NULL,
-  `context` varchar(25) DEFAULT NULL,
+  `context` varchar(255) DEFAULT NULL,
   `linked_ean`varchar(18) DEFAULT NULL,
   `linked_address`varchar(42) DEFAULT NULL,
   `creation_date` timestamp DEFAULT CURRENT_TIMESTAMP,
