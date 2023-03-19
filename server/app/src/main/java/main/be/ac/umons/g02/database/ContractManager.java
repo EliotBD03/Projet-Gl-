@@ -35,7 +35,7 @@ public class ContractManager
         return contract;
     }
 
-    public ArrayList<ContractBasic> getAllContracts(String clientId, int base, int limit)
+    public Object[] getAllContracts(String clientId, int base, int limit)
     {
         String query = "SELECT * FROM contract WHERE client_id=" + clientId +" LIMIT "+base + ", " + (limit + base);
         if(base < 0)
@@ -43,6 +43,9 @@ public class ContractManager
 
         DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+clientId,true);
         String clientName = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
+
+        DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM contract WHERE client_id="+clientId,true);
+        int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
 
         DB.getInstance().executeQuery(query, true);
 
@@ -63,17 +66,19 @@ public class ContractManager
             ean = results.get(1).get(i);
             contractBasics.add(new ContractBasic(contractId,ean, providerId, clientId, providerName, clientName));
         }
-        return contractBasics;
+        return new Object[] {count, contractBasics};
     }
 
-    public ArrayList<ContractBasic> getCommonContracts(String clientId, String providerId, int base, int limit)
+    public Object[] getCommonContracts(String clientId, String providerId, int base, int limit)
     {
-        ArrayList<ContractBasic> contractBasics = getAllContracts(clientId, base, limit);
+        ArrayList<ContractBasic> contractBasics = (ArrayList<ContractBasic>) getAllContracts(clientId, base, limit)[1];
         ArrayList<ContractBasic> results = new ArrayList<>();
         for(int i = 0; i < contractBasics.size(); i++)
             if(contractBasics.get(i).getProviderId().equals(providerId))
                 results.add(contractBasics.get(i));
-        return results;
+        DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM contract WHERE client_id="+clientId + " AND provider_id="+providerId, true);
+        int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
+        return new Object[] {count, results};
     }
 
     public void deleteContract(String contractId)
@@ -131,7 +136,8 @@ public class ContractManager
                 +"WHERE (proposal_name,provider_id) "
                 +"IN (SELECT proposal_name, provider_id FROM contract WHERE address='"+address + "')",true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"water","gas","electricity"});
-        for(int i = 0; i < 3 ; i++)
+        System.out.println(results.get(0).size());
+        for(int i = 0; i < results.size() ; i++)
         {
             if(results.get(i).get(0).equals("1"))
                 return WalletManager.energyType.values()[i];

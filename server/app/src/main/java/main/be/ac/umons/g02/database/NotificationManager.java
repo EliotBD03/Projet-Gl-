@@ -23,9 +23,9 @@ public class NotificationManager
         DB.getInstance().executeQuery("INSERT INTO notification(sender_id, receiver_id, linked_proposal_name, provider_id_proposal, context, ean, address)"+
                 " VALUES("+senderId+","+receiverId+",'"+proposalName+"',"+proposalOwnerId+",'"+context+"','"+ean+"','"+address+"')",false);
     }
-    public ArrayList<Notification> getAllNotifications(String idUser, int base, int limit)
+    public Object[] getAllNotifications(String idUser, int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM notification WHERE id="+idUser + " LIMIT "+ base+", "+(base+limit), true);
+        DB.getInstance().executeQuery("SELECT * FROM notification WHERE receiver_id="+idUser + " LIMIT "+ base+", "+(base+limit), true);
 
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {
                 "notification_id", "sender_id", "receiver_id", "linked_contract", "context", "creation_date"});
@@ -35,8 +35,9 @@ public class NotificationManager
         {
             notifications.add(new Notification(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i), results.get(3).get(i), results.get(4).get(i), results.get(5).get(i)));
         }
-
-        return notifications;
+        DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM notification WHERE receiver_id="+idUser, true);
+        int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
+        return new Object[] {count, notifications};
     }
 
     /**

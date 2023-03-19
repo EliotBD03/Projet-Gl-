@@ -87,7 +87,8 @@ public class ConsumptionManager
                 "wallet_contract WHERE " +
                 "contract_id IN " +
                 "(SELECT contract_id FROM counter WHERE ean='"+ean+"')",true);
-        String address = DB.getInstance().getResults(new String[] {"address"}).get(0).get(0); //we suppose there is only one contract for one wallet
+        String address = DB.getInstance().getResults(new String[] {"address"}).get(0).get(0); //we suppose there is only one contract for one counter
+        System.out.println(address);
         new WalletManager().addLastConsumption(address, maxVal, new ContractManager().getTypeOfEnergy(address));
 
 

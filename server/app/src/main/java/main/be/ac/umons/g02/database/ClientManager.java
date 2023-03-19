@@ -25,24 +25,32 @@ public class ClientManager
 
         return clientBasics;
     }
-    public ArrayList<ClientBasic> getAllClients(int base, int limit)
+    public Object[] getAllClients(int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN (SELECT id FROM client) LIMIT "+base+", "+(base+limit),true);
-        return getClientBasics();
+        ArrayList<ClientBasic> clientBasics =  getClientBasics();
+        DB.getInstance().executeQuery("SELECT count(*) AS c FROM client", true);
+        int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
+        return new Object[] {count, clientBasics};
     }
 
     /**
      * "SELECT * FROM user WHERE id in (SELECT client_id FROM wallet WHERE address IN (SELECT address FROM wallet_contract WHERE contract_id IN (SELECT contract_id FROM provider_contract WHERE provider_id="+provider_id+"))) LIMIT "+base+","+base+limit
      */
-    public ArrayList<ClientBasic> getAllHisClients(String providerId, int base, int limit)
+    public Object[] getAllHisClients(String providerId, int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN "+
                 "(SELECT client_id FROM wallet WHERE address IN "+
                 "(SELECT address FROM wallet_contract WHERE contract_id IN "+
                 "(SELECT contract_id FROM provider_contract WHERE provider_id="+providerId+"))) "+
                 "LIMIT "+base+", "+base+limit,true);
-
-        return getClientBasics();
+        ArrayList<ClientBasic> clientBasics = getClientBasics();
+        DB.getInstance().executeQuery("SELECT count(*) AS c FROM user WHERE id IN "+
+                "(SELECT client_id FROM wallet WHERE address IN "+
+                "(SELECT address FROM wallet_contract WHERE contract_id IN "+
+                "(SELECT contract_id FROM provider_contract WHERE provider_id="+providerId+"))) ",true);
+        int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
+        return new Object[] {count, clientBasics};
     }
 
     public void deleteClient(String providerId, String clientId)

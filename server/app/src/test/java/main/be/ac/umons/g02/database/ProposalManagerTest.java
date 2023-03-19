@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProposalManagerTest
 {
-
-//TODO EFFECTUER LES TESTS !!!
     static final ProposalFull reference = new ProposalFull("1","jackie", "electricity", "100", "elec");
 
     @BeforeAll
@@ -79,12 +77,12 @@ class ProposalManagerTest
         assertEquals(toBeTested.getEndOfPeakHours(), reference.getEndOfPeakHours());
     }
 
-   // @Test
+    @Test
     @Order(5)
     void deleteProposal()
     {
         ProposalManager proposalManager = new ProposalManager();
         proposalManager.deleteProposal(reference.getProposalName(), reference.getProviderId());
-        assertEquals(proposalManager.getAllProposals("",0,0).size(),0);
+        assertEquals(proposalManager.getAllProposals("1",0,0).size(),0);
     }
 }

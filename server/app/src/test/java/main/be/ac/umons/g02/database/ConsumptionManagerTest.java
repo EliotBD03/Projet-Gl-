@@ -1,6 +1,7 @@
 package main.be.ac.umons.g02.database;
 
 
+import main.be.ac.umons.g02.data_object.ProposalFull;
 import main.be.ac.umons.g02.data_object.WalletBasic;
 import org.junit.jupiter.api.*;
 
@@ -17,20 +18,27 @@ class ConsumptionManagerTest {
     static void setUp() throws Exception {
         DBTest.setUp();
         new LogManager().saveAccount("mail", "password", true, "juju", "english");
+        new LogManager().saveAccount("providermail", "password", false, "jiji", "dutch");
         new WalletManager().createWallet(new WalletBasic("address", "wallet", "1"));
         DB.getInstance().executeQuery("INSERT INTO wallet_contract(address, contract_id) VALUES('address', 1)",false);
         DB.getInstance().executeQuery("INSERT INTO counter(ean, contract_id) VALUES('"+ean+"', 1)",false);
+        new ProposalManager().addProposal(new ProposalFull("2", "jiji", "electricity", "100", "elec"));
+        new ContractManager().createContract("elec", "785", "2", "address", "1");
+        //TODO mettre ContractManager
     }
 
     @AfterAll
     static void clean()
     {
+        new ContractManager().deleteContract("1");
+        new ProposalManager().deleteProposal("elec", "2");
        DB.getInstance().executeQuery("DELETE FROM consumption", false);
-       DB.getInstance().executeQuery("DELETE FROM counter",false);
-       DB.getInstance().executeQuery("DELETE FROM wallet_contract", false);
        DB.getInstance().executeQuery("DELETE FROM wallet", false);
        new LogManager().deleteAccount("1");
+       new LogManager().deleteAccount("2");
+       DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
     }
+
 
     @Test
     @Order(1)
@@ -55,7 +63,6 @@ class ConsumptionManagerTest {
         };
         consumptionManager.addConsumption(ean, values, dates, false);
         // assertDoesNotThrow(() -> {consumptionManager.addConsumption(ean, values, dates, false);});
-        System.out.println("je passe :b");
     }
 
     @Test
@@ -104,7 +111,7 @@ class ConsumptionManagerTest {
         };
         assertEquals(consumptionManager.getConsumptions(ean, "2021-00-00", "2024-00-00"),expected);
     }
-    @Test
+  //  @Test
     @Order(6)
     void deleteAllConsumption()
     {

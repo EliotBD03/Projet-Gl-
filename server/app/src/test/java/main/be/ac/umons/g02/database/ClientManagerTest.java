@@ -5,6 +5,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClientManagerTest {
@@ -36,7 +38,7 @@ class ClientManagerTest {
     void getAllClients()
     {
 
-        ClientBasic toBeTested = new ClientManager().getAllClients(0,1).get(0);
+        ClientBasic toBeTested = ((ArrayList<ClientBasic>) new ClientManager().getAllClients(0,1)[1]).get(0);
         assertEquals(toBeTested.getClientId(), client.getClientId());
         assertEquals(toBeTested.getName(), client.getName());
         assertEquals(toBeTested.getMail(), client.getMail());
@@ -45,7 +47,7 @@ class ClientManagerTest {
     @Test
     void getAllHisClients()
     {
-        ClientBasic toBeTested = new ClientManager().getAllHisClients("2", 0, 1).get(0);
+        ClientBasic toBeTested = ((ArrayList<ClientBasic>) new ClientManager().getAllHisClients("2", 0, 1)[1]).get(0);
         assertEquals(toBeTested.getMail(), client.getMail());
         assertEquals(toBeTested.getName(), client.getName());
         assertEquals(toBeTested.getClientId(), client.getClientId());
@@ -57,6 +59,6 @@ class ClientManagerTest {
     {
         ClientManager clientManager = new ClientManager();
         clientManager.deleteClient("2","1");
-        assertEquals(clientManager.getAllHisClients("1", 0, 1).size(), 0);
+        assertEquals(((ArrayList<ClientBasic>) clientManager.getAllHisClients("1", 0, 1)[1]).size(), 0);
     }
 }

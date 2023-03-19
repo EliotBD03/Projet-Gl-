@@ -14,7 +14,7 @@ public class WalletManager
     {
        return DB.getInstance().isThereSomething("wallet", new String[] {"address"}, new String[] {"'" +address+ "'"});
     }
-    public ArrayList<WalletBasic> getAllWallets(String clientId, int base, int limit)
+    public Object[] getAllWallets(String clientId, int base, int limit)
     {
         //if(!new LogManager().isClient(clientId))
           //  throw new Exception("the client doesn't exist");
@@ -32,8 +32,10 @@ public class WalletManager
         {
             walletBasics.add(new WalletBasic(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i)));
         }
+        DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM wallet WHERE client_id="+clientId, true);
+        int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
 
-        return walletBasics;
+        return new Object[] {count,walletBasics};
     }
 
 
