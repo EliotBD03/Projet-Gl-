@@ -77,11 +77,11 @@ export default {
         } else {
           const data = await response.json(); 
           this.lastPage = data.last_page;
-          if(this.lastPage == -1){
+          if(this.lastPage == 0){
               this.loading = true;
               Swal.fire('No wallet');          
           }
-          else{
+          else if(this.lastPage >= this.nbr){
             this.listWallet.push(data.wallets); //ajouter la suite de la réponse à la liste
             this.listWallet = this.listWallet.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
             this.loading = false;

@@ -108,6 +108,9 @@ public class ClientApi extends MyApi implements RouterApi
     {
         LOGGER.info("CreateWallet...");
 
+        String id = null;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
         JsonObject body = null;
         if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
 
@@ -117,10 +120,7 @@ public class ClientApi extends MyApi implements RouterApi
         String name = null;
         if(checkParam((name = body.getString("name")), routingContext)) return;
 
-        String nameOwner = null;
-        if(checkParam((nameOwner = body.getString("name_owner")), routingContext)) return;
-
-        WalletBasic wallet = new WalletBasic(address, name, nameOwner);
+        WalletBasic wallet = new WalletBasic(address, name, id);
         commonDB.getWalletManager().createWallet(wallet);
 
         routingContext.response()
