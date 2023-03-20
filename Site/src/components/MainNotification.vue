@@ -10,19 +10,36 @@
       <div>
       </div>
     </div>
+    <div class="statesButtons">
+      <div class="acceptbutton" @click.prevent.left="accept()">
+      ACCEPT
+      </div>
+      <div class="refusebutton" @click.prevent.left="refuse()">
+        REFUSE
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "MainNotification",
-  props: ["title","time","text","color"],
+  props: ["title","time","text","color","id"],
+
+  methods: {
+    accept() {
+      console.log("accept");
+    },
+    refuse() {
+      console.log("refuse");
+    }
+  }
 }
 </script>
 
 <style scoped>
 .card {
-  width: 500px;
+  width: 700px;
   height: 70px;
   background: #353535;
   border-radius: 20px;
@@ -80,5 +97,38 @@ export default {
   font-weight: lighter;
   display: flex;
   align-items: center;
+}
+
+.statesButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.acceptbutton {
+  width: 50px;
+  height: 20px;
+  background: #34c98e;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.refusebutton {
+  width: 50px;
+  height: 20px;
+  background: red;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: white;
 }
 </style>

@@ -4,7 +4,7 @@
       <MainHeader text="header.notifications"/>
     </div>
     <div class="notifs">
-      <MainNotification class="notif" v-for="notif in notifications" :key="notif" :title="notif.title" :time="notif.time" :text="notif.text" />
+      <MainNotification class="notif" v-for="notif in notifications" :key="notif" :title="notif.title" :time="notif.time" :text="notif.text" :id="notif.id"/>
     </div>
     <div class="homebutton" @click.prevent.left="redirecting()">
       <GoButton text="header.home" :colore="'#B1B9FC'"/>
@@ -17,17 +17,60 @@ import MainHeader from "@/components/MainHeader.vue";
 import MainNotification from "@/components/MainNotification.vue";
 import GoButton from "@/components/GoButton.vue";
 import GlobalMethods from "@/components/GlobalMethods.vue";
+import Swal from "sweetalert2";
 export default {
   components: {
     MainNotification,
     MainHeader,
     GoButton
   },
+  data() {
+    return {
+      notifications: []
+    }
+  },
   /*Méthode pour rediriger vers la page d'accueil*/
   methods: {
+    async getNotifications() {
+      const requestOptions = {
+        method: "GET",
+        headers: {'Authorization': this.$cookies.get("token")},
+      }
+      try {
+        const response = await fetch(`https://babawallet.alwaysdata.net/api/${this.$cookies.get("type")}/notifications`, requestOptions);
+        if (!response.ok) {
+          const data = await response.text();
+          if (response.status == 401 && data.trim() === '') {
+            throw new Error("Token");
+          } else {
+            const data = await response.json();
+            throw new Error(data.error);
+          }
+        } else {
+          const data = await response.json();
+          this.lastPage = data.last_page;
+          if (this.lastPage == 0) {
+            this.loading = true;
+            Swal.fire('No notifications yet!');
+          } else {
+            this.notifications.push(data.notifications);
+            this.listWallet = this.listWallet.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
+          }
+        }
+      } catch (error) {
+        if (error.message === "Token") {
+          this.$cookies.remove("token");
+          this.$cookies.remove("role");
+          Swal.fire('Your connection has expired');
+          this.$router.push("/");
+        } else {
+          GlobalMethods.errorApi(error.message);
+        }
+      }
+    },
     redirecting() {
       GlobalMethods.isAClient();
-    }
+    },
   },
   /*Méthode pour charger la langue sauvegardée en cookie*/
   mounted() {
@@ -37,17 +80,6 @@ export default {
       this.$cookies.set("lang", this.$i18n.locale)
     }
   },
-  data () {
-    return {
-      notifications: [
-        {
-          title: "Maxime",
-          time: "12 " + this.$t("settings.minutes"),
-          text: "has updated his contract"
-        }
-      ]
-    }
-  }
 };
 </script>
 
