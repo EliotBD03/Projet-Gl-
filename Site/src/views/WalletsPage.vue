@@ -103,7 +103,7 @@ export default {
     pour augmenter le nombre de la page et appeler getPage*/
     loader()
     {
-      if(!this.loading)
+       if(!this.loading)
       {
         this.nbr++;
         this.getPage();
@@ -121,7 +121,7 @@ export default {
     et on redirige vers walletFull*/
     seeMore(wallet){
       sessionStorage.setItem('address', wallet.address);
-      this.$router.push({name: "WalletsFull"});
+      this.$router.push( {name: "WalletFull"} );
     }
   }
 }

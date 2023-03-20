@@ -1,24 +1,29 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text= {{ wallet.name }}/>
+      <MainHeader :text="wallet.name"/>
     </div>
     <div class ="list">
       <p> General information : </p>
       <p> Owner : {{ wallet.nameOwner }}</p>
       <p> Address : {{ wallet.address }}</p>
       <p> Last consumptions :</p>
-      <p> Electricity : {{ wallet.lastConsumptionOfWater }}</p>
-      <p> Gas : {{ wallet.lastConsumptionOfGas }}</p>
-      <p> Water : {{ wallet.lastConsumptionOfElectricity }}</p>
+      <p v-if="!wallet.lastConsumptionOfWater">Water : No information</p>
+      <p v-else>Water : {{ wallet.lastConsumptionOfWater }}</p>
+      <p v-if="!wallet.lastConsumptionOfGas">Gas : No information</p>
+      <p v-else>Gas : {{ wallet.lastConsumptionOfGas }}</p>
+      <p v-if="!wallet.lastConsumptionOfElectricity">Electricity : No information</p>
+      <p v-else>Electricity : {{ wallet.lastConsumptionOfElectricity }}</p>
       <p> Associated contracts :</p>
-      <div v-for="contract in wallet.listContracts" :key="contract.id">
-        <p> nom = {{ contract.name }}</p>
-        <p> conso = {{ contract.consumption }}</p>
-        <p> prix = {{ contract.price }}</p>
-        <p>--------------------------</p>
-        <!-- A voir pour le bouton Go, il faut que contract.vue soit fait-->
+      <div v-if="wallet.listContracts">
+        <div v-for="contract in wallet.listContracts" :key="contract.id">
+          <p> nom = {{ contract.name }}</p>
+          <p> conso = {{ contract.consumption }}</p>
+          <p> prix = {{ contract.price }}</p>
+          <p>--------------------------</p>
+        </div>
       </div>
+      <div v-else> No information</div>
     </div>
     <div class="bottombutton">
       <div class="backbutton" @click.prevent.left="back()">
@@ -46,10 +51,10 @@ export default {
   },
   data(){
     return{
-      address : JSON.parse(sessionStorage.getItem('address')),
-      wallet : ''
+      address : sessionStorage.getItem('address'),
+      wallet : []
     }},
-  /*Méthode pour charger la langue sauvegardée en cookie*/
+ /* /*Méthode pour charger la langue sauvegardée en cookie*/
   mounted() {
     if (this.$cookies.get("lang")) {
       this.$i18n.locale = this.$cookies.get("lang");
@@ -64,7 +69,7 @@ export default {
       headers: {'Authorization' : this.$cookies.get("token")}
     };
     try {
-      const response = await fetch("https://babawallet.alwaysdata.net/api/client/wallets/:${address}",requestOptions);
+      const response = await fetch(`https://babawallet.alwaysdata.net/api/client/wallets/${this.address}`,requestOptions);
         if (!response.ok) { 
           const data = await response.text();
           if(response.status == 401 && data.trim() === ''){
@@ -76,8 +81,8 @@ export default {
           }
         } 
         else {
-        const data = await response.json();
-        this.wallet = data.wallet;
+          const data = await response.json();
+          this.wallet = data.wallet; 
         }
     } catch(error) {
         if(error.message === "Token") {
@@ -98,7 +103,7 @@ export default {
         method: "DELETE",
         headers: {'Authorization' : this.$cookies.get("token")}
       };
-      fetch("https://babawallet.alwaysdata.net/api/client/wallets/:${address}", requestOptions)
+      fetch(`https://babawallet.alwaysdata.net/api/client/wallets/${this.address}`, requestOptions)
           .then(response => {
             if(!response.ok){
               const data = response.text();
@@ -144,7 +149,8 @@ export default {
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 }
 
@@ -164,7 +170,14 @@ export default {
 }
 
 .list{
-  margin-top : 10%;
-  text-align: center;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
 }
 </style>

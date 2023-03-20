@@ -66,8 +66,8 @@ const routes = [
         component: () => import('@/views/HomeClient.vue')
       },
       {
-        path: '/walletsFull',
-        name: 'WalletsFull',
+        path: '/walletFull',
+        name: 'WalletFull',
         component: () => import('@/views/WalletFull.vue')
       },
       {
