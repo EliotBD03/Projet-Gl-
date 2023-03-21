@@ -19,7 +19,6 @@ public class WalletFull extends WalletBasic{
 
     public ArrayList<ContractBasic> getContracts()
     {
-        //return (ArrayList<ContractBasic>) Collections.unmodifiableList(contracts);
         return contracts;
     }
 

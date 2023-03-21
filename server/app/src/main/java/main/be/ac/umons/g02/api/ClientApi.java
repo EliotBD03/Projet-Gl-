@@ -121,13 +121,21 @@ public class ClientApi extends MyApi implements RouterApi
         String name = null;
         if(checkParam((name = body.getString("name")), routingContext)) return;
 
-        WalletBasic wallet = new WalletBasic(address, name, id);
-        commonDB.getWalletManager().createWallet(wallet);
+        String nameOwner = commonDB.getLogManager().getName(id);
 
-        routingContext.response()
-            .setStatusCode(201)
-            .putHeader("Content-Type", "application/json")
-            .end();
+        WalletBasic wallet = new WalletBasic(address, name, id, nameOwner);
+
+        if(commonDB.getWalletManager().createWallet(wallet))
+            routingContext.response()
+                .setStatusCode(201)
+                .putHeader("Content-Type", "application/json")
+                .end();
+        else
+            routingContext.response()
+                .setStatusCode(400)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "this address is already taken.")));
     }
 
     /** 
