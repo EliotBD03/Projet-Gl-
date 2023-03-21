@@ -11,9 +11,9 @@ public class WalletFull extends WalletBasic{
     private double lastConsumptionOfElectricity;
     private double lastConsumptionOfGas;
 
-    public WalletFull(String address, String name, String ownerId)
+    public WalletFull(String address, String name, String ownerId, String ownerName)
     {
-        super(address, name, ownerId);
+        super(address, name, ownerId, ownerName);
         contracts = new ArrayList<>();
     }
 

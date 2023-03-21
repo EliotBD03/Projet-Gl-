@@ -5,11 +5,13 @@ public class WalletBasic
     protected String address;
     protected String name;
     protected String clientId;
+    protected  String ownerName;
 
-    public WalletBasic(String address, String name, String ownerId){
+    public WalletBasic(String address, String name, String ownerId, String ownerName){
         this.address = address;
         this.name = name;
         this.clientId = ownerId;
+        this.ownerName = ownerName;
     }
 
     public String getAddress()
@@ -27,5 +29,6 @@ public class WalletBasic
         return clientId;
     }
 
+    public String getOwnerName(){return ownerName;}
 
 }

@@ -1,5 +1,6 @@
 package main.be.ac.umons.g02.database;
 
+import com.mysql.cj.log.Log;
 import main.be.ac.umons.g02.data_object.ContractBasic;
 import main.be.ac.umons.g02.data_object.WalletBasic;
 import main.be.ac.umons.g02.data_object.WalletFull;
@@ -31,7 +32,7 @@ public class WalletManager
 
         for(int i = 0; i < results.get(0).size(); i++)
         {
-            walletBasics.add(new WalletBasic(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i)));
+            walletBasics.add(new WalletBasic(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i), new LogManager().getName(results.get(2).get(i))));
         }
         DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM wallet WHERE client_id="+clientId, true);
         int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
@@ -53,7 +54,7 @@ public class WalletManager
                 "latest_consumption_water",
                 "latest_consumption_gas"
         });
-        WalletFull walletFull = new WalletFull(results.get(0).get(0),results.get(1).get(0), results.get(2).get(0));
+        WalletFull walletFull = new WalletFull(results.get(0).get(0),results.get(1).get(0), results.get(2).get(0), new LogManager().getName(results.get(2).get(0)));
         walletFull.setLastConsumption(Double.parseDouble(results.get(4).get(0)), Double.parseDouble(results.get(3).get(0)), Double.parseDouble(results.get(5).get(0)));
         ArrayList<ContractBasic> contractBasics =(ArrayList<ContractBasic>) new ContractManager().getAllContracts(walletFull.getClientId(), 0, -1)[1];
         walletFull.addContracts(contractBasics);

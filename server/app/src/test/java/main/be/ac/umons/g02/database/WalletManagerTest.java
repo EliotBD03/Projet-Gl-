@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class WalletManagerTest
 {
 
-    private final WalletBasic walletBasic = new WalletBasic("address", "name", "1");
+    private final WalletBasic walletBasic = new WalletBasic("address", "name", "1", "YOU");
 
     @BeforeAll
     static void setUp() throws Exception
@@ -53,6 +53,7 @@ class WalletManagerTest
         assertEquals(expected.get(0).getAddress(), walletBasic.getAddress());
         assertEquals(expected.get(0).getName(), walletBasic.getName());
         assertEquals(expected.get(0).getClientId(), walletBasic.getClientId());
+        assertEquals(expected.get(0).getOwnerName(), walletBasic.getOwnerName());
     }
 
     @Test
@@ -63,6 +64,7 @@ class WalletManagerTest
         assertEquals(expected.getAddress(), walletBasic.getAddress());
         assertEquals(expected.getName(), walletBasic.getName());
         assertEquals(expected.getClientId(), walletBasic.getClientId());
+        assertEquals(expected.getOwnerName(), walletBasic.getOwnerName());
     }
 
     @Test
