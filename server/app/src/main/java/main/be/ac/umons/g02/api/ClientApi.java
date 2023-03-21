@@ -66,7 +66,8 @@ public class ClientApi extends MyApi implements RouterApi
             return;
 
         Object[] res = commonDB.getWalletManager().getAllWallets(id, slice[0], slice[1]);
-        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        int numberOfPagesRemaining = (((int) res[0]) / slice[1]) + (1-(1/100000000));
+
         ArrayList<WalletBasic> wallets = (ArrayList<WalletBasic>) res[1];
 
         routingContext.response()
@@ -177,7 +178,8 @@ public class ClientApi extends MyApi implements RouterApi
             return;
 
         Object[] res = commonDB.getContractManager().getAllContracts(id, slice[0], slice[1]);
-        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        int numberOfPagesRemaining = (((int) res[0]) / slice[1]) + (1-(1/100000000));
+
         ArrayList<ContractBasic> contracts = (ArrayList<ContractBasic>) res[1];
 
         routingContext.response()
@@ -210,7 +212,8 @@ public class ClientApi extends MyApi implements RouterApi
         if(checkParam((regionCategory = routingContext.request().getParam("region_category")), routingContext)) return;
 
         Object[] res = commonDB.getProposalManager().getAllProposals(energyCategory, regionCategory, slice[0], slice[1]);
-        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        int numberOfPagesRemaining = (((int) res[0]) / slice[1]) + (1-(1/100000000));
+
         ArrayList<ProposalBasic> proposals = (ArrayList<ProposalBasic>) res[1];
 
         routingContext.response()

@@ -74,7 +74,8 @@ public class CommonApi extends MyApi implements RouterApi
             return;
 
         Object[] res = commonDB.getLanguageManager().getAllLanguages(id, slice[0], slice[1]);
-        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        int numberOfPagesRemaining = (((int) res[0]) / slice[1]) + (1-(1/100000000));
+
         ArrayList<String> allLanguages = (ArrayList<String>) res[1];
 
         routingContext.response()
@@ -251,7 +252,8 @@ public class CommonApi extends MyApi implements RouterApi
             return;
 
         Object[] res = commonDB.getNotificationManager().getAllNotifications(id, slice[0], slice[1]);
-        int numberOfPagesRemaining = ((int) res[0]) / slice[1];
+        int numberOfPagesRemaining = (((int) res[0]) / slice[1]) + (1-(1/100000000));
+
         ArrayList<Notification> allNotifications = (ArrayList<Notification>) res[1];
 
         routingContext.response()

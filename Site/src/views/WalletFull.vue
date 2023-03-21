@@ -16,7 +16,7 @@
       <p v-else>Electricity : {{ wallet.lastConsumptionOfElectricity }}</p>
       <p> Associated contracts :</p>
       <div v-if="wallet.listContracts">
-        <div v-for="contract in wallet.listContracts" :key="contract.id">
+        <div v-for="contract in wallet.contracts" :key="contract.id">
           <p> nom = {{ contract.name }}</p>
           <p> conso = {{ contract.consumption }}</p>
           <p> prix = {{ contract.price }}</p>
