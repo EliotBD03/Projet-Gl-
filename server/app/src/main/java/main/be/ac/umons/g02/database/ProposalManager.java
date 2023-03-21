@@ -20,7 +20,7 @@ public class ProposalManager
 
     public Object[] getAllProposals(String providerId, int base, int limit)
     {
-        String query = "SELECT * FROM proposal WHERE provider_id ="+providerId+" LIMIT "+base+","+(base+limit);
+        String query = "SELECT * FROM proposal WHERE provider_id ="+providerId+" LIMIT "+base+","+limit;
         DB.getInstance().executeQuery(query, true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"proposal_name","provider_id",
                 "water", "gas", "electricity", "location"});
@@ -60,11 +60,11 @@ public class ProposalManager
     {
         String query = "SELECT * FROM proposal LIMIT "+base+", "+(base+limit);
         if(energyCategory != null && regionCategory != null)
-            query = "SELECT * FROM proposal WHERE "+energyCategory+"=1 AND location="+regionCategory + " LIMIT "+base+", "+(base+limit);
+            query = "SELECT * FROM proposal WHERE "+energyCategory+"=1 AND location="+regionCategory + " LIMIT "+base+", "+limit;
         else if(energyCategory != null)
             query = "SELECT * FROM proposal WHERE "+energyCategory+"=1 LIMIT "+base+", "+(base+limit);
         else if(regionCategory != null)
-            query = "SELECT * FROM proposal WHERE location="+regionCategory + " LIMIT "+base+", "+(base+limit);
+            query = "SELECT * FROM proposal WHERE location="+regionCategory + " LIMIT "+base+", "+limit;
 
         DB.getInstance().executeQuery("SELECT * FROM proposal LIMIT "+base+", "+(base+limit), true);
         ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults(new String[] {"proposal_name","provider_id",

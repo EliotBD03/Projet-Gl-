@@ -27,7 +27,7 @@ public class ClientManager
     }
     public Object[] getAllClients(int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN (SELECT id FROM client) LIMIT "+base+", "+(base+limit),true);
+        DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN (SELECT id FROM client) LIMIT "+base+", "+limit,true);
         ArrayList<ClientBasic> clientBasics =  getClientBasics();
         DB.getInstance().executeQuery("SELECT count(*) AS c FROM client", true);
         int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
@@ -43,7 +43,7 @@ public class ClientManager
                 "(SELECT client_id FROM wallet WHERE address IN "+
                 "(SELECT address FROM wallet_contract WHERE contract_id IN "+
                 "(SELECT contract_id FROM provider_contract WHERE provider_id="+providerId+"))) "+
-                "LIMIT "+base+", "+base+limit,true);
+                "LIMIT "+base+", "+limit,true);
         ArrayList<ClientBasic> clientBasics = getClientBasics();
         DB.getInstance().executeQuery("SELECT count(*) AS c FROM user WHERE id IN "+
                 "(SELECT client_id FROM wallet WHERE address IN "+

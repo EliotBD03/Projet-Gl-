@@ -32,7 +32,7 @@ public class LanguageManager
     {
         DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM language WHERE id="+userId, true);
         int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
-        DB.getInstance().executeQuery("SELECT saved_language FROM language WHERE id=" + userId + " LIMIT "+base+", "+(base+limit),true);
+        DB.getInstance().executeQuery("SELECT saved_language FROM language WHERE id=" + userId + " LIMIT "+base+", "+limit,true);
         ArrayList<String> languages = new ArrayList<>(DB.getInstance().getResults(new String[] {"saved_language"}).get(0));
         return new Object[] {count, languages};
     }
