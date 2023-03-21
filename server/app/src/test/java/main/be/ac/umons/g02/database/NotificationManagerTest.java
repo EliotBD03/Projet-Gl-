@@ -86,7 +86,7 @@ class NotificationManagerTest
         logManager.saveAccount("providermail", "password", false, "provider", "english");
 
         new ProposalManager().addProposal(new ProposalFull("2", "provider", "electricity", "100", "elect"));
-        new WalletManager().createWallet(new WalletBasic("add", "wallet", "1"));
+        new WalletManager().createWallet(new WalletBasic("add", "wallet", "1", "client"));
 
         notification.acceptNotification("2", "785", "add");
         DB.getInstance().executeQuery("SELECT * FROM notification WHERE notification_id=3",true);
