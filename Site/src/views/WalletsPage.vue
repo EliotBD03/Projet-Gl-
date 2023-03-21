@@ -64,7 +64,7 @@ export default {
       };
       this.loading = true; //bloquer les demandes de loader pendant ce temps.
       try {
-        const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=1`, requestOptions);
+        const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
         if (!response.ok) { 
           const data = await response.text();
           if(response.status == 401 && data.trim() === ''){
