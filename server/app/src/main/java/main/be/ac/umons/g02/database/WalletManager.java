@@ -1,5 +1,6 @@
 package main.be.ac.umons.g02.database;
 
+import main.be.ac.umons.g02.data_object.ContractBasic;
 import main.be.ac.umons.g02.data_object.WalletBasic;
 import main.be.ac.umons.g02.data_object.WalletFull;
 
@@ -54,7 +55,9 @@ public class WalletManager
         });
         WalletFull walletFull = new WalletFull(results.get(0).get(0),results.get(1).get(0), results.get(2).get(0));
         walletFull.setLastConsumption(Double.parseDouble(results.get(4).get(0)), Double.parseDouble(results.get(3).get(0)), Double.parseDouble(results.get(5).get(0)));
-        return walletFull; //TODO pas encore finis
+        ArrayList<ContractBasic> contractBasics =(ArrayList<ContractBasic>) new ContractManager().getAllContracts(walletFull.getClientId(), 0, -1)[1];
+        walletFull.addContracts(contractBasics);
+        return walletFull;
     }
 
     public boolean createWallet(WalletBasic walletBasic)

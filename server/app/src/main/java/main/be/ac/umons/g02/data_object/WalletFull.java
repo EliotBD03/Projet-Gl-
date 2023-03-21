@@ -1,5 +1,6 @@
 package main.be.ac.umons.g02.data_object;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -13,6 +14,7 @@ public class WalletFull extends WalletBasic{
     public WalletFull(String address, String name, String ownerId)
     {
         super(address, name, ownerId);
+        contracts = new ArrayList<>();
     }
 
     public ArrayList<ContractBasic> getContracts()

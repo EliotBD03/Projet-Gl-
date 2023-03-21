@@ -38,7 +38,7 @@ public class ContractManager
     public Object[] getAllContracts(String clientId, int base, int limit)
     {
         String query = "SELECT * FROM contract WHERE client_id=" + clientId +" LIMIT "+base + ", " + limit;
-        if(base < 0)
+        if(limit < 0)
             query = "SELECT * FROM contract WHERE client_id=" + clientId +" LIMIT "+base + ", " + "18446744073709551615"; //18446744073709551615 max(BigInt) in mysql
 
         DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+clientId,true);
