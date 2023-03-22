@@ -4,9 +4,9 @@
       <MainHeader text="header.home"/>
     </div>
     <div class="allcards">
-      <MainCard :text="$t('maincard.clients')"/>
+      <MainCard :text="$t('maincard.clients')" redir="Clients"/>
       <MainCard :text="$t('header.contracts')"/>
-      <MainCard text="$t('header.notifications')"/>
+      <MainCard :text="$t('header.notifications')"/>
     </div>
     <div class="bottombutton">
       <div class="disconnectbutton" @click.prevent.left="callDisconnect()">

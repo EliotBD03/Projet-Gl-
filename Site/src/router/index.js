@@ -115,6 +115,21 @@ const routes = [
         path: '/Home',
         name: 'HomeSupplier',
         component: () => import('@/views/HomeSupplier.vue')
+      },
+      {
+        path: '/clients',
+        name: 'Clients',
+        component: () => import('@/views/ClientsPage.vue')
+      },
+      {
+        path: '/addClient',
+        name: 'addClient',
+        component: () => import('@/views/AddClient.vue')
+      },
+      {
+        path: '/clientFull',
+        name: 'ClientFull',
+        component: () => import('@/views/ClientFull.vue')
       }
     ],beforeEnter: (to, from, next) => {
         if(cookies.isKey("token") && cookies.isKey("role"))
@@ -126,7 +141,7 @@ const routes = [
             next(from.path);
           }
         }
-      }
+    }
   },
   //Redirections valables pour les 2
   {
