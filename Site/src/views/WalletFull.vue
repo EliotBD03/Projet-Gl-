@@ -21,7 +21,9 @@
           <p> consumption = {{ contract.consumption }}</p>
           <p> price = {{ contract.price }}</p>
           <p>--------------------------</p>
-          <!--Voir pour goButton contracts-->
+          <div @click.prevent.left="seeMore(contract)">
+            <GoButton text="button.go" :colore="'#34c98e'"/>
+          </div>
         </div>
       </div>
       <div v-else> No information</div>
@@ -140,6 +142,12 @@ export default {
     back(){
       sessionStorage.removeItem('address');
       this.$router.push({name: 'Wallets'});
+    },
+    /*On sauvegarde le contrat sur lequel on souhaite plus d'informations
+      et on redirige vers contrat*/
+    seeMore(contract){
+      sessionStorage.setItem('contract', contract);
+      //this.$router.push( {name: "Contracts"} );
     }
   }
 };

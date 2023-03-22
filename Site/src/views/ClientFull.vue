@@ -123,12 +123,6 @@
         }
         return true;
       },
-      /*On sauvegarde le client sur lequel on souhaite plus d'informations
-      et on redirige vers clientFull*/
-      seeMore(contract){
-        sessionStorage.setItem('contract', contract);
-        this.$router.push( {name: "ClientsContracts"} );
-      },
       /* Méthode permettant de supprimer un client*/
       deleteClient() {
         const requestOptions = {
@@ -170,7 +164,13 @@
       /*Retourner à la page des clients en supprimant le client du sessionStorage*/
       back(){
         sessionStorage.removeItem('client');
-        //this.$router.push({name: 'Clients'});
+        this.$router.push({name: 'Clients'});
+      },
+      /*On sauvegarde le contrat sur lequel on souhaite plus d'informations
+      et on redirige vers contrat*/
+      seeMore(contract){
+        sessionStorage.setItem('contract', contract);
+        //this.$router.push( {name: "Contracts"} );
       }
     }
   };
