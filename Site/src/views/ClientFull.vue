@@ -44,7 +44,7 @@
     data(){
       return{
         client : sessionStorage.getItem('client'),
-        linkApi : `https://babawallet.alwaysdata.net/api/clients/${this.client.id_client}/contrats/`,
+        linkApi : `https://babawallet.alwaysdata.net/api/provider/clients/${this.client.id_client}/contrats/`,
         nbr : 1,
         loading : false,
         lastPage : 0,
