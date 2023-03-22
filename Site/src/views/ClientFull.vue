@@ -13,7 +13,6 @@
             <p> ean = {{ contract.ean }}</p>
             <p> Type Of Energie = {{ contract.typeOfEnergie }}</p>
             <p>--------------------------</p>
-            <!--Voir pour goButton contracts-->
             <div @click.prevent.left="seeMore(contract)">
               <GoButton text="button.go" :colore="'#34c98e'"/>
             </div>
@@ -168,7 +167,7 @@
               }
             });
       },
-      /*Retourner à la page des clients en supprimant l'adresse du sessionStorage*/
+      /*Retourner à la page des clients en supprimant le client du sessionStorage*/
       back(){
         sessionStorage.removeItem('client');
         this.$router.push({name: 'Clients'});
