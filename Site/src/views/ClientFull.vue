@@ -12,14 +12,6 @@
             <p> name = {{ contract.name }}</p>
             <p> ean = {{ contract.ean }}</p>
             <p> Type Of Energie = {{ contract.typeOfEnergie }}</p>
-            <!-- On prend bien la dernière conso sur les contrats ?-->
-            <p> Last consumptions :</p>
-            <p v-if="!contract.lastConsumptionOfWater">Water : No information</p>
-            <p v-else>Water : {{ contract.lastConsumptionOfWater }}</p>
-            <p v-if="!contract.lastConsumptionOfGas">Gas : No information</p>
-            <p v-else>Gas : {{ contract.lastConsumptionOfGas }}</p>
-            <p v-if="!contract.lastConsumptionOfElectricity">Electricity : No information</p>
-            <p v-else>Electricity : {{ contract.lastConsumptionOfElectricity }}</p>
             <p>--------------------------</p>
             <!--Voir pour goButton contracts-->
           </div>
