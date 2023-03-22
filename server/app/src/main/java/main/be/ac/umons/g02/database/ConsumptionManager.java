@@ -29,7 +29,6 @@ public class ConsumptionManager
          //   throw new Exception("The table doesn't contain any consumption with the ean code: "+ ean + " within the interval : "+ startingDate + "and " + closingDate);
 
         String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded BETWEEN '"+ startingDate + "' AND '" + closingDate + "'";
-        System.out.println(query);
         DB.getInstance().executeQuery(query, true);
         HashMap<String,Double> consumptions= new HashMap<>();
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"date_recorded", "daily_consumption"});
@@ -67,8 +66,6 @@ public class ConsumptionManager
             if(consumptions.get(0).size() != 0)
                 value = Double.parseDouble(consumptions.get(0).get(0));
 
-            System.out.println(value);
-
             DB.getInstance().executeQuery("INSERT INTO consumption(ean, date_recorded, daily_consumption) VALUES('"+
                     ean+"','"+dates.get(i)+"',"+(values.get(i)+value)+
                     ") ON DUPLICATE KEY UPDATE daily_consumption="+values.get(i), false);
@@ -88,7 +85,6 @@ public class ConsumptionManager
                 "contract_id IN " +
                 "(SELECT contract_id FROM counter WHERE ean='"+ean+"')",true);
         String address = DB.getInstance().getResults(new String[] {"address"}).get(0).get(0); //we suppose there is only one contract for one counter
-        System.out.println(address);
         new WalletManager().addLastConsumption(address, maxVal, new ContractManager().getTypeOfEnergy(address));
 
 

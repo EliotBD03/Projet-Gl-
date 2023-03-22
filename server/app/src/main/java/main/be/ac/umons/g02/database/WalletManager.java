@@ -89,7 +89,7 @@ public class WalletManager
     public void addLastConsumption(String address,double value, energyType energyType)
     {
 
-        String[] columns = {"latest_consumption_elec", "latest_consumption_water", "latest_consumption_gas"};
+        String[] columns = {"latest_consumption_gas", "latest_consumption_water", "latest_consumption_elec"};
         String column = columns[energyType.ordinal()];
         DB.getInstance().executeQuery("UPDATE wallet SET "+column+"="+value+" WHERE address="+address, false);
     }

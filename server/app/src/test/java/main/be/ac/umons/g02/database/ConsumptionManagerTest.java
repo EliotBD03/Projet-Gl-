@@ -24,7 +24,6 @@ class ConsumptionManagerTest {
         DB.getInstance().executeQuery("INSERT INTO counter(ean, contract_id) VALUES('"+ean+"', 1)",false);
         new ProposalManager().addProposal(new ProposalFull("2", "jiji", "electricity", "100", "elec"));
         new ContractManager().createContract("elec", "785", "2", "address", "1");
-        //TODO mettre ContractManager
     }
 
     @AfterAll
@@ -33,9 +32,13 @@ class ConsumptionManagerTest {
         new ContractManager().deleteContract("1");
         new ProposalManager().deleteProposal("elec", "2");
        DB.getInstance().executeQuery("DELETE FROM consumption", false);
-       DB.getInstance().executeQuery("DELETE FROM wallet", false);
+       DB.getInstance().executeQuery("DElETE FROM wallet_contract", false);
+       new WalletManager().deleteWallet("address");
        new LogManager().deleteAccount("1");
        new LogManager().deleteAccount("2");
+       DB.getInstance().executeQuery("ALTER TABLE contract AUTO_INCREMENT = 1", false);
+       DB.getInstance().executeQuery("ALTER TABLE wallet_contract AUTO_INCREMENT = 1", false);
+       DB.getInstance().executeQuery("ALTER TABLE provider_contract AUTO_INCREMENT = 1", false);
        DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
     }
 
@@ -62,7 +65,7 @@ class ConsumptionManagerTest {
             }
         };
         consumptionManager.addConsumption(ean, values, dates, false);
-        // assertDoesNotThrow(() -> {consumptionManager.addConsumption(ean, values, dates, false);});
+        assertDoesNotThrow(() -> {consumptionManager.addConsumption(ean, values, dates, false);});
     }
 
     @Test
@@ -111,7 +114,7 @@ class ConsumptionManagerTest {
         };
         assertEquals(consumptionManager.getConsumptions(ean, "2021-00-00", "2024-00-00"),expected);
     }
-  //  @Test
+    @Test
     @Order(6)
     void deleteAllConsumption()
     {

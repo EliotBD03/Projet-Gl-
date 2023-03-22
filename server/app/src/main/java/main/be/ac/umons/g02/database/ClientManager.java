@@ -4,7 +4,6 @@ import main.be.ac.umons.g02.data_object.ClientBasic;
 
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class ClientManager
 {
@@ -34,9 +33,6 @@ public class ClientManager
         return new Object[] {count, clientBasics};
     }
 
-    /**
-     * "SELECT * FROM user WHERE id in (SELECT client_id FROM wallet WHERE address IN (SELECT address FROM wallet_contract WHERE contract_id IN (SELECT contract_id FROM provider_contract WHERE provider_id="+provider_id+"))) LIMIT "+base+","+base+limit
-     */
     public Object[] getAllHisClients(String providerId, int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN "+
