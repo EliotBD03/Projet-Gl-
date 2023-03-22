@@ -45,7 +45,7 @@
     },
     data(){
       return{
-        linkApi : "https://babawallet.alwaysdata.net/api/provider/clients/clients_of_provider",
+        linkApi : "https://babawallet.alwaysdata.net/api/provider/clients/clients_of_provider/",
         nbr : 1,
         loading : false,
         lastPage : 0,
