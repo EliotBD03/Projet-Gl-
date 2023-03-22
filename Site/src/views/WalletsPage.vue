@@ -4,24 +4,24 @@
       <MainHeader text="header.wallets"/>
     </div>
     <div class="allcards">
-        <div class=cards v-for="wallet in listWallet" :key="wallet.id">
-          <div class="texte">
+      <div class=cards v-for="wallet in listWallet" :key="wallet.id">
+        <div class="texte">
           <p class="name"> {{ wallet.name }} :</p>
           <p> {{ wallet.address }}</p>
-          </div>
-          <div @click.prevent.left="seeMore(wallet)">
-            <GoButton text="button.go" :colore="'#34c98e'"/>
-          </div>
         </div>
-        <div v-if="notLastPage()" @click.prevent.left="loader()">
-          <GoButton text="See more wallets" :colore="'#B1B9FC'"/>
+        <div @click.prevent.left="seeMore(wallet)">
+          <GoButton text="button.go" :colore="'#34c98e'"/>
         </div>
       </div>
-    <div class="homebutton" @click.prevent.left="$router.push('/Home')">
-      <GoButton text="header.home" :colore="'#B1B9FC'"/>
+      <div v-if="notLastPage()" @click.prevent.left="loader()">
+        <GoButton text="See more wallets" :colore="'#B1B9FC'"/>
+      </div>
     </div>
     <div @click.prevent.left="$router.push('/addWallet')">
       <GoButton text="Add a wallet" :colore="'#B1B9FC'"/>
+    </div>
+    <div class="homebutton" @click.prevent.left="$router.push({ name: 'HomeClient' })">
+      <GoButton text="header.home" :colore="'#B1B9FC'"/>
     </div>
   </div>
 </template>

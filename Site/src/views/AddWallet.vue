@@ -62,7 +62,14 @@
                     return response.json().then(json => Promise.reject(json)); 
                   }
                 }
-                this.$router.push({ name: 'Wallets' });
+                else{
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Good !',
+                    text: 'Wallet created !'
+                  })
+                  this.$router.push({ name: 'Wallets' });
+                }
               })
               .catch(error => {
                 if (error.message === "Token") {
