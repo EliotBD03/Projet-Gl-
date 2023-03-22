@@ -7,13 +7,16 @@
         <p> General information : </p>
         <p> Mail : {{ client.mail }}</p>
         <p> Associated contracts :</p>
-        <div v-if="client.contracts">
-          <div v-for="contract in client.contracts" :key="contract.id">
+        <div v-if="listContract">
+          <div v-for="contract in listContract" :key="contract.id">
             <p> name = {{ contract.name }}</p>
             <p> ean = {{ contract.ean }}</p>
             <p> Type Of Energie = {{ contract.typeOfEnergie }}</p>
             <p>--------------------------</p>
             <!--Voir pour goButton contracts-->
+            <div @click.prevent.left="seeMore(contract)">
+              <GoButton text="button.go" :colore="'#34c98e'"/>
+            </div>
           </div>
         </div>
         <div v-else> No information</div>
@@ -42,8 +45,13 @@
     data(){
       return{
         client : sessionStorage.getItem('client'),
+        linkApi : `https://babawallet.alwaysdata.net/api"/clients/${this.client.id_client}/contrats/`,
+        nbr : 1,
+        loading : false,
+        lastPage : 0,
+        listContract: []
       }},
-   /* /*Méthode pour charger la langue sauvegardée en cookie*/
+   /*Méthode pour charger la langue sauvegardée en cookie*/
     mounted() {
       if (this.$cookies.get("lang")) {
         this.$i18n.locale = this.$cookies.get("lang");
@@ -51,7 +59,77 @@
         this.$cookies.set("lang", this.$i18n.locale)
       }
     },
+    /*Au moment de la création on récupère déjà la première page de l'api*/
+    created(){
+      this.getPage();
+    },
     methods: {
+      /*Méthode permettant de récupérer les pages des contracts de l'Api en scrollant */
+      async getPage(){
+        const requestOptions = {
+          method: "GET",
+          headers: {'Authorization' : this.$cookies.get("token")},
+        };
+        this.loading = true; //bloquer les demandes de loader pendant ce temps.
+        try {
+          const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
+          if (!response.ok) { 
+            const data = await response.text();
+            if(response.status == 401 && data.trim() === ''){
+              throw new Error("Token");
+            }
+            else{
+              const data = await response.json();
+              throw new Error(data.error);
+            }
+          } else {
+            const data = await response.json(); 
+            this.lastPage = data.last_page;
+            if(this.lastPage == 0){
+                this.loading = true;        
+            }
+            else if(this.lastPage >= this.nbr){
+              this.listContract.push(data.contracts); //ajouter la suite de la réponse à la liste
+              this.listContract = this.listContract.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
+              this.loading = false;
+            }
+          }
+        } catch(error) {
+            if(error.message === "Token") {
+              this.$cookies.remove("token");
+              this.$cookies.remove("role");
+              Swal.fire('Your connection has expired');
+              this.$router.push("/");
+            } 
+            else {  
+              GlobalMethods.errorApi(error.message);
+            }
+        }
+      },
+      /*Lorsque l'utilisateur scrolle, cette méthode est appelée 
+      pour augmenter le nombre de la page et appeler getPage*/
+      loader()
+      {
+         if(!this.loading)
+        {
+          this.nbr++;
+          this.getPage();
+        }
+      },
+      /*Méthode permettant de vérifier si la dernière page n'a pas encore été chargée 
+      et si on est pas en cours de chargement*/
+      notLastPage(){
+        if(this.lastPage == this.nbr || this.loading == true){
+          return false;
+        }
+        return true;
+      },
+      /*On sauvegarde le client sur lequel on souhaite plus d'informations
+      et on redirige vers clientFull*/
+      seeMore(contract){
+        sessionStorage.setItem('contract', contract);
+        this.$router.push( {name: "ClientsContracts"} );
+      },
       /* Méthode permettant de supprimer un client*/
       deleteClient() {
         const requestOptions = {
