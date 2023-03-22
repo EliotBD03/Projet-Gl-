@@ -44,7 +44,7 @@
     data(){
       return{
         client : sessionStorage.getItem('client'),
-        linkApi : `https://babawallet.alwaysdata.net/api"/clients/${this.client.id_client}/contrats/`,
+        linkApi : `https://babawallet.alwaysdata.net/api/clients/${this.client.id_client}/contrats/`,
         nbr : 1,
         loading : false,
         lastPage : 0,
@@ -170,7 +170,7 @@
       /*Retourner à la page des clients en supprimant le client du sessionStorage*/
       back(){
         sessionStorage.removeItem('client');
-        this.$router.push({name: 'Clients'});
+        //this.$router.push({name: 'Clients'});
       }
     }
   };
