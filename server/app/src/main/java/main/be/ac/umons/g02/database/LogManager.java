@@ -82,7 +82,7 @@ public class LogManager
 
     public void changePassword(String id, String newPassword)
     {
-        DB.getInstance().executeQuery("UPDATE user SET password='" + BCrypt.hashpw(newPassword, BCrypt.gensalt()) + "' WHERE id ='" + id+"'",false);
+        DB.getInstance().executeQuery("UPDATE user SET password='" + BCrypt.hashpw(newPassword, BCrypt.gensalt()) + "' WHERE id =" + id+"",false);
     }
 
     public String getName(String id)

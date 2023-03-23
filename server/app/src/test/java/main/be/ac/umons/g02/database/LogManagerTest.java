@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +22,7 @@ class LogManagerTest {
         DBTest.setUp();
     }
 
-    @AfterAll
+   @AfterAll
     static void clean()
     {
         DB.getInstance().executeQuery("DELETE FROM client", false);
@@ -56,7 +57,10 @@ class LogManagerTest {
     @Order(4)
     void changePasswordTest()
     {
-        assertDoesNotThrow(() -> {new LogManager().changePassword("test@gmail.com", "newPassword");});
+        assertDoesNotThrow(() -> {new LogManager().changePassword("1", "newPassword");});
+        DB.getInstance().executeQuery("SELECT password FROM user WHERE mail='test@gmail.com'",true);
+        String password = DB.getInstance().getResults(new String[] {"password"}).get(0).get(0);
+        assertTrue(BCrypt.checkpw("newPassword", password));
     }
 
     @Test
@@ -66,7 +70,7 @@ class LogManagerTest {
         assertEquals("testName", new LogManager().getName("1"));
     }
 
-    @Test
+   @Test
     @Order(6)
     void deleteAccount()
     {
