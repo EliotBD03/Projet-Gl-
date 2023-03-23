@@ -73,7 +73,7 @@ public class WalletManager
 
     public boolean deleteWallet(String address)
     {
-        if(walletIsEmpty(address))
+        if(!walletIsEmpty(address))
             return false;
 
         DB.getInstance().executeQuery("DELETE FROM wallet WHERE address='"+address+"'", false);
