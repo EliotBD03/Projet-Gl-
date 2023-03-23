@@ -82,7 +82,7 @@ public class WalletManager
 
     public boolean walletIsEmpty(String address)
     {
-        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM wallet WHERE address='"+address+"') AS c",true);
+        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM wallet_contract WHERE address='"+address+"') AS c",true);
         return Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0)) == 0;
     }
 
