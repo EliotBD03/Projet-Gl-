@@ -19,7 +19,6 @@ public class LogManager
      {
          DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM client WHERE client_id="+id+" ) AS r",true);
          ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"r"});
-         System.out.println(results.get(0).get(0));
          return Integer.parseInt(results.get(0).get(0)) == 1;
      }
 
@@ -80,9 +79,9 @@ public class LogManager
         DB.getInstance().executeQuery("DELETE FROM user WHERE id="+id,false);
     }
 
-    public void changePassword(String id, String newPassword)
+    public void changePassword(String mail, String newPassword)
     {
-        DB.getInstance().executeQuery("UPDATE user SET password='" + BCrypt.hashpw(newPassword, BCrypt.gensalt()) + "' WHERE id =" + id+"",false);
+        DB.getInstance().executeQuery("UPDATE user SET password='" + BCrypt.hashpw(newPassword, BCrypt.gensalt()) + "' WHERE mail ='" + mail +"'",false);
     }
 
     public String getName(String id)

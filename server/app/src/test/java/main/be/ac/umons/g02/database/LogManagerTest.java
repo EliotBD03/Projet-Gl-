@@ -57,7 +57,7 @@ class LogManagerTest {
     @Order(4)
     void changePasswordTest()
     {
-        assertDoesNotThrow(() -> {new LogManager().changePassword("1", "newPassword");});
+        assertDoesNotThrow(() -> {new LogManager().changePassword("test@gmail.com", "newPassword");});
         DB.getInstance().executeQuery("SELECT password FROM user WHERE mail='test@gmail.com'",true);
         String password = DB.getInstance().getResults(new String[] {"password"}).get(0).get(0);
         assertTrue(BCrypt.checkpw("newPassword", password));

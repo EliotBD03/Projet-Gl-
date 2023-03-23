@@ -46,16 +46,6 @@ public class DB
         DB.dataBaseName = dataBaseName;
     }
 
-    public static void setUserName(String userName)
-    {
-        DB.userName = userName;
-    }
-
-    public static void setPassword(String password)
-    {
-        DB.password = password;
-    }
-
     private void establishConnection() throws SQLException, ClassNotFoundException
     {
         String dataBaseNameV = null;
