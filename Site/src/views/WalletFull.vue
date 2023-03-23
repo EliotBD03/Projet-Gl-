@@ -5,7 +5,7 @@
     </div>
     <div class ="list">
       <p> General information : </p>
-      <p> Owner : {{ wallet.nameOwner }}</p>
+      <p> Owner : {{ wallet.ownerName}}</p>
       <p> Address : {{ wallet.address }}</p>
       <p> Last consumptions :</p>
       <p v-if="!wallet.lastConsumptionOfWater">Water : No information</p>
