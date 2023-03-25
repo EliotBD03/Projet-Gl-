@@ -28,12 +28,12 @@ public class NotificationManager
         DB.getInstance().executeQuery("SELECT * FROM notification WHERE receiver_id="+idUser + " LIMIT "+ base+", "+limit, true);
 
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {
-                "notification_id", "sender_id", "receiver_id", "linked_contract", "context", "creation_date"});
+                "notification_id", "sender_id", "receiver_id", "linked_contract", "linked_proposal_name", "provider_id_proposal", "context", "linked_ean", "linked_address", "creation_date"});
 
         ArrayList<Notification> notifications = new ArrayList<>();
         for (int i = 0; i < results.get(0).size(); i++)
         {
-            notifications.add(new Notification(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i), results.get(3).get(i), results.get(4).get(i), results.get(5).get(i)));
+            notifications.add(new Notification(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i), results.get(3).get(i), results.get(4).get(i), results.get(5).get(i), results.get(6).get(i), results.get(7).get(i), results.get(8).get(i), results.get(9).get(i)));
         }
         DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM notification WHERE receiver_id="+idUser, true);
         int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));

@@ -15,8 +15,8 @@ import java.util.ArrayList;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class NotificationManagerTest
 {
-    private static Notification createdContract = new Notification("1", "1", "2", "1", "contract created", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()));
-    private static Notification askingContract = new Notification("2", "1", "2", "2", "contract request", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()));
+    private static Notification createdContract = new Notification("1", "1", "2", "1", "elec","2","contract created", "785","address",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()));
+    private static Notification askingContract = new Notification("2", "1", "2", null, "1", "2","contract request", "785", "address",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()));
     @BeforeAll
     static void setUp()
     {
@@ -49,7 +49,7 @@ class NotificationManagerTest
     @Order(1)
     void createNotification()
     {
-        new NotificationManager().createNotification(createdContract.getSenderId(), createdContract.getReceiverId(),"elec","2", createdContract.getContext(), "785", "address");
+        new NotificationManager().createNotification(createdContract.getSenderId(), createdContract.getReceiverId(), createdContract.getProposalName(), createdContract.getProviderProposalId(), createdContract.getContext(), createdContract.getEan(), createdContract.getAddress());
         DB.getInstance().executeQuery("SELECT * FROM notification", true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"sender_id", "receiver_id", "linked_proposal_name","provider_id_proposal", "context", "linked_ean", "linked_address", "creation_date"});
         assertEquals(createdContract.getCreationDate(), results.get(7).get(0)); //be careful, can be false for the time between the creation and the reception of the notif
@@ -68,10 +68,11 @@ class NotificationManagerTest
     {
         Notification toBeTested = ((ArrayList<Notification>) new NotificationManager().getAllNotifications("2", 0, 1)[1]).get(0);
         assertEquals(createdContract.getCreationDate(), toBeTested.getCreationDate());
-        assertEquals(createdContract.getId_notification(), toBeTested.getId_notification());
+        assertEquals(createdContract.getNotificationId(), toBeTested.getNotificationId());
         assertEquals(createdContract.getContext(), toBeTested.getContext());
-        assertEquals(createdContract.getReceiverId(), createdContract.getReceiverId());
-        assertEquals(createdContract.getSenderId(), createdContract.getSenderId());
+        assertEquals(createdContract.getReceiverId(), toBeTested.getReceiverId());
+        assertEquals(createdContract.getSenderId(), toBeTested.getSenderId());
+        assertEquals(createdContract.getProviderProposalId(), toBeTested.getProviderProposalId());
     }
 
     @Test
