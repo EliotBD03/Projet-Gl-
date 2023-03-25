@@ -161,7 +161,7 @@ CREATE TABLE `notification` (
   `notification_id` int(10) NOT NULL AUTO_INCREMENT,
   `sender_id` int(10) DEFAULT NULL,
   `receiver_id` int(10) DEFAULT NULL,
-  `linked_contract` varchar(30) DEFAULT NULL,
+  `linked_contract` int(10) DEFAULT NULL,
   `linked_proposal_name` varchar(30) DEFAULT NULL,
   `provider_id_proposal` int(10) DEFAULT NULL,
   `context` varchar(255) DEFAULT NULL,
