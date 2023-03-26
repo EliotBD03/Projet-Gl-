@@ -80,15 +80,15 @@ public class LanguageManager
      * Change la langue actuelle d'un utilisateur
      *
      * @param userId l'identifiant de l'utilisateur
-     * @param language le nom de la langue
+     * @param newLanguage le nom de la langue
      */
-    public void changeCurrentLanguage(String userId, String language)
+    public void changeCurrentLanguage(String userId, String newLanguage)
     {
-        if(doesTheLanguageNotExist(userId, language))
-            addLanguage(userId, language);
+        if(doesTheLanguageNotExist(userId, newLanguage))
+            addLanguage(userId, newLanguage);
 
         DB.getInstance().executeQuery("UPDATE language SET current_language=0 WHERE current_language=1", false);
-        DB.getInstance().executeQuery("UPDATE language SET current_language=1 WHERE saved_language='"+ language +"'", false);
+        DB.getInstance().executeQuery("UPDATE language SET current_language=1 WHERE saved_language='"+ newLanguage +"'", false);
     }
 
     /**

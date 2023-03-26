@@ -21,10 +21,10 @@ public class ContractManager
         CommonDB commonDB = new CommonDB();
 
         DB.getInstance().executeQuery("SELECT * FROM contract WHERE contract_id="+contractId,true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[]
-                {
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults
+                (
                 "contract_id","proposal_name", "ean","provider_id","address", "client_id", "opening_date", "closing_date"
-                });
+                );
         if(results.get(0).size() == 0)
             return null;
 
@@ -59,16 +59,16 @@ public class ContractManager
             query = "SELECT * FROM contract WHERE client_id=" + clientId +" LIMIT "+base + ", " + "18446744073709551615"; //18446744073709551615 max(BigInt) in mysql
 
         DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+clientId,true);
-        String clientName = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
+        String clientName = DB.getInstance().getResults("name").get(0).get(0);
 
         DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM contract WHERE client_id="+clientId,true);
-        int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
+        int count = Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0));
 
         DB.getInstance().executeQuery(query, true);
 
         ArrayList<ContractBasic> contractBasics = new ArrayList<>();
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"contract_id", "ean",
-                "provider_id", "client_id"});
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("contract_id", "ean",
+                "provider_id", "client_id");
 
         String providerId;
         String providerName;
@@ -78,7 +78,7 @@ public class ContractManager
         {
             providerId = results.get(2).get(i);
             DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+providerId, true);
-            providerName = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
+            providerName = DB.getInstance().getResults("name").get(0).get(0);
             contractId = results.get(0).get(i);
             ean = results.get(1).get(i);
             contractBasics.add(new ContractBasic(contractId,ean, providerId, clientId, providerName, clientName));
@@ -103,7 +103,7 @@ public class ContractManager
             if(contractBasics.get(i).getProviderId().equals(providerId))
                 results.add(contractBasics.get(i));
         DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM contract WHERE client_id="+clientId + " AND provider_id="+providerId, true);
-        int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
+        int count = Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0));
         return new Object[] {count, results};
     }
 
@@ -132,7 +132,7 @@ public class ContractManager
     {
         DB.getInstance().executeQuery("SELECT client_id FROM contract WHERE proposal_name='"+proposalName
         +"' AND provider_id="+providerId,true);
-        return DB.getInstance().getResults(new String[] {"client_id"}).get(0);
+        return DB.getInstance().getResults("client_id").get(0);
     }
 
     /**
@@ -155,7 +155,7 @@ public class ContractManager
         DB.getInstance().executeQuery("INSERT INTO provider_contract(provider_id) VALUES("+providerId+")",false);
         DB.getInstance().executeQuery("SELECT max(contract_id) AS m FROM provider_contract", true);
 
-        String contractId = DB.getInstance().getResults(new String[] {"m"}).get(0).get(0);
+        String contractId = DB.getInstance().getResults("m").get(0).get(0);
         String openingDate = "CURDATE()";
         String closingDate = "DATE_ADD(CURDATE(), INTERVAL "+new ProposalManager().getProposal(proposalName, providerId).getDuration()+" MONTH)";
 
@@ -192,7 +192,7 @@ public class ContractManager
                 +"FROM proposal "
                 +"WHERE (proposal_name,provider_id) "
                 +"IN (SELECT proposal_name, provider_id FROM contract WHERE address='"+address + "')",true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"water","gas","electricity"});
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("water","gas","electricity");
         System.out.println(results.get(0).size());
         for(int i = 0; i < results.size() ; i++)
         {

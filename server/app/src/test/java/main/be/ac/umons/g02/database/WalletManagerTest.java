@@ -24,10 +24,10 @@ class WalletManagerTest
     @AfterAll
     static void clean()
     {
-        DB.getInstance().executeQuery("DELETE FROM wallet_contract",false);
-        DB.getInstance().executeQuery("DELETE FROM wallet",false);
-        new LogManager().deleteAccount("1");
-        DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
+       DB.getInstance().executeQuery("DELETE FROM wallet_contract",false);
+       DB.getInstance().executeQuery("DELETE FROM wallet",false);
+       new LogManager().deleteAccount("1");
+       DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
     }
 
     @Test

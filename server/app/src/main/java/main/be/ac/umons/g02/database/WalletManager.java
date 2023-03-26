@@ -23,7 +23,7 @@ public class WalletManager
 
 
         DB.getInstance().executeQuery("SELECT * FROM wallet WHERE client_id="+clientId+ " LIMIT " + base+", " + limit,true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"address","wallet_name","client_id"});
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("address","wallet_name","client_id");
 
         //if(results.get(0).size() == 0)
           //  throw new Exception("The client doesn't have any wallet");
@@ -35,7 +35,7 @@ public class WalletManager
             walletBasics.add(new WalletBasic(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i), new LogManager().getName(results.get(2).get(i))));
         }
         DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM wallet WHERE client_id="+clientId, true);
-        int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
+        int count = Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0));
 
         return new Object[] {count,walletBasics};
     }
@@ -46,14 +46,14 @@ public class WalletManager
         if(walletIsEmpty(address))
             return null;
         DB.getInstance().executeQuery("SELECT * FROM wallet WHERE address='"+address+"'",true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(
                 "address",
                 "wallet_name",
                 "client_id",
                 "latest_consumption_elec",
                 "latest_consumption_water",
                 "latest_consumption_gas"
-        });
+        );
         WalletFull walletFull = new WalletFull(results.get(0).get(0),results.get(1).get(0), results.get(2).get(0), new LogManager().getName(results.get(2).get(0)));
         walletFull.setLastConsumption(Double.parseDouble(results.get(4).get(0)), Double.parseDouble(results.get(3).get(0)), Double.parseDouble(results.get(5).get(0)));
         ArrayList<ContractBasic> contractBasics =(ArrayList<ContractBasic>) new ContractManager().getAllContracts(walletFull.getClientId(), 0, -1)[1];
@@ -64,7 +64,7 @@ public class WalletManager
     public boolean createWallet(WalletBasic walletBasic)
     {
         if(!walletIsEmpty(walletBasic.getAddress()))
-            return false; //TODO add exception ?
+            return false;
 
         DB.getInstance().executeQuery("INSERT INTO wallet(address,client_id,wallet_name) VALUES('"+
                 walletBasic.getAddress()+"',"+walletBasic.getClientId()+",'"+walletBasic.getName()+"')",false);
@@ -83,7 +83,7 @@ public class WalletManager
     public boolean walletIsEmpty(String address)
     {
         DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM wallet_contract WHERE address='"+address+"') AS c",true);
-        return Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0)) == 0;
+        return Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0)) == 0;
     }
 
     public void addLastConsumption(String address,double value, energyType energyType)

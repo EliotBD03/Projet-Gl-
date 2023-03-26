@@ -10,31 +10,32 @@ public class ConsumptionManager
      *
      * @param ean le code ean du compteur à inspecter
      * @param dates les dates à vérifier (YYYY-MM-DD)
-     * @return vrai s'il existe un consommation pour une des dates et le code ean, faux sinon
+     * @return vrai s'il existe une consommation pour une des dates et le code ean, faux sinon
      */
     private boolean isThereSomeValues(String ean, ArrayList<String> dates)
     {
         for(String date: dates)
         {
             DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM consumption WHERE ean='"+ean+"' AND date_recorded='"+date+"') AS c", true);
-            if(Integer.parseInt(DB.getInstance().getResults(new String[]{"c"}).get(0).get(0)) != 0)
+            if(Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0)) != 0)
                 return true;
         }
         return false;
     }
 
     /**
-     * Donne la consommation du dernier jour pour un mois et une date donnée.
+     * Donne la consommation sur un mois pour une date donnée.
      *
      * @param ean le code ean
      * @param month le mois (MM)
-     * @param year l'anné (YYYY)
-     * @return donne la consommation sous forme d'un double
+     * @param year l'année (YYYY)
+     * @return la consommation sous forme d'une HashMap contenant les jours en clé et les consommations associée à ce jour en valeur.
      */
     public HashMap<String, Double> getConsumptionOfMonth(String ean, String month, String year)
     {
-        DB.getInstance().executeQuery("SELECT daily_consumption, date_recorded FROM consumption WHERE ",true);
-        return null; //TODO avoir la conso du dernier jour de month de year
+        String openingDate = year + "-" + month + "-01";
+        String closingDate = year + "-" + month + "-LAST_DAY("+month+")";
+        return getConsumptions(ean, openingDate, closingDate);
     }
 
     /**
@@ -55,7 +56,7 @@ public class ConsumptionManager
         String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded BETWEEN '"+ startingDate + "' AND '" + closingDate + "'";
         DB.getInstance().executeQuery(query, true);
         HashMap<String,Double> consumptions= new HashMap<>();
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"date_recorded", "daily_consumption"});
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("date_recorded", "daily_consumption");
         for(int i = 0; i < results.get(0).size(); i++)
             consumptions.put(results.get(0).get(i), Double.parseDouble(results.get(1).get(i)));
 
@@ -110,12 +111,12 @@ public class ConsumptionManager
                 "AND " +
                 "ean = '"+ean+"'",true);
 
-        double maxVal = Double.parseDouble(DB.getInstance().getResults(new String[] {"daily_consumption"}).get(0).get(0));
+        double maxVal = Double.parseDouble(DB.getInstance().getResults("daily_consumption").get(0).get(0));
         DB.getInstance().executeQuery("SELECT address FROM " +
                 "wallet_contract WHERE " +
                 "contract_id IN " +
                 "(SELECT contract_id FROM counter WHERE ean='"+ean+"')",true);
-        String address = DB.getInstance().getResults(new String[] {"address"}).get(0).get(0); //we suppose there is only one contract for one counter
+        String address = DB.getInstance().getResults("address").get(0).get(0); //we suppose there is only one contract for one counter
         new WalletManager().addLastConsumption(address, maxVal, new ContractManager().getTypeOfEnergy(address));
 
 

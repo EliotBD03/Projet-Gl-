@@ -11,19 +11,26 @@ public class ProposalManager
 
     private final String[] typeOfEnergy = new String[] {"water", "gas", "electricity"};
 
+    /**
+     * Vérifie si la proposition existe.
+     *
+     * @param proposalName le nom de la propo
+     * @param providerId
+     * @return
+     */
     public boolean doesTheProposalExist(String proposalName, String providerId)
     {
         DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM proposal WHERE proposal_name='"+proposalName
                 +"' AND provider_id="+providerId+") AS c",true);
-        return Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0)) == 1;
+        return Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0)) == 1;
     }
 
     public Object[] getAllProposals(String providerId, int base, int limit)
     {
         String query = "SELECT * FROM proposal WHERE provider_id ="+providerId+" LIMIT "+base+","+limit;
         DB.getInstance().executeQuery(query, true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"proposal_name","provider_id",
-                "water", "gas", "electricity", "location"});
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("proposal_name","provider_id",
+                "water", "gas", "electricity", "location");
         if(results == null)
             return null;
 
@@ -46,12 +53,12 @@ public class ProposalManager
             location = results.get(results.size() - 1).get(i);
 
             DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+providerId,true);
-            nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
+            nameProvider = DB.getInstance().getResults("name").get(0).get(0);
 
             proposalBasics.add(new ProposalBasic(proposalName, providerId, nameProvider, typeEnergy, location));
         }
         DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM proposal WHERE provider_id="+providerId, true);
-        int count = Integer.parseInt(DB.getInstance().getResults(new String[] {"c"}).get(0).get(0));
+        int count = Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0));
 
         return new Object[] {count, proposalBasics};
     }
@@ -67,8 +74,8 @@ public class ProposalManager
             query = "SELECT * FROM proposal WHERE location="+regionCategory + " LIMIT "+base+", "+limit;
 
         DB.getInstance().executeQuery("SELECT * FROM proposal LIMIT "+base+", "+(base+limit), true);
-        ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults(new String[] {"proposal_name","provider_id",
-                "water", "gas", "electricity", "location"}));
+        ArrayList<ArrayList<String>> results = new ArrayList<>(DB.getInstance().getResults("proposal_name","provider_id",
+                "water", "gas", "electricity", "location"));
 
         String proposalName;
         String providerId;
@@ -90,13 +97,13 @@ public class ProposalManager
             location = results.get(results.size() - 1).get(i);
 
             DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+providerId,true);
-            nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
+            nameProvider = DB.getInstance().getResults("name").get(0).get(0);
 
             proposalBasics.add(new ProposalBasic(proposalName, providerId, nameProvider, typeEnergy, location));
         }
 
         DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM proposal", true);
-        int count = Integer.parseInt(DB.getInstance().getResults(new String[]  {"c"}).get(0).get(0));
+        int count = Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0));
         return new Object[] {count,proposalBasics};
     }
 
@@ -105,8 +112,8 @@ public class ProposalManager
         DB.getInstance().executeQuery("SELECT * FROM proposal WHERE proposal_name='"+proposalName+
                 "' AND provider_id="+providerId, true);
 
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[]{"proposal_name","provider_id","water"
-        ,"gas","electricity","fixed_rate","peak_hours","offpeak_hours","start_peak_hours","end_peak_hours","price","location", "duration"});
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("proposal_name","provider_id","water"
+        ,"gas","electricity","fixed_rate","peak_hours","offpeak_hours","start_peak_hours","end_peak_hours","price","location", "duration");
 
         ProposalFull proposalFull;
         String typeEnergy = null;
@@ -126,7 +133,7 @@ public class ProposalManager
 
         String nameProvider;
         DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+providerId,true);
-        nameProvider = DB.getInstance().getResults(new String[] {"name"}).get(0).get(0);
+        nameProvider = DB.getInstance().getResults("name").get(0).get(0);
 
         proposalFull = new ProposalFull(providerId, nameProvider, typeEnergy, location, proposalName);
         proposalFull.setMoreInformation(basicPrice, peakHours, offPeakHours, fixeRate, peakHours == offPeakHours, startPeakHours, endPeakHours, Integer.parseInt(duration));

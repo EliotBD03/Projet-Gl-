@@ -101,24 +101,24 @@ public class DB
      * Donne le résultat d'une requête exécutée précédemment.
      * PRECONDITION: la méthode executeQuery a été appelée est returnData à Vrai
      *
-     * @param column les colonnes
+     * @param columns les colonnes
      * @return ArrayList d'ArrayList → matrice dont les colonnes pour les lignes et les valeurs pour les colonnes ╭(ʘ̆~◞౪◟~ʘ̆)╮
      */
-    public ArrayList<ArrayList<String>> getResults(String... column)
+    public ArrayList<ArrayList<String>> getResults(String... columns)
     {
         if(resultSet == null)
             return null;
         try
         {
-            ArrayList<ArrayList<String>> array = new ArrayList<>(column.length);
+            ArrayList<ArrayList<String>> array = new ArrayList<>(columns.length);
 
-            for(int i = 0; i < column.length; i++)
+            for(int i = 0; i < columns.length; i++)
                 array.add(new ArrayList<>());
 
             while(resultSet.next())
             {
-                for(int i = 0; i < column.length; i++)
-                    array.get(i).add(resultSet.getString(column[i]));
+                for(int i = 0; i < columns.length; i++)
+                    array.get(i).add(resultSet.getString(columns[i]));
 
             }
             statement.close();
@@ -157,6 +157,6 @@ public class DB
             query += " ) AS c";
             executeQuery(query, true);
         }
-        return getResults(new String[] {"c"}).get(0).get(0).equals("1");
+        return getResults("c").get(0).get(0).equals("1");
     }
 }
