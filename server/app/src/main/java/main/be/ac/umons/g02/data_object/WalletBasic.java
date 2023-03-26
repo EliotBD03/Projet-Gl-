@@ -3,9 +3,9 @@ package main.be.ac.umons.g02.data_object;
 public class WalletBasic
 {
     protected String address;
-    protected String name;
+    protected String name; //le nom du portefeuille
     protected String clientId;
-    protected  String ownerName;
+    protected  String ownerName; //le nom du propriétaire du portefeuille
 
     public WalletBasic(String address, String name, String ownerId, String ownerName){
         this.address = address;

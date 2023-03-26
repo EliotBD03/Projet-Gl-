@@ -2,7 +2,6 @@ package main.be.ac.umons.g02.data_object;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class WalletFull extends WalletBasic{
 

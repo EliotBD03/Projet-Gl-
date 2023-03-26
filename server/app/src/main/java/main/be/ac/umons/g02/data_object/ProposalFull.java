@@ -1,6 +1,5 @@
 package main.be.ac.umons.g02.data_object;
 
-import java.util.Calendar;
 
 public class ProposalFull extends ProposalBasic
 {
@@ -11,7 +10,7 @@ public class ProposalFull extends ProposalBasic
     private boolean isSingleHourCounter;
     private String startOffPeakHours;
     private String endOfPeakHours;
-    private int duration;
+    private int duration; //duration se compte en mois
 
     public ProposalFull(String providerId, String nameProvider, String typeEnergy, String location, String nameProposal)
     {
