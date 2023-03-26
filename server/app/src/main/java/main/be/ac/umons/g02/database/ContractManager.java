@@ -10,17 +10,26 @@ import java.util.ArrayList;
 
 public class ContractManager
 {
+    /**
+     * Donne le contrat avec un identifiant donné.
+     *
+     * @param contractId l'id du contrat
+     * @return le contrat sous la forme d'un objet ContractFull. Renvoie null si le contrat n'existe pas.
+     */
     public ContractFull getContract(String contractId)
     {
         CommonDB commonDB = new CommonDB();
 
-        String query = "SELECT * FROM contract WHERE contract_id="+contractId;
         DB.getInstance().executeQuery("SELECT * FROM contract WHERE contract_id="+contractId,true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[]
                 {
                 "contract_id","proposal_name", "ean","provider_id","address", "client_id", "opening_date", "closing_date"
                 });
+        if(results.get(0).size() == 0)
+            return null;
+
         ContractFull contract;
+
         String providerId = results.get(3).get(0);
         ProposalFull proposalFull = commonDB.getProposalManager().getProposal(results.get(1).get(0), providerId);
         String ean = results.get(2).get(0);
@@ -35,6 +44,14 @@ public class ContractManager
         return contract;
     }
 
+    /**
+     * Donne tous les contrats d'un client dans un intervalle : [base, base+limit].
+     *
+     * @param clientId l'id du client
+     * @param base la borne inférieure
+     * @param limit le nombre d'éléments
+     * @return le nombre de contrats du client et une arraylist contenant des objets contratBasics
+     */
     public Object[] getAllContracts(String clientId, int base, int limit)
     {
         String query = "SELECT * FROM contract WHERE client_id=" + clientId +" LIMIT "+base + ", " + limit;
@@ -69,6 +86,15 @@ public class ContractManager
         return new Object[] {count, contractBasics};
     }
 
+    /**
+     * Donne tous les contrats communs à un client et un fournisseur dans un intervalle : [base,base+limit].
+     *
+     * @param clientId l'id du client
+     * @param providerId l'id du fournisseur
+     * @param base la borne inférieure
+     * @param limit le nombre d'éléments
+     * @return le nombre total de contrats communs et une arraylist contenant des objets de type ContractBasic
+     */
     public Object[] getCommonContracts(String clientId, String providerId, int base, int limit)
     {
         ArrayList<ContractBasic> contractBasics = (ArrayList<ContractBasic>) getAllContracts(clientId, base, limit)[1];
@@ -81,6 +107,12 @@ public class ContractManager
         return new Object[] {count, results};
     }
 
+    /**
+     * Supprime un contrat avec un identifiant donné
+     *
+     * @param contractId l'identifiant du contrat
+     */
+
     public void deleteContract(String contractId)
     {
         DB.getInstance().executeQuery("DELETE FROM contract WHERE contract_id="+contractId, false);
@@ -89,12 +121,30 @@ public class ContractManager
         DB.getInstance().executeQuery("DELETE FROM wallet_contract WHERE contract_id="+contractId,false);
     }
 
+    /**
+     * Donne tous les clients ayant pris une certaine proposition pour leur contrat.
+     *
+     * @param proposalName le nom de la proposition
+     * @param providerId l'id du fournisseur
+     * @return une arraylist contenant les identifiants des clients.
+     */
     public ArrayList<String> getAllClientsOfContract(String proposalName, String providerId)
     {
         DB.getInstance().executeQuery("SELECT client_id FROM contract WHERE proposal_name='"+proposalName
         +"' AND provider_id="+providerId,true);
         return DB.getInstance().getResults(new String[] {"client_id"}).get(0);
     }
+
+    /**
+     * Crée un contrat
+     *
+     * @param proposalName le nom de la proposition
+     * @param ean le code ean du compteur
+     * @param providerId l'id du fournisseur
+     * @param address l'adresse de la maison
+     * @param clientId l'id du client
+     * @return vrai si le contrat a été créé, faux sinon
+     */
 
     public boolean createContract(String proposalName, String ean, String providerId, String address, String clientId)
     {
@@ -129,6 +179,13 @@ public class ContractManager
         return true;
     }
 
+    /**
+     * Donne le type d'énergie du compteur associé à un contrat.
+     *
+     *  @param address l'adresse de la maison
+     * @return un enum représentant le type d'énergie
+     * @see WalletManager.energyType
+     */
     public WalletManager.energyType getTypeOfEnergy(String address)
     {
         DB.getInstance().executeQuery("SELECT water, gas, electricity "

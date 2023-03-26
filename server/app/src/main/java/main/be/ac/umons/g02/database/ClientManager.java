@@ -7,6 +7,11 @@ import java.util.ArrayList;
 
 public class ClientManager
 {
+    /**
+     * Renvoie tous les clients suites à une précédente requête faite dans les autres méthodes.
+     *
+     *  @return une ArrayList de tuples clients
+     */
     private ArrayList<ClientBasic> getClientBasics()
     {
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"id", "name", "mail"});
@@ -24,6 +29,14 @@ public class ClientManager
 
         return clientBasics;
     }
+
+    /**
+     * Renvoie n'importe quel client de la table client.
+     *
+     *  @param base la borne inférieure
+     * @param limit le nombre d'élément
+     * @return renvoie tous les clients dans un intervalle [base, base + limit] (une arraylist) en plus de la taille de la table
+     */
     public Object[] getAllClients(int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN (SELECT id FROM client) LIMIT "+base+", "+limit,true);
@@ -33,6 +46,14 @@ public class ClientManager
         return new Object[] {count, clientBasics};
     }
 
+    /**
+     * Renvoie tous les clients d'un fournisseur.
+     *
+     *  @param providerId l'identifiant du fournisseur
+     * @param base la borne inférieure
+     * @param limit le nombre d'élément
+     * @return renvoie tous les clients dans un intervalle [base, base + limit] (une arraylist) et le nombre TOTAL de clients associés au fournisseur
+     */
     public Object[] getAllHisClients(String providerId, int base, int limit)
     {
         DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN "+
@@ -49,6 +70,12 @@ public class ClientManager
         return new Object[] {count, clientBasics};
     }
 
+    /**
+     * Supprime un client d'un fournisseur.
+     *
+     *  @param providerId l'id du fournisseur
+     * @param clientId l'id du client à supprimer
+     */
     public void deleteClient(String providerId, String clientId)
     {
         DB.getInstance().executeQuery("SELECT contract_id FROM contract WHERE provider_id="+providerId+ " AND client_id=" +clientId, true);

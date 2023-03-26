@@ -5,6 +5,13 @@ import java.util.*;
 public class ConsumptionManager
 {
 
+    /**
+     * Vérifie s'il existe des consommations pour une date et un ean donné.
+     *
+     * @param ean le code ean du compteur à inspecter
+     * @param dates les dates à vérifier (YYYY-MM-DD)
+     * @return vrai s'il existe un consommation pour une des dates et le code ean, faux sinon
+     */
     private boolean isThereSomeValues(String ean, ArrayList<String> dates)
     {
         for(String date: dates)
@@ -16,11 +23,28 @@ public class ConsumptionManager
         return false;
     }
 
+    /**
+     * Donne la consommation du dernier jour pour un mois et une date donnée.
+     *
+     * @param ean le code ean
+     * @param month le mois (MM)
+     * @param year l'anné (YYYY)
+     * @return donne la consommation sous forme d'un double
+     */
     public HashMap<String, Double> getConsumptionOfMonth(String ean, String month, String year)
     {
+        DB.getInstance().executeQuery("SELECT daily_consumption, date_recorded FROM consumption WHERE ",true);
         return null; //TODO avoir la conso du dernier jour de month de year
     }
 
+    /**
+     * Donne les consommations dans un intervalle de dates donné en plus d'un code ean.
+     *
+     *  @param ean le code ean
+     * @param startingDate la première date (YYYY-MM-DD)
+     * @param closingDate la dernière date (YYYY-MM-DD)
+     * @return une hashmap contenant la date en clé et la consommation en valeur
+     */
     public HashMap<String, Double> getConsumptions(String ean, String startingDate, String closingDate)
     {
 
@@ -39,7 +63,14 @@ public class ConsumptionManager
     }
 
     /**
-     * @throws IllegalArgumentException when the size of the two lists isn't the same
+     * Ajoute les consommations pour un code ean.
+     *
+     * @param ean le code ean du compteur
+     * @param values les différentes valeurs
+     * @param dates les différentes dates (format d'une date : YYYY-MM-DD)
+     * @param forcingChange réécrit sur les valeurs déjà existantes si le booléen est mis à vrai
+     * @throws IllegalArgumentException quand la taille des listes n'est pas la même
+     * @return vrai dans le cas où une écriture dans la base de données a été faite, faux sinon
      */
     public boolean addConsumption(String ean, ArrayList<Double> values, ArrayList<String> dates, boolean forcingChange)
     {
@@ -61,7 +92,7 @@ public class ConsumptionManager
         for(int i = 0; i < values.size(); i++)
         {
             DB.getInstance().executeQuery(previousConsumption, true);
-            ArrayList<ArrayList<String>> consumptions = DB.getInstance().getResults(new String[] {"daily_consumption"});
+            ArrayList<ArrayList<String>> consumptions = DB.getInstance().getResults("daily_consumption");
 
             if(consumptions.get(0).size() != 0)
                 value = Double.parseDouble(consumptions.get(0).get(0));
@@ -91,23 +122,46 @@ public class ConsumptionManager
         return true;
     }
 
+    /**
+     * Supprime une consommation pour une date et un ean donné
+     *
+     * @param ean le code ean
+     * @param date la date (YYYY-MM-DD)
+     */
     public void deleteConsumption(String ean, String date)
     {
         DB.getInstance().executeQuery("DELETE FROM consumption WHERE ean='"+ean+"' AND date_recorded='"+date+"'",false);
     }
 
+    /**
+     * Supprime toutes les consommations pour un ean donné.
+     *
+     * @param ean le code ean
+     */
     public void deleteAllConsumptions(String ean)
     {
         DB.getInstance().executeQuery("DELETE FROM consumption WHERE ean='"+ean+"'",false);
     }
 
-
+    /**
+     * Change la valeur d'une consommation pour un ean et une date donnée.
+     *
+     * @param ean le code ean
+     * @param value la nouvelle valeur
+     * @param date la date (YYYY-MM-DD)
+     */
     public void changeConsumption(String ean, double value, String date)
     {
         DB.getInstance().executeQuery("UPDATE consumption SET daily_consumption="+value+
                 " WHERE date_recorded='"+date+"' AND ean='"+ean+"'",false);
     }
 
+    /**
+     * Crée un compteur avec un code ean et le premier contrat associé.
+     *
+     * @param ean le code ean
+     * @param contractId l'id du contrat
+     */
     public void createCounterOrReplace(String ean, String contractId)
     {
         DB.getInstance().executeQuery("INSERT INTO counter(ean,contract_id) VALUES('"+ean+"',"+contractId+") ON DUPLICATE KEY UPDATE contract_id="+contractId,false);

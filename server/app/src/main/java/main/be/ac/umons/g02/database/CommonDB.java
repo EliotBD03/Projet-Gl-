@@ -1,6 +1,8 @@
 package main.be.ac.umons.g02.database;
 
-
+/**
+ * Fait office d'intermédiaire entre le package api et database.
+ */
 public class CommonDB
 {
     private static final ContractManager contractManager = new ContractManager();
