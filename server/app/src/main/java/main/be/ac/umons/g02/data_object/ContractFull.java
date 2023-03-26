@@ -1,7 +1,5 @@
 package main.be.ac.umons.g02.data_object;
 
-import java.util.Calendar;
-
 public class ContractFull extends ContractBasic
 {
     private ProposalFull proposal;

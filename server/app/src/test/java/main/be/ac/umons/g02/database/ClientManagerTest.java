@@ -16,7 +16,7 @@ class ClientManagerTest {
     static void setUp() throws Exception
     {
         DBTest.setUp();
-        new LogManager().saveAccount(client.getMail(), "GIVE", true, client.getName(), "UP");
+        new LogManager().saveAccount(client.mail(), "GIVE", true, client.name(), "UP");
         new LogManager().saveAccount("NEVERE", "LET", false, "YOU", "DOWN");
         DB.getInstance().executeQuery("INSERT INTO wallet(address, client_id, wallet_name) VALUES('CECIESTUNERUE',1,'non')",false);
         DB.getInstance().executeQuery("INSERT INTO wallet_contract(address) VALUES('CECIESTUNERUE')", false);
@@ -39,18 +39,18 @@ class ClientManagerTest {
     {
 
         ClientBasic toBeTested = ((ArrayList<ClientBasic>) new ClientManager().getAllClients(0,1)[1]).get(0);
-        assertEquals(toBeTested.getClientId(), client.getClientId());
-        assertEquals(toBeTested.getName(), client.getName());
-        assertEquals(toBeTested.getMail(), client.getMail());
+        assertEquals(toBeTested.clientId(), client.clientId());
+        assertEquals(toBeTested.name(), client.name());
+        assertEquals(toBeTested.mail(), client.mail());
     }
 
     @Test
     void getAllHisClients()
     {
         ClientBasic toBeTested = ((ArrayList<ClientBasic>) new ClientManager().getAllHisClients("2", 0, 1)[1]).get(0);
-        assertEquals(toBeTested.getMail(), client.getMail());
-        assertEquals(toBeTested.getName(), client.getName());
-        assertEquals(toBeTested.getClientId(), client.getClientId());
+        assertEquals(toBeTested.mail(), client.mail());
+        assertEquals(toBeTested.name(), client.name());
+        assertEquals(toBeTested.clientId(), client.clientId());
     }
 
 
