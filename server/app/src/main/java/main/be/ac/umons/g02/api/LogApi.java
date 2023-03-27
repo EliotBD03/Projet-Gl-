@@ -41,7 +41,7 @@ public class LogApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour vérifier le mail et le mot de passe de l'utilisateur
+     * Méthode qui utilise le package de base de données pour vérifier le mail et le mot de passe de l'utilisateur
      * Si tout se passe bien, cette méthode génère un token et l'envoie à l'émetteur
      * En cas d'erreur, elle renvoie le code 400 avec une explication
      * Note que le token contient l'id et le rôle de l'utilisateur
@@ -125,7 +125,7 @@ public class LogApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour sauvegarder le compte de l'utilisateur
+     * Méthode qui utilise le package de base de données pour sauvegarder le compte de l'utilisateur
      * Elle vérifie le code que l'utilisateur a recu pour créer le compte de manière sécuriser
      * Si le code est incorrect, cette méthode renvoie le code 400 avec une explication
      * S'il y a eu une erreur lors de la création du compte, cette méthode renvoie le code 503 avec une explication 
@@ -217,7 +217,7 @@ public class LogApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour rénitialiser le mot de passe de l'utilisateur
+     * Méthode qui utilise le package de base de données pour rénitialiser le mot de passe de l'utilisateur
      * Elle vérifie le code que l'utilisateur a recu pour changer le mot de passe sans usurpation
      * Si le code est incorrect, cette méthode renvoie le code 400 avec une explication
      * S'il y a eu une erreur lors de la création du compte, cette méthode renvoie le code 503 avec une explication 
