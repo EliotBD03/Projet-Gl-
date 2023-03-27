@@ -1,6 +1,5 @@
 package main.be.ac.umons.g02.database;
 
-import com.mysql.cj.log.Log;
 import main.be.ac.umons.g02.data_object.ContractBasic;
 import main.be.ac.umons.g02.data_object.WalletBasic;
 import main.be.ac.umons.g02.data_object.WalletFull;
@@ -11,22 +10,32 @@ public class WalletManager
 {
     public enum energyType {WATER, GAS, ELECTRICITY};
 
-
+    /**
+     * Vérifie si le portefeuille existe.
+     *
+     * @param address l'adresse du portefeuille
+     * @return vrai si le portefeuille existe dans la base de données, faux sinon.
+     */
     public boolean doesTheWalletExists(String address)
     {
-       return DB.getInstance().isThereSomething("wallet", new String[] {"address"}, new String[] {"'" +address+ "'"});
+        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM wallet WHERE address='"+address+"') AS 'c'",true);
+        return Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0)) == 1;
     }
+
+    /**
+     * Donne tous les portefeuilles d'un certain client dans un intervalle : [base, base + limit]
+     * en plus du nombre total de portefeuilles que le client possède.
+     *
+     * @param clientId l'identifiant du client
+     * @param base la borne inférieure
+     * @param limit le nombre d'éléments
+     * @return un tableau reprenant le nombre total en premier indice et une ArrayList d'objets WalletBasic.
+     */
     public Object[] getAllWallets(String clientId, int base, int limit)
     {
-        //if(!new LogManager().isClient(clientId))
-          //  throw new Exception("the client doesn't exist");
-
 
         DB.getInstance().executeQuery("SELECT * FROM wallet WHERE client_id="+clientId+ " LIMIT " + base+", " + limit,true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults("address","wallet_name","client_id");
-
-        //if(results.get(0).size() == 0)
-          //  throw new Exception("The client doesn't have any wallet");
 
         ArrayList<WalletBasic> walletBasics = new ArrayList<>();
 
@@ -40,6 +49,12 @@ public class WalletManager
         return new Object[] {count,walletBasics};
     }
 
+    /**
+     * Donne le portefeuille d'une adresse particulière.
+     *
+     * @param address l'adresse du portefeuille
+     * @return objet WalletFull
+     */
 
     public WalletFull getWallet(String address)
     {
@@ -61,9 +76,15 @@ public class WalletManager
         return walletFull;
     }
 
+    /**
+     * Crée un portefeuille dans la base de données.
+     *
+     * @param walletBasic le portefeuille à créer
+     * @return vrai si le portefeuille a été créé, faux sinon (portefeuille existe déjà)
+     */
     public boolean createWallet(WalletBasic walletBasic)
     {
-        if(!walletIsEmpty(walletBasic.getAddress()))
+        if(doesTheWalletExists(walletBasic.getAddress()))
             return false;
 
         DB.getInstance().executeQuery("INSERT INTO wallet(address,client_id,wallet_name) VALUES('"+
@@ -71,6 +92,12 @@ public class WalletManager
         return true;
     }
 
+    /**
+     * Supprime un portefeuille.
+     *
+     * @param address l'adresse du portefeuille associé
+     * @return vrai si le portefeuille a été supprimé, faux sinon (portefeuille n'est pas vide).
+     */
     public boolean deleteWallet(String address)
     {
         if(!walletIsEmpty(address))
@@ -80,12 +107,25 @@ public class WalletManager
         return true;
     }
 
+    /**
+     * Vérifie si le portefeuille est vide. C'est-à-dire qu'il ne possède aucun contrat.
+     *
+     * @param address l'adresse du portefeuille à supprimer
+     * @return vrai si le portefeuille est vide, faux sinon
+     */
     public boolean walletIsEmpty(String address)
     {
         DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM wallet_contract WHERE address='"+address+"') AS c",true);
         return Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0)) == 0;
     }
 
+    /**
+     * Ajoute la dernière consommation (la plus récente) associées au portefeuille.
+     *
+     * @param address l'adresse du portefeuille
+     * @param value la valeur de la consommation
+     * @param energyType le type d'énergie
+     */
     public void addLastConsumption(String address,double value, energyType energyType)
     {
 

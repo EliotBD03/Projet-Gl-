@@ -193,7 +193,6 @@ public class ContractManager
                 +"WHERE (proposal_name,provider_id) "
                 +"IN (SELECT proposal_name, provider_id FROM contract WHERE address='"+address + "')",true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults("water","gas","electricity");
-        System.out.println(results.get(0).size());
         for(int i = 0; i < results.size() ; i++)
         {
             if(results.get(i).get(0).equals("1"))

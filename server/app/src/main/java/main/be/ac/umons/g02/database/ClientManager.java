@@ -51,7 +51,7 @@ public class ClientManager
      *
      *  @param providerId l'identifiant du fournisseur
      * @param base la borne inférieure
-     * @param limit le nombre d'élément
+     * @param limit le nombre d'éléments
      * @return renvoie tous les clients dans un intervalle [base, base + limit] (une arraylist) et le nombre TOTAL de clients associés au fournisseur
      */
     public Object[] getAllHisClients(String providerId, int base, int limit)
