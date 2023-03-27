@@ -59,9 +59,45 @@ export default {
     checkArgs() {
       if (!this.name) Swal.fire("Please enter your name");
       else if (!this.address) Swal.fire("Please enter your address");
+      else if (!this.typeofenergy) Swal.fire("Please enter the type of energy");
+      else if (!this.location) Swal.fire("Please enter the location");
+      else if (!this.basicprice) Swal.fire("Please enter the basic price");
+      else if (!this.nightprice) Swal.fire("Please enter the night price");
+      else if (!this.dayprice) Swal.fire("Please enter the day price");
+      else if (!this.offpeakprice) Swal.fire("Please enter the off-peak price");
       else return true;
+    },
+    post(){
+      if (this.checkArgs()) {
+        const requestOptions = {
+          method: "POST",
+          body: JSON.stringify({
+            name: this.name,
+            typeofenergy: this.typeofenergy,
+            location: this.location,
+            basicprice: this.basicprice,
+            nightprice: this.nightprice,
+            dayprice: this.dayprice,
+            offpeakprice: this.offpeakprice
+          }),
+        };
+        fetch("https://babawallet.alwaysdata.net/api/provider/propose_contract", requestOptions)
+            .then(response => {
+              if (!response.ok) {
+                return response.json().then(json => Promise.reject(json));
+              }
+              return response.json();
+            })
+            .then(
+              Swal.fire({
+                icon: 'success',
+                title: this.$t('alert.good'),
+                text: 'Your contract has been added',
+              })
+            )
+        }
+      }
     }
-  }
 }
 </script>
 
