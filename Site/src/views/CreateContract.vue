@@ -58,7 +58,6 @@ export default {
   methods: {
     checkArgs() {
       if (!this.name) Swal.fire("Please enter your name");
-      else if (!this.address) Swal.fire("Please enter your address");
       else if (!this.typeofenergy) Swal.fire("Please enter the type of energy");
       else if (!this.location) Swal.fire("Please enter the location");
       else if (!this.basicprice) Swal.fire("Please enter the basic price");
@@ -88,6 +87,8 @@ export default {
               }
               return response.json();
             })
+            .then(
+                this.$router.push({name: 'HomeSupplier'}))
             .then(
               Swal.fire({
                 icon: 'success',
