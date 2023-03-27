@@ -12,7 +12,18 @@
           <InputMain :text="'Type of energy'" v-model="typeofenergy"/>
         </p>
         <p>
-          <InputMain :text="'Location'" v-model="location"/>
+          <label>
+            <input type="checkbox" v-model="wallonie">
+            Wallonie
+          </label>
+          <label>
+            <input type="checkbox" v-model="flandre">
+            Flandre
+          </label>
+          <label>
+            <input type="checkbox" v-model="bruxelles">
+            Bruxelles-Capitale
+          </label>
         </p>
         <p>
           <InputMain :text="'Basic price'" v-model="basicprice"/>
@@ -48,18 +59,51 @@ export default {
     return{
       name: '',
       typeofenergy: '',
-      location: '',
+      wallonie: false,
+      flandre: false,
+      bruxelles: false,
+      location: '000',
       basicprice: '',
       nightprice: '',
       dayprice: '',
       offpeakprice: ''
     }},
+  watch: {
+    wallonie() {
+      this.updateLocation()
+    },
+    flandre() {
+      this.updateLocation()
+    },
+    bruxelles() {
+      this.updateLocation()
+    }
+  },
   /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up*/
   methods: {
+    updateLocation() {
+      let location = ''
+      if (this.wallonie) {
+        location += '1'
+      } else {
+        location += '0'
+      }
+      if (this.flandre) {
+        location += '1'
+      } else {
+        location += '0'
+      }
+      if (this.bruxelles) {
+        location += '1'
+      } else {
+        location += '0'
+      }
+      this.location = location
+    },
     checkArgs() {
       if (!this.name) Swal.fire("Please enter your name");
       else if (!this.typeofenergy) Swal.fire("Please enter the type of energy");
-      else if (!this.location) Swal.fire("Please enter the location");
+      else if (this.location === '000') Swal.fire("Please select at least one location");
       else if (!this.basicprice) Swal.fire("Please enter the basic price");
       else if (!this.nightprice) Swal.fire("Please enter the night price");
       else if (!this.dayprice) Swal.fire("Please enter the day price");
