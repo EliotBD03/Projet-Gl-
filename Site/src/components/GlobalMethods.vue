@@ -11,7 +11,7 @@
       Swal.fire({
       icon: 'error',
       title: 'OH NO !',
-      text: error
+      text: this.$t(error)
       })  
     },
     /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle*/

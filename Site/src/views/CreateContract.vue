@@ -1,0 +1,90 @@
+<template>
+  <div class="main">
+    <div class="header">
+      <MainHeader text="Add a wallet"/>
+    </div>
+    <div class="contact-form">
+      <form id="addWallet" method="post" v-on:submit.prevent="post">
+        <p>
+          <InputMain :text="$t('walletform.name')" v-model="name"/>
+        </p>
+        <p>
+          <InputMain :text="'Type of energy'" v-model="typeofenergy"/>
+        </p>
+        <p>
+          <InputMain :text="'Location'" v-model="location"/>
+        </p>
+        <p>
+          <InputMain :text="'Basic price'" v-model="basicprice"/>
+        </p>
+        <p>
+          <InputMain :text="'Night price'" v-model="nightprice"/>
+        </p>
+        <p>
+          <InputMain :text="'Day price'" v-model="dayprice"/>
+        </p>
+        <p>
+          <InputMain :text="'Off-peak price'" v-model="offpeakprice"/>
+        </p>
+        <GoButton text="button.add" type="submit" :colore="'green'"/>
+      </form>
+    </div>
+    <div class="backbutton" @click.prevent.left="$router.push('/wallets')">
+      <GoButton text="Back" :colore="'darkblue'"/>
+    </div>
+  </div>
+</template>
+
+<script>
+import GoButton from "@/components/GoButton.vue";
+import Swal from 'sweetalert2';
+import InputMain from "@/components/InputMain.vue";
+import MainHeader from "@/components/MainHeader.vue";
+
+export default {
+  name: "CreateContract",
+  components: {InputMain, GoButton, MainHeader},
+  data(){
+    return{
+      name: '',
+      typeofenergy: '',
+      location: '',
+      basicprice: '',
+      nightprice: '',
+      dayprice: '',
+      offpeakprice: ''
+    }},
+  /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up*/
+  methods: {
+    checkArgs() {
+      if (!this.name) Swal.fire("Please enter your name");
+      else if (!this.address) Swal.fire("Please enter your address");
+      else return true;
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100vh;
+}
+
+.contact-form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 600px;
+  height: 700px;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+}
+
+</style>

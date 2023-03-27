@@ -94,5 +94,8 @@
     "title": "{name}",
     "time": "il y a {time}",
     "text": "{text}"
+  },
+  "error": {
+    "alreadytaken": "Ce mail est déjà utilisé"
   }
 }

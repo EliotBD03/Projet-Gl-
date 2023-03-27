@@ -3,7 +3,7 @@
     <ul class="list">
       <li class="list__item">
         <label class="label--checkbox" v-for="element in elements" :key="element">
-          <CheckBox :text="element" />
+          <CheckBox :text="element"/>
         </label>
       </li>
     </ul>

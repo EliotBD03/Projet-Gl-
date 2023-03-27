@@ -11,12 +11,15 @@
       </div>
     </div>
     <div class="statesButtons">
-      <div class="acceptbutton" @click.prevent.left="accept()">
+      <div class="acceptbutton" @click.prevent.left="accept()" v-show="checkStatus()">
       ACCEPT
       </div>
-      <div class="refusebutton" @click.prevent.left="refuse()">
+      <div class="refusebutton" @click.prevent.left="refuse()" v-show="checkStatus()">
         REFUSE
       </div>
+      <div class="seenbutton" @click.prevent.left="deleted(id)" v-show="checkStatus()">
+        DELETE
+        </div>
     </div>
   </div>
 </template>
@@ -25,13 +28,17 @@
 export default {
   name: "MainNotification",
   props: ["title","time","text","color","id"],
-
   methods: {
     accept() {
       console.log("accept");
     },
     refuse() {
       console.log("refuse");
+    },
+    deleted(id) {
+      this.$emit("delete", id);
+    },
+    checkStatus() {
     }
   }
 }

@@ -8,7 +8,7 @@
         <div class="texte">
           <p class="name"> {{ contract.name }} :</p>
           <p> {{ contract.nameOwner }}</p>
-          <p> {{ contract.address }}</p>
+          <p> {{ contract.location }}</p>
         </div>
         <div @click.prevent.left="seeMore(contracts)">
           <GoButton text="button.go" :colore="'#34c98e'"/>
@@ -74,7 +74,7 @@ export default {
           }
         } else {
           const data = await response.json();
-          this.listWallet.push(data.contracts); //ajouter la suite de la réponse à la liste
+          this.listContracts.push(data.contracts); //ajouter la suite de la réponse à la liste
           this.lastPage = data.last_page;
         }
         this.loading = false;
@@ -116,8 +116,8 @@ export default {
     },
     /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
     et on redirige vers walletFull*/
-    seeMore(wallet){
-      sessionStorage.setItem('address', wallet.address);
+    seeMore(contract){
+      sessionStorage.setItem('address', contract.address);
     }
   }
 }

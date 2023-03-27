@@ -130,6 +130,11 @@ const routes = [
         path: '/clientFull',
         name: 'ClientFull',
         component: () => import('@/views/ClientFull.vue')
+      },
+      {
+        path: '/createContract',
+        name: 'CreateContract',
+        component: () => import('@/views/CreateContract.vue')
       }
     ],beforeEnter: (to, from, next) => {
         if(cookies.isKey("token") && cookies.isKey("role"))

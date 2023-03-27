@@ -4,7 +4,7 @@
       <MainHeader text="header.notifications"/>
     </div>
     <div class="notifs">
-      <MainNotification class="notif" v-for="notif in notifications" :key="notif" :title="notif.title" :time="notif.time" :text="notif.text" :id="notif.id"/>
+      <MainNotification class="notif" v-for="notif in notifications" :key="notif" :title="notif.title" :time="notif.time" :text="notif.text" :id="notif.id" @delete="deleteNotifications"/>
     </div>
     <div class="homebutton" @click.prevent.left="redirecting()">
       <GoButton text="header.home" :colore="'#B1B9FC'"/>
@@ -26,18 +26,54 @@ export default {
   },
   data() {
     return {
-      notifications: []
+      notifications: [],
+      nbr: 1,
+      lastPage: 0,
     }
+  },
+  created() {
+    this.getNotifications();
   },
   /*Méthode pour rediriger vers la page d'accueil*/
   methods: {
+    async deleteNotifications(id) {
+      console.log("test");
+      const requestOptions = {
+        method: "DELETE",
+        headers: {'Authorization': this.$cookies.get("token")},
+      }
+      fetch('https://babawallet.alwaysdata.net/api/notifications/' + id, requestOptions)
+        .then(response => {
+          if (!response.ok) {
+            const data = response.text();
+            if (response.status == 401 && data.trim() === '') {
+              throw new Error("Token");
+            } else {
+              const data = response.json();
+              throw new Error(data.error);
+            }
+          } else {
+            Swal.fire('Notification deleted');
+          }
+        })
+        .catch(error => {
+          if (error.message === "Token") {
+            this.$cookies.remove("token");
+            this.$cookies.remove("role");
+            Swal.fire('Your connection has expired');
+            this.$router.push("/");
+          } else {
+            GlobalMethods.errorApi(error.message);
+          }
+        });
+    },
     async getNotifications() {
       const requestOptions = {
         method: "GET",
         headers: {'Authorization': this.$cookies.get("token")},
       }
       try {
-        const response = await fetch(`https://babawallet.alwaysdata.net/api/${this.$cookies.get("type")}/notifications`, requestOptions);
+        const response = await fetch(`https://babawallet.alwaysdata.net/api/notifications/page?page=${this.nbr}&limit=3`, requestOptions);
         if (!response.ok) {
           const data = await response.text();
           if (response.status == 401 && data.trim() === '') {
@@ -51,10 +87,10 @@ export default {
           this.lastPage = data.last_page;
           if (this.lastPage == 0) {
             this.loading = true;
-            Swal.fire('No notifications yet!');
+            Swal.fire('No notifications yet !');
           } else {
+            this.id = data.id_proposal;
             this.notifications.push(data.notifications);
-            this.listWallet = this.listWallet.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
           }
         }
       } catch (error) {

@@ -14,10 +14,10 @@
         <br>
       </div>
       <div class="line">
-        <input type="radio" id="français" value="français" v-model="language">
+        <input type="radio" id="français" value="français" v-model="$i18n.locale">
         <label for="français">{{ $t("account.french") }}</label>
         <br>
-        <input type="radio" id="english" value="english" v-model="language">
+        <input type="radio" id="english" value="english" v-model="$i18n.locale">
         <label for="english">{{ $t("account.english") }}</label>
         <br>
       </div>
@@ -158,7 +158,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 105vh;
+  height: 100vh;
 }
 
   .create-form {

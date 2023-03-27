@@ -8,9 +8,6 @@
 export default {
   name: "GoButton",
   props: ["text","colore"],
-  methods: {
-
-    },
     data() {
       return {
         color: this.colore,

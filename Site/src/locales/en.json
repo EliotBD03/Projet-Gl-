@@ -94,5 +94,8 @@
     "title": "{name}",
     "time": "{time} ago",
     "text": "{text}"
+  },
+  "error": {
+    "alreadytaken": "This mail is already taken"
   }
 }
