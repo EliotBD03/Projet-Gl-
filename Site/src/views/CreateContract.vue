@@ -53,7 +53,6 @@ import InputMain from "@/components/InputMain.vue";
 import MainHeader from "@/components/MainHeader.vue";
 
 export default {
-  name: "CreateContract",
   components: {InputMain, GoButton, MainHeader},
   data(){
     return{
@@ -154,6 +153,13 @@ export default {
   justify-content: space-evenly;
   align-items: center;
   height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; 
 }
 
 .contact-form{

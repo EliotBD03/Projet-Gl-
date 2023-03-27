@@ -11,7 +11,7 @@
       Swal.fire({
       icon: 'error',
       title: 'OH NO !',
-      text: this.$t(error)
+      text: error //this.$t(error) ne fonctionne pas Maxime
       })  
     },
     /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle*/

@@ -5,7 +5,6 @@
     </div>
     <div class="container">
       <div class="list">
-        <SelectListContract/>
       </div>
       <div class="homeButton" @click.prevent.left="$router.push('/Home')">
       <GoButton text="header.home" :colore="'#B1B9FC'"/>
@@ -16,12 +15,10 @@
 <script>
 import MainHeader from "@/components/MainHeader.vue";
 import GoButton from "@/components/GoButton.vue";
-import SelectListContract from "@/components/SelectListContract.vue";
 export default {
   components: {
     MainHeader,
     GoButton,
-    SelectListContract,
   },
   /*Méthode pour charger la langue sauvegardée en cookie*/
   mounted() {
@@ -47,6 +44,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999; 
 }
 
 
