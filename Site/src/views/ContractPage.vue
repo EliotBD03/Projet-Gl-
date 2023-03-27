@@ -54,7 +54,7 @@ export default {
     this.getPage();
   },
   methods: {
-    /*Méthode permettant de récupérer les pages des wallets de l'Api en scrollant */
+    /*Méthode permettant de récupérer les pages des wallets de l'Api avec le bouton seeMore */
     async getPage(){
       const requestOptions = {
         method: "GET",
@@ -96,7 +96,7 @@ export default {
         }
       }
     },
-    /*Lorsque l'utilisateur scrolle, cette méthode est appelée
+    /*Lorsque l'utilisateur appuie sur SeeMore, cette méthode est appelée
     pour augmenter le nombre de la page et appeler getPage*/
     loader()
     {
@@ -129,6 +129,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999; 
 }
 
 .main {

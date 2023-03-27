@@ -27,7 +27,6 @@
   import InputMain from "@/components/InputMain.vue";
   import MainHeader from "@/components/MainHeader.vue";
   export default {
-    name: "ContactForm",
     components: {InputMain, GoButton, MainHeader},
     data(){
       return{
@@ -93,6 +92,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 9999; 
   }
 
   .main {

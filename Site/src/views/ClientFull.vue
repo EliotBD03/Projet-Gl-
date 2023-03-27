@@ -44,7 +44,7 @@
     data(){
       return{
         client : sessionStorage.getItem('client'),
-        linkApi : `https://babawallet.alwaysdata.net/api/provider/clients/${this.client.id_client}/contrats/`,
+        linkApi : `https://babawallet.alwaysdata.net/api/provider/clients/${this.client.clientId}/contrats/`,
         nbr : 1,
         loading : false,
         lastPage : 0,
@@ -63,7 +63,7 @@
       this.getPage();
     },
     methods: {
-      /*Méthode permettant de récupérer les pages des contracts de l'Api en scrollant */
+      /*Méthode permettant de récupérer les pages des contracts de l'Api avec le bouton seeMore */
       async getPage(){
         const requestOptions = {
           method: "GET",
@@ -105,7 +105,7 @@
             }
         }
       },
-      /*Lorsque l'utilisateur scrolle, cette méthode est appelée 
+      /*Lorsque l'utilisateur appuie sur SeeMore, cette méthode est appelée 
       pour augmenter le nombre de la page et appeler getPage*/
       loader()
       {
@@ -130,36 +130,36 @@
           headers: {'Authorization' : this.$cookies.get("token")}
         };
         fetch(`https://babawallet.alwaysdata.net/api/clients/clients_of_provider/${this.client.id_client}`, requestOptions)
-            .then(response => {
-              if(!response.ok){
-                const data = response.text();
-                if(response.status == 401 && data.trim() === ''){
-                    throw new Error("Token");
-                }
-                else{
-                  return response.json().then(json => Promise.reject(json));
-                }
+          .then(response => {
+            if(!response.ok){
+              const data = response.text();
+              if(response.status == 401 && data.trim() === ''){
+                  throw new Error("Token");
               }
               else{
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Good !',
-                  text: 'Client deleted !'
-                })
-                this.$router.push({name: 'Clients'});
+                return response.json().then(json => Promise.reject(json));
               }
-            })
-            .catch(error => {
-              if(error.message === "Token") {
-                this.$cookies.remove("token");
-                this.$cookies.remove("role");
-                Swal.fire('Your connection has expired');
-                this.$router.push("/");
-              } 
-              else {
-                GlobalMethods.errorApi(error.error);
-              }
-            });
+            }
+            else{
+              Swal.fire({
+                icon: 'success',
+                title: 'Good !',
+                text: 'Client deleted !'
+              })
+              this.$router.push({name: 'Clients'});
+            }
+          })
+          .catch(error => {
+            if(error.message === "Token") {
+              this.$cookies.remove("token");
+              this.$cookies.remove("role");
+              Swal.fire('Your connection has expired');
+              this.$router.push("/");
+            } 
+            else {
+              GlobalMethods.errorApi(error.error);
+            }
+          });
       },
       /*Retourner à la page des clients en supprimant le client du sessionStorage*/
       back(){
@@ -190,6 +190,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 9999; 
   }
   
   .bottombutton {

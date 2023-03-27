@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'login',
-    component: () => import('@/views/Login.vue'),
+    component: () => import('@/views/LoginPage.vue'),
     beforeEnter: (to, from, next) => {
       if(cookies.isKey("token") && cookies.isKey("role"))
       {

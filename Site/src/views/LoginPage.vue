@@ -28,7 +28,6 @@
   import Swal from 'sweetalert2';
   import InputMain from "@/components/InputMain.vue";
   export default {
-    name: "loginForm",
     components: {InputMain, GoButton, MainHeader},
     data(){
       return{
@@ -113,6 +112,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999; 
 }
 
 .main {

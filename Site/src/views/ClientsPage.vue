@@ -12,10 +12,10 @@
         <div @click.prevent.left="seeMore(client)">
           <GoButton text="button.go" :colore="'#34c98e'"/>
         </div>
-    </div>
-    <div v-if="notLastPage()" @click.prevent.left="loader()">
-      <GoButton text="See more clients" :colore="'#B1B9FC'"/>
-    </div>
+      </div>
+      <div v-if="notLastPage()" @click.prevent.left="loader()">
+        <GoButton text="See more clients" :colore="'#B1B9FC'"/>
+      </div>
     </div>
     <div @click.prevent.left="$router.push('/addClient')">
       <GoButton text="Add a client" :colore="'#B1B9FC'"/>
@@ -56,7 +56,7 @@
       this.getPage();
     },
     methods: {
-      /*Méthode permettant de récupérer les pages des clients de l'Api en scrollant */
+      /*Méthode permettant de récupérer les pages des clients de l'Api avec le bouton seeMore*/
       async getPage(){
         const requestOptions = {
           method: "GET",
@@ -99,7 +99,7 @@
             }
         }
       },
-      /*Lorsque l'utilisateur scrolle, cette méthode est appelée 
+      /*Lorsque l'utilisateur appuie sur SeeMore, cette méthode est appelée 
       pour augmenter le nombre de la page et appeler getPage*/
       loader()
       {
@@ -133,6 +133,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 9999; 
   }
   
   .main {
@@ -164,8 +165,7 @@
     height: 400px;
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
     margin: 20px;
-    border-radius: 30px;
-    
+    border-radius: 30px; 
   }
   
   
