@@ -195,7 +195,7 @@ public class App
                 .setStatusCode(401)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "You are not authorized to do this operation.")));
+                            .put("error", "error.unauthorizedOperation")));
     }
 
     public static void setCodeToDeleteCode(String code)

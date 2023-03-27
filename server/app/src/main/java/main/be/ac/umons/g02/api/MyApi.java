@@ -172,7 +172,7 @@ public class MyApi extends AbstractVerticle
                 .setStatusCode(401)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "You are not authorized to do this operation.")));
+                            .put("error", "error.unauthorizedOperation")));
     }
 
     /**
@@ -203,7 +203,7 @@ public class MyApi extends AbstractVerticle
                 .setStatusCode(401)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "You are not authorized to do this operation.")));
+                            .put("error", "error.unauthorizedOperation")));
     }
 
     /**
@@ -249,7 +249,7 @@ public class MyApi extends AbstractVerticle
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Page and limit numbers must be integers.")));
+                            .put("error", "error.pageLimit")));
             return null;
         }
 
@@ -259,7 +259,7 @@ public class MyApi extends AbstractVerticle
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The page number must be strictly greater than 0 or the search phrase must not be empty.")));
+                            .put("error", "error.pageNumber")));
             return null;
         }
 
@@ -283,7 +283,7 @@ public class MyApi extends AbstractVerticle
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The query is missing information.")));
+                            .put("error", "error.missingInformation")));
             return true;
         }
 
@@ -329,7 +329,7 @@ public class MyApi extends AbstractVerticle
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The token does not contain all the necessary information.")));
+                            .put("error", "tokenMissingInformation")));
         return data;
     }
 
@@ -364,7 +364,7 @@ public class MyApi extends AbstractVerticle
                     .setStatusCode(401)
                     .putHeader("content-type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this site.")));
+                                .put("error", "error.unauthorizedAccess ")));
         }
 
         /**
@@ -388,7 +388,7 @@ public class MyApi extends AbstractVerticle
                     .setStatusCode(401)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this part of the site.")));
+                                .put("error", "error.unauthorizedAccess")));
                 return;
             }
 
@@ -399,7 +399,7 @@ public class MyApi extends AbstractVerticle
                     .setStatusCode(401)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this part of the site.")));
+                                .put("error", "error.unauthorizedAccess")));
             else
                 routingContext.next();
         };
@@ -424,7 +424,7 @@ public class MyApi extends AbstractVerticle
                     .setStatusCode(401)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this part of the site.")));
+                                .put("error", "error.unauthorizedAccess")));
         };
 
         /**
@@ -447,7 +447,7 @@ public class MyApi extends AbstractVerticle
                     .setStatusCode(401)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this part of the site.")));
+                                .put("error", "error.unauthorizedAccess")));
         };
 
         /**
@@ -470,7 +470,7 @@ public class MyApi extends AbstractVerticle
                     .setStatusCode(401)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this part of the site.")));
+                                .put("error", "error.unauthorizedAccess")));
         };
     }
 }

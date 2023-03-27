@@ -278,7 +278,7 @@ public class ProviderApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The query is missing information.")));
+                            .put("error", "error.missingInformation")));
             return;
         }
 

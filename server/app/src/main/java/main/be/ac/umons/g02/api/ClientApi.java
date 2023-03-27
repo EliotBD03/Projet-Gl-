@@ -135,7 +135,7 @@ public class ClientApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "this address is already taken.")));
+                            .put("error", "error.addressNotCorrect")));
     }
 
     /** 
@@ -164,7 +164,7 @@ public class ClientApi extends MyApi implements RouterApi
                 .setStatusCode(405)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The portfolio is not empty.")));
+                            .put("error", "error.walletNotEmpty")));
     }
 
     /** 

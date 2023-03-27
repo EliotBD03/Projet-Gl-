@@ -230,7 +230,7 @@ public class CommonApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Invalid code.")));
+                            .put("error", "error.incorrectCode")));
     }
 
     /** 
@@ -471,7 +471,7 @@ public class CommonApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The query is missing information.")));
+                            .put("error", "error.missingInformation")));
             return;
         }
 
@@ -487,7 +487,7 @@ public class CommonApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The table does not only contain numbers.")));
+                            .put("error", "error.tableauType")));
             return;
         }
 
@@ -529,7 +529,7 @@ public class CommonApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The query is missing information.")));
+                            .put("error", "error.missingInformation")));
             return;
         }
 
