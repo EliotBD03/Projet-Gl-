@@ -56,7 +56,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour renvoyer une partie de la liste des langues de l'utilisateur
+     * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste des langues de l'utilisateur
      * Cette méthode utilise la pagination 
      *
      * @param - Le context de la requête
@@ -87,7 +87,7 @@ public class CommonApi extends MyApi implements RouterApi
     } 
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour renvoyer la langue favorite de l'utilisateur 
+     * Méthode qui utilise le package de base de données pour renvoyer la langue favorite de l'utilisateur 
      *
      * @param - Le context de la requête
      * @see LanguageManager
@@ -109,7 +109,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour renvoyer la langue actuelle de l'utilisateur
+     * Méthode qui utilise le package de base de données pour renvoyer la langue actuelle de l'utilisateur
      *
      * @param - Le context de la requête
      * @see LanguageManager
@@ -131,7 +131,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour ajouter une nouvelle langue à la liste des langues de l'utilisateur 
+     * Méthode qui utilise le package de base de données pour ajouter une nouvelle langue à la liste des langues de l'utilisateur 
      *
      * @param - Le context de la requête
      * @see LanguageManager
@@ -154,7 +154,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour changer la langue actuelle de l'utilisateur 
+     * Méthode qui utilise le package de base de données pour changer la langue actuelle de l'utilisateur 
      *
      * @param - Le context de la requête
      * @see LanguageManager
@@ -177,7 +177,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour changer la langue favorite de l'utilisateur 
+     * Méthode qui utilise le package de base de données pour changer la langue favorite de l'utilisateur 
      *
      * @param - Le context de la requête
      * @see LanguageManager
@@ -200,7 +200,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour changer le mot de passe de l'utilisateur
+     * Méthode qui utilise le package de base de données pour changer le mot de passe de l'utilisateur
      * Si le code de vérification est incorrect, cette méthode renvoie le code 400 avec une explication  
      *
      * @param - Le context de la requête
@@ -230,11 +230,11 @@ public class CommonApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Invalid code.")));
+                            .put("error", "error.incorrectCode")));
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour renvoyer une partie de la liste des notifications de l'utilisateur
+     * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste des notifications de l'utilisateur
      * Cette méthode utilise la pagination 
      *
      * @param - Le context de la requête
@@ -265,8 +265,8 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour faire passer la notification qui a été acceptée 
-     * La traitement est différent selon la requête, tout se passe côté base de donnée
+     * Méthode qui utilise le package de base de données pour faire passer la notification qui a été acceptée 
+     * La traitement est différent selon la requête, tout se passe côté base de données
      *
      * @param - Le context de la requête
      * @see NotificationManager
@@ -303,7 +303,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour supprimer la notification et prévenir l'émetteur
+     * Méthode qui utilise le package de base de données pour supprimer la notification et prévenir l'émetteur
      *
      * @param - Le context de la requête
      * @see NotificationManager
@@ -323,7 +323,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour juste supprimer la notification 
+     * Méthode qui utilise le package de base de données pour juste supprimer la notification 
      *
      * @param - Le context de la requête
      * @see NotificationManager
@@ -343,7 +343,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour renvoyer un contrat en particulier
+     * Méthode qui utilise le package de base de données pour renvoyer un contrat en particulier
      *
      * @param - Le context de la requête
      * @see ContractManager
@@ -364,7 +364,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour supprimer un contrat
+     * Méthode qui utilise le package de base de données pour supprimer un contrat
      *
      * @param - Le context de la requête
      * @see ContractManager
@@ -384,7 +384,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour renvoyer les données de consommation par moi
+     * Méthode qui utilise le package de base de données pour renvoyer les données de consommation par moi
      *
      * @param - Le context de la requête
      * @see ConsumptionManager
@@ -412,7 +412,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour renvoyer toutes les données de consommations sur un moi 
+     * Méthode qui utilise le package de base de données pour renvoyer toutes les données de consommations sur un moi 
      *
      * @param - Le context de la requête
      * @see ConsumptionManager
@@ -440,7 +440,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour ajouter une liste de données de consommations par rapport à un contrat
+     * Méthode qui utilise le package de base de données pour ajouter une liste de données de consommations par rapport à un contrat
      *
      * @param - Le context de la requête
      * @see ConsumptionManager
@@ -471,7 +471,7 @@ public class CommonApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The query is missing information.")));
+                            .put("error", "error.missingInformation")));
             return;
         }
 
@@ -487,7 +487,7 @@ public class CommonApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The table does not only contain numbers.")));
+                            .put("error", "error.tableauType")));
             return;
         }
 
@@ -502,7 +502,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour changer une donnée de consommation par rapport à un contrat
+     * Méthode qui utilise le package de base de données pour changer une donnée de consommation par rapport à un contrat
      *
      * @param - Le context de la requête
      * @see ConsumptionManager
@@ -529,7 +529,7 @@ public class CommonApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The query is missing information.")));
+                            .put("error", "error.missingInformation")));
             return;
         }
 

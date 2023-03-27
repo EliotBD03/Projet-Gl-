@@ -48,7 +48,7 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour renvoyer une partie de la liste des portefeuilles d'un client
+     * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste des portefeuilles d'un client
      * Cette méthode utilise la pagination 
      *
      * @param - Le context de la requête
@@ -79,7 +79,7 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour renvoyer un portefeuille en particulier d'un client en particulier
+     * Méthode qui utilise le package de base de données pour renvoyer un portefeuille en particulier d'un client en particulier
      *
      * @param - Le context de la requête
      * @see WalletManager
@@ -100,7 +100,7 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour créer un nouveau portefeuille dans le base de donnée
+     * Méthode qui utilise le package de base de données pour créer un nouveau portefeuille dans le base de données
      *
      * @param - Le context de la requête
      * @see WalletManager
@@ -135,11 +135,11 @@ public class ClientApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "this address is already taken.")));
+                            .put("error", "error.addressNotCorrect")));
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour supprimer un portefeuille en particulier
+     * Méthode qui utilise le package de base de données pour supprimer un portefeuille en particulier
      * Cette méthode renvoie le code 405 avec une explication dans le cas où le portefeuille contient encore des contrats
      *
      * @param - Le context de la requête
@@ -164,11 +164,11 @@ public class ClientApi extends MyApi implements RouterApi
                 .setStatusCode(405)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The portfolio is not empty.")));
+                            .put("error", "error.walletNotEmpty")));
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour renvoyer une partie de la liste des contrats d'un client 
+     * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste des contrats d'un client 
      * Cette méthode utilise la pagination
      *
      * @param - Le context de la requête
@@ -199,7 +199,7 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour renvoyer une partie de la liste de toutes les propositions de tous les fournisseurs
+     * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste de toutes les propositions de tous les fournisseurs
      * Cette méthode utilise la pagination
      *
      * @param - Le context de la requête
@@ -233,7 +233,7 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour renvoyer une proposition en particulier 
+     * Méthode qui utilise le package de base de données pour renvoyer une proposition en particulier 
      *
      * @param - Le context de la requête
      * @see ProposalManager
@@ -255,7 +255,7 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour créer une nofication afin de prévenir le fournisseur d'une nouvelle proposition de contrat
+     * Méthode qui utilise le package de base de données pour créer une nofication afin de prévenir le fournisseur d'une nouvelle proposition de contrat
      *
      * @param - Le context de la requête
      * @see NotificationManager

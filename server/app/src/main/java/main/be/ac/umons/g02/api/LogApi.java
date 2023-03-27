@@ -41,7 +41,7 @@ public class LogApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour vérifier le mail et le mot de passe de l'utilisateur
+     * Méthode qui utilise le package de base de données pour vérifier le mail et le mot de passe de l'utilisateur
      * Si tout se passe bien, cette méthode génère un token et l'envoie à l'émetteur
      * En cas d'erreur, elle renvoie le code 400 avec une explication
      * Note que le token contient l'id et le rôle de l'utilisateur
@@ -70,7 +70,7 @@ public class LogApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Account not found, email address or password is not correct.")));
+                            .put("error", "error.accountNotFound")));
             return;
         }
 
@@ -110,7 +110,7 @@ public class LogApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "You have to send the token to disconnect.")));
+                            .put("error", "error.tokenNotSend")));
             return;
         }
 
@@ -125,7 +125,7 @@ public class LogApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour sauvegarder le compte de l'utilisateur
+     * Méthode qui utilise le package de base de données pour sauvegarder le compte de l'utilisateur
      * Elle vérifie le code que l'utilisateur a recu pour créer le compte de manière sécuriser
      * Si le code est incorrect, cette méthode renvoie le code 400 avec une explication
      * S'il y a eu une erreur lors de la création du compte, cette méthode renvoie le code 503 avec une explication 
@@ -165,7 +165,7 @@ public class LogApi extends MyApi implements RouterApi
                     .setStatusCode(400)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "The query is missing information.")));
+                                .put("error", "error.missingInformation")));
                 return;
             }
 
@@ -205,7 +205,7 @@ public class LogApi extends MyApi implements RouterApi
                     .setStatusCode(503)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "The account could not be saved.")));
+                                .put("error", "error.saveAccount")));
             }
         }
         else
@@ -213,11 +213,11 @@ public class LogApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Incorrect code.")));
+                            .put("error", "error.incorrectCode")));
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour rénitialiser le mot de passe de l'utilisateur
+     * Méthode qui utilise le package de base de données pour rénitialiser le mot de passe de l'utilisateur
      * Elle vérifie le code que l'utilisateur a recu pour changer le mot de passe sans usurpation
      * Si le code est incorrect, cette méthode renvoie le code 400 avec une explication
      * S'il y a eu une erreur lors de la création du compte, cette méthode renvoie le code 503 avec une explication 
@@ -258,7 +258,7 @@ public class LogApi extends MyApi implements RouterApi
                     .setStatusCode(503)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "Password reset error.")));
+                                .put("error", "error.passwordReset")));
             }
         }
         else
@@ -266,7 +266,7 @@ public class LogApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The code entered is not correct.")));
+                            .put("error", "error.codeNotCorrect")));
     }
 
     /** 
@@ -299,7 +299,7 @@ public class LogApi extends MyApi implements RouterApi
                 .setStatusCode(503)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Error in sending the code.")));
+                            .put("error", "error.codeNotSend")));
         }
     }
 }

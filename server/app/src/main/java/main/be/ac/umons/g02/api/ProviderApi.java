@@ -37,10 +37,10 @@ public class ProviderApi extends MyApi implements RouterApi
         subRouter.get("/clients/clients_of_provider/page").handler(this::getAllHisClients);
         subRouter.get("/clients/:id_client/contrats/page").handler(this::getContractOfClient);
         subRouter.delete("/clients/clients_of_provider/:id_client").handler(this::deleteClient);
-        subRouter.get("/proposals/:id_provider/page").handler(this::getAllProposals);
-        subRouter.get("/proposals/:id_provider/:name_proposal").handler(this::getProposal);
+        subRouter.get("/proposals/page").handler(this::getAllProposals);
+        subRouter.get("/proposals/:name_proposal").handler(this::getProposal);
         subRouter.post("/proposals").handler(this::addProposal);
-        subRouter.delete("/proposals/:id_provider/:nameProposal").handler(this::deleteProposal);
+        subRouter.delete("/proposals/:nameProposal").handler(this::deleteProposal);
         subRouter.delete("/consumptions/:ean").handler(this::deleteAllConsumptions);
         subRouter.delete("/consumptions/:ean/:date").handler(this::deleteConsumption);
         subRouter.post("/propose_contract").handler(this::providerProposeContract);
@@ -49,7 +49,7 @@ public class ProviderApi extends MyApi implements RouterApi
     }
 
     /**
-     * Méthode qui utilise le package base de donnée pour renvoyer une partie de la liste de tous les clients de l'application
+     * Méthode qui utilise le package base de données pour renvoyer une partie de la liste de tous les clients de l'application
      * Cette méthode utilise la pagination
      *
      * @param - Le context de la requête
@@ -77,7 +77,7 @@ public class ProviderApi extends MyApi implements RouterApi
     }
 
     /**
-     * Méthode qui utilise le package base de donnée pour renvoyer une partie de la liste de tous les clients du fournisseurs en question
+     * Méthode qui utilise le package base de données pour renvoyer une partie de la liste de tous les clients du fournisseurs en question
      * Cette méthode utilise la pagination
      *
      * @param - Le context de la requête
@@ -108,7 +108,7 @@ public class ProviderApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package base de donnée pour renvoyer une partie de la liste des contrats en commun entre un fournisseur et un client
+     * Méthode qui utilise le package base de données pour renvoyer une partie de la liste des contrats en commun entre un fournisseur et un client
      * Cette méthode utilise la pagination
      *
      * @param - Le context de la requête
@@ -141,7 +141,7 @@ public class ProviderApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package base de donnée pour effacer tous les contracts du client par rapport à ce fournisseur
+     * Méthode qui utilise le package base de données pour effacer tous les contracts du client par rapport à ce fournisseur
      * Le fournisseur n'aura donc plus aucun lien avec le client
      *
      * @param - Le context de la requête
@@ -165,7 +165,7 @@ public class ProviderApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package base de donnée pour renvoyer une partie de la liste des propositions que le fournisseurs a créées
+     * Méthode qui utilise le package base de données pour renvoyer une partie de la liste des propositions que le fournisseurs a créées
      * Cette méthode utilise la pagination
      *
      * @param - Le context de la requête
@@ -196,7 +196,7 @@ public class ProviderApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package base de donnée pour renvoyer une proposition du fournisseur en particulier
+     * Méthode qui utilise le package base de données pour renvoyer une proposition du fournisseur en particulier
      *
      * @param - Le context de la requête
      * @see ProposalManager
@@ -220,7 +220,7 @@ public class ProviderApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour ajouter une nouvelle proposition à celles du fournisseurs ou en modifie une déjà présente
+     * Méthode qui utilise le package de base de données pour ajouter une nouvelle proposition à celles du fournisseurs ou en modifie une déjà présente
      * Le cas dépend de si le nom  de la proposition existe déjà ou non
      * Dans le cas où la proposition a changé, on crée une notification pour prévenir tous les clients du changements
      *
@@ -278,7 +278,7 @@ public class ProviderApi extends MyApi implements RouterApi
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The query is missing information.")));
+                            .put("error", "error.missingInformation")));
             return;
         }
 
@@ -300,7 +300,7 @@ public class ProviderApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour effacer une proposition parmi celles que le fournisseur avait crées
+     * Méthode qui utilise le package de base de données pour effacer une proposition parmi celles que le fournisseur avait crées
      *
      * @param - Le context de la requête
      * @see ProposalManager
@@ -323,7 +323,7 @@ public class ProviderApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour effacer tous les données de consommations du client par rapport à un contrat en particulier
+     * Méthode qui utilise le package de base de données pour effacer tous les données de consommations du client par rapport à un contrat en particulier
      *
      * @param - Le context de la requête
      * @see ConsumptionManager
@@ -343,7 +343,7 @@ public class ProviderApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour effacer une consommation précise d'un client en particulier pour un contrat en particulier
+     * Méthode qui utilise le package de base de données pour effacer une consommation précise d'un client en particulier pour un contrat en particulier
      *
      * @param - Le context de la requête
      * @see ConsumptionManager
@@ -364,7 +364,7 @@ public class ProviderApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de donnée pour créer une nofication afin de prévenir le client d'une nouvelle proposition de contrat
+     * Méthode qui utilise le package de base de données pour créer une nofication afin de prévenir le client d'une nouvelle proposition de contrat
      *
      * @param - Le context de la requête
      * @see NotificationManager
