@@ -40,7 +40,6 @@ public class CommonApi extends MyApi implements RouterApi
         subRouter.post("/languages/:language").handler(this::addLanguage);
         subRouter.put("/languages/actual_language/:language").handler(this::changeCurrentLanguage);
         subRouter.put("/languages/favourite_language/:language").handler(this::changeFavouriteLanguage);
-        subRouter.put("/change_pwd").handler(this::changePassword);
         subRouter.get("/notifications/page").handler(this::getAllNotifications);
         subRouter.post("/notifications/accept_notification/:id_notification").handler(this::acceptNotification);
         subRouter.post("/notifications/refuse_notification/:id_notification").handler(this::refuseNotification);
@@ -200,40 +199,6 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour changer le mot de passe de l'utilisateur
-     * Si le code de vérification est incorrect, cette méthode renvoie le code 400 avec une explication  
-     *
-     * @param - Le context de la requête
-     */
-    private void changePassword(final RoutingContext routingContext)
-    {
-        LOGGER.info("ChangePassword...");
-
-        String mail = routingContext.pathParam("mail");
-        String code = routingContext.pathParam("code");
-
-        if(App.checkCode(mail, code))
-        {
-            String id = null;
-            if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
-
-            String newPwd = routingContext.pathParam("new_pwd");
-
-            commonDB.getLogManager().changePassword(id, newPwd);
-            routingContext.response()
-                .setStatusCode(200)
-                .putHeader("Content-Type", "application/json")
-                .end();
-        }
-        else
-            routingContext.response()
-                .setStatusCode(400)
-                .putHeader("Content-Type", "application/json")
-                .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "error.incorrectCode")));
-    }
-
-    /** 
      * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste des notifications de l'utilisateur
      * Cette méthode utilise la pagination 
      *
@@ -373,9 +338,12 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("DeleteContract...");
 
+        String id = null;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
         String idContract = routingContext.pathParam("id_contract");
 
-        commonDB.getContractManager().deleteContract(idContract);
+        commonDB.getContractManager().deleteContract(idContract, id);
 
         routingContext.response()
             .setStatusCode(200)

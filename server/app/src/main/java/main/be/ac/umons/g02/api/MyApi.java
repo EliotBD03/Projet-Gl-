@@ -190,7 +190,7 @@ public class MyApi extends AbstractVerticle
 
     if(codeToClean.equals(code))
     {
-      commonDB.getClientManager().checkContractExpired();
+      commonDB.getContractManager().deleteExpiredContracts();
 
       routingContext.response()
         .setStatusCode(200)
