@@ -101,6 +101,7 @@ public class MyApi extends AbstractVerticle
     router.route("/api/common/*").handler(routingContext -> HandlerUtils.handleRoleCommon(routingContext));
     router.get("/timer_task/clear_blacklist/:code").handler(this::cleanExpiredTokens);
     router.get("/timer_task/clear_codelist/:code").handler(routingContext -> App.automaticDeleteCode(routingContext));
+    router.get("/timer_task/clear_contract/:code").handler(this::cleanExpiredContract);
     router.get("/delete_user/:id/:code").handler(this::deleteUser);
 
     logApi = new LogApi();
@@ -161,6 +162,35 @@ public class MyApi extends AbstractVerticle
         if(Instant.ofEpochSecond(exp).isBefore(Instant.now()))
           iterator.remove();
       }
+
+      routingContext.response()
+        .setStatusCode(200)
+        .putHeader("Content-Type", "application/json")
+        .end();
+    }
+    else
+      routingContext.response()
+        .setStatusCode(401)
+        .putHeader("Content-Type", "application/json")
+        .end(Json.encodePrettily(new JsonObject()
+              .put("error", "error.unauthorizedOperation")));
+  }
+
+  /**
+   * Méthode qui permet d'appeler une méthode du package base de données pour supprimer les contracts finis.
+   * Cette méthode est appelée toutes les jours par une tâche planifiée d'alwaysdata
+   *
+   * @param routingContext - Le contexte de la requête
+   */
+  private void cleanExpiredContract(final RoutingContext routingContext)
+  {
+    LOGGER.info("CleanExpiredContract...");
+
+    String code = routingContext.pathParam("code");
+
+    if(codeToClean.equals(code))
+    {
+      commonDB.getClientManager().checkContractExpired();
 
       routingContext.response()
         .setStatusCode(200)
