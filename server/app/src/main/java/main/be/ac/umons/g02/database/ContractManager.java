@@ -113,12 +113,14 @@ public class ContractManager
      * @param contractId l'identifiant du contrat
      */
 
-    public void deleteContract(String contractId)
+    public void deleteContract(String contractId) //TODO doit faire 2 sortes de deleteContract : un pour les expired et l'autre si un supp
     {
+        ContractFull contractFull = getContract(contractId);
         DB.getInstance().executeQuery("DELETE FROM contract WHERE contract_id="+contractId, false);
         DB.getInstance().executeQuery("DELETE FROM counter WHERE contract_id="+contractId, false);
         DB.getInstance().executeQuery("DELETE FROM provider_contract WHERE contract_id="+contractId,false);
         DB.getInstance().executeQuery("DELETE FROM wallet_contract WHERE contract_id="+contractId,false);
+        new NotificationManager().createNotification(contractFull.getClientId(), contractFull.getProviderId(), contractId, "Your contract has been deleted by :" + new LogManager().getName(contractFull.getClientId()));
     }
 
     /**
@@ -199,6 +201,23 @@ public class ContractManager
                 return WalletManager.energyType.values()[i];
         }
         return null;
+    }
+
+    /**
+     * Supprime tous les contrats expirés.
+     *
+     * @return vrai si au moins un contrat a été supprimé, faux sinon.
+     */
+    public boolean deleteExpiredContracts()
+    {
+        DB.getInstance().executeQuery("SELECT contract_id FROM contract WHERE closing_date <= CURDATE()", true);
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("contract_id");
+        if(results.get(0).size() == 0)
+            return false;
+        ArrayList<String> contractIds = DB.getInstance().getResults("contract_id").get(0);
+        for(String contractId : contractIds)
+            deleteContract(contractId);
+        return true;
     }
 
 }
