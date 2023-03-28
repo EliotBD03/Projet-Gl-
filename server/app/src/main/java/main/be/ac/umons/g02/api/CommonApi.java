@@ -343,7 +343,7 @@ public class CommonApi extends MyApi implements RouterApi
 
         String idContract = routingContext.pathParam("id_contract");
 
-        commonDB.getContractManager().deleteContract(idContract, id);
+        commonDB.getContractManager().deleteContractAndNotify(idContract, id);
 
         routingContext.response()
             .setStatusCode(200)
