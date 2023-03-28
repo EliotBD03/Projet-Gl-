@@ -72,18 +72,16 @@
             } else {
               const data = await response.json(); 
               this.lastpageProposals = data.last_page;
-              console.log(data);
               if(this.lastpageProposals == 0){
                   Swal.fire("You don't have any proposals");  
-                  this.$router.push("/clients");        
               }
               else if(this.lastpageProposals >= this.nbrProposals){
-                //this.listOfProposal.push(data.listOfProposal); //ajouter la suite de la réponse à la liste
+                this.listOfProposal.push(data.listOfProposal); //ajouter la suite de la réponse à la liste
                 this.listOfProposal = this.listOfProposal.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
-                /*while(this.lastpageProposals >= this.nbrProposals){
+                while(this.lastpageProposals >= this.nbrProposals){
                   this.nbrProposals++;
                   this.getAllProposals();
-                }*/
+                }
               }
             }
           } catch(error) {
