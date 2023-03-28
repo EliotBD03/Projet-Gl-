@@ -140,14 +140,16 @@ export default {
     },
     /*Retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
     back(){
-      sessionStorage.removeItem('address');
+      sessionStorage.clear();
       this.$router.push({name: 'Wallets'});
     },
     /*On sauvegarde le contrat sur lequel on souhaite plus d'informations
       et on redirige vers contrat*/
     seeMore(contract){
-      sessionStorage.setItem('contract', contract);
-      //this.$router.push( {name: "Contracts"} );
+      sessionStorage.setItem('walletName', this.wallet.name);
+      sessionStorage.setItem('idContract', contract.contractId);
+      sessionStorage.setItem('walletAddress', this.wallet.address);
+      this.$router.push( {name: "ContractFull"} );
     }
   }
 };
@@ -177,17 +179,18 @@ export default {
   justify-content: space-between;
   padding: 0 50px;
   margin-top: 50px;
+  width: 100%;
 }
 
 .list{
   display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 500px;
-    height: 500px;
-    border-radius: 50px;
-    background: #e0e0e0;
-    box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 500px;
+  height: 500px;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
 }
 </style>

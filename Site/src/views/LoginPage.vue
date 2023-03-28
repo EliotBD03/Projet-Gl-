@@ -15,8 +15,6 @@
         <div class="forgotbutton" @click.prevent.left="goForgot()">
         <GoButton text="button.forgotpwd" :colore="'#B1B9FC'"/>
         </div>
-        <!--<button v-on:click="test1()">TEST1 Client</button>
-        <button v-on:click="test2()">TEST2 Supplier</button>-->
       </div>
     </div>
   </template>
@@ -87,22 +85,7 @@
             this.$cookies.set("mail", this.mail);
             this.$router.push({name: 'forgottenPassword'});
           }
-        },
-        
-        /*
-        //Temp
-        test1(){
-          this.$cookies.set("role", "client");
-          this.$cookies.set("token", 123456789); 
-          this.$router.push({ name: 'HomeClient' });
-        },
-        test2(){
-          this.$cookies.set("role", "supplier");
-          this.$cookies.set("token", 987654321);
-          this.$router.push({ name: 'HomeSupplier' });
-        }
-        */
-        
+        }       
     }
   }
   </script>

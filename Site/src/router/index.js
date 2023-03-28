@@ -176,6 +176,20 @@ const routes = [
         next(from.path);
       }
     }
+  },
+  {
+    path: '/contractFull',
+    name: 'ContractFull',
+    component: () => import('@/views/ContractFull.vue'),
+    beforeEnter: (to, from, next) => {
+      if(cookies.isKey("token") && cookies.isKey("role"))
+      {
+        next();
+      }
+      else {
+        next(from.path);
+      }
+    }
   }
 ]
 
