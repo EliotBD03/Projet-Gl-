@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text="Add a wallet"/>
+      <MainHeader text="Add contract"/>
     </div>
     <div class="contact-form">
       <form id="addWallet" method="post" v-on:submit.prevent="post">
@@ -33,6 +33,9 @@
         </p>
         <p>
           <InputMain :text="'Day price'" v-model="variable_day_price"/>
+        </p>
+        <p>
+          Off-peak hours :
         </p>
         <div>
           <label for="start-time">Heure de début : </label>
