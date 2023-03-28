@@ -64,7 +64,7 @@ public class ProviderApi extends MyApi implements RouterApi
             return;
 
         Object[] res = commonDB.getClientManager().getAllClients(slice[0], slice[1]);
-        int numberOfPagesRemaining = (((int) res[0]) / slice[1]) + (1-(1/100000000));
+        int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);
 
         ArrayList<ClientBasic> allClients = (ArrayList<ClientBasic>) res[1];
 
@@ -95,7 +95,7 @@ public class ProviderApi extends MyApi implements RouterApi
             return;
 
         Object[] res = commonDB.getClientManager().getAllHisClients(id, slice[0], slice[1]);
-        int numberOfPagesRemaining = (((int) res[0]) / slice[1]) + (1-(1/100000000));
+        int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);
 
         ArrayList<ClientBasic> allHisClients = (ArrayList<ClientBasic>) res[1];
 
@@ -128,7 +128,7 @@ public class ProviderApi extends MyApi implements RouterApi
             return;
 
         Object[] res = commonDB.getContractManager().getCommonContracts(id, idClient, slice[0], slice[1]);
-        int numberOfPagesRemaining = (((int) res[0]) / slice[1]) + (1-(1/100000000));
+        int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);
 
         ArrayList<ContractBasic> contracts = (ArrayList<ContractBasic>) res[1];
 
@@ -183,7 +183,7 @@ public class ProviderApi extends MyApi implements RouterApi
             return;
 
         Object[] res = commonDB.getProposalManager().getAllProposals(id, slice[0], slice[1]);
-        int numberOfPagesRemaining = (((int) res[0]) / slice[1]) + (1-(1/100000000));
+        int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);
 
         ArrayList<ProposalBasic> allProposals = (ArrayList<ProposalBasic>) res[1];
 
