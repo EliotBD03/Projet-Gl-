@@ -29,10 +29,12 @@ class ConsumptionManagerTest {
     @AfterAll
     static void clean()
     {
-        new ContractManager().deleteContract("1");
+        DB.getInstance().executeQuery("DELETE FROM contract", false);
+        DB.getInstance().executeQuery("DELETE FROM counter", false);
+        DB.getInstance().executeQuery("DELETE FROM provider_contract",false);
+        DB.getInstance().executeQuery("DELETE FROM wallet_contract",false);
         new ProposalManager().deleteProposal("elec", "2");
        DB.getInstance().executeQuery("DELETE FROM consumption", false);
-       DB.getInstance().executeQuery("DElETE FROM wallet_contract", false);
        new WalletManager().deleteWallet("address");
        new LogManager().deleteAccount("1");
        new LogManager().deleteAccount("2");
