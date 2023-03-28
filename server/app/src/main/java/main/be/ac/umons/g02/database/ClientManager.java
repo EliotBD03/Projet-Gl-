@@ -4,6 +4,7 @@ import main.be.ac.umons.g02.data_object.ClientBasic;
 
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ClientManager
 {
@@ -39,7 +40,7 @@ public class ClientManager
      */
     public Object[] getAllClients(int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN (SELECT id FROM client) LIMIT "+base+", "+limit,true);
+        DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN (SELECT client_id FROM client) LIMIT "+base+", "+limit,true);
         ArrayList<ClientBasic> clientBasics =  getClientBasics();
         DB.getInstance().executeQuery("SELECT count(*) AS c FROM client", true);
         int count = Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0));
@@ -61,7 +62,7 @@ public class ClientManager
                 "(SELECT address FROM wallet_contract WHERE contract_id IN "+
                 "(SELECT contract_id FROM provider_contract WHERE provider_id="+providerId+"))) "+
                 "LIMIT "+base+", "+limit,true);
-        ArrayList<ClientBasic> clientBasics = getClientBasics();
+        ArrayList<ClientBasic> clientBasics = new ArrayList<>(Objects.requireNonNull(getClientBasics()));
         DB.getInstance().executeQuery("SELECT count(*) AS c FROM user WHERE id IN "+
                 "(SELECT client_id FROM wallet WHERE address IN "+
                 "(SELECT address FROM wallet_contract WHERE contract_id IN "+
