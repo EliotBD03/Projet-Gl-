@@ -5,7 +5,7 @@
     </div>
     <div class="allcards">
       <MainCard :text="$t('maincard.clients')" redir="Clients"/>
-      <MainCard :text="$t('header.contracts')"/>
+      <MainCard :text="$t('header.contracts')" redir="ContractsSupplier"/>
       <MainCard :text="$t('header.notifications')"/>
     </div>
     <div class="bottombutton">

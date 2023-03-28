@@ -55,7 +55,7 @@
         pwd: '',
         repeatedpwd: '',
         code: '',
-        language: 'english',
+        language: this.$i18n.locale,
         selectedList:[],
         role: 'Client',
         is_client: false

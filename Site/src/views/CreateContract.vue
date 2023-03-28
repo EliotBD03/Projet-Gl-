@@ -40,7 +40,7 @@
         <GoButton text="button.add" type="submit" :colore="'green'"/>
       </form>
     </div>
-    <div class="backbutton" @click.prevent.left="$router.push('/wallets')">
+    <div class="backbutton" @click.prevent.left="$router.push('/contracts')">
       <GoButton text="Back" :colore="'darkblue'"/>
     </div>
   </div>
@@ -123,7 +123,7 @@ export default {
             offpeakprice: this.offpeakprice
           }),
         };
-        fetch("https://babawallet.alwaysdata.net/api/provider/propose_contract", requestOptions)
+        fetch("https://babawallet.alwaysdata.net/api/provider/proposals", requestOptions)
             .then(response => {
               if (!response.ok) {
                 return response.json().then(json => Promise.reject(json));
