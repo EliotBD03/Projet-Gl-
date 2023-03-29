@@ -38,8 +38,9 @@ import GoButton from "@/components/GoButton.vue";
 import MainHeader from "@/components/MainHeader.vue";
 import Chart from "chart.js/auto";
 import InputMain from "@/components/InputMain.vue";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import GlobalMethods from "@/components/GlobalMethods.vue";
+import Papa from "papaparse";
 
 export default {
   components: {
@@ -52,8 +53,8 @@ export default {
     return{
       mode : true,
       ean : sessionStorage.getItem('ean'),
-      listValue : [],
-      listDate : [],
+      listValue : [1, 2, 3, 4],
+      listDate : ["11/01/2202","02/08/2002","11/01/2701","12/04/2502",],
       forcing : false
     }},
   
@@ -70,7 +71,21 @@ export default {
 
   methods: {
     exportData() {
-    },
+      const table = [];
+      table.push(["date", "data"]);
+      for (let i = 0; i < this.listValue.length; i++) {
+        table.push([this.listDate[i], this.listValue[i]]);
+      }
+
+      // exportation en CSV
+      const csv = Papa.unparse(table);
+      const lien = document.createElement("a");
+      lien.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(csv));
+      lien.setAttribute("download", "table.csv");
+      document.body.appendChild(lien);
+      lien.click();
+      document.body.removeChild(lien);
+      },
 
     showTable() {
       if(this.mode) {
