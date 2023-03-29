@@ -13,8 +13,8 @@
     "other": "{name}"
   },
   "walletform": {
-    "name": "Enter your name",
-    "adress": "Enter your adress"
+    "name": "Enter the name of the wallet",
+    "adress": "Enter your address"
   },
   "button": {
     "changepwd": "Change password",
