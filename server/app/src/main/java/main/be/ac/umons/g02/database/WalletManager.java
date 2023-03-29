@@ -58,7 +58,7 @@ public class WalletManager
 
     public WalletFull getWallet(String address)
     {
-        if(doesTheWalletExists(address))
+        if(!doesTheWalletExists(address))
             return null;
         DB.getInstance().executeQuery("SELECT * FROM wallet WHERE address='"+address+"'",true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(

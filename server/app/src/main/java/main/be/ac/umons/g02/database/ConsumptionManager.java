@@ -143,7 +143,7 @@ public class ConsumptionManager
     {
         DB.getInstance().executeQuery("DELETE FROM consumption WHERE ean='"+ean+"'",false);
     }
-    
+
 
     /**
      * Crée un compteur avec un code ean et le premier contrat associé.
