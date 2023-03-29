@@ -24,6 +24,9 @@
           <div @click.prevent.left="seeMore(contract)">
             <GoButton text="button.go" :colore="'#34c98e'"/>
           </div>
+          <div class="consumptionsbutton" @click.prevent.left="seeConsumptions(contract)">
+            <GoButton text="Consumptions" :colore="'#B1B9FC'"/>
+          </div>
         </div>
       </div>
       <div v-else> No information</div>
@@ -31,9 +34,6 @@
     <div class="bottombutton">
       <div class="backbutton" @click.prevent.left="back()">
       <GoButton text="Back" :colore="'red'"/>
-      </div>
-      <div class="consumptionsbutton" @click.prevent.left="$router.push({name: 'Consumptions'})">
-      <GoButton text="Consumptions" :colore="'#B1B9FC'"/>
       </div>
       <div class="closebutton" @click.prevent.left="deleteWallet()">
       <GoButton text="Close the wallet" :colore="'red'"/>
@@ -148,6 +148,11 @@ export default {
     seeMore(contract){
       sessionStorage.setItem('contract', contract);
       //this.$router.push( {name: "Contracts"} );
+    },
+
+    seeConsumptions(contract){
+      sessionStorage.setItem('ean', contract.ean);
+      this.$router.push({name: 'Consumptions'});
     }
   }
 };
