@@ -49,7 +49,6 @@ public class CommonApi extends MyApi implements RouterApi
         subRouter.get("/consumptions_month").handler(this::getConsumptionOfMonth);
         subRouter.get("/consumptions").handler(this::getConsumptions);
         subRouter.post("/consumptions").handler(this::addConsumption);
-        subRouter.put("/consumptions").handler(this::changeConsumption);
 
         return subRouter;
     }
@@ -467,48 +466,5 @@ public class CommonApi extends MyApi implements RouterApi
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("valueAlreadyDefine", valueAlreadyDefine)));
-    }
-
-    /** 
-     * Méthode qui utilise le package de base de données pour changer une donnée de consommation par rapport à un contrat
-     *
-     * @param - Le context de la requête
-     * @see ConsumptionManager
-     */
-    private void changeConsumption(final RoutingContext routingContext)
-    {
-        LOGGER.info("ChangeConsumption...");
-
-        JsonObject body = null;
-        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
-
-        String ean = null;
-        if(checkParam((ean = body.getString("ean")), routingContext)) return;
-
-        double value = 0;
-
-        try
-        {
-            if(checkParam((value = body.getDouble("value")), routingContext)) return;
-        }
-        catch(ClassCastException error)
-        {
-            routingContext.response()
-                .setStatusCode(400)
-                .putHeader("Content-Type", "application/json")
-                .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "error.missingInformation")));
-            return;
-        }
-
-        String date = null;
-        if(checkParam((date = body.getString("date")), routingContext)) return;
-
-        commonDB.getConsumptionManager().changeConsumption(ean, value, date);
-
-        routingContext.response()
-            .setStatusCode(200)
-            .putHeader("Content-Type", "application/json")
-            .end();
     }
 }
