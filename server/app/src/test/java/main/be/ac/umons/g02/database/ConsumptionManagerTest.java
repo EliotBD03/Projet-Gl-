@@ -93,15 +93,6 @@ class ConsumptionManagerTest {
     }
 
     @Test
-    @Order(4)
-    void changeConsumption()
-    {
-        ConsumptionManager consumptionManager = new ConsumptionManager();
-        consumptionManager.changeConsumption(ean, 15.0, "2023-03-05");
-        assertEquals(consumptionManager.getConsumptions(ean, "2023-00-00", "2023-12-31").get("2023-03-05"), 15.0);
-    }
-
-    @Test
     @Order(5)
     void deleteConsumption()
     {

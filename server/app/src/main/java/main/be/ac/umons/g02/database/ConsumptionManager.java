@@ -143,19 +143,7 @@ public class ConsumptionManager
     {
         DB.getInstance().executeQuery("DELETE FROM consumption WHERE ean='"+ean+"'",false);
     }
-
-    /**
-     * Change la valeur d'une consommation pour un ean et une date donnée.
-     *
-     * @param ean le code ean
-     * @param value la nouvelle valeur
-     * @param date la date (YYYY-MM-DD)
-     */
-    public void changeConsumption(String ean, double value, String date)
-    {
-        DB.getInstance().executeQuery("UPDATE consumption SET daily_consumption="+value+
-                " WHERE date_recorded='"+date+"' AND ean='"+ean+"'",false);
-    }
+    
 
     /**
      * Crée un compteur avec un code ean et le premier contrat associé.
