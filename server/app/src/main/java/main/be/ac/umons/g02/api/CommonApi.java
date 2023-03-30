@@ -394,7 +394,25 @@ public class CommonApi extends MyApi implements RouterApi
         String date = null;
         if(checkParam((date = routingContext.request().getParam("date")), routingContext)) return;
 
-        HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptions(ean, date);
+        boolean isAfter = false;
+
+        try
+        {
+            String stringIsAfter;
+            if(checkParam((stringIsAfter = routingContext.request().getParam("is_after")), routingContext)) return;
+            isAfter = Boolean.getBoolean(stringIsAfter);
+        }
+        catch(ClassCastException error)
+        {
+            routingContext.response()
+                .setStatusCode(400)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.missingInformation")));
+            return;
+        }
+
+        HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptions(ean, date, isAfter);
 
         routingContext.response()
             .setStatusCode(200)
