@@ -47,7 +47,7 @@ public class CommonApi extends MyApi implements RouterApi
         subRouter.get("/contracts/:id_contract").handler(this::getContract);
         subRouter.delete("/contracts/:id_contract").handler(this::deleteContract);
         subRouter.get("/consumptions_month").handler(this::getConsumptionOfMonth);
-        subRouter.get("/consumptions").handler(this::getConsumptions);
+        subRouter.get("/consumptions:/date").handler(this::getConsumptions);
         subRouter.post("/consumptions").handler(this::addConsumption);
 
         return subRouter;
@@ -379,7 +379,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour renvoyer toutes les données de consommations sur un moi 
+     * Méthode qui utilise le package de base de données pour renvoyer les 10 dernières données avant la date reçu
      *
      * @param - Le context de la requête
      * @see ConsumptionManager
@@ -391,13 +391,10 @@ public class CommonApi extends MyApi implements RouterApi
         String ean = null;
         if(checkParam((ean = routingContext.request().getParam("ean")), routingContext)) return;
 
-        String startDate = null;
-        if(checkParam((startDate = routingContext.request().getParam("start_date")), routingContext)) return;
+        String date = null;
+        if(checkParam((date = routingContext.request().getParam("date")), routingContext)) return;
 
-        String endDate = null;
-        if(checkParam((endDate = routingContext.request().getParam("end_date")), routingContext)) return;
-
-        HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptions(ean, startDate, endDate);
+        HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptions(ean, date);
 
         routingContext.response()
             .setStatusCode(200)
