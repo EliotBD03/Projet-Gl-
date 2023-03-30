@@ -14,28 +14,36 @@
         <GoButton text="button.graphic" :colore="'#34c98e'"/>
       </div>
     </div>
-    <div class="infos">
-      <div class="container">
-        <canvas ref="myChart"></canvas>
-        <div class="table">
-          <div class="cellule">Date</div>
-          <div class="cellule">Data</div>
-          <div class="row" v-for="date in listDate" :key="date.id">
-            <div class="cellule">{{ date }}</div>
-          </div>
-        <div class="table">
-          </div>
-          <div class="row" v-for="data in listValue" :key="data.id">
-            <div class="cellule">{{ data }}</div>
+    <div> // surement la div a changer
+      <button class="arrow-button" @click.prevent.left="getDataBefore()">
+        <span class="arrow">&larr;</span>
+      </button>
+      <div class="infos">
+        <div class="container">
+          <canvas ref="myChart"></canvas>
+          <div class="table">
+            <div class="cellule">Date</div>
+            <div class="cellule">Data</div>
+            <div class="row" v-for="date in listDate" :key="date.id">
+              <div class="cellule">{{ date }}</div>
+            </div>
+          <div class="table">
+            </div>
+            <div class="row" v-for="data in listValue" :key="data.id">
+              <div class="cellule">{{ data }}</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="newconsumption" >
-        <InputMain type="date" id="dateNewConsumption" value="2020-01-01" min="2020-01-01" max="2099-12-31"/>
-        <InputMain type="number" id="dataNewConsumption" min="0"/>
-        <div @click.prevent.left="post()">
-          <GoButton type="submit" text="button.add" :colore="'#34c98e'"/>
+        <div class="newconsumption" >
+          <InputMain type="date" id="dateNewConsumption" value="2020-01-01" min="2020-01-01" max="2099-12-31"/>
+          <InputMain type="number" id="dataNewConsumption" min="0"/>
+          <div @click.prevent.left="post()">
+            <GoButton type="submit" text="button.add" :colore="'#34c98e'"/>
+          </div>
         </div>
+        <button class="arrow-button" @click.prevent.left="getDataAfter()">
+          <span class="arrow">&rarr;</span>
+        </button>
       </div>
     </div>
     <div class="bottombutton" @click.prevent.left="back()">
@@ -66,7 +74,7 @@ export default {
       ean : sessionStorage.getItem('ean'),
       numberfetch : 0,
       date : "",
-      after : true,
+      isAfter : true,
       listValue : [1, 2, 3, 4, 5, 6, 7, 8, 9],
       listValue2 : [],
       listDate : ["11/01/2202","02/08/2002","11/01/2701","12/04/2502","11/09/2262","02/08/2112","10/01/3701","02/14/2002","22/11/2701"],
@@ -104,6 +112,18 @@ export default {
       lien.click();
       document.body.removeChild(lien);
       },
+
+    getDataBefore() {
+      this.isAfter = false;
+      this.date = this.listDate[0];
+      this.getConsumption();
+    },
+
+    getDataAfter() {
+      this.isAfter = true;
+      this.date = this.listDate[-1];
+      this.getConsumption();
+    },
 
     showTable() {
       if(this.mode) {
@@ -176,7 +196,7 @@ export default {
       };
       this.loading = true; //bloquer les demandes de loader pendant ce temps.
       try {
-        const response = await fetch("https://babawallet.alwaysdata.net/api/common/consumptions/" + this.date, requestOptions);
+        const response = await fetch("https://babawallet.alwaysdata.net/api/common/consumptions/" + this.date + "?is_after=" + this.isAfter, requestOptions);
         if (!response.ok) { 
           const data = await response.text();
           if(response.status == 401 && data.trim() === ''){
@@ -189,7 +209,7 @@ export default {
         } else {
           const data = await response.json(); 
 
-          if(this.after) {
+          if(this.isAfter) {
             this.listDate += data.listConsumption.keys;
             this.listValue += data.listConsumption.values;
 
@@ -222,6 +242,7 @@ export default {
       }
     },
 
+    // faire la gestion du forcing
     post (){
       if(this.checkArgs())
       {
@@ -287,7 +308,7 @@ export default {
   align-items: center;
   justify-content: center;
   height: 20vh;
-  z-index: 9999;
+  //z-index: 9999;
 }
 .topbutton {
   display: flex;
@@ -360,5 +381,24 @@ export default {
   font-weight: 1000;
   font-size: 17px;
   width: 150px;
+}
+
+.arrow-button {
+  padding: 10px 20px;
+  background: #e8e8e8;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 150px;
+}
+
+.arrow {
+  font-size: 44px;
+  margin-left: 10px;
+  color: #34c98eff;
 }
 </style>
