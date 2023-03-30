@@ -1,5 +1,4 @@
 <template>
-  <!--Idée de la page de consommations des portefeuilles-->
   <div class="main">
     <div class="header">
       <MainHeader text="header.consumption"/>
@@ -18,6 +17,18 @@
     <div class="infos">
       <div class="container">
         <canvas ref="myChart"></canvas>
+        <div class="table">
+          <div class="cellule">Date</div>
+          <div class="cellule">Data</div>
+          <div class="row" v-for="date in listDate" :key="date.id">
+            <div class="cellule">{{ date }}</div>
+          </div>
+        <div class="table">
+          </div>
+          <div class="row" v-for="data in listValue" :key="data.id">
+            <div class="cellule">{{ data }}</div>
+          </div>
+        </div>
       </div>
       <div class="newconsumption" >
         <InputMain type="date" id="dateNewConsumption" value="2020-01-01" min="2020-01-01" max="2099-12-31"/>
@@ -51,11 +62,17 @@ export default {
 
   data(){
     return{
-      mode : true,
+      mode : false,
       ean : sessionStorage.getItem('ean'),
-      listValue : [1, 2, 3, 4],
-      listDate : ["11/01/2202","02/08/2002","11/01/2701","12/04/2502",],
-      forcing : false
+      numberfetch : 0,
+      date : "",
+      after : true,
+      listValue : [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      listValue2 : [],
+      listDate : ["11/01/2202","02/08/2002","11/01/2701","12/04/2502","11/09/2262","02/08/2112","10/01/3701","02/14/2002","22/11/2701"],
+      isComparaison : false,
+      forcing : false,
+      chart : null
     }},
   
   /*Méthode pour charger la langue sauvegardée en cookie*/
@@ -66,7 +83,8 @@ export default {
       this.$cookies.set("lang", this.$i18n.locale)
     }
 
-    this.showTable();
+    this.getConsumption();
+    this.showGraphic();
   },
 
   methods: {
@@ -90,36 +108,44 @@ export default {
     showTable() {
       if(this.mode) {
         this.mode = !this.mode;
+        this.chart.destroy();
+        document.getElementsByClassName("table")[0].style.display = "flex";
       }
     },
 
     showGraphic() {
       if(!this.mode) {
+        this.mode = !this.mode;
+        document.getElementsByClassName("table")[0].style.display = "none";
+
         const ctx = this.$refs.myChart.getContext('2d');
         const data = {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          labels: this.listDate,
           datasets: [{
-          label: 'My First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
+          label: 'Your Consumption',
+          data: this.listValue,
           fill: false,
           borderColor: 'rgb(75, 192, 192)',
           tension: 0.1
-          }, {
-          label: 'My Second Dataset',
-          data: [28, 48, 40, 19, 86, 27],
-          fill: false,
-          borderColor: 'rgb(192, 75, 192)',
-          tension: 0.1
           }]
         };
-        const options = {};
-        new Chart(ctx, {
+
+        if(this.isComparaison) {
+          data.datasets[0] += {
+            label: 'Other Consumption',
+            data: this.listValue2,
+            fill: false,
+            borderColor: 'rgb(192, 75, 192)',
+            tension: 0.1
+            }
+          }
+
+        this.chart = new Chart(ctx, {
           type: 'line',
           data: data,
-          options: options
         });
 
-        this.mode = !this.mode;
+        this.chart.update();
       }
     },
 
@@ -143,6 +169,59 @@ export default {
       return true;
     },
     
+    async getConsumption() {
+      const requestOptions = {
+        method: "GET",
+        headers: {'Authorization' : this.$cookies.get("token")},
+      };
+      this.loading = true; //bloquer les demandes de loader pendant ce temps.
+      try {
+        const response = await fetch("https://babawallet.alwaysdata.net/api/common/consumptions/" + this.date, requestOptions);
+        if (!response.ok) { 
+          const data = await response.text();
+          if(response.status == 401 && data.trim() === ''){
+            throw new Error("Token");
+          }
+          else{
+            const data = await response.json();
+            throw new Error(data.error);
+          }
+        } else {
+          const data = await response.json(); 
+
+          if(this.after) {
+            this.listDate += data.listConsumption.keys;
+            this.listValue += data.listConsumption.values;
+
+            if(this.numberfetch >= 5) {
+              this.listDate = this.listDate.slice(10);
+              this.listValue = this.listValue.slice(10);
+            }
+          } else {
+            this.listDate = data.listConsumption.keys + this.listDate;
+            this.listValue = data.listConsumption.values + this.listValue;
+            
+            if(this.numberfetch >= 5) {
+              this.listDate = this.listDate.slice(0, 40);
+              this.listValue = this.listValue.slice(0, 40);
+            }
+          } 
+
+          this.numberfetch++;
+        }
+      } catch(error) {
+          if(error.message === "Token") {
+            this.$cookies.remove("token");
+            this.$cookies.remove("role");
+            Swal.fire('Your connection has expired');
+            this.$router.push("/");
+          } 
+          else {  
+            GlobalMethods.errorApi(error.message);
+          }
+      }
+    },
+
     post (){
       if(this.checkArgs())
       {
@@ -185,6 +264,7 @@ export default {
             });
           }
         },
+
     back() {
       sessionStorage.clear();
       this.$router.push('/wallets');
@@ -256,5 +336,29 @@ export default {
   justify-content: space-between;
   padding: 0 50px;
   margin-top: 25px;
+}
+
+.table{
+  display: flex;
+  flex-direction: column;
+  min-height: 60px;
+  height: 150px;
+  min-width: 60px;
+  width: 700px;
+  overflow-x: scroll;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.cellule {
+  text-align: center;
+  border: 1px solid black;
+  padding: 25px;
+  font-weight: 1000;
+  font-size: 17px;
+  width: 150px;
 }
 </style>
