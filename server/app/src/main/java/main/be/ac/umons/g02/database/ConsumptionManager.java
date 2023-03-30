@@ -35,25 +35,36 @@ public class ConsumptionManager
     {
         String openingDate = year + "-" + month + "-01";
         String closingDate = year + "-" + month + "-LAST_DAY("+month+")";
-        return getConsumptions(ean, openingDate, closingDate);
+        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded BETWEEN '"+ openingDate + "' AND '" + closingDate + "'";
+
+        DB.getInstance().executeQuery(query, true);
+        HashMap<String,Double> consumptions= new HashMap<>();
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("date_recorded", "daily_consumption");
+        for(int i = 0; i < results.get(0).size(); i++)
+            consumptions.put(results.get(0).get(i), Double.parseDouble(results.get(1).get(i)));
+
+        return consumptions;
     }
 
     /**
      * Donne les consommations dans un intervalle de dates donné en plus d'un code ean.
      *
      *  @param ean le code ean
-     * @param startingDate la première date (YYYY-MM-DD)
-     * @param closingDate la dernière date (YYYY-MM-DD)
+     * @param date la première date (YYYY-MM-DD)
      * @return une hashmap contenant la date en clé et la consommation en valeur
      */
-    public HashMap<String, Double> getConsumptions(String ean, String startingDate, String closingDate)
+    public HashMap<String, Double> getConsumptions(String ean, String date)
     {
 
 
        //if(!isThereSomeValues(ean, new ArrayList<Calendar>(Arrays.asList(startingDate, closingDate))))
          //   throw new Exception("The table doesn't contain any consumption with the ean code: "+ ean + " within the interval : "+ startingDate + "and " + closingDate);
 
-        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded BETWEEN '"+ startingDate + "' AND '" + closingDate + "'";
+        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded <= '"+ date + "' LIMIT 0, 10";
+
+        if(date == null)
+             query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded <= (SELECT MAX(date_recorded) FROM date_recorded) LIMIT 0, 10";
+
         DB.getInstance().executeQuery(query, true);
         HashMap<String,Double> consumptions= new HashMap<>();
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults("date_recorded", "daily_consumption");
