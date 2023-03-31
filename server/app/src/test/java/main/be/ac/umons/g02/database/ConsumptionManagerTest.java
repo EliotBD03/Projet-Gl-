@@ -89,7 +89,7 @@ class ConsumptionManagerTest {
                 put("2023-03-05",12.0);
             }
         };
-        assertEquals(expected, new ConsumptionManager().getConsumptions(ean, "2023-04-01"));
+        assertEquals(expected, new ConsumptionManager().getConsumptions(ean, "2023-04-01" , false));
     }
 
     @Test
@@ -105,7 +105,7 @@ class ConsumptionManagerTest {
                 put("2022-03-05",11.0);
             }
         };
-        assertEquals(consumptionManager.getConsumptions(ean, "2024-00-00"),expected);
+        assertEquals(consumptionManager.getConsumptions(ean, "2024-00-00", false),expected);
     }
     @Test
     @Order(6)
@@ -113,6 +113,6 @@ class ConsumptionManagerTest {
     {
         ConsumptionManager consumptionManager = new ConsumptionManager();
         consumptionManager.deleteAllConsumptions(ean);
-        assertEquals(consumptionManager.getConsumptions(ean, "2024-00-00"), new HashMap<String, Double>());
+        assertEquals(consumptionManager.getConsumptions(ean, "2024-00-00", false), new HashMap<String, Double>());
     }
 }
