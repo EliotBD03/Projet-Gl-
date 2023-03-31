@@ -31,7 +31,6 @@
   import Swal from 'sweetalert2';
   import InputMain from "@/components/InputMain.vue";
   export default {
-    name: "forgotForm",
     components: {InputMain, GoButton,MainHeader},
     data(){
       return{
@@ -47,7 +46,7 @@
         this.$cookies.set("lang", this.$i18n.locale)
       }
     },
-      /*Récupère le mail dans les cookies et l'envoie vers l'api pour que l'utilisateur puisse avoir le code*/
+      /*A la création de la page, récupère le mail dans les cookies et l'envoie vers l'api pour que l'utilisateur puisse avoir le code*/
       created(){
           this.getCode();
       },
@@ -61,10 +60,13 @@
           else if(this.repeatedPassword !== this.newPassword) Swal.fire(this.$t("alerts.pwdmatch"));
           else return true;
         },
-        /*Méthode qui envoie le code reçu par mail et le nouveau mot de passe vers l'api si checkArgs() 
-          est true quand l'utilisateur clique sur submit.
-          Si la requête est incorrecte, l'api renvoie un message d'erreur
-          Si elle est correcte affiche une pop-up de succès et redirige*/
+        /**Méthode qui envoie le code reçu par mail et le nouveau mot de passe vers l'api si checkArgs() 
+        * est true quand l'utilisateur clique sur submit.
+        * Si la requête est incorrecte, l'api renvoie un message d'erreur
+        * Si elle est correcte affiche une pop-up de succès et redirige
+        *
+        * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+        */
         post(){
           if(this.checkArgs())
           {
@@ -115,6 +117,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999; 
 }
 
 .main {

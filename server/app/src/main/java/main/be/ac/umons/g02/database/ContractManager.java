@@ -10,6 +10,19 @@ import java.util.ArrayList;
 
 public class ContractManager
 {
+
+    /**
+     * Supprime un contrat.
+     *
+     * @param contractId l'identifiant du contrat
+     */
+    private void deleteContract(String contractId)
+    {
+        DB.getInstance().executeQuery("DELETE FROM contract WHERE contract_id="+contractId, false);
+        DB.getInstance().executeQuery("DELETE FROM counter WHERE contract_id="+contractId, false);
+        DB.getInstance().executeQuery("DELETE FROM provider_contract WHERE contract_id="+contractId,false);
+        DB.getInstance().executeQuery("DELETE FROM wallet_contract WHERE contract_id="+contractId,false);
+    }
     /**
      * Donne le contrat avec un identifiant donné.
      *
@@ -108,17 +121,21 @@ public class ContractManager
     }
 
     /**
-     * Supprime un contrat avec un identifiant donné
+     * Supprime un contrat avec un identifiant donné et envoie une notification de suppression.
      *
      * @param contractId l'identifiant du contrat
      */
 
-    public void deleteContract(String contractId)
+    public void deleteContractAndNotify(String contractId, String senderId)
     {
-        DB.getInstance().executeQuery("DELETE FROM contract WHERE contract_id="+contractId, false);
-        DB.getInstance().executeQuery("DELETE FROM counter WHERE contract_id="+contractId, false);
-        DB.getInstance().executeQuery("DELETE FROM provider_contract WHERE contract_id="+contractId,false);
-        DB.getInstance().executeQuery("DELETE FROM wallet_contract WHERE contract_id="+contractId,false);
+        DB.getInstance().executeQuery("SELECT CASE " +
+                "WHEN client_id <> "+senderId+" THEN client_id ELSE provider_id " +
+                "END AS receiver" +
+                " FROM contract" +
+                "WHERE contract_id="+contractId,true);
+        String receiverId = DB.getInstance().getResults("receiver").get(0).get(0);
+        new NotificationManager().createNotification(senderId, receiverId, contractId, "Your contract has been deleted by :" + new LogManager().getName(senderId));
+        deleteContract(contractId);
     }
 
     /**
@@ -193,13 +210,34 @@ public class ContractManager
                 +"WHERE (proposal_name,provider_id) "
                 +"IN (SELECT proposal_name, provider_id FROM contract WHERE address='"+address + "')",true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults("water","gas","electricity");
-        System.out.println(results.get(0).size());
         for(int i = 0; i < results.size() ; i++)
         {
             if(results.get(i).get(0).equals("1"))
                 return WalletManager.energyType.values()[i];
         }
         return null;
+    }
+
+    /**
+     * Supprime tous les contrats expirés.
+     *
+     * @return vrai si au moins un contrat a été supprimé, faux sinon.
+     */
+    public boolean deleteExpiredContracts() {
+        DB.getInstance().executeQuery("SELECT contract_id FROM contract WHERE closing_date <= CURDATE()", true);
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("contract_id");
+        if (results.get(0).size() == 0)
+            return false;
+        ArrayList<String> contractIds = DB.getInstance().getResults("contract_id").get(0);
+        for (String contractId : contractIds)
+        {
+            ContractFull contractFull = getContract(contractId);
+            new NotificationManager().createNotification("0",contractFull.getProviderId(), contractId, "Your contract has expired.");
+            new NotificationManager().createNotification("0",contractFull.getClientId(), contractId, "Your contract has expired.");
+            deleteContract(contractId);
+        }
+
+        return true;
     }
 
 }

@@ -6,10 +6,11 @@ const cookies = VueCookies;
 Vue.use(VueRouter)
 
 const routes = [
+  /*Redirections valables pour les comptes*/
   {
     path: '/',
     name: 'login',
-    component: () => import('@/views/Login.vue'),
+    component: () => import('@/views/LoginPage.vue'),
     beforeEnter: (to, from, next) => {
       if(cookies.isKey("token") && cookies.isKey("role"))
       {
@@ -27,7 +28,11 @@ const routes = [
   },
   {
     path: '/account',
-    component: () => import('@/views/GroupAccount.vue'),
+    component: {
+      render(c) {
+        return c('div', [c('router-view')]) //c = createElement
+      }
+    },
     children: [
       {
         path: '/createAccount',
@@ -57,8 +62,13 @@ const routes = [
       }
   },
   {
+    /*Redirections valables pour le client*/
     path: '/client',
-    component: () => import('@/views/GroupClient.vue'),
+    component: {
+      render(c) {
+        return c('div', [c('router-view')]) //c = createElement
+      }
+    },
     children: [
       {
         path: '/Home',
@@ -86,11 +96,6 @@ const routes = [
         component: () => import('@/views/NewContractsPage.vue')
       },
       {
-        path: '/contracts',
-        name: 'Contracts',
-        component: () => import('@/views/ContractPage.vue')
-      },
-      {
         path: '/consumptions',
         name: 'Consumptions',
         component: () => import('@/views/ConsumptionPage.vue')
@@ -107,9 +112,14 @@ const routes = [
         }
     }
   },
+  /*Redirections valables pour le fournisseur*/
   {
     path: '/supplier',
-    component: () => import('@/views/GroupSupplier.vue'),
+    component: {
+      render(c) {
+        return c('div', [c('router-view')]) //c = createElement
+      }
+    },
     children: [
       {
         path: '/Home',
@@ -135,6 +145,21 @@ const routes = [
         path: '/createContract',
         name: 'CreateContract',
         component: () => import('@/views/CreateContract.vue')
+      },
+      {
+        path: '/contracts',
+        name: 'ContractsSupplier',
+        component: () => import('@/views/SupplierContractPage.vue')
+      },
+      {
+        path: '/proposalfull',
+        name: 'ProposalFull',
+        component: () => import('@/views/ProposalFull.vue')
+      },
+      {
+        path: '/changeProposal',
+        name: 'ModifyProposal',
+        component: () => import('@/views/SupplierModifyContract.vue')
       }
     ],beforeEnter: (to, from, next) => {
         if(cookies.isKey("token") && cookies.isKey("role"))
@@ -148,12 +173,31 @@ const routes = [
         }
     }
   },
-  //Redirections valables pour les 2
+  /*Redirections valables pour les 2*/
   {
-    path: '/notifications',
-    name: 'Notifications',
-    component: () => import('@/views/NotificationsPage.vue'),
-    beforeEnter: (to, from, next) => {
+    path: '/common',
+    component: {
+      render(c) {
+        return c('div', [c('router-view')]) //c = createElement
+      }
+    },
+    children: [
+      {
+        path: '/notifications',
+        name: 'Notifications',
+        component: () => import('@/views/NotificationsPage.vue')
+      },
+      {
+        path: '/settings',
+        name: 'Settings',
+        component: () => import('@/views/SettingsPage.vue')
+      },
+      {
+        path: '/contrazctFull',
+        name: 'ContractFull',
+        component: () => import('@/views/ContractFull.vue')
+      }
+    ],beforeEnter: (to, from, next) => {
       if(cookies.isKey("token") && cookies.isKey("role"))
       {
         next();
@@ -163,20 +207,6 @@ const routes = [
       }
     }
   },
-  {
-    path: '/settings',
-    name: 'Settings',
-    component: () => import('@/views/SettingsPage.vue'),
-    beforeEnter: (to, from, next) => {
-      if(cookies.isKey("token") && cookies.isKey("role"))
-      {
-        next();
-      }
-      else {
-        next(from.path);
-      }
-    }
-  }
 ]
 
 const router = new VueRouter({

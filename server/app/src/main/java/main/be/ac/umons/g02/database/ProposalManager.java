@@ -25,6 +25,15 @@ public class ProposalManager
         return Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0)) == 1;
     }
 
+    /**
+     * Renvoie toutes les propositions d'un certain fournisseur dans un intervalle : [base,base+limit]
+     * en plus du nombre de propositions que le fournisseur possède.
+     *
+     * @param providerId l'identifiant du fournisseur
+     * @param base la borne inférieure
+     * @param limit le nombre d'éléments
+     * @return un tableau contenant en premier indice le nombre d'éléments total et une ArrayList contenant des ProposalBasics.
+     */
     public Object[] getAllProposals(String providerId, int base, int limit)
     {
         String query = "SELECT * FROM proposal WHERE provider_id ="+providerId+" LIMIT "+base+","+limit;
@@ -59,10 +68,20 @@ public class ProposalManager
         }
         DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM proposal WHERE provider_id="+providerId, true);
         int count = Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0));
-
+        System.out.println(count);
         return new Object[] {count, proposalBasics};
     }
 
+    /**
+     * Donne toutes les propositions d'une certaine énergie et region dans un intervalle : [base,base+limit]
+     * en plus du nombre d'éléments total.
+     *
+     * @param energyCategory le type d'énergie
+     * @param regionCategory la région
+     * @param base la borne inférieure
+     * @param limit le nombre d'éléments
+     * @return un tableau contenant en premier indice le nombre d'éléments total et une ArrayList contenant des ProposalBasics.
+     */
     public Object[] getAllProposals(String energyCategory, String regionCategory, int base, int limit) //TODO je suis amnésique je pense
     {
         String query = "SELECT * FROM proposal LIMIT "+base+", "+(base+limit);
@@ -107,6 +126,13 @@ public class ProposalManager
         return new Object[] {count,proposalBasics};
     }
 
+    /**
+     * Renvoie une proposition en particulier en fonction du nom et de l'identifiant du fournisseur associé.
+     *
+     * @param proposalName le nom de la proposition
+     * @param providerId l'id du fournisseur
+     * @return un objet ProposalFull
+     */
     public ProposalFull getProposal(String proposalName, String providerId)
     {
         DB.getInstance().executeQuery("SELECT * FROM proposal WHERE proposal_name='"+proposalName+
@@ -140,6 +166,13 @@ public class ProposalManager
         return proposalFull;
     }
 
+    /**
+     * Ajoute une proposition.
+     * PRECONDITION: tous les contrats associés à l'ancienne proposition -> inexistant
+     *
+     * @param proposal objet représentant la proposition à ajouter
+     * @return vrai si une ancienne proposition portant le même nom et même identifiant fournisseur est supprimée, faux sinon.
+     */
     public boolean addProposal(ProposalFull proposal)
     {
         boolean value = false;
@@ -170,6 +203,13 @@ public class ProposalManager
         return value;
     }
 
+    /**
+     * Supprime une proposition.
+     * PRECONDITION: tous contrats reliés à cette proposition → inexistant
+     *
+     * @param proposalName le nom de la proposition
+     * @param providerId l'identifiant du fournisseur
+     */
     public void deleteProposal(String proposalName, String providerId)
     {
         DB.getInstance().executeQuery("DELETE FROM proposal WHERE proposal_name='"+proposalName+"' AND provider_id="+providerId, false);

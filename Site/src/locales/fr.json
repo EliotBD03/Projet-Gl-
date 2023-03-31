@@ -13,7 +13,7 @@
     "other": "{name}"
   },
   "walletform": {
-    "name": "Entrez votre nom",
+    "name": "Entrez le nom du portefeuille",
     "adress": "Entrez votre adresse"
   },
   "button": {

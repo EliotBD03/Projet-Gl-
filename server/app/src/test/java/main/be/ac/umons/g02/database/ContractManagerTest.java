@@ -47,16 +47,21 @@ class ContractManagerTest
 
     }
 
-
     @Test
     @Order(1)
+    void doesCountWorkWithNothing()
+    {
+        assertEquals(0, (int) new ContractManager().getAllContracts("1", 0, 1)[0]);
+    }
+    @Test
+    @Order(2)
     void createContract()
     {
         assertTrue(new ContractManager().createContract("elec", "785", "2", "address", "1"));
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     void getContract()
     {
         ContractFull toBeTested = new ContractManager().getContract("1");
@@ -70,10 +75,13 @@ class ContractManagerTest
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void getAllContracts()
     {
-        ContractBasic toBeTested = ((ArrayList<ContractBasic>)new ContractManager().getAllContracts("1", 0,1)[1]).get(0);
+        Object[] contracts = new ContractManager().getAllContracts("1", 0,1);
+        int count = (int) contracts[0];
+        ContractBasic toBeTested = ((ArrayList<ContractBasic>) contracts[1]).get(0);
+        assertEquals(count, 1);
         assertEquals(toBeTested.getContractId(), expected.getContractId());
         assertEquals(toBeTested.getProviderId(), expected.getProviderId());
         assertEquals(toBeTested.getEan(), expected.getEan());
@@ -83,7 +91,7 @@ class ContractManagerTest
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     void getCommonContracts()
     {
         ContractBasic toBeTested = ((ArrayList<ContractBasic>)new ContractManager().getCommonContracts("1", "2", 0, 1)[1]).get(0);
@@ -96,7 +104,7 @@ class ContractManagerTest
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     void getAllClientsOfContract()
     {
         ArrayList<String> arrayList = new ArrayList<>()
@@ -107,7 +115,7 @@ class ContractManagerTest
     }
 
     @Test
-    @Order(6)
+    @Order(7)
     void getTypeOfEnergy()
     {
         WalletManager.energyType expected = WalletManager.energyType.ELECTRICITY;
@@ -115,12 +123,12 @@ class ContractManagerTest
     }
 
     @Test
-    @Order(7)
+    @Order(8)
     void deleteContract()
     {
-        new ContractManager().deleteContract("1");
+        new ContractManager().deleteContractAndNotify("1", "1");
         DB.getInstance().executeQuery("SELECT * from provider_contract e, wallet_contract, counter, contract WHERE e.contract_id=1",true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"*"});
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("*");
         assertEquals(results.get(0).size(), 0);
     }
 

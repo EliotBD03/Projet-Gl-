@@ -12,10 +12,10 @@
         <div @click.prevent.left="seeMore(client)">
           <GoButton text="button.go" :colore="'#34c98e'"/>
         </div>
-    </div>
-    <div v-if="notLastPage()" @click.prevent.left="loader()">
-      <GoButton text="See more clients" :colore="'#B1B9FC'"/>
-    </div>
+      </div>
+      <div v-if="notLastPage()" @click.prevent.left="loader()">
+        <GoButton text="See more clients" :colore="'#B1B9FC'"/>
+      </div>
     </div>
     <div @click.prevent.left="$router.push('/addClient')">
       <GoButton text="Add a client" :colore="'#B1B9FC'"/>
@@ -51,12 +51,16 @@
         lastPage : 0,
         listClient: []
       }},
-    /*Au moment de la création on récupère déjà la première page de l'api*/
+    /*Au moment de la création on récupère déjà la première page des clients du fournisseur */
     created() {
       this.getPage();
     },
     methods: {
-      /*Méthode permettant de récupérer les pages des clients de l'Api en scrollant */
+      /**
+      * Cette méthode permet de récupérer les pages des clients du fournisseur avec le bouton seeMore (+à la création de la page).
+      * 
+      * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+      */
       async getPage(){
         const requestOptions = {
           method: "GET",
@@ -89,17 +93,14 @@
           }
         } catch(error) {
             if(error.message === "Token") {
-              this.$cookies.remove("token");
-              this.$cookies.remove("role");
-              Swal.fire('Your connection has expired');
-              this.$router.push("/");
+              GlobalMethods.errorToken();
             } 
             else {  
               GlobalMethods.errorApi(error.message);
             }
         }
       },
-      /*Lorsque l'utilisateur scrolle, cette méthode est appelée 
+      /*Lorsque l'utilisateur appuie sur SeeMore, cette méthode est appelée 
       pour augmenter le nombre de la page et appeler getPage*/
       loader()
       {
@@ -110,15 +111,18 @@
         }
       },
       /*Méthode permettant de vérifier si la dernière page n'a pas encore été chargée 
-      et si on est pas en cours de chargement*/
+      ou si on est pas en cours de chargement*/
       notLastPage(){
         if(this.lastPage == this.nbr || this.loading == true){
           return false;
         }
         return true;
       },
-      /*On sauvegarde le client sur lequel on souhaite plus d'informations
-      et on redirige vers clientFull*/
+      /**
+      * Cette méthode sauvegarde le client sur lequel on souhaite plus d'informations et redirige vers clientFull.
+      * 
+      * @param client le client à sauvegarder.
+      */
       seeMore(client){
         sessionStorage.setItem('client', client);
         this.$router.push( {name: "ClientFull"} );
@@ -133,6 +137,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 9999; 
   }
   
   .main {
@@ -164,8 +169,7 @@
     height: 400px;
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
     margin: 20px;
-    border-radius: 30px;
-    
+    border-radius: 30px; 
   }
   
   

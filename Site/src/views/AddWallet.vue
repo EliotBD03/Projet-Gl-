@@ -27,22 +27,24 @@
   import InputMain from "@/components/InputMain.vue";
   import MainHeader from "@/components/MainHeader.vue";
   export default {
-    name: "ContactForm",
     components: {InputMain, GoButton, MainHeader},
     data(){
       return{
         name: '',
         address: ''
       }},
-    /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up*/
+    /*Méthode qui vérifie si les champs nom et adresse sont bien remplis sinon envoie une pop-up*/
     methods: {
       checkArgs(){
         if(!this.name) Swal.fire("Please enter your name");
         else if(!this.address) Swal.fire("Please enter your address");
         else return true;
       },
-      /*Méthode qui, si checkArgs() est true, envoie le nom et l'adresse du portefeuille vers l'api 
-      pour le créer*/
+      /**
+      * Cette méthode envoie le nom et l'adresse du portefeuille vers l'api afin de le créer si checkArgs() est true.
+      * 
+      * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+      */
       post(){
         if(this.checkArgs())
         {
@@ -73,10 +75,7 @@
               })
               .catch(error => {
                 if (error.message === "Token") {
-                this.$cookies.remove("token");
-                this.$cookies.remove("role");
-                Swal.fire('Your connection has expired');
-                this.$router.push("/");
+                  GlobalMethods.errorToken();
                 } 
                 else {
                   GlobalMethods.errorApi(error.error);
@@ -93,6 +92,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 9999; 
   }
 
   .main {

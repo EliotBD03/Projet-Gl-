@@ -18,8 +18,13 @@
         <GoButton text="See more contracts" :colore="'#B1B9FC'"/>
       </div>
     </div>
-    <div class="homebutton" @click.prevent.left="redirecting()">
-      <GoButton text="header.home" :colore="'#B1B9FC'"/>
+    <div class="bottombuttons">
+      <div class="homebutton" @click.prevent.left="redirecting()">
+        <GoButton text="header.home" :colore="'#B1B9FC'"/>
+      </div>
+      <div class="addbutton" @click.prevent.left="$router.push('/createContract')">
+        <GoButton text="button.add" :colore="'#34c98e'"/>
+      </div>
     </div>
   </div>
 </template>
@@ -43,7 +48,7 @@ export default {
   },
   data(){
     return{
-      linkApi : "https://babawallet.alwaysdata.net/api/client/contracts/",
+      linkApi : "https://babawallet.alwaysdata.net/api/provider/proposals/",
       nbr : 1,
       loading : false,
       lastPage : 0,
@@ -54,7 +59,7 @@ export default {
     this.getPage();
   },
   methods: {
-    /*Méthode permettant de récupérer les pages des wallets de l'Api avec le bouton seeMore */
+    /*Méthode permettant de récupérer les pages des wallets de l'Api en scrollant */
     async getPage(){
       const requestOptions = {
         method: "GET",
@@ -64,18 +69,24 @@ export default {
       try {
         const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
         if (!response.ok) {
+          console.log("not ok")
           const data = await response.text();
           if(response.status == 401 && data.trim() === ''){
+            console.log("401")
             throw new Error("Token");
           }
           else{
             const data = await response.json();
+            console.log("data")
             throw new Error(data.error);
           }
         } else {
           const data = await response.json();
-          this.listContracts.push(data.contracts); //ajouter la suite de la réponse à la liste
+          console.log(data)
+          this.listContracts.push(data.contracts);//ajouter la suite de la réponse à la liste
+          console.log(this.listContracts)
           this.lastPage = data.last_page;
+          console.log(this.lastPage)
         }
         this.loading = false;
       } catch(error) {
@@ -83,7 +94,7 @@ export default {
           GlobalMethods.errorToken();
         }
         else {
-          if(this.nbr == 1){
+          if(this.nbr === 1){
             this.loading = true;
             Swal.fire('No contracts');
           }
@@ -93,8 +104,7 @@ export default {
         }
       }
     },
-    /*Lorsque l'utilisessionStorage.removeItem('name_proposal')
-                    )sateur appuie sur SeeMore, cette méthode est appelée
+    /*Lorsque l'utilisateur scrolle, cette méthode est appelée
     pour augmenter le nombre de la page et appeler getPage*/
     loader()
     {
@@ -115,12 +125,12 @@ export default {
     /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
     et on redirige vers walletFull*/
     seeMore(contract){
-      sessionStorage.setItem('idContract', contract.idContract);
-      this.$router.push({name: 'ContractFull'});
+      sessionStorage.setItem('name', contract.name_proposal);
+      this.$router.push({name: 'ProposalFull'})
     },
-  redirecting(){
-        GlobalMethods.isAClient();
-  }
+    redirecting(){
+      GlobalMethods.isAClient();
+    }
   }
 }
 </script>
@@ -131,21 +141,15 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999; 
 }
 
 .main {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
   height: 100vh;
 }
 
-.homebutton {
-  display: flex;
-  justify-content: center;
-}
 
 .allcards {
   display: flex;
@@ -177,5 +181,14 @@ export default {
 .name {
   color: rgb(138, 150, 253);
   font-size: 30px;
+}
+
+.bottombuttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+  margin-top: 50px;
 }
 </style>

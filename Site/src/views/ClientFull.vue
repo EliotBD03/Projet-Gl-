@@ -44,7 +44,7 @@
     data(){
       return{
         client : sessionStorage.getItem('client'),
-        linkApi : `https://babawallet.alwaysdata.net/api/provider/clients/${this.client.id_client}/contrats/`,
+        linkApi : `https://babawallet.alwaysdata.net/api/provider/clients/${this.client.clientId}/contrats/`,
         nbr : 1,
         loading : false,
         lastPage : 0,
@@ -58,12 +58,16 @@
         this.$cookies.set("lang", this.$i18n.locale)
       }
     },
-    /*Au moment de la création on récupère déjà la première page de l'api*/
+    /*Au moment de la création de la page, on récupère déjà la première page des contrats du client*/
     created(){
       this.getPage();
     },
     methods: {
-      /*Méthode permettant de récupérer les pages des contracts de l'Api en scrollant */
+      /**
+      * Cette méthode permet de récupérer les pages des contracts du client avec le bouton seeMore (+à la création de la page).
+      * 
+      * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+      */
       async getPage(){
         const requestOptions = {
           method: "GET",
@@ -95,17 +99,14 @@
           }
         } catch(error) {
             if(error.message === "Token") {
-              this.$cookies.remove("token");
-              this.$cookies.remove("role");
-              Swal.fire('Your connection has expired');
-              this.$router.push("/");
+              GlobalMethods.errorToken();
             } 
             else {  
               GlobalMethods.errorApi(error.message);
             }
         }
       },
-      /*Lorsque l'utilisateur scrolle, cette méthode est appelée 
+      /*Lorsque l'utilisateur appuie sur SeeMore, cette méthode est appelée 
       pour augmenter le nombre de la page et appeler getPage*/
       loader()
       {
@@ -116,61 +117,66 @@
         }
       },
       /*Méthode permettant de vérifier si la dernière page n'a pas encore été chargée 
-      et si on est pas en cours de chargement*/
+      ou si on est pas en cours de chargement*/
       notLastPage(){
         if(this.lastPage == this.nbr || this.loading == true){
           return false;
         }
         return true;
       },
-      /* Méthode permettant de supprimer un client*/
+      /**
+      * Cette méthode permet de supprimer un client.
+      * 
+      * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+      */
       deleteClient() {
         const requestOptions = {
           method: "DELETE",
           headers: {'Authorization' : this.$cookies.get("token")}
         };
         fetch(`https://babawallet.alwaysdata.net/api/clients/clients_of_provider/${this.client.id_client}`, requestOptions)
-            .then(response => {
-              if(!response.ok){
-                const data = response.text();
-                if(response.status == 401 && data.trim() === ''){
-                    throw new Error("Token");
-                }
-                else{
-                  return response.json().then(json => Promise.reject(json));
-                }
+          .then(response => {
+            if(!response.ok){
+              const data = response.text();
+              if(response.status == 401 && data.trim() === ''){
+                  throw new Error("Token");
               }
               else{
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Good !',
-                  text: 'Client deleted !'
-                })
-                this.$router.push({name: 'Clients'});
+                return response.json().then(json => Promise.reject(json));
               }
-            })
-            .catch(error => {
-              if(error.message === "Token") {
-                this.$cookies.remove("token");
-                this.$cookies.remove("role");
-                Swal.fire('Your connection has expired');
-                this.$router.push("/");
-              } 
-              else {
-                GlobalMethods.errorApi(error.error);
-              }
-            });
+            }
+            else{
+              Swal.fire({
+                icon: 'success',
+                title: 'Good !',
+                text: 'Client deleted !'
+              })
+              this.$router.push({name: 'Clients'});
+            }
+          })
+          .catch(error => {
+            if(error.message === "Token") {
+              GlobalMethods.errorToken();
+            } 
+            else {
+              GlobalMethods.errorApi(error.error);
+            }
+          });
       },
       /*Retourner à la page des clients en supprimant le client du sessionStorage*/
       back(){
-        sessionStorage.removeItem('client');
+        sessionStorage.clear();
         this.$router.push({name: 'Clients'});
       },
-      /*On sauvegarde le contrat sur lequel on souhaite plus d'informations
-      et on redirige vers contrat*/
+      /**
+      * Cette méthode sauvegarde le contrat sur lequel on souhaite plus d'informations et redirige vers contratFull.
+      * 
+      * @param contract le contrat à sauvegarder.
+      */
       seeMore(contract){
-        sessionStorage.setItem('contract', contract);
-        //this.$router.push( {name: "Contracts"} );
+        sessionStorage.setItem('idContract', contract.contractId);
+        sessionStorage.setItem('clientMail', this.client.mail);
+        this.$router.push( {name: "ContractFull"} );
       }
     }
   };
@@ -190,6 +196,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 9999; 
   }
   
   .bottombutton {
@@ -199,18 +206,19 @@
     justify-content: space-between;
     padding: 0 50px;
     margin-top: 50px;
+    width: 100%;
   }
   
   .list{
     display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      width: 500px;
-      height: 500px;
-      border-radius: 50px;
-      background: #e0e0e0;
-      box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
   }
   </style>
   

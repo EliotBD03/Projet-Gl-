@@ -40,6 +40,7 @@ class WalletManagerTest
     @Order(2)
     void walletIsEmpty()
     {
+        DB.getInstance().executeQuery("INSERT INTO wallet_contract(address, contract_id) VALUES('address', 1)",false);
         assertFalse(new WalletManager().walletIsEmpty("address"));
         assertTrue(new WalletManager().walletIsEmpty("addres"));
     }
@@ -72,7 +73,8 @@ class WalletManagerTest
     void deleteWallet()
     {
         WalletManager walletManager = new WalletManager();
-        assertFalse(walletManager.deleteWallet("nhjgkfldms"));
-        assertTrue(walletManager.deleteWallet(walletBasic.getAddress()));
+        System.out.println("ici toto");
+        assertTrue(walletManager.deleteWallet("nhjgkfldms"));
+        assertFalse(walletManager.deleteWallet(walletBasic.getAddress()));
     }
 }

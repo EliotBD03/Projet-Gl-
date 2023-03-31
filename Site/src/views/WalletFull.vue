@@ -15,7 +15,7 @@
       <p v-if="!wallet.lastConsumptionOfElectricity">Electricity : No information</p>
       <p v-else>Electricity : {{ wallet.lastConsumptionOfElectricity }}</p>
       <p> Associated contracts :</p>
-      <div v-if="wallet.contracts">
+      <div v-if="!wallet.contracts">
         <div v-for="contract in wallet.contracts" :key="contract.id">
           <p> name = {{ contract.name }}</p>
           <p> consumption = {{ contract.consumption }}</p>
@@ -65,7 +65,11 @@ export default {
       this.$cookies.set("lang", this.$i18n.locale)
     }
   },
-  /*Méthode qui récupère le wallet pour lequel on veut plus d'informations à la création de la vue*/
+  /**
+  * Cette méthode récupère le portefeuille pour lequel on veut plus d'informations à la création de la vue.
+  * 
+  * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+  */
   async created(){
     const requestOptions = {
       method: "GET",
@@ -89,10 +93,7 @@ export default {
         }
     } catch(error) {
         if(error.message === "Token") {
-          this.$cookies.remove("token");
-          this.$cookies.remove("role");
-          Swal.fire('Your connection has expired');
-          this.$router.push("/");
+          GlobalMethods.errorToken();
         } 
         else {
           GlobalMethods.errorApi(error.message);
@@ -100,7 +101,11 @@ export default {
     }
   },
   methods: {
-    /* Méthode permettant de supprimer un portefeuille*/
+    /**
+    * Cette méthode permet de supprimer un portefeuille.
+    * 
+    * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+    */
     deleteWallet() {
       const requestOptions = {
         method: "DELETE",
@@ -128,23 +133,19 @@ export default {
           })
           .catch(error => {
             if(error.message === "Token") {
-              this.$cookies.remove("token");
-              this.$cookies.remove("role");
-              Swal.fire('Your connection has expired');
-              this.$router.push("/");
+              GlobalMethods.errorToken();
             } 
             else {
               GlobalMethods.errorApi(error.error);
             }
           });
     },
-    /*Retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
+    /*Cette méthode permet de retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
     back(){
-      sessionStorage.removeItem('address');
+      sessionStorage.clear();
       this.$router.push({name: 'Wallets'});
     },
-    /*On sauvegarde le contrat sur lequel on souhaite plus d'informations
-      et on redirige vers contrat*/
+    /*Méthode permettant de sauvegarder le contrat sur lequel on souhaite plus d'informations et rediriger vers contratFull*/
     seeMore(contract){
       sessionStorage.setItem('contract', contract);
       //this.$router.push( {name: "Contracts"} );
@@ -172,6 +173,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999; 
 }
 
 .bottombutton {
@@ -181,17 +183,18 @@ export default {
   justify-content: space-between;
   padding: 0 50px;
   margin-top: 50px;
+  width: 100%;
 }
 
 .list{
   display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 500px;
-    height: 500px;
-    border-radius: 50px;
-    background: #e0e0e0;
-    box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 500px;
+  height: 500px;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
 }
 </style>
