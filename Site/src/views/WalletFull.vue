@@ -65,7 +65,11 @@ export default {
       this.$cookies.set("lang", this.$i18n.locale)
     }
   },
-  /*Méthode qui récupère le wallet pour lequel on veut plus d'informations à la création de la vue*/
+  /**
+  * Cette méthode récupère le portefeuille pour lequel on veut plus d'informations à la création de la vue.
+  * 
+  * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+  */
   async created(){
     const requestOptions = {
       method: "GET",
@@ -89,10 +93,7 @@ export default {
         }
     } catch(error) {
         if(error.message === "Token") {
-          this.$cookies.remove("token");
-          this.$cookies.remove("role");
-          Swal.fire('Your connection has expired');
-          this.$router.push("/");
+          GlobalMethods.errorToken();
         } 
         else {
           GlobalMethods.errorApi(error.message);
@@ -100,7 +101,11 @@ export default {
     }
   },
   methods: {
-    /* Méthode permettant de supprimer un portefeuille*/
+    /**
+    * Cette méthode permet de supprimer un portefeuille.
+    * 
+    * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+    */
     deleteWallet() {
       const requestOptions = {
         method: "DELETE",
@@ -128,23 +133,19 @@ export default {
           })
           .catch(error => {
             if(error.message === "Token") {
-              this.$cookies.remove("token");
-              this.$cookies.remove("role");
-              Swal.fire('Your connection has expired');
-              this.$router.push("/");
+              GlobalMethods.errorToken();
             } 
             else {
               GlobalMethods.errorApi(error.error);
             }
           });
     },
-    /*Retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
+    /*Cette méthode permet de retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
     back(){
       sessionStorage.clear();
       this.$router.push({name: 'Wallets'});
     },
-    /*On sauvegarde le contrat sur lequel on souhaite plus d'informations
-      et on redirige vers contrat*/
+    /*Méthode permettant de sauvegarder le contrat sur lequel on souhaite plus d'informations et rediriger vers contratFull*/
     seeMore(contract){
       sessionStorage.setItem('walletName', this.wallet.name);
       sessionStorage.setItem('idContract', contract.contractId);

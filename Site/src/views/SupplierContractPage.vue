@@ -91,10 +91,7 @@ export default {
         this.loading = false;
       } catch(error) {
         if(error.message === "Token") {
-          this.$cookies.remove("token");
-          this.$cookies.remove("role");
-          Swal.fire('Your connection has expired');
-          this.$router.push("/");
+          GlobalMethods.errorToken();
         }
         else {
           if(this.nbr === 1){

@@ -46,13 +46,17 @@
           listOfProposal : [],
           choiceProposal : ''
         }},
-      /*Au moment de la création on récupère déjà la première page de l'api et la liste des propositions*/
+      /*Au moment de la création de la page, on récupère déjà la première page des (nouveaux) clients et la liste des propositions*/
       created(){
         this.getAllProposals(); 
         this.getPage();
       },
       methods: {
-        /*Méthode qui récupère toutes les propositions du fournisseur*/
+        /**
+        * Cette méthode récupère toutes les propositions du fournisseur.
+        * 
+        * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée  dans GlobalMethods.
+        */
         async getAllProposals(){
           const requestOptions = {
           method: "GET",
@@ -85,10 +89,7 @@
             }
           } catch(error) {
               if(error.message === "Token") {
-                this.$cookies.remove("token");
-                this.$cookies.remove("role");
-                Swal.fire('Your connection has expired');
-                this.$router.push("/");
+                GlobalMethods.errorToken();
               } 
               else {  
                 GlobalMethods.errorApi(error.message);
@@ -100,7 +101,11 @@
           if(!this.choiceProposal) Swal.fire("Please choose your proposal");
           else return true;
         },
-        /*Méthode permettant de récupérer les pages des clients avec le bouton seeMore */
+        /**
+        * Cette méthode permet de récupérer les pages des (nouveaux) clients avec le bouton seeMore (+à la création de la page).
+        * 
+        * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée  dans GlobalMethods.
+        */
         async getPage(){
           const requestOptions = {
           method: "GET",
@@ -133,10 +138,7 @@
             }
           } catch(error) {
               if(error.message === "Token") {
-                this.$cookies.remove("token");
-                this.$cookies.remove("role");
-                Swal.fire('Your connection has expired');
-                this.$router.push("/");
+                GlobalMethods.errorToken();
               } 
               else {  
                 GlobalMethods.errorApi(error.message);
@@ -154,14 +156,19 @@
           }
         },
         /*Méthode permettant de vérifier si la dernière page n'a pas encore été chargée 
-        et si on est pas en cours de chargement*/
+        ou si on est pas en cours de chargement*/
         notLastPage(){
           if(this.lastPage == this.nbr || this.loading == true){
             return false;
           }
           return true;
         },
-        /*Méthode qui, si checkArgs() est true, envoie la demande de contract au client concerné*/
+        /**
+        * Cette méthode envoie la demande de contract au client concerné si checkArgs() est true.
+        * 
+        * @param client le client à qui on doit envoyer la demande.
+        * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+        */
         post(client){
           if(this.checkArgs())
           {
@@ -192,10 +199,7 @@
               })
               .catch(error => {
                 if (error.message === "Token") {
-                this.$cookies.remove("token");
-                this.$cookies.remove("role");
-                Swal.fire('Your connection has expired');
-                this.$router.push("/");
+                  GlobalMethods.errorToken();
                 } 
                 else {
                   GlobalMethods.errorApi(error.error);
