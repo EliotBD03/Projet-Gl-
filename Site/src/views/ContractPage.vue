@@ -18,7 +18,7 @@
         <GoButton text="See more contracts" :colore="'#B1B9FC'"/>
       </div>
     </div>
-    <div class="homebutton" @click.prevent.left="$router.push('/Home')">
+    <div class="homebutton" @click.prevent.left="redirecting()">
       <GoButton text="header.home" :colore="'#B1B9FC'"/>
     </div>
   </div>
@@ -96,7 +96,8 @@ export default {
         }
       }
     },
-    /*Lorsque l'utilisateur appuie sur SeeMore, cette méthode est appelée
+    /*Lorsque l'utilisessionStorage.removeItem('name_proposal')
+                    )sateur appuie sur SeeMore, cette méthode est appelée
     pour augmenter le nombre de la page et appeler getPage*/
     loader()
     {
@@ -117,8 +118,12 @@ export default {
     /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
     et on redirige vers walletFull*/
     seeMore(contract){
-      sessionStorage.setItem('address', contract.address);
-    }
+      sessionStorage.setItem('idContract', contract.idContract);
+      this.$router.push({name: 'ContractFull'});
+    },
+  redirecting(){
+        GlobalMethods.isAClient();
+  }
   }
 }
 </script>

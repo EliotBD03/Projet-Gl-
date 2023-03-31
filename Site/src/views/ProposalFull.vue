@@ -36,7 +36,7 @@
             <div class="backbutton" @click.prevent.left="back()">
                 <GoButton text="Back" :colore="'darkblue'"/>
             </div>
-            <div class="changebutton" @click.prevent.left="$router.push({name: 'ChangeProposal'})">
+            <div class="changebutton" @click.prevent.left="modifyContract()">
                 <GoButton text="Change proposal" :colore="'#34c98e'"/>
             </div>
             <div class="closebutton" @click.prevent.left="deleteProposal()">
@@ -100,6 +100,10 @@ export default {
         back() {
             sessionStorage.removeItem('name_proposal');
             this.$router.push({name: 'ContractsSupplier'});
+        },
+        modifyContract(){
+            sessionStorage.setItem('name_proposal', this.name_proposal);
+            this.$router.push({name: 'ModifyProposal'});
         },
         deleteProposal(){
             const requestOptions = {

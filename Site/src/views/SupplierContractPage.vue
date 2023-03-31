@@ -128,7 +128,8 @@ export default {
     /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
     et on redirige vers walletFull*/
     seeMore(contract){
-      sessionStorage.setItem('address', contract.address);
+      sessionStorage.setItem('name', contract.name_proposal);
+      this.$router.push({name: 'ProposalFull'})
     },
     redirecting(){
       GlobalMethods.isAClient();

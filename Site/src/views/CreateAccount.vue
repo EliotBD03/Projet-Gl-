@@ -14,10 +14,10 @@
         <br>
       </div>
       <div class="line">
-        <input type="radio" id="français" value="français" v-model="$i18n.locale">
+        <input type="radio" id="français" value="fr" v-model="language">
         <label for="français">{{ $t("account.french") }}</label>
         <br>
-        <input type="radio" id="english" value="english" v-model="$i18n.locale">
+        <input type="radio" id="english" value="en" v-model="language">
         <label for="english">{{ $t("account.english") }}</label>
         <br>
       </div>
@@ -68,6 +68,12 @@
         this.$cookies.set("lang", this.$i18n.locale)
       }
     },
+      watch: {
+        language() {
+          this.$i18n.locale = this.language;
+          this.$cookies.set("lang", this.language);
+        }
+      },
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
         checkArgs(){

@@ -140,6 +140,11 @@ const routes = [
         path: '/proposalfull',
         name: 'ProposalFull',
         component: () => import('@/views/ProposalFull.vue')
+      },
+      {
+        path: '/changeProposal',
+        name: 'ModifyProposal',
+        component: () => import('@/views/SupplierModifyContract.vue')
       }
     ],beforeEnter: (to, from, next) => {
         if(cookies.isKey("token") && cookies.isKey("role"))
