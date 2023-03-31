@@ -58,12 +58,16 @@
         this.$cookies.set("lang", this.$i18n.locale)
       }
     },
-    /*Au moment de la création on récupère déjà la première page de l'api*/
+    /*Au moment de la création de la page, on récupère déjà la première page des contrats du client*/
     created(){
       this.getPage();
     },
     methods: {
-      /*Méthode permettant de récupérer les pages des contracts de l'Api avec le bouton seeMore */
+      /**
+      * Cette méthode permet de récupérer les pages des contracts du client avec le bouton seeMore (+à la création de la page).
+      * 
+      * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+      */
       async getPage(){
         const requestOptions = {
           method: "GET",
@@ -95,10 +99,7 @@
           }
         } catch(error) {
             if(error.message === "Token") {
-              this.$cookies.remove("token");
-              this.$cookies.remove("role");
-              Swal.fire('Your connection has expired');
-              this.$router.push("/");
+              GlobalMethods.errorToken();
             } 
             else {  
               GlobalMethods.errorApi(error.message);
@@ -116,14 +117,18 @@
         }
       },
       /*Méthode permettant de vérifier si la dernière page n'a pas encore été chargée 
-      et si on est pas en cours de chargement*/
+      ou si on est pas en cours de chargement*/
       notLastPage(){
         if(this.lastPage == this.nbr || this.loading == true){
           return false;
         }
         return true;
       },
-      /* Méthode permettant de supprimer un client*/
+      /**
+      * Cette méthode permet de supprimer un client.
+      * 
+      * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+      */
       deleteClient() {
         const requestOptions = {
           method: "DELETE",
@@ -151,10 +156,7 @@
           })
           .catch(error => {
             if(error.message === "Token") {
-              this.$cookies.remove("token");
-              this.$cookies.remove("role");
-              Swal.fire('Your connection has expired');
-              this.$router.push("/");
+              GlobalMethods.errorToken();
             } 
             else {
               GlobalMethods.errorApi(error.error);
@@ -166,8 +168,11 @@
         sessionStorage.clear();
         this.$router.push({name: 'Clients'});
       },
-      /*On sauvegarde le contrat sur lequel on souhaite plus d'informations
-      et on redirige vers contrat*/
+      /**
+      * Cette méthode sauvegarde le contrat sur lequel on souhaite plus d'informations et redirige vers contratFull.
+      * 
+      * @param contract le contrat à sauvegarder.
+      */
       seeMore(contract){
         sessionStorage.setItem('idContract', contract.contractId);
         sessionStorage.setItem('clientMail', this.client.mail);

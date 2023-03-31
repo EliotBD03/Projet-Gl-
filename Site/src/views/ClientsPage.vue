@@ -51,12 +51,16 @@
         lastPage : 0,
         listClient: []
       }},
-    /*Au moment de la création on récupère déjà la première page de l'api*/
+    /*Au moment de la création on récupère déjà la première page des clients du fournisseur */
     created() {
       this.getPage();
     },
     methods: {
-      /*Méthode permettant de récupérer les pages des clients de l'Api avec le bouton seeMore*/
+      /**
+      * Cette méthode permet de récupérer les pages des clients du fournisseur avec le bouton seeMore (+à la création de la page).
+      * 
+      * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+      */
       async getPage(){
         const requestOptions = {
           method: "GET",
@@ -89,10 +93,7 @@
           }
         } catch(error) {
             if(error.message === "Token") {
-              this.$cookies.remove("token");
-              this.$cookies.remove("role");
-              Swal.fire('Your connection has expired');
-              this.$router.push("/");
+              GlobalMethods.errorToken();
             } 
             else {  
               GlobalMethods.errorApi(error.message);
@@ -110,15 +111,18 @@
         }
       },
       /*Méthode permettant de vérifier si la dernière page n'a pas encore été chargée 
-      et si on est pas en cours de chargement*/
+      ou si on est pas en cours de chargement*/
       notLastPage(){
         if(this.lastPage == this.nbr || this.loading == true){
           return false;
         }
         return true;
       },
-      /*On sauvegarde le client sur lequel on souhaite plus d'informations
-      et on redirige vers clientFull*/
+      /**
+      * Cette méthode sauvegarde le client sur lequel on souhaite plus d'informations et redirige vers clientFull.
+      * 
+      * @param client le client à sauvegarder.
+      */
       seeMore(client){
         sessionStorage.setItem('client', client);
         this.$router.push( {name: "ClientFull"} );

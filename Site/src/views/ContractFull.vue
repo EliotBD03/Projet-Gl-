@@ -60,7 +60,11 @@
         addressWallet: '',
         mailClient: ''
       }},
-    /*Méthode qui récupère le contract pour lequel on veut plus d'informations à la création de la vue*/
+    /**
+    * Cette méthode récupère le contract pour lequel on veut plus d'informations à la création de la vue.
+    * 
+    * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+    */
     async created(){
       const requestOptions = {
         method: "GET",
@@ -84,10 +88,7 @@
           }
       } catch(error) {
           if(error.message === "Token") {
-            this.$cookies.remove("token");
-            this.$cookies.remove("role");
-            Swal.fire('Your connection has expired');
-            this.$router.push("/");
+            GlobalMethods.errorToken();
           } 
           else {
             GlobalMethods.errorApi(error.message);
@@ -95,7 +96,11 @@
       }
     },
     methods: {
-      /* Méthode permettant de supprimer un contract*/
+      /**
+      * Cette méthode permet de supprimer un contrat.
+      * 
+      * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+      */
       deleteContract() {
         const requestOptions = {
           method: "DELETE",
@@ -123,17 +128,14 @@
             })
             .catch(error => {
               if(error.message === "Token") {
-                this.$cookies.remove("token");
-                this.$cookies.remove("role");
-                Swal.fire('Your connection has expired');
-                this.$router.push("/");
+                GlobalMethods.errorToken();
               } 
               else {
                 GlobalMethods.errorApi(error.error);
               }
             });
       },
-      /*Retourner à la page du clientFull en supprimant les informations du sessionStorage*/
+      /*Cette méthode permet de retourner à la page du clientFull en supprimant les informations du sessionStorage*/
       back(){
         sessionStorage.clear();
         if(this.isRole()){
