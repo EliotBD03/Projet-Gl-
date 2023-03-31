@@ -14,7 +14,7 @@
         <div @click.prevent.left="importData()">
           <GoButton text="Import" :colore="'#34c98e'"/><!--trad-->
         </div>
-        </div>
+      </div>
       <div @click.prevent.left="showGraphic()">
         <GoButton text="button.graphic" :colore="'#34c98e'"/>
       </div>
@@ -441,6 +441,7 @@ export default {
   height: 20vh;
   //z-index: 9999;
 }
+
 .topbutton {
   display: flex;
   flex-direction: row;
