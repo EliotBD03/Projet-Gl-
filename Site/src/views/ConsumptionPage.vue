@@ -1,4 +1,5 @@
-<template>  <div class="main">
+<template>
+  <div class="main">
     <div class="header">
       <MainHeader text="header.consumption"/>
     </div>
@@ -9,12 +10,10 @@
       <div @click.prevent.left="exportData()">
         <GoButton text="Export" :colore="'#34c98e'"/><!--trad-->
       </div>
-      <div>
         <input type="file" id="csv-file" accept=".csv"/>
         <div @click.prevent.left="importData()">
           <GoButton text="Import" :colore="'#34c98e'"/><!--trad-->
         </div>
-      </div>
       <div @click.prevent.left="showGraphic()">
         <GoButton text="button.graphic" :colore="'#34c98e'"/>
       </div>
@@ -26,17 +25,15 @@
       <div class="infos">
         <div class="container">
           <canvas ref="myChart"></canvas>
-          <div id="table">
-            <div class="table">
-              <div class="cellule">Date</div>
-              <div class="cellule">Data</div>
-            </div>
-            <div class="table">
-              <div class="row" v-for="date in listDate" :key="date.id">
-                <div class="cellule">{{ date }}</div>
+          <div class="tableH">
+            <div>
+              <div v-for="date in listDate" :key="date.id" class="cellule">
+                {{ date }}
               </div>
-              <div class="row" v-for="data in listValue" :key="data.id">
-                <div class="cellule">{{ data }}</div>
+            </div>
+            <div>
+              <div v-for="data in listValue" :key="data.id" class="cellule">
+                {{ data }}
               </div>
             </div>
           </div>
@@ -136,18 +133,20 @@ export default {
       const dateRegex = /\d{4}-\d{2}-\d{2}/;
 
       const fileInput = document.getElementById('csv-file');
-      Papa.parse(fileInput.files[0] , {
-        complete: (results) => {
-          const tmp = results.data.slice(1);
-          for(let i = 0; i < tmp.length; i++) {
-            if(dateRegex.test(tmp[i][0])) {
-              this.listNewDate.push(tmp[i][0]);
-              this.listNewValue.push(tmp[i][1]);
+      if(fileInput.files.length > 0) {
+        Papa.parse(fileInput.files[0] , {
+          complete: (results) => {
+            const tmp = results.data.slice(1);
+            for(let i = 0; i < tmp.length; i++) {
+              if(dateRegex.test(tmp[i][0])) {
+                this.listNewDate.push(tmp[i][0]);
+                this.listNewValue.push(tmp[i][1]);
+              }
             }
+            this.post();
           }
-          this.post();
-        }
-      });
+        });
+      }
     },
 
     getDataBefore() {
@@ -439,9 +438,8 @@ export default {
   align-items: center;
   justify-content: center;
   height: 20vh;
-  //z-index: 9999;
+  z-index: 9999;
 }
-
 .topbutton {
   display: flex;
   flex-direction: row;
@@ -497,19 +495,11 @@ export default {
   padding: 0 50px;
   margin-top: 25px;
 }
-
-.table{
+.tableH{
   display: flex;
-  flex-direction: column;
-  min-height: 60px;
-  height: 150px;
-  min-width: 60px;
+  height: 300px;
   width: 700px;
-  overflow-x: scroll;
-}
-
-.row {
-  display: flex;
+  overflow-x: auto;
   flex-direction: row;
 }
 
