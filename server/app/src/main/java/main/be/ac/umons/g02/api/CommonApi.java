@@ -46,8 +46,8 @@ public class CommonApi extends MyApi implements RouterApi
         subRouter.delete("/notifications/:id_notification").handler(this::deleteNotification);
         subRouter.get("/contracts/:id_contract").handler(this::getContract);
         subRouter.delete("/contracts/:id_contract").handler(this::deleteContract);
-        subRouter.get("/consumptions_month").handler(this::getConsumptionOfMonth);
-        subRouter.get("/consumptions:/date").handler(this::getConsumptions);
+        subRouter.get("/consumptions_month/:ean").handler(this::getConsumptionOfMonth);
+        subRouter.get("/consumptions/:ean/").handler(this::getConsumptions);
         subRouter.post("/consumptions").handler(this::addConsumption);
 
         return subRouter;
@@ -361,7 +361,7 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("GetConsumptionOfMonth...");
 
         String ean = null;
-        if(checkParam((ean = routingContext.request().getParam("tete")), routingContext)) return;
+        if(checkParam((ean = routingContext.request().getParam("ean")), routingContext)) return;
 
         String month = null;
         if(checkParam((month = routingContext.request().getParam("month")), routingContext)) return;
