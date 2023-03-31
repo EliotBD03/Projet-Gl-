@@ -46,8 +46,8 @@ public class CommonApi extends MyApi implements RouterApi
         subRouter.delete("/notifications/:id_notification").handler(this::deleteNotification);
         subRouter.get("/contracts/:id_contract").handler(this::getContract);
         subRouter.delete("/contracts/:id_contract").handler(this::deleteContract);
-        subRouter.get("/consumptions_month").handler(this::getConsumptionOfMonth);
-        subRouter.get("/consumptions").handler(this::getConsumptions);
+        subRouter.get("/consumptions_month/:ean").handler(this::getConsumptionOfMonth);
+        subRouter.get("/consumptions/:ean/").handler(this::getConsumptions);
         subRouter.post("/consumptions").handler(this::addConsumption);
 
         return subRouter;
@@ -361,7 +361,7 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("GetConsumptionOfMonth...");
 
         String ean = null;
-        if(checkParam((ean = routingContext.request().getParam("tete")), routingContext)) return;
+        if(checkParam((ean = routingContext.request().getParam("ean")), routingContext)) return;
 
         String month = null;
         if(checkParam((month = routingContext.request().getParam("month")), routingContext)) return;
@@ -379,7 +379,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour renvoyer toutes les données de consommations sur un moi 
+     * Méthode qui utilise le package de base de données pour renvoyer les 10 dernières données avant la date reçu
      *
      * @param - Le context de la requête
      * @see ConsumptionManager
@@ -391,13 +391,28 @@ public class CommonApi extends MyApi implements RouterApi
         String ean = null;
         if(checkParam((ean = routingContext.request().getParam("ean")), routingContext)) return;
 
-        String startDate = null;
-        if(checkParam((startDate = routingContext.request().getParam("start_date")), routingContext)) return;
+        String date = null;
+        if(checkParam((date = routingContext.request().getParam("date")), routingContext)) return;
 
-        String endDate = null;
-        if(checkParam((endDate = routingContext.request().getParam("end_date")), routingContext)) return;
+        boolean isAfter = false;
 
-        HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptions(ean, startDate, endDate);
+        try
+        {
+            String stringIsAfter;
+            if(checkParam((stringIsAfter = routingContext.request().getParam("is_after")), routingContext)) return;
+            isAfter = Boolean.getBoolean(stringIsAfter);
+        }
+        catch(ClassCastException error)
+        {
+            routingContext.response()
+                .setStatusCode(400)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.missingInformation")));
+            return;
+        }
+
+        HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptions(ean, date, isAfter);
 
         routingContext.response()
             .setStatusCode(200)
