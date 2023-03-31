@@ -48,7 +48,7 @@ export default {
   },
   data(){
     return{
-      linkApi : "https://babawallet.alwaysdata.net/api/supplier/proposals/",
+      linkApi : "https://babawallet.alwaysdata.net/api/provider/proposals/",
       nbr : 1,
       loading : false,
       lastPage : 0,

@@ -68,7 +68,7 @@ export default {
             headers: {'Authorisation' : this.$cookies.get('token')}
         };
         try {
-            const response = await fetch(`https://babawallet.alwaysdata.net/api/supplier/proposals/${this.name_proposal}`,requestOptions);
+            const response = await fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions);
             if (response.ok) {
                 const data = await response.text();
                 if (response.status === 401 && data.trim() === ''){
@@ -110,7 +110,7 @@ export default {
                 method: 'DELETE',
                 headers: {'Authorisation' : this.$cookies.get('token')}
             };
-            fetch(`https://babawallet.alwaysdata.net/api/supplier/proposals/${this.name_proposal}`,requestOptions)
+            fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions)
                 .then(response => {
                     if(!response.ok){
                         const data = response.text();
