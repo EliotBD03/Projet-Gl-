@@ -24,6 +24,9 @@
           <div @click.prevent.left="seeMore(contract)">
             <GoButton text="button.go" :colore="'#34c98e'"/>
           </div>
+          <div class="consumptionsbutton" @click.prevent.left="seeConsumptions(contract)">
+            <GoButton text="Consumptions" :colore="'#B1B9FC'"/>
+          </div>
         </div>
       </div>
       <div v-else> No information</div>
@@ -31,9 +34,6 @@
     <div class="bottombutton">
       <div class="backbutton" @click.prevent.left="back()">
       <GoButton text="Back" :colore="'red'"/>
-      </div>
-      <div class="consumptionsbutton" @click.prevent.left="$router.push({name: 'Consumptions'})">
-      <GoButton text="Consumptions" :colore="'#B1B9FC'"/>
       </div>
       <div class="closebutton" @click.prevent.left="deleteWallet()">
       <GoButton text="Close the wallet" :colore="'red'"/>
@@ -65,7 +65,11 @@ export default {
       this.$cookies.set("lang", this.$i18n.locale)
     }
   },
-  /*Méthode qui récupère le wallet pour lequel on veut plus d'informations à la création de la vue*/
+  /**
+  * Cette méthode récupère le portefeuille pour lequel on veut plus d'informations à la création de la vue.
+  * 
+  * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+  */
   async created(){
     const requestOptions = {
       method: "GET",
@@ -89,10 +93,7 @@ export default {
         }
     } catch(error) {
         if(error.message === "Token") {
-          this.$cookies.remove("token");
-          this.$cookies.remove("role");
-          Swal.fire('Your connection has expired');
-          this.$router.push("/");
+          GlobalMethods.errorToken();
         } 
         else {
           GlobalMethods.errorApi(error.message);
@@ -100,7 +101,11 @@ export default {
     }
   },
   methods: {
-    /* Méthode permettant de supprimer un portefeuille*/
+    /**
+    * Cette méthode permet de supprimer un portefeuille.
+    * 
+    * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+    */
     deleteWallet() {
       const requestOptions = {
         method: "DELETE",
@@ -128,28 +133,27 @@ export default {
           })
           .catch(error => {
             if(error.message === "Token") {
-              this.$cookies.remove("token");
-              this.$cookies.remove("role");
-              Swal.fire('Your connection has expired');
-              this.$router.push("/");
+              GlobalMethods.errorToken();
             } 
             else {
               GlobalMethods.errorApi(error.error);
             }
           });
     },
-    /*Retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
+    /*Cette méthode permet de retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
     back(){
       sessionStorage.clear();
       this.$router.push({name: 'Wallets'});
     },
-    /*On sauvegarde le contrat sur lequel on souhaite plus d'informations
-      et on redirige vers contrat*/
+    /*Méthode permettant de sauvegarder le contrat sur lequel on souhaite plus d'informations et rediriger vers contratFull*/
     seeMore(contract){
-      sessionStorage.setItem('walletName', this.wallet.name);
-      sessionStorage.setItem('idContract', contract.contractId);
-      sessionStorage.setItem('walletAddress', this.wallet.address);
-      this.$router.push( {name: "ContractFull"} );
+      sessionStorage.setItem('contract', contract);
+      //this.$router.push( {name: "Contracts"} );
+    },
+
+    seeConsumptions(contract){
+      sessionStorage.setItem('ean', contract.ean);
+      this.$router.push({name: 'Consumptions'});
     }
   }
 };

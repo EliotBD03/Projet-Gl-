@@ -36,7 +36,7 @@ export default {
     MainHeader
   },
   methods: {
-    /*Méthode qui permet la déconnexion de l'utilisateur*/
+    /*Méthode qui permet la déconnexion de l'utilisateur à l'aide de GlobalMethods*/
     callDisconnect() {
       GlobalMethods.disconnect("/");
     },

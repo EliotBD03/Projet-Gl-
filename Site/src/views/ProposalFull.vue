@@ -36,7 +36,7 @@
             <div class="backbutton" @click.prevent.left="back()">
                 <GoButton text="Back" :colore="'darkblue'"/>
             </div>
-            <div class="changebutton" @click.prevent.left="$router.push({name: 'ChangeProposal'})">
+            <div class="changebutton" @click.prevent.left="modifyContract()">
                 <GoButton text="Change proposal" :colore="'#34c98e'"/>
             </div>
             <div class="closebutton" @click.prevent.left="deleteProposal()">
@@ -68,7 +68,7 @@ export default {
             headers: {'Authorisation' : this.$cookies.get('token')}
         };
         try {
-            const response = await fetch(`https://babawallet.alwaysdata.net/api/supplier/proposals/${this.name_proposal}`,requestOptions);
+            const response = await fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions);
             if (response.ok) {
                 const data = await response.text();
                 if (response.status === 401 && data.trim() === ''){
@@ -101,12 +101,16 @@ export default {
             sessionStorage.removeItem('name_proposal');
             this.$router.push({name: 'ContractsSupplier'});
         },
+        modifyContract(){
+            sessionStorage.setItem('name_proposal', this.name_proposal);
+            this.$router.push({name: 'ModifyProposal'});
+        },
         deleteProposal(){
             const requestOptions = {
                 method: 'DELETE',
                 headers: {'Authorisation' : this.$cookies.get('token')}
             };
-            fetch(`https://babawallet.alwaysdata.net/api/supplier/proposals/${this.name_proposal}`,requestOptions)
+            fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions)
                 .then(response => {
                     if(!response.ok){
                         const data = response.text();
@@ -128,10 +132,7 @@ export default {
                 })
                 .catch(error => {
                     if(error.message === "Token") {
-                        this.$cookies.remove("token");
-                        this.$cookies.remove("role");
-                        Swal.fire('Your connection has expired');
-                        this.$router.push("/");
+                        GlobalMethods.errorToken();
                     }
                     else {
                         GlobalMethods.errorApi(error.error);

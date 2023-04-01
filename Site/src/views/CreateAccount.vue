@@ -14,10 +14,10 @@
         <br>
       </div>
       <div class="line">
-        <input type="radio" id="français" value="français" v-model="$i18n.locale">
+        <input type="radio" id="français" value="fr" v-model="language">
         <label for="français">{{ $t("account.french") }}</label>
         <br>
-        <input type="radio" id="english" value="english" v-model="$i18n.locale">
+        <input type="radio" id="english" value="en" v-model="language">
         <label for="english">{{ $t("account.english") }}</label>
         <br>
       </div>
@@ -68,6 +68,12 @@
         this.$cookies.set("lang", this.$i18n.locale)
       }
     },
+      watch: {
+        language() {
+          this.$i18n.locale = this.language;
+          this.$cookies.set("lang", this.language);
+        }
+      },
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie un pop-up*/
         checkArgs(){
@@ -79,13 +85,16 @@
           else if(this.repeatedpwd !== this.pwd) Swal.fire(this.$t("alerts.pwdmatch"));
           else return true;
         },
-        /*Méthode qui, lorsque l'utilisateur 
-          clique sur create an account, envoie le nom de l'utilisateur, 
-          le mail, le code reçu par mail, 
-          le mot de passe choisi, la langue choisie
-          et s'il s'agit d'un client vers l'api si checkArgs() est true.
-          Si la requête est incorrecte, l'api renvoie un message d'erreur
-          Si elle est correcte affiche une pop-up de succès et redirige*/
+        /**Méthode qui, lorsque l'utilisateur 
+        * clique sur create an account, envoie le nom de l'utilisateur, 
+        * le mail, le code reçu par mail, 
+        * le mot de passe choisi, la langue choisie
+        * et s'il s'agit d'un client vers l'api si checkArgs() est true.
+        * Si la requête est incorrecte, l'api renvoie un message d'erreur
+        * Si elle est correcte affiche une pop-up de succès et redirige 
+        *   
+        * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+        */
         post(){
           if(this.checkArgs())
           {
@@ -117,7 +126,7 @@
               });
           }
         },
-        /*Méthode permettant d'obtenir un code pour valider la création de compte*/
+        /*Méthode permettant d'obtenir un code pour valider la création de compte à l'aide de GlobalMethods*/
         getCode(){
           if(this.mail)
           {
@@ -128,14 +137,14 @@
             Swal.fire("Please enter your mail to get a code !");
           }
       },
-      /*Retourner à la page login en supprimant le mail des cookies si besoin*/
+      /*Méthode qui permet de retourner à la page login en supprimant le mail des cookies si besoin*/
       back(){
         if(this.$cookies.isKey("mail")){
           this.$cookies.remove('mail');
         }
         this.$router.push("/");
       },
-      /*Méthode permettant de assigner les bonnes valeurs en fonction des checkboxes*/
+      /*Méthode permettant d'assigner les bonnes valeurs en fonction de la checkboxe*/
       isRole(){
         if(this.role == "Client")
         {

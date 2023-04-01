@@ -58,10 +58,7 @@ export default {
         })
         .catch(error => {
           if (error.message === "Token") {
-            this.$cookies.remove("token");
-            this.$cookies.remove("role");
-            Swal.fire('Your connection has expired');
-            this.$router.push("/");
+            GlobalMethods.errorToken();
           } else {
             GlobalMethods.errorApi(error.message);
           }
@@ -95,10 +92,7 @@ export default {
         }
       } catch (error) {
         if (error.message === "Token") {
-          this.$cookies.remove("token");
-          this.$cookies.remove("role");
-          Swal.fire('Your connection has expired');
-          this.$router.push("/");
+          GlobalMethods.errorToken();
         } else {
           GlobalMethods.errorApi(error.message);
         }

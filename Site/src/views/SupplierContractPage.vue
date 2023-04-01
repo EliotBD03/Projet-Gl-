@@ -48,7 +48,7 @@ export default {
   },
   data(){
     return{
-      linkApi : "https://babawallet.alwaysdata.net/api/supplier/proposals/",
+      linkApi : "https://babawallet.alwaysdata.net/api/provider/proposals/",
       nbr : 1,
       loading : false,
       lastPage : 0,
@@ -91,10 +91,7 @@ export default {
         this.loading = false;
       } catch(error) {
         if(error.message === "Token") {
-          this.$cookies.remove("token");
-          this.$cookies.remove("role");
-          Swal.fire('Your connection has expired');
-          this.$router.push("/");
+          GlobalMethods.errorToken();
         }
         else {
           if(this.nbr === 1){
@@ -128,7 +125,8 @@ export default {
     /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
     et on redirige vers walletFull*/
     seeMore(contract){
-      sessionStorage.setItem('address', contract.address);
+      sessionStorage.setItem('name', contract.name_proposal);
+      this.$router.push({name: 'ProposalFull'})
     },
     redirecting(){
       GlobalMethods.isAClient();

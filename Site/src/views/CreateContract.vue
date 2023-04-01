@@ -101,7 +101,7 @@ export default {
     // génération du tableau des heures disponibles
     for (let i = 0; i < 24; i++) {
       const hour = i < 10 ? `0${i}` : `${i}`;
-      this.hours.push(`${hour}:00`);
+      this.hours.push(`${hour}:00:00`);
     }
   },
   watch: {
