@@ -29,10 +29,12 @@ class ConsumptionManagerTest {
     @AfterAll
     static void clean()
     {
-        new ContractManager().deleteContract("1");
+        DB.getInstance().executeQuery("DELETE FROM contract", false);
+        DB.getInstance().executeQuery("DELETE FROM counter", false);
+        DB.getInstance().executeQuery("DELETE FROM provider_contract",false);
+        DB.getInstance().executeQuery("DELETE FROM wallet_contract",false);
         new ProposalManager().deleteProposal("elec", "2");
        DB.getInstance().executeQuery("DELETE FROM consumption", false);
-       DB.getInstance().executeQuery("DElETE FROM wallet_contract", false);
        new WalletManager().deleteWallet("address");
        new LogManager().deleteAccount("1");
        new LogManager().deleteAccount("2");
@@ -87,16 +89,7 @@ class ConsumptionManagerTest {
                 put("2023-03-05",12.0);
             }
         };
-        assertEquals(expected, new ConsumptionManager().getConsumptions(ean, "2021-03-01", "2023-04-01"));
-    }
-
-    @Test
-    @Order(4)
-    void changeConsumption()
-    {
-        ConsumptionManager consumptionManager = new ConsumptionManager();
-        consumptionManager.changeConsumption(ean, 15.0, "2023-03-05");
-        assertEquals(consumptionManager.getConsumptions(ean, "2023-00-00", "2023-12-31").get("2023-03-05"), 15.0);
+        assertEquals(expected, new ConsumptionManager().getConsumptions(ean, "2023-04-01" , false));
     }
 
     @Test
@@ -112,7 +105,7 @@ class ConsumptionManagerTest {
                 put("2022-03-05",11.0);
             }
         };
-        assertEquals(consumptionManager.getConsumptions(ean, "2021-00-00", "2024-00-00"),expected);
+        assertEquals(consumptionManager.getConsumptions(ean, "2024-00-00", false),expected);
     }
     @Test
     @Order(6)
@@ -120,6 +113,6 @@ class ConsumptionManagerTest {
     {
         ConsumptionManager consumptionManager = new ConsumptionManager();
         consumptionManager.deleteAllConsumptions(ean);
-        assertEquals(consumptionManager.getConsumptions(ean, "2021-00-00", "2024-00-00"), new HashMap<String, Double>());
+        assertEquals(consumptionManager.getConsumptions(ean, "2024-00-00", false), new HashMap<String, Double>());
     }
 }

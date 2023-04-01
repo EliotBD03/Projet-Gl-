@@ -56,7 +56,11 @@ export default {
     this.getPage();
   },
   methods: {
-    /*Méthode permettant de récupérer les pages des wallets de l'Api avec le bouton seeMore */
+    /**
+    * Cette méthode permet de récupérer les pages des portefeuilles de l'Api avec le bouton seeMore (+à la création de la page).
+    * 
+    * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+    */
     async getPage(){
       const requestOptions = {
         method: "GET",
@@ -89,10 +93,7 @@ export default {
         }
       } catch(error) {
           if(error.message === "Token") {
-            this.$cookies.remove("token");
-            this.$cookies.remove("role");
-            Swal.fire('Your connection has expired');
-            this.$router.push("/");
+            GlobalMethods.errorToken();
           } 
           else {  
             GlobalMethods.errorApi(error.message);
@@ -110,15 +111,15 @@ export default {
       }
     },
     /*Méthode permettant de vérifier si la dernière page n'a pas encore été chargée 
-    et si on est pas en cours de chargement*/
+    ou si on est pas en cours de chargement*/
     notLastPage(){
       if(this.lastPage == this.nbr || this.loading == true){
         return false;
       }
       return true;
     },
-    /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
-    et on redirige vers walletFull*/
+    /*Méthode permettant de sauvegarder l'adresse du portefeuille sur lequel on souhaite plus d'informations
+    et rediriger vers walletFull*/
     seeMore(wallet){
       sessionStorage.setItem('address', wallet.address);
       this.$router.push( {name: "WalletFull"} );

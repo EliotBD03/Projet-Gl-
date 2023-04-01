@@ -15,8 +15,6 @@
         <div class="forgotbutton" @click.prevent.left="goForgot()">
         <GoButton text="button.forgotpwd" :colore="'#B1B9FC'"/>
         </div>
-        <!--<button v-on:click="test1()">TEST1 Client</button>
-        <button v-on:click="test2()">TEST2 Supplier</button>-->
       </div>
     </div>
   </template>
@@ -49,60 +47,47 @@
           else if(!this.pwd) Swal.fire(this.$t("alerts.pwd"));
           else return true;
         },
-        /*Méthode qui envoie le mail et le mot de passe vers l'api si les champs sont remplis 
-          quand l'utilisateur clique sur login.
-          Si la requête est incorrecte, 
-          l'api renvoie un message d'erreur et il y aura une pop-up explicative*/
-          post(){
-            if(this.checkArgs()) {
-              const requestOptions = {
-                method: "POST",
-                body: JSON.stringify({ mail: this.mail, pwd: this.pwd })
-              };
-              fetch("https://babawallet.alwaysdata.net/log/check_account", requestOptions)
-                .then(response => {
-                  if(!response.ok){
-                    return response.json().then(json => Promise.reject(json)); 
-                    //crée une nouvelle promesse rejetée contenant l'objet JSON en tant qu'erreur
-                  }
-                  return response.json();
-                }) 
-                .then(data => {
-                  this.$cookies.set("token", data.token);
-                  this.$cookies.set("role", data.role);
-                  GlobalMethods.isAClient();
-                })
-                .catch(error => {
-                  GlobalMethods.errorApi(error.error);
-                });
-            }
-          },
-          /* Méthode permettant de vérifier si le champ "adresse mail" est bien rempli.
-           Si c'est le cas, enregistre dans les cookies le mail et redirige vers la page
-           ForgottenPassword.
-           Sinon affichage d'une pop-up*/
+        /**Méthode qui envoie le mail et le mot de passe vers l'api si les champs sont remplis 
+        * quand l'utilisateur clique sur login.
+        * Si la requête est incorrecte, 
+        * l'api renvoie un message d'erreur et il y aura une pop-up explicative
+        * 
+        * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+        */
+        post(){
+          if(this.checkArgs()) {
+            const requestOptions = {
+              method: "POST",
+              body: JSON.stringify({ mail: this.mail, pwd: this.pwd })
+            };
+            fetch("https://babawallet.alwaysdata.net/log/check_account", requestOptions)
+              .then(response => {
+                if(!response.ok){
+                  return response.json().then(json => Promise.reject(json)); 
+                  //crée une nouvelle promesse rejetée contenant l'objet JSON en tant qu'erreur
+                }
+                return response.json();
+              }) 
+              .then(data => {
+                this.$cookies.set("token", data.token);
+                this.$cookies.set("role", data.role);
+                GlobalMethods.isAClient();
+              })
+              .catch(error => {
+                GlobalMethods.errorApi(error.error);
+              });
+          }
+        },
+        /* Méthode permettant de vérifier si le champ "adresse mail" est bien rempli.
+          Si c'est le cas, enregistre dans les cookies le mail et redirige vers la page ForgottenPassword.
+          Sinon affichage d'une pop-up*/
         goForgot(){
           if(!this.mail) Swal.fire(this.$t("alerts.entermail"));
           else{
             this.$cookies.set("mail", this.mail);
             this.$router.push({name: 'forgottenPassword'});
           }
-        },
-        
-        /*
-        //Temp
-        test1(){
-          this.$cookies.set("role", "client");
-          this.$cookies.set("token", 123456789); 
-          this.$router.push({ name: 'HomeClient' });
-        },
-        test2(){
-          this.$cookies.set("role", "supplier");
-          this.$cookies.set("token", 987654321);
-          this.$router.push({ name: 'HomeSupplier' });
-        }
-        */
-        
+        }       
     }
   }
   </script>

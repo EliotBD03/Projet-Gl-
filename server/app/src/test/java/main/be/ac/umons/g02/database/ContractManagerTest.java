@@ -126,9 +126,9 @@ class ContractManagerTest
     @Order(8)
     void deleteContract()
     {
-        new ContractManager().deleteContract("1");
+        new ContractManager().deleteContractAndNotify("1", "1");
         DB.getInstance().executeQuery("SELECT * from provider_contract e, wallet_contract, counter, contract WHERE e.contract_id=1",true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"*"});
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("*");
         assertEquals(results.get(0).size(), 0);
     }
 

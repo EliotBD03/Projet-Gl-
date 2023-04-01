@@ -6,7 +6,11 @@
   
   export default {
     name: 'GlobalMethods',
-    /*Affiche le message d'erreur venant de l'api dans une pop-up*/
+    /**
+    * Cette méthode affiche le message (d'erreur) dans une pop-up.
+    *
+    * @param error Le message à afficher.
+    */
     errorApi(error){
       Swal.fire({
       icon: 'error',
@@ -14,7 +18,16 @@
       text: error //this.$t(error) ne fonctionne pas Maxime
       })  
     },
-    /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle*/
+    /**
+    * Cette méthode permet de gérer le comportement du site lorsque le token arrive à expiration.
+    */
+    errorToken(){
+      cookies.remove("token");
+      cookies.remove("role");
+      Swal.fire('Your connection has expired');
+      router.push("/");
+    },
+    /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle récupéré grâce aux cookies*/
     isAClient(){
       const role = cookies.get("role");
       if(role === "client"){
@@ -24,7 +37,10 @@
         router.push({name: "HomeSupplier"});
       }
     },
-    /*Méthode permettant d'obtenir un (nouveau) code pour valider le changement de mot de passe ou la création de compte*/
+    /**
+    * Méthode permettant d'obtenir un (nouveau) code pour valider le changement de mot de passe ou la création de compte
+    * @throws une erreur potentiellement renvoyée par l'API.
+    */
     async sendCode(){
       const requestOptions = {
         method: "GET"
@@ -43,7 +59,12 @@
         this.errorApi(error.message);
       }
     },
-    /*Méthode qui permet la déconnexion de l'utilisateur*/
+    /**
+    * Cette méthode permet la déconnexion de l'utilisateur.
+    *
+    * @param chemin La page sur laquelle l'utilisateur ira.
+    * @throws une erreur potentiellement renvoyée par l'API.
+    */
     disconnect(chemin){
       const requestOptions = {
         method: "POST",
@@ -71,10 +92,7 @@
         })
         .catch(error => {
           if (error.message === "Token") {
-            cookies.remove("token");
-            cookies.remove("role");
-            Swal.fire('See you soon !');
-            router.push("/");
+            this.errorToken();
           } 
           else {
             this.errorApi(error.error);

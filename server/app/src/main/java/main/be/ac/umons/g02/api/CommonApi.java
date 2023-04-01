@@ -40,17 +40,15 @@ public class CommonApi extends MyApi implements RouterApi
         subRouter.post("/languages/:language").handler(this::addLanguage);
         subRouter.put("/languages/actual_language/:language").handler(this::changeCurrentLanguage);
         subRouter.put("/languages/favourite_language/:language").handler(this::changeFavouriteLanguage);
-        subRouter.put("/change_pwd").handler(this::changePassword);
         subRouter.get("/notifications/page").handler(this::getAllNotifications);
         subRouter.post("/notifications/accept_notification/:id_notification").handler(this::acceptNotification);
         subRouter.post("/notifications/refuse_notification/:id_notification").handler(this::refuseNotification);
         subRouter.delete("/notifications/:id_notification").handler(this::deleteNotification);
         subRouter.get("/contracts/:id_contract").handler(this::getContract);
         subRouter.delete("/contracts/:id_contract").handler(this::deleteContract);
-        subRouter.get("/consumptions_month").handler(this::getConsumptionOfMonth);
-        subRouter.get("/consumptions").handler(this::getConsumptions);
+        subRouter.get("/consumptions_month/:ean").handler(this::getConsumptionOfMonth);
+        subRouter.get("/consumptions/:ean/").handler(this::getConsumptions);
         subRouter.post("/consumptions").handler(this::addConsumption);
-        subRouter.put("/consumptions").handler(this::changeConsumption);
 
         return subRouter;
     }
@@ -74,7 +72,7 @@ public class CommonApi extends MyApi implements RouterApi
             return;
 
         Object[] res = commonDB.getLanguageManager().getAllLanguages(id, slice[0], slice[1]);
-        int numberOfPagesRemaining = (((int) res[0]) / slice[1]) + (1-(1/100000000));
+        int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);
 
         ArrayList<String> allLanguages = (ArrayList<String>) res[1];
 
@@ -200,40 +198,6 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour changer le mot de passe de l'utilisateur
-     * Si le code de vérification est incorrect, cette méthode renvoie le code 400 avec une explication  
-     *
-     * @param - Le context de la requête
-     */
-    private void changePassword(final RoutingContext routingContext)
-    {
-        LOGGER.info("ChangePassword...");
-
-        String mail = routingContext.pathParam("mail");
-        String code = routingContext.pathParam("code");
-
-        if(App.checkCode(mail, code))
-        {
-            String id = null;
-            if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
-
-            String newPwd = routingContext.pathParam("new_pwd");
-
-            commonDB.getLogManager().changePassword(id, newPwd);
-            routingContext.response()
-                .setStatusCode(200)
-                .putHeader("Content-Type", "application/json")
-                .end();
-        }
-        else
-            routingContext.response()
-                .setStatusCode(400)
-                .putHeader("Content-Type", "application/json")
-                .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "error.incorrectCode")));
-    }
-
-    /** 
      * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste des notifications de l'utilisateur
      * Cette méthode utilise la pagination 
      *
@@ -252,7 +216,7 @@ public class CommonApi extends MyApi implements RouterApi
             return;
 
         Object[] res = commonDB.getNotificationManager().getAllNotifications(id, slice[0], slice[1]);
-        int numberOfPagesRemaining = (((int) res[0]) / slice[1]) + (1-(1/100000000));
+        int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);
 
         ArrayList<Notification> allNotifications = (ArrayList<Notification>) res[1];
 
@@ -373,9 +337,12 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("DeleteContract...");
 
+        String id = null;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
         String idContract = routingContext.pathParam("id_contract");
 
-        commonDB.getContractManager().deleteContract(idContract);
+        commonDB.getContractManager().deleteContractAndNotify(idContract, id);
 
         routingContext.response()
             .setStatusCode(200)
@@ -394,7 +361,7 @@ public class CommonApi extends MyApi implements RouterApi
         LOGGER.info("GetConsumptionOfMonth...");
 
         String ean = null;
-        if(checkParam((ean = routingContext.request().getParam("tete")), routingContext)) return;
+        if(checkParam((ean = routingContext.request().getParam("ean")), routingContext)) return;
 
         String month = null;
         if(checkParam((month = routingContext.request().getParam("month")), routingContext)) return;
@@ -412,7 +379,7 @@ public class CommonApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour renvoyer toutes les données de consommations sur un moi 
+     * Méthode qui utilise le package de base de données pour renvoyer les 10 dernières données avant la date reçu
      *
      * @param - Le context de la requête
      * @see ConsumptionManager
@@ -424,13 +391,28 @@ public class CommonApi extends MyApi implements RouterApi
         String ean = null;
         if(checkParam((ean = routingContext.request().getParam("ean")), routingContext)) return;
 
-        String startDate = null;
-        if(checkParam((startDate = routingContext.request().getParam("start_date")), routingContext)) return;
+        String date = null;
+        if(checkParam((date = routingContext.request().getParam("date")), routingContext)) return;
 
-        String endDate = null;
-        if(checkParam((endDate = routingContext.request().getParam("end_date")), routingContext)) return;
+        boolean isAfter = false;
 
-        HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptions(ean, startDate, endDate);
+        try
+        {
+            String stringIsAfter;
+            if(checkParam((stringIsAfter = routingContext.request().getParam("is_after")), routingContext)) return;
+            isAfter = Boolean.getBoolean(stringIsAfter);
+        }
+        catch(ClassCastException error)
+        {
+            routingContext.response()
+                .setStatusCode(400)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.missingInformation")));
+            return;
+        }
+
+        HashMap<String, Double> listConsumption = commonDB.getConsumptionManager().getConsumptions(ean, date, isAfter);
 
         routingContext.response()
             .setStatusCode(200)
@@ -499,48 +481,5 @@ public class CommonApi extends MyApi implements RouterApi
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("valueAlreadyDefine", valueAlreadyDefine)));
-    }
-
-    /** 
-     * Méthode qui utilise le package de base de données pour changer une donnée de consommation par rapport à un contrat
-     *
-     * @param - Le context de la requête
-     * @see ConsumptionManager
-     */
-    private void changeConsumption(final RoutingContext routingContext)
-    {
-        LOGGER.info("ChangeConsumption...");
-
-        JsonObject body = null;
-        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
-
-        String ean = null;
-        if(checkParam((ean = body.getString("ean")), routingContext)) return;
-
-        double value = 0;
-
-        try
-        {
-            if(checkParam((value = body.getDouble("value")), routingContext)) return;
-        }
-        catch(ClassCastException error)
-        {
-            routingContext.response()
-                .setStatusCode(400)
-                .putHeader("Content-Type", "application/json")
-                .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "error.missingInformation")));
-            return;
-        }
-
-        String date = null;
-        if(checkParam((date = body.getString("date")), routingContext)) return;
-
-        commonDB.getConsumptionManager().changeConsumption(ean, value, date);
-
-        routingContext.response()
-            .setStatusCode(200)
-            .putHeader("Content-Type", "application/json")
-            .end();
     }
 }

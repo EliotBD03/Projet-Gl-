@@ -101,6 +101,7 @@ public class MyApi extends AbstractVerticle
         router.route("/api/common/*").handler(routingContext -> HandlerUtils.handleRoleCommon(routingContext));
         router.get("/timer_task/clear_blacklist/:code").handler(this::cleanExpiredTokens);
         router.get("/timer_task/clear_codelist/:code").handler(routingContext -> App.automaticDeleteCode(routingContext));
+        router.get("/timer_task/clear_contract/:code").handler(this::cleanExpiredContract);
         router.get("/delete_user/:id/:code").handler(this::deleteUser);
 
         logApi = new LogApi();
@@ -133,6 +134,23 @@ public class MyApi extends AbstractVerticle
     }
 
     /**
+     * Méthode qui permet de vérifier si un token est expiré en regardant la valeur de exp
+     */
+    private static boolean isExpired(String token)
+    {
+        String[] parts = token.split("\\.");
+        String payload = new String(Base64.getDecoder().decode(parts[1]), StandardCharsets.UTF_8);
+
+        javax.json.JsonObject jsonPayload = javax.json.Json.createReader(new StringReader(payload)).readObject();
+
+        long exp = jsonPayload.getJsonNumber("exp").longValueExact();
+
+        if(Instant.ofEpochSecond(exp).isBefore(Instant.now()))
+            return true;
+        return false;
+    }
+
+    /**
      * Méthode qui permet de supprimer les tokens qui sont dans la blacklist et qui sont périmés
      * Cette méthode est appelée toutes les 5 minutes par une tâche planifiée d'alwaysdata
      *
@@ -151,16 +169,38 @@ public class MyApi extends AbstractVerticle
             {
                 String token = iterator.next();
 
-                String[] parts = token.split("\\.");
-                String payload = new String(Base64.getDecoder().decode(parts[1]), StandardCharsets.UTF_8);
-
-                javax.json.JsonObject jsonPayload = javax.json.Json.createReader(new StringReader(payload)).readObject();
-
-                long exp = jsonPayload.getJsonNumber("exp").longValueExact();
-
-                if(Instant.ofEpochSecond(exp).isBefore(Instant.now()))
+                if(isExpired(token))
                     iterator.remove();
             }
+
+            routingContext.response()
+                .setStatusCode(200)
+                .putHeader("Content-Type", "application/json")
+                .end();
+        }
+        else
+            routingContext.response()
+                .setStatusCode(401)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.unauthorizedOperation")));
+    }
+
+    /**
+     * Méthode qui permet d'appeler une méthode du package base de données pour supprimer les contracts finis.
+     * Cette méthode est appelée toutes les jours par une tâche planifiée d'alwaysdata
+     *
+     * @param routingContext - Le contexte de la requête
+     */
+    private void cleanExpiredContract(final RoutingContext routingContext)
+    {
+        LOGGER.info("CleanExpiredContract...");
+
+        String code = routingContext.pathParam("code");
+
+        if(codeToClean.equals(code))
+        {
+            commonDB.getContractManager().deleteExpiredContracts();
 
             routingContext.response()
                 .setStatusCode(200)
@@ -266,6 +306,27 @@ public class MyApi extends AbstractVerticle
         slice[0] =(page - 1) * slice[1];
 
         return slice;
+    }
+
+    /**
+     * Méthode qui sert à calculer le nombre de page restante
+     *
+     * @param totalNumber - Le nombre total d'élément
+     * @param limit - La taille d'une page
+     */
+    protected int getNumberOfPagesRemaining(int totalNumber, int limit)
+    {
+        int numberOfPagesRemaining = 0;
+
+        while(totalNumber >= limit)
+        {
+            totalNumber -= limit;
+            numberOfPagesRemaining++;
+        }
+        if(totalNumber > 0)
+            numberOfPagesRemaining++;
+
+        return numberOfPagesRemaining;
     }
 
     /**
@@ -379,8 +440,6 @@ public class MyApi extends AbstractVerticle
         {
             LOGGER.info("Check Token...");
 
-            JWTAuthHandler.create(MyApi.jwt);
-
             String token = routingContext.request().headers().get("Authorization");
             if(token == null || token.length() <= 7 || !(token.substring(0, 7).equals("Bearer ")))
             {
@@ -394,7 +453,7 @@ public class MyApi extends AbstractVerticle
 
             token = token.substring(7);
 
-            if(MyApi.blackList.contains(token))
+            if(isExpired(token) || MyApi.blackList.contains(token))
                 routingContext.response()
                     .setStatusCode(401)
                     .putHeader("Content-Type", "application/json")

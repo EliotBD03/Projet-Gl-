@@ -35,25 +35,37 @@ public class ConsumptionManager
     {
         String openingDate = year + "-" + month + "-01";
         String closingDate = year + "-" + month + "-LAST_DAY("+month+")";
-        return getConsumptions(ean, openingDate, closingDate);
+        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded BETWEEN '"+ openingDate + "' AND '" + closingDate + "'";
+
+        DB.getInstance().executeQuery(query, true);
+        HashMap<String,Double> consumptions= new HashMap<>();
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("date_recorded", "daily_consumption");
+        for(int i = 0; i < results.get(0).size(); i++)
+            consumptions.put(results.get(0).get(i), Double.parseDouble(results.get(1).get(i)));
+
+        return consumptions;
     }
 
     /**
      * Donne les consommations dans un intervalle de dates donné en plus d'un code ean.
      *
      *  @param ean le code ean
-     * @param startingDate la première date (YYYY-MM-DD)
-     * @param closingDate la dernière date (YYYY-MM-DD)
+     * @param date la première date (YYYY-MM-DD)
+     * @param isAfter mis à faux si on veut des dates antérieures à date
      * @return une hashmap contenant la date en clé et la consommation en valeur
      */
-    public HashMap<String, Double> getConsumptions(String ean, String startingDate, String closingDate)
+    public HashMap<String, Double> getConsumptions(String ean, String date, boolean isAfter)
     {
 
 
        //if(!isThereSomeValues(ean, new ArrayList<Calendar>(Arrays.asList(startingDate, closingDate))))
          //   throw new Exception("The table doesn't contain any consumption with the ean code: "+ ean + " within the interval : "+ startingDate + "and " + closingDate);
+        String inequility = isAfter ? ">" : "<";
+        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded "+inequility+" '"+ date + "' LIMIT 0, 10";
 
-        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded BETWEEN '"+ startingDate + "' AND '" + closingDate + "'";
+        if(date == null)
+             query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded "+inequility+" (SELECT MAX(date_recorded) FROM date_recorded) LIMIT 0, 10";
+
         DB.getInstance().executeQuery(query, true);
         HashMap<String,Double> consumptions= new HashMap<>();
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults("date_recorded", "daily_consumption");
@@ -144,18 +156,6 @@ public class ConsumptionManager
         DB.getInstance().executeQuery("DELETE FROM consumption WHERE ean='"+ean+"'",false);
     }
 
-    /**
-     * Change la valeur d'une consommation pour un ean et une date donnée.
-     *
-     * @param ean le code ean
-     * @param value la nouvelle valeur
-     * @param date la date (YYYY-MM-DD)
-     */
-    public void changeConsumption(String ean, double value, String date)
-    {
-        DB.getInstance().executeQuery("UPDATE consumption SET daily_consumption="+value+
-                " WHERE date_recorded='"+date+"' AND ean='"+ean+"'",false);
-    }
 
     /**
      * Crée un compteur avec un code ean et le premier contrat associé.
