@@ -240,4 +240,16 @@ public class ContractManager
         return true;
     }
 
+    /**
+     * Retourne le type d'énergie d'un contrat en fonction de son identifiant.
+     *
+     * @param contractId l'identifiant du contrat
+     * @return le type d'énergie : electricity||gas||water
+     */
+    public String getTypeOfEnergyFromContract(String contractId)
+    {
+        return getContract(contractId).getProposal().getTypeOfEnergy();
+    }
+
+
 }

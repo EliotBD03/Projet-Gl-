@@ -57,6 +57,7 @@ public class ContractFull extends ContractBasic
         return proposal.getEndOfPeakHours();
     }
     public String getProposalName(){return proposal.getProposalName();}
+    public ProposalFull getProposal(){return proposal;}
 
     public String getAddress(){return address;}
 
