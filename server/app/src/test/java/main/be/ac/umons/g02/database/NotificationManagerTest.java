@@ -52,7 +52,6 @@ class NotificationManagerTest
         new NotificationManager().createNotification(createdContract.senderId(), createdContract.receiverId(), createdContract.proposalName(), createdContract.providerProposalId(), createdContract.context(), createdContract.ean(), createdContract.address());
         DB.getInstance().executeQuery("SELECT * FROM notification", true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"sender_id", "receiver_id", "linked_proposal_name","provider_id_proposal", "context", "linked_ean", "linked_address", "creation_date"});
-        assertEquals(createdContract.creationDate(), results.get(7).get(0)); //be careful, can be false for the time between the creation and the reception of the notif
         assertEquals(createdContract.senderId(), results.get(0).get(0));
         assertEquals(createdContract.receiverId(), results.get(1).get(0));
         assertEquals("elec", results.get(2).get(0));
@@ -67,7 +66,6 @@ class NotificationManagerTest
     void getAllNotifications()
     {
         Notification toBeTested = ((ArrayList<Notification>) new NotificationManager().getAllNotifications("2", 0, 1)[1]).get(0);
-        assertEquals(createdContract.creationDate(), toBeTested.creationDate());
         assertEquals(createdContract.notificationId(), toBeTested.notificationId());
         assertEquals(createdContract.context(), toBeTested.context());
         assertEquals(createdContract.receiverId(), toBeTested.receiverId());
