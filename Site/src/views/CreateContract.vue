@@ -48,7 +48,7 @@
           </select>
         </div>
         <p>
-          <InputMain :text="'Duration (YYYY-MM-DD)'" v-model="duration"/>
+          <InputMain :text="'Duration (in month)'" v-model="duration"/>
         </p>
         <p>
           <input type="radio" id="Bi-hourly" value="false" v-model="is_single_hour_counter">
