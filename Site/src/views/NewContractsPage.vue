@@ -31,6 +31,10 @@
       </div>
     </div>
 
+    <div class="ContractInformationButton" @click.prevent.left="$router.push('/contractInformation')">
+      <GoButton text="go"/>
+    </div>
+
     <div class="checkboxleftside">
           <p>LOCATION</p>
           <span v-for="location in allLocations" :key="location.id">
@@ -176,7 +180,7 @@ export default {
       console.log(proposal)
       sessionStorage.setItem('providerId', proposal.providerId) 
       sessionStorage.setItem('proposalName', proposal.proposalName) 
-      this.$router.push({name: "ContractInformation"});
+      this.$router.push({name: "/contractInformation"});
     },
     applyFilter()
     {
@@ -192,7 +196,7 @@ export default {
     checkOnlyOneLocation()
     {
       this.selectedLocations = [];
-    },
+    }
   }
 };
 </script>

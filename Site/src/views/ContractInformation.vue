@@ -16,11 +16,18 @@
             <p> bi-hourly or single-hourly counter : proposal.isSingleHourCounter</p>
         </div>
         <div class="input">
-            <InputMain :text="inputWalletText" :value="walletName"/>
-            <InputMain :text="inputEanText" :value="eanCode"/>
+            <p>
+                <InputMain :text="$t('inputAddressText')" v-model="address"/>
+            </p>
+            <p>
+                <InputMain :text="$t('inputEanText')" v-model="ean"/>
+            </p>
+            <p>
+                <GoButton :text="submitText" @click="Submit()" :colore="'green'"/>
+            </p>
         </div>
-        <div class="button">
-            <GoButton :text="submitText" @click="Submit()"/>
+        <div class="backbutton" @click.prevent.left="$router.push('/newcontracts')">
+            <GoButton text="Back" :colore="'#B1B9FC'"/>
         </div>
     </div>
 </template>
@@ -38,17 +45,18 @@
         components:
         {
             GoButton,
-            MainHeader
+            MainHeader,
+            InputMain
         },
         data()
         {
             return{
                 
-                inputWalletText: "Name of the wallet",
+                inputAddressText: "Name of the wallet",
                 inputEanText: "EAN code",
                 submitText: "Submit",
-                walletName,
-                eanCode,
+                address: '',
+                ean: '',
                 providerId: sessionStorage.getItem("providerId"),
                 proposalName: sessionStorage.getItem("proposalName"),
                 proposal: []
@@ -93,7 +101,7 @@
                 if(error.message === "Token")
                 {
                     this.$cookies.remove("token");
-                    this.$cookies.remove(role);
+                    this.$cookies.remove("role");
                     Swal.fire('Your connection has expired');
                     this.$router.push("/")
                 }
@@ -147,7 +155,7 @@
                 sessionStorage.clear();
                 this.$router.push({name: "NewContractsPage"})
             },
-            VerifyEan()
+            VerifyEan: function()
             {
                 return this.eanCode.length == 18;
             },
@@ -157,11 +165,33 @@
             },
             submit()
             {
-                if(VerifyEan() && VerifyWallet())
+                if(this.VerifyEan() && this.VerifyWallet())
                 {
-                    makeContractRequest();
+                    this.makeContractRequest();
                 }
             }
         }
     }
 </script>
+
+<style>
+    .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    }
+
+    .list{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+    }
+</style>
