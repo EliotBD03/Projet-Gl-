@@ -68,7 +68,6 @@ public class ProposalManager
         }
         DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM proposal WHERE provider_id="+providerId, true);
         int count = Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0));
-        System.out.println(count);
         return new Object[] {count, proposalBasics};
     }
 

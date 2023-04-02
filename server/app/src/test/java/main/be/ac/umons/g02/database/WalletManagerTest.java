@@ -70,6 +70,14 @@ class WalletManagerTest
 
     @Test
     @Order(5)
+    void doesTheWalletBelongToHim()
+    {
+        assertTrue(new WalletManager().doesTheWalletBelongToHim(walletBasic.getClientId(), walletBasic.getAddress()));
+        assertFalse(new WalletManager().doesTheWalletBelongToHim(walletBasic.getClientId(),"adresse factice"));
+    }
+
+    @Test
+    @Order(6)
     void deleteWallet()
     {
         WalletManager walletManager = new WalletManager();

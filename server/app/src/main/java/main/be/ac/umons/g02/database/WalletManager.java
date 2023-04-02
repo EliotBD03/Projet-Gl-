@@ -134,4 +134,17 @@ public class WalletManager
         DB.getInstance().executeQuery("UPDATE wallet SET "+column+"="+value+" WHERE address="+address, false);
     }
 
+    /**
+     * Vérifie si le client possède bien ce portefeuille.
+     *
+     * @param id l'identifiant du client
+     * @param address l'adresse du portefeuille
+     * @return vrai s'il lui appartient, faux sinon
+     */
+    public boolean doesTheWalletBelongToHim(String id, String address)
+    {
+        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM wallet WHERE address='"+address+"' AND client_id="+id+") AS 'c'", true);
+        return Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0)) == 1;
+    }
+
 }

@@ -124,6 +124,14 @@ class ContractManagerTest
 
     @Test
     @Order(8)
+    void getTypeOfEnergyFromContract()
+    {
+        assertEquals(new ContractManager().getTypeOfEnergyFromContract(expected.getContractId()),proposalFull.getTypeOfEnergy());
+        assertNotEquals(new ContractManager().getTypeOfEnergyFromContract(expected.getContractId()),"ethereum");
+
+    }
+    @Test
+    @Order(9)
     void deleteContract()
     {
         new ContractManager().deleteContractAndNotify("1", "1");

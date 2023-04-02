@@ -3,6 +3,25 @@
         <div class="header">
             <MainHeader :text="proposal.proposalName"/>
         </div>
+        <div class="list">
+            <p> Information :</p>
+            <p> Provider : {{ proposal.nameProvider }}</p>
+            <p> Type of Energy : {{ typeEnergy }}</p>
+            <p> Location : proposal.location</p>
+            <p> Basic price : proposal.basicPrice</p>
+            <p> price depends on the day : proposal.variableDayPrice</p>
+            <p> price depends on the night : proposal.variableNightPrice</p>
+            <p> Variable or fixed rate : proposal.isFixedRate</p>
+            <p> off-peak hours : {{ proposal.startOffPeakHours }} - {{ proposal.endOfPeakHours }}</p>
+            <p> bi-hourly or single-hourly counter : proposal.isSingleHourCounter</p>
+        </div>
+        <div class="input">
+            <InputMain :text="inputWalletText" :value="walletName"/>
+            <InputMain :text="inputEanText" :value="eanCode"/>
+        </div>
+        <div class="button">
+            <GoButton :text="submitText" @click="Submit()"/>
+        </div>
     </div>
 </template>
 
@@ -12,6 +31,7 @@
     import GoButton from '@/components/GoButton.vue';
     import  Swal  from 'sweetalert2/dist/sweetalert2';
     import GlobalMethods from '@/components/GlobalMethods.vue';
+    import InputMain from '@/components/InputMain.vue';
 
     export default
     {
@@ -24,6 +44,11 @@
         {
             return{
                 
+                inputWalletText: "Name of the wallet",
+                inputEanText: "EAN code",
+                submitText: "Submit",
+                walletName,
+                eanCode,
                 providerId: sessionStorage.getItem("providerId"),
                 proposalName: sessionStorage.getItem("proposalName"),
                 proposal: []
@@ -99,8 +124,7 @@
                         }
                         else
                         {
-                            Swal.fire
-                            ({
+                            Swal.fire({
                                 icon: "success",
                                 title: 'Good !',
                                 text: 'A message has been sent to the provider !'
@@ -112,14 +136,31 @@
                     {
                         if(error.message === "Token")
                         {
-                            this.$cookies.remove("token");
-                            this.$cookies.remove("role");
-                            Swal.fire('Your connection has expired');
-                            this.$router.push("/");
+                            GlobalMethods.errorToken();
                         }
                         else
                             GlobalMethods.errorApi(error.error);
                     });
+            },
+            back()
+            {
+                sessionStorage.clear();
+                this.$router.push({name: "NewContractsPage"})
+            },
+            VerifyEan()
+            {
+                return this.eanCode.length == 18;
+            },
+            VerifyWallet()
+            {
+             //TODO
+            },
+            submit()
+            {
+                if(VerifyEan() && VerifyWallet())
+                {
+                    makeContractRequest();
+                }
             }
         }
     }

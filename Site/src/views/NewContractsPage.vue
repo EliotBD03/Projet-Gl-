@@ -176,7 +176,7 @@ export default {
       console.log(proposal)
       sessionStorage.setItem('providerId', proposal.providerId) 
       sessionStorage.setItem('proposalName', proposal.proposalName) 
-      this.$router.push({name: "ContractFull"});
+      this.$router.push({name: "ContractInformation"});
     },
     applyFilter()
     {

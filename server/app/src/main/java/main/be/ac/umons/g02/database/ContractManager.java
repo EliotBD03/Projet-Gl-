@@ -130,8 +130,8 @@ public class ContractManager
     {
         DB.getInstance().executeQuery("SELECT CASE " +
                 "WHEN client_id <> "+senderId+" THEN client_id ELSE provider_id " +
-                "END AS receiver" +
-                " FROM contract" +
+                "END AS 'receiver' " +
+                "FROM contract " +
                 "WHERE contract_id="+contractId,true);
         String receiverId = DB.getInstance().getResults("receiver").get(0).get(0);
         new NotificationManager().createNotification(senderId, receiverId, contractId, "Your contract has been deleted by :" + new LogManager().getName(senderId));
@@ -220,14 +220,12 @@ public class ContractManager
 
     /**
      * Supprime tous les contrats expirés.
-     *
-     * @return vrai si au moins un contrat a été supprimé, faux sinon.
      */
-    public boolean deleteExpiredContracts() {
+    public void deleteExpiredContracts() {
         DB.getInstance().executeQuery("SELECT contract_id FROM contract WHERE closing_date <= CURDATE()", true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults("contract_id");
         if (results.get(0).size() == 0)
-            return false;
+            return;
         ArrayList<String> contractIds = DB.getInstance().getResults("contract_id").get(0);
         for (String contractId : contractIds)
         {
@@ -237,7 +235,6 @@ public class ContractManager
             deleteContract(contractId);
         }
 
-        return true;
     }
 
     /**
