@@ -56,8 +56,7 @@
           fetch("https://babawallet.alwaysdata.net/api/client/wallets", requestOptions)
               .then(response => {
                 if(!response.ok){
-                  const data = response.text();
-                  if(response.status == 401 && data.trim() === ''){
+                  if(response.status == 401){
                       throw new Error("Token");
                   }
                   else{

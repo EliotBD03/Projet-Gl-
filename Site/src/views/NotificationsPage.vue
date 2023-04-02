@@ -45,8 +45,7 @@ export default {
           fetch('https://babawallet.alwaysdata.net/api/common/notifications/' + id_notification, requestOptions)
               .then(response => {
                   if (!response.ok) {
-                      const data = response.text();
-                      if (response.status == 401 && data.trim() === '') {
+                      if (response.status == 401) {
                           throw new Error("Token");
                       } else {
                           const data = response.json();
@@ -72,8 +71,7 @@ export default {
           try {
               const response = await fetch(`https://babawallet.alwaysdata.net/api/common/notifications/page?page=${this.nbr}&limit=3`, requestOptions);
               if (!response.ok) {
-                  const data = await response.text();
-                  if (response.status == 401 && data.trim() === '') {
+                  if (response.status == 401) {
                       throw new Error("Token");
                   } else {
                       const data = await response.json();
@@ -106,8 +104,7 @@ export default {
           fetch("https://babawallet.alwaysdata.net/api/common/notifications/accept_notification/" + id_notification, requestOptions)
               .then(response => {
                   if (!response.ok) {
-                      const data = response.text();
-                      if (response.status == 401 && data.trim() === '') {
+                      if (response.status == 401) {
                           throw new Error("Token");
                       } else {
                           const data = response.json();
@@ -133,8 +130,7 @@ export default {
           fetch("https://babawallet.alwaysdata.net/api/common/notifications/refuse_notification/" + id_notification, requestOptions)
               .then(response => {
                   if (!response.ok) {
-                      const data = response.text();
-                      if (response.status == 401 && data.trim() === '') {
+                      if (response.status == 401) {
                           throw new Error("Token");
                       } else {
                           const data = response.json();

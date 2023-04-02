@@ -77,8 +77,7 @@
         try {
           const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
           if (!response.ok) { 
-            const data = await response.text();
-            if(response.status == 401 && data.trim() === ''){
+            if(response.status == 401){
               throw new Error("Token");
             }
             else{
@@ -137,8 +136,7 @@
         fetch(`https://babawallet.alwaysdata.net/api/clients/clients_of_provider/${this.client.id_client}`, requestOptions)
           .then(response => {
             if(!response.ok){
-              const data = response.text();
-              if(response.status == 401 && data.trim() === ''){
+              if(response.status == 401){
                   throw new Error("Token");
               }
               else{

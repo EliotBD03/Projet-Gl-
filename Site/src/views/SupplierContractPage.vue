@@ -70,8 +70,7 @@ export default {
         const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
         if (!response.ok) {
           console.log("not ok")
-          const data = await response.text();
-          if(response.status == 401 && data.trim() === ''){
+          if(response.status == 401){
             console.log("401")
             throw new Error("Token");
           }

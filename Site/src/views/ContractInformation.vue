@@ -78,8 +78,7 @@
                 const response = await fetch(`https://babawallet.alwaysdata.net/api/client/proposal/${this.providerId}/${this.proposalName}`, requestOptions);
                 if(!response.ok)
                 {
-                    const data = await response.text();
-                    if(response.status == 401 && data.trim() === '')
+                    if(response.status == 401)
                         throw new Error("Token");
                     else
                     {
@@ -121,8 +120,7 @@
                     {
                         if(!response.ok)
                         {
-                            const data = response.text();
-                            if(response.status == 401 && data.trim() === '')
+                            if(response.status == 401)
                                 throw new Error("Token");
                             else
                                 return response.json().then(json => Promise.reject(json));

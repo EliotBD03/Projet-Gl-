@@ -78,8 +78,7 @@ export default {
     try {
       const response = await fetch(`https://babawallet.alwaysdata.net/api/client/wallets/${this.address}`,requestOptions);
         if (!response.ok) { 
-          const data = await response.text();
-          if(response.status == 401 && data.trim() === ''){
+          if(response.status == 401){
             throw new Error("Token");
           }
           else{
@@ -114,8 +113,7 @@ export default {
       fetch(`https://babawallet.alwaysdata.net/api/client/wallets/${this.address}`, requestOptions)
           .then(response => {
             if(!response.ok){
-              const data = response.text();
-              if(response.status == 401 && data.trim() === ''){
+              if(response.status == 401){
                   throw new Error("Token");
               }
               else{
