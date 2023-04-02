@@ -94,7 +94,8 @@ export default {
       isDisplayDay : true,
       month : "",
       year : "",
-      labelButtonDisplay : "DisplayMonth"//trad
+      unity : "",
+      labelButtonDisplay : "DisplayMonth" + this.unity//trad
     }},
   
   /*Méthode pour charger la langue sauvegardée en cookie*/
@@ -105,6 +106,7 @@ export default {
       this.$cookies.set("lang", this.$i18n.locale)
     }
 
+    this.getUnity();
     this.getConsumption();
     this.showGraphic();
   },
@@ -247,15 +249,54 @@ export default {
       return true;
     },
     
+    async getUnity() {
+      const requestOptions = {
+        method: "GET",
+        headers: {'Authorization' : this.$cookies.get("token")},
+      };
+      try {
+        const response = await fetch(`https://babawallet.alwaysdata.net/api/common/contracts/ + ${sessionStorage.getItem('contractId')}`, requestOptions);
+        if (!response.ok) { 
+          const data = await response.text();
+          if(response.status == 401 && data.trim() === ''){
+            throw new Error("Token");
+          }
+          else{
+            const data = await response.json();
+            throw new Error(data.error);
+          }
+        } else {
+          const data = await response.json(); 
+          
+          if(data.type_of_energy == "water") { 
+            this.unity = " (m³) ";
+          } else {
+            this.unity = " (kWh) ";
+          }
+        }
+      } catch(error) {
+          if(error.message === "Token") {
+            this.$cookies.remove("token");
+            this.$cookies.remove("role");
+            Swal.fire('Your connection has expired');//trad
+            this.$router.push("/");
+          } 
+          else {  
+            GlobalMethods.errorApi(error.message);
+          }
+      }
+    },
+
     async getConsumption() {
       const requestOptions = {
         method: "GET",
         headers: {'Authorization' : this.$cookies.get("token")},
       };
       try {
-        const response = await fetch("https://babawallet.alwaysdata.net/api/common/consumptions/" + this.ean + "?date="+ this.date + "&is_after=" + this.isAfter, requestOptions);
+        const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions/${this.ean}?date=${this.date}&is_after=${this.isAfter}`, requestOptions);
         if (!response.ok) { 
-          if(response.status == 401){
+          const data = await response.text();
+          if(response.status == 401 && data.trim() === ''){
             throw new Error("Token");
           }
           else{
@@ -302,9 +343,10 @@ export default {
         headers: {'Authorization' : this.$cookies.get("token")},
       };
       try {
-        const response = await fetch("https://babawallet.alwaysdata.net/api/common/consumptions_month/" + this.ean + "?year=" +  this.year +  "&month=" + this.month, requestOptions);
+        const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions_month/${this.ean}?year=${this.year}&month=${this.month}`, requestOptions);
         if (!response.ok) { 
-          if(response.status == 401){
+          const data = await response.text();
+          if(response.status == 401 && data.trim() === ''){
             throw new Error("Token");
           }
           else{
@@ -343,10 +385,11 @@ export default {
           headers: {'Authorization': this.$cookies.get("token")},
           body: JSON.stringify({ ean: this.ean, list_value: this.listNewValue, list_date: this.listNewDate, forcing: this.forcing})
         };
-        fetch("https://babawallet.alwaysdata.net/api/common/consumptions", requestOptions)
+        fetch(`https://babawallet.alwaysdata.net/api/common/consumptions`, requestOptions)
             .then(response => {
               if(!response.ok){
-                if(response.status == 401){
+                const data = response.text();
+                if(response.status == 401 && data.trim() === ''){
                     throw new Error("Token");
                 }
                 else{
@@ -405,10 +448,10 @@ export default {
       this.isDisplayDay = !this.isDisplayDay;
 
       if(this.isDisplayDay) {
-        this.labelButtonDisplay = "DisplayMonth";//trad
+        this.labelButtonDisplay = "DisplayMonth" + this.unity;//trad
         this.getConsumption();
       } else {
-        this.labelButtonDisplay = "DisplayDay";//trad
+        this.labelButtonDisplay = "DisplayDay" + this.unity;//trad
         this.getConsumptionOfMonth();
       }
     },

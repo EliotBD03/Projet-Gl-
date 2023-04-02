@@ -3,6 +3,7 @@ package main.be.ac.umons.g02.api;
 import main.be.ac.umons.g02.App;
 import main.be.ac.umons.g02.api.MyApi;
 import main.be.ac.umons.g02.database.CommonDB;
+import main.be.ac.umons.g02.database.WalletManager;
 import main.be.ac.umons.g02.data_object.Notification;
 import main.be.ac.umons.g02.data_object.ContractFull;
 
@@ -45,6 +46,7 @@ public class CommonApi extends MyApi implements RouterApi
         subRouter.post("/notifications/refuse_notification/:id_notification").handler(this::refuseNotification);
         subRouter.delete("/notifications/:id_notification").handler(this::deleteNotification);
         subRouter.get("/contracts/:id_contract").handler(this::getContract);
+        subRouter.get("/contracts/type_of_energy/:id_contract").handler(this::getTypeOfEnergyOfContract);
         subRouter.delete("/contracts/:id_contract").handler(this::deleteContract);
         subRouter.get("/consumptions_month/:ean").handler(this::getConsumptionOfMonth);
         subRouter.get("/consumptions/:ean/").handler(this::getConsumptions);
@@ -325,6 +327,30 @@ public class CommonApi extends MyApi implements RouterApi
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("contract", contract)));
+    }
+
+    /**
+     * Méthode qui utilise le package de base de données pour savoir le type d'énergie d'un contrat
+     *
+     * @param - Le context de la requête
+     * @see ContractManager
+     */
+    private void getTypeOfEnergyOfContract(final RoutingContext routingContext)
+    {
+        LOGGER.info("GetTypeOfEnergyOfContract...");
+
+        String id = null;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
+        String contractId = routingContext.pathParam("id_contract");
+
+        String type = commonDB.getContractManager().getTypeOfEnergyFromContract(contractId);
+
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end(Json.encodePrettily(new JsonObject()
+                        .put("type_of_energy", type)));
     }
 
     /** 
