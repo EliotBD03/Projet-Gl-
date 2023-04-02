@@ -125,8 +125,7 @@ export default {
         try {
             const response = await fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions);
             if (response.ok) {
-                const data = await response.text();
-                if (response.status === 401 && data.trim() === ''){
+                if (response.status === 401){
                     throw new Error('Token');
                 }
                 else {

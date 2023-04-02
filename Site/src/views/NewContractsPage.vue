@@ -118,8 +118,7 @@ export default {
         const response = await fetch(`${this.linkApi}page?page=${this.nbr}&energy_category=${this.selectedEnergies}&region_category=${this.selectedLocations}&limit=2`, requestOptions);
         if(!response.ok)
         {
-          const data = await response.text();
-          if(response.status == 401 && data.trim() === '')
+          if(response.status == 401)
           {
             throw new Error("Token");
           }

@@ -255,8 +255,7 @@ export default {
       try {
         const response = await fetch("https://babawallet.alwaysdata.net/api/common/consumptions/" + this.ean + "?date="+ this.date + "&is_after=" + this.isAfter, requestOptions);
         if (!response.ok) { 
-          const data = await response.text();
-          if(response.status == 401 && data.trim() === ''){
+          if(response.status == 401){
             throw new Error("Token");
           }
           else{
@@ -305,8 +304,7 @@ export default {
       try {
         const response = await fetch("https://babawallet.alwaysdata.net/api/common/consumptions_month/" + this.ean + "?year=" +  this.year +  "&month=" + this.month, requestOptions);
         if (!response.ok) { 
-          const data = await response.text();
-          if(response.status == 401 && data.trim() === ''){
+          if(response.status == 401){
             throw new Error("Token");
           }
           else{
@@ -348,8 +346,7 @@ export default {
         fetch("https://babawallet.alwaysdata.net/api/common/consumptions", requestOptions)
             .then(response => {
               if(!response.ok){
-                const data = response.text();
-                if(response.status == 401 && data.trim() === ''){
+                if(response.status == 401){
                     throw new Error("Token");
                 }
                 else{

@@ -65,8 +65,7 @@
           try {
             const response = await fetch(`${this.linkApiProposals}page?page=${this.nbrProposals}&limit=6`, requestOptions);
             if (!response.ok) { 
-              const data = await response.text();
-              if(response.status == 401 && data.trim() === ''){
+              if(response.status == 401){
                 throw new Error("Token");
               }
               else{
@@ -115,8 +114,7 @@
           try {
             const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
             if (!response.ok) { 
-              const data = await response.text();
-              if(response.status == 401 && data.trim() === ''){
+              if(response.status == 401){
                 throw new Error("Token");
               }
               else{
@@ -180,8 +178,7 @@
             fetch("https://babawallet.alwaysdata.net/api/provider/propose_contract", requestOptions)
               .then(response => {
                 if(!response.ok){
-                  const data = response.text();
-                  if(response.status == 401 && data.trim() === ''){
+                  if(response.status == 401){
                       throw new Error("Token");
                   }
                   else{

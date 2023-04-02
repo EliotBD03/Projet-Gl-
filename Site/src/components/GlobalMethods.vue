@@ -73,10 +73,7 @@
       fetch("https://babawallet.alwaysdata.net/log/disconnect", requestOptions)
         .then(response => {
           if(!response.ok){
-            const data = response.text();
-            //On vérifie cela car la promesse lorsqu'il s'agit d'un token expiré est vide
-            if(response.status == 401 && data.trim() === ''){
-              //trim permet de supprimer les espaces blancs au début et à la fin d'une chaîne de caractères.
+            if(response.status == 401){
                 throw new Error("Token");
             }
             else{
