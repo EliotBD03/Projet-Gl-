@@ -6,7 +6,7 @@
     <div class="allcards">
       <MainCard :text="$t('maincard.clients')" redir="Clients"/>
       <MainCard :text="$t('header.contracts')" redir="ContractsSupplier"/>
-      <MainCard :text="$t('header.notifications')"/>
+      <MainCard :text="$t('header.notifications')" redir="Notifications"/>
     </div>
     <div class="bottombutton">
       <div class="disconnectbutton" @click.prevent.left="callDisconnect()">

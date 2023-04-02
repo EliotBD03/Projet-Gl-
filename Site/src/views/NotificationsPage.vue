@@ -4,7 +4,7 @@
       <MainHeader text="header.notifications"/>
     </div>
     <div class="notifs">
-      <MainNotification class="notif" v-for="notif in notifications" :key="notif" :title="notif.title" :time="notif.time" :text="notif.text" :id="notif.id" @delete="deleteNotifications"/>
+      <MainNotification class="notif" v-for="notif in notifications" :key="notif" :title="notif.emetteur" :time="notif.time" :text="notif.contexte" :id="notif.id" :id_notification="notif.id_notification" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
     </div>
     <div class="homebutton" @click.prevent.left="redirecting()">
       <GoButton text="header.home" :colore="'#B1B9FC'"/>
@@ -36,71 +36,125 @@ export default {
   },
   /*Méthode pour rediriger vers la page d'accueil*/
   methods: {
-    async deleteNotifications(id) {
-      console.log("test");
-      const requestOptions = {
-        method: "DELETE",
-        headers: {'Authorization': this.$cookies.get("token")},
-      }
-      fetch('https://babawallet.alwaysdata.net/api/notifications/' + id, requestOptions)
-        .then(response => {
-          if (!response.ok) {
-            const data = response.text();
-            if (response.status == 401 && data.trim() === '') {
-              throw new Error("Token");
-            } else {
-              const data = response.json();
-              throw new Error(data.error);
-            }
-          } else {
-            Swal.fire('Notification deleted');
+      async deleteNotifications(id_notification) {
+          console.log("test");
+          const requestOptions = {
+              method: "DELETE",
+              headers: {'Authorization': this.$cookies.get("token")},
           }
-        })
-        .catch(error => {
-          if (error.message === "Token") {
-            GlobalMethods.errorToken();
-          } else {
-            GlobalMethods.errorApi(error.message);
+          fetch('https://babawallet.alwaysdata.net/api/common/notifications/' + id_notification, requestOptions)
+              .then(response => {
+                  if (!response.ok) {
+                      const data = response.text();
+                      if (response.status == 401 && data.trim() === '') {
+                          throw new Error("Token");
+                      } else {
+                          const data = response.json();
+                          throw new Error(data.error);
+                      }
+                  } else {
+                      Swal.fire('Notification deleted');
+                  }
+              })
+              .catch(error => {
+                  if (error.message === "Token") {
+                      GlobalMethods.errorToken();
+                  } else {
+                      GlobalMethods.errorApi(error.message);
+                  }
+              });
+      },
+      async getNotifications() {
+          const requestOptions = {
+              method: "GET",
+              headers: {'Authorization': this.$cookies.get("token")},
           }
-        });
-    },
-    async getNotifications() {
-      const requestOptions = {
-        method: "GET",
-        headers: {'Authorization': this.$cookies.get("token")},
-      }
-      try {
-        const response = await fetch(`https://babawallet.alwaysdata.net/api/notifications/page?page=${this.nbr}&limit=3`, requestOptions);
-        if (!response.ok) {
-          const data = await response.text();
-          if (response.status == 401 && data.trim() === '') {
-            throw new Error("Token");
-          } else {
-            const data = await response.json();
-            throw new Error(data.error);
+          try {
+              const response = await fetch(`https://babawallet.alwaysdata.net/api/common/notifications/page?page=${this.nbr}&limit=3`, requestOptions);
+              if (!response.ok) {
+                  const data = await response.text();
+                  if (response.status == 401 && data.trim() === '') {
+                      throw new Error("Token");
+                  } else {
+                      const data = await response.json();
+                      throw new Error(data.error);
+                  }
+              } else {
+                  const data = await response.json();
+                  this.lastPage = data.last_page;
+                  if (this.lastPage == 0) {
+                      this.loading = true;
+                      Swal.fire('No notifications yet !');
+                  } else {
+                      this.id = data.id_proposal;
+                      this.notifications.push(data.notifications);
+                  }
+              }
+          } catch (error) {
+              if (error.message === "Token") {
+                  GlobalMethods.errorToken();
+              } else {
+                  GlobalMethods.errorApi(error.message);
+              }
           }
-        } else {
-          const data = await response.json();
-          this.lastPage = data.last_page;
-          if (this.lastPage == 0) {
-            this.loading = true;
-            Swal.fire('No notifications yet !');
-          } else {
-            this.id = data.id_proposal;
-            this.notifications.push(data.notifications);
+      },
+      async acceptNotification(id_notification) {
+          const requestOptions = {
+              method: "POST",
+              headers: {'Authorization': this.$cookies.get("token")},
           }
-        }
-      } catch (error) {
-        if (error.message === "Token") {
-          GlobalMethods.errorToken();
-        } else {
-          GlobalMethods.errorApi(error.message);
-        }
-      }
-    },
-    redirecting() {
-      GlobalMethods.isAClient();
-    },
+          fetch("https://babawallet.alwaysdata.net/api/common/notifications/accept_notification/" + id_notification, requestOptions)
+              .then(response => {
+                  if (!response.ok) {
+                      const data = response.text();
+                      if (response.status == 401 && data.trim() === '') {
+                          throw new Error("Token");
+                      } else {
+                          const data = response.json();
+                          throw new Error(data.error);
+                      }
+                  } else {
+                      Swal.fire('Notification accepted');
+                  }
+              })
+              .catch(error => {
+                  if (error.message === "Token") {
+                      GlobalMethods.errorToken();
+                  } else {
+                      GlobalMethods.errorApi(error.message);
+                  }
+              });
+      },
+      async refuseNotification(id_notification) {
+          const requestOptions = {
+              method: "POST",
+              headers: {'Authorization': this.$cookies.get("token")},
+          }
+          fetch("https://babawallet.alwaysdata.net/api/common/notifications/refuse_notification/" + id_notification, requestOptions)
+              .then(response => {
+                  if (!response.ok) {
+                      const data = response.text();
+                      if (response.status == 401 && data.trim() === '') {
+                          throw new Error("Token");
+                      } else {
+                          const data = response.json();
+                          throw new Error(data.error);
+                      }
+                  } else {
+                      Swal.fire('Notification refused');
+                  }
+              })
+              .catch(error => {
+                  if (error.message === "Token") {
+                      GlobalMethods.errorToken();
+                  } else {
+                      GlobalMethods.errorApi(error.message);
+                  }
+              });
+      },
+      redirecting() {
+          GlobalMethods.isAClient();
+      },
   },
   /*Méthode pour charger la langue sauvegardée en cookie*/
   mounted() {

@@ -6,11 +6,11 @@
     <div class="allcards">
       <div class=cards v-for="contract in listContracts" :key="contract.id">
         <div class="texte">
-          <p class="name"> {{ contract.name }} :</p>
-          <p> {{ contract.nameOwner }}</p>
-          <p> {{ contract.location }}</p>
+          <p class="name"> Provider name : {{ contract.providerName }} :</p>
+            <p>EAN Code : {{ contract.ean }}</p>
+            <p></p>
         </div>
-        <div @click.prevent.left="seeMore(contracts)">
+        <div @click.prevent.left="seeMore(contract)">
           <GoButton text="button.go" :colore="'#34c98e'"/>
         </div>
       </div>
@@ -115,7 +115,7 @@ export default {
     /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
     et on redirige vers walletFull*/
     seeMore(contract){
-      sessionStorage.setItem('idContract', contract.idContract);
+      sessionStorage.setItem('idContract', contract.contractId);
       this.$router.push({name: 'ContractFull'});
     },
   redirecting(){
