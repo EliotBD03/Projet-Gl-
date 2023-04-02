@@ -17,10 +17,10 @@
         </div>
         <div class="input">
             <p>
-                <InputMain :text="$t('inputAddressText')" v-model="address"/>
+                <InputMain :text="$t('address')" v-model="address"/>
             </p>
             <p>
-                <InputMain :text="$t('inputEanText')" v-model="ean"/>
+                <InputMain :text="$t('EAN code')" v-model="ean"/>
             </p>
             <p>
                 <GoButton :text="submitText" @click="Submit()" :colore="'green'"/>
@@ -51,9 +51,6 @@
         data()
         {
             return{
-                
-                inputAddressText: "Name of the wallet",
-                inputEanText: "EAN code",
                 submitText: "Submit",
                 address: '',
                 ean: '',
