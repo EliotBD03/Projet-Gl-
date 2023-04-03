@@ -84,6 +84,7 @@ import GoButton from "@/components/GoButton.vue";
 import Swal from 'sweetalert2';
 import InputMain from "@/components/InputMain.vue";
 import MainHeader from "@/components/MainHeader.vue";
+import GlobalMethods from "@/components/GlobalMethods.vue";
 
 export default {
     components: {InputMain, GoButton, MainHeader},
@@ -166,17 +167,18 @@ export default {
                         name_proposal: this.name_proposal,
                         type_of_energy: this.type_of_energy,
                         localization: this.localization,
-                        basic_price: this.basic_price,
-                        variable_night_price: this.variable_night_price,
-                        variable_day_price: this.variable_day_price,
+                        basic_price: parseFloat(this.basic_price),
+                        variable_night_price: parseFloat(this.variable_night_price),
+                        variable_day_price: parseFloat(this.variable_day_price),
                         is_single_hour_counter: this.is_single_hour_counter,
                         is_fixed_rate: this.is_fixed_rate,
-                        duration: this.duration,
+                        duration: parseInt(this.duration),
                         start_off_peak_hours: this.start_off_peak_hours,
                         end_off_peak_hours: this.end_off_peak_hours
                     }),
                     headers: {'Authorization' : this.$cookies.get("token")},
                 };
+                try {
                 fetch("https://babawallet.alwaysdata.net/api/provider/proposals", requestOptions)
                     .then(response => {
                         if (!response.ok) {
@@ -204,6 +206,9 @@ export default {
                             text: 'Your contract has been added',
                         })
                     )
+                } catch (error) {
+                    GlobalMethods.errorApi(error);
+                }
             }
         }
     }

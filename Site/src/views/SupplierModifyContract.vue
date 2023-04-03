@@ -97,12 +97,12 @@ export default {
             flandre: false,
             bruxelles: false,
             localization: this.contract.localization,
-            basic_price: this.contract.basic_price,
-            variable_night_price: this.contract.variable_night_price,
-            variable_day_price: this.contract.variable_day_price,
+            basic_price: parseFloat(this.contract.basic_price),
+            variable_night_price: parseFloat(this.contract.variable_night_price),
+            variable_day_price: parseFloat(this.contract.variable_day_price),
             is_single_hour_counter: this.contract.is_single_hour_counter,
             is_fixed_rate: this.contract.is_fixed_rate,
-            duration: this.contract.duration,
+            duration: parseInt(this.contract.duration),
             hours: [], // tableau des heures disponibles
             start_off_peak_hours: this.contract.start_off_peak_hours, // heure de début sélectionnée
             end_off_peak_hours: this.contract.end_off_peak_hours // heure de fin sélectionnée
