@@ -203,7 +203,7 @@ CREATE TABLE `proposal` (
   `start_peak_hours` time DEFAULT NULL,
   `end_peak_hours` time DEFAULT NULL,
   `price` double(6,2) DEFAULT NULL,
-  `location` binary(3) DEFAULT NULL,
+  `location` varchar(3) DEFAULT NULL,
   `duration` int(10) DEFAULT NULL,
   PRIMARY KEY (`proposal_name`,`provider_id`),
   KEY `provider_id` (`provider_id`),
