@@ -6,7 +6,7 @@
     <div>
       <select class="select" v-model="choiceProposal">
         <option disabled value="">Please select your proposal</option>
-        <option v-for="proposal in listOfProposal" :key="proposal.id">{{ proposal.name }}</option>
+        <option v-for="proposal in listOfProposal" :key="proposal.id">{{ proposal.proposalName }}</option>
       </select>
       <div class="selectedList" v-for="client in listClient" :key="client.id">
         <div class="item">
@@ -74,12 +74,13 @@
               }
             } else {
               const data = await response.json(); 
+              console.log(data)
               this.lastpageProposals = data.last_page;
               if(this.lastpageProposals == 0){
                   Swal.fire("You don't have any proposals");  
               }
               while(this.lastpageProposals >= this.nbrProposals){
-                this.listOfProposal.push(data.listOfProposal); //ajouter la suite de la réponse à la liste
+                this.listOfProposal.push(data.allProposals); //ajouter la suite de la réponse à la liste
                 this.listOfProposal = this.listOfProposal.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension            
                 this.nbrProposals++;
                 this.getAllProposals();
