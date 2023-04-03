@@ -9,7 +9,15 @@
                     <InputMain :text="$t('walletform.name')" v-model="name_proposal"/>
                 </p>
                 <p>
-                    <InputMain :text="'Type of energy'" v-model="type_of_energy"/>
+                    Type of energy :
+                </p>
+                <p>
+                    <input type="radio" id="Water" value="water" v-model="type_of_energy">
+                    <label for="Water">Water</label>
+                    <input type="radio" id="Gas" value="gas" v-model="type_of_energy">
+                    <label for="Gas">Gas</label>
+                    <input type="radio" id="Electricity" value="electricity" v-model="type_of_energy">
+                    <label for="Electricity">Electricity</label>
                 </p>
                 <p>
                     <label>

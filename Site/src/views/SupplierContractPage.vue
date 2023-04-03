@@ -10,7 +10,7 @@
           <p> {{ contract.nameOwner }}</p>
           <p> {{ contract.location }}</p>
         </div>
-        <div @click.prevent.left="seeMore(contracts)">
+        <div @click.prevent.left="seeMore(contract)">
           <GoButton text="button.go" :colore="'#34c98e'"/>
         </div>
       </div>
@@ -82,7 +82,7 @@ export default {
         } else {
           const data = await response.json();
           console.log(data)
-          this.listContracts.push(data.contracts);//ajouter la suite de la réponse à la liste
+          this.listContracts.push(data.allProposals);//ajouter la suite de la réponse à la liste
           console.log(this.listContracts)
           this.lastPage = data.last_page;
           console.log(this.lastPage)
