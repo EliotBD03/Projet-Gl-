@@ -16,8 +16,10 @@ public class ConsumptionManager
     {
         for(String date: dates)
         {
-            DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM consumption WHERE ean='"+ean+"' AND date_recorded='"+date+"') AS c", true);
-            if(Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0)) != 0)
+            String query = "SELECT EXISTS(SELECT * FROM consumption WHERE ean='"+ean+"' AND date_recorded='"+date+"') AS c";
+            int count = new Query(query).executeAndGetResult("c").getIntElem(0,0);
+
+            if(count != 0)
                 return true;
         }
         return false;
@@ -34,14 +36,14 @@ public class ConsumptionManager
     public HashMap<String, Double> getConsumptionOfMonth(String ean, String month, String year)
     {
         String openingDate = year + "-" + month + "-01";
-        String closingDate = year + "-" + month + "-LAST_DAY("+month+")";
+        String closingDate = year + "-" + month + "-31";
         String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded BETWEEN '"+ openingDate + "' AND '" + closingDate + "'";
 
-        DB.getInstance().executeQuery(query, true);
+        System.out.println(query);
+        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("date_recorded", "daily_consumption").getTable();
         HashMap<String,Double> consumptions= new HashMap<>();
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("date_recorded", "daily_consumption");
-        for(int i = 0; i < results.get(0).size(); i++)
-            consumptions.put(results.get(0).get(i), Double.parseDouble(results.get(1).get(i)));
+
+        for (ArrayList<String> row : table) consumptions.put(row.get(0), Double.parseDouble(row.get(1)));
 
         return consumptions;
     }
@@ -66,11 +68,10 @@ public class ConsumptionManager
         if(date == null)
              query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded "+inequility+" (SELECT MAX(date_recorded) FROM date_recorded) LIMIT 0, 10";
 
-        DB.getInstance().executeQuery(query, true);
+        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("date_recorded", "daily_consumption").getTable();
         HashMap<String,Double> consumptions= new HashMap<>();
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("date_recorded", "daily_consumption");
-        for(int i = 0; i < results.get(0).size(); i++)
-            consumptions.put(results.get(0).get(i), Double.parseDouble(results.get(1).get(i)));
+
+        for (ArrayList<String> row : table) consumptions.put(row.get(0), Double.parseDouble(row.get(1)));
 
         return consumptions;
     }
@@ -104,34 +105,40 @@ public class ConsumptionManager
         double value = 0.0;
         for(int i = 0; i < values.size(); i++)
         {
-            DB.getInstance().executeQuery(previousConsumption, true);
-            ArrayList<ArrayList<String>> consumptions = DB.getInstance().getResults("daily_consumption");
+            ArrayList<ArrayList<String>> consumptions = new Query(previousConsumption).executeAndGetResult("daily_consumption").getTable();
 
-            if(consumptions.get(0).size() != 0)
+            if(consumptions.size() != 0)
                 value = Double.parseDouble(consumptions.get(0).get(0));
 
-            DB.getInstance().executeQuery("INSERT INTO consumption(ean, date_recorded, daily_consumption) VALUES('"+
+            String query = "INSERT INTO consumption(ean, date_recorded, daily_consumption) VALUES('"+
                     ean+"','"+dates.get(i)+"',"+(values.get(i)+value)+
-                    ") ON DUPLICATE KEY UPDATE daily_consumption="+values.get(i), false);
+                    ") ON DUPLICATE KEY UPDATE daily_consumption="+values.get(i);
+
+            new Query(query).executeWithoutResult();
             value = 0.0;
         }
 
-        DB.getInstance().executeQuery("SELECT daily_consumption" +
+        String getMaximumValueQuery = "SELECT daily_consumption" +
                 " FROM consumption " +
                 "WHERE date_recorded IN " +
                 "(SELECT max(date_recorded) FROM consumption) " +
                 "AND " +
-                "ean = '"+ean+"'",true);
+                "ean = '"+ean+"'";
 
-        double maxVal = Double.parseDouble(DB.getInstance().getResults("daily_consumption").get(0).get(0));
+        double maxVal = new Query(getMaximumValueQuery).executeAndGetResult("daily_consumption").getDoubleElem(0,0);
+
+        String getAddressQuery = "SELECT address FROM " +
+                "wallet_contract WHERE " +
+                "contract_id IN " +
+                "(SELECT contract_id FROM counter WHERE ean='"+ean+"')";
+
         DB.getInstance().executeQuery("SELECT address FROM " +
                 "wallet_contract WHERE " +
                 "contract_id IN " +
                 "(SELECT contract_id FROM counter WHERE ean='"+ean+"')",true);
-        String address = DB.getInstance().getResults("address").get(0).get(0); //we suppose there is only one contract for one counter
+        String address = new Query(getAddressQuery).executeAndGetResult("address").getStringElem(0,0); //on suppose qu'il y a un seul contrat pour même compteur
+
         new WalletManager().addLastConsumption(address, maxVal, new ContractManager().getTypeOfEnergy(address));
-
-
         return true;
     }
 
@@ -143,7 +150,7 @@ public class ConsumptionManager
      */
     public void deleteConsumption(String ean, String date)
     {
-        DB.getInstance().executeQuery("DELETE FROM consumption WHERE ean='"+ean+"' AND date_recorded='"+date+"'",false);
+        new Query("DELETE FROM consumption WHERE ean='"+ean+"' AND date_recorded='"+date+"'").executeWithoutResult();
     }
 
     /**
@@ -153,7 +160,7 @@ public class ConsumptionManager
      */
     public void deleteAllConsumptions(String ean)
     {
-        DB.getInstance().executeQuery("DELETE FROM consumption WHERE ean='"+ean+"'",false);
+        new Query("DELETE FROM consumption WHERE ean='"+ean+"'").executeWithoutResult();
     }
 
 
@@ -165,7 +172,7 @@ public class ConsumptionManager
      */
     public void createCounterOrReplace(String ean, String contractId)
     {
-        DB.getInstance().executeQuery("INSERT INTO counter(ean,contract_id) VALUES('"+ean+"',"+contractId+") ON DUPLICATE KEY UPDATE contract_id="+contractId,false);
+        new Query("INSERT INTO counter(ean,contract_id) VALUES('"+ean+"',"+contractId+") ON DUPLICATE KEY UPDATE contract_id="+contractId).executeWithoutResult();
     }
 
 }

@@ -74,7 +74,13 @@ class ConsumptionManagerTest {
     @Order(2)
     void getConsumptionOfMonth()
     {
-        //TODO
+        HashMap<String, Double> expected = new HashMap<>()
+        {
+            {
+                put("2021-03-05",10.0);
+            }
+        };
+        assertEquals(new ConsumptionManager().getConsumptionOfMonth(ean, "03", "2021"), expected);
     }
 
     @Test

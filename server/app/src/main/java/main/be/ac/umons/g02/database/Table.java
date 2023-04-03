@@ -47,6 +47,7 @@ public class Table
         return Integer.parseInt(table.get(i).get(j));
     }
 
+    public double getDoubleElem(int i, int j){return Double.parseDouble(table.get(i).get(j));}
     public String getStringElem(int i, int j)
     {
         return this.table.get(i).get(j);

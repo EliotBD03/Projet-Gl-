@@ -14,12 +14,12 @@ public class Query
         return query;
     }
 
-    public Table ExecuteAndGetResult(String... returnedColumns)
+    public Table executeAndGetResult(String... returnedColumns)
     {
         return new Table(this, returnedColumns);
     }
 
-    public void ExecuteWithoutResult()
+    public void executeWithoutResult()
     {
         DB.getInstance().executeQuery(query,false);
     }

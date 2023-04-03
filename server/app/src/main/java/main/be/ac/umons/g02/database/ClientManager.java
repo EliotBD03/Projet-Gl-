@@ -4,7 +4,6 @@ import main.be.ac.umons.g02.data_object.ClientBasic;
 
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class ClientManager
 {
@@ -37,7 +36,7 @@ public class ClientManager
     public Object[] getAllClients(int base, int limit)
     {
         String query = "SELECT * FROM user WHERE id IN (SELECT client_id FROM client) LIMIT "+base+", "+limit;
-        ArrayList<ArrayList<String>> table = new Query(query).ExecuteAndGetResult("id", "name", "mail").getTable();
+        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("id", "name", "mail").getTable();
 
         if(table.equals(Table.EMPTY_TABLE))
             return new Object[] {0, Table.EMPTY_TABLE};
@@ -45,7 +44,7 @@ public class ClientManager
         ArrayList<ClientBasic> clientBasics = getClientBasics(table);
 
         DB.getInstance().executeQuery("SELECT count(*) AS c FROM client", true);
-        int count = new Query("SELECT count(*) AS c FROM client").ExecuteAndGetResult("c").getIntElem(0,0);
+        int count = new Query("SELECT count(*) AS c FROM client").executeAndGetResult("c").getIntElem(0,0);
 
         return new Object[] {count, clientBasics};
     }
@@ -66,18 +65,18 @@ public class ClientManager
                 "(SELECT contract_id FROM provider_contract WHERE provider_id="+providerId+"))) "+
                 "LIMIT "+base+", "+limit;
 
-        ArrayList<ArrayList<String>> table = new Query(query).ExecuteAndGetResult("id", "name", "mail").getTable();
+        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("id", "name", "mail").getTable();
 
         if(table.equals(Table.EMPTY_TABLE))
             return new Object[] {0, Table.EMPTY_TABLE};
 
-        ArrayList<ClientBasic> clientBasics = getClientBasics(new Query(query).ExecuteAndGetResult("id", "name", "mail").getTable());
+        ArrayList<ClientBasic> clientBasics = getClientBasics(new Query(query).executeAndGetResult("id", "name", "mail").getTable());
 
         query = "SELECT count(*) AS c FROM user WHERE id IN "+
                 "(SELECT client_id FROM wallet WHERE address IN "+
                 "(SELECT address FROM wallet_contract WHERE contract_id IN "+
                 "(SELECT contract_id FROM provider_contract WHERE provider_id="+providerId+"))) ";
-        int count = new Query(query).ExecuteAndGetResult("c").getIntElem(0,0);
+        int count = new Query(query).executeAndGetResult("c").getIntElem(0,0);
 
         return new Object[] {count, clientBasics};
     }
@@ -98,12 +97,12 @@ public class ClientManager
                 " INNER JOIN (SELECT * FROM wallet_contract WHERE address IN (SELECT address FROM wallet WHERE client_id=" +clientId+")) b"+
                 " ON a.contract_id = b.contract_id";
         System.out.println(query);
-        ArrayList<String> contracts = new Query(query).ExecuteAndGetResult("contract_id").getColumn(0);
+        ArrayList<String> contracts = new Query(query).executeAndGetResult("contract_id").getColumn(0);
 
         String[] tables = {"wallet_contract", "provider_contract", "counter", "contract"};
 
         for (String contract : contracts)
             for (String table : tables)
-                new Query("DELETE FROM " + table + " WHERE contract_id=" + contract).ExecuteWithoutResult();
+                new Query("DELETE FROM " + table + " WHERE contract_id=" + contract).executeWithoutResult();
     }
 }
