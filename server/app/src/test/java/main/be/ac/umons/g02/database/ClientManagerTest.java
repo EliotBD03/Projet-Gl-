@@ -1,14 +1,13 @@
 package main.be.ac.umons.g02.database;
 
 import main.be.ac.umons.g02.data_object.ClientBasic;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ClientManagerTest {
 
     private static ClientBasic client = new ClientBasic("1", "YOU", "NEVER");
@@ -38,6 +37,7 @@ class ClientManagerTest {
     }
 
     @Test
+    @Order(1)
     void getAllClients()
     {
 
@@ -48,6 +48,7 @@ class ClientManagerTest {
     }
 
     @Test
+    @Order(2)
     void getAllHisClients()
     {
         ClientBasic toBeTested = ((ArrayList<ClientBasic>) new ClientManager().getAllHisClients("2", 0, 1)[1]).get(0);
@@ -58,10 +59,11 @@ class ClientManagerTest {
 
 
     @Test
+    @Order(3)
     void deleteClient()
     {
         ClientManager clientManager = new ClientManager();
         clientManager.deleteClient("2","1");
-        assertEquals(((ArrayList<ClientBasic>) clientManager.getAllHisClients("1", 0, 1)[1]).size(), 0);
+        assertEquals((clientManager.getAllHisClients("1", 0, 1)[1]), Table.EMPTY_TABLE);
     }
 }
