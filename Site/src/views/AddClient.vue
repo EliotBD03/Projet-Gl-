@@ -85,7 +85,6 @@
                 if(this.lastpageProposals >= this.nbrProposals){
                   this.getAllProposals();  
                 } 
-                  
               }
             }
           } catch(error) {
@@ -175,7 +174,7 @@
             const requestOptions = {
               method: "POST",
               headers: {'Authorization': this.$cookies.get("token")},
-              body: JSON.stringify({ nameProposal: this.choiceProposal, idClient: client.clientId })
+              body: JSON.stringify({ name_proposal: this.choiceProposal, id_client: client.clientId })
             };
             fetch("https://babawallet.alwaysdata.net/api/provider/propose_contract", requestOptions)
               .then(response => {
