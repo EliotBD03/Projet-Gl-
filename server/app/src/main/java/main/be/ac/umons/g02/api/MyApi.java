@@ -522,7 +522,7 @@ public class MyApi extends AbstractVerticle
             String role = null;
             if(((role = MyApi.getDataInToken(routingContext, "role")) == null)) return;
 
-            if(role.equals("client") || role.equals("provider"))
+            if(role.equals("client") || role.equals("supplier"))
                 routingContext.next();
             else
                 routingContext.response()
