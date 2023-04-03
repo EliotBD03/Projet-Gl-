@@ -74,7 +74,6 @@
               }
             } else {
               const data = await response.json(); 
-              console.log(data)
               this.lastpageProposals = data.last_page;
               if(this.lastpageProposals == 0){
                   Swal.fire("You don't have any proposals");  
@@ -83,8 +82,10 @@
                 this.listOfProposal.push(data.allProposals); //ajouter la suite de la réponse à la liste
                 this.listOfProposal = this.listOfProposal.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension            
                 this.nbrProposals++;
-                this.getAllProposals();
-                
+                if(this.lastpageProposals >= this.nbrProposals){
+                  this.getAllProposals();  
+                } 
+                  
               }
             }
           } catch(error) {
