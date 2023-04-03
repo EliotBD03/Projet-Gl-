@@ -192,7 +192,6 @@
                       title: 'Good !',
                       text: 'A message has been sent to the client !'
                   })
-                  this.$router.push({ name: 'Clients' });
                 }
               })
               .catch(error => {
