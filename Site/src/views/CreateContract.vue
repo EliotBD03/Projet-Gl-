@@ -186,17 +186,6 @@ export default {
                 fetch("https://babawallet.alwaysdata.net/api/provider/proposals", requestOptions)
                     .then(response => {
                         if (!response.ok) {
-                            console.log(this.name_proposal);
-                            console.log(this.type_of_energy);
-                            console.log(this.localization);
-                            console.log(this.basic_price);
-                            console.log(this.variable_night_price);
-                            console.log(this.variable_day_price);
-                            console.log(this.is_single_hour_counter);
-                            console.log(this.is_fixed_rate);
-                            console.log(this.duration);
-                            console.log(this.start_off_peak_hours);
-                            console.log(this.end_off_peak_hours);
                             return response.json().then(json => Promise.reject(json));
                         }
                         return response.json();
@@ -226,7 +215,7 @@ export default {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    height: 100vh;
+    height: 120vh;
 }
 
 .header {

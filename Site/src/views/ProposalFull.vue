@@ -1,35 +1,38 @@
 <template>
     <div class="main">
         <div class="header">
-            <MainHeader :text="contract.name_proposal" />
+            <MainHeader :text="contract.proposalName" />
         </div>
         <div class="informations">
             <p>
-                Type of energy : {{ contract.type_of_energy }}
+                Type of energy : {{ contract.typeOfEnergy }}
             </p>
             <p>
-                Location : {{ contract.localization }}
+                Location : {{ convertLocalization() }}
             </p>
             <p>
-                Basic price : {{ contract.basic_price }}
+                Basic price : {{ contract.basicPrice }}
             </p>
             <p>
-                Price per day : {{ contract.variable_day_price }}
+                Price per day : {{ contract.variableDayPrice }}
             </p>
             <p>
-                Price per night : {{ contract.variable_night_price }}
+                Price per night : {{ contract.variableNightPrice }}
+            </p>
+            <p v-if="contract.fixedRate">
+                Rate : Fixed
+            </p>
+            <p v-else>
+                Rate : Variable
             </p>
             <p>
-                Rate : {{ contract.rate }}
+                Start peak hour : {{ contract.startOfPeakHours }}
             </p>
             <p>
-                Start peak hour : {{ contract.start_off_peak_hours }}
+                End peak hour : {{ contract.endOfPeakHours }}
             </p>
             <p>
-                End peak hour : {{ contract.end_off_peak_hours }}
-            </p>
-            <p>
-                Counter : {{ contract.counter }}
+                Counter : {{ contract.isSingleHour }}
             </p>
         </div>
         <div class="bottombuttons">
@@ -65,11 +68,11 @@ export default {
     async created() {
         const requestOptions = {
             method: 'GET',
-            headers: {'Authorisation' : this.$cookies.get('token')}
+            headers: {'Authorization' : this.$cookies.get('token')}
         };
         try {
             const response = await fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions);
-            if (response.ok) {
+            if (!response.ok) {
                 if (response.status === 401){
                     throw new Error('Token');
                 }
@@ -80,7 +83,7 @@ export default {
             }
             else {
                 const data = await response.json();
-                this.contract = data.contract;
+                this.contract = data.proposal ;
             }
         }
         catch(error) {
@@ -104,10 +107,27 @@ export default {
             sessionStorage.setItem('name_proposal', this.name_proposal);
             this.$router.push({name: 'ModifyProposal'});
         },
+        convertLocalization() {
+            if (this.contract.location.charAt(0) === '1') {
+                this.wallonie = "wallonie"
+            } else {
+                this.wallonie = null
+            }
+            if (this.contract.location.charAt(1) === '1') {
+                this.flandre = "flandre"
+            } else {
+                this.flandre = null
+            }
+            if (this.contract.location.charAt(2) === '1') {
+                this.bruxelles = "bruxelles"
+            } else {
+                this.bruxelles = null
+            }
+        },
         deleteProposal(){
             const requestOptions = {
                 method: 'DELETE',
-                headers: {'Authorisation' : this.$cookies.get('token')}
+                headers: {'Authorization' : this.$cookies.get('token')}
             };
             fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions)
                 .then(response => {
@@ -125,7 +145,7 @@ export default {
                             title: 'Good !',
                             text: 'Contract deleted !'
                         })
-                        this.$router.push({name: 'Wallets'});
+                        this.$router.push({name: 'ContractsSupplier'});
                     }
                 })
                 .catch(error => {
