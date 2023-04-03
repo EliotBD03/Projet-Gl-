@@ -114,7 +114,7 @@ export default {
   methods: {
     exportData() {
       const table = [];
-      table.push(["date", "data"]);
+      table.push(["date", "data (" + this.unity + ")"]);
       for (let i = 0; i < this.listValue.length; i++) {
         table.push([this.listDate[i], this.listValue[i]]);
       }

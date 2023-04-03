@@ -235,14 +235,13 @@ public class ProviderApi extends MyApi implements RouterApi
         String id = null;
         if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
 
+        String nameProvider = commonDB.getLogManager().getName(id);
+
         JsonObject body = null;
         if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
 
         String nameProposal = null;
         if(checkParam((nameProposal = body.getString("name_proposal")), routingContext)) return;
-
-        String nameProvider = null;
-        if(checkParam((nameProvider = body.getString("name_provider")), routingContext)) return;
 
         String typeOfEnergy = null;
         if(checkParam((typeOfEnergy = body.getString("type_of_energy")), routingContext)) return;
