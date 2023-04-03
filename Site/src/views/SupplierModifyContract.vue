@@ -100,8 +100,8 @@ export default {
             basic_price: parseFloat(this.contract.basic_price),
             variable_night_price: parseFloat(this.contract.variable_night_price),
             variable_day_price: parseFloat(this.contract.variable_day_price),
-            is_single_hour_counter: this.contract.is_single_hour_counter,
-            is_fixed_rate: this.contract.is_fixed_rate,
+            is_single_hour_counter: this.convertToBoolean(this.contract.is_single_hour_counter),
+            is_fixed_rate: this.convertToBoolean(this.contract.is_fixed_rate),
             duration: parseInt(this.contract.duration),
             hours: [], // tableau des heures disponibles
             start_off_peak_hours: this.contract.start_off_peak_hours, // heure de début sélectionnée
@@ -210,6 +210,10 @@ export default {
             else if (!this.start_off_peak_hours) Swal.fire("Please select the start off peak hours");
             else if (!this.end_off_peak_hours) Swal.fire("Please select the end off peak hours");
             else return true;
+        },
+        convertToBoolean(value) {
+            if (value === 'true') return true;
+            else return false;
         },
         post() {
             if (this.checkArgs()) {

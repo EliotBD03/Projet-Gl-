@@ -159,6 +159,10 @@ export default {
             else if (!this.end_off_peak_hours) Swal.fire("Please select the end off peak hours");
             else return true;
         },
+        convertToBoolean(value) {
+            if (value === 'true') return true;
+            else return false;
+        },
         post() {
             if (this.checkArgs()) {
                 const requestOptions = {
@@ -170,8 +174,8 @@ export default {
                         basic_price: parseFloat(this.basic_price),
                         variable_night_price: parseFloat(this.variable_night_price),
                         variable_day_price: parseFloat(this.variable_day_price),
-                        is_single_hour_counter: this.is_single_hour_counter,
-                        is_fixed_rate: this.is_fixed_rate,
+                        is_single_hour_counter: this.convertToBoolean(this.is_single_hour_counter),
+                        is_fixed_rate: this.convertToBoolean(this.is_fixed_rate),
                         duration: parseInt(this.duration),
                         start_off_peak_hours: this.start_off_peak_hours,
                         end_off_peak_hours: this.end_off_peak_hours
