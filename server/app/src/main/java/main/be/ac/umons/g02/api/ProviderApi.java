@@ -40,7 +40,7 @@ public class ProviderApi extends MyApi implements RouterApi
         subRouter.get("/proposals/page").handler(this::getAllProposals);
         subRouter.get("/proposals/:name_proposal").handler(this::getProposal);
         subRouter.post("/proposals").handler(this::addProposal);
-        subRouter.delete("/proposals/:nameProposal").handler(this::deleteProposal);
+        subRouter.delete("/proposals/:name_proposal").handler(this::deleteProposal);
         subRouter.delete("/consumptions/:ean").handler(this::deleteAllConsumptions);
         subRouter.delete("/consumptions/:ean/:date").handler(this::deleteConsumption);
         subRouter.post("/propose_contract").handler(this::providerProposeContract);
