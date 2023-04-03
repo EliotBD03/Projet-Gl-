@@ -5,19 +5,19 @@
         </div>
         <div class="informations">
             <p>
-                Type of energy : {{ contract.typeOfEnergy }}
+                Type of energy : {{ contract.typeOfEnergy.charAt(0).toUpperCase() + contract.typeOfEnergy.slice(1)  }}
             </p>
             <p>
-                Location : {{ convertLocalization() }}
+                Location : {{ convertLocation() }}
             </p>
             <p>
-                Basic price : {{ contract.basicPrice }}
+                Basic price : {{ contract.basicPrice }} €
             </p>
             <p>
-                Price per day : {{ contract.variableDayPrice }}
+                Price per day : {{ contract.variableDayPrice }} €
             </p>
             <p>
-                Price per night : {{ contract.variableNightPrice }}
+                Price per night : {{ contract.variableNightPrice }} €
             </p>
             <p v-if="contract.fixedRate">
                 Rate : Fixed
@@ -31,8 +31,11 @@
             <p>
                 End peak hour : {{ contract.endOfPeakHours }}
             </p>
-            <p>
-                Counter : {{ contract.isSingleHour }}
+            <p v-if="contract.isSingleHour">
+                Counter : Mono-hourly
+            </p>
+            <p v-else>
+                Counter : Bi-hourly
             </p>
         </div>
         <div class="bottombuttons">
@@ -63,7 +66,8 @@ export default {
     data() {
         return {
             name_proposal: sessionStorage.getItem('name_proposal'),
-            contract: []
+            contract: [],
+            location: ''
         }},
     async created() {
         const requestOptions = {
@@ -84,6 +88,7 @@ export default {
             else {
                 const data = await response.json();
                 this.contract = data.proposal ;
+                this.location = data.proposal.location;
             }
         }
         catch(error) {
@@ -104,25 +109,22 @@ export default {
             this.$router.push({name: 'ContractsSupplier'});
         },
         modifyContract(){
-            sessionStorage.setItem('name_proposal', this.name_proposal);
             this.$router.push({name: 'ModifyProposal'});
         },
-        convertLocalization() {
-            if (this.contract.location.charAt(0) === '1') {
-                this.wallonie = "wallonie"
-            } else {
-                this.wallonie = null
+        convertLocation: function(location) {
+            let result = '';
+            if (location >= 100) {
+                result += 'Wallonie, ';
+                location -= 100;
             }
-            if (this.contract.location.charAt(1) === '1') {
-                this.flandre = "flandre"
-            } else {
-                this.flandre = null
+            if (location >= 10) {
+                result += 'Flandre, ';
+                location -= 10;
             }
-            if (this.contract.location.charAt(2) === '1') {
-                this.bruxelles = "bruxelles"
-            } else {
-                this.bruxelles = null
+            if (location >= 1) {
+                result += 'Bruxelles-Capitale';
             }
+            return result;
         },
         deleteProposal(){
             const requestOptions = {

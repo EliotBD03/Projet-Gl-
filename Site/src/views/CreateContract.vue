@@ -32,6 +32,7 @@
                         <input type="checkbox" v-model="bruxelles">
                         Bruxelles-Capitale
                     </label>
+                    {{localization}}
                 </p>
                 <p>
                     <InputMain :text="'Basic price'" v-model="basic_price"/>
@@ -183,6 +184,7 @@ export default {
                     headers: {'Authorization' : this.$cookies.get("token")},
                 };
                 try {
+                    console.log(this.localization);
                 fetch("https://babawallet.alwaysdata.net/api/provider/proposals", requestOptions)
                     .then(response => {
                         if (!response.ok) {

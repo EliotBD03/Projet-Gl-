@@ -6,7 +6,7 @@
         <div class="contact-form">
             <form id="addWallet" method="post" v-on:submit.prevent="post">
                 <p>
-                    <InputMain :text="$t('walletform.name')" v-model="name_proposal"/>
+                    <InputMain :text="$t('walletform.name')" v-model="proposalName"/>
                 </p>
                 <p>
                     Type of energy :
@@ -56,7 +56,7 @@
                     </select>
                 </div>
                 <p>
-                    <InputMain :text="'Duration (YYYY-MM-DD)'" v-model="duration"/>
+                    <InputMain :text="'Duration (in months)'" v-model="duration"/>
                 </p>
                 <p>
                     <input type="radio" id="Bi-hourly" value="false" v-model="is_single_hour_counter">
@@ -91,6 +91,7 @@ export default {
     data(){
         return{
             name_proposal: sessionStorage.getItem('name_proposal'),
+            proposalName: this.name_proposal,
             contract: [],
             type_of_energy: this.contract.type_of_energy,
             wallonie: false,
@@ -128,9 +129,10 @@ export default {
     async created() {
         const requestOptions = {
             method: 'GET',
-            headers: {'Authorisation' : this.$cookies.get('token')}
+            headers: {'Authorization' : this.$cookies.get('token')}
         };
         try {
+            console.log(this.name_proposal);
             const response = await fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions);
             if (response.ok) {
                 if (response.status === 401){
