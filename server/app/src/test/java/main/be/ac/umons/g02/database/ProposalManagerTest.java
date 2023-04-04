@@ -18,7 +18,7 @@ class ProposalManagerTest
     {
         DBTest.setUp();
         new LogManager().saveAccount("jackie@gmail.com", "johnie", false, "jackie", "english");
-        reference.setMoreInformation(20.0,20.0,20.0,true,true,"20:15:00","06:15:00", 6);
+        reference.setMoreInformation(20.0,20.0,true,"20:15:00","06:15:00", 6);
     }
 
     @AfterAll
@@ -70,11 +70,9 @@ class ProposalManagerTest
     void getProposal()
     {
         ProposalFull toBeTested = new ProposalManager().getProposal("elec", "1");
-        assertEquals(toBeTested.getBasicPrice(), reference.getBasicPrice());
         assertEquals(toBeTested.getVariableDayPrice(), reference.getVariableDayPrice());
         assertEquals(toBeTested.getVariableNightPrice(), reference.getVariableNightPrice());
         assertEquals(toBeTested.isFixedRate(), reference.isFixedRate());
-        assertEquals(toBeTested.getIsSingleHour(), reference.getIsSingleHour());
         assertEquals(toBeTested.getStartOfPeakHours(), reference.getStartOfPeakHours());
         assertEquals(toBeTested.getEndOfPeakHours(), reference.getEndOfPeakHours());
     }

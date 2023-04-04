@@ -22,41 +22,6 @@ public class ContractFull extends ContractBasic
         return closingDate;
     }
 
-    public boolean getIsFixedDate()
-    {
-        return proposal.isFixedRate();
-    }
-
-    public boolean getIsSingleHourCounter()
-    {
-        return proposal.getIsSingleHour();
-    }
-
-    public double getBasicPrice()
-    {
-        return proposal.getBasicPrice();
-    }
-
-    public double getVariableDayPrice()
-    {
-        return proposal.getVariableDayPrice();
-    }
-
-    public double getVariableNightPrice()
-    {
-        return proposal.getVariableNightPrice();
-    }
-
-    public String getStartOfPeakHours()
-    {
-        return proposal.getStartOfPeakHours();
-    }
-
-    public String getEndOfPeakHours()
-    {
-        return proposal.getEndOfPeakHours();
-    }
-    public String getProposalName(){return proposal.getProposalName();}
     public ProposalFull getProposal(){return proposal;}
 
     public String getAddress(){return address;}

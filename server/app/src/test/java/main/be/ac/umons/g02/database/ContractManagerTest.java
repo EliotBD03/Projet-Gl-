@@ -1,9 +1,6 @@
 package main.be.ac.umons.g02.database;
 
-import main.be.ac.umons.g02.data_object.ContractBasic;
-import main.be.ac.umons.g02.data_object.ContractFull;
-import main.be.ac.umons.g02.data_object.ProposalFull;
-import main.be.ac.umons.g02.data_object.WalletBasic;
+import main.be.ac.umons.g02.data_object.*;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -19,7 +16,7 @@ class ContractManagerTest
     static void setUp() throws Exception
     {
         DBTest.setUp();
-        proposalFull.setMoreInformation(20.0,20.0,20.0,true,true,null,null,6);
+        proposalFull.setMoreInformation(20.0,20.0,true,null,null,6);
         expected.setMoreInformation(proposalFull, null, null,  "address");
         LogManager logManager = new LogManager();
         logManager.saveAccount("client@gmail.com", "clientPassword", true, "client", "english");
@@ -31,20 +28,7 @@ class ContractManagerTest
     @AfterAll
     static void clean()
     {
-        DB.getInstance().executeQuery("DELETE FROM contract",false);
-        DB.getInstance().executeQuery("DELETE FROM counter",false);
-        new ProposalManager().deleteProposal("elec", "2");
-        DB.getInstance().executeQuery("DELETE FROM provider_contract", false);
-        DB.getInstance().executeQuery("DELETE FROM wallet_contract", false);
-        new WalletManager().deleteWallet("address");
-        LogManager logManager = new LogManager();
-        logManager.deleteAccount("1");
-        logManager.deleteAccount("2");
-        DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
-        DB.getInstance().executeQuery("ALTER TABLE contract AUTO_INCREMENT = 1", false);
-        DB.getInstance().executeQuery("ALTER TABLE wallet_contract AUTO_INCREMENT = 1", false);
-        DB.getInstance().executeQuery("ALTER TABLE provider_contract AUTO_INCREMENT = 1", false);
-
+        NotificationManagerTest.clean();
     }
 
     @Test
@@ -65,13 +49,8 @@ class ContractManagerTest
     void getContract()
     {
         ContractFull toBeTested = new ContractManager().getContract("1");
-        assertEquals(expected.getBasicPrice(), toBeTested.getBasicPrice());
-        assertEquals(expected.getProposalName(), toBeTested.getProposalName());
-        assertEquals(expected.getVariableDayPrice(), toBeTested.getVariableDayPrice());
-        assertEquals(expected.getEndOfPeakHours(), toBeTested.getEndOfPeakHours());
         assertEquals(expected.getAddress(), toBeTested.getAddress());
-        assertEquals(expected.getIsFixedDate(), toBeTested.getIsFixedDate());
-        assertEquals(expected.getIsSingleHourCounter(), toBeTested.getIsSingleHourCounter());
+        assertEquals(expected.getProposal().isFixedRate(), toBeTested.getProposal().isFixedRate());
     }
 
     @Test
