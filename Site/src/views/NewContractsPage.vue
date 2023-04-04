@@ -11,11 +11,11 @@
           <div v-for="proposal in proposals" :key="proposal.id">
             <div v-for="location in allLocations" :key="location.id">
               <div v-if="proposal.location==location.value">
-              <span>{{ location.name }}</span>
+              <span>Location : {{ location.name }}</span>
               </div>
             </div>
-            <p>{{ proposal.nameProvider }}</p>
-            <p>{{ proposal.proposalName }}</p>
+            <p>Provider name: {{ proposal.nameProvider }}</p>
+            <p>Offer name: {{ proposal.proposalName }}</p>
             <div @click.prevent.left="seeMore(proposal)">
               <GoButton text="button.go" :colore="'#34c98e'"/>
             </div>
@@ -25,14 +25,13 @@
         <div v-if="notLastPage()" @click.prevent.left="loader()">
           <GoButton text="See more proposals" :colore="'#B1B9FC'"/>
         </div>
+        <div v-if="!notLastPage()" @click.prevent.left="seeLess()">
+          <GoButton text="See less proposals" :colore="'#B1B9FC'"/>
+        </div>
       </div>
       <div class="homeButton" @click.prevent.left="$router.push('/Home')">
       <GoButton text="header.home" :colore="'#B1B9FC'"/>
       </div>
-    </div>
-
-    <div class="ContractInformationButton" @click.prevent.left="$router.push('/contractInformation')">
-      <GoButton text="go"/>
     </div>
 
     <div class="checkboxleftside">
@@ -165,8 +164,16 @@ export default {
       if(!this.loading)
       {
         this.nbr++;
+        this.proposal = [];
         this.getPage();
       }
+    },
+    seeLess()
+    {
+      this.nbr = 1;
+      this.lastPage= 0;
+      this.proposal = [];
+      this.getPage();
     },
     notLastPage()
     {
@@ -179,7 +186,7 @@ export default {
       console.log(proposal)
       sessionStorage.setItem('providerId', proposal.providerId) 
       sessionStorage.setItem('proposalName', proposal.proposalName) 
-      this.$router.push({name: "/contractInformation"});
+      this.$router.push('/contractInformation');
     },
     applyFilter()
     {
