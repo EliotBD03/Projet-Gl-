@@ -27,7 +27,7 @@ class LogManagerTest {
     {
         DB.getInstance().executeQuery("DELETE FROM client", false);
         DB.getInstance().executeQuery("DELETE FROM language", false);
-        DB.getInstance().executeQuery("ALTER TABLE user SET AUTO_INCREMENT=1",false);
+        DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1",false);
         DBTest.clean();
     }
 

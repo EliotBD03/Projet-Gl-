@@ -16,9 +16,7 @@ public class LogManager
      */
     public boolean doesAccountExist(String mail)
     {
-        DB instance = DB.getInstance();
-        instance.executeQuery("SELECT EXISTS(SELECT * FROM user WHERE mail LIKE '"+mail+"') AS 'mail'", true);
-        return Integer.parseInt(instance.getResults("mail").get(0).get(0)) == 1;
+        return new Query("SELECT EXISTS(SELECT * FROM user WHERE mail LIKE '"+mail+"') AS 'mail'").executeAndGetResult("mail").getIntElem(0,0)==1;
     }
 
     /**
@@ -29,9 +27,7 @@ public class LogManager
      */
      public boolean isClient(String id)
      {
-         DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM client WHERE client_id="+id+" ) AS r",true);
-         ArrayList<ArrayList<String>> results = DB.getInstance().getResults("r");
-         return Integer.parseInt(results.get(0).get(0)) == 1;
+         return new Query("SELECT EXISTS(SELECT * FROM client WHERE client_id="+id+" ) AS r").executeAndGetResult("r").getIntElem(0,0) == 1;
      }
 
     /**
@@ -45,13 +41,9 @@ public class LogManager
     {
         if(doesAccountExist(mail))
         {
-            DB.getInstance().executeQuery("SELECT password FROM user WHERE mail='"+ mail +"'", true);
-            String savedPassword = DB.getInstance().getResults("password").get(0).get(0);
+            String savedPassword = new Query("SELECT password FROM user WHERE mail='"+ mail +"'").executeAndGetResult("password").getStringElem(0,0);
             if(BCrypt.checkpw(password, savedPassword))
-            {
-                DB.getInstance().executeQuery("SELECT id FROM user WHERE mail='"+mail+"'",true);
-                return DB.getInstance().getResults("id").get(0).get(0);
-            }
+                return new Query("SELECT id FROM user WHERE mail='"+mail+"'").executeAndGetResult("id").getStringElem(0,0);
         }
         return null;
     }
@@ -69,28 +61,24 @@ public class LogManager
      */
     public String saveAccount(String mail, String password, boolean isClient, String name, String language) throws Exception
     {
-        DB instance = DB.getInstance();
 
         if(doesAccountExist(mail))
             throw new Exception("The account already exists");
 
-        instance.executeQuery("SELECT EXISTS(SELECT * FROM user WHERE mail='"+mail+"') AS 'mail'", true);
-
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
-        instance.executeQuery("INSERT INTO user(mail,password,name) VALUES('"+ mail +"','"+ hashedPassword +"','"+ name +"')", false);
+        new Query("INSERT INTO user(mail,password,name) VALUES('"+ mail +"','"+ hashedPassword +"','"+ name +"')").executeWithoutResult();
 
-        instance.executeQuery("SELECT id FROM user WHERE mail='" + mail + "'", true);
-        ArrayList<ArrayList<String>> results = instance.getResults("id");
+        Table results =new Query("SELECT id FROM user WHERE mail='" + mail + "'").executeAndGetResult("id");
 
-        String id = results.get(0).get(0);
+        String id = results.getStringElem(0,0);
 
-        instance.executeQuery("INSERT INTO language(id,saved_language,favourite_language,current_language) VALUES(" + id + ",'" + language + "',1,1)", false);
+        new Query("INSERT INTO language(id,saved_language,favourite_language,current_language) VALUES(" + id + ",'" + language + "',1,1)").executeWithoutResult();
 
         if(isClient)
-            instance.executeQuery("INSERT INTO client(client_id) VALUES(" + id + ")", false);
+            new Query("INSERT INTO client(client_id) VALUES(" + id + ")").executeWithoutResult();
         else
-            instance.executeQuery("INSERT INTO provider(provider_id) VALUES(" + id + ")", false);
+            new Query("INSERT INTO provider(provider_id) VALUES(" + id + ")").executeWithoutResult();
 
         return id;
     }
@@ -103,16 +91,15 @@ public class LogManager
 
     public void deleteAccount(String id)
     {
-        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM client WHERE client_id="+id+") as c",true);
-        boolean isClient = DB.getInstance().getResults("c").get(0).get(0).equals("1");
+        boolean isClient = new Query("SELECT EXISTS(SELECT * FROM client WHERE client_id="+id+") as c").executeAndGetResult("c").getIntElem(0,0) == 1;
 
         if(isClient)
-            DB.getInstance().executeQuery("DELETE FROM client WHERE client_id="+id, false);
+            new Query("DELETE FROM client WHERE client_id="+id).executeWithoutResult();
         else
-            DB.getInstance().executeQuery("DELETE FROM provider WHERE provider_id="+id, false);
+            new Query("DELETE FROM provider WHERE provider_id="+id).executeWithoutResult();
 
-        DB.getInstance().executeQuery("DELETE FROM language WHERE id="+id, false);
-        DB.getInstance().executeQuery("DELETE FROM user WHERE id="+id,false);
+        new Query("DELETE FROM language WHERE id="+id).executeWithoutResult();
+        new Query("DELETE FROM user WHERE id="+id).executeWithoutResult();
     }
 
     /**
@@ -123,7 +110,7 @@ public class LogManager
      */
     public void changePassword(String mail, String newPassword)
     {
-        DB.getInstance().executeQuery("UPDATE user SET password='" + BCrypt.hashpw(newPassword, BCrypt.gensalt()) + "' WHERE mail ='" + mail +"'",false);
+        new Query("UPDATE user SET password='" + BCrypt.hashpw(newPassword, BCrypt.gensalt()) + "' WHERE mail ='" + mail +"'").executeWithoutResult();
     }
 
     /**
@@ -134,7 +121,6 @@ public class LogManager
      */
     public String getName(String id)
     {
-        DB.getInstance().executeQuery("SELECT name FROM user WHERE id="+id, true);
-        return DB.getInstance().getResults("name").get(0).get(0);
+        return new Query("SELECT name FROM user WHERE id="+id).executeAndGetResult("name").getStringElem(0,0);
     }
 }

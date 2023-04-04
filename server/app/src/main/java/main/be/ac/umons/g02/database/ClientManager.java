@@ -68,7 +68,7 @@ public class ClientManager
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("id", "name", "mail").getTable();
 
         if(table.equals(Table.EMPTY_TABLE))
-            return new Object[] {0, Table.EMPTY_TABLE};
+            return new Object[] {0, new ArrayList<ClientBasic>()};
 
         ArrayList<ClientBasic> clientBasics = getClientBasics(new Query(query).executeAndGetResult("id", "name", "mail").getTable());
 

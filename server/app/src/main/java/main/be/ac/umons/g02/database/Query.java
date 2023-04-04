@@ -16,6 +16,8 @@ public class Query
 
     public Table executeAndGetResult(String... returnedColumns)
     {
+        if(returnedColumns.length == 0)
+            throw new IllegalArgumentException("the size of the returnedColumns is 0");
         return new Table(this, returnedColumns);
     }
 
