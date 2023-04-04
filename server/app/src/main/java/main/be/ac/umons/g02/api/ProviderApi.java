@@ -313,7 +313,7 @@ public class ProviderApi extends MyApi implements RouterApi
 
         String nameProposal = routingContext.pathParam("name_proposal");
 
-        commonDB.getProposalManager().deleteProposal(id, nameProposal);
+        commonDB.getProposalManager().deleteProposal(nameProposal, id);
 
         routingContext.response()
             .setStatusCode(200)
