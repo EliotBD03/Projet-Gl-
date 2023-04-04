@@ -77,7 +77,6 @@ export default {
             linkApi: "https://babawallet.alwaysdata.net/api/client/proposals/",
             nbr: 1,
             proposals:[],
-            locations:[],
             loading: false,
             lastPage: 0,
             selectedLocations : [], //used to filter the location
@@ -147,21 +146,6 @@ export default {
                             this.proposals.push(data.proposals);
                             this.proposals = this.proposals.flat();
                             this.loading = false;
-
-                            var temp = this.proposals;
-                            var actualLoc = [];
-                            const references = ["Brussels-Capital", "Flanders", "Wallonia"];
-                            for(var i = 0; i < temp.length; i++)
-                            {
-                                let current = [];
-                                for(var j = 0; j <= 3; j++)
-                                {
-                                    if(temp[i].location.substring(j,j + 1) == "1")
-                                        current.push(references[j]);
-                                }
-                                actualLoc.push(current)
-                            }
-                            this.locations = actualLoc;
                         }
                     }
                 }
