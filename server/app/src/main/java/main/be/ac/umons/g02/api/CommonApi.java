@@ -241,6 +241,9 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("AcceptNotification...");
 
+        String id = null;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
         String idNotification = routingContext.pathParam("id_notification");
 
         String role = null;
@@ -257,7 +260,17 @@ public class CommonApi extends MyApi implements RouterApi
             String address = null;
             if(checkParam((address = body.getString("address")), routingContext)) return;
 
-            commonDB.getNotificationManager().acceptNotification(idNotification, ean, address);
+            if(commonDB.getWalletManager().doesTheWalletBelongToHim(id, address))
+                commonDB.getNotificationManager().acceptNotification(idNotification, ean, address);
+            else
+            {
+              routingContext.response()
+                .setStatusCode(400)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                      .put("error", "error.notHisWallet")));
+                return;
+            }
         }
         else
             commonDB.getNotificationManager().acceptNotification(idNotification);
