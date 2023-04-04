@@ -90,8 +90,9 @@ public class WalletManager
         if(doesTheWalletExists(walletBasic.getAddress()))
             return false;
 
-        DB.getInstance().executeQuery("INSERT INTO wallet(address,client_id,wallet_name) VALUES('"+
-                walletBasic.getAddress()+"',"+walletBasic.getClientId()+",'"+walletBasic.getName()+"')",false);
+        new Query("INSERT INTO wallet(address,client_id,wallet_name) VALUES('"+
+                walletBasic.getAddress()+"',"+walletBasic.getClientId()+",'"+walletBasic.getName()+"')").executeWithoutResult();
+
         return true;
     }
 
@@ -106,7 +107,7 @@ public class WalletManager
         if(!walletIsEmpty(address))
             return false;
 
-        DB.getInstance().executeQuery("DELETE FROM wallet WHERE address='"+address+"'", false);
+        new Query("DELETE FROM wallet WHERE address='"+address+"'").executeWithoutResult();
         return true;
     }
 
@@ -118,8 +119,9 @@ public class WalletManager
      */
     public boolean walletIsEmpty(String address)
     {
-        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM wallet_contract WHERE address='"+address+"') AS c",true);
-        return Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0)) == 0;
+        return new Query("SELECT EXISTS(SELECT * FROM wallet_contract WHERE address='"+address+"') AS c")
+                .executeAndGetResult("c")
+                .getIntElem(0,0) == 0;
     }
 
     /**
@@ -134,7 +136,7 @@ public class WalletManager
 
         String[] columns = {"latest_consumption_gas", "latest_consumption_water", "latest_consumption_elec"};
         String column = columns[energyType.ordinal()];
-        DB.getInstance().executeQuery("UPDATE wallet SET "+column+"="+value+" WHERE address="+address, false);
+        new Query("UPDATE wallet SET "+column+"="+value+" WHERE address="+address).executeWithoutResult();
     }
 
     /**
@@ -146,8 +148,9 @@ public class WalletManager
      */
     public boolean doesTheWalletBelongToHim(String id, String address)
     {
-        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM wallet WHERE address='"+address+"' AND client_id="+id+") AS 'c'", true);
-        return Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0)) == 1;
+        return new Query("SELECT EXISTS(SELECT * FROM wallet WHERE address='"+address+"' AND client_id="+id+") AS 'c'")
+                .executeAndGetResult("c")
+                .getIntElem(0,0) == 1;
     }
 
 }
