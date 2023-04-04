@@ -68,6 +68,7 @@ export default {
                         }
                     } else {
                         Swal.fire('Notification deleted');
+                        this.refreshNotifications();
                     }
                 })
                 .catch(error => {
@@ -77,6 +78,7 @@ export default {
                         GlobalMethods.errorApi(error.message);
                     }
                 });
+            await this.refreshNotifications();
         },
         async getNotifications() {
             const requestOptions = {
@@ -100,7 +102,7 @@ export default {
                         Swal.fire('No notifications yet !');
                     } else {
                         this.id = data.id_proposal;
-                        this.notifications.push(data.allNotifications);
+                        this.notifications = data.allNotifications;
                         this.notifications = this.notifications.flat();
                     }
                 }
@@ -128,6 +130,7 @@ export default {
                         }
                     } else {
                         Swal.fire('Notification accepted');
+                        this.refreshNotifications();
                     }
                 })
                 .catch(error => {
@@ -137,6 +140,7 @@ export default {
                         GlobalMethods.errorApi(error.message);
                     }
                 });
+            await this.refreshNotifications();
         },
         async refuseNotification(id_notification) {
             const requestOptions = {
@@ -154,6 +158,7 @@ export default {
                         }
                     } else {
                         Swal.fire('Notification refused');
+                        this.refreshNotifications();
                     }
                 })
                 .catch(error => {

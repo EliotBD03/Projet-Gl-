@@ -6,7 +6,7 @@
                 <div class="h1">{{ $t("notifications.title",{name: title}) }}</div>
                 <span class="span">{{ getElapsedTime() }}</span>
             </div>
-            <div class="p">{{  $t("notifications.text",{text: text}) }}</div>
+            <div class="p">{{  $t("notifications.text",{text: texte}) }}</div>
             <div>
             </div>
         </div>
@@ -19,8 +19,10 @@
                     REFUSE
                 </div>
             </div>
-            <div class="seenbutton" @click.prevent.left="deleted(id_notification)" v-else>
-                SEEN
+            <div class="deletedbutton" v-else>
+                <div class="seenbutton" @click.prevent.left="deleted(id_notification)">
+                    SEEN
+                </div>
             </div>
         </div>
     </div>
@@ -53,20 +55,20 @@ export default {
             }
         },
         updateTextAndTitle() {
-            let title;
+            let title = "";
+            let texte = this.text;
             if (this.text.includes("accepted by")) {
                 title = this.text.split("accepted by")[1].trim();
-                this.texte = this.text.split("accepted by")[0].trim();
+                texte = "Has accepted your contract";
             } else if (this.text.includes("denied by")) {
                 title = this.text.split("denied by")[1].trim();
-                this.texte = this.text.split("denied by")[0].trim();
+                texte = "Has denied your contract";
             } else if (this.text.includes("from")) {
                 title = this.text.split("from")[1].trim();
-                this.texte = this.text.split("from")[0].trim();
-            } else {
-                title = "";
+                texte = "Contract request";
             }
             this.title = title;
+            this.texte = texte;
         },
         accept() {
             this.$emit("accept", this.id_notification);
@@ -78,8 +80,8 @@ export default {
             this.$emit("delete", this.id_notification);
         },
         checkStatus() {
-            console.log(this.id)
-            return this.id !== null;
+            console.log(this.text.includes("request"));
+            return !!this.text.includes("request");
         }
     },
     mounted() {

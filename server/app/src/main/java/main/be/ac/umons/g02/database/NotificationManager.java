@@ -91,7 +91,7 @@ public class NotificationManager
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults("sender_id", "receiver_id", "linked_proposal_name", "provider_id_proposal", "context");
         new ContractManager().createContract(results.get(2).get(0), ean, results.get(3).get(0), address, results.get(1).get(0));
         createNotification(results.get(1).get(0), results.get(0).get(0), results.get(2).get(0), results.get(3).get(0),
-                "Your contract request was accepted by "+new LogManager().getName(results.get(1).get(0)), ean,address);
+                "Your contract was accepted by "+new LogManager().getName(results.get(1).get(0)), ean,address);
 
     }
 
@@ -107,7 +107,7 @@ public class NotificationManager
         "context", "linked_ean", "linked_address");
         new ContractManager().createContract(results.get(2).get(0), results.get(5).get(0), results.get(3).get(0), results.get(6).get(0), results.get(1).get(0));
         createNotification(results.get(1).get(0), results.get(0).get(0), results.get(2).get(0), results.get(3).get(0),
-                "Your contract request was accepted by "+new LogManager().getName(results.get(1).get(0)), results.get(5).get(0),results.get(6).get(0));
+                "Your contract was accepted by "+new LogManager().getName(results.get(1).get(0)), results.get(5).get(0),results.get(6).get(0));
     }
 
     /**
@@ -123,7 +123,7 @@ public class NotificationManager
         String receiverId = results.get(0).get(0);
         String linkedProposalName = results.get(2).get(0);
         String providerIdProposal = results.get(3).get(0);
-        String context = "Your contract request was denied by "+new LogManager().getName(senderId);
+        String context = "Your contract was denied by "+new LogManager().getName(senderId);
         deleteNotification(notificationId);
         createNotification(senderId, receiverId, linkedProposalName, providerIdProposal, context);
     }
