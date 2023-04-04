@@ -249,26 +249,16 @@ public class ProviderApi extends MyApi implements RouterApi
         String localization = null;
         if(checkParam((localization = body.getString("localization")), routingContext)) return;
 
-        String startOffPeakHours = null;
-        if(checkParam((startOffPeakHours = body.getString("start_off_peak_hours")), routingContext)) return;
-
-        String endOffPeakHours = null;
-        if(checkParam((endOffPeakHours = body.getString("end_off_peak_hours")), routingContext)) return;
-
-        double basicPrice = 0;
         double variableDayPrice = 0;
         double variableNightPrice = 0;
         boolean isFixedRate = false;
-        boolean isSingleHourCounter = false;
         int duration = 0;
 
         try
         {
-            if(checkParam((basicPrice = body.getDouble("basic_price")), routingContext)) return;
             if(checkParam((variableDayPrice = body.getDouble("variable_day_price")), routingContext)) return;
             if(checkParam((variableNightPrice = body.getDouble("variable_night_price")), routingContext)) return;
             if(checkParam((isFixedRate = body.getBoolean("is_fixed_rate")), routingContext)) return;
-            if(checkParam((isSingleHourCounter = body.getBoolean("is_single_hour_counter")), routingContext)) return;
             if(checkParam((duration = body.getInteger("duration")), routingContext)) return;
         }
         catch(ClassCastException error)
@@ -281,8 +271,27 @@ public class ProviderApi extends MyApi implements RouterApi
             return;
         }
 
+        String startOffPeakHours = null;
+        if(checkParam((startOffPeakHours = body.getString("start_off_peak_hours")), routingContext)) return;
+
+        String endOffPeakHours = null;
+        if(variableNightPrice >= 0)
+        {
+            if(checkParam((endOffPeakHours = body.getString("end_off_peak_hours")), routingContext)) return;
+        }
+        else
+        {
+            routingContext.response()
+                .setStatusCode(400)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.missingInformation")));
+            return;
+        }
+
+
         ProposalFull newProposal = new ProposalFull(id, nameProvider, typeOfEnergy, localization, nameProposal);
-        newProposal.setMoreInformation(basicPrice, variableDayPrice, variableNightPrice, isFixedRate, isSingleHourCounter, startOffPeakHours, endOffPeakHours, duration);
+        newProposal.setMoreInformation(variableDayPrice, variableNightPrice, isFixedRate, startOffPeakHours, endOffPeakHours, duration);
 
         if(commonDB.getProposalManager().addProposal(newProposal))
         {
