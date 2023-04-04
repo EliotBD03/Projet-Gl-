@@ -75,7 +75,7 @@
             };
             try
             {
-                const response = await fetch(`https://babawallet.alwaysdata.net/api/client/proposal/${this.providerId}/${this.proposalName}`, requestOptions);
+                const response = await fetch(`https://babawallet.alwaysdata.net/api/client/proposals/${this.providerId}/${this.proposalName}`, requestOptions);
                 if(!response.ok)
                 {
                     if(response.status == 401)
