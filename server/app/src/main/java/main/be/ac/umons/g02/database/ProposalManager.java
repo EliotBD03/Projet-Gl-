@@ -21,7 +21,7 @@ public class ProposalManager
     public boolean doesTheProposalExist(String proposalName, String providerId)
     {
         return new Query("SELECT EXISTS(SELECT * FROM proposal WHERE proposal_name='"+proposalName
-                +"' AND provider_id="+providerId+") AS c").executeAndGetResult("c").getIntElem(0,0) == 1;
+                +"' AND provider_id="+providerId+") AS c").executeAndGetResult("c").getIntElem(0,0) >= 1;
     }
 
     /**
@@ -133,6 +133,8 @@ public class ProposalManager
      */
     public ProposalFull getProposal(String proposalName, String providerId)
     {
+        if(!doesTheProposalExist(proposalName, providerId))
+            return null;
 
         ArrayList<ArrayList<String>> table = new Query
                 (
