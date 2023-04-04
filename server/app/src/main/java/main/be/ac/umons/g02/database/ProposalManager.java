@@ -133,8 +133,6 @@ public class ProposalManager
      */
     public ProposalFull getProposal(String proposalName, String providerId)
     {
-        if(!doesTheProposalExist(proposalName, providerId))
-            return null;
 
         ArrayList<ArrayList<String>> table = new Query
                 (
