@@ -32,7 +32,6 @@
                         <input type="checkbox" v-model="bruxelles">
                         Bruxelles-Capitale
                     </label>
-                    {{localization}}
                 </p>
                 <p>
                     <InputMain :text="'Basic price'" v-model="basic_price"/>
@@ -224,7 +223,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    margin: 10px;
 }
 
 .contact-form{

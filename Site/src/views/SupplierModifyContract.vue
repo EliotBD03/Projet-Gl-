@@ -91,9 +91,9 @@ export default {
     data(){
         return{
             name_proposal: sessionStorage.getItem('name_proposal'),
-            proposalName: this.name_proposal,
+            // proposalName: this.name_proposal,
             contract: [],
-            type_of_energy: this.contract.type_of_energy,
+            //type_of_energy: this.contract.type_of_energy,
             wallonie: false,
             flandre: false,
             bruxelles: false,

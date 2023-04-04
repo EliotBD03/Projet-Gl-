@@ -70,14 +70,11 @@ export default {
             try {
                 const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
                 if (!response.ok) {
-                    console.log("not ok")
                     if(response.status == 401){
-                        console.log("401")
                         throw new Error("Token");
                     }
                     else{
                         const data = await response.json();
-                        console.log("data")
                         throw new Error(data.error);
                     }
                 } else {
@@ -85,9 +82,8 @@ export default {
                     this.listContracts.push(data.allProposals);//ajouter la suite de la réponse à la liste
                     this.listContracts = this.listContracts.flat();
                     this.lastPage = data.last_page;
-                    console.log(this.lastPage);
+                    this.loading = false;
                 }
-                this.loading = false;
             } catch(error) {
                 if(error.message === "Token") {
                     GlobalMethods.errorToken();
@@ -113,12 +109,12 @@ export default {
                 this.getPage();
             }
         },
-        /*Méthode permettant de vérifier si la dernière page n'a pas encore été chargée
-        et si on est pas en cours de chargement*/
         notLastPage(){
             if(this.lastPage == this.nbr || this.loading == true){
+                console.log("false");
                 return false;
             }
+            console.log("true");
             return true;
         },
         /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations

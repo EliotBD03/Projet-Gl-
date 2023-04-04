@@ -385,7 +385,7 @@ public class ProviderApi extends MyApi implements RouterApi
         if(checkParam((idClient = body.getString("id_client")), routingContext)) return;
 
         String nameProvider = commonDB.getLogManager().getName(id);
-        commonDB.getNotificationManager().createNotification(id, idClient, nameProposal, id, "Contract request from "+ nameProvider + ".");
+        commonDB.getNotificationManager().createNotification(id, idClient, nameProposal, id, "Contract request from "+ nameProvider);
 
         routingContext.response()
             .setStatusCode(200)

@@ -5,37 +5,37 @@
         </div>
         <div class="informations">
             <p>
-                Type of energy : {{ contract.typeOfEnergy.charAt(0).toUpperCase() + contract.typeOfEnergy.slice(1)  }}
+                <b>Type of energy</b> : {{ contract.typeOfEnergy.charAt(0).toUpperCase() + contract.typeOfEnergy.slice(1)  }}
             </p>
             <p>
-                Location : {{ convertLocation() }}
+                <b>Location</b> : {{ convertLocation(this.location) }}
             </p>
             <p>
-                Basic price : {{ contract.basicPrice }} €
+                <b>Basic price</b> : {{ contract.basicPrice }} €
             </p>
             <p>
-                Price per day : {{ contract.variableDayPrice }} €
+                <b>Price per day</b> : {{ contract.variableDayPrice }} €
             </p>
             <p>
-                Price per night : {{ contract.variableNightPrice }} €
+                <b>Price per night</b> : {{ contract.variableNightPrice }} €
             </p>
             <p v-if="contract.fixedRate">
-                Rate : Fixed
+                <b>Rate</b> : Fixed
             </p>
             <p v-else>
-                Rate : Variable
+                <b>Rate</b> : Variable
             </p>
             <p>
-                Start peak hour : {{ contract.startOfPeakHours }}
+                <b>Start peak hour</b> : {{ contract.startOfPeakHours }}
             </p>
             <p>
-                End peak hour : {{ contract.endOfPeakHours }}
+                <b>End peak hour</b> : {{ contract.endOfPeakHours }}
             </p>
             <p v-if="contract.isSingleHour">
-                Counter : Mono-hourly
+                <b>Counter</b> : Mono-hourly
             </p>
             <p v-else>
-                Counter : Bi-hourly
+                <b>Counter</b> : Bi-hourly
             </p>
         </div>
         <div class="bottombuttons">
@@ -112,19 +112,23 @@ export default {
             this.$router.push({name: 'ModifyProposal'});
         },
         convertLocation: function(location) {
-            let result = '';
+            const result = [];
+
             if (location >= 100) {
-                result += 'Wallonie, ';
+                result.push('Wallonie');
                 location -= 100;
             }
+
             if (location >= 10) {
-                result += 'Flandre, ';
+                result.push('Flandre');
                 location -= 10;
             }
+
             if (location >= 1) {
-                result += 'Bruxelles-Capitale';
+                result.push('Bruxelles-Capitale');
             }
-            return result;
+
+            return result.join(' - ');
         },
         deleteProposal(){
             const requestOptions = {

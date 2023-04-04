@@ -4,7 +4,7 @@
         <div class="textBox">
             <div class="textContent">
                 <div class="h1">{{ $t("notifications.title",{name: title}) }}</div>
-                <span class="span">{{ $t("notifications.time",{time: time}) }}</span>
+                <span class="span">{{ getElapsedTime() }}</span>
             </div>
             <div class="p">{{  $t("notifications.text",{text: text}) }}</div>
             <div>
@@ -27,10 +27,47 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
     name: "MainNotification",
-    props: ["title","time","text","color","id","id_notification"],
+    props: ["time","text","color","id","id_notification"],
+    data() {
+        return {
+            title: "",
+            texte: "",
+        }
+    },
     methods: {
+        getElapsedTime() {
+            const time = moment(this.time);
+            const now = moment();
+            const elapsedTime = moment.duration(now.diff(time));
+            const elapsedHours = elapsedTime.asHours();
+            const elapsedMinutes = elapsedTime.asMinutes();
+            if (elapsedHours >= 1) {
+                return Math.floor(elapsedHours) + " hours ago";
+            } else if (elapsedMinutes >= 1) {
+                return Math.floor(elapsedMinutes) + " minutes ago";
+            } else {
+                return "Just now";
+            }
+        },
+        updateTextAndTitle() {
+            let title;
+            if (this.text.includes("accepted by")) {
+                title = this.text.split("accepted by")[1].trim();
+                this.texte = this.text.split("accepted by")[0].trim();
+            } else if (this.text.includes("denied by")) {
+                title = this.text.split("denied by")[1].trim();
+                this.texte = this.text.split("denied by")[0].trim();
+            } else if (this.text.includes("from")) {
+                title = this.text.split("from")[1].trim();
+                this.texte = this.text.split("from")[0].trim();
+            } else {
+                title = "";
+            }
+            this.title = title;
+        },
         accept() {
             this.$emit("accept", this.id_notification);
         },
@@ -41,8 +78,12 @@ export default {
             this.$emit("delete", this.id_notification);
         },
         checkStatus() {
+            console.log(this.id)
             return this.id !== null;
         }
+    },
+    mounted() {
+        this.updateTextAndTitle();
     }
 }
 </script>

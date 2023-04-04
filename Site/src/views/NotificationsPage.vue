@@ -4,7 +4,7 @@
             <MainHeader text="header.notifications"/>
         </div>
         <div class="notifs">
-            <MainNotification class="notif" v-for="notif in notifications" :key="notif" :title="notif.emetteur" :time="notif.time" :text="notif.contexte" :id="notif.id" :id_notification="notif.id_notification" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
+            <MainNotification class="notif" v-for="notif in notifications" :key="notif" :time="notif.creationDate" :text="notif.context" :id="notif.contractId" :id_notification="notif.notificationId" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
         </div>
         <div class="bottombuttons">
             <div class="homebutton" @click.prevent.left="redirecting()">
@@ -100,7 +100,8 @@ export default {
                         Swal.fire('No notifications yet !');
                     } else {
                         this.id = data.id_proposal;
-                        this.notifications.push(data.notifications);
+                        this.notifications.push(data.allNotifications);
+                        this.notifications = this.notifications.flat();
                     }
                 }
             } catch (error) {
