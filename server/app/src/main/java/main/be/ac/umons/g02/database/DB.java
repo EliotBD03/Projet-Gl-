@@ -84,7 +84,14 @@ public class DB
         {
             statement = connection.createStatement();
             if(returnData)
+            {
                 resultSet = statement.executeQuery(query);
+                if(resultSet == null) //Ceci s'obtient dans le cas possible d'une déconnexion inattendue avec la BDD
+                {
+                    establishConnection();
+                    resultSet = statement.executeQuery(query);
+                }
+            }
             else
                 statement.executeUpdate(query);
         }
@@ -92,6 +99,8 @@ public class DB
         {
             System.out.println(e.getMessage());
             return false;
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return true;
 

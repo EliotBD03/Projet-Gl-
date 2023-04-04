@@ -18,8 +18,7 @@ public class WalletManager
      */
     public boolean doesTheWalletExists(String address)
     {
-        DB.getInstance().executeQuery("SELECT EXISTS(SELECT * FROM wallet WHERE address='"+address+"') AS 'c'",true);
-        return Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0)) == 1;
+        return new Query("SELECT EXISTS(SELECT * FROM wallet WHERE address='"+address+"') AS 'c'").executeAndGetResult("c").getIntElem(0,0) == 1;
     }
 
     /**
@@ -33,18 +32,15 @@ public class WalletManager
      */
     public Object[] getAllWallets(String clientId, int base, int limit)
     {
-
-        DB.getInstance().executeQuery("SELECT * FROM wallet WHERE client_id="+clientId+ " LIMIT " + base+", " + limit,true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("address","wallet_name","client_id");
+        String query = "SELECT * FROM wallet WHERE client_id="+clientId+ " LIMIT " + base+", " + limit;
+        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("address", "wallet_name", "client_id").getTable();
 
         ArrayList<WalletBasic> walletBasics = new ArrayList<>();
 
-        for(int i = 0; i < results.get(0).size(); i++)
-        {
-            walletBasics.add(new WalletBasic(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i), new LogManager().getName(results.get(2).get(i))));
-        }
-        DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM wallet WHERE client_id="+clientId, true);
-        int count = Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0));
+        for (ArrayList<String> row : table)
+            walletBasics.add(new WalletBasic(row.get(0), row.get(1), row.get(2), new LogManager().getName(row.get(2))));
+
+        int count = new Query("SELECT count(*) AS 'c' FROM wallet WHERE client_id="+clientId).executeAndGetResult("c").getIntElem(0,0);
 
         return new Object[] {count,walletBasics};
     }
@@ -60,19 +56,26 @@ public class WalletManager
     {
         if(!doesTheWalletExists(address))
             return null;
+
+        String query = "SELECT * FROM wallet WHERE address='"+address+"'";
         DB.getInstance().executeQuery("SELECT * FROM wallet WHERE address='"+address+"'",true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(
+        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult(
                 "address",
                 "wallet_name",
                 "client_id",
                 "latest_consumption_elec",
                 "latest_consumption_water",
                 "latest_consumption_gas"
-        );
-        WalletFull walletFull = new WalletFull(results.get(0).get(0),results.get(1).get(0), results.get(2).get(0), new LogManager().getName(results.get(2).get(0)));
-        walletFull.setLastConsumption(Double.parseDouble(results.get(4).get(0)), Double.parseDouble(results.get(3).get(0)), Double.parseDouble(results.get(5).get(0)));
+        ).getTable();
+
+        ArrayList<String> row = table.get(0);
+        WalletFull walletFull = new WalletFull(row.get(0),row.get(1), row.get(2), new LogManager().getName(row.get(2)));
+
+        walletFull.setLastConsumption(Double.parseDouble(row.get(4)), Double.parseDouble(row.get(3)), Double.parseDouble(row.get(5)));
+
         ArrayList<ContractBasic> contractBasics =(ArrayList<ContractBasic>) new ContractManager().getAllContracts(walletFull.getClientId(), 0, -1)[1];
         walletFull.addContracts(contractBasics);
+
         return walletFull;
     }
 
