@@ -92,7 +92,7 @@ public class ProposalManager
         else if(regionCategory != null)
             query = "SELECT * FROM proposal WHERE location='"+regionCategory + "' LIMIT "+base+", "+limit;
 
-        ArrayList<ArrayList<String>> table = new Query("SELECT * FROM proposal LIMIT "+base+", "+(base+limit)).executeAndGetResult
+        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult
                 (
                         "proposal_name","provider_id", "water", "gas", "electricity", "location"
                 ).getTable();
