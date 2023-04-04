@@ -3,8 +3,6 @@ package main.be.ac.umons.g02.database;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-import java.util.ArrayList;
-
 public class LogManager
 {
 

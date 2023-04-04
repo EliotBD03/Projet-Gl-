@@ -24,7 +24,7 @@ public class TableTest
     }
 
     @Test
-    void IsWellTransposed() throws Exception
+    void IsWellTransposed()
     {
         Table table = new Table(new Query("SELECT * FROM user"), "mail", "password", "name");
         ArrayList<ArrayList<String>> result = table.getTable();

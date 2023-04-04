@@ -16,8 +16,8 @@ public class NotificationManager
      */
     public void createNotification(String senderId, String receiverId, String contractId, String context)
     {
-        DB.getInstance().executeQuery("INSERT INTO notification(sender_id,receiver_id,linked_contract,context) " +
-                "VALUES(" + senderId + "," + receiverId + ",'" + contractId + "','" + context + "')",false);
+        new Query("INSERT INTO notification(sender_id,receiver_id,linked_contract,context) " +
+                "VALUES(" + senderId + "," + receiverId + ",'" + contractId + "','" + context + "')").executeWithoutResult();
     }
 
     /**
@@ -31,8 +31,8 @@ public class NotificationManager
      */
     public void createNotification(String senderId, String receiverId, String proposalName, String proposalOwnerId, String context)
     {
-        DB.getInstance().executeQuery("INSERT INTO notification(sender_id, receiver_id, linked_proposal_name, provider_id_proposal, context) " +
-                "VALUES("+senderId+","+ receiverId +",'"+ proposalName+"',"+proposalOwnerId+",'"+context+"')", false);
+        new Query("INSERT INTO notification(sender_id, receiver_id, linked_proposal_name, provider_id_proposal, context) " +
+                "VALUES("+senderId+","+ receiverId +",'"+ proposalName+"',"+proposalOwnerId+",'"+context+"')").executeWithoutResult();
     }
 
     /**
@@ -48,8 +48,8 @@ public class NotificationManager
      */
     public void createNotification(String senderId, String receiverId, String proposalName, String proposalOwnerId, String context,  String ean, String address)
     {
-        DB.getInstance().executeQuery("INSERT INTO notification(sender_id, receiver_id, linked_proposal_name, provider_id_proposal, context, linked_ean, linked_address)"+
-                " VALUES("+senderId+","+receiverId+",'"+proposalName+"',"+proposalOwnerId+",'"+context+"','"+ean+"','"+address+"')",false);
+        new Query("INSERT INTO notification(sender_id, receiver_id, linked_proposal_name, provider_id_proposal, context, linked_ean, linked_address)"+
+                " VALUES("+senderId+","+receiverId+",'"+proposalName+"',"+proposalOwnerId+",'"+context+"','"+ean+"','"+address+"')").executeWithoutResult();
     }
 
     /**
@@ -63,18 +63,20 @@ public class NotificationManager
      */
     public Object[] getAllNotifications(String idUser, int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM notification WHERE receiver_id="+idUser + " LIMIT "+ base+", "+limit, true);
-
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(
-                "notification_id", "sender_id", "receiver_id", "linked_contract", "linked_proposal_name", "provider_id_proposal", "context", "linked_ean", "linked_address", "creation_date");
+        String query = "SELECT * FROM notification WHERE receiver_id="+idUser + " LIMIT "+ base+", "+limit;
+        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult
+                (
+                        "notification_id", "sender_id", "receiver_id", "linked_contract", "linked_proposal_name",
+                        "provider_id_proposal", "context", "linked_ean", "linked_address", "creation_date"
+                ).getTable();
 
         ArrayList<Notification> notifications = new ArrayList<>();
-        for (int i = 0; i < results.get(0).size(); i++)
+        for (ArrayList<String> row : table)
         {
-            notifications.add(new Notification(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i), results.get(3).get(i), results.get(4).get(i), results.get(5).get(i), results.get(6).get(i), results.get(7).get(i), results.get(8).get(i), results.get(9).get(i)));
+            notifications.add(new Notification(row.get(0), row.get(1), row.get(2), row.get(3), row.get(4), row.get(5),
+                    row.get(6), row.get(7), row.get(8), row.get(9)));
         }
-        DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM notification WHERE receiver_id="+idUser, true);
-        int count = Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0));
+        int count = new Query("SELECT count(*) AS 'c' FROM notification WHERE receiver_id="+idUser).executeAndGetResult("c").getIntElem(0,0);
         return new Object[] {count, notifications};
     }
 
@@ -87,11 +89,17 @@ public class NotificationManager
      */
     public void acceptNotification(String notificationId, String ean, String address)
     {
-        DB.getInstance().executeQuery("SELECT * FROM notification WHERE notification_id="+notificationId, true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("sender_id", "receiver_id", "linked_proposal_name", "provider_id_proposal", "context");
-        new ContractManager().createContract(results.get(2).get(0), ean, results.get(3).get(0), address, results.get(1).get(0));
-        createNotification(results.get(1).get(0), results.get(0).get(0), results.get(2).get(0), results.get(3).get(0),
-                "Your contract was accepted by "+new LogManager().getName(results.get(1).get(0)), ean,address);
+        ArrayList<String> row = new Query("SELECT * FROM notification WHERE notification_id="+notificationId)
+                .executeAndGetResult
+                        (
+                                "sender_id", "receiver_id", "linked_proposal_name", "provider_id_proposal", "context"
+                        )
+                .getTable().get(0);
+
+        new ContractManager().createContract(row.get(2), ean, row.get(3), address, row.get(1));
+
+        createNotification(row.get(1), row.get(0), row.get(2), row.get(3),
+                "Your contract request was accepted by "+new LogManager().getName(row.get(1)), ean,address);
 
     }
 
@@ -102,12 +110,17 @@ public class NotificationManager
     */
     public void acceptNotification(String notificationId)
     {
-        DB.getInstance().executeQuery("SELECT * FROM notification WHERE notification_id="+notificationId, true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("sender_id", "receiver_id", "linked_proposal_name", "provider_id_proposal",
-        "context", "linked_ean", "linked_address");
-        new ContractManager().createContract(results.get(2).get(0), results.get(5).get(0), results.get(3).get(0), results.get(6).get(0), results.get(1).get(0));
-        createNotification(results.get(1).get(0), results.get(0).get(0), results.get(2).get(0), results.get(3).get(0),
-                "Your contract was accepted by "+new LogManager().getName(results.get(1).get(0)), results.get(5).get(0),results.get(6).get(0));
+        ArrayList<String> row = new Query("SELECT * FROM notification WHERE notification_id="+notificationId)
+                .executeAndGetResult
+                        (
+                                "sender_id", "receiver_id", "linked_proposal_name", "provider_id_proposal",
+                        "context", "linked_ean", "linked_address"
+                        )
+                .getTable().get(0);
+
+        new ContractManager().createContract(row.get(2), row.get(5), row.get(3), row.get(6), row.get(1));
+        createNotification(row.get(1), row.get(0), row.get(2), row.get(3),
+                "Your contract request was accepted by "+new LogManager().getName(row.get(1)), row.get(5),row.get(6));
     }
 
     /**
@@ -117,13 +130,17 @@ public class NotificationManager
      */
     public void refuseNotification(String notificationId)
     {
-        DB.getInstance().executeQuery("SELECT * FROM notification WHERE notification_id="+notificationId,true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("sender_id","receiver_id","linked_proposal_name", "provider_id_proposal");
-        String senderId = results.get(1).get(0);
-        String receiverId = results.get(0).get(0);
-        String linkedProposalName = results.get(2).get(0);
-        String providerIdProposal = results.get(3).get(0);
-        String context = "Your contract was denied by "+new LogManager().getName(senderId);
+        ArrayList<String> row = new Query("SELECT * FROM notification WHERE notification_id="+notificationId).executeAndGetResult
+                (
+                        "sender_id","receiver_id","linked_proposal_name", "provider_id_proposal"
+                ).getTable().get(0);
+
+        String senderId = row.get(1);
+        String receiverId = row.get(0);
+        String linkedProposalName = row.get(2);
+        String providerIdProposal = row.get(3);
+        String context = "Your contract request was denied by "+new LogManager().getName(senderId);
+
         deleteNotification(notificationId);
         createNotification(senderId, receiverId, linkedProposalName, providerIdProposal, context);
     }
@@ -135,7 +152,7 @@ public class NotificationManager
      */
     public void deleteNotification(String idNotification)
     {
-        DB.getInstance().executeQuery("DELETE FROM notification WHERE notification_id="+idNotification, false);
+        new Query("DELETE FROM notification WHERE notification_id="+idNotification).executeWithoutResult();
     }
 
 
