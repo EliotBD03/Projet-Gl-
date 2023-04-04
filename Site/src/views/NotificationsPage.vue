@@ -58,8 +58,6 @@ export default {
             const requestOptions = {
                 method: "DELETE",
                 headers: {'Authorization': this.$cookies.get("token")},
-                ean: this.ean,
-                address: this.address
             }
             fetch('https://babawallet.alwaysdata.net/api/common/notifications/' + id_notification, requestOptions)
                 .then(response => {
@@ -122,6 +120,8 @@ export default {
             const requestOptions = {
                 method: "POST",
                 headers: {'Authorization': this.$cookies.get("token")},
+                ean: this.ean,
+                address: this.address
             }
             fetch('https://babawallet.alwaysdata.net/api/common/notifications/accept_notification/' + id_notification, requestOptions)
                 .then(response => {
