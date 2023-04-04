@@ -17,10 +17,10 @@
         </div>
         <div class="input">
             <p>
-                <InputMain :text="$t('address')" v-model="address"/>
+                <InputMain :text="$t('address')" v-model="this.address"/>
             </p>
             <p>
-                <InputMain :text="$t('EAN code')" v-model="ean"/>
+                <InputMain :text="$t('EAN code')" v-model="this.ean"/>
             </p>
             <p>
                 <GoButton :text="submitText" @click="Submit()" :colore="'green'"/>
@@ -154,15 +154,15 @@
             {
                 return this.eanCode.length == 18;
             },
-            VerifyWallet()
-            {
-             //TODO
-            },
             submit()
             {
-                if(this.VerifyEan() && this.VerifyWallet())
+                if(this.VerifyEan())
                 {
                     this.makeContractRequest();
+                }
+                else
+                {
+                    Swal.fire("please put a correct EAN code (18 digits)")
                 }
             }
         }
