@@ -7,6 +7,10 @@
                 <span class="span">{{ getElapsedTime() }}</span>
             </div>
             <div class="p">{{  $t("notifications.text",{text: texte}) }}</div>
+            <div class="fields">
+            <input type="text" v-model="ean" v-if="checkStatus()" placeholder="Code EAN">
+            <input type="text" v-model="adress" v-if="checkStatus()" placeholder="Adress">
+                </div>
             <div>
             </div>
         </div>
@@ -37,6 +41,8 @@ export default {
         return {
             title: "",
             texte: "",
+            ean: "",
+            adress: ""
         }
     },
     methods: {
@@ -80,7 +86,6 @@ export default {
             this.$emit("delete", this.id_notification);
         },
         checkStatus() {
-            console.log(this.text.includes("request"));
             return !!this.text.includes("request");
         }
     },
@@ -93,7 +98,7 @@ export default {
 <style scoped>
 .card {
     width: 700px;
-    height: 70px;
+    height: 100px;
     background: #353535;
     border-radius: 20px;
     display: flex;
@@ -195,5 +200,12 @@ export default {
     justify-content: center;
     font-size: 10px;
     color: white;
+}
+
+.fields {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 5px;
 }
 </style>

@@ -35,6 +35,8 @@ export default {
             nbr: 1,
             lastPage: 0,
             timer: null,
+            ean: MainNotification.ean,
+            address: MainNotification.address,
         }
     },
     created() {
@@ -56,6 +58,8 @@ export default {
             const requestOptions = {
                 method: "DELETE",
                 headers: {'Authorization': this.$cookies.get("token")},
+                ean: this.ean,
+                address: this.address
             }
             fetch('https://babawallet.alwaysdata.net/api/common/notifications/' + id_notification, requestOptions)
                 .then(response => {
@@ -119,7 +123,7 @@ export default {
                 method: "POST",
                 headers: {'Authorization': this.$cookies.get("token")},
             }
-            fetch("https://babawallet.alwaysdata.net/api/common/notifications/accept_notification/" + id_notification, requestOptions)
+            fetch('https://babawallet.alwaysdata.net/api/common/notifications/accept_notification/' + id_notification, requestOptions)
                 .then(response => {
                     if (!response.ok) {
                         if (response.status == 401) {
