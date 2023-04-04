@@ -178,7 +178,6 @@ public class ContractManager
         new Query("INSERT INTO wallet_contract(address) VALUES('"+address+"')").executeWithoutResult();
         new Query("INSERT INTO provider_contract(provider_id) VALUES("+providerId+")").executeWithoutResult();
 
-        DB.getInstance().executeQuery("SELECT max(contract_id) AS m FROM provider_contract", true);
         String contractId = new Query("SELECT max(contract_id) AS m FROM provider_contract").executeAndGetResult("m").getStringElem(0,0);
         String openingDate = "CURDATE()";
         String closingDate = "DATE_ADD(CURDATE(), INTERVAL "+new ProposalManager().getProposal(proposalName, providerId).getDuration()+" MONTH)";
@@ -186,6 +185,7 @@ public class ContractManager
         new ConsumptionManager().createCounterOrReplace(ean, contractId);
 
         new Query("INSERT INTO contract(" +
+                " contract_id," +
                 " proposal_name," +
                 " ean," +
                 " provider_id," +
@@ -193,7 +193,9 @@ public class ContractManager
                 " client_id," +
                 " opening_date," +
                 " closing_date)" +
-                " VALUES('"+proposalName+"','" +
+                " VALUES("
+                + contractId + ", '" +
+                proposalName+"','" +
                 ean + "'," +
                 providerId + ",'" +
                 address + "'," +
