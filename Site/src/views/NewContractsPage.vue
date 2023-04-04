@@ -16,7 +16,7 @@
             </div>
             <p>{{ proposal.nameProvider }}</p>
             <p>{{ proposal.proposalName }}</p>
-            <div @click.prevent.left="SeeMore(proposal)">
+            <div @click.prevent.left="seeMore(proposal)">
               <GoButton text="button.go" :colore="'#34c98e'"/>
             </div>
           </div>
