@@ -89,7 +89,6 @@
                 {
                     const data = await response.json();
                     this.proposal = data.proposal;
-                    console.log(this.proposal.isFixedRate);
                     let actualLoc = [];
                     const references = ["Brussels-Capital", "Flanders", "Wallonia"];
                     for(let i = 0; i <= this.proposal.location.length; i++)
@@ -142,7 +141,7 @@
                                 title: 'Good !',
                                 text: 'A message has been sent to the provider !'
                             })
-                            this.$router.push({name: 'NewContractsPage'});
+                            this.$router.push({name: '/newcontracts'});
                         }
                     })
                     .catch(error =>

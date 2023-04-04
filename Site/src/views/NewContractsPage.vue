@@ -8,48 +8,44 @@
       <div class="list">
         <div class="proposals">
           <p>PROPOSALS</p>
-          <div v-for="proposal in proposals" :key="proposal.id">
-            <div v-for="location in allLocations" :key="location.id">
-              <div v-if="proposal.location==location.value">
-              <span>Location : {{ location.name }}</span>
-              </div>
-            </div>
+          <div v-for="(proposal,index) in proposals" :key="proposal.id">
+            <li v-for="location in locations[index]" :key="location.id">
+              {{ location }}
+            </li>
             <p>Provider name: {{ proposal.nameProvider }}</p>
             <p>Offer name: {{ proposal.proposalName }}</p>
             <div @click.prevent.left="seeMore(proposal)">
               <GoButton text="button.go" :colore="'#34c98e'"/>
             </div>
           </div>
+          <div v-if="notLastPage()" @click.prevent.left="loader()">
+            <GoButton text="See more proposals" :colore="'#B1B9FC'"/>
+          </div>
 
+          <div class="checkboxleftside">
+            <p>LOCATION</p>
+            <span v-for="location in allLocations" :key="location.id">
+              <input type="checkbox" :value="location.value" v-model="selectedLocations" v-on:click="checkOnlyOneLocation()">
+              <span class="checkbox-label">{{ location.name }}</span> <br>
+            </span>
+            <p>ENERGY</p>
+            <span v-for="energy in allEnergies" :key="energy.id">
+              <input type="checkbox" :value="energy.name" v-model="selectedEnergies" v-on:click="checkOnlyOneEnergy()">
+              <span class="checkbox-label">{{ energy.name }}</span>
+            </span>
+            <div class="applyFilterButton" @click.prevent.left="applyFilter()">
+              <GoButton text="Apply filter(s)" :colore="'#2962FF'"/>
+            </div>
         </div>
-        <div v-if="notLastPage()" @click.prevent.left="loader()">
-          <GoButton text="See more proposals" :colore="'#B1B9FC'"/>
+        <div class="homeButton" @click.prevent.left="$router.push('/Home')">
+          <GoButton text="header.home" :colore="'#B1B9FC'"/>
         </div>
-        <div v-if="!notLastPage()" @click.prevent.left="seeLess()">
-          <GoButton text="See less proposals" :colore="'#B1B9FC'"/>
         </div>
       </div>
-      <div class="homeButton" @click.prevent.left="$router.push('/Home')">
-      <GoButton text="header.home" :colore="'#B1B9FC'"/>
-      </div>
+      
     </div>
 
-    <div class="checkboxleftside">
-          <p>LOCATION</p>
-          <span v-for="location in allLocations" :key="location.id">
-            <input type="checkbox" :value="location.value" v-model="selectedLocations" v-on:click="checkOnlyOneLocation()">
-            <span class="checkbox-label">{{ location.name }}</span> <br>
-          </span>
-          <p>ENERGY</p>
-          <span v-for="energy in allEnergies" :key="energy.id">
-            <input type="checkbox" :value="energy.name" v-model="selectedEnergies" v-on:click="checkOnlyOneEnergy()">
-            <span class="checkbox-label">{{ energy.name }}</span>
-          </span>
-    </div>
-
-    <div class="applyFilterButton" @click.prevent.left="applyFilter()">
-      <GoButton text="Apply filter(s)" :colore="'#2962FF'"/>
-    </div>
+    
   </div>
 </template>
 
@@ -80,10 +76,11 @@ export default {
       linkApi: "https://babawallet.alwaysdata.net/api/client/proposals/",
       nbr: 1,
       proposals:[],
+      locations:[],
       loading: false,
       lastPage: 0,
-      selectedLocations : ["null"], //used to filter the location
-      selectedEnergies : ["null"], //used to filter the energies
+      selectedLocations : [], //used to filter the location
+      selectedEnergies : [], //used to filter the energies
       allLocations: 
       [
         {name: "Brussels", value: "100"},
@@ -113,8 +110,16 @@ export default {
       this.loading = true;
       try
       {
-        console.log(`${this.linkApi}page?page=${this.nbr}&energy_category=${this.selectedEnergies}&region_category=${this.selectedLocations}&limit=2`)
-        const response = await fetch(`${this.linkApi}page?page=${this.nbr}&energy_category=${this.selectedEnergies}&region_category=${this.selectedLocations}&limit=2`, requestOptions);
+        var query = `${this.linkApi}page?page=${this.nbr}&energy_category=${this.selectedEnergies}&region_category=${this.selectedLocations}&limit=2`;
+        console.log(this.selectedEnergies, this.selectedLocations);
+        if(this.selectedEnergies.length == 0 && this.selectedLocations.length == 0)
+          query = `${this.linkApi}page?page=${this.nbr}&limit=2`;
+        else if(this.selectedEnergies.length == 0)
+          query = `${this.linkApi}page?page=${this.nbr}&region_category=${this.selectedLocations}&limit=2`;
+        else if(this.selectedLocations.length == 0)
+          query = `${this.linkApi}page?page=${this.nbr}&energy_category=${this.selectedEnergies}&limit=2`;
+
+        const response = await fetch(query, requestOptions);
         if(!response.ok)
         {
           if(response.status == 401)
@@ -141,6 +146,21 @@ export default {
             this.proposals.push(data.proposals);
             this.proposals = this.proposals.flat();
             this.loading = false;
+
+            var temp = this.proposals;
+            var actualLoc = [];
+            const references = ["Brussels-Capital", "Flanders", "Wallonia"];
+            for(var i = 0; i < temp.length; i++)
+            {
+              let current = [];
+              for(var j = 0; j <= 3; j++)
+              {
+                if(temp[i].location.substring(j,j + 1) == "1")
+                  current.push(references[j]);
+              }
+              actualLoc.push(current)
+            }
+            this.locations = actualLoc;
           }
         }
       }
@@ -168,13 +188,6 @@ export default {
         this.getPage();
       }
     },
-    seeLess()
-    {
-      this.nbr = 1;
-      this.lastPage= 0;
-      this.proposal = [];
-      this.getPage();
-    },
     notLastPage()
     {
       if(this.lastPage == this.nbr || this.loading == true)
@@ -190,9 +203,7 @@ export default {
     },
     applyFilter()
     {
-      if(this.selectedEnergies.length == 0) this.selectedEnergies = ["null"]
-      if(this.selectedLocations.length == 0) this.selectedLocations = ["null"]
-      
+      this.proposals = []
       this.getPage();
     },
     checkOnlyOneEnergy()
@@ -231,6 +242,7 @@ export default {
   justify-content: center;
 }
 .checkboxleftside{
+  float: left;
   display: relative;
   left: 0%;
   flex-direction: column;
