@@ -77,7 +77,7 @@ export default {
             this.texte = texte;
         },
         accept() {
-            this.$emit("accept", this.id_notification);
+            this.$emit("accept", this.id_notification, this.ean, this.adress);
         },
         refuse() {
             this.$emit("refuse", this.id_notification);

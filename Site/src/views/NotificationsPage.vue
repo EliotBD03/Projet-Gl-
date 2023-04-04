@@ -4,7 +4,7 @@
             <MainHeader text="header.notifications"/>
         </div>
         <div class="notifs">
-            <MainNotification class="notif" v-for="notif in notifications" :key="notif" :time="notif.creationDate" :text="notif.context" :id="notif.contractId" :id_notification="notif.notificationId" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
+            <MainNotification class="notif" v-for="notif in notifications" :key="notif.notificationId" :time="notif.creationDate" :text="notif.context" :id="notif.contractId" :id_notification="notif.notificationId" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
         </div>
         <div class="bottombuttons">
             <div class="homebutton" @click.prevent.left="redirecting()">
@@ -35,8 +35,6 @@ export default {
             nbr: 1,
             lastPage: 0,
             timer: null,
-            ean: MainNotification.ean,
-            address: MainNotification.address,
         }
     },
     created() {
@@ -116,13 +114,17 @@ export default {
                 }
             }
         },
-        async acceptNotification(id_notification) {
+        async acceptNotification(id_notification, ean, address) {
             const requestOptions = {
                 method: "POST",
                 headers: {'Authorization': this.$cookies.get("token")},
-                ean: this.ean,
-                address: this.address
+                body: JSON.stringify({
+                    ean: ean,
+                    address: address,
+                })
             }
+            console.log(ean);
+            console.log(address);
             fetch('https://babawallet.alwaysdata.net/api/common/notifications/accept_notification/' + id_notification, requestOptions)
                 .then(response => {
                     if (!response.ok) {

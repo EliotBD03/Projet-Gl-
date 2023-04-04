@@ -6,9 +6,12 @@
         <div class="allcards">
             <div class=cards v-for="contract in listContracts" :key="contract.id">
                 <div class="texte">
-                    <p class="name"> {{ contract.proposalName }} :</p>
+                    <p class="name"> {{ contract.proposalName }}</p>
+                    <p><b>Provider :</b></p>
                     <p> {{ contract.nameProvider }}</p>
+                    <p><b>Energy type :</b></p>
                     <p> {{ contract.typeOfEnergy }}</p>
+                    <p><b>Location :</b></p>
                     <p>{{ contract.location }}</p>
                 </div>
                 <div @click.prevent.left="seeMore(contract)">
@@ -159,7 +162,7 @@ export default {
     align-items: center;
     justify-content: space-evenly;
     width: 250px;
-    height: 400px;
+    height: 500px;
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
     margin: 10px;
     border-radius: 30px;
@@ -170,7 +173,7 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 20px;
+    margin: 10px;
 }
 
 .name {
@@ -184,6 +187,6 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 0 50px;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 </style>
