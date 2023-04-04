@@ -101,6 +101,7 @@ public class NotificationManager
         createNotification(row.get(1), row.get(0), row.get(2), row.get(3),
                 "Your contract request was accepted by "+new LogManager().getName(row.get(1)), ean,address);
 
+        deleteNotification(notificationId);
     }
 
     /**
@@ -118,9 +119,11 @@ public class NotificationManager
                         )
                 .getTable().get(0);
 
-        new ContractManager().createContract(row.get(2), row.get(5), row.get(3), row.get(6), row.get(1));
+        new ContractManager().createContract(row.get(2), row.get(5), row.get(3), row.get(6), row.get(0));
         createNotification(row.get(1), row.get(0), row.get(2), row.get(3),
                 "Your contract request was accepted by "+new LogManager().getName(row.get(1)), row.get(5),row.get(6));
+
+        deleteNotification(notificationId);
     }
 
     /**
