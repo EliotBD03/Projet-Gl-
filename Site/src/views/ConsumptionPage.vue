@@ -25,14 +25,14 @@
       <div class="infos">
         <div class="container">
           <canvas ref="myChart"></canvas>
-          <div class="tableH">
+          <div class="tableH" id="table">
             <div>
-              <div v-for="date in listDate" :key="date.id" class="cellule">
+              <div v-for="(date, index) in listDate" :key="index" class="cellule">
                 {{ date }}
               </div>
             </div>
             <div>
-              <div v-for="data in listValue" :key="data.id" class="cellule">
+              <div v-for="(data, index) in listValue" :key="index" class="cellule">
                 {{ data }}
               </div>
             </div>
@@ -98,7 +98,6 @@ export default {
       labelButtonDisplay : "DisplayMonth" + this.unity//trad
     }},
   
-  /*Méthode pour charger la langue sauvegardée en cookie*/
   mounted() {
     if (this.$cookies.get("lang")) {
       this.$i18n.locale = this.$cookies.get("lang");
@@ -255,7 +254,7 @@ export default {
         headers: {'Authorization' : this.$cookies.get("token")},
       };
       try {
-        const response = await fetch(`https://babawallet.alwaysdata.net/api/common/contracts/ + ${sessionStorage.getItem('contractId')}`, requestOptions);
+        const response = await fetch(`https://babawallet.alwaysdata.net/api/common/contracts/type_of_energy/ + ${sessionStorage.getItem('contractId')}`, requestOptions);
         if (!response.ok) { 
           const data = await response.text();
           if(response.status == 401 && data.trim() === ''){
@@ -293,7 +292,11 @@ export default {
         headers: {'Authorization' : this.$cookies.get("token")},
       };
       try {
-        const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions/${this.ean}?date=${this.date}&is_after=${this.isAfter}`, requestOptions);
+        let dateWay = "";
+        if(this.date != "")
+            dateWay = `&date=${this.date}`;
+
+        const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions/${this.ean}?is_after=${this.isAfter}${dateWay}`, requestOptions);
         if (!response.ok) { 
           const data = await response.text();
           if(response.status == 401 && data.trim() === ''){
@@ -306,23 +309,25 @@ export default {
         } else {
           const data = await response.json(); 
 
-          if(this.isAfter) {
-            this.listDate.push(data.listConsumption.keys);
-            this.listValue.push(data.listConsumption.values);
+          if(Object.keys(data.listConsumption).length === 0) {
+            if(this.isAfter) {
+              this.listDate.push(data.listConsumption.keys);
+              this.listValue.push(data.listConsumption.values);
 
-            if(this.listDate.length > 50) {
-              this.listDate = this.listDate.slice(10);
-              this.listValue = this.listValue.slice(10);
-            }
-          } else {
-            this.listDate = data.listConsumption.keys + this.listDate;
-            this.listValue = data.listConsumption.values + this.listValue;
-            
-            if(this.listDate.length > 50) {
-              this.listDate = this.listDate.slice(0, 40);
-              this.listValue = this.listValue.slice(0, 40);
-            }
-          } 
+              if(this.listDate.length > 50) {
+                this.listDate = this.listDate.slice(10);
+                this.listValue = this.listValue.slice(10);
+              }
+            } else {
+              this.listDate = data.listConsumption.keys + this.listDate;
+              this.listValue = data.listConsumption.values + this.listValue;
+              
+              if(this.listDate.length > 50) {
+                this.listDate = this.listDate.slice(0, 40);
+                this.listValue = this.listValue.slice(0, 40);
+              }
+            } 
+          }
         }
       } catch(error) {
           if(error.message === "Token") {
