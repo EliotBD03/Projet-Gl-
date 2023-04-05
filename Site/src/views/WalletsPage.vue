@@ -166,7 +166,6 @@ export default {
   box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
   margin: 20px;
   border-radius: 30px;
-  
 }
 
 

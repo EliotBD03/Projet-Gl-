@@ -11,9 +11,6 @@
                     <p><b>EAN Code :</b></p>
                     <p>{{ contract.ean }}</p>
                 </div>
-                <div @click.prevent.left="seeMore(contract)">
-                    <GoButton text="button.go" :colore="'#34c98e'"/>
-                </div>
             </div>
             <div v-if="notLastPage()" @click.prevent.left="loader()">
                 <GoButton text="See more contracts" :colore="'#B1B9FC'"/>
@@ -118,12 +115,6 @@ export default {
                 return false;
             }
             return true;
-        },
-        /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
-        et on redirige vers walletFull*/
-        seeMore(contract){
-            sessionStorage.setItem('idContract', contract.contractId);
-            this.$router.push({name: 'ContractFull'});
         },
         redirecting(){
             GlobalMethods.isAClient();
