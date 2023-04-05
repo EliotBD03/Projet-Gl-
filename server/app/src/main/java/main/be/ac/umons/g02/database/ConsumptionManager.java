@@ -66,7 +66,7 @@ public class ConsumptionManager
         String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded "+inequility+" '"+ date + "' LIMIT 0, 10";
 
         if(date == null)
-             query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded "+inequility+" (SELECT MAX(date_recorded) FROM date_recorded) LIMIT 0, 10";
+             query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded "+inequility+" (SELECT MAX(date_recorded) FROM consumption) LIMIT 0, 10";
 
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("date_recorded", "daily_consumption").getTable();
         HashMap<String,Double> consumptions= new HashMap<>();
