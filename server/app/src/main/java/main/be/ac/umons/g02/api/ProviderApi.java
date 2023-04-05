@@ -127,7 +127,7 @@ public class ProviderApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        Object[] res = commonDB.getContractManager().getCommonContracts(id, idClient, slice[0], slice[1]);
+        Object[] res = commonDB.getContractManager().getCommonContracts(idClient, id, slice[0], slice[1]);
         int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);
 
         ArrayList<ContractBasic> contracts = (ArrayList<ContractBasic>) res[1];

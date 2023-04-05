@@ -94,7 +94,7 @@ class NotificationManagerTest
         assertEquals(askingContract.senderId(), results.get(1).get(0));
         assertEquals("elect", results.get(2).get(0));
         assertEquals(askingContract.senderId(), results.get(3).get(0));
-        assertEquals("Your contract request was accepted by provider", results.get(4).get(0));
+        assertEquals("Your contract was accepted by provider", results.get(4).get(0));
 
 
     }
