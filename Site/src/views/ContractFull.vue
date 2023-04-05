@@ -81,7 +81,6 @@
           else {
             const data = await response.json();
             this.contract = data.contract; 
-            console.log(this.contract.proposal)
           }
       } catch(error) {
           if(error.message === "Token") {
@@ -146,7 +145,6 @@
         if(this.$cookies.get("role") == "client"){
             this.associatedWallet = sessionStorage.getItem('walletName');
             this.addressWallet = sessionStorage.getItem('walletAddress');
-            console.log(this.addressWallet)
             return true;
         }
         this.mailClient = sessionStorage.getItem('clientMail');
