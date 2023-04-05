@@ -272,11 +272,11 @@ public class ProviderApi extends MyApi implements RouterApi
         }
 
         String startOffPeakHours = null;
-        if(checkParam((startOffPeakHours = body.getString("start_off_peak_hours")), routingContext)) return;
-
         String endOffPeakHours = null;
+
         if(variableNightPrice >= 0)
         {
+            if(checkParam((startOffPeakHours = body.getString("start_off_peak_hours")), routingContext)) return;
             if(checkParam((endOffPeakHours = body.getString("end_off_peak_hours")), routingContext)) return;
         }
         else
