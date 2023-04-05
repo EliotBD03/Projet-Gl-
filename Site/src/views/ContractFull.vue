@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader :text="contract.name"/>
+      <MainHeader :text="contract.proposal.proposalName"/>
     </div>
     <div class ="list">
       <div v-if="isRole()">
@@ -17,18 +17,16 @@
           <GoButton text="Consumptions" :colore="'#34c98e'"/>
         </div>
       </div>
-      <p> Type Of Energy : {{ contract.typeOfEnergy }}</p>
-      <p> Location : {{ contract.location }}</p>
-      <p> Price depends on the day : {{ contract.variableDayPrice }}</p>
-      <p> Price depends on the night : {{ contract.variableNightPrice }}</p>
-      <p> Start of peak-hours : {{ contract.startOfPeakHours }}</p>
-      <p> End of peak-hours : {{ contract.endOfPeakHours }}</p>
+      <p> Type Of Energy : {{ contract.proposal.typeOfEnergy }}</p>
+      <p> Location : {{ contract.proposal.location }}</p>
+      <p> Price depends on the day : {{ contract.proposal.variableDayPrice }}</p>
+      <p> Price depends on the night : {{ contract.proposal.variableNightPrice }}</p>
+      <p> Start of peak-hours : {{ contract.proposal.startOfPeakHours }}</p>
+      <p> End of peak-hours : {{ contract.proposal.endOfPeakHours }}</p>
       <p> Date of opening : {{ contract.openingDate }}</p>
       <p> Date of closure : {{ contract.closingDate }}</p>
       <p v-if="contract.isFixedRate">Fixed rate</p>
       <p v-else>Variable rate</p>
-      <p v-if="contract.isSingleHourCounter">Single hour counter</p>
-      <p v-else>No single hour counter</p>
     </div>
     <div class="bottombutton">
       <div class="backbutton" @click.prevent.left="back()">
@@ -83,7 +81,7 @@
           else {
             const data = await response.json();
             this.contract = data.contract; 
-            console.log(this.contract)
+            console.log(this.contract.proposal)
           }
       } catch(error) {
           if(error.message === "Token") {

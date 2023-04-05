@@ -74,7 +74,7 @@
         };
         this.loading = true; //bloquer les demandes de loader pendant ce temps.
         try {
-          const response = await fetch(`${this.client.clientId}/contrats/${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
+          const response = await fetch(`${this.linkApi}${this.client.clientId}/contrats/page?page=${this.nbr}&limit=3`, requestOptions);
           if (!response.ok) { 
             if(response.status == 401){
               throw new Error("Token");
@@ -92,8 +92,8 @@
             else if(this.lastPage >= this.nbr){
               this.listContract.push(data.contracts); //ajouter la suite de la réponse à la liste
               this.listContract = this.listContract.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
-              this.loading = false;
               console.log(this.listContract)
+              this.loading = false;
             }
           }
         } catch(error) {

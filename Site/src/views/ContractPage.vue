@@ -11,9 +11,6 @@
                     <p><b>EAN Code :</b></p>
                     <p>{{ contract.ean }}</p>
                 </div>
-                <div @click.prevent.left="seeMore(contract)">
-                    <GoButton text="button.go" :colore="'#34c98e'"/>
-                </div>
             </div>
             <div v-if="notLastPage()" @click.prevent.left="loader()">
                 <GoButton text="See more contracts" :colore="'#B1B9FC'"/>
@@ -82,7 +79,6 @@ export default {
                     else if(this.lastPage >= this.nbr){
                         this.listContracts.push(data.contracts); //ajouter la suite de la réponse à la liste
                         this.listContracts = this.listContracts.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
-                        console.log(this.listContracts)
                         this.loading = false;
                     }
                 }
@@ -119,12 +115,6 @@ export default {
                 return false;
             }
             return true;
-        },
-        /*On sauvegarde l'adresse le contract sur lequel on souhaite plus d'informations
-        et on redirige vers contractFull*/
-        seeMore(contract){
-            sessionStorage.setItem('idContract', contract.contractId);
-            this.$router.push({name: 'ContractFull'});
         },
         redirecting(){
             GlobalMethods.isAClient();
