@@ -139,4 +139,12 @@ public class DB
             return null;
         }
     }
+
+    /**
+     * Envoie une requête pour garder une connection persistante avec le serveur.
+     */
+    public void refreshTimeOut()
+    {
+        executeQuery("SELECT 1",false);
+    }
 }
