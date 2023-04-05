@@ -17,7 +17,6 @@ import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import io.vertx.ext.auth.PubSecKeyOptions;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
-import main.be.ac.umons.g02.database.DB;
 
 import java.util.Map;
 import java.time.Instant;
@@ -104,7 +103,6 @@ public class MyApi extends AbstractVerticle
         router.get("/timer_task/clear_blacklist/:code").handler(this::cleanExpiredTokens);
         router.get("/timer_task/clear_codelist/:code").handler(routingContext -> App.automaticDeleteCode(routingContext));
         router.get("/timer_task/clear_contract/:code").handler(this::cleanExpiredContract);
-        router.get("/timer-task/refresh_timeout/:code").handler(this::refreshTimeOut);
         router.get("/delete_user/:id/:code").handler(this::deleteUser);
 
         logApi = new LogApi();
@@ -215,36 +213,6 @@ public class MyApi extends AbstractVerticle
                 .setStatusCode(401)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "error.unauthorizedOperation")));
-    }
-
-    /**
-     * Méthode qui permet d'appeler une méthode du package base de données pour relancer la connection dans le cas d'un time out.
-     * Cette méthode est appelée tous les jours par une tâche planifiée d'alwaysdata
-     *
-     * @param routingContext - Le contexte de la requête
-     */
-
-    private void refreshTimeOut(final RoutingContext routingContext)
-    {
-        LOGGER.info("RefreshConnection...");
-
-        String code = routingContext.pathParam("code");
-
-        if(codeToClean.equals(code))
-        {
-            DB.getInstance().refreshTimeOut();
-
-            routingContext.response()
-                    .setStatusCode(200)
-                    .putHeader("Content-Type", "application/json")
-                    .end();
-        }
-        else
-            routingContext.response()
-                    .setStatusCode(401)
-                    .putHeader("Content-Type", "application/json")
-                    .end(Json.encodePrettily(new JsonObject()
                             .put("error", "error.unauthorizedOperation")));
     }
 
