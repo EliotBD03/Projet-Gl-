@@ -13,6 +13,8 @@
                 {{ proposal.nameProvider }}
                 <p><b>Offer name: </b></p>
                 {{ proposal.proposalName }}
+                <p><b>Energy type: </b></p>
+                {{ proposal.typeOfEnergy.charAt(0).toUpperCase() + proposal.typeOfEnergy.slice(1) }}
             <div @click.prevent.left="seeMore(proposal)">
                 <GoButton text="button.go" :colore="'#34c98e'"/>
             </div>
@@ -89,9 +91,9 @@ export default {
                 ],
             allEnergies:
                 [
-                    {name: "electricity"},
-                    {name: "water"},
-                    {name: "gas"}
+                    {name: "Electricity"},
+                    {name: "Water"},
+                    {name: "Gas"}
                 ]
         }
     },

@@ -4,7 +4,6 @@
             <MainHeader :text="proposal.proposalName"/>
         </div>
         <div class="list">
-            <p> Information :</p>
             <p> Provider :  {{ proposal.nameProvider }} </p>
             <p> Type of Energy :  {{ proposal.typeOfEnergy  }}</p>
             <p> Location: </p> 
