@@ -34,18 +34,15 @@
                     </label>
                 </p>
                 <p>
-                    <InputMain :text="'Basic price'" v-model="basic_price"/>
+                    <InputMain :text="'Day price'" v-model="variable_day_price"/>
                 </p>
                 <p>
                     <InputMain :text="'Night price'" v-model="variable_night_price"/>
                 </p>
-                <p>
-                    <InputMain :text="'Day price'" v-model="variable_day_price"/>
-                </p>
-                <p>
+                <p v-if="checkCounter()">
                     Off-peak hours :
                 </p>
-                <div>
+                <div v-if="checkCounter()">
                     <label for="start-time">Heure de début : </label>
                     <select id="start-time" v-model="start_off_peak_hours">
                         <option v-for="hour in hours" :key="hour">{{ hour }}</option>
@@ -90,10 +87,8 @@ export default {
             flandre: false,
             bruxelles: false,
             localization: '000',
-            basic_price: '',
-            variable_night_price: '',
+            variable_night_price: 0,
             variable_day_price: '',
-            is_single_hour_counter: '',
             is_fixed_rate: '',
             duration: '',
             hours: [], // tableau des heures disponibles
@@ -143,13 +138,12 @@ export default {
             if (!this.name_proposal) Swal.fire("Please enter the name proposal");
             else if (!this.type_of_energy) Swal.fire("Please enter the type of energy");
             else if (this.localization === '000') Swal.fire("Please enter the localization");
-            else if (!this.basic_price) Swal.fire("Please enter the basic price");
             else if (!this.variable_night_price) Swal.fire("Please enter the variable night price");
             else if (!this.variable_day_price) Swal.fire("Please enter the variable day price");
             else if (!this.is_fixed_rate) Swal.fire("Please select the rate type");
             else if (!this.duration) Swal.fire("Please enter the duration");
-            else if (!this.start_off_peak_hours) Swal.fire("Please select the start off peak hours");
-            else if (!this.end_off_peak_hours) Swal.fire("Please select the end off peak hours");
+            else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire("Please select the start off peak hours");
+            else if (this.checkCounter() && !this.end_off_peak_hours) Swal.fire("Please select the end off peak hours");
             else return true;
         },
         convertToBoolean(value) {
@@ -157,8 +151,7 @@ export default {
             else return false;
         },
         checkCounter() {
-            if (parseFloat(this.variable_day_price) !== parseFloat(this.variable_night_price)) return true;
-            else return false;
+            return parseFloat(this.variable_night_price) !== 0;
         },
         post() {
             if (this.checkArgs()) {
@@ -168,10 +161,8 @@ export default {
                         name_proposal: this.name_proposal,
                         type_of_energy: this.type_of_energy,
                         localization: this.localization,
-                        basic_price: parseFloat(this.basic_price),
                         variable_night_price: parseFloat(this.variable_night_price),
                         variable_day_price: parseFloat(this.variable_day_price),
-                        is_single_hour_counter: this.checkCounter(),
                         is_fixed_rate: this.convertToBoolean(this.is_fixed_rate),
                         duration: parseInt(this.duration),
                         start_off_peak_hours: this.start_off_peak_hours,

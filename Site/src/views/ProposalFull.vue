@@ -11,9 +11,6 @@
                 <b>Location</b> : {{ convertLocation(this.location) }}
             </p>
             <p>
-                <b>Basic price</b> : {{ contract.basicPrice }} €
-            </p>
-            <p>
                 <b>Price per day</b> : {{ contract.variableDayPrice }} €
             </p>
             <p>
@@ -25,17 +22,17 @@
             <p v-else>
                 <b>Rate</b> : Variable
             </p>
-            <p>
-                <b>Start peak hour</b> : {{ contract.startOfPeakHours }}
-            </p>
-            <p>
-                <b>End peak hour</b> : {{ contract.endOfPeakHours }}
-            </p>
-            <p v-if="contract.isSingleHour">
+            <p v-if="checkCounter()">
                 <b>Counter</b> : Mono-hourly
             </p>
             <p v-else>
                 <b>Counter</b> : Bi-hourly
+            </p>
+            <p v-if="checkCounter()">
+                <b>Start peak hour</b> : {{ contract.startOfPeakHours }}
+            </p>
+            <p v-if="checkCounter()">
+                <b>End peak hour</b> : {{ contract.endOfPeakHours }}
             </p>
         </div>
         <div class="bottombuttons">
@@ -163,6 +160,9 @@ export default {
                     }
                 });
         },
+        checkCounter() {
+            return this.variable_night_price !== 0;
+        }
     }
 };
 </script>
