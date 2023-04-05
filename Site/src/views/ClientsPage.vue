@@ -6,7 +6,7 @@
     <div class="allcards">
       <div class=cards v-for="client in listClient" :key="client.id">
         <div class="texte">
-          <p class="name"> {{ client.name }} :</p>
+          <p class="name"> {{ client.name }}:</p>
           <p> {{ client.mail }}</p>
         </div>
         <div @click.prevent.left="seeMore(client)">
@@ -123,7 +123,7 @@
       * @param client le client à sauvegarder.
       */
       seeMore(client){
-        sessionStorage.setItem('client', client);
+        sessionStorage.setItem('client', JSON.stringify(client));
         this.$router.push( {name: "ClientFull"} );
       }
     }

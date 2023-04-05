@@ -7,7 +7,7 @@
         <p> General information : </p>
         <p> Mail : {{ client.mail }}</p>
         <p> Associated contracts :</p>
-        <div v-if="listContract">
+        <div v-if="!listContract">
           <div v-for="contract in listContract" :key="contract.id">
             <p> name = {{ contract.name }}</p>
             <p> ean = {{ contract.ean }}</p>
@@ -28,8 +28,7 @@
         <GoButton text="Delete client" :colore="'red'"/>
         </div>
       </div>
-    </div>
-  
+    </div> 
   </template>
   <script>
   import GoButton from "@/components/GoButton.vue";
@@ -43,8 +42,8 @@
     },
     data(){
       return{
-        client : sessionStorage.getItem('client'),
-        linkApi : `https://babawallet.alwaysdata.net/api/provider/clients/${this.client.clientId}/contrats/`,
+        client : JSON.parse(sessionStorage.getItem('client')),
+        linkApi : `https://babawallet.alwaysdata.net/api/provider/clients/`,
         nbr : 1,
         loading : false,
         lastPage : 0,
@@ -75,7 +74,7 @@
         };
         this.loading = true; //bloquer les demandes de loader pendant ce temps.
         try {
-          const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
+          const response = await fetch(`${this.client.clientId}/contrats/${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
           if (!response.ok) { 
             if(response.status == 401){
               throw new Error("Token");
@@ -94,6 +93,7 @@
               this.listContract.push(data.contracts); //ajouter la suite de la réponse à la liste
               this.listContract = this.listContract.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
               this.loading = false;
+              console.log(this.listContract)
             }
           }
         } catch(error) {
@@ -212,11 +212,6 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 500px;
-    height: 500px;
-    border-radius: 50px;
-    background: #e0e0e0;
-    box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
   }
   </style>
   

@@ -82,6 +82,7 @@ export default {
                     else if(this.lastPage >= this.nbr){
                         this.listContracts.push(data.contracts); //ajouter la suite de la réponse à la liste
                         this.listContracts = this.listContracts.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
+                        console.log(this.listContracts)
                         this.loading = false;
                     }
                 }
@@ -119,8 +120,8 @@ export default {
             }
             return true;
         },
-        /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
-        et on redirige vers walletFull*/
+        /*On sauvegarde l'adresse le contract sur lequel on souhaite plus d'informations
+        et on redirige vers contractFull*/
         seeMore(contract){
             sessionStorage.setItem('idContract', contract.contractId);
             this.$router.push({name: 'ContractFull'});

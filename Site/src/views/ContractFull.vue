@@ -19,7 +19,6 @@
       </div>
       <p> Type Of Energy : {{ contract.typeOfEnergy }}</p>
       <p> Location : {{ contract.location }}</p>
-      <p> Basic Price : {{ contract.basicPrice }}</p>
       <p> Price depends on the day : {{ contract.variableDayPrice }}</p>
       <p> Price depends on the night : {{ contract.variableNightPrice }}</p>
       <p> Start of peak-hours : {{ contract.startOfPeakHours }}</p>
@@ -149,6 +148,7 @@
         if(this.$cookies.get("role") == "client"){
             this.associatedWallet = sessionStorage.getItem('walletName');
             this.addressWallet = sessionStorage.getItem('walletAddress');
+            console.log(this.addressWallet)
             return true;
         }
         this.mailClient = sessionStorage.getItem('clientMail');
