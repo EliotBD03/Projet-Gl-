@@ -45,12 +45,15 @@ class ProposalManagerTest
     @Order(2)
     void getAllProposals()
     {
-        ProposalBasic toBeTested = ((ArrayList<ProposalBasic>)new ProposalManager().getAllProposals(null, null,0,1)[1]).get(0);
+        ProposalBasic toBeTested = ((ArrayList<ProposalBasic>)new ProposalManager().getAllProposals("electricity", null,0,1)[1]).get(0);
         assertEquals(toBeTested.getLocation(), reference.getLocation());
         assertEquals(toBeTested.getProposalName(), reference.getProposalName());
         assertEquals(toBeTested.getTypeOfEnergy(), reference.getTypeOfEnergy());
         assertEquals(toBeTested.getNameProvider(), reference.getNameProvider());
         assertEquals(toBeTested.getProviderId(), reference.getProviderId());
+
+        Object[] expectedEmptyList = new ProposalManager().getAllProposals("gas", "010", 0, 1);
+        assertEquals(expectedEmptyList[1], Table.EMPTY_TABLE);
     }
 
     @Test
