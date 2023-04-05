@@ -75,7 +75,7 @@ DROP TABLE IF EXISTS `contract`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contract` (
   `contract_id` int(10) NOT NULL,
-  `proposal_name` varchar(10) DEFAULT NULL,
+  `proposal_name` varchar(30) DEFAULT NULL,
   `ean` varchar(18) DEFAULT NULL,
   `provider_id` int(10) DEFAULT NULL,
   `address` varchar(42) DEFAULT NULL,
