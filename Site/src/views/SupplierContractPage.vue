@@ -10,9 +10,9 @@
                     <p><b>Provider :</b></p>
                     <p> {{ contract.nameProvider }}</p>
                     <p><b>Energy type :</b></p>
-                    <p> {{ contract.typeOfEnergy }}</p>
+                    <p> {{ contract.typeOfEnergy.charAt(0).toUpperCase() + contract.typeOfEnergy.slice(1) }}</p>
                     <p><b>Location :</b></p>
-                    <p>{{ contract.location }}</p>
+                    <p>{{ convertLocation(contract.location) }}</p>
                 </div>
                 <div @click.prevent.left="seeMore(contract)">
                     <GoButton text="button.go" :colore="'#34c98e'"/>
@@ -56,7 +56,8 @@ export default {
             nbr : 1,
             loading : false,
             lastPage : 0,
-            listContracts: []
+            listContracts: [],
+            location: "",
         }},
     /*Au moment de la création on récupère déjà la première page de l'api*/
     created() {
@@ -82,10 +83,16 @@ export default {
                     }
                 } else {
                     const data = await response.json();
-                    this.listContracts.push(data.allProposals);//ajouter la suite de la réponse à la liste
-                    this.listContracts = this.listContracts.flat();
                     this.lastPage = data.last_page;
-                    this.loading = false;
+                    if(this.lastPage == 0){
+                        this.loading = true;
+                        Swal.fire('No contracts');
+                    }
+                    else if(this.lastPage >= this.nbr){
+                        this.listContracts.push(data.allProposals); //ajouter la suite de la réponse à la liste
+                        this.listContracts = this.listContracts.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
+                        this.loading = false;
+                    }
                 }
             } catch(error) {
                 if(error.message === "Token") {
@@ -112,12 +119,29 @@ export default {
                 this.getPage();
             }
         },
+        convertLocation: function(location) {
+            const result = [];
+
+            if (location >= 100) {
+                result.push('Wallonie');
+                location -= 100;
+            }
+
+            if (location >= 10) {
+                result.push('Flandre');
+                location -= 10;
+            }
+
+            if (location >= 1) {
+                result.push('Bruxelles-Capitale');
+            }
+
+            return result.join(' - ');
+        },
         notLastPage(){
             if(this.lastPage == this.nbr || this.loading == true){
-                console.log("false");
                 return false;
             }
-            console.log("true");
             return true;
         },
         /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations

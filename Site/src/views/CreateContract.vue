@@ -6,7 +6,7 @@
         <div class="contact-form">
             <form id="addWallet" method="post" v-on:submit.prevent="post">
                 <p>
-                    <InputMain :text="$t('walletform.name')" v-model="name_proposal"/>
+                    <InputMain text="Enter the contract name" v-model="name_proposal"/>
                 </p>
                 <p>
                     Type of energy :
@@ -57,12 +57,6 @@
                 </div>
                 <p>
                     <InputMain :text="'Duration (in month)'" v-model="duration"/>
-                </p>
-                <p>
-                    <input type="radio" id="Bi-hourly" value="false" v-model="is_single_hour_counter">
-                    <label for="Bi-hourly">Bi-hourly counter</label>
-                    <input type="radio" id="Mono-hourly" value="true" v-model="is_single_hour_counter">
-                    <label for="Mono-hourly">Mono-hourly counter</label>
                 </p>
                 <p>
                     <input type="radio" id="Fixed" value="true" v-model="is_fixed_rate">
@@ -152,7 +146,6 @@ export default {
             else if (!this.basic_price) Swal.fire("Please enter the basic price");
             else if (!this.variable_night_price) Swal.fire("Please enter the variable night price");
             else if (!this.variable_day_price) Swal.fire("Please enter the variable day price");
-            else if (!this.is_single_hour_counter) Swal.fire("Please select the counter type");
             else if (!this.is_fixed_rate) Swal.fire("Please select the rate type");
             else if (!this.duration) Swal.fire("Please enter the duration");
             else if (!this.start_off_peak_hours) Swal.fire("Please select the start off peak hours");
@@ -161,6 +154,10 @@ export default {
         },
         convertToBoolean(value) {
             if (value === 'true') return true;
+            else return false;
+        },
+        checkCounter() {
+            if (parseFloat(this.variable_day_price) !== parseFloat(this.variable_night_price)) return true;
             else return false;
         },
         post() {
@@ -174,7 +171,7 @@ export default {
                         basic_price: parseFloat(this.basic_price),
                         variable_night_price: parseFloat(this.variable_night_price),
                         variable_day_price: parseFloat(this.variable_day_price),
-                        is_single_hour_counter: this.convertToBoolean(this.is_single_hour_counter),
+                        is_single_hour_counter: this.checkCounter(),
                         is_fixed_rate: this.convertToBoolean(this.is_fixed_rate),
                         duration: parseInt(this.duration),
                         start_off_peak_hours: this.start_off_peak_hours,

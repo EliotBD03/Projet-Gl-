@@ -6,7 +6,7 @@
         <div class="contact-form">
             <form id="addWallet" method="post" v-on:submit.prevent="post">
                 <p>
-                    <InputMain :text="$t('walletform.name')" v-model="proposalName"/>
+                    <InputMain text="Enter the contract name" v-model="name_proposal"/>
                 </p>
                 <p>
                     Type of energy :
@@ -59,12 +59,6 @@
                     <InputMain :text="'Duration (in months)'" v-model="duration"/>
                 </p>
                 <p>
-                    <input type="radio" id="Bi-hourly" value="false" v-model="is_single_hour_counter">
-                    <label for="Bi-hourly">Bi-hourly counter</label>
-                    <input type="radio" id="Mono-hourly" value="true" v-model="is_single_hour_counter">
-                    <label for="Mono-hourly">Mono-hourly counter</label>
-                </p>
-                <p>
                     <input type="radio" id="Fixed" value="true" v-model="is_fixed_rate">
                     <label for="Fixed">Fixed rate</label>
                     <input type="radio" id="Variable" value="false" v-model="is_fixed_rate">
@@ -91,23 +85,23 @@ export default {
     data(){
         return{
             name_proposal: sessionStorage.getItem('name_proposal'),
-            // proposalName: this.name_proposal,
             contract: [],
-            //type_of_energy: this.contract.type_of_energy,
+            type_of_energy: '',
             wallonie: false,
             flandre: false,
             bruxelles: false,
-            localization: this.contract.localization,
-            basic_price: parseFloat(this.contract.basic_price),
-            variable_night_price: parseFloat(this.contract.variable_night_price),
-            variable_day_price: parseFloat(this.contract.variable_day_price),
-            is_single_hour_counter: this.convertToBoolean(this.contract.is_single_hour_counter),
-            is_fixed_rate: this.convertToBoolean(this.contract.is_fixed_rate),
-            duration: parseInt(this.contract.duration),
+            localization: '',
+            basic_price: '',
+            variable_night_price: '',
+            variable_day_price: '',
+            is_single_hour_counter: '',
+            is_fixed_rate: '',
+            duration: '',
             hours: [], // tableau des heures disponibles
-            start_off_peak_hours: this.contract.start_off_peak_hours, // heure de début sélectionnée
-            end_off_peak_hours: this.contract.end_off_peak_hours // heure de fin sélectionnée
+            start_off_peak_hours: null, // heure de début sélectionnée
+            end_off_peak_hours: null // heure de fin sélectionnée
         }},
+
     mounted() {
         // génération du tableau des heures disponibles
         for (let i = 0; i < 24; i++) {
@@ -134,7 +128,7 @@ export default {
         try {
             console.log(this.name_proposal);
             const response = await fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions);
-            if (response.ok) {
+            if (!response.ok) {
                 if (response.status === 401){
                     throw new Error('Token');
                 }
@@ -145,8 +139,15 @@ export default {
             }
             else {
                 const data = await response.json();
-                this.contract = data.contract;
-                this.convertLocalization();
+                this.contract = data.proposal;
+                this.convertLocalization(this.contract.location);
+                this.type_of_energy = this.contract.typeOfEnergy;
+                this.basic_price = this.contract.variableDayPrice;
+                this.variable_night_price = this.contract.variableNightPrice;
+                this.variable_day_price = this.contract.variableDayPrice;
+                this.is_fixed_rate = this.convertToBoolean(this.contract.fixedRate);
+                this.duration = parseInt(this.contract.duration);
+                console.log(this.is_fixed_rate)
             }
         }
         catch(error) {
@@ -182,22 +183,26 @@ export default {
             }
             this.localization = location
         },
-        convertLocalization() {
-            if (this.localization.charAt(0) === '1') {
+        convertLocalization(location) {
+            if (location.charAt(0) === '1') {
                 this.wallonie = true
             } else {
                 this.wallonie = false
             }
-            if (this.localization.charAt(1) === '1') {
+            if (location.charAt(1) === '1') {
                 this.flandre = true
             } else {
                 this.flandre = false
             }
-            if (this.localization.charAt(2) === '1') {
+            if (location.charAt(2) === '1') {
                 this.bruxelles = true
             } else {
                 this.bruxelles = false
             }
+        },
+        checkCounter() {
+            if (parseFloat(this.variable_day_price) !== parseFloat(this.variable_night_price)) return true;
+            else return false;
         },
         checkArgs() {
             if (!this.name_proposal) Swal.fire("Please enter the name proposal");
@@ -206,7 +211,6 @@ export default {
             else if (!this.basic_price) Swal.fire("Please enter the basic price");
             else if (!this.variable_night_price) Swal.fire("Please enter the variable night price");
             else if (!this.variable_day_price) Swal.fire("Please enter the variable day price");
-            else if (!this.is_single_hour_counter) Swal.fire("Please select the counter type");
             else if (!this.is_fixed_rate) Swal.fire("Please select the rate type");
             else if (!this.duration) Swal.fire("Please enter the duration");
             else if (!this.start_off_peak_hours) Swal.fire("Please select the start off peak hours");
@@ -225,15 +229,16 @@ export default {
                         name_proposal: this.name_proposal,
                         type_of_energy: this.type_of_energy,
                         localization: this.localization,
-                        basic_price: this.basic_price,
-                        variable_night_price: this.variable_night_price,
-                        variable_day_price: this.variable_day_price,
-                        is_single_hour_counter: this.is_single_hour_counter,
-                        is_fixed_rate: this.is_fixed_rate,
-                        duration: this.duration,
+                        basic_price: parseFloat(this.basic_price),
+                        variable_night_price: parseFloat(this.variable_night_price),
+                        variable_day_price: parseFloat(this.variable_day_price),
+                        is_single_hour_counter: this.checkCounter(),
+                        is_fixed_rate: this.convertToBoolean(this.is_fixed_rate),
+                        duration: parseInt(this.duration),
                         start_off_peak_hours: this.start_off_peak_hours,
                         end_off_peak_hours: this.end_off_peak_hours
                     }),
+                    headers: {'Authorization' : this.$cookies.get("token")},
                 };
                 fetch("https://babawallet.alwaysdata.net/api/provider/proposals", requestOptions)
                     .then(response => {
@@ -271,7 +276,7 @@ export default {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    height: 100vh;
+    height: 120vh;
 }
 
 .header {
