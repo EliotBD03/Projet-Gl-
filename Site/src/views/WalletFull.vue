@@ -88,7 +88,8 @@ export default {
         } 
         else {
           const data = await response.json();
-          this.wallet = data.wallet; 
+          this.wallet = data.wallet;
+          console.log(this.wallet.contracts)
         }
     } catch(error) {
         if(error.message === "Token") {

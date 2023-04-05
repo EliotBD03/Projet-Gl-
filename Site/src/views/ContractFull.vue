@@ -8,7 +8,7 @@
         <p> Associated wallet : {{ associatedWallet }}</p>
         <p> Address : {{ addressWallet }}</p>
         <p> Ean : {{ contract.ean }}</p>
-        <p> Provider : {{ contract.nameProvider }}</p>
+        <p> Provider : {{ contract.providerName }}</p>
       </div>
       <div v-else>
         <p> Client : {{ contract.nameClient }}</p>
@@ -84,6 +84,7 @@
           else {
             const data = await response.json();
             this.contract = data.contract; 
+            console.log(this.contract)
           }
       } catch(error) {
           if(error.message === "Token") {
