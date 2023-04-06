@@ -130,7 +130,7 @@
               }
             });
       },
-      /*Cette méthode permet de retourner à la page du clientFull en supprimant les informations du sessionStorage*/
+      /*Cette méthode permet de retourner à la page client ou wallet en supprimant les informations du sessionStorage*/
       back(){
         sessionStorage.clear();
         if(this.isRole()){
