@@ -165,7 +165,7 @@ public class ProposalManager
         String nameProvider = new Query("SELECT name FROM user WHERE id="+providerId).executeAndGetResult("name").getStringElem(0,0);
 
         proposalFull = new ProposalFull(providerId, nameProvider, typeEnergy, location, proposalName);
-        proposalFull.setMoreInformation(offPeakHours, peakHours, fixeRate, startPeakHours, endPeakHours, duration);
+        proposalFull.setMoreInformation(peakHours, offPeakHours, fixeRate, startPeakHours, endPeakHours, duration);
         return proposalFull;
     }
 

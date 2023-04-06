@@ -257,6 +257,7 @@ public class ProviderApi extends MyApi implements RouterApi
         try
         {
             if(checkParam((variableDayPrice = body.getDouble("variable_day_price")), routingContext)) return;
+            System.out.println("coucou");
             if(checkParam((isFixedRate = body.getBoolean("is_fixed_rate")), routingContext)) return;
             if(checkParam((duration = body.getInteger("duration")), routingContext)) return;
 
@@ -280,17 +281,7 @@ public class ProviderApi extends MyApi implements RouterApi
             if(checkParam((startOffPeakHours = body.getString("start_off_peak_hours")), routingContext)) return;
             if(checkParam((endOffPeakHours = body.getString("end_off_peak_hours")), routingContext)) return;
         }
-        else
-        {
-            routingContext.response()
-                .setStatusCode(400)
-                .putHeader("Content-Type", "application/json")
-                .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "error.missingInformation")));
-            return;
-        }
-
-
+        
         ProposalFull newProposal = new ProposalFull(id, nameProvider, typeOfEnergy, localization, nameProposal);
         newProposal.setMoreInformation(variableDayPrice, variableNightPrice, isFixedRate, startOffPeakHours, endOffPeakHours, duration);
 
