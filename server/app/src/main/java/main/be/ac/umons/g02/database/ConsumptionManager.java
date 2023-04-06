@@ -35,9 +35,16 @@ public class ConsumptionManager
      */
     public HashMap<String, Double> getConsumptionOfMonth(String ean, String month, String year)
     {
-        String openingDate = year + "-" + month + "-01";
-        String closingDate = year + "-" + month + "-31";
-        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded BETWEEN '"+ openingDate + "' AND '" + closingDate + "'";
+        String query = null;
+
+        if(month != null && year != null)
+        {
+            String openingDate = year + "-" + month + "-01";
+            String closingDate = year + "-" + month + "-31";
+            query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded BETWEEN '"+ openingDate + "' AND '" + closingDate + "'";
+        }
+        else
+            query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean = '" + ean + "' AND YEAR(date_recorded) = YEAR(NOW()) AND MONTH(date_recorded) = MONTH(NOW()) ";
 
         System.out.println(query);
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("date_recorded", "daily_consumption").getTable();
@@ -63,11 +70,13 @@ public class ConsumptionManager
        //if(!isThereSomeValues(ean, new ArrayList<Calendar>(Arrays.asList(startingDate, closingDate))))
          //   throw new Exception("The table doesn't contain any consumption with the ean code: "+ ean + " within the interval : "+ startingDate + "and " + closingDate);
         String inequility = isAfter ? ">" : "<";
-        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded "+inequility+" '"+ date + "' LIMIT 0, 10";
+        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='" + ean + "' AND date_recorded " + inequility + "'" + date + "' ORDER BY date_recorded DESC LIMIT 0, 10;";
 
         if(date == null)
-             query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded "+inequility+" (SELECT MAX(date_recorded) FROM consumption) LIMIT 0, 10";
+        {
+             query = "SELECT c.daily_consumption, c.date_recorded FROM consumption c INNER JOIN ( SELECT date_recorded FROM consumption WHERE ean = '" + ean + "' AND date_recorded <= (SELECT MAX(date_recorded) FROM consumption) ORDER BY date_recorded DESC LIMIT 0, 10) t ON c.date_recorded = t.date_recorded WHERE c.ean = '" + ean + "' ORDER BY c.date_recorded ASC;";
 
+        }
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("date_recorded", "daily_consumption").getTable();
         HashMap<String,Double> consumptions= new HashMap<>();
 

@@ -4,7 +4,7 @@
       <MainHeader text="header.consumption"/>
     </div>
     <div class="topbutton">
-      <div @click.prevent.left="showTable()">
+      <div @click.prevent.left="changeMode(false)">
         <GoButton text="button.table" :colore="'#34c98e'"/>
       </div>
       <div @click.prevent.left="exportData()">
@@ -14,7 +14,7 @@
         <div @click.prevent.left="importData()">
           <GoButton text="Import" :colore="'#34c98e'"/><!--trad-->
         </div>
-      <div @click.prevent.left="showGraphic()">
+      <div @click.prevent.left="changeMode(true)">
         <GoButton text="button.graphic" :colore="'#34c98e'"/>
       </div>
     </div>
@@ -79,13 +79,13 @@ export default {
 
   data(){
     return{
-      mode : false,
+      mode : true,
       ean : sessionStorage.getItem('ean'),
       date : "",
       isAfter : true,
+      listDate : [],
       listValue : [],
       listValue2 : [],
-      listDate : [],
       isComparaison : false,
       listNewValue : [],
       listNewDate : [],
@@ -95,7 +95,7 @@ export default {
       month : "",
       year : "",
       unity : "",
-      labelButtonDisplay : "DisplayMonth" + this.unity//trad
+      labelButtonDisplay : ""//trad
     }},
   
   mounted() {
@@ -107,13 +107,22 @@ export default {
 
     this.getUnity();
     this.getConsumption();
-    this.showGraphic();
   },
 
   methods: {
+    showData() {
+      this.mode ? this.showGraphic() : this.showTable();
+    },
+
+    changeMode (mode) {
+      if(this.mode == mode) return;
+      this.mode = mode;
+      this.showData();
+    },
+
     exportData() {
       const table = [];
-      table.push(["date", "data (" + this.unity + ")"]);
+      table.push(["date", "data" + this.unity]);
       for (let i = 0; i < this.listValue.length; i++) {
         table.push([this.listDate[i], this.listValue[i]]);
       }
@@ -168,7 +177,7 @@ export default {
     getDataAfter() {
       if(this.isDisplayDay) {
         this.isAfter = true;
-        this.date = this.listDate[-1];
+        this.date = this.listDate.slice(-1)[0];
         this.getConsumption();
       } else {
           this.month++;
@@ -181,23 +190,21 @@ export default {
     },
 
     showTable() {
-      if(this.mode) {
-        this.mode = !this.mode;
+      if(!this.mode) {
         this.chart.destroy();
         document.getElementById("table").style.display = "flex";
       }
     },
 
     showGraphic() {
-      if(!this.mode) {
-        this.mode = !this.mode;
+      if(this.mode) {
         document.getElementById("table").style.display = "none";
 
         const ctx = this.$refs.myChart.getContext('2d');
         const data = {
           labels: this.listDate,
           datasets: [{
-          label: 'Your Consumption',//trad
+          label: 'Your Consumption' + this.unity,//trad
           data: this.listValue,
           fill: false,
           borderColor: 'rgb(75, 192, 192)',
@@ -215,11 +222,14 @@ export default {
             }
           }
 
-        this.chart = new Chart(ctx, {
-          type: 'line',
-          data: data,
-        });
+        if(this.chart == null) {
+          this.chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+          });
+        }
 
+        this.chart.data = data;
         this.chart.update();
       }
     },
@@ -268,10 +278,12 @@ export default {
           const data = await response.json(); 
           
           if(data.type_of_energy == "water") { 
-            this.unity = " (m³) ";
+            this.unity = " (m³)";
           } else {
-            this.unity = " (kWh) ";
+            this.unity = " (kWh)";
           }
+
+          this.labelButtonDisplay = "DisplayMonth" + this.unity;
         }
       } catch(error) {
           if(error.message === "Token") {
@@ -293,8 +305,12 @@ export default {
       };
       try {
         let dateWay = "";
-        if(this.date != "")
-            dateWay = `&date=${this.date}`;
+        if(this.date != "") {
+          dateWay = `&date=${this.date}`;
+        }
+        else {
+          this.isAfter = false;
+        }
 
         const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions/${this.ean}?is_after=${this.isAfter}${dateWay}`, requestOptions);
         if (!response.ok) { 
@@ -309,26 +325,31 @@ export default {
         } else {
           const data = await response.json(); 
 
-          if(Object.keys(data.listConsumption).length === 0) {
-            if(this.isAfter) {
-              this.listDate.push(data.listConsumption.keys);
-              this.listValue.push(data.listConsumption.values);
+          if(!(Object.keys(data.listConsumption).length === 0)) {
+            let keys = Object.keys(data.listConsumption);
+            let values = Object.values(data.listConsumption);
 
-              if(this.listDate.length > 50) {
+            if(this.isAfter) {
+              this.listDate = this.listDate.concat(keys);
+              this.listValue = this.listValue.concat(values);
+
+              if(this.listDate.length > 30) {
                 this.listDate = this.listDate.slice(10);
                 this.listValue = this.listValue.slice(10);
               }
             } else {
-              this.listDate = data.listConsumption.keys + this.listDate;
-              this.listValue = data.listConsumption.values + this.listValue;
+              this.listDate = keys.concat(this.listDate);
+              this.listValue = values.concat(this.listValue);
               
-              if(this.listDate.length > 50) {
-                this.listDate = this.listDate.slice(0, 40);
-                this.listValue = this.listValue.slice(0, 40);
+              if(this.listDate.length > 30) {
+                this.listDate = this.listDate.slice(0, 30);
+                this.listValue = this.listValue.slice(0, 30);
               }
             } 
           }
         }
+        
+        this.showData();
       } catch(error) {
           if(error.message === "Token") {
             this.$cookies.remove("token");
@@ -348,7 +369,11 @@ export default {
         headers: {'Authorization' : this.$cookies.get("token")},
       };
       try {
-        const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions_month/${this.ean}?year=${this.year}&month=${this.month}`, requestOptions);
+        let dateWay = "";
+        if(this.year != "" && this.month != "") {
+          dateWay = `?year=${this.year}&month=${this.month}`;
+        }
+        const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions_month/${this.ean}${dateWay}`, requestOptions);
         if (!response.ok) { 
           const data = await response.text();
           if(response.status == 401 && data.trim() === ''){
@@ -361,14 +386,16 @@ export default {
         } else {
           const data = await response.json(); 
 
-          this.listDate = data.listConsumption.keys;
-          this.listValue = data.listConsumption.values;
+          this.listDate = Object.keys(data.listConsumption);
+          this.listValue = Object.values(data.listConsumption);
 
           if(this.listDate.length > 0) {
             this.year = this.listDate[0].slice(0, 4);
             this.month = this.listDate[0].slice(5, 7);
           }
         }
+
+        this.showData();
       } catch(error) {
           if(error.message === "Token") {
             this.$cookies.remove("token");
@@ -382,7 +409,7 @@ export default {
       }
     },
 
-    post (){
+    async post (){
       if(this.checkArgs())
       {
         const requestOptions = {
@@ -390,64 +417,64 @@ export default {
           headers: {'Authorization': this.$cookies.get("token")},
           body: JSON.stringify({ ean: this.ean, list_value: this.listNewValue, list_date: this.listNewDate, forcing: this.forcing})
         };
-        fetch(`https://babawallet.alwaysdata.net/api/common/consumptions`, requestOptions)
-            .then(response => {
-              if(!response.ok){
-                const data = response.text();
-                if(response.status == 401 && data.trim() === ''){
-                    throw new Error("Token");
-                }
-                else{
-                  return response.json().then(json => Promise.reject(json)); 
-                }
-              }
-              else{
-                const data = response.json(); 
-                if(!data.valueAlreadyDefine) {
-                  Swal.fire({
-                    icon: 'success',
-                    title: 'Nickel !',//trad
-                    text: 'La consommation a été ajouté'//trad
-                  })
-                  this.listNewValue = [];
-                  this.listNewDate = [];
+        try {
+          const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions`, requestOptions)
+          if (!response.ok) { 
+            if(response.status == 401) {
+              throw new Error("Token");
+            } else {
+              const data = await response.json();
+              throw new Error(data.error);
+            }
+          } else {
+            const data = await response.json(); 
+            if(data.valueChange) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Nickel !',//trad
+                text: 'La consommation a été ajouté'//trad
+              })
+              this.listNewValue = [];
+              this.listNewDate = [];
 
-                  if(this.isDisplayDay) {
-                    this.getConsumption();
-                  } else {
-                    this.getConsumptionOfMonth();
-                  }
-                } else {
-                  Swal.fire({
-                    title: "Êtes-vous sûr de vouloir changer une valeur ?",//trad
-                    text: "Vous ne pourrez plus récupérer la valeur!",//trad
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      this.forcing = true;
-                      this.post();
-                      this.forcing = false;
-                    }
-                  })
+              this.listDate = [];
+              this.listValue = [];
+
+              if(this.isDisplayDay) {
+                this.date = "";
+                this.getConsumption();
+              } else {
+                this.year = "";
+                this.month = "";
+                this.getConsumptionOfMonth();
+              }
+            } else {
+              Swal.fire({
+                title: "Êtes-vous sûr de vouloir changer une valeur ?",//trad
+                text: "Vous ne pourrez plus récupérer la valeur!",//trad
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.forcing = true;
+                  this.post();
+                  this.forcing = false;
                 }
-              }
-            })
-            .catch(error => {
-              if (error.message === "Token") {
-              this.$cookies.remove("token");
-              this.$cookies.remove("role");
-              Swal.fire('Your connection has expired');//trad
-              this.$router.push("/");
-              } 
-              else {
-                GlobalMethods.errorApi(error.error);
-              }
-            });
+              })
+            }
           }
-        },
+        } catch(error) {
+            if(error.message === "Token") {
+              GlobalMethods.errorToken();
+            } 
+            else {  
+              GlobalMethods.errorApi(error.message);
+            }
+        }
+      }
+    },
 
     changeModTime() {
       this.isDisplayDay = !this.isDisplayDay;
