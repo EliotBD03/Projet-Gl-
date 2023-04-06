@@ -112,17 +112,17 @@ export default {
   },
 
   methods: {
-    showData() {
+    showData() { // Méthode qui permet d'afficher/actualiser les données
       this.mode ? this.showGraphic() : this.showTable();
     },
 
-    changeMode (mode) {
+    changeMode (mode) { // Méthode qui permet de changer le mode d'affichage
       if(this.mode == mode) return;
       this.mode = mode;
       this.showData();
     },
 
-    exportData() {
+    exportData() { // Méthode qui permet d'exporter les données actuelles affichées à l'écran. Le fichier est au format csv
       const table = [];
       table.push(["date", "data" + this.unity]);
       for (let i = 0; i < this.listValue.length; i++) {
@@ -138,7 +138,7 @@ export default {
       document.body.removeChild(lien);
     },
 
-    importData() {
+    importData() { // Méthode qui permet d'importer des données via un fichier csv directement dans le base de données
       this.listNewDate = [];
       this.listNewValue = [];
 
@@ -161,7 +161,7 @@ export default {
       }
     },
 
-    getDataBefore() {
+    getDataBefore() { // Méthode qui permet de changer la date de recherche pour en suite aller chercher de nouvelles données dans le passé
       if(this.isDisplayDay) {
         this.isAfter = false;
         this.date = this.listDate[0];
@@ -176,7 +176,7 @@ export default {
       }
     },
 
-    getDataAfter() {
+    getDataAfter() { // Méthode qui permet de changer la date de recherche pour en suite aller chercher de nouvelles données dans le futur
       if(this.isDisplayDay) {
         this.isAfter = true;
         this.date = this.listDate.slice(-1)[0];
@@ -191,14 +191,14 @@ export default {
       }
     },
 
-    showTable() {
+    showTable() { // Méthode qui détruit le graphique pour afficher ensuite le tableau
       if(!this.mode) {
         this.chart.destroy();
         document.getElementById("table").style.display = "flex";
       }
     },
 
-    showGraphic() {
+    showGraphic() { // Méthode qui cache le tableau pour en suite préparer et afficher le graphique
       if(this.mode) {
         document.getElementById("table").style.display = "none";
 
@@ -237,7 +237,7 @@ export default {
       }
     },
 
-    checkArgs() {
+    checkArgs() { // Méthode qui permet de vérifier que l'utilisateur a bien entré toutes les données néccéssaire pour ajouter une valeur
       if(this.listNewDate.length > 0 && this.listNewValue.length == this.listNewDate.length) {
         return true;
       }
@@ -261,7 +261,7 @@ export default {
       return true;
     },
     
-    async getUnity() {
+    async getUnity() { // Méthode qui permet de savoir qu'elle est l'unité de mesure en faisant une requête vers l'API
       const requestOptions = {
         method: "GET",
         headers: {'Authorization' : this.$cookies.get("token")},
@@ -301,7 +301,7 @@ export default {
       }
     },
 
-    async getConsumption() {
+    async getConsumption() { // Méthode qui permet de récolter les données demandées en faisant une requête vers l'API
       const requestOptions = {
         method: "GET",
         headers: {'Authorization' : this.$cookies.get("token")},
@@ -366,7 +366,7 @@ export default {
       }
     },
 
-    async getConsumptionOfMonth() {
+    async getConsumptionOfMonth() { // Méthode qui permet de récolter les données demandées en faisant une requête vers l'API
       const requestOptions = {
         method: "GET",
         headers: {'Authorization' : this.$cookies.get("token")},
@@ -412,7 +412,7 @@ export default {
       }
     },
 
-    async post (){
+    async post (){ // Méthode qui permet d'ajouter des données de consommations
       if(this.checkArgs())
       {
         const requestOptions = {
@@ -479,7 +479,7 @@ export default {
       }
     },
 
-    changeModTime() {
+    changeModTime() { // Méthode qui permet de changer le type d'affichage. Soit jour par jour, soit par moi
       this.isDisplayDay = !this.isDisplayDay;
 
       if(this.isDisplayDay) {
@@ -491,8 +491,7 @@ export default {
       }
     },
 
-    back() {
-
+    back() { // Méthdode qui permet de revenir à la page précédente en fonction de son rôle
       if(cookies.isKey("token") && cookies.isKey("role"))
       {
         if(cookies.get("role") === 'client'){
