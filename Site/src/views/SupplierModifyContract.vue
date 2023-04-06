@@ -202,7 +202,7 @@ export default {
         checkArgs() {
             if (!this.name_proposal) Swal.fire("Please enter the name proposal");
             else if (this.localization === '000') Swal.fire("Please enter the localization");
-            else if (!this.variable_night_price) Swal.fire("Please enter the variable night price");
+            else if (this.variable_night_price === '') Swal.fire("Please enter the variable night price");
             else if (!this.variable_day_price) Swal.fire("Please enter the variable day price");
             else if (!this.duration) Swal.fire("Please enter the duration");
             else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire("Please select the start off peak hours");
