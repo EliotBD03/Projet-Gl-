@@ -3,22 +3,25 @@
       <div class="header">
         <MainHeader :text="client.name"/>
       </div>
-      <div class ="list">
-        <p> General information : </p>
-        <p> Mail : {{ client.mail }}</p>
-        <p> Associated contracts :</p>
-        <div v-if="!listContract">
-          <div v-for="contract in listContract" :key="contract.id">
-            <p> name = {{ contract.name }}</p>
-            <p> ean = {{ contract.ean }}</p>
-            <p> Type Of Energie = {{ contract.typeOfEnergie }}</p>
-            <p>--------------------------</p>
-            <div @click.prevent.left="seeMore(contract)">
-              <GoButton text="button.go" :colore="'#34c98e'"/>
+      <div class="container">
+        <div class ="list">
+          <p class="text"> General information : </p>
+          <p> Mail : {{ client.mail }}</p>
+        </div>
+        <div class="contract">
+          <p class="text"> Associated contracts :</p>
+          <div v-if="listContract">
+            <div v-for="contract in listContract" :key="contract.id">
+              <p> Client's name = {{ contract.clientName }}</p>
+              <p> EAN = {{ contract.ean }}</p>
+              <div @click.prevent.left="seeMore(contract)">
+                <GoButton text="button.go" :colore="'#34c98e'"/>
+              </div>
+              <p>--------------------------</p>
             </div>
           </div>
+          <div v-else> No information</div>
         </div>
-        <div v-else> No information</div>
       </div>
       <div class="bottombutton">
         <div class="backbutton" @click.prevent.left="back()">
@@ -92,7 +95,6 @@
             else if(this.lastPage >= this.nbr){
               this.listContract.push(data.contracts); //ajouter la suite de la réponse à la liste
               this.listContract = this.listContract.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
-              console.log(this.listContract)
               this.loading = false;
             }
           }
@@ -207,11 +209,42 @@
     width: 100%;
   }
   
-  .list{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
+  .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  overflow: auto;
+  margin: 0 auto;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+  width: 25%;
+  float: left;
+  margin-left: 20%;
+}
+.contract {  
+  width: 30%;
+  float: right;
+  height: 60%;
+  overflow-y: scroll;
+  margin-right: 20%;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+}
+
+.text{
+  color: rgb(138, 150, 253);
+  font-size: 30px;
+}
   </style>
   

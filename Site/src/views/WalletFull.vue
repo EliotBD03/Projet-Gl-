@@ -20,8 +20,8 @@
         <p class = "text"> Associated contracts :</p>
         <div v-if="wallet.contracts">
           <div v-for="contract in wallet.contracts" :key="contract.id">
+            <p> Provider's name = {{ contract.providerName }}</p>
             <p> EAN = {{ contract.ean }}</p>
-            <p> provider = {{ contract.providerName }}</p>
             <div @click.prevent.left="seeMore(contract)">
               <GoButton text="button.go" :colore="'#34c98e'"/>
             </div>

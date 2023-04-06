@@ -171,7 +171,6 @@ export default {
                     headers: {'Authorization' : this.$cookies.get("token")},
                 };
                 try {
-                    console.log(this.localization);
                 fetch("https://babawallet.alwaysdata.net/api/provider/proposals", requestOptions)
                     .then(response => {
                         if (!response.ok) {

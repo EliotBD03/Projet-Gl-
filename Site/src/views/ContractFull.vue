@@ -11,7 +11,7 @@
         <p> Provider : {{ contract.providerName }}</p>
       </div>
       <div v-else>
-        <p> Client : {{ contract.nameClient }}</p>
+        <p> Client : {{ contract.clientName }}</p>
         <p> Mail : {{ mailClient }}</p>
         <div @click.prevent.left="$router.push({ name: 'HomeSupplier' })"> <!--Adrien-->
           <GoButton text="Consumptions" :colore="'#34c98e'"/>
