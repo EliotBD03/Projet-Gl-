@@ -33,7 +33,14 @@
         name: '',
         address: ''
       }},
-    /*Méthode qui vérifie si les champs nom et adresse sont bien remplis sinon envoie une pop-up*/
+      mounted() {
+          if (this.$cookies.get("lang")) {
+              this.$i18n.locale = this.$cookies.get("lang");
+          } else {
+              this.$cookies.set("lang", this.$i18n.locale)
+          }
+      },
+      /*Méthode qui vérifie si les champs nom et adresse sont bien remplis sinon envoie une pop-up*/
     methods: {
       checkArgs(){
         if(!this.name) Swal.fire("Please enter your name");

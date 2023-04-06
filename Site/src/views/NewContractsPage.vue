@@ -65,12 +65,9 @@ export default {
     /*Méthode pour charger la langue sauvegardée en cookie*/
     mounted()
     {
-        if (this.$cookies.get("lang"))
-        {
+        if (this.$cookies.get("lang")) {
             this.$i18n.locale = this.$cookies.get("lang");
-        }
-        else
-        {
+        } else {
             this.$cookies.set("lang", this.$i18n.locale)
         }
     },
@@ -91,9 +88,9 @@ export default {
                 ],
             allEnergies:
                 [
-                    {name: "electricity"},
-                    {name: "water"},
-                    {name: "gas"}
+                    {name: "Electricity"},
+                    {name: "Water"},
+                    {name: "Gas"}
                 ]
         }
     },

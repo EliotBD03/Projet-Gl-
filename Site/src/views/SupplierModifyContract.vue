@@ -88,7 +88,7 @@ export default {
             flandre: false,
             bruxelles: false,
             localization: '',
-            variable_night_price: '',
+            variable_night_price: 0,
             variable_day_price: '',
             is_fixed_rate: '',
             duration: '',
@@ -102,6 +102,11 @@ export default {
         for (let i = 0; i < 24; i++) {
             const hour = i < 10 ? `0${i}` : `${i}`;
             this.hours.push(`${hour}:00:00`);
+        }
+        if (this.$cookies.get("lang")) {
+            this.$i18n.locale = this.$cookies.get("lang");
+        } else {
+            this.$cookies.set("lang", this.$i18n.locale)
         }
     },
     watch: {
@@ -195,7 +200,7 @@ export default {
             }
         },
         checkCounter() {
-            return this.variable_night_price !== 0;
+            return parseFloat(this.variable_night_price) !== 0;
         },
         checkArgs() {
             if (!this.name_proposal) Swal.fire("Please enter the name proposal");

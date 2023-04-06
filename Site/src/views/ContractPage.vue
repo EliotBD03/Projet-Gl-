@@ -6,7 +6,7 @@
         <div class="allcards">
             <div class=cards v-for="contract in listContracts" :key="contract.id">
                 <div class="texte">
-                    <p class="name"> Provider name : </p>
+                    <p class="name"> <b>Provider name</b> </p>
                     <p>{{ contract.providerName }}</p>
                     <p><b>EAN Code :</b></p>
                     <p>{{ contract.ean }}</p>

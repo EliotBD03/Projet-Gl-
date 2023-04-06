@@ -6,7 +6,8 @@
     <div class="allcards">
       <div class=cards v-for="wallet in listWallet" :key="wallet.id">
         <div class="texte">
-          <p class="name"> {{ wallet.name }} :</p>
+          <p class="name"> {{ wallet.name }} </p>
+            <p><b>Address :</b></p>
           <p> {{ wallet.address }}</p>
         </div>
         <div @click.prevent.left="seeMore(wallet)">

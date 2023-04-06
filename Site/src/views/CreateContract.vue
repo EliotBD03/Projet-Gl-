@@ -101,6 +101,11 @@ export default {
             const hour = i < 10 ? `0${i}` : `${i}`;
             this.hours.push(`${hour}:00:00`);
         }
+        if (this.$cookies.get("lang")) {
+            this.$i18n.locale = this.$cookies.get("lang");
+        } else {
+            this.$cookies.set("lang", this.$i18n.locale)
+        }
     },
     watch: {
         wallonie() {
@@ -201,7 +206,7 @@ export default {
 .main {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     height: 120vh;
 }

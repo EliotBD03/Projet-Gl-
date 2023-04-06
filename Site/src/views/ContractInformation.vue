@@ -4,25 +4,22 @@
             <MainHeader :text="proposal.proposalName"/>
         </div>
         <div class="list">
-            <p> Provider :  {{ proposal.nameProvider }} </p>
-            <p> Type of Energy :  {{ proposal.typeOfEnergy  }}</p>
-            <p> Location: </p> 
-            <li v-for="item in proposal.location" :key="item">
-                {{ item }}
-            </li>
-            <p> Basic price : {{ proposal.basicPrice }}</p>
-            <p> price depends on the day : {{ proposal.variableDayPrice }}</p>
-            <p> price depends on the night : {{ proposal.variableNightPrice }}</p>
-            <p> Variable or fixed rate : {{ this.proposal.fixedRate }}</p>
-            <p> off-peak hours : {{ proposal.startOffPeakHours }} - {{ proposal.endOfPeakHours }}</p>
-            <p> Bi-hourly or single-hourly counter : {{ this.proposal.isSingleHour }}</p>
-        </div>
-        <div class="input">
-            <form id="input" method="submit" @submit.prevent="submit">
-                <InputMain :text="$t('address')" v-model="address"/>
-                <InputMain :text="$t('EAN code')" v-model="ean"/>
-                <GoButton :text="submitText" @click="submit()" :colore="'green'"/>
-            </form>
+            <p><b> Provider :</b>  {{ proposal.nameProvider }} </p>
+            <p> <b>Type of Energy :</b>  {{ proposal.typeOfEnergy  }}</p>
+            <p> <b>Location :</b> </p>
+            <p>{{ convertLocation(proposal.location) }}</p>
+            <p> <b>Basic price :</b> {{ proposal.basicPrice }}</p>
+            <p> <b>Price depends on the day :</b> {{ proposal.variableDayPrice }}</p>
+            <p> <b>Price depends on the night :</b> {{ proposal.variableNightPrice }}</p>
+            <p><b>Rate :</b> {{ this.proposal.fixedRate }}</p>
+            <p> <b>Peak hours :</b> {{ proposal.startOffPeakHours }} - {{ proposal.endOfPeakHours }}</p>
+            <div class="input">
+                <form id="input" method="submit" @submit.prevent="submit">
+                    <InputMain :text="$t('address')" v-model="address"/>
+                    <InputMain :text="$t('EAN code')" v-model="ean"/>
+                    <GoButton :text="submitText" @click="submit()" :colore="'green'"/>
+                </form>
+            </div>
         </div>
         <div class="backbutton" @click.prevent.left="$router.push('/newcontracts')">
             <GoButton text="Back" :colore="'#B1B9FC'"/>
@@ -88,16 +85,6 @@
                 {
                     const data = await response.json();
                     this.proposal = data.proposal;
-                    let actualLoc = [];
-                    const references = ["Brussels-Capital", "Flanders", "Wallonia"];
-                    for(let i = 0; i <= this.proposal.location.length; i++)
-                    {
-                        if(this.proposal.location.substring(i,i + 1) == "1")
-                        {
-                            actualLoc.push(references[i]);
-                        }
-                    }
-                    this.proposal.location = actualLoc;
                 }
             }
             catch(error)
@@ -168,6 +155,25 @@
                     this.makeContractRequest();
                 else
                     Swal.fire("please put a correct EAN code (18 digits)")
+            },
+            convertLocation: function(location) {
+                const result = [];
+
+                if (location >= 100) {
+                    result.push('Wallonie');
+                    location -= 100;
+                }
+
+                if (location >= 10) {
+                    result.push('Flandre');
+                    location -= 10;
+                }
+
+                if (location >= 1) {
+                    result.push('Bruxelles-Capitale');
+                }
+
+                return result.join(' - ');
             },
         }
     }

@@ -517,7 +517,7 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .infos {

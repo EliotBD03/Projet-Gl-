@@ -5,33 +5,33 @@
     </div>
     <div class = "container">
       <div class ="list">
-        <p class ="text"> General information : </p>
-        <p> Owner : {{ wallet.ownerName}}</p>
-        <p> Address : {{ wallet.address }}</p>
-        <p> Last consumptions :</p>
-        <p v-if="wallet.lastConsumptionOfWater">Water : No information</p>
-        <p v-else>Water : {{ wallet.lastConsumptionOfWater }}</p>
-        <p v-if="wallet.lastConsumptionOfGas">Gas : No information</p>
-        <p v-else>Gas : {{ wallet.lastConsumptionOfGas }}</p>
-        <p v-if="wallet.lastConsumptionOfElectricity">Electricity : No information</p>
-        <p v-else>Electricity : {{ wallet.lastConsumptionOfElectricity }}</p>
+          <p class ="text"> <b>General information : </b></p>
+          <p> <b>Owner :</b> {{ wallet.ownerName}}</p>
+        <p> <b>Address :</b> {{ wallet.address }}</p>
+        <p> <b>Last consumptions :</b></p>
+        <p v-if="wallet.lastConsumptionOfWater"><b>Water :</b> No information</p>
+          <p v-else><b>Water :</b> {{ wallet.lastConsumptionOfWater }}</p>
+        <p v-if="wallet.lastConsumptionOfGas"><b>Gas :</b> No information</p>
+        <p v-else><b>Gas :</b> {{ wallet.lastConsumptionOfGas }}</p>
+        <p v-if="wallet.lastConsumptionOfElectricity"><b>Electricity :</b> No information</p>
+        <p v-else><b>Electricity :</b> {{ wallet.lastConsumptionOfElectricity }}</p>
       </div>
       <div class = "contract">
-        <p class = "text"> Associated contracts :</p>
+        <p class = "text"> <b>Associated contracts :</b></p>
         <div v-if="wallet.contracts">
           <div v-for="contract in wallet.contracts" :key="contract.id">
-            <p> Provider's name = {{ contract.providerName }}</p>
-            <p> EAN = {{ contract.ean }}</p>
+            <p> <b>Provider's name :</b> {{ contract.providerName }}</p>
+            <p> <b>EAN :</b> {{ contract.ean }}</p>
             <div @click.prevent.left="seeMore(contract)">
               <GoButton text="button.go" :colore="'#34c98e'"/>
             </div>
             <div class="consumptionsbutton" @click.prevent.left="seeConsumptions(contract)">
               <GoButton text="Consumptions" :colore="'#B1B9FC'"/>
             </div>
-            <p>--------------------------</p>
+            <p><b>--------------------------</b></p>
           </div>
         </div>
-        <div v-else> No information</div>
+        <div v-else> <b>No information</b></div>
       </div>
     </div>
     <div class="bottombutton">

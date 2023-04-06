@@ -51,7 +51,14 @@
         this.getAllProposals(); 
         this.getPage();
       },
-      methods: {
+        mounted() {
+            if (this.$cookies.get("lang")) {
+                this.$i18n.locale = this.$cookies.get("lang");
+            } else {
+                this.$cookies.set("lang", this.$i18n.locale)
+            }
+        },
+        methods: {
         /**
         * Cette méthode récupère toutes les propositions du fournisseur.
         * 

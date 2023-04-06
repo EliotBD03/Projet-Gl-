@@ -125,7 +125,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 105vh;
+  height: 100vh;
 }
 
   .forgot-form {
