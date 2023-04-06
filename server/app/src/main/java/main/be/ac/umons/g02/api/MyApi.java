@@ -391,7 +391,7 @@ public class MyApi extends AbstractVerticle
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "tokenMissingInformation")));
+                            .put("error", "error.tokenMissingInformation")));
         return data;
     }
 
