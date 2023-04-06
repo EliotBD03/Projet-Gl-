@@ -84,9 +84,7 @@ public class ProposalManager
      */
     public Object[] getAllProposals(String energyCategory, String regionCategory, int base, int limit) //TODO je suis amnésique je pense
     {
-
-        DB.getInstance().executeQuery("SELECT count(*) AS 'c' FROM proposal", true);
-        int count = Integer.parseInt(DB.getInstance().getResults("c").get(0).get(0));
+        int count = new Query("SELECT count(*) AS 'c' FROM proposal").executeAndGetResult("c").getIntElem(0,0);
 
         String query = "SELECT * FROM proposal LIMIT "+base+", "+limit;
         if(energyCategory != null && regionCategory != null)
@@ -95,7 +93,7 @@ public class ProposalManager
             query = "SELECT * FROM proposal WHERE "+energyCategory+"=1 LIMIT "+base+", "+limit;
         else if(regionCategory != null)
             query = "SELECT * FROM proposal WHERE location='"+regionCategory + "' LIMIT "+base+", "+limit;
-
+        System.out.println(query);
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult
                 (
                         "proposal_name","provider_id", "water", "gas", "electricity", "location"

@@ -91,9 +91,9 @@ export default {
                 ],
             allEnergies:
                 [
-                    {name: "Electricity"},
-                    {name: "Water"},
-                    {name: "Gas"}
+                    {name: "electricity"},
+                    {name: "water"},
+                    {name: "gas"}
                 ]
         }
     },

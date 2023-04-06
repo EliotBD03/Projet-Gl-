@@ -140,7 +140,7 @@
                                 title: 'Good !',
                                 text: 'A message has been sent to the provider !'
                             })
-                            this.$router.push({name: '/newcontracts'});
+                            this.$router.push({name: 'NewContracts'});
                         }
                     })
                     .catch(error =>
