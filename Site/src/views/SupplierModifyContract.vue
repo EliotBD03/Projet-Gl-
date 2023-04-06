@@ -6,9 +6,6 @@
         <div class="contact-form">
             <form id="addWallet" method="post" v-on:submit.prevent="post">
                 <p>
-                    <InputMain text="Enter the contract name" v-model="name_proposal"/>
-                </p>
-                <p>
                     Type of energy :
                 </p>
                 <p>
@@ -144,7 +141,7 @@ export default {
                 this.type_of_energy = this.contract.typeOfEnergy;
                 this.variable_night_price = this.contract.variableNightPrice;
                 this.variable_day_price = this.contract.variableDayPrice;
-                this.is_fixed_rate = this.convertToBoolean(this.contract.fixedRate);
+                this.is_fixed_rate = this.contract.fixedRate;
                 this.duration = parseInt(this.contract.duration);
                 console.log(this.is_fixed_rate)
             }
@@ -204,11 +201,9 @@ export default {
         },
         checkArgs() {
             if (!this.name_proposal) Swal.fire("Please enter the name proposal");
-            else if (!this.type_of_energy) Swal.fire("Please enter the type of energy");
             else if (this.localization === '000') Swal.fire("Please enter the localization");
             else if (!this.variable_night_price) Swal.fire("Please enter the variable night price");
             else if (!this.variable_day_price) Swal.fire("Please enter the variable day price");
-            else if (!this.is_fixed_rate) Swal.fire("Please select the rate type");
             else if (!this.duration) Swal.fire("Please enter the duration");
             else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire("Please select the start off peak hours");
             else if (this.checkCounter() && !this.end_off_peak_hours) Swal.fire("Please select the end off peak hours");
