@@ -314,7 +314,6 @@ export default {
         else {
           this.isAfter = false;
         }
-
         const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions/${this.ean}?is_after=${this.isAfter}${dateWay}`, requestOptions);
         if (!response.ok) { 
           const data = await response.text();
@@ -350,20 +349,17 @@ export default {
               }
             } 
           }
+
+          this.showData();
         }
-        
-        this.showData();
       } catch(error) {
-          if(error.message === "Token") {
-            this.$cookies.remove("token");
-            this.$cookies.remove("role");
-            Swal.fire('Your connection has expired');//trad
-            this.$router.push("/");
-          } 
-          else {  
-            GlobalMethods.errorApi(error.message);
-          }
-      }
+            if(error.message === "Token") {
+              GlobalMethods.errorToken();
+            } 
+            else {  
+              GlobalMethods.errorApi(error.message);
+            }
+        }
     },
 
     async getConsumptionOfMonth() { // Méthode qui permet de récolter les données demandées en faisant une requête vers l'API
@@ -396,20 +392,17 @@ export default {
             this.year = this.listDate[0].slice(0, 4);
             this.month = this.listDate[0].slice(5, 7);
           }
-        }
 
-        this.showData();
-      } catch(error) {
-          if(error.message === "Token") {
-            this.$cookies.remove("token");
-            this.$cookies.remove("role");
-            Swal.fire('Your connection has expired');//trad
-            this.$router.push("/");
-          } 
-          else {  
-            GlobalMethods.errorApi(error.message);
-          }
-      }
+          this.showData();
+        }
+      }  catch(error) {
+            if(error.message === "Token") {
+              GlobalMethods.errorToken();
+            } 
+            else {  
+              GlobalMethods.errorApi(error.message);
+            }
+        }
     },
 
     async post (){ // Méthode qui permet d'ajouter des données de consommations
