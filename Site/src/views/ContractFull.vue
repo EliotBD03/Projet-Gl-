@@ -102,7 +102,7 @@
           method: "DELETE",
           headers: {'Authorization' : this.$cookies.get("token")}
         };
-        fetch(`https://babawallet.alwaysdata.net/api/client/common/contracts/${this.idContract}`, requestOptions)
+        fetch(`https://babawallet.alwaysdata.net/api/common/contracts/${this.idContract}`, requestOptions)
             .then(response => {
               if(!response.ok){
                 if(response.status == 401){
