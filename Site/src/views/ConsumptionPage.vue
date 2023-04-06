@@ -69,6 +69,8 @@ import InputMain from "@/components/InputMain.vue";
 import Swal from "sweetalert2";
 import GlobalMethods from "@/components/GlobalMethods.vue";
 import Papa from "papaparse";
+import VueCookies from 'vue-cookies';
+const cookies = VueCookies;
 
 export default {
   components: {
@@ -222,14 +224,15 @@ export default {
             }
           }
 
-        if(this.chart == null) {
-          this.chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-          });
+        if(this.chart) {
+          this.chart.destroy();
         }
 
-        this.chart.data = data;
+        this.chart = new Chart(ctx, {
+          type: 'line',
+          data: data,
+        });
+
         this.chart.update();
       }
     },
@@ -489,8 +492,19 @@ export default {
     },
 
     back() {
-      sessionStorage.clear();
-      this.$router.push('/wallets');
+
+      if(cookies.isKey("token") && cookies.isKey("role"))
+      {
+        if(cookies.get("role") === 'client'){
+          sessionStorage.clear();
+          this.$router.push('/wallets');
+        }
+        else{
+          sessionStorage.removeItem('ean');
+          sessionStorage.removeItem('contractId');
+          this.$router.push('/contractFull');
+        }
+      }
     }
   }
 };

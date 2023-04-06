@@ -96,11 +96,6 @@ const routes = [
         component: () => import('@/views/NewContractsPage.vue')
       },
       {
-        path: '/consumptions',
-        name: 'Consumptions',
-        component: () => import('@/views/ConsumptionPage.vue')
-      },
-      {
         path: "/contractInformation",
         name: "contractInformation",
         component: () => import('@/views/ContractInformation')
@@ -206,7 +201,12 @@ const routes = [
         path: '/contractFull',
         name: 'ContractFull',
         component: () => import('@/views/ContractFull.vue')
-      }
+      },
+      {
+        path: '/consumptions',
+        name: 'Consumptions',
+        component: () => import('@/views/ConsumptionPage.vue')
+      },
     ],beforeEnter: (to, from, next) => {
       if(cookies.isKey("token") && cookies.isKey("role"))
       {

@@ -257,9 +257,10 @@ public class ProviderApi extends MyApi implements RouterApi
         try
         {
             if(checkParam((variableDayPrice = body.getDouble("variable_day_price")), routingContext)) return;
-            if(checkParam((variableNightPrice = body.getDouble("variable_night_price")), routingContext)) return;
             if(checkParam((isFixedRate = body.getBoolean("is_fixed_rate")), routingContext)) return;
             if(checkParam((duration = body.getInteger("duration")), routingContext)) return;
+
+            variableNightPrice = body.getDouble("variable_night_price", 0.0);
         }
         catch(ClassCastException error)
         {
@@ -274,7 +275,7 @@ public class ProviderApi extends MyApi implements RouterApi
         String startOffPeakHours = null;
         String endOffPeakHours = null;
 
-        if(variableNightPrice >= 0)
+        if(variableNightPrice > 0)
         {
             if(checkParam((startOffPeakHours = body.getString("start_off_peak_hours")), routingContext)) return;
             if(checkParam((endOffPeakHours = body.getString("end_off_peak_hours")), routingContext)) return;

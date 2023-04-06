@@ -13,7 +13,7 @@
       <div v-else>
         <p> Client : {{ contract.clientName }}</p>
         <p> Mail : {{ mailClient }}</p>
-        <div @click.prevent.left="$router.push({ name: 'HomeSupplier' })"> <!--Adrien-->
+        <div @click.prevent.left="seeConsumptions(contract)">
           <GoButton text="Consumptions" :colore="'#34c98e'"/>
         </div>
       </div>
@@ -149,6 +149,12 @@
         }
         this.mailClient = sessionStorage.getItem('clientMail');
         return false;
+      },
+
+      seeConsumptions(contract){
+        sessionStorage.setItem('ean', contract.ean);
+        sessionStorage.setItem('contractId', contract.contractId);
+        this.$router.push({name: 'Consumptions'});
       }
     }
   };
