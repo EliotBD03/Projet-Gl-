@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class DB
 {
-    private static String dataBaseName = "NAMEDB";
+    private static String dataBaseName = "DESKTOP_SESSION";
     private static String userName = "USERNAMEDB";
     private static String password = "PWDDB";
     private static String dbHost = "DBHOST";

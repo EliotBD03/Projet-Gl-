@@ -68,6 +68,10 @@ public class ContractManager
      */
     public Object[] getAllContracts(String clientId, int base, int limit)
     {
+
+        String numberOfContractQuery = "SELECT count(*) AS 'c' FROM contract WHERE client_id="+clientId;
+        int count = new Query(numberOfContractQuery).executeAndGetResult("c").getIntElem(0,0);
+
         String query = "SELECT * FROM contract WHERE client_id=" + clientId +" LIMIT "+base + ", " + limit;
         if(limit < 0)
             query = "SELECT * FROM contract WHERE client_id=" + clientId +" LIMIT "+base + ", " + "18446744073709551615"; //18446744073709551615 max(BigInt) in mysql
@@ -79,6 +83,9 @@ public class ContractManager
                 (
                 "contract_id", "ean", "provider_id", "client_id"
                 ).getTable();
+
+        if(table == Table.EMPTY_TABLE)
+            return new Object[] {count, Table.EMPTY_TABLE};
 
         String providerId;
         String providerName;
@@ -94,8 +101,6 @@ public class ContractManager
             contractBasics.add(new ContractBasic(contractId, ean, providerId, clientId, providerName, clientName));
         }
 
-        String numberOfContractQuery = "SELECT count(*) AS 'c' FROM contract WHERE client_id="+clientId;
-        int count = new Query(numberOfContractQuery).executeAndGetResult("c").getIntElem(0,0);
 
         return new Object[] {count, contractBasics};
     }

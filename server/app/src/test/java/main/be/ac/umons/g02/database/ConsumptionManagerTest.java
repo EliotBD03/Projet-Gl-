@@ -23,7 +23,7 @@ class ConsumptionManagerTest {
         DB.getInstance().executeQuery("INSERT INTO wallet_contract(address, contract_id) VALUES('address', 1)",false);
         DB.getInstance().executeQuery("INSERT INTO counter(ean, contract_id) VALUES('"+ean+"', 1)",false);
         new ProposalManager().addProposal(new ProposalFull("2", "jiji", "electricity", "100", "elec"));
-        new ContractManager().createContract("elec", "785", "2", "address", "1");
+        new ContractManager().createContract("elec", ean, "2", "address", "1");
     }
 
     @AfterAll
@@ -66,8 +66,8 @@ class ConsumptionManagerTest {
                 add("2023-03-05");
             }
         };
-        consumptionManager.addConsumption(ean, values, dates, false);
-        assertDoesNotThrow(() -> {consumptionManager.addConsumption(ean, values, dates, false);});
+        consumptionManager.addConsumption(ean, values, dates, false, true);
+        assertDoesNotThrow(() -> {consumptionManager.addConsumption(ean, values, dates, false, true);});
     }
 
     @Test

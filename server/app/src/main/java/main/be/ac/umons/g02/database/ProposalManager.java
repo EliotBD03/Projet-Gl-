@@ -4,6 +4,7 @@ import main.be.ac.umons.g02.data_object.ProposalBasic;
 import main.be.ac.umons.g02.data_object.ProposalFull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class ProposalManager
@@ -20,8 +21,21 @@ public class ProposalManager
      */
     public boolean doesTheProposalExist(String proposalName, String providerId)
     {
-        return new Query("SELECT EXISTS(SELECT * FROM proposal WHERE proposal_name='"+proposalName
-                +"' AND provider_id="+providerId+") AS c").executeAndGetResult("c").getIntElem(0,0) >= 1;
+        return new Query("SELECT EXISTS(SELECT * FROM proposal WHERE proposal_name='" + proposalName
+                + "' AND provider_id=" + providerId + ") AS c").executeAndGetResult("c").getIntElem(0, 0) >= 1;
+    }
+
+    /**
+     * Remplace tous les 0 d'une chaîne de caractère par une '_'
+     *
+     * @param regionCategory la chaîne de caractère
+     * @return la chaine de caractère transformée.
+     */
+    private String parseLocation(String regionCategory)
+    {
+        StringBuilder parsedRegion = new StringBuilder();
+        for(char character : regionCategory.toCharArray()) parsedRegion.append((character == '0') ? '_' : '1');
+        return parsedRegion.toString();
     }
 
     /**
@@ -88,11 +102,11 @@ public class ProposalManager
 
         String query = "SELECT * FROM proposal LIMIT "+base+", "+limit;
         if(energyCategory != null && regionCategory != null)
-            query = "SELECT * FROM proposal WHERE "+energyCategory+"=1 AND location='"+regionCategory + "' LIMIT "+base+", "+limit;
+            query = "SELECT * FROM proposal WHERE "+energyCategory+"=1 AND location LIKE'"+parseLocation(regionCategory) + "' LIMIT "+base+", "+limit;
         else if(energyCategory != null)
             query = "SELECT * FROM proposal WHERE "+energyCategory+"=1 LIMIT "+base+", "+limit;
         else if(regionCategory != null)
-            query = "SELECT * FROM proposal WHERE location='"+regionCategory + "' LIMIT "+base+", "+limit;
+            query = "SELECT * FROM proposal WHERE location LIKE '"+parseLocation(regionCategory) + "' LIMIT "+base+", "+limit;
         System.out.println(query);
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult
                 (

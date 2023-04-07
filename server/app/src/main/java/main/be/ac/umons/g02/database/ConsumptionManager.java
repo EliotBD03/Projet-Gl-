@@ -46,7 +46,6 @@ public class ConsumptionManager
         else
             query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean = '" + ean + "' AND YEAR(date_recorded) = YEAR(NOW()) AND MONTH(date_recorded) = MONTH(NOW()) ";
 
-        System.out.println(query);
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("date_recorded", "daily_consumption").getTable();
         HashMap<String,Double> consumptions= new HashMap<>();
 
