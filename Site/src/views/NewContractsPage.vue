@@ -110,7 +110,6 @@ export default {
                 try
                 {
                     var query = `${this.linkApi}page?page=${this.nbr}&region_category=${this.selectedLocations}&energy_category=${this.selectedEnergies}&limit=2`;
-                    console.log(this.selectedEnergies, this.selectedLocations);
                     if(this.selectedEnergies.length == 0 && this.selectedLocations.length == 0)
                         query = `${this.linkApi}page?page=${this.nbr}&limit=2`;
                     else if(this.selectedEnergies.length == 0)
@@ -205,7 +204,7 @@ export default {
                 for(let i = 0; i < location.length; i++)
                     if(location.substr(i,1) === "1")
                         result.push(ref[i])
-                        
+
                 return result.join(' - ');
             },
         }

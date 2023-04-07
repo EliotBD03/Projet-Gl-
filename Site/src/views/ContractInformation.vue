@@ -147,31 +147,22 @@
             },
             VerifyEan: function()
             {
-                return this.ean.length == 18;
+                return this.ean.length == 18 && this.ean.substring(0,4) == "5414";
             },
             submit()
             {
                 if(this.VerifyEan())
                     this.makeContractRequest();
                 else
-                    Swal.fire("please put a correct EAN code (18 digits)")
+                    Swal.fire("please put a correct EAN code (18 digits and begins with 5414)")
             },
             convertLocation: function(location) {
                 const result = [];
+                const ref = ["Bruxelles-Capitale", "Flandre", "Wallonie"];
 
-                if (location >= 100) {
-                    result.push('Wallonie');
-                    location -= 100;
-                }
-
-                if (location >= 10) {
-                    result.push('Flandre');
-                    location -= 10;
-                }
-
-                if (location >= 1) {
-                    result.push('Bruxelles-Capitale');
-                }
+                for(let i = 0; i < location.length; i++)
+                    if(location.substr(i,1) === "1")
+                        result.push(ref[i])
 
                 return result.join(' - ');
             },
