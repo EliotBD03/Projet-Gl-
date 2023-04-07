@@ -475,13 +475,9 @@ public class CommonApi extends MyApi implements RouterApi
 
         try
         {
-            System.out.println("coucou");
             if(checkParam((arrayListValue = body.getJsonArray("list_value")), routingContext)) return;
-            System.out.println("coucou");
             if(checkParam((arrayListDate = body.getJsonArray("list_date")), routingContext)) return;
-            System.out.println("coucou");
             if(checkParam((forcingChange = body.getBoolean("forcing")), routingContext)) return;
-            System.out.println("coucou");
         }
         catch(ClassCastException error)
         {

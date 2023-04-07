@@ -90,7 +90,7 @@ public class ConsumptionManager
      * @param ean le code ean du compteur
      * @param values les différentes valeurs
      * @param dates les différentes dates (format d'une date : YYYY-MM-DD)
-     * @param forcingChange réécrit sur les valeurs déjà existantes si le booléen est mis à vrai
+    * @param forcingChange réécrit sur les valeurs déjà existantes si le booléen est mis à vrai
      * @param isClient vrai si l'utilisateur qui ajout/change les consommations est un client
      * @throws IllegalArgumentException quand la taille des listes n'est pas la même
      * @return vrai dans le cas où une écriture dans la base de données a été faite, faux sinon

@@ -10,7 +10,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.Map;
+import java.util.List;
 import java.util.HashMap;
+import java.util.Arrays;
 import java.io.UnsupportedEncodingException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +22,7 @@ import java.util.Scanner;
 import java.util.Random;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import com.google.gson.Gson;
 
 /**
  * Classe qui permet de simuler un compteur numérique en envoyant des données alétoires pour un certain compteur
@@ -29,6 +32,7 @@ import java.time.format.DateTimeFormatter;
 public class App
 {
     public static final App self = new App();
+    public static Gson gson = new Gson();
     public static Random rand = new Random();
     public static int max = 0;
     public static int min = 0;
@@ -36,6 +40,7 @@ public class App
     public static String ean = "";
     public static String token = "";
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static boolean isConsumption = false;
 
     /**
      * Méthode principal du programme
@@ -72,6 +77,10 @@ public class App
                 max = 10;
                 min = 1;
                 break;
+
+            default:
+                System.out.println("Veuillez entrer un type de consommation correct!");
+                System.exit(1);
         }
 
         System.out.println("Tu es maintenant connecté");
@@ -84,15 +93,18 @@ public class App
                 {
                     public void run()
                     {
-                        int conso = rand.nextInt(max-min) + min;
+                        double conso = rand.nextInt(max-min) + min;
                         String url = "https://babawallet.alwaysdata.net/api/common/consumptions";
-                        Map<String, String> parameters = new HashMap<>();
-                        parameters.put("ean", ean);
-                        parameters.put("list_value", "["+conso+"]");
-                        parameters.put("list_date", date.format(formatter));
-                        parameters.put("forcing", "true");
 
-                        Tuple<Integer, String> res = self.sendRequestPost(url, parameters, token);
+                        MyObject.list_valueT = Arrays.asList(""+conso);
+                        MyObject.list_dateT = Arrays.asList(date.format(formatter));
+                        MyObject.forcingT = true;
+                        MyObject.eanT = ean;
+
+                        isConsumption = true;
+                        Tuple<Integer, String> res = self.sendRequestPost(url, null, token);
+                        isConsumption = false;
+
                         if(res.x == 200)
                             System.out.println("La consommation " + conso + " a bien été envoyée.");
                         else
@@ -107,7 +119,7 @@ public class App
 
     /**
      * Méthode pour arrêter le programme depuis plusieurs endroit
-     * Elle se déconnecte du serveur grâce à la méthode disconnect
+     * Elle se déconnecte du serveur grâce à la méthode disconnectapp
      *
      * @see disconnect
      */
@@ -196,7 +208,13 @@ public class App
             con.setReadTimeout(3000);
             con.setDoOutput(true);
             DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(MapToJson.convert(parameters));
+            String request = "";
+            if(isConsumption)
+                request = gson.toJson(new MyObject());
+            else
+                request = gson.toJson(parameters);
+            System.out.println(request);
+            out.writeBytes(request);
             out.flush();
             out.close();
 
@@ -231,46 +249,62 @@ public class App
     }
 
     /**
-     * Classe qui permet de transformer un objet Map en une chaine de caractère json
-     */
-    private class MapToJson
-    {
-        /**
-         * Méthode qui permet de convertir un objet Map en chaine de caractère json
-         *
-         * @param parameters - Les paramètres de la requête
-         * @return Elle retourne le json converti
-         */
-        public static String convert(Map<String, String> parameters)
-        {
-            ObjectMapper mapper = new ObjectMapper();
-            String json = null;
-            try
-            {
-                json = mapper.writeValueAsString(parameters);
-            }
-            catch (JsonProcessingException e)
-            {
-                e.printStackTrace();
-            }
-
-            return json;
-        }
-    }
-
-    /**
      * Classe qui permet de stocker un tuple pour faciliter le retour de la méthode sendRequestPost
      *
      * @see sendRequestPost
      */
     private class Tuple<X, Y>
-    { 
-        public final X x; 
-        public final Y y; 
+    {
+        public final X x;
+        public final Y y;
         public Tuple(X x, Y y)
-        { 
-            this.x = x; 
-            this.y = y; 
-        } 
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    /**
+     * Classe qui permet de stocker toutes les données nécessaire pour ajouter une donnée de consommation
+     */
+    public class MyObject
+    {
+        public static List<String> list_valueT = null;
+        public static List<String> list_dateT = null;
+        public static boolean forcingT = false;
+        public static String eanT = "";
+
+        private List<String> list_value;
+        private List<String> list_date;
+        private boolean forcing;
+        private String ean;
+
+        public MyObject()
+        {
+            this.list_value = list_valueT;
+            this.list_date = list_dateT;
+            this.forcing = forcingT;
+            this.ean = eanT;
+        }
+
+        public List<String> getListValue()
+        {
+            return list_value;
+        }
+
+        public List<String> getListDate()
+        {
+            return list_date;
+        }
+
+        public boolean isForcing()
+        {
+            return forcing;
+        }
+
+        public String getEan()
+        {
+            return ean;
+        }
     }
 }
