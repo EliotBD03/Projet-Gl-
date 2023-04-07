@@ -36,18 +36,13 @@ export default {
     MainHeader
   },
   methods: {
-    /*Méthode qui permet la déconnexion de l'utilisateur à l'aide de GlobalMethods*/
-    callDisconnect() {
-      GlobalMethods.disconnect("/");
-    },
+      /*Méthode qui permet la déconnexion de l'utilisateur à l'aide de GlobalMethods*/
+      callDisconnect() {
+          GlobalMethods.disconnect("/");
+      },
   },
-  /*Méthode pour charger la langue sauvegardée en cookie*/
-    mounted() {
-      if (this.$cookies.get("lang")) {
-        this.$i18n.locale = this.$cookies.get("lang");
-      } else {
-        this.$cookies.set("lang", this.$i18n.locale)
-      }
+    created() {
+        GlobalMethods.getCurrentLanguage();
     }
 };
 </script>

@@ -39,6 +39,7 @@ export default {
     },
     created() {
         this.getNotifications();
+        GlobalMethods.getCurrentLanguage();
         this.timer = setInterval(() => {
             this.refreshNotifications();
         }, 5 * 60 * 1000);
@@ -115,6 +116,7 @@ export default {
             }
         },
         async acceptNotification(id_notification, ean, address) {
+            if(ean.length === 18) {
             const requestOptions = {
                 method: "POST",
                 headers: {'Authorization': this.$cookies.get("token")},
@@ -146,6 +148,9 @@ export default {
                         GlobalMethods.errorApi(error.message);
                     }
                 });
+            } else {
+                Swal.fire('EAN is not valid');
+            }
             await this.refreshNotifications();
         },
         async refuseNotification(id_notification) {
@@ -178,14 +183,6 @@ export default {
         redirecting() {
             GlobalMethods.isAClient();
         },
-    },
-    /*Méthode pour charger la langue sauvegardée en cookie*/
-    mounted() {
-        if (this.$cookies.get("lang")) {
-            this.$i18n.locale = this.$cookies.get("lang");
-        } else {
-            this.$cookies.set("lang", this.$i18n.locale)
-        }
     },
 };
 </script>

@@ -62,15 +62,6 @@ export default {
         MainHeader,
         GoButton,
     },
-    /*Méthode pour charger la langue sauvegardée en cookie*/
-    mounted()
-    {
-        if (this.$cookies.get("lang")) {
-            this.$i18n.locale = this.$cookies.get("lang");
-        } else {
-            this.$cookies.set("lang", this.$i18n.locale)
-        }
-    },
     data(){
         return{
             linkApi: "https://babawallet.alwaysdata.net/api/client/proposals/",
@@ -96,6 +87,7 @@ export default {
     },
     created(){
         this.getPage();
+        GlobalMethods.getCurrentLanguage();
     },
     methods:
         {

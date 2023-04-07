@@ -5,7 +5,7 @@
     </div>
     <div class = "container">
       <div class ="list">
-          <p class ="text"> <b>General information : </b></p>
+          <p class ="text"> <b>General information </b></p>
           <p> <b>Owner :</b> {{ wallet.ownerName}}</p>
         <p> <b>Address :</b> {{ wallet.address }}</p>
         <p> <b>Last consumptions :</b></p>
@@ -17,7 +17,7 @@
         <p v-else><b>Electricity :</b> {{ wallet.lastConsumptionOfElectricity }}</p>
       </div>
       <div class = "contract">
-        <p class = "text"> <b>Associated contracts :</b></p>
+        <p class = "text"> <b>Associated contracts </b></p>
         <div v-if="wallet.contracts">
           <div v-for="contract in wallet.contracts" :key="contract.id">
             <p> <b>Provider's name :</b> {{ contract.providerName }}</p>
@@ -181,13 +181,13 @@ export default {
 }
 
 .bottombutton {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 50px;
-  margin-top: 50px;
-  width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+    margin-top: 50px;
+    width: 90%;
 }
 
 .container {

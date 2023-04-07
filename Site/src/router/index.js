@@ -217,10 +217,16 @@ const routes = [
       }
     }
   },
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: () => import('@/views/NotFound.vue')
+  }
 ]
 
 const router = new VueRouter({
   mode: 'history',
+  fallback: true,
   base: process.env.BASE_URL,
   routes
 })

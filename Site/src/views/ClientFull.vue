@@ -52,17 +52,10 @@
         lastPage : 0,
         listContract: []
       }},
-   /*Méthode pour charger la langue sauvegardée en cookie*/
-    mounted() {
-      if (this.$cookies.get("lang")) {
-        this.$i18n.locale = this.$cookies.get("lang");
-      } else {
-        this.$cookies.set("lang", this.$i18n.locale)
-      }
-    },
     /*Au moment de la création de la page, on récupère déjà la première page des contrats du client*/
     created(){
       this.getPage();
+      GlobalMethods.getCurrentLanguage();
     },
     methods: {
       /**

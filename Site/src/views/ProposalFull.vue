@@ -66,41 +66,45 @@ export default {
             contract: [],
             location: ''
         }},
-    async created() {
-        const requestOptions = {
-            method: 'GET',
-            headers: {'Authorization' : this.$cookies.get('token')}
-        };
-        try {
-            const response = await fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions);
-            if (!response.ok) {
-                if (response.status === 401){
-                    throw new Error('Token');
+    created() {
+        this.getProposal();
+        GlobalMethods.getCurrentLanguage();
+    },
+    methods: {
+        async getProposal() {
+            const requestOptions = {
+                method: 'GET',
+                headers: {'Authorization' : this.$cookies.get('token')}
+            };
+            try {
+                const response = await fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions);
+                if (!response.ok) {
+                    if (response.status === 401){
+                        throw new Error('Token');
+                    }
+                    else {
+                        const data = await response.json();
+                        throw new Error(data.error);
+                    }
                 }
                 else {
                     const data = await response.json();
-                    throw new Error(data.error);
+                    this.contract = data.proposal ;
+                    this.location = data.proposal.location;
                 }
             }
-            else {
-                const data = await response.json();
-                this.contract = data.proposal ;
-                this.location = data.proposal.location;
+            catch(error) {
+                if(error.message === 'Token') {
+                    this.$cookies.remove('token');
+                    this.$cookies.remove('role');
+                    Swal.fire('Your connection has expired');
+                    this.$router.push('/');
+                }
+                else {
+                    GlobalMethods.errorApi(error.message);
+                }
             }
-        }
-        catch(error) {
-            if(error.message === 'Token') {
-                this.$cookies.remove('token');
-                this.$cookies.remove('role');
-                Swal.fire('Your connection has expired');
-                this.$router.push('/');
-            }
-            else {
-                GlobalMethods.errorApi(error.message);
-            }
-        }
-    },
-    methods: {
+        },
         back() {
             sessionStorage.removeItem('name_proposal');
             this.$router.push({name: 'ContractsSupplier'});

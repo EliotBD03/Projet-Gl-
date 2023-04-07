@@ -28,90 +28,86 @@
 </template>
 
 <script>
-    
-    import MainHeader from '@/components/MainHeader.vue';
-    import GoButton from '@/components/GoButton.vue';
-    import  Swal  from 'sweetalert2/dist/sweetalert2';
-    import GlobalMethods from '@/components/GlobalMethods.vue';
-    import InputMain from '@/components/InputMain.vue';
 
-    export default
-    {
-        components:
+import MainHeader from '@/components/MainHeader.vue';
+import GoButton from '@/components/GoButton.vue';
+import  Swal  from 'sweetalert2/dist/sweetalert2';
+import GlobalMethods from '@/components/GlobalMethods.vue';
+import InputMain from '@/components/InputMain.vue';
+
+export default
+{
+    components:
         {
             GoButton,
             MainHeader,
             InputMain
         },
-        data()
+    data()
+    {
+        return{
+            submitText: "Submit",
+            address: '',
+            ean: '',
+            providerId: sessionStorage.getItem("providerId"),
+            proposalName: sessionStorage.getItem("proposalName"),
+            proposal: []
+        }
+    },
+    created() {
+        this.getProposal();
+        GlobalMethods.getCurrentLanguage();
+    },
+    methods:
         {
-            return{
-                submitText: "Submit",
-                address: '',
-                ean: '',
-                providerId: sessionStorage.getItem("providerId"),
-                proposalName: sessionStorage.getItem("proposalName"),
-                proposal: []
-            }
-        },
-        mounted()
-        {
-            if(this.$cookies.get("lang"))
-                this.$i18n.locale = this.$cookies.get("lang");
-            else
-                this.$cookies.set("lang", this.$i18n.locale)
-        },
-        async created()
-        {
-            const requestOptions = 
-            {
-                method: "GET",
-                headers: {'Authorization': this.$cookies.get("token")}
-            };
-            try
-            {
-                const response = await fetch(`https://babawallet.alwaysdata.net/api/client/proposals/${this.providerId}/${this.proposalName}`, requestOptions);
-                if(!response.ok)
+            async getProposal() {
+                const requestOptions =
+                    {
+                        method: "GET",
+                        headers: {'Authorization': this.$cookies.get("token")}
+                    };
+                try
                 {
-                    if(response.status == 401)
-                        throw new Error("Token");
+                    const response = await fetch(`https://babawallet.alwaysdata.net/api/client/proposals/${this.providerId}/${this.proposalName}`, requestOptions);
+                    if(!response.ok)
+                    {
+                        if(response.status == 401)
+                            throw new Error("Token");
+                        else
+                        {
+                            const data = await response.json();
+                            throw new Error(data.error);
+                        }
+                    }
                     else
                     {
                         const data = await response.json();
-                        throw new Error(data.error);
+                        this.proposal = data.proposal;
                     }
                 }
-                else
+                catch(error)
                 {
-                    const data = await response.json();
-                    this.proposal = data.proposal;
+                    if(error.message === "Token")
+                    {
+                        this.$cookies.remove("token");
+                        this.$cookies.remove("role");
+                        Swal.fire('Your connection has expired');
+                        this.$router.push("/")
+                    }
+                    else
+                        GlobalMethods.errorApi(error.message);
                 }
-            }
-            catch(error)
-            {
-                if(error.message === "Token")
-                {
-                    this.$cookies.remove("token");
-                    this.$cookies.remove("role");
-                    Swal.fire('Your connection has expired');
-                    this.$router.push("/")
-                }
-                else
-                    GlobalMethods.errorApi(error.message);
-            }
-        },
-        methods:
-        {
+            },
             makeContractRequest()
             {
-                const requestOptions = 
-                {
-                    method: "POST",
-                    headers: {'Authorization': this.$cookies.get("token")},
-                    body: JSON.stringify({ name_proposal: this.proposalName, id_provider: this.providerId, ean: this.ean, address: this.address})
-                };
+                const requestOptions =
+                    {
+                        method: "POST",
+                        headers: {'Authorization': this.$cookies.get("token")},
+                        body: JSON.stringify({ name_proposal: this.proposalName, id_provider: this.providerId, ean: this.ean, address: this.address})
+                    };
                 fetch("https://babawallet.alwaysdata.net/api/client/proposeContract/", requestOptions)
-                    .then(response => 
+                    .then(response =>
                     {
                         if(!response.ok)
                         {
@@ -167,19 +163,19 @@
                 return result.join(' - ');
             },
         }
-    }
+}
 </script>
 
 <style>
-    .main {
+.main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    }
+}
 
-    .list{
+.list{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -189,5 +185,5 @@
     border-radius: 50px;
     background: #e0e0e0;
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
-    }
+}
 </style>

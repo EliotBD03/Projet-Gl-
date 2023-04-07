@@ -95,16 +95,14 @@ export default {
             start_off_peak_hours: null, // heure de début sélectionnée
             end_off_peak_hours: null // heure de fin sélectionnée
         }},
+    created() {
+        GlobalMethods.getCurrentLanguage();
+    },
     mounted() {
         // génération du tableau des heures disponibles
         for (let i = 0; i < 24; i++) {
             const hour = i < 10 ? `0${i}` : `${i}`;
             this.hours.push(`${hour}:00:00`);
-        }
-        if (this.$cookies.get("lang")) {
-            this.$i18n.locale = this.$cookies.get("lang");
-        } else {
-            this.$cookies.set("lang", this.$i18n.locale)
         }
     },
     watch: {

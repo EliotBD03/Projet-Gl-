@@ -35,14 +35,6 @@
       GoButton,
       MainHeader,
     },
-    /*Méthode pour charger la langue sauvegardée en cookie*/
-    mounted() {
-      if (this.$cookies.get("lang")) {
-        this.$i18n.locale = this.$cookies.get("lang");
-      } else {
-        this.$cookies.set("lang", this.$i18n.locale)
-      }
-    },
     data(){
       return{
         linkApi : "https://babawallet.alwaysdata.net/api/provider/clients/clients_of_provider/",
@@ -54,6 +46,7 @@
     /*Au moment de la création on récupère déjà la première page des clients du fournisseur */
     created() {
       this.getPage();
+      GlobalMethods.getCurrentLanguage();
     },
     methods: {
       /**
