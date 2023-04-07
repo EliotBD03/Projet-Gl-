@@ -92,10 +92,11 @@ public class ConsumptionManager
      * @param values les différentes valeurs
      * @param dates les différentes dates (format d'une date : YYYY-MM-DD)
      * @param forcingChange réécrit sur les valeurs déjà existantes si le booléen est mis à vrai
+     * @param isClient vrai si l'utilisateur qui ajout/change les consommations est un client
      * @throws IllegalArgumentException quand la taille des listes n'est pas la même
      * @return vrai dans le cas où une écriture dans la base de données a été faite, faux sinon
      */
-    public boolean addConsumption(String ean, ArrayList<Double> values, ArrayList<String> dates, boolean forcingChange)
+    public boolean addConsumption(String ean, ArrayList<Double> values, ArrayList<String> dates, boolean forcingChange, boolean isClient)
     {
         if(values.size() != dates.size())
             throw new IllegalArgumentException("the size of the two lists is not the same.\n"+
@@ -112,18 +113,35 @@ public class ConsumptionManager
                 " WHERE date_recorded IN (SELECT max(date_recorded) FROM consumption) AND ean='"+ean+"'";
 
         double value = 0.0;
+        boolean isConsumptionChanged = false;
         for(int i = 0; i < values.size(); i++)
         {
             ArrayList<ArrayList<String>> consumptions = new Query(previousConsumption).executeAndGetResult("daily_consumption").getTable();
 
             if(consumptions.size() != 0)
+            {
                 value = Double.parseDouble(consumptions.get(0).get(0));
+                isConsumptionChanged = true;
+            }
 
             String query = "INSERT INTO consumption(ean, date_recorded, daily_consumption) VALUES('"+
                     ean+"','"+dates.get(i)+"',"+(values.get(i)+value)+
                     ") ON DUPLICATE KEY UPDATE daily_consumption="+values.get(i);
 
             new Query(query).executeWithoutResult();
+
+            if(isConsumptionChanged)
+            {
+                String getUsefulColumnsQuery = "SELECT contract_id, provider_id, client_id FROM contract WHERE ean="+ean;
+                Table table = new Query(getUsefulColumnsQuery).executeAndGetResult("contract_id", "provider_id", "client_id");
+
+                String senderId = isClient ? table.getStringElem(0,2) : table.getStringElem(0,1);
+                String receiverId = isClient ? table.getStringElem(0,1) : table.getStringElem(0,2);
+                String contractId = table.getStringElem(0,0);
+
+                new NotificationManager().createNotification(senderId, receiverId, contractId, "the daily consumption in the " + dates.get(i) + " has changed to " + values.get(i) + " for this ean code : " + ean);
+            }
+
             value = 0.0;
         }
 
