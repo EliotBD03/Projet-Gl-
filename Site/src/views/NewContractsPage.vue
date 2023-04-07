@@ -32,7 +32,7 @@
             <div class="energy">
                 <p><b>ENERGY</b></p>
                 <span v-for="energy in allEnergies" :key="energy.id">
-              <input type="checkbox" :value="energy.name" v-model="selectedEnergies" v-on:click="checkOnlyOneEnergy()">
+              <input type="checkbox" :value="energy.value" v-model="selectedEnergies" v-on:click="checkOnlyOneEnergy()">
               <span class="checkbox-label">{{ energy.name }}</span> <br>
             </span>
             </div>
@@ -78,8 +78,8 @@ export default {
             proposals:[],
             loading: false,
             lastPage: 0,
-            selectedLocations : [], //used to filter the location
-            selectedEnergies : [], //used to filter the energies
+            selectedLocations : "", //used to filter the location
+            selectedEnergies : "", //used to filter the energies
             allLocations:
                 [
                     {name: "Brussels", value: "100"},
@@ -88,9 +88,9 @@ export default {
                 ],
             allEnergies:
                 [
-                    {name: "Electricity"},
-                    {name: "Water"},
-                    {name: "Gas"}
+                    {name: "Electricity", value: "electricity"},
+                    {name: "Water", value: "water"},
+                    {name: "Gas", value: "gas"}
                 ]
         }
     },
@@ -109,7 +109,7 @@ export default {
                 this.loading = true;
                 try
                 {
-                    var query = `${this.linkApi}page?page=${this.nbr}&energy_category=${this.selectedEnergies}&region_category=${this.selectedLocations}&limit=2`;
+                    var query = `${this.linkApi}page?page=${this.nbr}&region_category=${this.selectedLocations}&energy_category=${this.selectedEnergies}&limit=2`;
                     console.log(this.selectedEnergies, this.selectedLocations);
                     if(this.selectedEnergies.length == 0 && this.selectedLocations.length == 0)
                         query = `${this.linkApi}page?page=${this.nbr}&limit=2`;
@@ -180,13 +180,13 @@ export default {
             },
             seeMore(proposal)
             {
-                console.log(proposal)
                 sessionStorage.setItem('providerId', proposal.providerId)
                 sessionStorage.setItem('proposalName', proposal.proposalName)
                 this.$router.push('/contractInformation');
             },
             applyFilter()
             {
+                this.nbr = 1;
                 this.proposals = []
                 this.getPage();
             },
@@ -202,7 +202,7 @@ export default {
                 const result = [];
 
                 if (location >= 100) {
-                    result.push('Wallonie');
+                    result.push('Bruxelles-Capitale');
                     location -= 100;
                 }
 
@@ -212,7 +212,7 @@ export default {
                 }
 
                 if (location >= 1) {
-                    result.push('Bruxelles-Capitale');
+                    result.push('Wallonie');
                 }
 
                 return result.join(' - ');

@@ -96,7 +96,7 @@ public class ProposalManager
      * @param limit le nombre d'éléments
      * @return un tableau contenant en premier indice le nombre d'éléments total et une ArrayList contenant des ProposalBasics.
      */
-    public Object[] getAllProposals(String energyCategory, String regionCategory, int base, int limit) //TODO je suis amnésique je pense
+    public Object[] getAllProposals(String energyCategory, String regionCategory, int base, int limit)
     {
         String query = "SELECT * FROM proposal LIMIT "+base+", "+limit;
         if(energyCategory != null && regionCategory != null)
@@ -107,7 +107,7 @@ public class ProposalManager
             query = "SELECT * FROM proposal WHERE location LIKE '"+parseLocation(regionCategory) + "' LIMIT "+base+", "+limit;
 
         System.out.println(query);
-        int count = new Query("SELECT count(*) AS 'c' FROM proposal").executeAndGetResult("c").getIntElem(0,0);
+        int count = new Query(query).executeAndGetResult("c").getIntElem(0,0);
 
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult
                 (
