@@ -474,6 +474,8 @@ export default {
 
     changeModTime() { // Méthode qui permet de changer le type d'affichage. Soit jour par jour, soit par moi
       this.isDisplayDay = !this.isDisplayDay;
+      this.listDate = [];
+      this.listValue = [];
 
       if(this.isDisplayDay) {
         this.labelButtonDisplay = "DisplayMonth" + this.unity;//trad
