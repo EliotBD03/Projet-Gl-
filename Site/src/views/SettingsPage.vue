@@ -17,11 +17,13 @@
                 </div>
             </div>
         </div>
+        <div class="bottombutton">
         <div class="bottombutton" @click.prevent.left="redirecting()">
             <GoButton text="header.home" :colore="'#B1B9FC'"/>
         </div>
         <div class="rightcancelbutton" @click.prevent.left="askDelete()">
             <GoButton text="Delete account" :colore="'#FF2D00'"/>
+        </div>
         </div>
     </div>
 </template>
