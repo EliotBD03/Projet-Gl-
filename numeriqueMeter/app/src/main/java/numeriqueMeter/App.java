@@ -30,6 +30,8 @@ public class App
 {
     public static final App self = new App();
     public static Random rand = new Random();
+    public static int max = 0;
+    public static int min = 0;
     private static Scanner sc = new Scanner(System.in);
     public static String ean = "";
     public static String token = "";
@@ -45,14 +47,32 @@ public class App
      */
     public static void main(String[] args)
     {
-        if(args.length != 3)
+        if(args.length != 4)
         {
-            System.out.println("Le programme a besoin de 3 arguments: [le mail] [le mot de passe] [le code ean]\nVeuillez utiliser cette commande pour ajouter des arguments: gradle run --args='arg1 arg2 arg3'");
+            System.out.println("Le programme a besoin de 3 arguments: [le mail] [le mot de passe] [le code ean] [le type d'énergie(e|g|w)]\nVeuillez utiliser cette commande pour ajouter des arguments: gradle run --args='arg1 arg2 arg3 arg4'");
             System.exit(1);
         }
 
         token = self.connect(args[0], args[1]);
         ean = args[2];
+
+        switch(args[3])
+        {
+            case "e":
+                max = 120;
+                min = 50;
+                break;
+
+            case "g":
+                max = 70;
+                min = 40;
+                break;
+
+            case "w":
+                max = 10;
+                min = 1;
+                break;
+        }
 
         System.out.println("Tu es maintenant connecté");
         System.out.println("Pour quitter le programme: Entrez un caractère + ENTER");
@@ -64,7 +84,7 @@ public class App
                 {
                     public void run()
                     {
-                        int conso = rand.nextInt(3000) + 1500;
+                        int conso = rand.nextInt(max-min) + min;
                         String url = "https://babawallet.alwaysdata.net/api/common/consumptions";
                         Map<String, String> parameters = new HashMap<>();
                         parameters.put("ean", ean);
