@@ -214,13 +214,8 @@ public class ClientApi extends MyApi implements RouterApi
         if(slice == null)
             return;
 
-        String energyCategory = routingContext.pathParam("energy_category");
-        String regionCategory = routingContext.pathParam("region_category");
-
-        System.out.println("Energie " + energyCategory);
-        System.out.println("Region " + regionCategory);
-        System.out.println("Energie2 " + routingContext.request().getParam("energyCategory"));
-        System.out.println("Region2 " + routingContext.request().getParam("regionCategory"));
+        String energyCategory = routingContext.request().getParam("energy_category");
+        String regionCategory = routingContext.request().getParam("region_category");
 
         Object[] res = commonDB.getProposalManager().getAllProposals(energyCategory, regionCategory, slice[0], slice[1]);
         int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);

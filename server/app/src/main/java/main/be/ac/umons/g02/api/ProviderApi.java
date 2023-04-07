@@ -257,13 +257,20 @@ public class ProviderApi extends MyApi implements RouterApi
         try
         {
             if(checkParam((variableDayPrice = body.getDouble("variable_day_price")), routingContext)) return;
-            System.out.println("coucou");
             if(checkParam((isFixedRate = body.getBoolean("is_fixed_rate")), routingContext)) return;
-            if(checkParam((duration = body.getInteger("duration")), routingContext)) return;
+
+            String stringDuration = null;
+            if(checkParam((stringDuration = body.getString("duration")), routingContext)) return;
+            {
+                if(stringDuration.equals("baba"))
+                    duration = 1;
+                else
+                    duration = (new Integer(stringDuration)) * 720; // Pour transformer les heures en mois
+            }
 
             variableNightPrice = body.getDouble("variable_night_price", 0.0);
         }
-        catch(ClassCastException error)
+        catch(Exception error)
         {
             routingContext.response()
                 .setStatusCode(400)
