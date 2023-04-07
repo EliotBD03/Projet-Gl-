@@ -200,21 +200,12 @@ export default {
             },
             convertLocation: function(location) {
                 const result = [];
+                const ref = ["Bruxelles-Capitale", "Flandre", "Wallonie"];
 
-                if (location >= 100) {
-                    result.push('Bruxelles-Capitale');
-                    location -= 100;
-                }
-
-                if (location >= 10) {
-                    result.push('Flandre');
-                    location -= 10;
-                }
-
-                if (location >= 1) {
-                    result.push('Wallonie');
-                }
-
+                for(let i = 0; i < location.length; i++)
+                    if(location.substr(i,1) === "1")
+                        result.push(ref[i])
+                        
                 return result.join(' - ');
             },
         }
