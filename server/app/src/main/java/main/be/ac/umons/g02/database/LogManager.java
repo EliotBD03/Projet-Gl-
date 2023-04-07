@@ -87,9 +87,12 @@ public class LogManager
      * @param id l'identifiant du compte à supprimer
      */
 
-    public void deleteAccount(String id)
+    public boolean deleteAccount(String id)
     {
         boolean isClient = new Query("SELECT EXISTS(SELECT * FROM client WHERE client_id="+id+") as c").executeAndGetResult("c").getIntElem(0,0) == 1;
+
+        if(new Query("SELECT EXISTS(SELECT * FROM contract WHERE provider_id="+id+" OR client_id="+id+") as c").executeAndGetResult("c").getIntElem(0,0) >= 1)
+            return false;
 
         if(isClient)
             new Query("DELETE FROM client WHERE client_id="+id).executeWithoutResult();
@@ -98,6 +101,8 @@ public class LogManager
 
         new Query("DELETE FROM language WHERE id="+id).executeWithoutResult();
         new Query("DELETE FROM user WHERE id="+id).executeWithoutResult();
+
+        return true;
     }
 
     /**

@@ -20,6 +20,9 @@
     <div class="bottombutton" @click.prevent.left="redirecting()">
       <GoButton text="header.home" :colore="'#B1B9FC'"/>
     </div>
+    <div class="rightcancelbutton" @click.prevent.left="askDelete()">
+      <GoButton text="Delete account" :colore="'#FF2D00'"/>
+    </div>
   </div>
 </template>
 
@@ -72,6 +75,73 @@ export default {
         GlobalMethods.disconnect("/forgottenpassword");
       }
     },
+    async deleteAccount()
+    {
+      const requestOptions=
+      {
+        method:"POST",
+        headers: {'Authorization': this.$cookies.get("token")}
+      };
+      try
+      {
+        const response = await fetch(`https://babawallet.alwaysdata.net/api/delete_account`, requestOptions);
+        if(!response.ok)
+        {
+          if(response.status == 401)
+            throw new Error("Token")
+          else
+          {
+            const data = await response.json();
+            throw new Error(data.error);
+          }
+
+        }
+        else
+        {
+          Swal.fire(
+            {
+              icon: "success",
+              title: "Success",
+              text: "Your account has been deleted"
+            }
+          )
+          this.$router.push({name: "login"});
+        }
+      }
+      catch(error)
+      {
+        if(error.message === "Token")
+        {
+          this.$cookies.remove("token");
+          this.$cookies.remove("role");
+          Swal.fire('Your connection has expired');
+          this.$router.push("/")
+        }
+        else
+          Swal.fire("There are still some contract");  
+        
+      }
+    },
+    askDelete(){
+      Swal.fire({
+                  icon: "warning",
+                  title: 'WARNING',
+                  text: "are you sure you want to leave us :'(",
+                  buttons:{
+                    myButtonOk:{
+                      text: 'Yes',
+                      action: function()
+                      {
+                        this.deleteAccount();
+                        Swal.close();
+                      }
+                    },
+                    cancel: true
+                  }
+                  
+                });
+    }
+    
   }
 };
 </script>
