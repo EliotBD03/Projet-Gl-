@@ -117,7 +117,7 @@ export default {
           Swal.fire('Your connection has expired');
           this.$router.push("/")
         }
-        else
+        else if(error.message === "stillContract")
           Swal.fire("There are still some contract");  
         
       }
@@ -127,18 +127,13 @@ export default {
                   icon: "warning",
                   title: 'WARNING',
                   text: "are you sure you want to leave us :'(",
-                  buttons:{
-                    myButtonOk:{
-                      text: 'Yes',
-                      action: function()
-                      {
-                        this.deleteAccount();
-                        Swal.close();
-                      }
-                    },
-                    cancel: true
+                  confirmButtonText: 'Yes...'
+                }).then((result) => {
+                  if(result.isConfirmed)
+                  {
+                    this.deleteAccount();
+                    Swal.close();
                   }
-                  
                 });
     }
     
