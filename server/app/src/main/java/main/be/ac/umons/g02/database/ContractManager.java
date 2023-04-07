@@ -185,7 +185,7 @@ public class ContractManager
 
         String contractId = new Query("SELECT max(contract_id) AS m FROM provider_contract").executeAndGetResult("m").getStringElem(0,0);
         String openingDate = "CURDATE()";
-        String closingDate = "DATE_ADD(CURDATE(), INTERVAL "+new ProposalManager().getProposal(proposalName, providerId).getDuration()+" MONTH)";
+        String closingDate = "DATE_ADD(CURDATE(), INTERVAL "+new ProposalManager().getProposal(proposalName, providerId).getDuration()+" HOUR)";
 
         new ConsumptionManager().createCounterOrReplace(ean, contractId);
 

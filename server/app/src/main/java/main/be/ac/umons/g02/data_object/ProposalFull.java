@@ -8,7 +8,7 @@ public class ProposalFull extends ProposalBasic
     private boolean isFixedRate;
     private String startOffPeakHours;
     private String endOfPeakHours;
-    private int duration; //duration se compte en mois
+    private int duration; //duration se compte en heure
 
     public ProposalFull(String providerId, String nameProvider, String typeEnergy, String location, String nameProposal)
     {
