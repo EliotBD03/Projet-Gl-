@@ -96,20 +96,19 @@ public class ProposalManager
      * @param limit le nombre d'éléments
      * @return un tableau contenant en premier indice le nombre d'éléments total et une ArrayList contenant des ProposalBasics.
      */
-    public Object[] getAllProposals(String energyCategory, String regionCategory, int base, int limit)
+    public Object[] getAllProposals(String energyCategory, String regionCategory, int base, int limit) //TODO je suis amnésique je pense
     {
-        String query = "SELECT * FROM proposal LIMIT "+base+", "+limit;
+        String query = "SELECT * FROM proposal";
         if(energyCategory != null && regionCategory != null)
-            query = "SELECT * FROM proposal WHERE "+energyCategory+"=1 AND location LIKE'"+parseLocation(regionCategory) + "' LIMIT "+base+", "+limit;
+            query = "SELECT * FROM proposal WHERE "+energyCategory+"=1 AND location LIKE'"+parseLocation(regionCategory) + "'";
         else if(energyCategory != null)
-            query = "SELECT * FROM proposal WHERE "+energyCategory+"=1 LIMIT "+base+", "+limit;
+            query = "SELECT * FROM proposal WHERE "+energyCategory+"=1";
         else if(regionCategory != null)
-            query = "SELECT * FROM proposal WHERE location LIKE '"+parseLocation(regionCategory) + "' LIMIT "+base+", "+limit;
+            query = "SELECT * FROM proposal WHERE location LIKE '"+parseLocation(regionCategory) + "'";
 
-        System.out.println(query);
-        int count = new Query(query).executeAndGetResult("c").getIntElem(0,0);
+        int count = new Query("SELECT count(*) AS 'c' FROM ("+query+") e").executeAndGetResult("c").getIntElem(0,0);
 
-        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult
+        ArrayList<ArrayList<String>> table = new Query(query + " LIMIT " + base+", " +limit).executeAndGetResult
                 (
                         "proposal_name","provider_id", "water", "gas", "electricity", "location"
                 ).getTable();
