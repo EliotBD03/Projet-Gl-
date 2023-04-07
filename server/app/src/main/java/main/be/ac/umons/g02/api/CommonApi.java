@@ -458,6 +458,11 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("AddConsumption...");
 
+        String id = null;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
+        boolean isClient = commonDB.getLogManager().isClient(id);
+
         JsonObject body = null;
         if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
 
@@ -504,7 +509,7 @@ public class CommonApi extends MyApi implements RouterApi
         }
 
         ArrayList<String> listDate = new ArrayList<>(arrayListDate.getList());
-        boolean valueChange = commonDB.getConsumptionManager().addConsumption(ean, listValue, listDate, forcingChange);
+        boolean valueChange = commonDB.getConsumptionManager().addConsumption(ean, listValue, listDate, forcingChange, isClient);
 
         routingContext.response()
             .setStatusCode(200)
