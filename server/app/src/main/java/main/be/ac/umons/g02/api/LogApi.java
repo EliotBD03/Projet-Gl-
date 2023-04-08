@@ -36,8 +36,6 @@ public class LogApi extends MyApi implements RouterApi
         subRouter.post("/save_account").handler(this::saveAccount);
         subRouter.put("/renitialize_pwd").handler(this::renitializePwd);
         subRouter.get("/code").handler(this::getCode);
-        subRouter.delete("/delete_account").handler(this::deleteAccount);
-
         return subRouter;
     }
 
@@ -302,27 +300,5 @@ public class LogApi extends MyApi implements RouterApi
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "error.codeNotSend")));
         }
-    }
-
-    private void deleteAccount(final RoutingContext routingContext)
-    {
-        LOGGER.info("DeleteAccount...");
-
-        String id = null;
-        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
-
-        boolean isDeleted = commonDB.getLogManager().deleteAccount(id);
-
-        if(isDeleted)
-            routingContext.response()
-                    .setStatusCode(200)
-                    .putHeader("Content-Type", "application/json")
-                    .end();
-        else
-            routingContext.response()
-                .setStatusCode(405)
-                .putHeader("Content-Type", "application/json")
-                .end(Json.encodePrettily(new JsonObject()
-                        .put("error", "error.stillContract")));
     }
 }

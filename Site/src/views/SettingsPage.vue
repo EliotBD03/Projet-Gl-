@@ -96,47 +96,43 @@ export default {
                 GlobalMethods.disconnect("/forgottenpassword");
             }
         },
-        async deleteAccount()
+        deleteAccount()
         {
             const requestOptions=
                 {
-                    method:"DELETE",
-                    headers: {'Authorization': this.$cookies.get("token")}
+                    method:"GET",
+                    headers: {'Authorization': this.$cookies.get("token")},
+                    body: JSON.stringify({code:"azertyuiop"})
                 };
-            try
-            {
-                const response = await fetch(`https://babawallet.alwaysdata.net/log/delete_account`, requestOptions);
-                if(!response.ok)
-                {
-                    if(response.status == 401)
-                        throw new Error("Token")
+            fetch(`https://babawallet.alwaysdata.net/api/delete_user/`, requestOptions)
+                .then(response => {
+                    if(!response.ok)
+                    {
+                        if(response.status == 401)
+                            throw new Error("Token");
+                        else
+                            return response.json().then(json => Promise.reject(json));
+                    }
                     else
                     {
-                        const data = await response.json();
-                        throw new Error(data.error);
-                    }
-
-                }
-                else
-                {
-                    Swal.fire(
-                        {
-                            icon: "success",
-                            title: "Success",
-                            text: "Your account has been deleted"
-                        }
-                    )
-                    this.$router.push({name: "/"});
-                }
-            }
-            catch(error)
-            {
-                if(error.message === "Token")
-                    GlobalMethods.errorToken();
-                else if(error.message === "stillContract")
-                    Swal.fire("There are still some contract");
-
-            }
+                        Swal.fire(
+                            {
+                                icon: "success",
+                                title: "Success",
+                                text: "Your account has been deleted"
+                            }
+                        )
+                        this.$router.push({name: "/"});
+                    }     
+                })
+                .catch(error => {
+                    if(error.message === "Token")
+                        GlobalMethods.errorToken();
+                    else if(error.message === "stillContract")
+                        Swal.fire("There are still some contract");
+                    else
+                        GlobalMethods.errorApi(error.error);
+                });
         },
         askDelete(){
         Swal.fire({
