@@ -54,67 +54,6 @@ export default {
             this.$i18n.locale = this.language;
         }
     },
-    async deleteAccount()
-    {
-        const requestOptions=
-            {
-                method:"POST",
-                headers: {'Authorization': this.$cookies.get("token")}
-            };
-        try
-        {
-            const response = await fetch(`https://babawallet.alwaysdata.net/api/delete_account`, requestOptions);
-            if(!response.ok)
-            {
-                if(response.status == 401)
-                    throw new Error("Token")
-                else
-                {
-                    const data = await response.json();
-                    throw new Error(data.error);
-                }
-
-            }
-            else
-            {
-                Swal.fire(
-                    {
-                        icon: "success",
-                        title: this.$t("alerts.good"),
-                        text: this.$t("alerts.deletedaccount")
-                    }
-                )
-                this.$router.push({name: "login"});
-            }
-        }
-        catch(error)
-        {
-            if(error.message === "Token")
-            {
-                this.$cookies.remove("token");
-                this.$cookies.remove("role");
-                Swal.fire(this.$t("alerts.connectionexpired"));
-                this.$router.push("/")
-            }
-            else if(error.message === "stillContract")
-                Swal.fire(this.$t("alerts.stillcontracts"));
-
-        }
-    },
-    askDelete(){
-        Swal.fire({
-            icon: "warning",
-            title: this.$t("alerts.warning"),
-            text: this.$t("alerts.areyousure"),
-            confirmButtonText: this.$t("alerts.yes"),
-        }).then((result) => {
-            if(result.isConfirmed)
-            {
-                this.deleteAccount();
-                Swal.close();
-            }
-        });
-    },
     created() {
         GlobalMethods.getCurrentLanguage();
     },
@@ -157,6 +96,58 @@ export default {
                 GlobalMethods.disconnect("/forgottenpassword");
             }
         },
+        deleteAccount()
+        {
+            const requestOptions=
+                {
+                    method:"GET",
+                    headers: {'Authorization': this.$cookies.get("token")},
+                    body: JSON.stringify({code:"azertyuiop"})
+                };
+            fetch(`https://babawallet.alwaysdata.net/api/delete_user/`, requestOptions)
+                .then(response => {
+                    if(!response.ok)
+                    {
+                        if(response.status == 401)
+                            throw new Error("Token");
+                        else
+                            return response.json().then(json => Promise.reject(json));
+                    }
+                    else
+                    {
+                        Swal.fire(
+                            {
+                                icon: "success",
+                                title: this.$t("alerts.good"),
+                                text: this.$t("alerts.deletedaccount")
+                            }
+                        )
+                        this.$router.push({name: "/"});
+                    }     
+                })
+                .catch(error => {
+                    if(error.message === "Token")
+                        GlobalMethods.errorToken();
+                    else if(error.message === "stillContract")
+                        Swal.fire(this.$t("alerts.stillcontracts"));
+                    else
+                        GlobalMethods.errorApi(error.error);
+                });
+        },
+        askDelete(){
+        Swal.fire({
+            icon: "warning",
+            title: this.$t("alerts.warning"),
+            text: this.$t("alerts.areyousure"),
+            confirmButtonText: this.$t("alerts.yes"),
+            }).then((result) => {
+                if(result.isConfirmed)
+                {
+                    this.deleteAccount();
+                    Swal.close();
+                }
+            });
+        }
     }
 };
 </script>

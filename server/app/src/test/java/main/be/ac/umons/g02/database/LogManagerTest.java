@@ -75,7 +75,7 @@ class LogManagerTest {
     @Order(6)
     void deleteAccount()
     {
-        new LogManager().deleteAccount("1");
+        assertTrue(new LogManager().deleteAccount("1"));
         assertNull(new LogManager().checkAccount("test@gmail.com", "password"));
     }
 

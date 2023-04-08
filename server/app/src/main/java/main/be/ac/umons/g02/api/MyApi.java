@@ -103,7 +103,7 @@ public class MyApi extends AbstractVerticle
         router.get("/timer_task/clear_blacklist/:code").handler(this::cleanExpiredTokens);
         router.get("/timer_task/clear_codelist/:code").handler(routingContext -> App.automaticDeleteCode(routingContext));
         router.get("/timer_task/clear_contract/:code").handler(this::cleanExpiredContract);
-        router.get("/delete_user/:id/:code").handler(this::deleteUser);
+        router.get("/delete_user/:code").handler(this::deleteUser);
 
         logApi = new LogApi();
         clientApi = new ClientApi();
@@ -227,17 +227,24 @@ public class MyApi extends AbstractVerticle
     {
         LOGGER.info("DeleteUser...");
 
-        String id = routingContext.pathParam("id");
+        String id = null;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
         String code = routingContext.pathParam("code");
 
         if(codeToDeleteClient.equals(code))
         {
-            commonDB.getLogManager().deleteAccount(id);
-
-            routingContext.response()
-                .setStatusCode(200)
-                .putHeader("Content-Type", "application/json")
-                .end();
+           if(commonDB.getLogManager().deleteAccount(id))
+                routingContext.response()
+                    .setStatusCode(200)
+                    .putHeader("Content-Type", "application/json")
+                    .end();
+           else
+               routingContext.response()
+                       .setStatusCode(401)
+                       .putHeader("Content-Type", "application/json")
+                       .end(Json.encodePrettily(new JsonObject()
+                               .put("error", "error.stillContracts")));
         }
         else
             routingContext.response()
