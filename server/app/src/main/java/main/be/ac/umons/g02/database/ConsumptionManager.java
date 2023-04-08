@@ -147,9 +147,7 @@ public class ConsumptionManager
         String getMaximumValueQuery = "SELECT daily_consumption" +
                 " FROM consumption " +
                 "WHERE date_recorded IN " +
-                "(SELECT max(date_recorded) FROM consumption) " +
-                "AND " +
-                "ean = '"+ean+"'";
+                "(SELECT max(date_recorded) FROM consumption WHERE ean='"+ean+"')";
 
         double maxVal = new Query(getMaximumValueQuery).executeAndGetResult("daily_consumption").getDoubleElem(0,0);
 
