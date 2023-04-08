@@ -100,7 +100,6 @@
           try {
               const response = await fetch("https://babawallet.alwaysdata.net/api/common/languages/current_language", requestOptions);
               const currentLanguage = await response.json();
-              console.log(currentLanguage);
               i18n.locale = currentLanguage.language;
           } catch (error) {
               if (error.message === "Token") {

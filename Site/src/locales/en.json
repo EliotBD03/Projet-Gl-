@@ -110,7 +110,8 @@
     "yes": "Yes",
     "modifiedproposal": "Proposal modified",
     "deletedwallet": "Wallet deleted",
-    "nowallet": "There is no wallet"
+    "nowallet": "There is no wallet",
+    "seeyousoon": "See you soon !"
   },
   "wallet": {
     "loading": "Loading...",
@@ -125,7 +126,7 @@
   },
   "account" : {
     "client": "Client",
-    "supplier": "Supplier",
+    "provider": "Provider",
     "french": "French",
     "english": "English",
     "name": "Name",

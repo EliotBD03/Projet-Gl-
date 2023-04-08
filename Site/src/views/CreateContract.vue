@@ -56,6 +56,8 @@
                     <InputMain :text="$t('proposal.duration')" v-model="duration"/>
                 </p>
                 <p>
+                    {{ $t("proposal.rate") }} :</p>
+                <p>
                     <input type="radio" id="Fixed" value="true" v-model="is_fixed_rate">
                     <label for="Fixed">{{ $t("proposal.fixed") }} {{ $t("proposal.rate") }}</label>
                     <input type="radio" id="Variable" value="false" v-model="is_fixed_rate">
@@ -144,7 +146,7 @@ export default {
             else if (this.variable_night_price === '') Swal.fire(this.$t("proposal.enternightprice"));
             else if (!this.variable_day_price) Swal.fire(this.$t("proposal.enterdayprice"));
             else if (!this.is_fixed_rate) Swal.fire(this.$t("proposal.selectratetype"));
-            else if (!isNaN(this.duration) || this.duration !== 'baba') Swal.fire(this.$t("proposal.enterduration"));
+            else if (!this.isNum(this.duration) || this.duration === 'baba') Swal.fire(this.$t("alerts.enterduration"));
             else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire(this.$t("proposal.selectstarthour"));
             else if (this.checkCounter() && !this.end_off_peak_hours) Swal.fire(this.$t("proposal.selectendhour"));
             else return true;
@@ -155,6 +157,9 @@ export default {
         },
         checkCounter() {
             return parseFloat(this.variable_night_price) !== 0;
+        },
+        isNum(value) {
+            return /^\d+$/.test(value);
         },
         post() {
             if (this.checkArgs()) {

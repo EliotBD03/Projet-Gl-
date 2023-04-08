@@ -92,7 +92,7 @@
     "enternightprice": "Entrez un prix de nuit",
     "enterdayprice": "Entrez un prix de jour",
     "selectratetype": "Sélectionnez un type de tarif",
-    "enterduration": "Entrez une durée",
+    "enterduration": "Entrez une durée correcte",
     "selectstarthour": "Sélectionnez une heure de début",
     "selectendhour": "Sélectionnez une heure de fin",
     "addedcontract": "Contrat ajouté",
@@ -109,7 +109,8 @@
     "yes": "Oui",
     "modifiedproposal": "Proposition modifiée",
     "deletedwallet": "Portefeuille supprimé",
-    "nowallet": "Vous n'avez pas de portefeuille"
+    "nowallet": "Vous n'avez pas de portefeuille",
+    "seeyousoon": "À bientôt !"
   },
   "wallet": {
     "loading": "Chargement en cours...",
@@ -124,7 +125,7 @@
   },
   "account" : {
     "client": "Client",
-    "supplier": "Fournisseur",
+    "provider": "Fournisseur",
     "french": "Français",
     "english": "Anglais",
     "name": "Nom",

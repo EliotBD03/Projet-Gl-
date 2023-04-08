@@ -53,10 +53,12 @@
                     <InputMain :text="$t('proposal.duration')" v-model="duration"/>
                 </p>
                 <p>
+                    {{ $t("proposal.rate") }} :</p>
+                <p>
                     <input type="radio" id="Fixed" value="true" v-model="is_fixed_rate">
-                    <label for="Fixed">{{ $t("proposal.fixed") }} {{ $t("proposal.rate") }}</label>
+                    <label for="Fixed">{{ $t("proposal.fixed") }}</label>
                     <input type="radio" id="Variable" value="false" v-model="is_fixed_rate">
-                    <label for="Variable">{{ $t("proposal.variable") }} {{ $t("proposal.rate") }}</label>
+                    <label for="Variable">{{ $t("proposal.variable") }}</label>
                 </p>
                 <GoButton text="button.change" type="submit" :colore="'green'"/>
             </form>
@@ -137,7 +139,7 @@ export default {
                 this.variable_night_price = this.contract.variableNightPrice;
                 this.variable_day_price = this.contract.variableDayPrice;
                 this.is_fixed_rate = this.contract.fixedRate;
-                this.duration = parseInt(this.contract.duration);
+                this.duration = this.contract.duration;
                 console.log(this.is_fixed_rate)
             }
         }
@@ -195,18 +197,21 @@ export default {
             return parseFloat(this.variable_night_price) !== 0;
         },
         checkArgs() {
-            if (!this.name_proposal) Swal.fire(this.$t("proposal.enternameproposal"));
-            else if (this.localization === '000') Swal.fire(this.$t("proposal.selectlocation"));
-            else if (this.variable_night_price === '') Swal.fire(this.$t("proposal.enternightprice"));
-            else if (!this.variable_day_price) Swal.fire(this.$t("proposal.enterdayprice"));
-            else if (!isNaN(this.duration) || this.duration !== 'baba') Swal.fire(this.$t("proposal.enterduration"));
-            else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire(this.$t("proposal.selectstarthour"));
-            else if (this.checkCounter() && !this.end_off_peak_hours) Swal.fire(this.$t("proposal.selectendhour"));
+            if (!this.name_proposal) Swal.fire(this.$t("alerts.enternameproposal"));
+            else if (this.localization === '000') Swal.fire(this.$t("alerts.selectlocation"));
+            else if (this.variable_night_price === '') Swal.fire(this.$t("alerts.enternightprice"));
+            else if (!this.variable_day_price) Swal.fire(this.$t("alerts.enterdayprice"));
+            else if (!this.isNum(this.duration) || this.duration === 'baba') Swal.fire(this.$t("alerts.enterduration"));
+            else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire(this.$t("alerts.selectstarthour"));
+            else if (this.checkCounter() && !this.end_off_peak_hours) Swal.fire(this.$t("alerts.selectendhour"));
             else return true;
         },
         convertToBoolean(value) {
             if (value === 'true') return true;
             else return false;
+        },
+        isNum(value) {
+            return /^\d+$/.test(value);
         },
         post() {
             if (this.checkArgs()) {
@@ -219,7 +224,7 @@ export default {
                         variable_night_price: parseFloat(this.variable_night_price),
                         variable_day_price: parseFloat(this.variable_day_price),
                         is_fixed_rate: this.convertToBoolean(this.is_fixed_rate),
-                        duration: parseInt(this.duration),
+                        duration: this.duration,
                         start_off_peak_hours: this.start_off_peak_hours,
                         end_off_peak_hours: this.end_off_peak_hours
                     }),
@@ -261,7 +266,7 @@ export default {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    height: 120vh;
+    height: 100vh;
 }
 
 .header {
@@ -278,7 +283,7 @@ export default {
     justify-content: center;
     flex-direction: column;
     width: 600px;
-    height: 700px;
+    height: 600px;
     border-radius: 50px;
     background: #e0e0e0;
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);

@@ -5,7 +5,7 @@
         </div>
         <div class="informations">
             <p>
-                <b>{{ $t("proposal.typeofenergy") }}</b> : {{ contract.typeOfEnergy.charAt(0).toUpperCase() + contract.typeOfEnergy.slice(1)  }}
+                <b>{{ $t("proposal.typeofenergy") }}</b> : {{ convertEnergy()  }}
             </p>
             <p>
                 <b>{{ $t("proposal.location") }}</b> : {{ convertLocation(this.location) }}
@@ -111,6 +111,17 @@ export default {
         },
         modifyContract(){
             this.$router.push({name: 'ModifyProposal'});
+        },
+        convertEnergy() {
+            if (this.contract.typeOfEnergy === "gas") {
+                return this.$t("proposal.gas");
+            }
+            else if (this.contract.typeOfEnergy === "electricity") {
+                return this.$t("proposal.electricity");
+            }
+            else {
+                return this.$t("proposal.water");
+            }
         },
         convertLocation: function(location) {
             const result = [];

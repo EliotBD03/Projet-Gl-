@@ -10,7 +10,7 @@
         <label for="Client">{{ $t("account.client") }}</label>
         <br>
         <input type="radio" id="Supplier" value="Supplier" v-model="role">
-        <label for="Supplier">{{ $t("account.supplier") }}</label>
+        <label for="Supplier">{{ $t("account.provider") }}</label>
         <br>
       </div>
       <div class="line">
