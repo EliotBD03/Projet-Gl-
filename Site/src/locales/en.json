@@ -50,7 +50,7 @@
     "modifyproposal": "Modify proposal",
     "closeproposal": "Close proposal",
     "deleteaccount": "Delete account",
-    "addwallet": "Add wallet",
+    "addwallet": "Add wallet"
   },
   "maincard": {
     "newcontracts": "See new contracts",
@@ -110,18 +110,18 @@
     "yes": "Yes",
     "modifiedproposal": "Proposal modified",
     "deletedwallet": "Wallet deleted",
-    "nowallet": "There is no wallet",
+    "nowallet": "There is no wallet"
   },
   "wallet": {
     "loading": "Loading...",
     "owner": "Owner",
-    "lastconsumptions": "Last consumptions",
+    "lastconsumptions": "Last consumptions"
   },
   "consumptions": {
     "yourconsumption": "Your consumption",
     "otherconsumption": "Other consumption",
     "displaymonth": "Display month",
-    "displayday": "Display day",
+    "displayday": "Display day"
   },
   "account" : {
     "client": "Client",
@@ -182,14 +182,14 @@
     "energy": "Energy",
     "counter": "Counter",
     "monohourly": "Monohourly",
-    "bihourly": "Bihourly",
+    "bihourly": "Bihourly"
   },
   "client": {
     "generalinformations": "General informations",
     "associatedcontracts": "Associated contracts",
     "clientname": "Client's name",
     "eancode": "EAN Code",
-    "noinformation": "No information",
+    "noinformation": "No information"
   },
   "error": {
     "alreadytaken": "This mail is already taken"
