@@ -22,7 +22,7 @@
             <GoButton text="header.home" :colore="'#B1B9FC'"/>
         </div>
         <div class="rightcancelbutton" @click.prevent.left="askDelete()">
-            <GoButton text="Delete account" :colore="'#FF2D00'"/>
+            <GoButton text="button.deleteaccount" :colore="'#FF2D00'"/>
         </div>
         </div>
     </div>
@@ -80,8 +80,8 @@ export default {
                 Swal.fire(
                     {
                         icon: "success",
-                        title: "Success",
-                        text: "Your account has been deleted"
+                        title: this.$t("alerts.good"),
+                        text: this.$t("alerts.deletedaccount")
                     }
                 )
                 this.$router.push({name: "login"});
@@ -93,20 +93,20 @@ export default {
             {
                 this.$cookies.remove("token");
                 this.$cookies.remove("role");
-                Swal.fire('Your connection has expired');
+                Swal.fire(this.$t("alerts.connectionexpired"));
                 this.$router.push("/")
             }
             else if(error.message === "stillContract")
-                Swal.fire("There are still some contract");
+                Swal.fire(this.$t("alerts.stillcontracts"));
 
         }
     },
     askDelete(){
         Swal.fire({
             icon: "warning",
-            title: 'WARNING',
-            text: "are you sure you want to leave us :'(",
-            confirmButtonText: 'Yes...'
+            title: this.$t("alerts.warning"),
+            text: this.$t("alerts.areyousure"),
+            confirmButtonText: this.$t("alerts.yes"),
         }).then((result) => {
             if(result.isConfirmed)
             {
@@ -135,7 +135,7 @@ export default {
                 .then(Swal.fire({
                     icon: 'success',
                     title: this.$t('alerts.good'),
-                    text: this.$t('language.changed'),
+                    text: this.$t('alerts.languagechanged'),
                 }))
                 .then(GlobalMethods.isAClient())
                 .catch(error => {

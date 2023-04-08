@@ -5,36 +5,36 @@
         </div>
         <div class ="list">
             <div v-if="isRole()">
-                <p> <b>Associated wallet :</b> {{ associatedWallet }}</p>
-                <p> <b>Address :</b> {{ addressWallet }}</p>
-                <p> <b>Ean :</b> {{ contract.ean }}</p>
-                <p> <b>Provider :</b> {{ contract.providerName }}</p>
+                <p> <b>{{ $t("proposal.associatedwallet") }}</b> {{ associatedWallet }}</p>
+                <p> <b>{{ $t("proposal.address") }}</b> {{ addressWallet }}</p>
+                <p> <b>{{ $t("client.eancode") }}</b> {{ contract.ean }}</p>
+                <p> <b>{{ $t("account.provider") }}</b> {{ contract.providerName }}</p>
             </div>
             <div v-else>
-                <p> <b>Client :</b> {{ contract.clientName }}</p>
-                <p> <b>Mail :</b> {{ mailClient }}</p>
+                <p> <b>{{ $t("account.client") }}</b> {{ contract.clientName }}</p>
+                <p> <b>{{ $t("account.mail") }}</b> {{ mailClient }}</p>
                 <div @click.prevent.left="seeConsumptions(contract)">
-                    <GoButton text="Consumptions" :colore="'#34c98e'"/>
+                    <GoButton text="header.consumption" :colore="'#34c98e'"/>
                 </div>
             </div>
             <p><b>--------------------------</b></p>
-            <p> <b>Type Of Energy :</b> {{ contract.proposal.typeOfEnergy.charAt(0).toUpperCase() + contract.proposal.typeOfEnergy.slice(1) }}</p>
-            <p> <b>Location :</b> {{ convertLocation(contract.proposal.location) }}</p>
-            <p> <b>Price er day :</b> {{ contract.proposal.variableDayPrice }}€</p>
-            <p> <b>Price per night :</b> {{ contract.proposal.variableNightPrice }}€</p>
-            <p> <b>Start of peak-hours :</b> {{ contract.proposal.startOfPeakHours }}</p>
-            <p> <b>End of peak-hours :</b> {{ contract.proposal.endOfPeakHours }}</p>
-            <p> <b>Opening Date :</b> {{ contract.openingDate }}</p>
-            <p> <b>Closing Date :</b> {{ contract.closingDate }}</p>
-            <p v-if="contract.isFixedRate"><b>Rate : </b>Fixed</p>
-            <p v-else><b>Rate : </b>Variable</p>
+            <p> <b>{{ $t("proposal.typeofenergy") }} :</b> {{ contract.proposal.typeOfEnergy.charAt(0).toUpperCase() + contract.proposal.typeOfEnergy.slice(1) }}</p>
+            <p> <b>{{ $t("proposal.location") }} :</b> {{ convertLocation(contract.proposal.location) }}</p>
+            <p> <b>{{ $t("proposal.priceperday") }} :</b> {{ contract.proposal.variableDayPrice }}€</p>
+            <p> <b>{{ $t("proposal.pricepernight") }} :</b> {{ contract.proposal.variableNightPrice }}€</p>
+            <p> <b>{{ $t("proposal.startofpeakhours") }} :</b> {{ contract.proposal.startOfPeakHours }}</p>
+            <p> <b>{{ $t("proposal.endofpeakhours") }} :</b> {{ contract.proposal.endOfPeakHours }}</p>
+            <p> <b>{{ $t("proposal.openingdate") }} :</b> {{ contract.openingDate }}</p>
+            <p> <b>{{ $t("proposal.closingdate") }} :</b> {{ contract.closingDate }}</p>
+            <p v-if="contract.isFixedRate"><b>{{ $t("proposal.rate") }} :</b>{{ $t("proposal.fixed") }}</p>
+            <p v-else><b>{{ $t("proposal.rate") }} :</b>{{ $t("proposal.variable") }}</p>
         </div>
         <div class="bottombutton">
             <div class="backbutton" @click.prevent.left="back()">
-                <GoButton text="Back" :colore="'red'"/>
+                <GoButton text="button.back" :colore="'red'"/>
             </div>
             <div class="closebutton" @click.prevent.left="deleteContract()">
-                <GoButton text="Close the contract" :colore="'red'"/>
+                <GoButton text="button.closecontract" :colore="'red'"/>
             </div>
         </div>
     </div>
@@ -115,8 +115,8 @@ export default {
                     else{
                         Swal.fire({
                             icon: 'success',
-                            title: 'Good !',
-                            text: 'Contract deleted !'
+                            title: this.$t("alerts.good"),
+                            text: this.$t("alerts.deletecontract")
                         })
                         this.back();
                     }
@@ -144,17 +144,17 @@ export default {
             const result = [];
 
             if (location >= 100) {
-                result.push('Wallonie');
+                result.push(this.$t("proposal.wallonia"));
                 location -= 100;
             }
 
             if (location >= 10) {
-                result.push('Flandre');
+                result.push(this.$t("proposal.flanders"));
                 location -= 10;
             }
 
             if (location >= 1) {
-                result.push('Bruxelles-Capitale');
+                result.push(this.$t("proposal.brussels"));
             }
 
             return result.join(' - ');

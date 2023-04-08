@@ -11,7 +11,7 @@
                 <GoButton text="header.home" :colore="'#B1B9FC'"/>
             </div>
             <div class="refresh-button" @click="refreshNotifications">
-                <GoButton text="header.refresh" :colore="'#B1B9FC'"/>
+                <GoButton text="button.refresh" :colore="'#B1B9FC'"/>
             </div>
         </div>
     </div>
@@ -68,7 +68,7 @@ export default {
                             throw new Error(data.error);
                         }
                     } else {
-                        Swal.fire('Notification deleted');
+                        Swal.fire(this.$t("alerts.deletednotification"));
                         this.refreshNotifications();
                     }
                 })
@@ -100,7 +100,7 @@ export default {
                     this.lastPage = data.last_page;
                     if (this.lastPage == 0) {
                         this.loading = true;
-                        Swal.fire('No notifications yet !');
+                        Swal.fire(this.$t("alerts.nonotifications"));
                     } else {
                         this.id = data.id_proposal;
                         this.notifications = data.allNotifications;
@@ -137,7 +137,7 @@ export default {
                             throw new Error(data.error);
                         }
                     } else {
-                        Swal.fire('Notification accepted');
+                        Swal.fire(this.$t("alerts.notificationaccepted"));
                         this.refreshNotifications();
                     }
                 })
@@ -149,7 +149,7 @@ export default {
                     }
                 });
             } else {
-                Swal.fire('EAN is not valid');
+                Swal.fire(this.$t("alerts.wrongean"));
             }
             await this.refreshNotifications();
         },
@@ -168,7 +168,7 @@ export default {
                             throw new Error(data.error);
                         }
                     } else {
-                        Swal.fire('Notification refused');
+                        Swal.fire(this.$t("alerts.refusednotification"));
                         this.refreshNotifications();
                     }
                 })

@@ -5,41 +5,41 @@
     </div>
     <div class = "container">
       <div class ="list">
-          <p class ="text"> <b>General information </b></p>
-          <p> <b>Owner :</b> {{ wallet.ownerName}}</p>
-        <p> <b>Address :</b> {{ wallet.address }}</p>
-        <p> <b>Last consumptions :</b></p>
-        <p v-if="wallet.lastConsumptionOfWater"><b>Water :</b> No information</p>
-          <p v-else><b>Water :</b> {{ wallet.lastConsumptionOfWater }}</p>
-        <p v-if="wallet.lastConsumptionOfGas"><b>Gas :</b> No information</p>
-        <p v-else><b>Gas :</b> {{ wallet.lastConsumptionOfGas }}</p>
-        <p v-if="wallet.lastConsumptionOfElectricity"><b>Electricity :</b> No information</p>
-        <p v-else><b>Electricity :</b> {{ wallet.lastConsumptionOfElectricity }}</p>
+          <p class ="text"> <b>{{ $t("client.generalinformations") }} </b></p>
+          <p> <b>{{ $t("wallet.owner") }} :</b> {{ wallet.ownerName}}</p>
+        <p> <b>{{ $t("proposal.address") }} :</b> {{ wallet.address }}</p>
+        <p> <b>{{ $t("wallet.lastconsumptions") }} :</b></p>
+        <p v-if="wallet.lastConsumptionOfWater"><b>{{ $t("proposal.water") }} :</b> {{ $t("client.noinformation") }}</p>
+          <p v-else><b>{{ $t("proposal.water") }} :</b> {{ wallet.lastConsumptionOfWater }}</p>
+        <p v-if="wallet.lastConsumptionOfGas"><b>{{ $t("proposal.gas") }} :</b> {{ $t("client.noinformation") }}</p>
+        <p v-else><b>{{ $t("proposal.gas") }} :</b> {{ wallet.lastConsumptionOfGas }}</p>
+        <p v-if="wallet.lastConsumptionOfElectricity"><b>{{ $t("proposal.electricity") }} :</b> {{ $t("client.noinformation") }}</p>
+        <p v-else><b>{{ $t("proposal.electricity") }} :</b> {{ wallet.lastConsumptionOfElectricity }}</p>
       </div>
       <div class = "contract">
-        <p class = "text"> <b>Associated contracts </b></p>
+        <p class = "text"> <b>{{ $t("client.associatedcontracts") }} </b></p>
         <div v-if="wallet.contracts">
           <div v-for="contract in wallet.contracts" :key="contract.id">
-            <p> <b>Provider's name :</b> {{ contract.providerName }}</p>
-            <p> <b>EAN :</b> {{ contract.ean }}</p>
+            <p> <b>{{ $t("account.provider") }} :</b> {{ contract.providerName }}</p>
+            <p> <b>{{ $t("client.eancode") }} :</b> {{ contract.ean }}</p>
             <div @click.prevent.left="seeMore(contract)">
               <GoButton text="button.go" :colore="'#34c98e'"/>
             </div>
             <div class="consumptionsbutton" @click.prevent.left="seeConsumptions(contract)">
-              <GoButton text="Consumptions" :colore="'#B1B9FC'"/>
+              <GoButton text="header.consumptions" :colore="'#B1B9FC'"/>
             </div>
             <p><b>--------------------------</b></p>
           </div>
         </div>
-        <div v-else> <b>No information</b></div>
+        <div v-else> <b>{{ $t("client.noinformation") }}</b></div>
       </div>
     </div>
     <div class="bottombutton">
       <div class="backbutton" @click.prevent.left="back()">
-      <GoButton text="Back" :colore="'red'"/>
+      <GoButton text="button.back" :colore="'red'"/>
       </div>
       <div class="closebutton" @click.prevent.left="deleteWallet()">
-      <GoButton text="Close the wallet" :colore="'red'"/>
+      <GoButton text="button.closewallet" :colore="'red'"/>
       </div>
     </div>
   </div>
@@ -126,8 +126,8 @@ export default {
             else{
               Swal.fire({
                 icon: 'success',
-                title: 'Good !',
-                text: 'Wallet deleted !'
+                title: this.$t("alerts.good"),
+                text: this.$t("alerts.deletedwallet")
               })
               this.$router.push({name: 'Wallets'});
             }

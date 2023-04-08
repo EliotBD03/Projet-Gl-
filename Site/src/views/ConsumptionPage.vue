@@ -8,11 +8,11 @@
                 <GoButton text="button.table" :colore="'#34c98e'"/>
             </div>
             <div @click.prevent.left="exportData()">
-                <GoButton text="Export" :colore="'#34c98e'"/><!--trad-->
+                <GoButton text="button.export" :colore="'#34c98e'"/><!--trad-->
             </div>
             <input type="file" id="csv-file" accept=".csv"/>
             <div @click.prevent.left="importData()">
-                <GoButton text="Import" :colore="'#34c98e'"/><!--trad-->
+                <GoButton text="button.import" :colore="'#34c98e'"/><!--trad-->
             </div>
             <div @click.prevent.left="changeMode(true)">
                 <GoButton text="button.graphic" :colore="'#34c98e'"/>
@@ -200,7 +200,7 @@ export default {
                 const data = {
                     labels: this.listDate,
                     datasets: [{
-                        label: 'Your Consumption' + this.unity,//trad
+                        label: this.$t("consumption.yourconsumption") + this.unity,//trad
                         data: this.listValue,
                         fill: false,
                         borderColor: 'rgb(75, 192, 192)',
@@ -210,7 +210,7 @@ export default {
 
                 if(this.isComparaison) {
                     data.datasets[0] += {
-                        label: 'Other Consumption',//trad
+                        label: this.$t("consumption.otherconsumption"),//trad
                         data: this.listValue2,
                         fill: false,
                         borderColor: 'rgb(192, 75, 192)',
@@ -240,12 +240,12 @@ export default {
             const data = document.getElementById("dataNewConsumption").value;
             if(data == '')
             {
-                Swal.fire(this.$t("Entrez une valeur !"));//trad
+                Swal.fire(this.$t("alerts.entervalue"));//trad
                 return false;
             }
             else if(data < 0)
             {
-                Swal.fire(this.$t("Entrez une consommation positive !"));//trad
+                Swal.fire(this.$t("alerts.enterpositiveconsumption"));//trad
                 return false;
             }
 
@@ -280,13 +280,13 @@ export default {
                         this.unity = " (kWh)";
                     }
 
-                    this.labelButtonDisplay = "DisplayMonth" + this.unity;
+                    this.labelButtonDisplay = this.$t("consumption.displaymonth") + this.unity;
                 }
             } catch(error) {
                 if(error.message === "Token") {
                     this.$cookies.remove("token");
                     this.$cookies.remove("role");
-                    Swal.fire('Your connection has expired');//trad
+                    Swal.fire(this.$t("alerts.connectionexpired"));//trad
                     this.$router.push("/");
                 }
                 else {
@@ -421,8 +421,8 @@ export default {
                         if(data.valueChange) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Nickel !',//trad
-                                text: 'La consommation a été ajouté'//trad
+                                title: this.$t("alerts.good"),
+                                text: this.$t("alerts.addedconsumption")
                             })
                             this.listNewValue = [];
                             this.listNewDate = [];
@@ -440,8 +440,8 @@ export default {
                             }
                         } else {
                             Swal.fire({
-                                title: "Êtes-vous sûr de vouloir changer une valeur ?",//trad
-                                text: "Vous ne pourrez plus récupérer la valeur!",//trad
+                                title: this.$t("alerts.surechangingvalue"),
+                                text: this.$t("alerts.cantreturn"),
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#3085d6',
@@ -472,10 +472,10 @@ export default {
             this.listValue = [];
 
             if(this.isDisplayDay) {
-                this.labelButtonDisplay = "DisplayMonth" + this.unity;//trad
+                this.labelButtonDisplay = this.$t("consumption.displaymonth") + this.unity;//trad
                 this.getConsumption();
             } else {
-                this.labelButtonDisplay = "DisplayDay" + this.unity;//trad
+                this.labelButtonDisplay = this.$t("consumption.displayday") + this.unity;//trad
                 this.getConsumptionOfMonth();
             }
         },

@@ -1,10 +1,10 @@
 <template>
     <div class="main">
-        <div class="number">404</div>
-        <div class="text"><span>Ooops...</span><br>Page not found</div>
+        <div class="number">{{ $t("404.title") }}</div>
+        <div class="text"><span>{{ $t("404.text1") }}</span><br>{{ $t("404.text2") }}</div>
         <a class="me" href="https://codepen.io/uzcho_/pens/popular/?grid_type=list" target="_blank"></a>
         <div class="backbutton" @click.prevent.left="back">
-            <GoButton text="Return home" :colore="'darkblue'"/>
+            <GoButton text="button.returnhome" :colore="'darkblue'"/>
             </div>
     </div>
 </template>

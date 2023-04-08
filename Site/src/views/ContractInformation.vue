@@ -4,25 +4,25 @@
             <MainHeader :text="proposal.proposalName"/>
         </div>
         <div class="list">
-            <p><b> Provider :</b>  {{ proposal.nameProvider }} </p>
-            <p> <b>Type of Energy :</b>  {{ proposal.typeOfEnergy  }}</p>
-            <p> <b>Location :</b> </p>
+            <p><b> {{ $t("account.provider") }} :</b>  {{ proposal.nameProvider }} </p>
+            <p> <b>{{ $t("proposal.typeofenergy") }} :</b>  {{ proposal.typeOfEnergy  }}</p>
+            <p> <b>{{ $t("proposal.location") }} :</b> </p>
             <p>{{ convertLocation(proposal.location) }}</p>
-            <p> <b>Basic price :</b> {{ proposal.basicPrice }}</p>
-            <p> <b>Price depends on the day :</b> {{ proposal.variableDayPrice }}</p>
-            <p> <b>Price depends on the night :</b> {{ proposal.variableNightPrice }}</p>
-            <p><b>Rate :</b> {{ this.proposal.fixedRate }}</p>
-            <p> <b>Peak hours :</b> {{ proposal.startOffPeakHours }} - {{ proposal.endOfPeakHours }}</p>
+            <p> <b>{{ $t("proposal.priceperday") }} :</b> {{ proposal.variableDayPrice }}</p>
+            <p> <b>{{ $t("proposal.pricepernight") }} :</b> {{ proposal.variableNightPrice }}</p>
+            <p v-if="proposal.isFixedRate"><b>{{ $t("proposal.rate") }} :</b>{{ $t("proposal.fixed") }}</p>
+            <p v-else><b>{{ $t("proposal.rate") }} :</b>{{ $t("proposal.variable") }}</p>
+            <p> <b>{{ $t("proposal.peakhours") }} :</b> {{ proposal.startOffPeakHours }} - {{ proposal.endOfPeakHours }}</p>
             <div class="input">
                 <form id="input" method="submit" @submit.prevent="submit">
-                    <InputMain :text="$t('address')" v-model="address"/>
-                    <InputMain :text="$t('EAN code')" v-model="ean"/>
-                    <GoButton :text="submitText" @click="submit()" :colore="'green'"/>
+                    <InputMain :text="$t('walletform.address')" v-model="address"/>
+                    <InputMain :text="$t('client.eancode')" v-model="ean"/>
+                    <GoButton text="button.submit" @click="submit()" :colore="'green'"/>
                 </form>
             </div>
         </div>
         <div class="backbutton" @click.prevent.left="$router.push('/newcontracts')">
-            <GoButton text="Back" :colore="'#B1B9FC'"/>
+            <GoButton text="button.back" :colore="'#B1B9FC'"/>
         </div>
     </div>
 </template>
@@ -46,7 +46,6 @@ export default
     data()
     {
         return{
-            submitText: "Submit",
             address: '',
             ean: '',
             providerId: sessionStorage.getItem("providerId"),
@@ -91,7 +90,7 @@ export default
                     {
                         this.$cookies.remove("token");
                         this.$cookies.remove("role");
-                        Swal.fire('Your connection has expired');
+                        Swal.fire(this.$t("alerts.connectionexpired"));
                         this.$router.push("/")
                     }
                     else
@@ -120,8 +119,8 @@ export default
                         {
                             Swal.fire({
                                 icon: "success",
-                                title: 'Good !',
-                                text: 'A message has been sent to the provider !'
+                                title: this.$t("alerts.good"),
+                                text: this.$t("alerts.messagesentprovider")
                             })
                             this.$router.push({name: 'NewContracts'});
                         }
@@ -150,15 +149,24 @@ export default
                 if(this.VerifyEan())
                     this.makeContractRequest();
                 else
-                    Swal.fire("please put a correct EAN code (18 digits and begins with 5414)")
+                    Swal.fire(this.$t("alerts.wrongean"))
             },
             convertLocation: function(location) {
                 const result = [];
-                const ref = ["Bruxelles-Capitale", "Flandre", "Wallonie"];
 
-                for(let i = 0; i < location.length; i++)
-                    if(location.substr(i,1) === "1")
-                        result.push(ref[i])
+                if (location >= 100) {
+                    result.push(this.$t("proposal.wallonia"));
+                    location -= 100;
+                }
+
+                if (location >= 10) {
+                    result.push(this.$t("proposal.flanders"));
+                    location -= 10;
+                }
+
+                if (location >= 1) {
+                    result.push(this.$t("proposal.brussels"));
+                }
 
                 return result.join(' - ');
             },

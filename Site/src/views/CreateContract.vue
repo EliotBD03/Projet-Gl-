@@ -1,71 +1,71 @@
 <template>
     <div class="main">
         <div class="header">
-            <MainHeader text="Add contract"/>
+            <MainHeader text="header.addproposal"/>
         </div>
         <div class="contact-form">
             <form id="addWallet" method="post" v-on:submit.prevent="post">
                 <p>
-                    <InputMain text="Enter the contract name" v-model="name_proposal"/>
+                    <InputMain :text="$t('proposal.entername')" v-model="name_proposal"/>
                 </p>
                 <p>
-                    Type of energy :
+                    {{ $t("proposal.typeofenergy") }} :
                 </p>
                 <p>
                     <input type="radio" id="Water" value="water" v-model="type_of_energy">
-                    <label for="Water">Water</label>
+                    <label for="Water">{{ $t("proposal.water") }}</label>
                     <input type="radio" id="Gas" value="gas" v-model="type_of_energy">
-                    <label for="Gas">Gas</label>
+                    <label for="Gas">{{ $t("proposal.gas") }}</label>
                     <input type="radio" id="Electricity" value="electricity" v-model="type_of_energy">
-                    <label for="Electricity">Electricity</label>
+                    <label for="Electricity">{{ $t("proposal.electricity") }}</label>
                 </p>
                 <p>
                     <label>
                         <input type="checkbox" v-model="wallonie">
-                        Wallonie
+                        {{ $t("proposal.wallonia") }}
                     </label>
                     <label>
                         <input type="checkbox" v-model="flandre">
-                        Flandre
+                        {{ $t("proposal.flanders") }}
                     </label>
                     <label>
                         <input type="checkbox" v-model="bruxelles">
-                        Bruxelles-Capitale
+                        {{ $t("proposal.brussels") }}
                     </label>
                 </p>
                 <p>
-                    <InputMain :text="'Day price'" v-model="variable_day_price"/>
+                    <InputMain :text="$t('proposal.priceperday')" v-model="variable_day_price"/>
                 </p>
                 <p>
-                    <InputMain :text="'Night price'" v-model="variable_night_price"/>
+                    <InputMain :text="$t('proposal.pricepernight')" v-model="variable_night_price"/>
                 </p>
                 <p v-if="checkCounter()">
-                    Off-peak hours :
+                    {{ $t("proposal.peakhours") }} :
                 </p>
                 <div v-if="checkCounter()">
-                    <label for="start-time">Heure de début : </label>
+                    <label for="start-time">{{ $t("proposal.starthour") }} : </label>
                     <select id="start-time" v-model="start_off_peak_hours">
                         <option v-for="hour in hours" :key="hour">{{ hour }}</option>
                     </select>
-                    <label for="end-time"> Heure de fin : </label>
+                    <label for="end-time"> {{ $t("proposal.endhour") }} : </label>
                     <select id="end-time" v-model="end_off_peak_hours">
                         <option v-for="hour in hours" :key="hour">{{ hour }}</option>
                     </select>
                 </div>
                 <p>
-                    <InputMain :text="'Duration (in month)'" v-model="duration"/>
+                    <InputMain :text="$t('proposal.duration')" v-model="duration"/>
                 </p>
                 <p>
                     <input type="radio" id="Fixed" value="true" v-model="is_fixed_rate">
-                    <label for="Fixed">Fixed rate</label>
+                    <label for="Fixed">{{ $t("proposal.fixed") }} {{ $t("proposal.rate") }}</label>
                     <input type="radio" id="Variable" value="false" v-model="is_fixed_rate">
-                    <label for="Variable">Variable rate</label>
+                    <label for="Variable">{{ $t("proposal.variable") }} {{ $t("proposal.rate") }}</label>
                 </p>
                 <GoButton text="button.add" type="submit" :colore="'green'"/>
             </form>
         </div>
         <div class="backbutton" @click.prevent.left="$router.push({name: 'ContractsSupplier'})">
-            <GoButton text="Back" :colore="'darkblue'"/>
+            <GoButton text="button.back" :colore="'darkblue'"/>
         </div>
     </div>
 </template>
@@ -138,15 +138,15 @@ export default {
             this.localization = location
         },
         checkArgs() {
-            if (!this.name_proposal) Swal.fire("Please enter the name proposal");
-            else if (!this.type_of_energy) Swal.fire("Please enter the type of energy");
-            else if (this.localization === '000') Swal.fire("Please enter the localization");
-            else if (this.variable_night_price === '') Swal.fire("Please enter the variable night price");
-            else if (!this.variable_day_price) Swal.fire("Please enter the variable day price");
-            else if (!this.is_fixed_rate) Swal.fire("Please select the rate type");
-            else if (!isNaN(this.duration) || this.duration !== 'baba') Swal.fire("Please enter the duration");
-            else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire("Please select the start off peak hours");
-            else if (this.checkCounter() && !this.end_off_peak_hours) Swal.fire("Please select the end off peak hours");
+            if (!this.name_proposal) Swal.fire(this.$t("proposal.enternameproposal"));
+            else if (!this.type_of_energy) Swal.fire(this.$t("proposal.selecttypeofenergy"));
+            else if (this.localization === '000') Swal.fire(this.$t("proposal.selectlocation"));
+            else if (this.variable_night_price === '') Swal.fire(this.$t("proposal.enternightprice"));
+            else if (!this.variable_day_price) Swal.fire(this.$t("proposal.enterdayprice"));
+            else if (!this.is_fixed_rate) Swal.fire(this.$t("proposal.selectratetype"));
+            else if (!isNaN(this.duration) || this.duration !== 'baba') Swal.fire(this.$t("proposal.enterduration"));
+            else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire(this.$t("proposal.selectstarthour"));
+            else if (this.checkCounter() && !this.end_off_peak_hours) Swal.fire(this.$t("proposal.selectendhour"));
             else return true;
         },
         convertToBoolean(value) {
@@ -187,7 +187,7 @@ export default {
                         Swal.fire({
                             icon: 'success',
                             title: this.$t('alert.good'),
-                            text: 'Your contract has been added',
+                            text: this.$t("alerts.addedcontract"),
                         })
                     )
                 } catch (error) {

@@ -128,7 +128,7 @@
             GlobalMethods.sendCode();
           }
           else{
-            Swal.fire("Please enter your mail to get a code !");
+            Swal.fire(this.$t("alerts.entermailcode"));
           }
       },
       /*Méthode qui permet de retourner à la page login en supprimant le mail des cookies si besoin*/

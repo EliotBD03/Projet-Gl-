@@ -7,11 +7,11 @@
             <div class=cards v-for="contract in listContracts" :key="contract.id">
                 <div class="texte">
                     <p class="name"> {{ contract.proposalName }}</p>
-                    <p><b>Provider :</b></p>
+                    <p><b>{{ $t("account.provider") }} :</b></p>
                     <p> {{ contract.nameProvider }}</p>
-                    <p><b>Energy type :</b></p>
+                    <p><b>{{ $t("proposal.typeofenergy") }} :</b></p>
                     <p> {{ contract.typeOfEnergy.charAt(0).toUpperCase() + contract.typeOfEnergy.slice(1) }}</p>
-                    <p><b>Location :</b></p>
+                    <p><b>{{ $t("proposal.location") }} :</b></p>
                     <p>{{ convertLocation(contract.location) }}</p>
                 </div>
                 <div @click.prevent.left="seeMore(contract)">
@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div v-if="notLastPage()" @click.prevent.left="loader()">
-                <GoButton text="See more contracts" :colore="'#B1B9FC'"/>
+                <GoButton text="button.seemore" :colore="'#B1B9FC'"/>
             </div>
         </div>
         <div class="bottombuttons">
@@ -42,14 +42,6 @@ export default {
         GoButton,
         MainHeader,
     },
-    /*Méthode pour charger la langue sauvegardée en cookie*/
-    mounted() {
-        if (this.$cookies.get("lang")) {
-            this.$i18n.locale = this.$cookies.get("lang");
-        } else {
-            this.$cookies.set("lang", this.$i18n.locale)
-        }
-    },
     data(){
         return{
             linkApi : "https://babawallet.alwaysdata.net/api/provider/proposals/",
@@ -62,6 +54,7 @@ export default {
     /*Au moment de la création on récupère déjà la première page de l'api*/
     created() {
         this.getPage();
+        GlobalMethods.getCurrentLanguage();
     },
     methods: {
         /*Méthode permettant de récupérer les pages des wallets de l'Api en scrollant */
@@ -86,7 +79,7 @@ export default {
                     this.lastPage = data.last_page;
                     if(this.lastPage == 0){
                         this.loading = true;
-                        Swal.fire('No contracts');
+                        Swal.fire(this.$t("alerts.nocontracts"));
                     }
                     else if(this.lastPage >= this.nbr){
                         this.listContracts.push(data.allProposals); //ajouter la suite de la réponse à la liste
@@ -101,7 +94,7 @@ export default {
                 else {
                     if(this.nbr === 1){
                         this.loading = true;
-                        Swal.fire('No contracts');
+                        Swal.fire(this.$t("alerts.nocontracts"));
                     }
                     else{
                         GlobalMethods.errorApi(error.message);
@@ -123,17 +116,17 @@ export default {
             const result = [];
 
             if (location >= 100) {
-                result.push('Wallonie');
+                result.push(this.$t("proposal.wallonia"));
                 location -= 100;
             }
 
             if (location >= 10) {
-                result.push('Flandre');
+                result.push(this.$t("proposal.flanders"));
                 location -= 10;
             }
 
             if (location >= 1) {
-                result.push('Bruxelles-Capitale');
+                result.push(this.$t("proposal.brussels"));
             }
 
             return result.join(' - ');

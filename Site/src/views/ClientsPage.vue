@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text="Your clients"/>
+      <MainHeader text="header.yourclients"/>
     </div>
     <div class="allcards">
       <div class=cards v-for="client in listClient" :key="client.id">
@@ -14,11 +14,11 @@
         </div>
       </div>
       <div v-if="notLastPage()" @click.prevent.left="loader()">
-        <GoButton text="See more clients" :colore="'#B1B9FC'"/>
+        <GoButton text="button.seemore" :colore="'#B1B9FC'"/>
       </div>
     </div>
     <div @click.prevent.left="$router.push('/addClient')">
-      <GoButton text="Add a client" :colore="'#B1B9FC'"/>
+      <GoButton text="button.addclient" :colore="'#B1B9FC'"/>
     </div>
     <div class="homebutton" @click.prevent.left="$router.push({ name: 'HomeSupplier' })">
       <GoButton text="header.home" :colore="'#B1B9FC'"/>
@@ -75,7 +75,7 @@
             this.lastPage = data.last_page;
             if(this.lastPage == 0){
                 this.loading = true;
-                Swal.fire('No client');          
+                Swal.fire(this.$t("alerts.noclient"));
             }
             else if(this.lastPage >= this.nbr){
               this.listClient.push(data.allHisClients); //ajouter la suite de la réponse à la liste

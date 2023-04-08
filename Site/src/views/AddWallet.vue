@@ -1,7 +1,7 @@
 <template>
     <div class="main">
         <div class="header">
-            <MainHeader text="Add a wallet"/>
+            <MainHeader text="header.addwallet"/>
         </div>
         <div class="contact-form">
             <form id="addWallet" method="post" v-on:submit.prevent="post">
@@ -15,7 +15,7 @@
             </form>
         </div>
         <div class="backbutton" @click.prevent.left="$router.push('/wallets')">
-            <GoButton text="Back" :colore="'red'"/>
+            <GoButton text="button.back" :colore="'red'"/>
         </div>
     </div>
 </template>
@@ -39,8 +39,8 @@ export default {
     /*Méthode qui vérifie si les champs nom et adresse sont bien remplis sinon envoie une pop-up*/
     methods: {
         checkArgs(){
-            if(!this.name) Swal.fire("Please enter your name");
-            else if(!this.address) Swal.fire("Please enter your address");
+            if(!this.name) Swal.fire(this.$t("alerts.name"));
+            else if(!this.address) Swal.fire(this.$t("alerts.address"));
             else return true;
         },
         /**
@@ -69,8 +69,8 @@ export default {
                         else{
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Good !',
-                                text: 'Wallet created !'
+                                title: this.$t("alerts.good"),
+                                text: this.$t("alerts.walletcreated")
                             })
                             this.$router.push({ name: 'Wallets' });
                         }

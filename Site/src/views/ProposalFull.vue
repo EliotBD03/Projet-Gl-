@@ -5,45 +5,45 @@
         </div>
         <div class="informations">
             <p>
-                <b>Type of energy</b> : {{ contract.typeOfEnergy.charAt(0).toUpperCase() + contract.typeOfEnergy.slice(1)  }}
+                <b>{{ $t("proposal.typeofenergy") }}</b> : {{ contract.typeOfEnergy.charAt(0).toUpperCase() + contract.typeOfEnergy.slice(1)  }}
             </p>
             <p>
-                <b>Location</b> : {{ convertLocation(this.location) }}
+                <b>{{ $t("proposal.location") }}</b> : {{ convertLocation(this.location) }}
             </p>
             <p>
-                <b>Price per day</b> : {{ contract.variableDayPrice }} €
+                <b>{{ $t("proposal.priceperday") }}</b> : {{ contract.variableDayPrice }} €
             </p>
             <p>
-                <b>Price per night</b> : {{ contract.variableNightPrice }} €
+                <b>{{ $t("proposal.pricepernight") }}</b> : {{ contract.variableNightPrice }} €
             </p>
             <p v-if="contract.fixedRate">
-                <b>Rate</b> : Fixed
+                <b>{{ $t("proposal.rate") }}</b> : {{ $t("proposal.fixed") }}
             </p>
             <p v-else>
-                <b>Rate</b> : Variable
+                <b>{{ $t("proposal.rate") }}</b> : {{ $t("proposal.variable") }}
             </p>
             <p v-if="checkCounter()">
-                <b>Counter</b> : Mono-hourly
+                <b>{{ $t("proposal.counter") }}</b> : {{ $t("proposal.monohourly") }}
             </p>
             <p v-else>
-                <b>Counter</b> : Bi-hourly
+                <b>{{ $t("proposal.counter") }}</b> : {{ $t("proposal.bihourly") }}
             </p>
             <p v-if="checkCounter()">
-                <b>Start peak hour</b> : {{ contract.startOfPeakHours }}
+                <b>{{ $t("proposal.startofpeakhours") }}</b> : {{ contract.startOfPeakHours }}
             </p>
             <p v-if="checkCounter()">
-                <b>End peak hour</b> : {{ contract.endOfPeakHours }}
+                <b>{{ $t("proposal.endofpeakhours") }}</b> : {{ contract.endOfPeakHours }}
             </p>
         </div>
         <div class="bottombuttons">
             <div class="backbutton" @click.prevent.left="back()">
-                <GoButton text="Back" :colore="'darkblue'"/>
+                <GoButton text="button.back" :colore="'darkblue'"/>
             </div>
             <div class="changebutton" @click.prevent.left="modifyContract()">
-                <GoButton text="Change proposal" :colore="'#34c98e'"/>
+                <GoButton text="button.modifyproposal" :colore="'#34c98e'"/>
             </div>
             <div class="closebutton" @click.prevent.left="deleteProposal()">
-                <GoButton text="Close the proposal" :colore="'red'"/>
+                <GoButton text="button.closeproposal" :colore="'red'"/>
             </div>
         </div>
     </div>
@@ -97,7 +97,7 @@ export default {
                 if(error.message === 'Token') {
                     this.$cookies.remove('token');
                     this.$cookies.remove('role');
-                    Swal.fire('Your connection has expired');
+                    Swal.fire(this.$t("alerts.connectionexpired"));
                     this.$router.push('/');
                 }
                 else {
@@ -116,17 +116,17 @@ export default {
             const result = [];
 
             if (location >= 100) {
-                result.push('Wallonie');
+                result.push(this.$t("proposal.wallonia"));
                 location -= 100;
             }
 
             if (location >= 10) {
-                result.push('Flandre');
+                result.push(this.$t("proposal.flanders"));
                 location -= 10;
             }
 
             if (location >= 1) {
-                result.push('Bruxelles-Capitale');
+                result.push(this.$t("proposal.brussels"));
             }
 
             return result.join(' - ');
@@ -149,8 +149,8 @@ export default {
                     else{
                         Swal.fire({
                             icon: 'success',
-                            title: 'Good !',
-                            text: 'Contract deleted !'
+                            title: this.$t("alerts.good"),
+                            text: this.$t("alerts.deletedproposal")
                         })
                         this.$router.push({name: 'ContractsSupplier'});
                     }

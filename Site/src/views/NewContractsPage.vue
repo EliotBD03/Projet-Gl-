@@ -6,14 +6,14 @@
         <div class="proposals">
             <div class="cards" v-for="proposal in proposals" :key="proposal.id">
                 <div class="text">
-                    <p><b>Location :</b></p>
+                    <p><b>{{ $t("proposal.location") }} :</b></p>
                     {{ convertLocation(proposal.location) }}
                 </div>
-                <p><b>Provider name:</b></p>
+                <p><b>{{ $t("account.provider") }} :</b></p>
                 {{ proposal.nameProvider }}
-                <p><b>Offer name: </b></p>
+                <p><b>{{  $t("proposal.proposalname") }}: </b></p>
                 {{ proposal.proposalName }}
-                <p><b>Energy type: </b></p>
+                <p><b>{{ $t("proposal.typeofenergy") }}: </b></p>
                 {{ proposal.typeOfEnergy.charAt(0).toUpperCase() + proposal.typeOfEnergy.slice(1) }}
             <div @click.prevent.left="seeMore(proposal)">
                 <GoButton text="button.go" :colore="'#34c98e'"/>
@@ -23,14 +23,14 @@
     <div class="checkboxleftside">
         <div class="filters">
             <div class="location">
-                <p><b>LOCATION</b></p>
+                <p><b>{{ $t("proposal.location") }} :</b></p>
                 <span v-for="location in allLocations" :key="location.id">
               <input type="checkbox" :value="location.value" v-model="selectedLocations" v-on:click="checkOnlyOneLocation()">
               <span class="checkbox-label">{{ location.name }}</span> <br>
             </span>
             </div>
             <div class="energy">
-                <p><b>ENERGY</b></p>
+                <p><b>{{ $t("proposal.energy") }} :</b></p>
                 <span v-for="energy in allEnergies" :key="energy.id">
               <input type="checkbox" :value="energy.value" v-model="selectedEnergies" v-on:click="checkOnlyOneEnergy()">
               <span class="checkbox-label">{{ energy.name }}</span> <br>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="applyFilterButton" @click.prevent.left="applyFilter()">
-            <GoButton text="Apply filter(s)" :colore="'#2962FF'"/>
+            <GoButton text="button.applyfilters" :colore="'#2962FF'"/>
         </div>
     </div>
     <div class="bottombuttons">
@@ -46,7 +46,7 @@
             <GoButton text="header.home" :colore="'#B1B9FC'"/>
         </div>
         <div v-if="notLastPage()" @click.prevent.left="loader()">
-            <GoButton text="See more proposals" :colore="'#B1B9FC'"/>
+            <GoButton text="button.seemore" :colore="'#B1B9FC'"/>
         </div>
     </div>
     </div>
@@ -73,15 +73,15 @@ export default {
             selectedEnergies : "", //used to filter the energies
             allLocations:
                 [
-                    {name: "Brussels", value: "100"},
-                    {name: "Flanders", value: "010"},
-                    {name: "Wallonia", value: "001"}
+                    {name: this.$t("proposal.wallonia"), value: "100"},
+                    {name: this.$t("proposal.flanders"), value: "010"},
+                    {name: this.$t("proposal.brussels"), value: "001"}
                 ],
             allEnergies:
                 [
-                    {name: "Electricity", value: "electricity"},
-                    {name: "Water", value: "water"},
-                    {name: "Gas", value: "gas"}
+                    {name: this.$t("proposal.electricity"), value: "electricity"},
+                    {name: this.$t("proposal.water"), value: "water"},
+                    {name: this.$t("proposal.gas"), value: "gas"}
                 ]
         }
     },
@@ -129,7 +129,7 @@ export default {
                         if(this.lastPage == 0)
                         {
                             this.loading = true;
-                            Swal.fire("No proposal");
+                            Swal.fire(this.$t("proposal.noproposal"));
                         }
                         else if(this.lastPage >= this.nbr)
                         {
@@ -145,7 +145,7 @@ export default {
                     {
                         this.$cookies.remove("token");
                         this.$cookies.remove("role");
-                        Swal.fire('Your connection has expired');
+                        Swal.fire(this.$t("alerts.connectionexpired"));
                         this.$router.push("/");
                     }
                     else
@@ -191,11 +191,20 @@ export default {
             },
             convertLocation: function(location) {
                 const result = [];
-                const ref = ["Bruxelles-Capitale", "Flandre", "Wallonie"];
 
-                for(let i = 0; i < location.length; i++)
-                    if(location.substr(i,1) === "1")
-                        result.push(ref[i])
+                if (location >= 100) {
+                    result.push(this.$t("proposal.wallonia"));
+                    location -= 100;
+                }
+
+                if (location >= 10) {
+                    result.push(this.$t("proposal.flanders"));
+                    location -= 10;
+                }
+
+                if (location >= 1) {
+                    result.push(this.$t("proposal.brussels"));
+                }
 
                 return result.join(' - ');
             },

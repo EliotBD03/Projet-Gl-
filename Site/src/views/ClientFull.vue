@@ -5,30 +5,30 @@
       </div>
       <div class="container">
         <div class ="list">
-          <p class="text"> General information : </p>
+          <p class="text"> {{ $t("client.generalinformation") }} </p>
           <p> Mail : {{ client.mail }}</p>
         </div>
         <div class="contract">
-          <p class="text"> Associated contracts :</p>
+          <p class="text"> {{ client.associatedcontracts }}</p>
           <div v-if="listContract">
             <div v-for="contract in listContract" :key="contract.id">
-              <p> Client's name = {{ contract.clientName }}</p>
-              <p> EAN = {{ contract.ean }}</p>
+              <p> {{ $t("client.clientname") }} = {{ contract.clientName }}</p>
+              <p> {{ $t("client.eancode") }} = {{ contract.ean }}</p>
               <div @click.prevent.left="seeMore(contract)">
                 <GoButton text="button.go" :colore="'#34c98e'"/>
               </div>
               <p>--------------------------</p>
             </div>
           </div>
-          <div v-else> No information</div>
+          <div v-else> {{ $t("client.noinformation") }}</div>
         </div>
       </div>
       <div class="bottombutton">
         <div class="backbutton" @click.prevent.left="back()">
-        <GoButton text="Back" :colore="'red'"/>
+        <GoButton text="button.back" :colore="'red'"/>
         </div>
         <div class="closebutton" @click.prevent.left="deleteClient()">
-        <GoButton text="Delete client" :colore="'red'"/>
+        <GoButton text="button.deleteclient" :colore="'red'"/>
         </div>
       </div>
     </div> 
@@ -141,8 +141,8 @@
             else{
               Swal.fire({
                 icon: 'success',
-                title: 'Good !',
-                text: 'Client deleted !'
+                title: this.$t("alerts.good"),
+                text: this.$t("alerts.deletedclient")
               })
               this.$router.push({name: 'Clients'});
             }

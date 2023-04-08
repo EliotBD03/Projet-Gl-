@@ -7,7 +7,7 @@
       <div class=cards v-for="wallet in listWallet" :key="wallet.id">
         <div class="texte">
           <p class="name"> {{ wallet.name }} </p>
-            <p><b>Address :</b></p>
+            <p><b>{{ $t("proposal.address") }} :</b></p>
           <p> {{ wallet.address }}</p>
         </div>
         <div @click.prevent.left="seeMore(wallet)">
@@ -15,11 +15,11 @@
         </div>
       </div>
       <div v-if="notLastPage()" @click.prevent.left="loader()">
-        <GoButton text="See more wallets" :colore="'#B1B9FC'"/>
+        <GoButton text="button.seemore" :colore="'#B1B9FC'"/>
       </div>
     </div>
     <div @click.prevent.left="$router.push('/addWallet')">
-      <GoButton text="Add a wallet" :colore="'#B1B9FC'"/>
+      <GoButton text="button.addwallet" :colore="'#B1B9FC'"/>
     </div>
     <div class="homebutton" @click.prevent.left="$router.push({ name: 'HomeClient' })">
       <GoButton text="header.home" :colore="'#B1B9FC'"/>
@@ -83,7 +83,7 @@ export default {
           this.lastPage = data.last_page;
           if(this.lastPage == 0){
               this.loading = true;
-              Swal.fire('No wallet');          
+              Swal.fire(this.$t("alerts.nowallet"));
           }
           else if(this.lastPage >= this.nbr){
             this.listWallet.push(data.wallets); //ajouter la suite de la réponse à la liste

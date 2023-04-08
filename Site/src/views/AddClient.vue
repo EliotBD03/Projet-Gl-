@@ -1,11 +1,11 @@
 <template>
     <div class="main">
         <div class="header">
-            <MainHeader text="Add a client"/>
+            <MainHeader text="header.addclient"/>
         </div>
         <div>
             <select class="select" v-model="choiceProposal">
-                <option disabled value="">Please select your proposal</option>
+                <option disabled value="">{{ $t("proposal.selectproposal") }}</option>
                 <option v-for="proposal in listOfProposal" :key="proposal.id">{{ proposal.proposalName }}</option>
             </select>
             <div class="selectedList" v-for="client in listClient" :key="client.id">
@@ -13,15 +13,15 @@
                     <p> {{ client.name }} </p>
                 </div>
                 <div @click.prevent.left="post(client)">
-                    <GoButton text="ADD" :colore="'green'"/>
+                    <GoButton text="button.add" :colore="'green'"/>
                 </div>
             </div>
             <div v-if="notLastPage()" @click.prevent.left="loader()">
-                <GoButton text="See more (new) clients" :colore="'#B1B9FC'"/>
+                <GoButton text="button.seemore" :colore="'#B1B9FC'"/>
             </div>
         </div>
         <div @click.prevent.left="$router.push('/clients')">
-            <GoButton text="Back" :colore="'red'"/>
+            <GoButton text="button.back" :colore="'red'"/>
         </div>
     </div>
 </template>
@@ -77,7 +77,7 @@ export default {
                     const data = await response.json();
                     this.lastpageProposals = data.last_page;
                     if(this.lastpageProposals == 0){
-                        Swal.fire("You don't have any proposals");
+                        Swal.fire(this.$t("alerts.donthaveproposal"));
                     }
                     while(this.lastpageProposals >= this.nbrProposals){
                         this.listOfProposal.push(data.allProposals); //ajouter la suite de la réponse à la liste
@@ -99,7 +99,7 @@ export default {
         },
         /*Méthode qui vérifie si le fournisseur a bien choisi une proposition sinon envoie une pop-up*/
         checkArgs(){
-            if(!this.choiceProposal) Swal.fire("Please choose your proposal");
+            if(!this.choiceProposal) Swal.fire(this.$t("alerts.chooseproposal"));
             else return true;
         },
         /**
@@ -128,7 +128,7 @@ export default {
                     this.lastPage = data.last_page;
                     if(this.lastPage == 0){
                         this.loading = true;
-                        Swal.fire('There are no clients on the application');
+                        Swal.fire(this.$t("alerts.noclient"));
                     }
                     else if(this.lastPage >= this.nbr){
                         this.listClient.push(data.allClients); //ajouter la suite de la réponse à la liste
@@ -190,8 +190,8 @@ export default {
                         else{
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Good !',
-                                text: 'A message has been sent to the client !'
+                                title: this.$t("alerts.good"),
+                                text: this.$t("alerts.messagesent")
                             })
                         }
                     })

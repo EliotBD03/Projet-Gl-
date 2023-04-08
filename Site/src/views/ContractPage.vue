@@ -6,14 +6,14 @@
         <div class="allcards">
             <div class=cards v-for="contract in listContracts" :key="contract.id">
                 <div class="texte">
-                    <p class="name"> <b>Provider name</b> </p>
+                    <p class="name"> <b>{{ $t("account.provider") }}</b> </p>
                     <p>{{ contract.providerName }}</p>
-                    <p><b>EAN Code :</b></p>
+                    <p><b>{{ $t("client.eancode") }}</b></p>
                     <p>{{ contract.ean }}</p>
                 </div>
             </div>
             <div v-if="notLastPage()" @click.prevent.left="loader()">
-                <GoButton text="See more contracts" :colore="'#B1B9FC'"/>
+                <GoButton text="button.seemore" :colore="'#B1B9FC'"/>
             </div>
         </div>
         <div class="homebutton" @click.prevent.left="redirecting()">
@@ -30,14 +30,6 @@ export default {
     components : {
         GoButton,
         MainHeader,
-    },
-    /*Méthode pour charger la langue sauvegardée en cookie*/
-    mounted() {
-        if (this.$cookies.get("lang")) {
-            this.$i18n.locale = this.$cookies.get("lang");
-        } else {
-            this.$cookies.set("lang", this.$i18n.locale)
-        }
     },
     data(){
         return{
@@ -75,7 +67,7 @@ export default {
                     this.lastPage = data.last_page;
                     if(this.lastPage == 0){
                         this.loading = true;
-                        Swal.fire('No contracts');
+                        Swal.fire(this.$t("alerts.nocontracts"));
                     }
                     else if(this.lastPage >= this.nbr){
                         this.listContracts.push(data.contracts); //ajouter la suite de la réponse à la liste
@@ -90,7 +82,7 @@ export default {
                 else {
                     if(this.nbr === 1){
                         this.loading = true;
-                        Swal.fire('No contracts');
+                        Swal.fire(this.$t("alerts.nocontracts"));
                     }
                     else{
                         GlobalMethods.errorApi(error.message);
