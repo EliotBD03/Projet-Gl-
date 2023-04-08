@@ -36,7 +36,7 @@ public class LogApi extends MyApi implements RouterApi
         subRouter.post("/save_account").handler(this::saveAccount);
         subRouter.put("/renitialize_pwd").handler(this::renitializePwd);
         subRouter.get("/code").handler(this::getCode);
-        subRouter.post("/delete_account").handler(this::deleteAccount);
+        subRouter.delete("/delete_account").handler(this::deleteAccount);
 
         return subRouter;
     }
@@ -320,7 +320,7 @@ public class LogApi extends MyApi implements RouterApi
                     .end();
         else
             routingContext.response()
-                .setStatusCode(400)
+                .setStatusCode(405)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                         .put("error", "error.stillContract")));

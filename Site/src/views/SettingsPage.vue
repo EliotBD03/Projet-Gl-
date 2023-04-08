@@ -54,67 +54,6 @@ export default {
             this.$i18n.locale = this.language;
         }
     },
-    async deleteAccount()
-    {
-        const requestOptions=
-            {
-                method:"POST",
-                headers: {'Authorization': this.$cookies.get("token")}
-            };
-        try
-        {
-            const response = await fetch(`https://babawallet.alwaysdata.net/api/delete_account`, requestOptions);
-            if(!response.ok)
-            {
-                if(response.status == 401)
-                    throw new Error("Token")
-                else
-                {
-                    const data = await response.json();
-                    throw new Error(data.error);
-                }
-
-            }
-            else
-            {
-                Swal.fire(
-                    {
-                        icon: "success",
-                        title: "Success",
-                        text: "Your account has been deleted"
-                    }
-                )
-                this.$router.push({name: "login"});
-            }
-        }
-        catch(error)
-        {
-            if(error.message === "Token")
-            {
-                this.$cookies.remove("token");
-                this.$cookies.remove("role");
-                Swal.fire('Your connection has expired');
-                this.$router.push("/")
-            }
-            else if(error.message === "stillContract")
-                Swal.fire("There are still some contract");
-
-        }
-    },
-    askDelete(){
-        Swal.fire({
-            icon: "warning",
-            title: 'WARNING',
-            text: "are you sure you want to leave us :'(",
-            confirmButtonText: 'Yes...'
-        }).then((result) => {
-            if(result.isConfirmed)
-            {
-                this.deleteAccount();
-                Swal.close();
-            }
-        });
-    },
     created() {
         GlobalMethods.getCurrentLanguage();
     },
@@ -157,6 +96,62 @@ export default {
                 GlobalMethods.disconnect("/forgottenpassword");
             }
         },
+        async deleteAccount()
+        {
+            const requestOptions=
+                {
+                    method:"DELETE",
+                    headers: {'Authorization': this.$cookies.get("token")}
+                };
+            try
+            {
+                const response = await fetch(`https://babawallet.alwaysdata.net/log/delete_account`, requestOptions);
+                if(!response.ok)
+                {
+                    if(response.status == 401)
+                        throw new Error("Token")
+                    else
+                    {
+                        const data = await response.json();
+                        throw new Error(data.error);
+                    }
+
+                }
+                else
+                {
+                    Swal.fire(
+                        {
+                            icon: "success",
+                            title: "Success",
+                            text: "Your account has been deleted"
+                        }
+                    )
+                    this.$router.push({name: "/"});
+                }
+            }
+            catch(error)
+            {
+                if(error.message === "Token")
+                    GlobalMethods.errorToken();
+                else if(error.message === "stillContract")
+                    Swal.fire("There are still some contract");
+
+            }
+        },
+        askDelete(){
+        Swal.fire({
+                icon: "warning",
+                title: 'WARNING',
+                text: "are you sure you want to leave us :'(",
+                confirmButtonText: 'Yes...'
+            }).then((result) => {
+                if(result.isConfirmed)
+                {
+                    this.deleteAccount();
+                    Swal.close();
+                }
+            });
+        }
     }
 };
 </script>
