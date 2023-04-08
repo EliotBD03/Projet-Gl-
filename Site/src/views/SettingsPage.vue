@@ -46,6 +46,7 @@ export default {
         return {
             mail: "",
             test: "",
+            deleteCode: "azertyuiop",
             language: this.$i18n.locale,
         }
     },
@@ -102,9 +103,8 @@ export default {
                 {
                     method:"GET",
                     headers: {'Authorization': this.$cookies.get("token")},
-                    body: JSON.stringify({code:"azertyuiop"})
                 };
-            fetch(`https://babawallet.alwaysdata.net/api/delete_user/`, requestOptions)
+            fetch(`https://babawallet.alwaysdata.net/delete_user/${this.deleteCode}`, requestOptions)
                 .then(response => {
                     if(!response.ok)
                     {
@@ -122,7 +122,9 @@ export default {
                                 text: this.$t("alerts.deletedaccount")
                             }
                         )
-                        this.$router.push({name: "/"});
+                        this.$cookies.remove("token");
+                        this.$cookies.remove("role");
+                        this.$router.push({name: "login"});
                     }     
                 })
                 .catch(error => {

@@ -95,7 +95,10 @@ public class LogManager
             return false;
 
         if(isClient)
+        {
             new Query("DELETE FROM client WHERE client_id="+id).executeWithoutResult();
+            new Query("DELETE FROM wallet WHERE client_id="+id).executeWithoutResult();
+        }
         else
             new Query("DELETE FROM provider WHERE provider_id="+id).executeWithoutResult();
 
