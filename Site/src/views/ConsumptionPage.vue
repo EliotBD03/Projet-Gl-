@@ -40,7 +40,7 @@
                 </div>
                 <div class="newconsumption" >
                     <InputMain type="date" id="dateNewConsumption" value="2020-01-01" min="2020-01-01" max="2099-12-31"/>
-                    <InputMain type="number" id="dataNewConsumption" min="0"/>
+                    <InputMain type="number" id="dataNewConsumption" min="0" step="0.01" />
                     <div @click.prevent.left="post()">
                         <GoButton type="submit" text="button.add" :colore="'#34c98e'"/>
                     </div>
