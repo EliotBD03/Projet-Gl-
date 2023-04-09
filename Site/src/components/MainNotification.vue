@@ -22,6 +22,9 @@
                 <div class="refusebutton" @click.prevent.left="refuse(id_notification)">
                     REFUSE
                 </div>
+                <div class="deletedbutton" @click.prevent.left="seeProposal(proposalName)">
+                    SEE PROPOSAL
+                </div>
             </div>
             <div class="deletedbutton" v-else>
                 <div class="seenbutton" @click.prevent.left="deleted(id_notification)">
@@ -36,7 +39,7 @@
 import moment from "moment";
 export default {
     name: "MainNotification",
-    props: ["time","text","color","id","id_notification"],
+    props: ["time","text","color","id","id_notification","proposalName"],
     data() {
         return {
             title: "",
@@ -72,7 +75,14 @@ export default {
             } else if (this.text.includes("from")) {
                 title = this.text.split("from")[1].trim();
                 texte = "Contract request";
-            }
+            } else if (this.text.includes("daily consumption")) {
+                const regex = /in the (.+) has changed to (.+) for this ean code : (.+)/;
+                const match = regex.exec(this.text);
+                const date = moment(match[1]).format("YYYY-MM-DD");
+                const consumption = match[2];
+                const ean = match[3];
+                title = "System";
+                texte = `Daily consumption (${date}) has changed to ${consumption} (EAN: ${ean}).`; }
             this.title = title;
             this.texte = texte;
         },
@@ -84,6 +94,9 @@ export default {
         },
         deleted() {
             this.$emit("delete", this.id_notification);
+        },
+        seeProposal() {
+            this.$emit("seeProposal", this.proposalName);
         },
         checkStatus() {
             return !!this.text.includes("request");

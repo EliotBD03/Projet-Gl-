@@ -248,7 +248,7 @@ export default {
                     .then(
                         Swal.fire({
                             icon: 'success',
-                            title: this.$t('alert.good'),
+                            title: this.$t('alerts.good'),
                             text: this.$t("alerts.modifiedproposal"),
                         })
                     )

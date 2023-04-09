@@ -4,7 +4,7 @@
             <MainHeader text="header.notifications"/>
         </div>
         <div class="notifs">
-            <MainNotification class="notif" v-for="notif in notifications" :key="notif.notificationId" :time="notif.creationDate" :text="notif.context" :id="notif.contractId" :id_notification="notif.notificationId" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
+            <MainNotification class="notif" v-for="notif in notifications" :key="notif.notificationId" :time="notif.creationDate" :text="notif.context" :id="notif.contractId" :id_notification="notif.notificationId" :proposal-name="notif.proposalName" @seeProposal="getContract" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
         </div>
         <div class="bottombuttons">
             <div class="homebutton" @click.prevent.left="redirecting()">
@@ -51,6 +51,48 @@ export default {
     methods: {
         async refreshNotifications(){
             await this.getNotifications();
+        },
+        async getContract(id) {
+            const requestOptions = {
+                method: 'GET',
+                headers: {'Authorization' : this.$cookies.get('token')}
+            };
+            try {
+                const response = await fetch('https://babawallet.alwaysdata.net/api/provider/proposals/' + id, requestOptions);
+                if (!response.ok) {
+                    if (response.status === 401){
+                        throw new Error('Token');
+                    }
+                    else {
+                        const data = await response.json();
+                        throw new Error(data.error);
+                    }
+                }
+                else {
+                    const data = await response.json();
+                    this.contract = data.proposal ;
+                    this.location = data.proposal.location;
+                    Swal.fire({
+                        icon: 'info',
+                        title: this.contract.proposalName,
+                        html: `${this.$t("proposal.typeofenergy")}: ${this.contract.typeOfEnergy}<br>
+           ${this.$t("proposal.location")}: ${this.convertLocation(this.contract.location)}<br>
+           ${this.$t("proposal.priceperday")}: ${this.contract.variableDayPrice}<br>
+           ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}`
+                    });
+                }
+            }
+            catch(error) {
+                if(error.message === 'Token') {
+                    this.$cookies.remove('token');
+                    this.$cookies.remove('role');
+                    Swal.fire(this.$t("alerts.connectionexpired"));
+                    this.$router.push('/');
+                }
+                else {
+                    GlobalMethods.errorApi(error.message);
+                }
+            }
         },
         async deleteNotifications(id_notification) {
             console.log("test");
@@ -117,37 +159,37 @@ export default {
         },
         async acceptNotification(id_notification, ean, address) {
             if(ean.length === 18) {
-            const requestOptions = {
-                method: "POST",
-                headers: {'Authorization': this.$cookies.get("token")},
-                body: JSON.stringify({
-                    ean: ean,
-                    address: address,
-                })
-            }
-            console.log(ean);
-            console.log(address);
-            fetch('https://babawallet.alwaysdata.net/api/common/notifications/accept_notification/' + id_notification, requestOptions)
-                .then(response => {
-                    if (!response.ok) {
-                        if (response.status == 401) {
-                            throw new Error("Token");
+                const requestOptions = {
+                    method: "POST",
+                    headers: {'Authorization': this.$cookies.get("token")},
+                    body: JSON.stringify({
+                        ean: ean,
+                        address: address,
+                    })
+                }
+                console.log(ean);
+                console.log(address);
+                fetch('https://babawallet.alwaysdata.net/api/common/notifications/accept_notification/' + id_notification, requestOptions)
+                    .then(response => {
+                        if (!response.ok) {
+                            if (response.status == 401) {
+                                throw new Error("Token");
+                            } else {
+                                const data = response.json();
+                                throw new Error(data.error);
+                            }
                         } else {
-                            const data = response.json();
-                            throw new Error(data.error);
+                            Swal.fire(this.$t("alerts.notificationaccepted"));
+                            this.refreshNotifications();
                         }
-                    } else {
-                        Swal.fire(this.$t("alerts.notificationaccepted"));
-                        this.refreshNotifications();
-                    }
-                })
-                .catch(error => {
-                    if (error.message === "Token") {
-                        GlobalMethods.errorToken();
-                    } else {
-                        GlobalMethods.errorApi(error.message);
-                    }
-                });
+                    })
+                    .catch(error => {
+                        if (error.message === "Token") {
+                            GlobalMethods.errorToken();
+                        } else {
+                            GlobalMethods.errorApi(error.message);
+                        }
+                    });
             } else {
                 Swal.fire(this.$t("alerts.wrongean"));
             }
@@ -179,6 +221,25 @@ export default {
                         GlobalMethods.errorApi(error.message);
                     }
                 });
+        },
+        convertLocation: function(location) {
+            const result = [];
+
+            if (location >= 100) {
+                result.push(this.$t("proposal.wallonia"));
+                location -= 100;
+            }
+
+            if (location >= 10) {
+                result.push(this.$t("proposal.flanders"));
+                location -= 10;
+            }
+
+            if (location >= 1) {
+                result.push(this.$t("proposal.brussels"));
+            }
+
+            return result.join(' - ');
         },
         redirecting() {
             GlobalMethods.isAClient();
