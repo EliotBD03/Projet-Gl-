@@ -43,7 +43,6 @@ public class MyApi extends AbstractVerticle
     private static final int pageMaxSize = 20;
 
     private String codeToClean = "";
-    private String codeToDeleteClient = "";
 
     protected static JWTAuth jwt;
     private LogApi logApi;
@@ -79,12 +78,11 @@ public class MyApi extends AbstractVerticle
             port = new Integer(env.get("PORT"));
         }
 
-        if(!env.containsKey("PASSPHRASE") || !env.containsKey("CODETOCLEAN") || !env.containsKey("CODETODELETECLIENT") || !env.containsKey("CODETODELETECODE"))
+        if(!env.containsKey("PASSPHRASE") || !env.containsKey("CODETOCLEAN") || !env.containsKey("CODETODELETECODE"))
             System.exit(1);
 
         passPhrase = env.get("PASSPHRASE");
         codeToClean = env.get("CODETOCLEAN");
-        codeToDeleteClient = env.get("CODETODELETECLIENT");
         App.setCodeToDeleteCode(env.get("CODETODELETECODE"));
 
         jwt = JWTAuth.create(vertx, new JWTAuthOptions()
