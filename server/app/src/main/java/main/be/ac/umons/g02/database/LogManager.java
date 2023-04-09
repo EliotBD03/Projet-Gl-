@@ -83,7 +83,7 @@ public class LogManager
 
     /**
      * Supprime le compte associé à un identifiant.
-     * PRECONDITION: on suppose que l'utilisateur n'a plus aucun contrat/proposition/portefeuille
+     * PRECONDITION: on suppose que l'utilisateur n'a plus aucun contrat
      * @param id l'identifiant du compte à supprimer
      */
 
