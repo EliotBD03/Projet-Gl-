@@ -103,12 +103,14 @@ export default {
                     method:"GET",
                     headers: {'Authorization': this.$cookies.get("token")},
                 };
-            fetch(`https://babawallet.alwaysdata.net/log/delete_user/`, requestOptions)
+            fetch(`https://babawallet.alwaysdata.net/api/log/delete_user`, requestOptions)
                 .then(response => {
                     if(!response.ok)
                     {
                         if(response.status == 401)
                             throw new Error("Token");
+                        else if(response.status == 404)
+                            this.$router.push({name: "NotFound"});
                         else
                             return response.json().then(json => Promise.reject(json));
                     }
@@ -137,6 +139,11 @@ export default {
         },
         askDelete(){
         Swal.fire({
+            imageHeight: 200,
+            imageWidth: 250,
+            imageUrl: "https://media.giphy.com/media/Q6WPVzFU8LcBWWgQE1/giphy-downsized-large.gif",
+            animation: true,
+            imageAlt: "Puss in boots",
             icon: "warning",
             title: this.$t("alerts.warning"),
             text: this.$t("alerts.areyousure"),
