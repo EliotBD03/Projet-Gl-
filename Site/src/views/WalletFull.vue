@@ -26,7 +26,7 @@
               <GoButton text="button.go" :colore="'#34c98e'"/>
             </div>
             <div class="consumptionsbutton" @click.prevent.left="seeConsumptions(contract)">
-              <GoButton text="header.consumptions" :colore="'#B1B9FC'"/>
+              <GoButton text="header.consumption" :colore="'#B1B9FC'"/>
             </div>
             <p><b>--------------------------</b></p>
           </div>

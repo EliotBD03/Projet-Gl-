@@ -32,10 +32,6 @@
         mail: '',
         pwd: ''
       }},
-    /*Méthode pour charger la langue sauvegardée en cookie*/
-    created() {
-        GlobalMethods.getCurrentLanguage();
-    },
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up*/
         checkArgs(){

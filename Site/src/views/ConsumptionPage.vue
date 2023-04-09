@@ -200,7 +200,7 @@ export default {
                 const data = {
                     labels: this.listDate,
                     datasets: [{
-                        label: this.$t("consumption.yourconsumption") + this.unity,//trad
+                        label: this.$t("consumptions.yourconsumption") + this.unity,//trad
                         data: this.listValue,
                         fill: false,
                         borderColor: 'rgb(75, 192, 192)',
@@ -210,7 +210,7 @@ export default {
 
                 if(this.isComparaison) {
                     data.datasets[0] += {
-                        label: this.$t("consumption.otherconsumption"),//trad
+                        label: this.$t("consumptions.otherconsumption"),//trad
                         data: this.listValue2,
                         fill: false,
                         borderColor: 'rgb(192, 75, 192)',
@@ -280,7 +280,7 @@ export default {
                         this.unity = " (kWh)";
                     }
 
-                    this.labelButtonDisplay = this.$t("consumption.displaymonth") + this.unity;
+                    this.labelButtonDisplay = this.$t("consumptions.displaymonth") + this.unity;
                 }
             } catch(error) {
                 if(error.message === "Token") {
@@ -472,10 +472,10 @@ export default {
             this.listValue = [];
 
             if(this.isDisplayDay) {
-                this.labelButtonDisplay = this.$t("consumption.displaymonth") + this.unity;//trad
+                this.labelButtonDisplay = this.$t("consumptions.displaymonth") + this.unity;//trad
                 this.getConsumption();
             } else {
-                this.labelButtonDisplay = this.$t("consumption.displayday") + this.unity;//trad
+                this.labelButtonDisplay = this.$t("consumptions.displayday") + this.unity;//trad
                 this.getConsumptionOfMonth();
             }
         },
