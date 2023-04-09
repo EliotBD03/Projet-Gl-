@@ -46,7 +46,6 @@ export default {
         return {
             mail: "",
             test: "",
-            deleteCode: "azertyuiop",
             language: this.$i18n.locale,
         }
     },
@@ -104,7 +103,7 @@ export default {
                     method:"GET",
                     headers: {'Authorization': this.$cookies.get("token")},
                 };
-            fetch(`https://babawallet.alwaysdata.net/delete_user/${this.deleteCode}`, requestOptions)
+            fetch(`https://babawallet.alwaysdata.net/log/delete_user/`, requestOptions)
                 .then(response => {
                     if(!response.ok)
                     {

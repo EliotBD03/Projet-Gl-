@@ -103,7 +103,6 @@ public class MyApi extends AbstractVerticle
         router.get("/timer_task/clear_blacklist/:code").handler(this::cleanExpiredTokens);
         router.get("/timer_task/clear_codelist/:code").handler(routingContext -> App.automaticDeleteCode(routingContext));
         router.get("/timer_task/clear_contract/:code").handler(this::cleanExpiredContract);
-        router.get("/delete_user/:code").handler(this::deleteUser);
 
         logApi = new LogApi();
         clientApi = new ClientApi();
@@ -216,43 +215,7 @@ public class MyApi extends AbstractVerticle
                             .put("error", "error.unauthorizedOperation")));
     }
 
-    /**
-     * Méthode qui permet de supprimer un compte
-     * Il faut que se compte soit vide pour être correctement supprimé
-     * Il y a un code à passer en paramètre pour un minimum de sécurité
-     *
-     * @param routingContext - Le contexte de la requête
-     */
-    private void deleteUser(final RoutingContext routingContext)
-    {
-        LOGGER.info("DeleteUser...");
 
-        String id = null;
-        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
-
-        String code = routingContext.pathParam("code");
-
-        if(codeToDeleteClient.equals(code))
-        {
-           if(commonDB.getLogManager().deleteAccount(id))
-                routingContext.response()
-                    .setStatusCode(200)
-                    .putHeader("Content-Type", "application/json")
-                    .end();
-           else
-               routingContext.response()
-                       .setStatusCode(401)
-                       .putHeader("Content-Type", "application/json")
-                       .end(Json.encodePrettily(new JsonObject()
-                               .put("error", "error.stillContracts")));
-        }
-        else
-            routingContext.response()
-                .setStatusCode(401)
-                .putHeader("Content-Type", "application/json")
-                .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "error.unauthorizedOperation")));
-    }
 
     /**
      * Méthode qui permet de gérer la pagination

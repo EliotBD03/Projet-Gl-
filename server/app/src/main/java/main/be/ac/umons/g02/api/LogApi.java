@@ -36,6 +36,7 @@ public class LogApi extends MyApi implements RouterApi
         subRouter.post("/save_account").handler(this::saveAccount);
         subRouter.put("/renitialize_pwd").handler(this::renitializePwd);
         subRouter.get("/code").handler(this::getCode);
+        subRouter.get("/delete_user").handler(this::deleteUser);
         return subRouter;
     }
 
@@ -300,5 +301,31 @@ public class LogApi extends MyApi implements RouterApi
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "error.codeNotSend")));
         }
+    }
+
+    /**
+     * Méthode qui permet de supprimer un compte
+     * Il faut que se compte soit vide pour être correctement supprimé
+     *
+     * @param routingContext - Le contexte de la requête
+     */
+    private void deleteUser(final RoutingContext routingContext)
+    {
+        LOGGER.info("DeleteUser...");
+
+        String id = null;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
+        if(commonDB.getLogManager().deleteAccount(id))
+            routingContext.response()
+                    .setStatusCode(200)
+                    .putHeader("Content-Type", "application/json");
+
+        else
+            routingContext.response()
+                    .setStatusCode(401)
+                    .putHeader("Content-Type", "application/json")
+                    .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.stillContracts")));
     }
 }
