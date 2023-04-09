@@ -22,18 +22,20 @@
             <p v-else>
                 <b>{{ $t("proposal.rate") }}</b> : {{ $t("proposal.variable") }}
             </p>
-            <p v-if="checkCounter()">
-                <b>{{ $t("proposal.counter") }}</b> : {{ $t("proposal.monohourly") }}
-            </p>
-            <p v-else>
+            <p v-if="checkCounter(contract.variableNightPrice)">
                 <b>{{ $t("proposal.counter") }}</b> : {{ $t("proposal.bihourly") }}
             </p>
-            <p v-if="checkCounter()">
+            <p v-else>
+                <b>{{ $t("proposal.counter") }}</b> : {{ $t("proposal.monohourly") }}
+            </p>
+            <div v-if="checkCounter(contract.variableNightPrice)">
+            <p>
                 <b>{{ $t("proposal.startofpeakhours") }}</b> : {{ contract.startOfPeakHours }}
             </p>
-            <p v-if="checkCounter()">
+            <p>
                 <b>{{ $t("proposal.endofpeakhours") }}</b> : {{ contract.endOfPeakHours }}
             </p>
+            </div>
         </div>
         <div class="bottombuttons">
             <div class="backbutton" @click.prevent.left="back()">
@@ -175,8 +177,8 @@ export default {
                     }
                 });
         },
-        checkCounter() {
-            return this.variable_night_price !== 0;
+        checkCounter(value) {
+            return value !== 0;
         }
     }
 };

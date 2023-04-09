@@ -140,7 +140,6 @@ export default {
                 this.variable_day_price = this.contract.variableDayPrice;
                 this.is_fixed_rate = this.contract.fixedRate;
                 this.duration = this.contract.duration;
-                console.log(this.is_fixed_rate)
             }
         }
         catch(error) {
@@ -201,7 +200,7 @@ export default {
             else if (this.localization === '000') Swal.fire(this.$t("alerts.selectlocation"));
             else if (this.variable_night_price === '') Swal.fire(this.$t("alerts.enternightprice"));
             else if (!this.variable_day_price) Swal.fire(this.$t("alerts.enterdayprice"));
-            else if (!this.isNum(this.duration) || this.duration === 'baba') Swal.fire(this.$t("alerts.enterduration"));
+            else if (this.checkDuration(this.duration)) Swal.fire(this.$t("alerts.enterduration"));
             else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire(this.$t("alerts.selectstarthour"));
             else if (this.checkCounter() && !this.end_off_peak_hours) Swal.fire(this.$t("alerts.selectendhour"));
             else return true;
@@ -212,6 +211,10 @@ export default {
         },
         isNum(value) {
             return /^\d+$/.test(value);
+        },
+        checkDuration(value) {
+            if (value === 'baba') return false;
+            else return !this.isNum(value);
         },
         post() {
             if (this.checkArgs()) {
@@ -228,7 +231,7 @@ export default {
                         start_off_peak_hours: this.start_off_peak_hours,
                         end_off_peak_hours: this.end_off_peak_hours
                     }),
-                    headers: {'Authorization' : this.$cookies.get("token")},
+                    headers: {'Authorization' : this.$cookies.get("token")}
                 };
                 fetch("https://babawallet.alwaysdata.net/api/provider/proposals", requestOptions)
                     .then(response => {

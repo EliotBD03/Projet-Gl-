@@ -146,7 +146,7 @@ export default {
             else if (this.variable_night_price === '') Swal.fire(this.$t("proposal.enternightprice"));
             else if (!this.variable_day_price) Swal.fire(this.$t("proposal.enterdayprice"));
             else if (!this.is_fixed_rate) Swal.fire(this.$t("proposal.selectratetype"));
-            else if (!this.isNum(this.duration) || this.duration === 'baba') Swal.fire(this.$t("alerts.enterduration"));
+            else if (this.checkDuration(this.duration)) Swal.fire(this.$t("alerts.enterduration"));
             else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire(this.$t("proposal.selectstarthour"));
             else if (this.checkCounter() && !this.end_off_peak_hours) Swal.fire(this.$t("proposal.selectendhour"));
             else return true;
@@ -161,6 +161,10 @@ export default {
         isNum(value) {
             return /^\d+$/.test(value);
         },
+        checkDuration(value) {
+            if (value === 'baba') return false;
+            else return !this.isNum(value);
+        },
         post() {
             if (this.checkArgs()) {
                 const requestOptions = {
@@ -172,7 +176,7 @@ export default {
                         variable_night_price: parseFloat(this.variable_night_price),
                         variable_day_price: parseFloat(this.variable_day_price),
                         is_fixed_rate: this.convertToBoolean(this.is_fixed_rate),
-                        duration: parseInt(this.duration),
+                        duration: this.duration,
                         start_off_peak_hours: this.start_off_peak_hours,
                         end_off_peak_hours: this.end_off_peak_hours
                     }),
@@ -211,7 +215,7 @@ export default {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 120vh;
+    height: 100vh;
 }
 
 .header {
