@@ -60,9 +60,6 @@
         role: 'Client',
         is_client: false
       }},
-      created() {
-        GlobalMethods.getCurrentLanguage();
-      },
       watch: {
         language() {
           this.$i18n.locale = this.language;
