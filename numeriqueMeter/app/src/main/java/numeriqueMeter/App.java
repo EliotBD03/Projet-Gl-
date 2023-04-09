@@ -22,6 +22,8 @@ import java.util.Scanner;
 import java.util.Random;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import com.google.gson.Gson;
 
 /**
@@ -39,7 +41,9 @@ public class App
     private static Scanner sc = new Scanner(System.in);
     public static String ean = "";
     public static String token = "";
+    public static LocalDate date;
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static DecimalFormat df = new DecimalFormat("#.##");
     public static boolean isConsumption = false;
 
     /**
@@ -86,14 +90,22 @@ public class App
         System.out.println("Tu es maintenant connecté");
         System.out.println("Pour quitter le programme: Entrez un caractère + ENTER");
 
-        LocalDate date = LocalDate.now();
+        date = LocalDate.now();
 
         Timer timeNewConso = new Timer();
         timeNewConso.scheduleAtFixedRate(new TimerTask()
                 {
                     public void run()
                     {
-                        double conso = rand.nextInt(max-min) + min;
+                        double number = rand.nextDouble() * (max - min) + min;
+                        String formattedNumber = df.format(number);
+                        
+                        double conso = 0.0;
+                        try {
+                            conso = df.parse(formattedNumber).doubleValue();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         String url = "https://babawallet.alwaysdata.net/api/common/consumptions";
 
                         MyObject.list_valueT = Arrays.asList(""+conso);
@@ -106,11 +118,11 @@ public class App
                         isConsumption = false;
 
                         if(res.x == 200)
-                            System.out.println("La consommation " + conso + " a bien été envoyée.");
+                            System.out.println("La consommation " + conso + " a bien été envoyée à cette date " + date.format(formatter));
                         else
                             self.endProgram();
 
-                        date.plusDays(1);
+                        date = date.plusDays(1);
                     }
                 }, 0, 5000);
         while (!sc.hasNext()){}
@@ -213,7 +225,6 @@ public class App
                 request = gson.toJson(new MyObject());
             else
                 request = gson.toJson(parameters);
-            System.out.println(request);
             out.writeBytes(request);
             out.flush();
             out.close();
