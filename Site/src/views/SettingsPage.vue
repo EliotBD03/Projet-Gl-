@@ -103,7 +103,7 @@ export default {
                     method:"GET",
                     headers: {'Authorization': this.$cookies.get("token")},
                 };
-            fetch(`https://babawallet.alwaysdata.net/api/log/delete_user`, requestOptions)
+            fetch(`https://babawallet.alwaysdata.net/log/delete_user`, requestOptions)
                 .then(response => {
                     if(!response.ok)
                     {

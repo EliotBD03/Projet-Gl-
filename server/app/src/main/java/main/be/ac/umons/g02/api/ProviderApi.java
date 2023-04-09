@@ -321,12 +321,17 @@ public class ProviderApi extends MyApi implements RouterApi
 
         String nameProposal = routingContext.pathParam("name_proposal");
 
-        commonDB.getProposalManager().deleteProposal(nameProposal, id);
-
-        routingContext.response()
-            .setStatusCode(200)
-            .putHeader("Content-Type", "application/json")
-            .end();
+        if(commonDB.getProposalManager().deleteProposal(nameProposal, id))
+            routingContext.response()
+                .setStatusCode(200)
+                .putHeader("Content-Type", "application/json")
+                .end();
+        else
+            routingContext.response()
+                .setStatusCode(400)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.proposalUsed")));
     }
 
     /** 
