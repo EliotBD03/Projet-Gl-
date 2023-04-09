@@ -225,10 +225,15 @@ public class ProposalManager
      *
      * @param proposalName le nom de la proposition
      * @param providerId l'identifiant du fournisseur
+     * @return vrai si on a pu supprimer la proposition (si aucun contrat lié), faux sinon
      */
-    public void deleteProposal(String proposalName, String providerId)
+    public boolean deleteProposal(String proposalName, String providerId)
     {
-        new Query("DELETE FROM proposal WHERE proposal_name='"+proposalName+"' AND provider_id="+providerId).executeWithoutResult();
+        if(new Query("SELECT EXISTS(SELECT * FROM contract WHERE proposal_name='"+proposalName+"' AND provider_id="+providerId+") as 'c'").executeAndGetResult("c").getIntElem(0,0) == 0)
+            new Query("DELETE FROM proposal WHERE proposal_name='"+proposalName+"' AND provider_id="+providerId).executeWithoutResult();
+        else
+            return false;
+        return true;
     }
 
 }
