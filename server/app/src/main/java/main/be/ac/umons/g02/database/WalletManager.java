@@ -131,12 +131,12 @@ public class WalletManager
      * @param value la valeur de la consommation
      * @param energyType le type d'énergie
      */
-    public void addLastConsumption(String address,double value, energyType energyType)
+    public void addLastConsumption(String address, String clientId,double value, energyType energyType)
     {
 
         String[] columns = {"latest_consumption_gas", "latest_consumption_water", "latest_consumption_elec"};
         String column = columns[energyType.ordinal()];
-        new Query("UPDATE wallet SET "+column+"="+value+" WHERE address="+address).executeWithoutResult();
+        new Query("UPDATE wallet SET "+column+"="+value+" WHERE address="+address +" AND client_id="+clientId).executeWithoutResult();
     }
 
     /**

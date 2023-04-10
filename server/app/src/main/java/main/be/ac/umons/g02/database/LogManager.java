@@ -105,6 +105,7 @@ public class LogManager
             new Query("DELETE FROM provider WHERE provider_id="+id).executeWithoutResult();
         }
 
+        new Query("DELETE FROM notification WHERE sender_id="+id+" OR receiver_id="+id).executeWithoutResult();
         new Query("DELETE FROM language WHERE id="+id).executeWithoutResult();
         new Query("DELETE FROM user WHERE id="+id).executeWithoutResult();
 
