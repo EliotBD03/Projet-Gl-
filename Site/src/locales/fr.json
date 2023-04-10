@@ -63,6 +63,7 @@
     "pwdconfirm": "Confirmez votre mot de passe",
     "pwdmatch": "Les mots de passe ne correspondent pas",
     "good": "Parfait !",
+    "error": "Erreur",
     "accountcreated": "Votre compte a bien été créé",
     "entermail": "Entrez votre mail",
     "pwdchanged": "Votre mot de passe a bien été changé",
@@ -110,7 +111,8 @@
     "modifiedproposal": "Proposition modifiée",
     "deletedwallet": "Portefeuille supprimé",
     "nowallet": "Vous n'avez pas de portefeuille",
-    "seeyousoon": "À bientôt !"
+    "seeyousoon": "À bientôt !",
+    "mailsent": "Un mail vous a été envoyé"
   },
   "wallet": {
     "loading": "Chargement en cours...",
@@ -192,7 +194,23 @@
     "noinformation": "Aucune information"
   },
   "error": {
-    "alreadytaken": "Ce mail est déjà pris"
+    "alreadytaken": "Cette adresse est déjà prise.",
+    "unauthorizedOperation" : "Vous n'êtes pas autorisé à effectuer cette opération.",
+    "pageLimit" : "Le numéro de page et la limite doivent être des entiers strictement positifs.",
+    "pageNumber" : "Le numéro de page doit être un entier strictement positif.",
+    "missingInformation" : "Il manque des informations.",
+    "tokenMissingInformation" : "Il manque des informations pour le token.",
+    "unauthorizedAccess" : "Vous n'êtes pas autorisé à accéder à cette page.",
+    "accountNotFound" : "Le compte n'a pas été trouvé. Email ou mot de passe incorrects.",
+    "tokenNotSend" : "Vous devez envoyer le token pour vous déconnecter",
+    "saveAccount" : "Erreur lors de la sauvegarde du compte.",
+    "incorrectCode" : "Le code entré est incorrect.",
+    "passwordReset" : "Erreur lors de la réinitialisation du mot de passe.",
+    "codeNotCorrect" : "Le code entré n'est pas correct.",
+    "codeNotSend" : "Le code n'a pas été envoyé.",
+    "addressNotCorrect" : "Cette adresse est déjà prise.",
+    "walletNotEmpty" : "Le portefeuille n'est pas vide.",
+    "tableauType" : "Le tableau ne doit contenir que des entiers."
   },
   "404": {
     "title": "404",

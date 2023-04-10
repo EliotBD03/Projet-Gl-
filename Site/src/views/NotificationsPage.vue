@@ -4,7 +4,7 @@
             <MainHeader text="header.notifications"/>
         </div>
         <div class="notifs">
-            <MainNotification class="notif" v-for="notif in notifications" :key="notif.notificationId" :time="notif.creationDate" :text="notif.context" :id="notif.contractId" :id_notification="notif.notificationId" :proposal-name="notif.proposalName" @seeProposal="getContract" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
+            <MainNotification class="notif" v-for="notif in notifications" :providerId="notif.providerProposalId" :role="role" :key="notif.notificationId" :time="notif.creationDate" :text="notif.context" :id_notification="notif.notificationId" :proposal-name="notif.proposalName" @seeProposal="getContract" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
         </div>
         <div class="bottombuttons">
             <div class="homebutton" @click.prevent.left="redirecting()">
@@ -35,6 +35,7 @@ export default {
             nbr: 1,
             lastPage: 0,
             timer: null,
+            role: this.$cookies.get('role'),
         }
     },
     created() {
@@ -52,45 +53,78 @@ export default {
         async refreshNotifications(){
             await this.getNotifications();
         },
-        async getContract(id) {
-            const requestOptions = {
-                method: 'GET',
-                headers: {'Authorization' : this.$cookies.get('token')}
-            };
-            try {
-                const response = await fetch('https://babawallet.alwaysdata.net/api/provider/proposals/' + id, requestOptions);
-                if (!response.ok) {
-                    if (response.status === 401){
-                        throw new Error('Token');
-                    }
-                    else {
+        async getContract(id, name) {
+            if (this.$cookies.get('role') === 'supplier') {
+                const requestOptions = {
+                    method: 'GET',
+                    headers: {'Authorization': this.$cookies.get('token')}
+                };
+                try {
+                    const response = await fetch('https://babawallet.alwaysdata.net/api/provider/proposals/' + name, requestOptions);
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            throw new Error('Token');
+                        } else {
+                            const data = await response.json();
+                            throw new Error(data.error);
+                        }
+                    } else {
                         const data = await response.json();
-                        throw new Error(data.error);
-                    }
-                }
-                else {
-                    const data = await response.json();
-                    this.contract = data.proposal ;
-                    this.location = data.proposal.location;
-                    Swal.fire({
-                        icon: 'info',
-                        title: this.contract.proposalName,
-                        html: `${this.$t("proposal.typeofenergy")}: ${this.contract.typeOfEnergy}<br>
+                        this.contract = data.proposal;
+                        Swal.fire({
+                            icon: 'info',
+                            title: this.contract.proposalName,
+                            html: `${this.$t("proposal.typeofenergy")}: ${this.contract.typeOfEnergy}<br>
            ${this.$t("proposal.location")}: ${this.convertLocation(this.contract.location)}<br>
            ${this.$t("proposal.priceperday")}: ${this.contract.variableDayPrice}<br>
            ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}`
-                    });
+                        });
+                    }
+                } catch (error) {
+                    if (error.message === 'Token') {
+                        this.$cookies.remove('token');
+                        this.$cookies.remove('role');
+                        Swal.fire(this.$t("alerts.connectionexpired"));
+                        this.$router.push('/');
+                    } else {
+                        GlobalMethods.errorApi(error.message);
+                    }
                 }
-            }
-            catch(error) {
-                if(error.message === 'Token') {
-                    this.$cookies.remove('token');
-                    this.$cookies.remove('role');
-                    Swal.fire(this.$t("alerts.connectionexpired"));
-                    this.$router.push('/');
-                }
-                else {
-                    GlobalMethods.errorApi(error.message);
+            } else {
+                try {
+                    const requestsOptions = {
+                        method: 'GET',
+                        headers: {'Authorization': this.$cookies.get('token')}
+                    };
+                    const response = await fetch("https://babawallet.alwaysdata.net/api/client/proposals/" + id + "/" + name, requestsOptions);
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            throw new Error("Token");
+                        } else {
+                            const data = await response.json();
+                            throw new Error(data.error);
+                        }
+                    } else {
+                        const data = await response.json();
+                        this.contract = data.proposal;
+                        Swal.fire({
+                            icon: 'info',
+                            title: this.contract.proposalName,
+                            html: `${this.$t("proposal.typeofenergy")}: ${this.contract.typeOfEnergy}<br>
+           ${this.$t("proposal.location")}: ${this.convertLocation(this.contract.location)}<br>
+           ${this.$t("proposal.priceperday")}: ${this.contract.variableDayPrice}<br>
+           ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}`
+                        });
+                    }
+                } catch (error) {
+                    if (error.message === "Token") {
+                        this.$cookies.remove("token");
+                        this.$cookies.remove("role");
+                        Swal.fire(this.$t("alerts.connectionexpired"));
+                        this.$router.push("/");
+                    } else {
+                        GlobalMethods.errorApi(error.message);
+                    }
                 }
             }
         },
@@ -142,7 +176,7 @@ export default {
                     this.lastPage = data.last_page;
                     if (this.lastPage == 0) {
                         this.loading = true;
-                        Swal.fire(this.$t("alerts.nonotifications"));
+                        Swal.fire(this.$t("alerts.nonotification"));
                     } else {
                         this.id = data.id_proposal;
                         this.notifications = data.allNotifications;
@@ -269,7 +303,6 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    overflow-y: scroll;
 }
 
 .notif {

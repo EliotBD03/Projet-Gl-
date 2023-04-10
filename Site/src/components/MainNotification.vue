@@ -8,9 +8,9 @@
             </div>
             <div class="p">{{  $t("notifications.text",{text: texte}) }}</div>
             <div class="fields">
-            <input type="text" v-model="ean" v-if="checkStatus()" placeholder="Code EAN">
-            <input type="text" v-model="adress" v-if="checkStatus()" placeholder="Adress">
-                </div>
+                <input type="text" v-model="ean" v-if="checkStatus()" placeholder="Code EAN">
+                <input type="text" v-model="adress" v-if="checkStatus()" placeholder="Adress">
+            </div>
             <div>
             </div>
         </div>
@@ -22,8 +22,8 @@
                 <div class="refusebutton" @click.prevent.left="refuse(id_notification)">
                     REFUSE
                 </div>
-                <div class="deletedbutton" @click.prevent.left="seeProposal(proposalName)">
-                    SEE PROPOSAL
+                <div class="seebutton" @click.prevent.left="seeProposal(proposalName)">
+                    INFOS
                 </div>
             </div>
             <div class="deletedbutton" v-else>
@@ -39,7 +39,7 @@
 import moment from "moment";
 export default {
     name: "MainNotification",
-    props: ["time","text","color","id","id_notification","proposalName"],
+    props: ["time","text","color","id_notification","proposalName", "providerId"],
     data() {
         return {
             title: "",
@@ -96,7 +96,11 @@ export default {
             this.$emit("delete", this.id_notification);
         },
         seeProposal() {
-            this.$emit("seeProposal", this.proposalName);
+           if (this.role === "supplier") {
+               this.$emit("seeProposal", this.proposalName);
+           } else {
+                this.$emit("seeProposal", this.providerId, this.proposalName);
+           }
         },
         checkStatus() {
             return !!this.text.includes("request");
@@ -111,7 +115,7 @@ export default {
 <style scoped>
 .card {
     width: 700px;
-    height: 100px;
+    height: 120px;
     background: #353535;
     border-radius: 20px;
     display: flex;
@@ -213,6 +217,26 @@ export default {
     justify-content: center;
     font-size: 10px;
     color: white;
+}
+
+.seebutton {
+    width: 50px;
+    height: 20px;
+    background: cornflowerblue;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: white;
+    margin: 5px;
+}
+
+.interactbutton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .fields {

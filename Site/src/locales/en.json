@@ -64,6 +64,7 @@
     "pwdconfirm": "Enter a password confirmation",
     "pwdmatch": "Passwords don't match",
     "good": "Good !",
+    "error": "Error !",
     "accountcreated": "Account created",
     "entermail": "Please enter your mail to change your password",
     "pwdchanged": "Password changed",
@@ -111,7 +112,8 @@
     "modifiedproposal": "Proposal modified",
     "deletedwallet": "Wallet deleted",
     "nowallet": "There is no wallet",
-    "seeyousoon": "See you soon !"
+    "seeyousoon": "See you soon !",
+    "mailsent": "Mail sent"
   },
   "wallet": {
     "loading": "Loading...",
@@ -193,7 +195,23 @@
     "noinformation": "No information"
   },
   "error": {
-    "alreadytaken": "This mail is already taken"
+    "alreadytaken": "This mail is already taken",
+    "unauthorizedOperation" : "You are not authorized to do this operation.",
+    "pageLimit" : "Page and limit numbers must be integers.",
+    "pageNumber" : "The page number must be strictly greater than 0 or the search phrase must not be empty.",
+    "missingInformation" : "The query is missing information.",
+    "tokenMissingInformation" : "The token does not contain all the necessary information.",
+    "unauthorizedAccess" : "You are not authorized to access this site.",
+    "accountNotFound" : "Account not found, email address or password is not correct.",
+    "tokenNotSend" : "You have to send the token to disconnect.",
+    "saveAccount" : "The account could not be saved.",
+    "incorrectCode" : "Incorrect code.",
+    "passwordReset" : "Password reset error.",
+    "codeNotCorrect" : "The code entered is not correct.",
+    "codeNotSend" : "Error in sending the code.",
+    "addressNotCorrect" : "This address is already taken.",
+    "walletNotEmpty" : "The wallet is not empty.",
+    "tableauType" : "The table does not only contain numbers."
   },
   "404": {
     "title": "404",

@@ -15,8 +15,8 @@
       errorApi(error) {
           Swal.fire({
               icon: 'error',
-              title: 'OH NO !',
-              text: error //this.$t(error) ne fonctionne pas Maxime
+              title: i18n.t("alerts.error"),
+              text: i18n.t(error)
           })
       },
       /**
@@ -25,7 +25,7 @@
       errorToken() {
           cookies.remove("token");
           cookies.remove("role");
-          Swal.fire('Your connection has expired');
+          Swal.fire(i18n.t("alerts.connectionexpired"));
           router.push("/");
       },
       /* Méthode permettant de rediriger l'utilisateur en fonction de son rôle récupéré grâce aux cookies*/
@@ -52,7 +52,7 @@
                   const data = await response.json();
                   throw new Error(data.error);
               } else {
-                  Swal.fire('A mail is sent');
+                  Swal.fire(i18n.t("alerts.mailsent"));
               }
           } catch (error) {
               this.errorApi(error.message);
@@ -80,7 +80,7 @@
                   } else {
                       cookies.remove("token");
                       cookies.remove("role");
-                      Swal.fire('See you soon !');
+                      Swal.fire(i18n.t("alerts.seeyousoon"));
                       router.push(chemin);
                   }
               })
