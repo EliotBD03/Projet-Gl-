@@ -113,6 +113,7 @@ DROP TABLE IF EXISTS `counter`;
 CREATE TABLE `counter` (
   `ean` varchar(18) NOT NULL,
   `contract_id` int(10) DEFAULT NULL,
+  `assignment_date` timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ean`),
   KEY `contract_id` (`contract_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
