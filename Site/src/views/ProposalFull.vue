@@ -4,17 +4,25 @@
             <MainHeader :text="contract.proposalName" />
         </div>
         <div class="informations">
-            <p>
-                <b>{{ $t("proposal.typeofenergy") }}</b> : {{ convertEnergy()  }}
-            </p>
+            <div class="toptext">
+                <p>
+                    <b>{{ $t("proposal.typeofenergy") }}</b> : {{ convertEnergy()  }}
+                </p>
+            </div>
             <p>
                 <b>{{ $t("proposal.location") }}</b> : {{ convertLocation(this.location) }}
             </p>
             <p>
                 <b>{{ $t("proposal.priceperday") }}</b> : {{ contract.variableDayPrice }} €
             </p>
+            <p v-if="!contract.fixedRate">
+                <InputMain :text="$t('proposal.changepriceperday')" v-model="priceperday"/>
+            </p>
             <p>
                 <b>{{ $t("proposal.pricepernight") }}</b> : {{ contract.variableNightPrice }} €
+            </p>
+            <p v-if="!contract.fixedRate">
+                <InputMain :text="$t('proposal.changepricepernight')" v-model="pricepernight"/>
             </p>
             <p v-if="contract.fixedRate">
                 <b>{{ $t("proposal.rate") }}</b> : {{ $t("proposal.fixed") }}
@@ -22,27 +30,29 @@
             <p v-else>
                 <b>{{ $t("proposal.rate") }}</b> : {{ $t("proposal.variable") }}
             </p>
-            <p v-if="checkCounter(contract.variableNightPrice)">
-                <b>{{ $t("proposal.counter") }}</b> : {{ $t("proposal.bihourly") }}
-            </p>
-            <p v-else>
-                <b>{{ $t("proposal.counter") }}</b> : {{ $t("proposal.monohourly") }}
-            </p>
-            <div v-if="checkCounter(contract.variableNightPrice)">
-            <p>
-                <b>{{ $t("proposal.startofpeakhours") }}</b> : {{ contract.startOfPeakHours }}
-            </p>
-            <p>
-                <b>{{ $t("proposal.endofpeakhours") }}</b> : {{ contract.endOfPeakHours }}
-            </p>
+            <div class="bottomtext">
+                <p v-if="checkCounter(contract.variableNightPrice)">
+                    <b>{{ $t("proposal.counter") }}</b> : {{ $t("proposal.bihourly") }}
+                </p>
+                <p v-else>
+                    <b>{{ $t("proposal.counter") }}</b> : {{ $t("proposal.monohourly") }}
+                </p>
+                <div v-if="checkCounter(contract.variableNightPrice)">
+                    <p>
+                        <b>{{ $t("proposal.startofpeakhours") }}</b> : {{ contract.startOfPeakHours }}
+                    </p>
+                    <p>
+                        <b>{{ $t("proposal.endofpeakhours") }}</b> : {{ contract.endOfPeakHours }}
+                    </p>
+                </div>
+                <p v-if="!contract.fixedRate" @click.prevent.left="post()">
+                    <GoButton text="button.change" :colore="'#34c98e'" />
+                </p>
             </div>
         </div>
         <div class="bottombuttons">
             <div class="backbutton" @click.prevent.left="back()">
                 <GoButton text="button.back" :colore="'darkblue'"/>
-            </div>
-            <div class="changebutton" @click.prevent.left="modifyContract()">
-                <GoButton text="button.modifyproposal" :colore="'#34c98e'"/>
             </div>
             <div class="closebutton" @click.prevent.left="deleteProposal()">
                 <GoButton text="button.closeproposal" :colore="'red'"/>
@@ -56,9 +66,11 @@ import MainHeader from "@/components/MainHeader.vue";
 import GlobalMethods from "@/components/GlobalMethods.vue";
 import Swal from "sweetalert2";
 import GoButton from "@/components/GoButton.vue";
+import InputMain from "@/components/InputMain.vue";
 
 export default {
     components: {
+        InputMain,
         MainHeader,
         GoButton
     },
@@ -66,13 +78,51 @@ export default {
         return {
             name_proposal: sessionStorage.getItem('name_proposal'),
             contract: [],
-            location: ''
+            location: '',
+            priceperday: '',
+            pricepernight: '',
         }},
     created() {
         this.getProposal();
         GlobalMethods.getCurrentLanguage();
     },
     methods: {
+        post() {
+            const requestOptions = {
+                method: "POST",
+                body: JSON.stringify({
+                    name_proposal: this.name_proposal,
+                    type_of_energy: this.contract.typeOfEnergy,
+                    localization: this.location,
+                    variable_night_price: parseFloat(this.pricepernight),
+                    variable_day_price: parseFloat(this.priceperday),
+                    is_fixed_rate: this.contract.fixedRate,
+                    duration: this.contract.duration,
+                    start_off_peak_hours: this.contract.startOfPeakHours,
+                    end_off_peak_hours: this.contract.endOfPeakHours
+                }),
+                headers: {'Authorization' : this.$cookies.get("token")}
+            };
+            fetch("https://babawallet.alwaysdata.net/api/provider/proposals", requestOptions)
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(json => Promise.reject(json));
+                    }
+                    return response.json();
+                })
+                .then(
+                    this.$router.push({name: 'HomeSupplier'}))
+                .then(
+                    sessionStorage.removeItem('name_proposal')
+                )
+                .then(
+                    Swal.fire({
+                        icon: 'success',
+                        title: this.$t('alerts.good'),
+                        text: this.$t("alerts.modifiedproposal"),
+                    })
+                )
+        },
         async getProposal() {
             const requestOptions = {
                 method: 'GET',
@@ -93,6 +143,8 @@ export default {
                     const data = await response.json();
                     this.contract = data.proposal ;
                     this.location = data.proposal.location;
+                    this.priceperday = data.proposal.variableDayPrice;
+                    this.pricepernight = data.proposal.variableNightPrice;
                 }
             }
             catch(error) {
@@ -200,10 +252,10 @@ export default {
     justify-content: center;
     flex-direction: column;
     width: 600px;
-    height: 550px;
     border-radius: 50px;
     background: #e0e0e0;
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+    height: fit-content;
 }
 
 .bottombuttons {
@@ -214,6 +266,14 @@ export default {
     width: 95%;
     padding: 0 50px;
     margin-top: 50px;
+}
+
+.toptext {
+    margin-top: 50px;
+}
+
+.bottomtext {
+    margin-bottom: 50px;
 }
 
 </style>

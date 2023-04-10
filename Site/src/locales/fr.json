@@ -184,7 +184,9 @@
     "energy": "Énergie",
     "counter": "Compteur",
     "monohourly": "Monohoraire",
-    "bihourly": "Bihoraire"
+    "bihourly": "Bihoraire",
+    "changepriceperday": "Modifier le prix de jour",
+    "changepricepernight": "Modifier le prix de nuit"
   },
   "client": {
     "generalinformations": "Informations générales",

@@ -185,7 +185,9 @@
     "energy": "Energy",
     "counter": "Counter",
     "monohourly": "Monohourly",
-    "bihourly": "Bihourly"
+    "bihourly": "Bihourly",
+    "changepriceperday": "Change the price per day",
+    "changepricepernight": "Change the price per night"
   },
   "client": {
     "generalinformations": "General informations",
