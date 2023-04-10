@@ -97,7 +97,7 @@ export default {
                     variable_night_price: parseFloat(this.pricepernight),
                     variable_day_price: parseFloat(this.priceperday),
                     is_fixed_rate: this.contract.fixedRate,
-                    duration: this.contract.duration,
+                    duration: this.contract.duration / 720,
                     start_off_peak_hours: this.contract.startOfPeakHours,
                     end_off_peak_hours: this.contract.endOfPeakHours
                 }),
