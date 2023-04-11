@@ -160,7 +160,6 @@ public class ContractManager
     {
         String query = "SELECT client_id FROM contract WHERE proposal_name='"+proposalName
                 +"' AND provider_id="+providerId;
-
         return new Query(query).executeAndGetResult("client_id").getColumn(0);
     }
 

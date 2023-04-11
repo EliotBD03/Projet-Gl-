@@ -81,7 +81,6 @@ class WalletManagerTest
     void deleteWallet()
     {
         WalletManager walletManager = new WalletManager();
-        System.out.println("ici toto");
         assertTrue(walletManager.deleteWallet("nhjgkfldms"));
         assertFalse(walletManager.deleteWallet(walletBasic.getAddress()));
     }

@@ -86,11 +86,7 @@ class ContractManagerTest
     @Order(6)
     void getAllClientsOfContract()
     {
-        ArrayList<String> arrayList = new ArrayList<>()
-        {{
-            add("1");
-        }};
-        assertEquals(arrayList, new ContractManager().getAllClientsOfContract(proposalFull.getProposalName(), proposalFull.getProviderId()));
+        assertEquals("1", new ContractManager().getAllClientsOfContract(proposalFull.getProposalName(), proposalFull.getProviderId()).get(0));
     }
 
     @Test

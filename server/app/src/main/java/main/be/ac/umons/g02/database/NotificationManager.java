@@ -48,6 +48,9 @@ public class NotificationManager
      */
     public void createNotification(String senderId, String receiverId, String proposalName, String proposalOwnerId, String context,  String ean, String address)
     {
+        if(!new WalletManager().isTheCounterFree(ean))
+            return;
+
         new Query("INSERT INTO notification(sender_id, receiver_id, linked_proposal_name, provider_id_proposal, context, linked_ean, linked_address)"+
                 " VALUES("+senderId+","+receiverId+",'"+proposalName+"',"+proposalOwnerId+",'"+context+"','"+ean+"','"+address+"')").executeWithoutResult();
     }
@@ -89,6 +92,9 @@ public class NotificationManager
      */
     public void acceptNotification(String notificationId, String ean, String address)
     {
+        if(!new WalletManager().isTheCounterFree(ean))
+            return;
+
         ArrayList<String> row = new Query("SELECT * FROM notification WHERE notification_id="+notificationId)
                 .executeAndGetResult
                         (

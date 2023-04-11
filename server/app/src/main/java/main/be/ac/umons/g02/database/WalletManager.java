@@ -136,7 +136,7 @@ public class WalletManager
 
         String[] columns = {"latest_consumption_gas", "latest_consumption_water", "latest_consumption_elec"};
         String column = columns[energyType.ordinal()];
-        new Query("UPDATE wallet SET "+column+"="+value+" WHERE address="+address +" AND client_id="+clientId).executeWithoutResult();
+        new Query("UPDATE wallet SET "+column+"="+value+" WHERE address='"+address +"' AND client_id="+clientId).executeWithoutResult();
     }
 
     /**
@@ -151,6 +151,17 @@ public class WalletManager
         return new Query("SELECT EXISTS(SELECT * FROM wallet WHERE address='"+address+"' AND client_id="+id+") AS 'c'")
                 .executeAndGetResult("c")
                 .getIntElem(0,0) == 1;
+    }
+
+    /**
+     * Vérifie si le compteur est déjà utilisé par une autre personne
+     *
+     * @param ean l'identifiant du compteur
+     * @return vrai s'il est libre, faux sinon
+     */
+    public boolean isTheCounterFree(String ean)
+    {
+        return new Query("SELECT EXISTS(SELECT * FROM contract WHERE ean='"+ean+"') AS 'c'").executeAndGetResult("c").getIntElem(0,0) == 0;
     }
 
 }
