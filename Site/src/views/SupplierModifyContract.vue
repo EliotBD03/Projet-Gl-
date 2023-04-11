@@ -33,6 +33,12 @@
                 <p>
                     <InputMain :text="$t('proposal.priceperday')" v-model="variable_day_price"/>
                 </p>
+                <div v-if="checkCounter()">
+                <p>bonjour</p>
+                </div>
+                <div v-else>
+                <p>au revoir</p>
+                </div>
                 <p>
                     <InputMain :text="$t('proposal.pricepernight')" v-model="variable_night_price"/>
                 </p>
@@ -257,7 +263,7 @@ export default {
         back(){
             sessionStorage.removeItem('name_proposal');
             this.$router.push({name: 'ContractsSupplier'})
-        }
+        },
     }
 }
 </script>
