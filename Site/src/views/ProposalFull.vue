@@ -21,7 +21,7 @@
             <p>
                 <b>{{ $t("proposal.pricepernight") }}</b> : {{ contract.variableNightPrice }} €
             </p>
-            <p v-if="!contract.fixedRate">
+            <p v-if="!contract.fixedRate && display">
                 <InputMain :text="$t('proposal.changepricepernight')" v-model="pricepernight"/>
             </p>
             <p v-if="contract.fixedRate">
@@ -45,6 +45,9 @@
                         <b>{{ $t("proposal.endofpeakhours") }}</b> : {{ contract.endOfPeakHours }}
                     </p>
                 </div>
+                <p>
+                    <b>{{ $t("proposal.duration") }}</b> : {{ duration }}
+                </p> 
                 <p v-if="!contract.fixedRate" @click.prevent.left="post()">
                     <GoButton text="button.change" :colore="'#34c98e'" />
                 </p>
@@ -81,6 +84,8 @@ export default {
             location: '',
             priceperday: '',
             pricepernight: '',
+            duration: 0,
+            display: false,
         }},
     created() {
         this.getProposal();
@@ -88,6 +93,10 @@ export default {
     },
     methods: {
         post() {
+            if(!this.checkArgs()) {
+                return;
+            }
+
             const requestOptions = {
                 method: "POST",
                 body: JSON.stringify({
@@ -97,7 +106,7 @@ export default {
                     variable_night_price: parseFloat(this.pricepernight),
                     variable_day_price: parseFloat(this.priceperday),
                     is_fixed_rate: this.contract.fixedRate,
-                    duration: this.contract.duration / 720,
+                    duration: this.contract.duration,
                     start_off_peak_hours: this.contract.startOfPeakHours,
                     end_off_peak_hours: this.contract.endOfPeakHours
                 }),
@@ -145,6 +154,11 @@ export default {
                     this.location = data.proposal.location;
                     this.priceperday = data.proposal.variableDayPrice;
                     this.pricepernight = data.proposal.variableNightPrice;
+                    this.duration = data.proposal.duration /720;
+
+                    if(this.pricepernight > 0) {
+                        this.display = true;
+                    }
                 }
             }
             catch(error) {
@@ -231,7 +245,18 @@ export default {
         },
         checkCounter(value) {
             return value !== 0;
-        }
+        },
+        checkArgs() {
+            if(!this.priceperday) {
+                Swal.fire(this.$t("alerts.priceperday"));
+                return false;
+            }
+            if(!this.pricepernight) {
+                Swal.fire(this.$t("alerts.pricepernight"));
+                return false;
+            }
+            return true;
+        },
     }
 };
 </script>
