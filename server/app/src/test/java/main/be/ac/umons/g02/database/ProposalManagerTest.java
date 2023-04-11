@@ -18,13 +18,13 @@ class ProposalManagerTest
     {
         DBTest.setUp();
         new LogManager().saveAccount("jackie@gmail.com", "johnie", false, "jackie", "english");
-        reference.setMoreInformation(20.0,20.0,true,"20:15:00","06:15:00", 6);
+        reference.setMoreInformation(20.0,20.0,false,"20:15:00","06:15:00", 6);
     }
 
     @AfterAll
     static void clean()
     {
-        new ProposalManager().deleteProposal("elec", "1");
+        new Query("DELETE FROM proposal");
         new LogManager().deleteAccount("1");
         DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
     }
@@ -82,6 +82,17 @@ class ProposalManagerTest
 
     @Test
     @Order(5)
+    void changeVariablePrice()
+    {
+        ProposalFull proposalFull = new ProposalFull("1","jackie","gas","101","gasssss");
+        proposalFull.setMoreInformation(20,21,true,"23:01:54","02:35:01",7);
+        new ProposalManager().addProposal(proposalFull);
+        assertTrue(new ProposalManager().changeVariablePrice("gasssss", "1", 54, 56));
+        assertFalse(new ProposalManager().changeVariablePrice("elec", "1", 56, 57));
+    }
+
+    @Test
+    @Order(6)
     void deleteProposal()
     {
         ProposalManager proposalManager = new ProposalManager();

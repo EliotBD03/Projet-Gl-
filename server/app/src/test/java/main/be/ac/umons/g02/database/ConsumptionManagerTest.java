@@ -61,9 +61,9 @@ class ConsumptionManagerTest {
         ArrayList<String> dates = new ArrayList<>()
         {
             {
-                add("2021-03-05");
-                add("2022-03-05");
-                add("2023-03-05");
+                add("2030-03-05");
+                add("2031-03-05");
+                add("2032-07-07");
             }
         };
         consumptionManager.addConsumption(ean, values, dates, false, true);
@@ -77,10 +77,10 @@ class ConsumptionManagerTest {
         HashMap<String, Double> expected = new HashMap<>()
         {
             {
-                put("2021-03-05",10.0);
+                put("2032-07-07",12.0);
             }
         };
-        assertEquals(new ConsumptionManager().getConsumptionOfMonth(ean, "03", "2021"), expected);
+        assertEquals(new ConsumptionManager().getConsumptionOfMonth(ean, "07", "2032"), expected);
     }
 
     @Test
@@ -90,12 +90,12 @@ class ConsumptionManagerTest {
         HashMap<String, Double> expected = new HashMap<>()
         {
             {
-                put("2021-03-05",10.0);
-                put("2022-03-05",11.0);
-                put("2023-03-05",12.0);
+                put("2030-03-05",10.0);
+                put("2031-03-05",11.0);
+                put("2032-07-07",12.0);
             }
         };
-        assertEquals(expected, new ConsumptionManager().getConsumptions(ean, "2023-04-01" , false));
+        assertEquals(expected, new ConsumptionManager().getConsumptions(ean, "2033-05-01" , false));
     }
 
     @Test
@@ -103,15 +103,15 @@ class ConsumptionManagerTest {
     void deleteConsumption()
     {
         ConsumptionManager consumptionManager = new ConsumptionManager();
-        consumptionManager.deleteConsumption(ean, "2023-03-05");
+        consumptionManager.deleteConsumption(ean, "2030-03-05");
         HashMap<String, Double> expected = new HashMap<>()
         {
             {
-                put("2021-03-05",10.0);
-                put("2022-03-05",11.0);
+                put("2031-03-05",11.0);
+                put("2032-07-07",12.0);
             }
         };
-        assertEquals(consumptionManager.getConsumptions(ean, "2024-00-00", false),expected);
+        assertEquals(consumptionManager.getConsumptions(ean, "3000-00-00", false),expected);
     }
     @Test
     @Order(6)
