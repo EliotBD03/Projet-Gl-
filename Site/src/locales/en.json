@@ -214,7 +214,9 @@
     "addressNotCorrect" : "This address is already taken.",
     "walletNotEmpty" : "The wallet is not empty.",
     "tableauType" : "The table does not only contain numbers.",
-    "stillContracts" : "You still have contracts." 
+    "stillContracts" : "You still have contracts." ,
+    "notHisWallet": "This wallet does not belong to you.",
+    "proposalUsed": "You can't delete this proposal because it is used by a contract."
   },
   "404": {
     "title": "404",

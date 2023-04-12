@@ -19,7 +19,7 @@
   },
   "walletform": {
     "name": "Entrez le nom du portefeuille",
-    "adress": "Entrez votre adresse"
+    "address": "Entrez votre adresse"
   },
   "button": {
     "changepwd": "Changer de mot de passe",
@@ -213,7 +213,9 @@
     "addressNotCorrect" : "Cette adresse est déjà prise.",
     "walletNotEmpty" : "Le portefeuille n'est pas vide.",
     "tableauType" : "Le tableau ne doit contenir que des entiers.",
-    "stillContracts" : "Vous avez encore des contrats." 
+    "stillContracts" : "Vous avez encore des contrats.",
+    "notHisWallet": "Ce n'est pas votre portefeuille.",
+    "proposalUsed": "Vous ne pouvez pas supprimer un contrat utilisé pour des contrats actifs."
   },
   "404": {
     "title": "404",
