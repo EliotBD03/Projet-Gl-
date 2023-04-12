@@ -5,7 +5,7 @@
       </div>
       <div class="container">
         <div class ="list">
-          <p class="text"> {{ $t("client.generalinformation") }} </p>
+          <p class="text"> {{ $t("client.generalinformations") }} </p>
           <p> Mail : {{ client.mail }}</p>
         </div>
         <div class="contract">

@@ -66,17 +66,18 @@ export default {
             }
             fetch("https://babawallet.alwaysdata.net/api/common/languages/actual_language/" + this.language, requestsOptions)
                 .then(response => {
-                    if(!response.ok){
-                        return response.json().then(json => Promise.reject(json));
+                    if(!response.ok)
+                       throw new Error(response.error);
+                    else
+                    {
+                        Swal.fire({
+                            icon: 'success',
+                            title: this.$t('alerts.good'),
+                            text: this.$t('alerts.languagechanged'),
+                            });
+                        GlobalMethods.isAClient();
                     }
-                    return response.json();
                 })
-                .then(Swal.fire({
-                    icon: 'success',
-                    title: this.$t('alerts.good'),
-                    text: this.$t('alerts.languagechanged'),
-                }))
-                .then(GlobalMethods.isAClient())
                 .catch(error => {
                     GlobalMethods.errorApi(error.error);
                 });
