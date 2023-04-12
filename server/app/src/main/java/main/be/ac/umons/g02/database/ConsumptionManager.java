@@ -74,7 +74,7 @@ public class ConsumptionManager
         {
              query = "SELECT c.daily_consumption, c.date_recorded FROM consumption c INNER JOIN " +
                      "( SELECT date_recorded FROM consumption WHERE ean = '" + ean + "' AND date_recorded <= (SELECT MAX(date_recorded) FROM consumption) " +
-                     "ORDER BY date_recorded DESC LIMIT 0, 10) t ON c.date_recorded = t.date_recorded WHERE c.ean = '" + ean + "' AND c.date_recored >="+lowerBoundDate+" ORDER BY c.date_recorded ASC;";
+                     "ORDER BY date_recorded DESC LIMIT 0, 10) t ON c.date_recorded = t.date_recorded WHERE c.ean = '" + ean + "' AND c.date_recorded >="+lowerBoundDate+" ORDER BY c.date_recorded ASC;";
 
         }
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("date_recorded", "daily_consumption").getTable();
