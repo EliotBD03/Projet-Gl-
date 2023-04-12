@@ -192,7 +192,7 @@ export default {
             }
         },
         async acceptNotification(id_notification, ean, address) {
-            if(ean.length === 18) {
+            if(ean.length === 18 || this.role === "supplier") {
                 const requestOptions = {
                     method: "POST",
                     headers: {'Authorization': this.$cookies.get("token")},

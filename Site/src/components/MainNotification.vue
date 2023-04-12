@@ -8,8 +8,8 @@
             </div>
             <div class="p">{{  $t("notifications.text",{text: texte}) }}</div>
             <div class="fields">
-                <input type="text" v-model="ean" v-if="checkStatus()" placeholder="Code EAN">
-                <input type="text" v-model="adress" v-if="checkStatus()" placeholder="Adress">
+                <input type="text" v-model="ean" v-if="checkRole()" placeholder="Code EAN">
+                <input type="text" v-model="adress" v-if="checkRole()" placeholder="Adress">
             </div>
             <div>
             </div>
@@ -39,7 +39,7 @@
 import moment from "moment";
 export default {
     name: "MainNotification",
-    props: ["time","text","color","id_notification","proposalName", "providerId"],
+    props: ["time","text","color","id_notification","proposalName", "providerId","role"],
     data() {
         return {
             title: "",
@@ -103,7 +103,13 @@ export default {
            }
         },
         checkStatus() {
-            return !!this.text.includes("request");
+                return this.text.includes("request");
+        },
+        checkRole() {
+            if (this.role === 'client') {
+                return this.checkStatus();
+            }
+            else return false;
         }
     },
     mounted() {

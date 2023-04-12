@@ -251,7 +251,7 @@ export default {
                 Swal.fire(this.$t("alerts.priceperday"));
                 return false;
             }
-            if(!this.pricepernight) {
+            if(!this.pricepernight && !this.contract.fixedRate) {
                 Swal.fire(this.$t("alerts.pricepernight"));
                 return false;
             }

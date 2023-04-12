@@ -9,7 +9,7 @@
                     <InputMain :text="$t('walletform.name')" v-model="name"/>
                 </p>
                 <p>
-                    <InputMain :text="$t('walletform.adress')" v-model="address"/>
+                    <InputMain :text="$t('walletform.address')" v-model="address"/>
                 </p>
                 <GoButton text="button.add" type="submit" :colore="'green'"/>
             </form>

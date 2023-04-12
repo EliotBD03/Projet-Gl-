@@ -179,10 +179,10 @@ export default {
     align-items: center;
     justify-content: space-evenly;
     width: 250px;
-    height: 500px;
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
     margin: 10px;
     border-radius: 30px;
+    height: fit-content;
 }
 
 .texte {
