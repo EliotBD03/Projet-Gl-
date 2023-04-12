@@ -4,70 +4,32 @@
             <MainHeader text="header.modifyproposal"/>
         </div>
         <div class="contact-form">
-            <form id="addWallet" method="post" v-on:submit.prevent="post">
-                <p>
-                    {{ $t("proposal.typeofenergy") }} :
-                </p>
-                <p>
-                    <input type="radio" id="Water" value="water" v-model="type_of_energy">
-                    <label for="Water">{{ $t("proposal.water") }}</label>
-                    <input type="radio" id="Gas" value="gas" v-model="type_of_energy">
-                    <label for="Gas">{{ $t("proposal.gas") }}</label>
-                    <input type="radio" id="Electricity" value="electricity" v-model="type_of_energy">
-                    <label for="Electricity">{{ $t("proposal.electricity") }}</label>
-                </p>
-                <p>
-                    <label>
-                        <input type="checkbox" v-model="wallonie">
-                        {{ $t("proposal.wallonia") }}
-                    </label>
-                    <label>
-                        <input type="checkbox" v-model="flandre">
-                        {{ $t("proposal.flanders") }}
-                    </label>
-                    <label>
-                        <input type="checkbox" v-model="bruxelles">
-                        {{ $t("proposal.brussels") }}
-                    </label>
-                </p>
-                <p>
-                    <InputMain :text="$t('proposal.priceperday')" v-model="variable_day_price"/>
-                </p>
-                <div v-if="checkCounter()">
-                <p>bonjour</p>
-                </div>
-                <div v-else>
-                <p>au revoir</p>
-                </div>
-                <p>
-                    <InputMain :text="$t('proposal.pricepernight')" v-model="variable_night_price"/>
-                </p>
-                <p v-if="checkCounter()">
-                    {{ $t("proposal.peakhours") }} :
-                </p>
-                <div v-if="checkCounter()">
-                    <label for="start-time">{{ $t("proposal.starthour") }} : </label>
-                    <select id="start-time" v-model="start_off_peak_hours">
-                        <option v-for="hour in hours" :key="hour">{{ hour }}</option>
-                    </select>
-                    <label for="end-time"> {{ $t("proposal.endhour") }} : </label>
-                    <select id="end-time" v-model="end_off_peak_hours">
-                        <option v-for="hour in hours" :key="hour">{{ hour }}</option>
-                    </select>
-                </div>
-                <p>
-                    <InputMain :text="$t('proposal.duration')" v-model="duration"/>
-                </p>
-                <p>
-                    {{ $t("proposal.rate") }} :</p>
-                <p>
-                    <input type="radio" id="Fixed" value="true" v-model="is_fixed_rate">
-                    <label for="Fixed">{{ $t("proposal.fixed") }}</label>
-                    <input type="radio" id="Variable" value="false" v-model="is_fixed_rate">
-                    <label for="Variable">{{ $t("proposal.variable") }}</label>
-                </p>
-                <GoButton text="button.change" type="submit" :colore="'green'"/>
-            </form>
+            <div class="content">
+                <form id="addWallet" method="post" v-on:submit.prevent="post">
+                    <p v-if="!contract.fixedRate">
+                        {{ $t("proposal.priceperday") }} :
+                        <InputMain :text="$t('proposal.priceperday')" v-model="variable_day_price"/>
+                    </p>
+                    <p v-if="checkCounter()">
+                        {{ $t("proposal.pricepernight") }} :
+                        <InputMain :text="$t('proposal.pricepernight')" v-model="variable_night_price"/>
+                    </p>
+                    <div v-if="checkCounter()">
+                        <p>
+                            {{ $t("proposal.peakhours") }} :
+                        </p>
+                        <label for="start-time">{{ $t("proposal.starthour") }} : </label>
+                        <select id="start-time" v-model="start_off_peak_hours">
+                            <option v-for="hour in hours" :key="hour">{{ hour }}</option>
+                        </select>
+                        <label for="end-time"> {{ $t("proposal.endhour") }} : </label>
+                        <select id="end-time" v-model="end_off_peak_hours">
+                            <option v-for="hour in hours" :key="hour">{{ hour }}</option>
+                        </select>
+                    </div>
+                    <GoButton text="button.change" type="submit" :colore="'green'"/>
+                </form>
+            </div>
         </div>
         <div class="backbutton" @click.prevent.left="back()">
             <GoButton text="button.back" :colore="'darkblue'"/>
@@ -88,15 +50,8 @@ export default {
         return{
             name_proposal: sessionStorage.getItem('name_proposal'),
             contract: [],
-            type_of_energy: '',
-            wallonie: false,
-            flandre: false,
-            bruxelles: false,
-            localization: '',
-            variable_night_price: 0,
+            variable_night_price: '',
             variable_day_price: '',
-            is_fixed_rate: '',
-            duration: '',
             hours: [], // tableau des heures disponibles
             start_off_peak_hours: null, // heure de début sélectionnée
             end_off_peak_hours: null // heure de fin sélectionnée
@@ -107,17 +62,6 @@ export default {
         for (let i = 0; i < 24; i++) {
             const hour = i < 10 ? `0${i}` : `${i}`;
             this.hours.push(`${hour}:00:00`);
-        }
-    },
-    watch: {
-        wallonie() {
-            this.updateLocation()
-        },
-        flandre() {
-            this.updateLocation()
-        },
-        bruxelles() {
-            this.updateLocation()
         }
     },
     async created() {
@@ -140,12 +84,10 @@ export default {
             else {
                 const data = await response.json();
                 this.contract = data.proposal;
-                this.convertLocalization(this.contract.location);
-                this.type_of_energy = this.contract.typeOfEnergy;
                 this.variable_night_price = this.contract.variableNightPrice;
                 this.variable_day_price = this.contract.variableDayPrice;
-                this.is_fixed_rate = this.contract.fixedRate;
-                this.duration = this.contract.duration;
+                this.start_off_peak_hours = this.contract.startOfPeakHours;
+                this.end_off_peak_hours = this.contract.endOfPeakHours;
             }
         }
         catch(error) {
@@ -162,65 +104,15 @@ export default {
     },
     /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up*/
     methods: {
-        updateLocation() {
-            let location = ''
-            if (this.wallonie) {
-                location += '1'
-            } else {
-                location += '0'
-            }
-            if (this.flandre) {
-                location += '1'
-            } else {
-                location += '0'
-            }
-            if (this.bruxelles) {
-                location += '1'
-            } else {
-                location += '0'
-            }
-            this.localization = location
-        },
-        convertLocalization(location) {
-            if (location.charAt(0) === '1') {
-                this.wallonie = true
-            } else {
-                this.wallonie = false
-            }
-            if (location.charAt(1) === '1') {
-                this.flandre = true
-            } else {
-                this.flandre = false
-            }
-            if (location.charAt(2) === '1') {
-                this.bruxelles = true
-            } else {
-                this.bruxelles = false
-            }
-        },
         checkCounter() {
             return parseFloat(this.variable_night_price) !== 0;
         },
         checkArgs() {
-            if (!this.name_proposal) Swal.fire(this.$t("alerts.enternameproposal"));
-            else if (this.localization === '000') Swal.fire(this.$t("alerts.selectlocation"));
-            else if (this.variable_night_price === '') Swal.fire(this.$t("alerts.enternightprice"));
-            else if (!this.variable_day_price) Swal.fire(this.$t("alerts.enterdayprice"));
-            else if (this.checkDuration(this.duration)) Swal.fire(this.$t("alerts.enterduration"));
+            if (this.variable_night_price === '' && this.checkCounter()) Swal.fire(this.$t("alerts.enternightprice"));
+            else if (!this.variable_day_price && !this.contract.fixedRate) Swal.fire(this.$t("alerts.enterdayprice"));
             else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire(this.$t("alerts.selectstarthour"));
             else if (this.checkCounter() && !this.end_off_peak_hours) Swal.fire(this.$t("alerts.selectendhour"));
             else return true;
-        },
-        convertToBoolean(value) {
-            if (value === 'true') return true;
-            else return false;
-        },
-        isNum(value) {
-            return /^\d+$/.test(value);
-        },
-        checkDuration(value) {
-            if (value === 'baba') return false;
-            else return !this.isNum(value);
         },
         post() {
             if (this.checkArgs()) {
@@ -228,12 +120,12 @@ export default {
                     method: "POST",
                     body: JSON.stringify({
                         name_proposal: this.name_proposal,
-                        type_of_energy: this.type_of_energy,
-                        localization: this.localization,
+                        type_of_energy: this.contract.typeOfEnergy,
+                        localization: this.contract.location,
                         variable_night_price: parseFloat(this.variable_night_price),
                         variable_day_price: parseFloat(this.variable_day_price),
-                        is_fixed_rate: this.convertToBoolean(this.is_fixed_rate),
-                        duration: this.duration,
+                        is_fixed_rate: this.contract.fixedRate,
+                        duration: this.contract.duration/720,
                         start_off_peak_hours: this.start_off_peak_hours,
                         end_off_peak_hours: this.end_off_peak_hours
                     }),
@@ -289,13 +181,18 @@ export default {
 .contact-form{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-direction: column;
     width: 600px;
-    height: 600px;
+    height: fit-content;
     border-radius: 50px;
     background: #e0e0e0;
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+}
+
+.content {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 </style>
