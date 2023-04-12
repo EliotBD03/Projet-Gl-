@@ -77,7 +77,9 @@ export default {
                             html: `${this.$t("proposal.typeofenergy")}: ${this.contract.typeOfEnergy}<br>
            ${this.$t("proposal.location")}: ${this.convertLocation(this.contract.location)}<br>
            ${this.$t("proposal.priceperday")}: ${this.contract.variableDayPrice}<br>
-           ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}`
+           ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}
+           ${this.$t("proposal.duration")}: ${this.contract.duration}<br>
+            ${this.$t("proposal.rate")}: ${this.convertRate(this.contract.fixedRate)}`
                         });
                     }
                 } catch (error) {
@@ -113,7 +115,9 @@ export default {
                             html: `${this.$t("proposal.typeofenergy")}: ${this.contract.typeOfEnergy}<br>
            ${this.$t("proposal.location")}: ${this.convertLocation(this.contract.location)}<br>
            ${this.$t("proposal.priceperday")}: ${this.contract.variableDayPrice}<br>
-           ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}`
+           ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}<br>
+            ${this.$t("proposal.duration")}: ${this.contract.duration/720}<br>
+            ${this.$t("proposal.rate")}: ${this.convertRate(this.contract.fixedRate)}`
                         });
                     }
                 } catch (error) {
@@ -126,6 +130,14 @@ export default {
                         GlobalMethods.errorApi(error.message);
                     }
                 }
+            }
+        },
+        convertRate(value) {
+            if (value === false) {
+                return this.$t('proposal.variable');
+            }
+            else {
+                return this.$t('proposal.fixed');
             }
         },
         async deleteNotifications(id_notification) {
