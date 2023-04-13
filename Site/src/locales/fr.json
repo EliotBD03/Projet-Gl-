@@ -186,7 +186,8 @@
     "monohourly": "Monohoraire",
     "bihourly": "Bihoraire",
     "changepriceperday": "Modifier le prix de jour",
-    "changepricepernight": "Modifier le prix de nuit"
+    "changepricepernight": "Modifier le prix de nuit",
+    "noproposal":"Aucune proposition"
   },
   "client": {
     "generalinformations": "Informations générales",
