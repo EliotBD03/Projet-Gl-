@@ -68,7 +68,7 @@ export default {
             if(!this.loading)
             {
                 this.nbr++;
-                this.getPage();
+                this.getNotifications();
             }
         },
         async getContract(id, name) {
