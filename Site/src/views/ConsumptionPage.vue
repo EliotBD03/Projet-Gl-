@@ -366,6 +366,7 @@ export default {
                 if(this.year != "" && this.month != "") {
                     dateWay = `?year=${this.year}&month=${this.month}`;
                 }
+                console.log(dateWay);
                 const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions_month/${this.ean}${dateWay}`, requestOptions);
                 if (!response.ok) {
                     const data = await response.text();

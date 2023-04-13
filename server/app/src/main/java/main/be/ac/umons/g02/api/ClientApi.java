@@ -292,7 +292,15 @@ public class ClientApi extends MyApi implements RouterApi
         if(commonDB.getWalletManager().doesTheWalletBelongToHim(id, address))
         {
             String nameClient = commonDB.getLogManager().getName(id);
-            commonDB.getNotificationManager().createNotification(id, idProvider, nameProposal, idProvider, "Contract request from " + nameClient, ean, address);
+            if(!commonDB.getNotificationManager().createNotification(id, idProvider, nameProposal, idProvider, "Contract request from " + nameClient, ean, address))
+            {
+                    routingContext.response()
+                        .setStatusCode(401)
+                        .putHeader("Content-Type", "application/json")
+                        .end(Json.encodePrettily(new JsonObject()
+                                    .put("error", "error.eanAlreadyUse")));
+                    return;
+            }
 
             routingContext.response()
                 .setStatusCode(200)
