@@ -132,7 +132,7 @@
           .then(response => {
             if(!response.ok){
               if(response.status == 401){
-                  throw new Error("Token");
+                  throw new Error(response.error.error);
               }
               else{
                 return response.json().then(json => Promise.reject(json));

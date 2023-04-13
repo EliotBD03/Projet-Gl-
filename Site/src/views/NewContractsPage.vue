@@ -190,21 +190,12 @@ export default {
                 this.selectedLocations = [];
             },
             convertLocation: function(location) {
+                const locToString = [this.$t("proposal.brussels"), this.$t("proposal.flanders"), this.$t("proposal.wallonia")];
                 const result = [];
-
-                if (location >= 100) {
-                    result.push(this.$t("proposal.wallonia"));
-                    location -= 100;
-                }
-
-                if (location >= 10) {
-                    result.push(this.$t("proposal.flanders"));
-                    location -= 10;
-                }
-
-                if (location >= 1) {
-                    result.push(this.$t("proposal.brussels"));
-                }
+                
+                for(let i = 0; i < location.length; i++)
+                    if(location[i] == "1")
+                        result.push(locToString[i]);
 
                 return result.join(' - ');
             },
