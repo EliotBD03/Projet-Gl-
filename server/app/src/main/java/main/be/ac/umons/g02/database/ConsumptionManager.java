@@ -44,7 +44,9 @@ public class ConsumptionManager
             query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded BETWEEN '"+ openingDate + "' AND '" + closingDate + "'";
         }
         else
-            query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean = '" + ean + "' AND YEAR(date_recorded) = YEAR(NOW()) AND MONTH(date_recorded) = MONTH(NOW()) ";
+            query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean = '" + ean + "' " +
+                    "AND YEAR(date_recorded) = YEAR((SELECT MAX(date_recorded) FROM consumption WHERE ean = '" + ean + "')) " +
+                    "AND MONTH(date_recorded) = MONTH((SELECT MAX(date_recorded) FROM consumption WHERE ean = '" + ean + "')) ";
 
         query += " AND date_recorded >= '"+lowerBoundDate+"'";
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("date_recorded", "daily_consumption").getTable();

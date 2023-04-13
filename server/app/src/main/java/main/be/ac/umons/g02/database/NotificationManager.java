@@ -105,7 +105,7 @@ public class NotificationManager
         new ContractManager().createContract(row.get(2), ean, row.get(3), address, row.get(1));
 
         createNotification(row.get(1), row.get(0), row.get(2), row.get(3),
-                "Your contract was accepted by "+new LogManager().getName(row.get(1)), ean,address);
+                "Your contract was accepted by "+new LogManager().getName(row.get(1)));
 
         deleteNotification(notificationId);
     }
