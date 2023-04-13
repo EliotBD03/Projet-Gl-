@@ -10,6 +10,9 @@
             <div class="homebutton" @click.prevent.left="redirecting()">
                 <GoButton text="header.home" :colore="'#B1B9FC'"/>
             </div>
+            <div v-if="notLastPage()" @click.prevent.left="loader()">
+                <GoButton text="button.seemore" :colore="'#B1B9FC'"/>
+            </div>
             <div class="refresh-button" @click="refreshNotifications">
                 <GoButton text="button.refresh" :colore="'#B1B9FC'"/>
             </div>
@@ -52,6 +55,20 @@ export default {
     methods: {
         async refreshNotifications(){
             await this.getNotifications();
+        },
+        notLastPage(){
+            if(this.lastPage == this.nbr || this.loading == true){
+                return false;
+            }
+            return true;
+        },
+        loader()
+        {
+            if(!this.loading)
+            {
+                this.nbr++;
+                this.getPage();
+            }
         },
         async getContract(id, name) {
             if (this.$cookies.get('role') === 'supplier') {
@@ -315,6 +332,7 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    overflow-y: scroll;
 }
 
 .notif {
