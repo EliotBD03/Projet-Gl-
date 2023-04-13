@@ -18,7 +18,7 @@ public class ContractManager
      */
     private void deleteContract(String contractId)
     {
-        String[] tables = {"contract", "counter", "provider_contract", "wallet_contract"};
+        String[] tables = {"provider_contract", "wallet_contract", "counter","contract"};
 
         for(String table: tables)
             new Query("DELETE FROM "+ table + " WHERE contract_id="+contractId).executeWithoutResult();
