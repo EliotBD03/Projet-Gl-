@@ -33,3 +33,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  *   checkBox/Options: https://v2.vuejs.org/v2/guide/forms.html
  *   Intercepteurs de navigation: https://v3.router.vuejs.org/fr/guide/advanced/navigation-guards.html#interception-globale
  *   Router: https://router.vuejs.org/guide/essentials/nested-routes.html
+ *   jwt-decode: https://www.npmjs.com/package/jwt-decode

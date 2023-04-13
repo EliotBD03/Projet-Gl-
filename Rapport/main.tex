@@ -1,0 +1,68 @@
+\documentclass{article}
+%for the accent
+\usepackage[utf8]{inputenc}
+%to put an image
+\usepackage{graphicx}
+\usepackage[french]{babel}
+\usepackage[]{amsmath, amsfonts, amssymb, enumerate}
+\usepackage{pdfpages} 
+\usepackage[linkbordercolor=white]{hyperref}
+\selectlanguage{french}
+\usepackage[utf8]{inputenc}
+%all the things to make a good title
+\title{PROJET GENIE LOGICIEL (SINFO015) :\\ Rapport de développement}
+\author{\textbf{Auteurs}: \\ Adrien Fievet \\ Claire D'Haene \\ Julien Ladeuze \\ Maxime Dupuis}
+\date{2022-2023}
+
+\begin{document}
+
+\maketitle
+
+%to skip lines
+\vspace{7\baselineskip}
+
+\begin{minipage}{0.4\textwidth}
+	\begin{flushleft}
+		\large
+		\textit{Titulaire}\\
+		Tom \textsc{Mens}\\
+		\textit{Enseignants}\\
+		Sébastien \textsc{Bonte}\\
+		Jeremy \textsc{Dubrulle}\\
+		Pierre \textsc{Hauweele}	
+	\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.5\textwidth}
+	\begin{flushright}
+		\large
+		\textit{Equipe 7}\\
+		Adrien (220625) 4\\
+		Claire (220323) 1\\
+		Julien (220101) 10\\
+		Maxime (212107) 7\\
+	\end{flushright}
+\end{minipage}
+
+%insert the image
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.3\textwidth]{images/umons.jpeg}
+    \hspace{5em}
+    \includegraphics[width = 0.3\textwidth]{images/facSciences.png}
+\end{figure}
+
+%hide the number of the actual page just for the cover page
+\thispagestyle{empty}
+
+\newpage
+\tableofcontents
+\newpage
+
+\include{ExtensionClaire/introduction}
+\include{ExtensionClaire/bdd}
+\include{ExtensionClaire/api}
+\include{ExtensionClaire/front}
+\include{ExtensionClaire/conclusion}
+
+\end{document}

@@ -162,6 +162,11 @@ export default {
                 }
             });
         },
+        /**
+         * Méthode permettant d'obtenir l'id du client.
+         * 
+         * @author Extension Claire
+         */
         getUserId(){
           const token = this.$cookies.get('token');
           const decode = jwt_decode(token);
