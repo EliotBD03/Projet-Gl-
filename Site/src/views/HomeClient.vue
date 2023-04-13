@@ -17,6 +17,9 @@
         <div class="disconnectbutton" @click.prevent.left="callDisconnect()">
         <GoButton text="button.disconnect" :colore="'red'"/>
         </div>
+        <div @click.prevent.left="refresh()">
+        <GoButton text="TEST REFRESH" :colore="'red'"/>
+        </div>
         <div class="settingsbutton" @click.prevent.left="$router.push('/settings')">
         <GoButton text="header.settings" :colore="'gray'"/>
           </div>
@@ -40,6 +43,9 @@ export default {
       callDisconnect() {
           GlobalMethods.disconnect("/");
       },
+    refresh(){
+        window.location.reload();
+      }
   },
     created() {
         GlobalMethods.getCurrentLanguage();
