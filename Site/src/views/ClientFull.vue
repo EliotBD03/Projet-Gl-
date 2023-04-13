@@ -10,7 +10,7 @@
         </div>
         <div class="contract">
           <p class="text"> {{ client.associatedcontracts }}</p>
-          <div v-if="listContract">
+          <div v-if="listContract && listContract.length !== 0">
             <div v-for="contract in listContract" :key="contract.id">
               <p> {{ $t("client.clientname") }} = {{ contract.clientName }}</p>
               <p> {{ $t("client.eancode") }} = {{ contract.ean }}</p>
