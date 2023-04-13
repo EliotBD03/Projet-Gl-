@@ -28,7 +28,7 @@
                 <p> <b>{{ $t("proposal.openingdate") }} :</b> {{ contract.openingDate }}</p>
                 <p> <b>{{ $t("proposal.closingdate") }} :</b> {{ contract.closingDate }}</p>
                 <p v-if="contract.proposal.fixedRate"><b>{{ $t("proposal.rate") }} : </b>{{ $t("proposal.fixed") }}</p>
-                <p v-else><b>{{ $t("proposal.rate") }} :</b>{{ $t("proposal.variable") }}</p>
+                <p v-else><b>{{ $t("proposal.rate") }} : </b>{{ $t("proposal.variable") }}</p>
             </div>
         </div>
         <div class="bottombutton">
