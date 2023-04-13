@@ -18,7 +18,7 @@
       </div>
       <div class = "contract">
         <p class = "text"> <b>{{ $t("client.associatedcontracts") }} </b></p>
-        <div v-if="wallet.contracts">
+        <div v-if="wallet.contract && wallet.contracts.length !== 0">
           <div v-for="contract in wallet.contracts" :key="contract.id">
             <p> <b>{{ $t("account.provider") }} :</b> {{ contract.providerName }}</p>
             <p> <b>{{ $t("client.eancode") }} :</b> {{ contract.ean }}</p>
