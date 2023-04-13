@@ -23,8 +23,8 @@
                 <p> <b>{{ $t("proposal.location") }} :</b> {{ convertLocation(contract.proposal.location) }}</p>
                 <p> <b>{{ $t("proposal.priceperday") }} :</b> {{ contract.proposal.variableDayPrice }}€</p>
                 <p> <b>{{ $t("proposal.pricepernight") }} :</b> {{ contract.proposal.variableNightPrice }}€</p>
-                <p> <b>{{ $t("proposal.startofpeakhours") }} :</b> {{ contract.proposal.startOfPeakHours }}</p>
-                <p> <b>{{ $t("proposal.endofpeakhours") }} :</b> {{ contract.proposal.endOfPeakHours }}</p>
+                <p v-if="contract.proposal.startOfPeakHours"> <b>{{ $t("proposal.startofpeakhours") }} :</b> {{ contract.proposal.startOfPeakHours }}</p>
+                <p v-if="contract.proposal.endOfPeakHours"> <b>{{ $t("proposal.endofpeakhours") }} :</b> {{ contract.proposal.endOfPeakHours }}</p>
                 <p> <b>{{ $t("proposal.openingdate") }} :</b> {{ contract.openingDate }}</p>
                 <p> <b>{{ $t("proposal.closingdate") }} :</b> {{ contract.closingDate }}</p>
                 <p v-if="contract.proposal.fixedRate"><b>{{ $t("proposal.rate") }} : </b>{{ $t("proposal.fixed") }}</p>
@@ -188,7 +188,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 105vh;
+    height: 125vh;
 }
 
 .header {

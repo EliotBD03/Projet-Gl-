@@ -164,7 +164,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    height: 100vh;
+    height: 110vh;
 }
 
 .header {
