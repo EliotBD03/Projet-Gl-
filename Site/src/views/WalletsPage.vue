@@ -55,6 +55,7 @@ export default {
   /*Au moment de la création on récupère déjà la première page de l'api*/
   created() {
     this.getPage();
+      GlobalMethods.getCurrentLanguage();
   },
   methods: {
     /**
