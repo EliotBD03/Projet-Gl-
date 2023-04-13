@@ -37,6 +37,7 @@ export default {
             notifications: [],
             nbr: 1,
             lastPage: 0,
+            loading : false,
             timer: null,
             role: this.$cookies.get('role'),
         }
@@ -190,7 +191,8 @@ export default {
             const requestOptions = {
                 method: "GET",
                 headers: {'Authorization': this.$cookies.get("token")},
-            }
+            };
+            this.loading = true;
             try {
                 const response = await fetch(`https://babawallet.alwaysdata.net/api/common/notifications/page?page=${this.nbr}&limit=3`, requestOptions);
                 if (!response.ok) {
@@ -206,10 +208,11 @@ export default {
                     if (this.lastPage == 0) {
                         this.loading = true;
                         Swal.fire(this.$t("alerts.nonotification"));
-                    } else {
+                    } else if(this.lastPage >= this.nbr) {
                         this.id = data.id_proposal;
                         this.notifications = data.allNotifications;
                         this.notifications = this.notifications.flat();
+                        this.loading = false;
                     }
                 }
             } catch (error) {
