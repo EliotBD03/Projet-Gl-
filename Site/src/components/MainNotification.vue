@@ -8,8 +8,8 @@
             </div>
             <div class="p">{{  $t("notifications.text",{text: texte}) }}</div>
             <div class="fields">
-                <input type="text" v-model="ean" v-if="checkRole()" placeholder="Code EAN">
-                <input type="text" v-model="adress" v-if="checkRole()" placeholder="Adress">
+                <input type="text" v-model="ean" v-if="checkRole()" :placeholder="$t('client.eancode')">
+                <input type="text" v-model="adress" v-if="checkRole()" :placeholder="$t('proposal.address')">
             </div>
             <div>
             </div>
@@ -17,18 +17,18 @@
         <div class="statesButtons">
             <div class="interactbutton" v-if="checkStatus()">
                 <div class="acceptbutton" @click.prevent.left="accept(id_notification)">
-                    ACCEPT
+                    {{ $t("button.accept") }}
                 </div>
                 <div class="refusebutton" @click.prevent.left="refuse(id_notification)">
-                    REFUSE
+                    {{ $t("button.deny") }}
                 </div>
                 <div class="seebutton" @click.prevent.left="seeProposal(proposalName)">
-                    INFOS
+                    {{ $t("button.infos") }}
                 </div>
             </div>
             <div class="deletedbutton" v-else>
                 <div class="seenbutton" @click.prevent.left="deleted(id_notification)">
-                    SEEN
+                    {{ $t("button.seen") }}
                 </div>
             </div>
         </div>
@@ -56,11 +56,11 @@ export default {
             const elapsedHours = elapsedTime.asHours();
             const elapsedMinutes = elapsedTime.asMinutes();
             if (elapsedHours >= 1) {
-                return Math.floor(elapsedHours) + " hours ago";
+                return this.$t("notifications.time", [{time: Math.floor(elapsedHours), format: this.$t("settings.hours")}]);
             } else if (elapsedMinutes >= 1) {
-                return Math.floor(elapsedMinutes) + " minutes ago";
+                return this.$t("notifications.time", {time: (Math.floor(elapsedMinutes)), format: this.$t("settings.minutes")});
             } else {
-                return "Just now";
+                return this.$t("settings.now");
             }
         },
         updateTextAndTitle() {
@@ -68,21 +68,28 @@ export default {
             let texte = this.text;
             if (this.text.includes("accepted by")) {
                 title = this.text.split("accepted by")[1].trim();
-                texte = "Has accepted your contract";
+                texte = this.$t("notifications.accepted");
             } else if (this.text.includes("denied by")) {
                 title = this.text.split("denied by")[1].trim();
-                texte = "Has denied your contract";
+                texte = this.$t("notifications.denied");
             } else if (this.text.includes("from")) {
                 title = this.text.split("from")[1].trim();
-                texte = "Contract request";
+                texte = this.$t("notifications.request");
             } else if (this.text.includes("daily consumption")) {
                 const regex = /in the (.+) has changed to (.+) for this ean code : (.+)/;
                 const match = regex.exec(this.text);
                 const date = moment(match[1]).format("YYYY-MM-DD");
                 const consumption = match[2];
                 const ean = match[3];
-                title = "System";
-                texte = `Daily consumption (${date}) has changed to ${consumption} (EAN: ${ean}).`; }
+                title = this.$t("notifications.system");
+                texte = this.$t("notifications.dailychange", {date: date, consumption: consumption, ean: ean});
+            } else if (this.text.includes("deleted by")) {
+                title = this.text.split(":")[1].trim();
+                texte = this.$t("notifications.deleted");
+            } else if (this.text.includes("expired")) {
+                title = this.$t("notifications.system");
+                texte = this.$t("notifications.expired");
+            }
             this.title = title;
             this.texte = texte;
         },
@@ -96,14 +103,10 @@ export default {
             this.$emit("delete", this.id_notification);
         },
         seeProposal() {
-           if (this.role === "supplier") {
-               this.$emit("seeProposal", this.proposalName);
-           } else {
-                this.$emit("seeProposal", this.providerId, this.proposalName);
-           }
+            this.$emit("seeProposal", this.providerId, this.proposalName);
         },
         checkStatus() {
-                return this.text.includes("request");
+            return this.text.includes("request");
         },
         checkRole() {
             if (this.role === 'client') {
@@ -126,7 +129,7 @@ export default {
     border-radius: 20px;
     display: flex;
     align-items: center;
-    justify-content: left;
+    justify-content: center;
     backdrop-filter: blur(10px);
     transition: 0.5s ease-in-out;
 }

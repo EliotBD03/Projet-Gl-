@@ -51,7 +51,11 @@
     "modifyproposal": "Modify proposal",
     "closeproposal": "Close proposal",
     "deleteaccount": "Delete account",
-    "addwallet": "Add wallet"
+    "addwallet": "Add wallet",
+    "accept": "Accept",
+    "deny": "Deny",
+    "seen": "Seen",
+    "infos": "Infos"
   },
   "maincard": {
     "newcontracts": "See new contracts",
@@ -150,12 +154,20 @@
     "seconds": "seconds",
     "minutes": "minutes",
     "hours": "hours",
-    "days": "days"
+    "days": "days",
+    "now": "Just now"
   },
   "notifications": {
     "title": "{name}",
-    "time": "{time} ago",
-    "text": "{text}"
+    "time": "{time} {format} ago",
+    "text": "{text}",
+    "accepted": "Has accepted your contract",
+    "denied": "Has denied your contract",
+    "request": "Contract request",
+    "dailychange": "Daily consumption {date} has changed to {consumption} (EAN : {EAN})",
+    "system": "System",
+    "deleted": "Has deleted your contract",
+    "expired": "Your contract has expired"
   },
   "proposal": {
     "selectproposal": "Select a proposal",

@@ -51,7 +51,11 @@
     "modifyproposal": "Modifier la proposition",
     "closeproposal": "Fermer la proposition",
     "deleteaccount": "Supprimer le compte",
-    "addwallet": "Ajouter un portefeuille"
+    "addwallet": "Ajouter un portefeuille",
+    "accept": "Accepter",
+    "deny": "Refuser",
+    "seen": "Vu",
+    "infos": "Infos"
   },
   "maincard": {
     "newcontracts": "Voir les nouveaux contrats",
@@ -149,12 +153,20 @@
     "seconds": "secondes",
     "minutes": "minutes",
     "hours": "heures",
-    "days": "jours"
+    "days": "jours",
+    "now": "A l'instant"
   },
   "notifications": {
     "title": "{name}",
-    "time": "il y a {time}",
-    "text": "{text}"
+    "time": "il y a {time} {format}",
+    "text": "{text}",
+    "accepted": "A accepté votre contrat",
+    "denied": "A refusé votre contrat",
+    "request": "A demandé un contrat",
+    "dailychange": "Consommation journalière du {date} a changé en {consumption} (EAN : {EAN})",
+    "system": "Système",
+    "deleted": "A supprimé votre contrat",
+    "expired": "Votre contrat a expiré"
   },
   "proposal": {
     "selectproposal": "Sélectionnez une proposition",

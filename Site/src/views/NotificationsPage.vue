@@ -4,7 +4,7 @@
             <MainHeader text="header.notifications"/>
         </div>
         <div class="notifs">
-            <MainNotification class="notif" v-for="notif in notifications" :providerId="notif.providerProposalId" :role="role" :key="notif.notificationId" :time="notif.creationDate" :text="notif.context" :id_notification="notif.notificationId" :proposal-name="notif.proposalName" @seeProposal="getContract" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
+            <MainNotification class="notif" v-for="notif in notifications" :providerId="notif.providerProposalId" :role="role" :key="notif.notificationId" :time="notif.creationDate" :text="notif.context" :id_notification="notif.notificationId" :proposalName="notif.proposalName" @seeProposal="getContract" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
         </div>
         <div class="bottombuttons">
             <div class="homebutton" @click.prevent.left="redirecting()">
@@ -55,6 +55,10 @@ export default {
     /*Méthode pour rediriger vers la page d'accueil*/
     methods: {
         async refreshNotifications(){
+            this.nbr = 1;
+            this.notifications = [];
+            this.lastPage = 0;
+            this.loading = false;
             await this.getNotifications();
         },
         notLastPage(){
@@ -95,8 +99,8 @@ export default {
                             html: `${this.$t("proposal.typeofenergy")}: ${this.contract.typeOfEnergy}<br>
            ${this.$t("proposal.location")}: ${this.convertLocation(this.contract.location)}<br>
            ${this.$t("proposal.priceperday")}: ${this.contract.variableDayPrice}<br>
-           ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}
-           ${this.$t("proposal.duration")}: ${this.contract.duration}<br>
+           ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}<br>
+           ${this.$t("proposal.duration")}: ${this.contract.duration/720}<br>
             ${this.$t("proposal.rate")}: ${this.convertRate(this.contract.fixedRate)}`
                         });
                     }
@@ -185,7 +189,6 @@ export default {
                         GlobalMethods.errorApi(error.message);
                     }
                 });
-            await this.refreshNotifications();
         },
         async getNotifications() {
             const requestOptions = {
@@ -210,7 +213,7 @@ export default {
                         Swal.fire(this.$t("alerts.nonotification"));
                     } else if(this.lastPage >= this.nbr) {
                         this.id = data.id_proposal;
-                        this.notifications = data.allNotifications;
+                        this.notifications.push(data.allNotifications);
                         this.notifications = this.notifications.flat();
                         this.loading = false;
                     }
@@ -245,7 +248,7 @@ export default {
                                 throw new Error(data.error);
                             }
                         } else {
-                            Swal.fire(this.$t("alerts.notificationaccepted"));
+                            Swal.fire(this.$t("alerts.acceptednotification"));
                             this.refreshNotifications();
                         }
                     })
@@ -259,7 +262,6 @@ export default {
             } else {
                 Swal.fire(this.$t("alerts.wrongean"));
             }
-            await this.refreshNotifications();
         },
         async refuseNotification(id_notification) {
             const requestOptions = {
@@ -334,7 +336,8 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    height: 400px;
     overflow-y: scroll;
 }
 
