@@ -70,7 +70,7 @@ public class ConsumptionManager
 
         String lowerBoundDate = new Query("SELECT DATE(assignment_date) as 'd' FROM counter WHERE ean="+ean).executeAndGetResult("d").getStringElem(0,0);
         String inequality = isAfter ? ">" : "<";
-        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='" + ean + "' AND date_recorded " + inequality + "'" + date + "' AND date_recorded >= "+lowerBoundDate+" ORDER BY date_recorded DESC LIMIT 0, 10;";
+        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='" + ean + "' AND date_recorded " + inequality + "'" + date + "' AND date_recorded >= "+lowerBoundDate+" ORDER BY date_recorded ASC LIMIT 0, 10;";
 
         if(date == null)
         {
