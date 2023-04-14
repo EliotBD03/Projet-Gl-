@@ -65,36 +65,40 @@ export default {
   * 
   * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
   */
-  async created(){
-    const requestOptions = {
-      method: "GET",
-      headers: {'Authorization' : this.$cookies.get("token")}
-    };
-    try {
-      const response = await fetch(`https://babawallet.alwaysdata.net/api/client/wallets/${this.address}`,requestOptions);
-        if (!response.ok) { 
-          if(response.status == 401){
-            throw new Error("Token");
-          }
-          else{
-            const data = await response.json();
-            throw new Error(data.error);
-          }
-        } 
-        else {
-          const data = await response.json();
-          this.wallet = data.wallet;
-        }
-    } catch(error) {
-        if(error.message === "Token") {
-          GlobalMethods.errorToken();
-        } 
-        else {
-          GlobalMethods.errorApi(error.message);
-        }
-    }
+  created() {
+      GlobalMethods.getCurrentLanguage();
+      this.getWallet();
   },
   methods: {
+      async getWallet() {
+          const requestOptions = {
+              method: "GET",
+              headers: {'Authorization' : this.$cookies.get("token")}
+          };
+          try {
+              const response = await fetch(`https://babawallet.alwaysdata.net/api/client/wallets/${this.address}`,requestOptions);
+              if (!response.ok) {
+                  if(response.status == 401){
+                      throw new Error("Token");
+                  }
+                  else{
+                      const data = await response.json();
+                      throw new Error(data.error);
+                  }
+              }
+              else {
+                  const data = await response.json();
+                  this.wallet = data.wallet;
+              }
+          } catch(error) {
+              if(error.message === "Token") {
+                  GlobalMethods.errorToken();
+              }
+              else {
+                  GlobalMethods.errorApi(error.message);
+              }
+          }
+      },
     /**
     * Cette méthode permet de supprimer un portefeuille.
     * 
