@@ -491,7 +491,7 @@ export default {
                 else{
                     sessionStorage.removeItem('ean');
                     sessionStorage.removeItem('contractId');
-                    this.$router.push('/contractFull');
+                    this.$router.push('/clientFull');
                 }
             }
         }
