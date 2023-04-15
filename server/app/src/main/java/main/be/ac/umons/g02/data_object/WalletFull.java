@@ -10,9 +10,8 @@ public class WalletFull extends WalletBasic{
     private double lastConsumptionOfGas;
     private ArrayList<InvitedClient> invitedClients;
 
-    public WalletFull(String address, String name, String ownerId, String ownerName)
-    {
-        super(address, name, ownerId, ownerName);
+    public WalletFull(String address, String name, String ownerId, String ownerName, int numberOfResidents, int sizeOfHouse, boolean isHouse, boolean isElectricityToCharge, boolean solarPanels){
+        super(address, name, ownerId, ownerName, numberOfResidents, sizeOfHouse, isHouse, isElectricityToCharge, solarPanels);
         contracts = new ArrayList<>();
         invitedClients = new ArrayList<>(); //Ajout de la liste des invités Extension Claire
     }

@@ -19,7 +19,7 @@ class ConsumptionManagerTest {
         DBTest.setUp();
         new LogManager().saveAccount("mail", "password", true, "juju", "english");
         new LogManager().saveAccount("providermail", "password", false, "jiji", "dutch");
-        new WalletManager().createWallet(new WalletBasic("address", "wallet", "1", "juju"));
+        new WalletManager().createWallet(new WalletBasic("address", "wallet", "1", "juju", 1, 50, true, true, true));
         DB.getInstance().executeQuery("INSERT INTO wallet_contract(address, contract_id) VALUES('address', 1)",false);
         DB.getInstance().executeQuery("INSERT INTO counter(ean, contract_id) VALUES('"+ean+"', 1)",false);
         new ProposalManager().addProposal(new ProposalFull("2", "jiji", "electricity", "100", "elec"));

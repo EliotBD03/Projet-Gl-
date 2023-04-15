@@ -31,15 +31,16 @@ public class WalletManager
      * @param limit le nombre d'éléments
      * @return un tableau reprenant le nombre total en premier indice et une ArrayList d'objets WalletBasic.
      */
+    @SuppressWarnings("removal")
     public Object[] getAllWallets(String clientId, int base, int limit)
     {
         String query = "SELECT * FROM wallet WHERE client_id="+clientId+ " LIMIT " + base+", " + limit;
-        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("address", "wallet_name", "client_id").getTable();
+        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("address", "wallet_name", "client_id", "number_of_residents", "size_of_house", "is_house", "is_electricity_to_charge", "solar_panels").getTable();
 
         ArrayList<WalletBasic> walletBasics = new ArrayList<>();
 
         for (ArrayList<String> row : table)
-            walletBasics.add(new WalletBasic(row.get(0), row.get(1), row.get(2), new LogManager().getName(row.get(2))));
+            walletBasics.add(new WalletBasic(row.get(0), row.get(1), row.get(2), new LogManager().getName(row.get(2)), new Integer(row.get(3)), new Integer(row.get(4)), new Boolean(row.get(5)), new Boolean(row.get(6)), new Boolean(row.get(7))));
 
         int count = new Query("SELECT count(*) AS 'c' FROM wallet WHERE client_id="+clientId).executeAndGetResult("c").getIntElem(0,0);
 
@@ -78,7 +79,7 @@ public class WalletManager
      * @param address l'adresse du portefeuille
      * @return objet WalletFull
      */
-
+    @SuppressWarnings("removal")
     public WalletFull getWallet(String address)
     {
         if(!doesTheWalletExists(address))
@@ -92,11 +93,16 @@ public class WalletManager
                 "client_id",
                 "latest_consumption_elec",
                 "latest_consumption_water",
-                "latest_consumption_gas"
+                "latest_consumption_gas",
+                "number_of_residents",
+                "size_of_house",
+                "is_house",
+                "is_electricity_to_charge",
+                "solar_panels"
         ).getTable();
 
         ArrayList<String> row = table.get(0);
-        WalletFull walletFull = new WalletFull(row.get(0),row.get(1), row.get(2), new LogManager().getName(row.get(2)));
+        WalletFull walletFull = new WalletFull(row.get(0), row.get(1), row.get(2), new LogManager().getName(row.get(2)), new Integer(row.get(6)), new Integer(row.get(7)), new Boolean(row.get(8)), new Boolean(row.get(9)), new Boolean(row.get(10)));
 
         walletFull.setLastConsumption(Double.parseDouble(row.get(4)), Double.parseDouble(row.get(3)), Double.parseDouble(row.get(5)));
 

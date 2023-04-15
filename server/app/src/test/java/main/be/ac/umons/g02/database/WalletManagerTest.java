@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class WalletManagerTest
 {
 
-    private final WalletBasic walletBasic = new WalletBasic("address", "name", "1", "YOU");
-    private final WalletBasic walletBasicPerm = new WalletBasic("address2", "name", "2", "YOU", "R"); //Extension Claire
+    private final WalletBasic walletBasic = new WalletBasic("address", "name", "1", "YOU", 1, 50, true, true, true);
+    private final WalletBasic walletBasicPerm = new WalletBasic("address2", "name", "2", "YOU", 1, 50, true, true, true, "R"); //Extension Claire
 
     @BeforeAll
     static void setUp() throws Exception

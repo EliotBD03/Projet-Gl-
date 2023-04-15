@@ -355,22 +355,42 @@ public class ClientApi extends MyApi implements RouterApi
     private void createWallet(final RoutingContext routingContext)
     {
         LOGGER.info("CreateWallet...");
-
         String id = null;
         if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
-
         JsonObject body = null;
         if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
-
         String address = null;
         if(checkParam((address = body.getString("address")), routingContext)) return;
-
         String name = null;
         if(checkParam((name = body.getString("name")), routingContext)) return;
 
         String nameOwner = commonDB.getLogManager().getName(id);
 
-        WalletBasic wallet = new WalletBasic(address, name, id, nameOwner);
+        int numberOfResidents = 0;
+        int sizeOfHouse = 0;
+        boolean isHouse = true;
+        boolean isElectricityToCharge = true;
+        boolean solarPanels = false;
+
+        try
+        {
+            if(checkParam((numberOfResidents = body.getInteger("number_of_residents")), routingContext)) return;
+            if(checkParam((sizeOfHouse = body.getInteger("size_of_house")), routingContext)) return;
+            if(checkParam((isHouse = body.getBoolean("is_house")), routingContext)) return;
+            if(checkParam((isElectricityToCharge = body.getBoolean("is_electricity_to_charge")), routingContext)) return;
+            if(checkParam((solarPanels = body.getBoolean("solar_panels")), routingContext)) return;
+        }
+        catch(Exception error)
+        {
+            routingContext.response()
+                .setStatusCode(400)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.missingInformation")));
+            return;
+        }
+
+        WalletBasic wallet = new WalletBasic(address, name, id, nameOwner, numberOfResidents, sizeOfHouse, isHouse, isElectricityToCharge, solarPanels);
 
         if(commonDB.getWalletManager().createWallet(wallet))
             routingContext.response()

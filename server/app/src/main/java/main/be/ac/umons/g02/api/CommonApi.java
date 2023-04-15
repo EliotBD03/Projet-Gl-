@@ -6,6 +6,7 @@ import main.be.ac.umons.g02.database.CommonDB;
 import main.be.ac.umons.g02.database.WalletManager;
 import main.be.ac.umons.g02.data_object.Notification;
 import main.be.ac.umons.g02.data_object.ContractFull;
+import main.be.ac.umons.g02.data_object.WalletFull;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.json.Json;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 import io.vertx.core.http.HttpHeaders;
+import java.lang.Math;
+import java.util.Random;
 
 /**
  * Classe qui gère la catégorie commune des requêtes de l'API
@@ -52,6 +55,7 @@ public class CommonApi extends MyApi implements RouterApi
         subRouter.get("/consumptions_month/:ean").handler(this::getConsumptionOfMonth);
         subRouter.get("/consumptions/:ean").handler(this::getConsumptions);
         subRouter.post("/consumptions").handler(this::addConsumption);
+        subRouter.get("/other_consumptions/:address/:id_contract").handler(this::getOtherConsumptions);
 
         return subRouter;
     }
@@ -516,5 +520,132 @@ public class CommonApi extends MyApi implements RouterApi
             .putHeader("Content-Type", "application/json")
             .end(Json.encodePrettily(new JsonObject()
                         .put("valueChange", valueChange)));
+
+        if(valueChange)
+        {
+            String mail = commonDB.getLogManager().getMail(id);
+
+            for(int i = 0; i < listDate.size(); i++)
+            {
+                if(!dataIsNormal(listValue.get(i), listDate.get(i), ean))
+                {
+                    App.sendEmail(mail, "Warning Consumption", "This is an alert mail because the consumption data of " + listDate.get(i) + " is worth " + listValue.get(i) + " is strange. Please check your installation.");
+                }
+            }
+        }
+    }
+
+    /**
+     * Méthode qui permet de retourner une liste de 10 consommations estimés en fonction des paramètres de l'utilisateur
+     *
+     * @param routingContext - Le context de la requête
+     */
+    @SuppressWarnings("removal")
+    private void getOtherConsumptions(final RoutingContext routingContext)
+    {
+        LOGGER.info("GetOtherConsumptions...");
+
+        String address = null;
+        if(checkParam((address = routingContext.request().getParam("address")), routingContext)) return;
+
+        String idContract = null;
+        if(checkParam((idContract = routingContext.request().getParam("id_contract")), routingContext)) return;
+
+        Integer month = new Integer(routingContext.request().getParam("month"));
+        if(month == null)
+            month = 1;
+
+        WalletFull wallet = commonDB.getWalletManager().getWallet(address);
+        String typeOfEnergy = commonDB.getContractManager().getTypeOfEnergyFromContract(idContract);
+
+        ArrayList<Double> listConsumption = generateValue(typeOfEnergy, wallet, month);
+
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end(Json.encodePrettily(new JsonObject()
+                        .put("listConsumption", listConsumption)));
+    }
+
+    /**
+     * Méthode qui permet de vérifier qu'une valeur entrée est normale en regardant les 10 dernières conosmmations
+     * Cette méthode retourne true s'il y a moins de 5 consommations avec lesquelles on peut effectuer un calcul
+     *
+     * @param value - La valeur entrée
+     * @param date - La date de la consommation
+     * @param ean - Le code ean lié à cette consommation
+     */
+    private boolean dataIsNormal(double value, String date, String ean)
+    {
+        HashMap<String, Double> lastConsumptions = commonDB.getConsumptionManager().getConsumptions(ean, date, false);
+
+        if(lastConsumptions.size() < 5)
+            return true;
+
+        Double critiqueValue = 0.0;
+
+        for(String key : lastConsumptions.keySet())
+            critiqueValue += lastConsumptions.get(key);
+
+        critiqueValue = (critiqueValue/lastConsumptions.size()) * 1.5;
+
+        if(value > critiqueValue)
+            return false;
+        return true;
+    }
+
+    /**
+     * Méthode qui permet de générer des données à partir des paramètres d'un portefeuille pour un type d'énergie
+     *
+     * @param typeOfEnergy - Le type d'énergie
+     * @param wallet - Le portefeuill qui contient les paramètres
+     * @param month - le moi de l'année
+     */
+    private ArrayList<Double> generateValue(String typeOfEnergy, WalletFull wallet, int month)
+    {
+        ArrayList<Double> listValue = new ArrayList<>();
+        Random rand = new Random();
+
+        for(int i = 0; i < 10; i++)
+        {
+            double value = 0.0;
+
+            switch(typeOfEnergy)
+            {
+                case "water":
+                    value = 96 * wallet.getNumberOfResidents();
+                    break;
+
+                case "gas":
+                    value = 45 + (wallet.getNumberOfResidents() * 0.8) + Math.floorMod(wallet.getSizeOfHouse(), 50);
+                    if(wallet.getIsHouse())
+                        value += 0.3;
+                    if(!wallet.getIsElectricityToCharge())
+                        value += 1.3;
+                    if(month >= 4 && month <= 10)
+                        value -= 0.3;
+                    break;
+
+                case "electricity":
+                    value = 1.5 + (wallet.getNumberOfResidents() * 0.8) + Math.floorMod(wallet.getSizeOfHouse(), 50);
+                    if(wallet.getIsHouse())
+                        value += 0.5;
+                    if(!wallet.getIsElectricityToCharge())
+                        value += 1.3;
+                    if(month >= 4 && month <= 10)
+                        value -= 0.5;
+                    if(wallet.getSolarPanels())
+                        value -= 0.7;
+                    break;
+            }
+
+            double max = value + value * 0.1;
+            double min = value - value * 0.1;
+
+            value = rand.nextDouble() * (max - min) + min;
+            listValue.add(value);
+        }
+
+        return listValue;
     }
 }
