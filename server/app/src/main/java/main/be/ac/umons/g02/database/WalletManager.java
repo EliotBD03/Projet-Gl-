@@ -126,8 +126,8 @@ public class WalletManager
         if(doesTheWalletExists(walletBasic.getAddress()))
             return false;
 
-        new Query("INSERT INTO wallet(address,client_id,wallet_name) VALUES('"+
-                walletBasic.getAddress()+"',"+walletBasic.getClientId()+",'"+walletBasic.getName()+"')").executeWithoutResult();
+        new Query("INSERT INTO wallet(address,client_id,wallet_name, number_of_residents, size_of_house, is_house, is_electricity_to_charge, solar_panels) VALUES('"+
+                walletBasic.getAddress()+"',"+walletBasic.getClientId()+",'"+walletBasic.getName()+"','"+walletBasic.getNumberOfResidents()+"','"+walletBasic.getSizeOfHouse()+"','"+walletBasic.getIsHouse()+"','"+walletBasic.getIsElectricityToCharge()+"','"+walletBasic.getSolarPanels()+"')").executeWithoutResult();
 
         return true;
     }

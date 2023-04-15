@@ -29,7 +29,7 @@
                         <input type="radio" id="typeOfHouseChoice1" name="typeOfHouse" value="house" checked>
                         <label for="typeOfHouseChoice1">{{ $t('walletform.typeHouse1') }}</label>
 
-                        <input type="radio" id="typeOfHouseChoice2" value="apartment">
+                        <input type="radio" id="typeOfHouseChoice2" name="typeOfHouse" value="apartment">
                         <label for="typeOfHouseChoice2">{{ $t('walletform.typeHouse2') }}</label>
                     </div>
                     <div style="display: inline;">
@@ -37,7 +37,7 @@
                         <input type="radio" id="typeOfChargeChoice1" name="typeOfCharge" value="electricity" checked>
                         <label for="typeOfChargeChoice1">{{ $t('walletform.typeCharge1') }}</label>
 
-                        <input type="radio" id="typeOfChargeChoice2" value="gas">
+                        <input type="radio" id="typeOfChargeChoice2" name="typeOfCharge" value="gas">
                         <label for="typeOfChargeChoice2">{{ $t('walletform.typeCharge2') }}</label>
                     </div>
                     <div style="display: inline;">
@@ -45,7 +45,7 @@
                         <input type="radio" id="solarPanelChoice1" name="solarPanel" value="solarPanel" checked>
                         <label for="solarPanelChoice1">{{ $t('walletform.solarPanel1') }}</label>
 
-                        <input type="radio" id="solarPanelChoice2" value="noSolarPanel">
+                        <input type="radio" id="solarPanelChoice2" name="solarPanel" value="noSolarPanel">
                         <label for="solarPanelChoice2">{{ $t('walletform.solarPanel2') }}</label>
                     </div>
                 </div>
@@ -100,13 +100,13 @@ export default {
                 let solarPanel = false;
                 
                 document.querySelector('input[name="typeOfHouse"]:checked').value == "house" ? typeOfHouse = true : typeOfHouse = false;
-                document.querySelector('input[name="typeOfCharge"]:checked').value == "house" ? typeOfCharge = true : typeOfCharge = false;
-                document.querySelector('input[name="solarPanel"]:checked').value == "house" ? solarPanel = true : solarPanel = false;
+                document.querySelector('input[name="typeOfCharge"]:checked').value == "electricity" ? typeOfCharge = true : typeOfCharge = false;
+                document.querySelector('input[name="solarPanel"]:checked').value == "solarPanel" ? solarPanel = true : solarPanel = false;
                 
                 const requestOptions = {
                     method: "POST",
                     headers: {'Authorization': this.$cookies.get("token")},
-                    body: JSON.stringify({ name: this.name, address: this.address, number_of_residents: this.numberOfResidents, size_of_house: this.sizeOfHouse, is_house: typeOfHouse, is_electricity_to_charge: typeOfCharge, solar_panels: solarPanel})
+                    body: JSON.stringify({ name: this.name, address: this.address, number_of_residents: parseInt(this.numberOfResidents), size_of_house: parseInt(this.sizeOfHouse), is_house: typeOfHouse, is_electricity_to_charge: typeOfCharge, solar_panels: solarPanel})
                 };
                 fetch("https://babawallet.alwaysdata.net/api/client/wallets", requestOptions)
                     .then(response => {
