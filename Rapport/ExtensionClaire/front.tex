@@ -1,0 +1,52 @@
+\subsection{Front-end}
+
+\subsubsection{Introduction}
+
+\begin{flushleft}
+Dans cette partie, je vais vous expliquer les modifications et ajouts apportés au front-end de la base du projet. 
+\end{flushleft}
+
+\begin{flushleft}
+Vous pouvez constater l'ajout de quatres fichiers :
+\end{flushleft}
+
+\begin{enumerate}
+\item \textbf{AddInvited}\newline
+\item \textbf{ChangePermissions}\newline
+\item \textbf{InvitationMessage}\newline
+\item \textbf{InvitedWallet}\newline
+\end{enumerate}
+
+\subsubsection{AddInvited}
+
+\begin{flushleft}
+Cette page permet à un client d'ajouter un invité en saisissant l'identifiant de l'invité et en sélectionnant la permission qu'il souhaite lui accorder.
+Cette manière de procéder semblait plus intuitive pour l'utilisateur, il suffit que la personne que ce dernier souhaite inviter aille dans ses paramètres pour voir son identifiant et ainsi lui donner.
+\end{flushleft}
+
+\subsubsection{ChangePermissions}
+
+\begin{flushleft}
+Cette page permet simplement de changer la permission d'un invité.
+\end{flushleft}
+
+\subsubsection{InvitationMessage}
+
+\begin{flushleft}
+Cette page répertorie toutes les demandes d'invitations et permet de les accepter ou refuser et de voir les demandes qui leur ont été refusées ou acceptées.
+\end{flushleft}
+
+\subsubsection{InvitedWallet}
+
+\begin{flushleft}
+Cette page permet comme expliqué précédemment de récupérer tous les portefeuilles où le client est invité ainsi que la permission correspondante.
+\end{flushleft}
+\begin{flushleft}
+Notez que cette fois, lorsqu'on se dirige vers "walletFull", les permissions sont encodées dans le sessionStorage.
+\end{flushleft}
+
+\subsubsection{WalletFull et consumptionPage}
+
+\begin{flushleft}
+Ces deux pages reposent sur le même principe, je récupère la permission associée et grâce aux directives de condition, j'affiche les possibilités pour le client en fonction qu'il soit propriétaire ou s'il est invité en lecture ou lecture et écriture.
+\end{flushleft}

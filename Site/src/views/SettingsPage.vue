@@ -3,6 +3,9 @@
         <div class="header">
             <MainHeader text="header.settings"/>
         </div>
+        <div class = "id"> 
+            <p>Id = {{ userId }}</p> 
+        </div>
         <div class="forms">
             <div class="form">
                 <DropdownMain :text="$t('settings.chooselanguage')" v-model="language"/>
@@ -35,6 +38,7 @@ import DropdownMain from "@/components/DropdownMain.vue";
 import Swal from 'sweetalert2';
 import InputMain from "@/components/InputMain.vue";
 import GlobalMethods from "@/components/GlobalMethods.vue";
+import jwt_decode from 'jwt-decode';
 export default {
     components: {
         InputMain,
@@ -47,6 +51,7 @@ export default {
             mail: "",
             test: "",
             language: this.$i18n.locale,
+            userId : ""
         }
     },
     watch: {
@@ -56,6 +61,7 @@ export default {
     },
     created() {
         GlobalMethods.getCurrentLanguage();
+        this.getUserId();
     },
     methods: {
         /*Sauvegarder la langue dans les cookies et afficher un message de confirmation*/
@@ -157,6 +163,16 @@ export default {
                     Swal.close();
                 }
             });
+        },
+        /**
+         * Méthode permettant d'obtenir l'id du client.
+         * 
+         * @author Extension Claire
+         */
+        getUserId(){
+          const token = this.$cookies.get('token');
+          const decode = jwt_decode(token);
+          this.userId = decode.id;
         }
     }
 };
@@ -204,5 +220,15 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.id{
+  position: fixed;
+  margin-top: 20px;
+  margin-right: 20px;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+  font-size: 25px;
 }
 </style>

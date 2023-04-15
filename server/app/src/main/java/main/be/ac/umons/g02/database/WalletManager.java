@@ -3,6 +3,7 @@ package main.be.ac.umons.g02.database;
 import main.be.ac.umons.g02.data_object.ContractBasic;
 import main.be.ac.umons.g02.data_object.WalletBasic;
 import main.be.ac.umons.g02.data_object.WalletFull;
+import main.be.ac.umons.g02.data_object.InvitedClient;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,32 @@ public class WalletManager
     }
 
     /**
+     * Donne tous les portefeuilles où un certain client est invité dans un intervalle : [base, base + limit]
+     * en plus du nombre total de portefeuilles que le client possède.
+     *
+     * @param clientId l'identifiant du client invité
+     * @param base la borne inférieure
+     * @param limit le nombre d'éléments
+     * @return un tableau reprenant le nombre total en premier indice et une ArrayList d'objets WalletBasic.
+     * @author Extension Claire
+     */
+    public Object[] getAllInvitedWallets(String clientId, int base, int limit)
+    {
+        String query = "SELECT wallet.*, invitedTable.permission FROM wallet JOIN invitedTable ON wallet.address = invitedTable.address WHERE invitedTable.invitedId = " +clientId+ "" + " LIMIT " + base+", " + limit;
+
+        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("address", "wallet_name", "client_id", "permission").getTable();
+
+        ArrayList<WalletBasic> walletBasics = new ArrayList<>();
+
+        for (ArrayList<String> row : table)
+            walletBasics.add(new WalletBasic(row.get(0), row.get(1), row.get(2), new LogManager().getName(row.get(2)), row.get(3)));
+
+        int count = new Query("SELECT count(*) AS 'c' FROM wallet WHERE client_id="+clientId).executeAndGetResult("c").getIntElem(0,0);
+
+        return new Object[] {count,walletBasics};
+    }
+
+    /**
      * Donne le portefeuille d'une adresse particulière.
      *
      * @param address l'adresse du portefeuille
@@ -75,6 +102,9 @@ public class WalletManager
 
         ArrayList<ContractBasic> contractBasics =(ArrayList<ContractBasic>) new ContractManager().getAllContracts(walletFull.getClientId(), 0, -1)[1];
         walletFull.addContracts(contractBasics);
+
+        ArrayList<InvitedClient> invitedClients =(ArrayList<InvitedClient>) new InvitedClientManager().getAllInvitedClients(walletFull.getAddress(), 0, -1)[1];
+        walletFull.addInvitedClients(invitedClients); //Extension Claire
 
         return walletFull;
     }
@@ -113,6 +143,7 @@ public class WalletManager
 
     /**
      * Vérifie si le portefeuille est vide. C'est-à-dire qu'il ne possède aucun contrat.
+     * Vérifie également s'il n'y a plus de clients invités sur le portefeuille. -> Extension Claire
      *
      * @param address l'adresse du portefeuille à supprimer
      * @return vrai si le portefeuille est vide, faux sinon
@@ -121,6 +152,8 @@ public class WalletManager
     {
         return new Query("SELECT EXISTS(SELECT * FROM wallet_contract WHERE address='"+address+"') AS c")
                 .executeAndGetResult("c")
+                .getIntElem(0,0) == 0 && new Query("SELECT EXISTS(SELECT * FROM invitedTable WHERE address='"+address+"') AS i")
+                .executeAndGetResult("i")
                 .getIntElem(0,0) == 0;
     }
 

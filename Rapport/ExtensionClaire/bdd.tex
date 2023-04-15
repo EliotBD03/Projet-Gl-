@@ -1,0 +1,150 @@
+\subsection{Base de données}
+
+\subsubsection{Introduction}
+
+\begin{flushleft}
+Dans cette partie, je vais vous expliquer les modifications et ajouts apportés à la base de données de la base du projet. 
+\end{flushleft}
+
+\begin{flushleft}
+La base de données se voit ajouter deux tables :
+\end{flushleft}
+
+\begin{enumerate}
+\item \textbf{invitedTable} :\newline
+Cette table permet de regrouper de manière claire les informations nécessaires à la gestion des clients invités.
+\item \textbf{invitation} :\newline
+Celle-ci permet de gérer les informations échangées pour les invitations aux portefeuilles.
+\end{enumerate}
+
+\begin{flushleft}
+Cependant, il n'y a pas de modifications apportées aux tables de la base du projet.
+\end{flushleft}
+
+\newpage
+
+\subsubsection{Package dataobject}
+
+\begin{flushleft}
+Vous pouvez observer l'ajout des classes :
+\end{flushleft}
+\begin{enumerate}[-]
+\item \textbf{Invitation}
+\item \textbf{InvitedClient}
+\end{enumerate}
+
+\begin{flushleft}
+L'une permet de regrouper les informations des clients invités sur un portefeuille, l'autre permet de regrouper les informations sur les invitations envoyées d'un client à l'autre.
+\end{flushleft}
+
+\begin{flushleft}
+Vous pouvez également remarquer l'ajout d'une liste de clients invités dans "WalletFull".
+\end{flushleft}
+
+\begin{flushleft}
+En effet, c'est dans la page de "WalletFull" que la gestion des clients invités se fera plus tard.
+\end{flushleft}
+
+\begin{flushleft}
+De plus, l'ajout de la possibilité d'avoir des permissions dans "WalletBasic" permet de séparer les invités pouvant lire ou lire et écrire des propriétaires.
+\end{flushleft}
+
+\begin{flushleft}
+Effectivement, il suffit d'obtenir une fois les permissions côté front-end grâce au "WalletBasic" pour prendre connaissance de si la page "WalletFull" ou la page de consommations doit s'afficher de manière à répondre à un propriétaire, à un client invité en lecture ou à un client invité en lecture et écriture.
+\end{flushleft}
+
+\begin{flushleft}
+Il n'est donc pas nécessaire de l'inclure à la classe "WalletFull".
+\end{flushleft}
+\newpage
+
+\subsubsection{Package database}
+
+\begin{flushleft}
+Dans ce package, nous avons l'ajout de deux "Manager" ainsi qu'une légère modification de "WalletManager".
+\end{flushleft}
+
+\begin{enumerate}
+\item \textbf{InvitationManager} :\newline
+Ce "Manager" vient principalement du choix de séparer les notifications des invitations. \newline
+Cette décision me permet de gérer de manière à part entière les ajouts dans mes deux tables notamment dans invitedTable.\newline
+Cette manière de procéder permet aussi de garder une séparation entre les notifications (échangées entre les fournisseurs et les clients) et les invitations (échangées uniquement entre clients).\newline
+La table "invitation" contient :
+\begin{enumerate}[-]
+\item \textbf{invitationId} :\newline
+L'identifiant de l'invitation.
+\item \textbf{senderId} :\newline
+L'identifiant du client émetteur.
+\item \textbf{receiverId} :\newline
+L'identifiant du client receveur.
+\item \textbf{address} :\newline
+L'adresse du portefeuille concerné.
+\item \textbf{permission} :\newline
+La permission accordée.
+\item \textbf{nameSender} :\newline
+Le nom de l'émetteur.
+\item \textbf{type} :\newline
+Le type quant à lui permet de départager les invitations, les acceptations et les refus d'invitations.
+Ce qui est utile côté front-end afin de déterminer s'il s'agit d'une invitation à accepter ou refuser ou d'un simple retour négatif ou positif à marquer comme lu.
+\end{enumerate}
+
+Vous pourrez donc retrouver dans cette classe les méthodes suivantes:
+\begin{enumerate}
+\item \textbf{createInvitation} :\newline
+Cette méthode permet d'envoyer une invitation à un autre client ou simplement de répondre positivement ou négativement à cette dernière.\newline
+Notez que cette méthode permet aussi de vérifier si le client a entré un identifiant existant et s'il n'a pas essayé de s'ajouter lui-même.
+\item \textbf{refuseInvitation} :\newline
+Cette méthode donne la possibilité de refuser une invitation en renvoyant à l'émetteur que sa demande a été refusée.
+\item \textbf{acceptInvitation} :\newline
+Cette méthode donne la possibilité d'accepter une invitation en renvoyant à l'émetteur que sa demande a été acceptée.\newline
+De plus, on prend en compte le retour de "addInvited" de la classe "InvitedClientManager".
+\item \textbf{getAllInvitation} :\newline
+Cette méthode permet d'obtenir toutes les invitations d'un client.\newline
+Récupérer toutes ces informations permet en front-end de mieux gérer les explications données à ce dernier.
+\item \textbf{deleteInvitation} :\newline
+Cette méthode permet de supprimer une invitation ou une réponse positive ou négative.
+\end{enumerate}
+
+\item \textbf{InvitedClientManager} :\newline
+Ce "Manager" est utilisé pour les actions à effectuer sur la table \textbf{"invitedTable"} en ce qui concerne les clients invités sur un portefeuille.\newline
+La table "invitedTable" contient :
+\begin{enumerate}[-]
+\item \textbf{address} :\newline
+L'adresse du portefeuille.
+\item \textbf{invitedId} :\newline
+L'identifiant du client invité.
+\item \textbf{ownerId} :\newline
+L'identifiant du client propriétaire.
+\item \textbf{permission} :\newline
+La permission accordée au client invité.
+\end{enumerate}
+
+Vous pourrez donc retrouver dans cette classe les méthodes suivantes:
+\begin{enumerate}
+\item \textbf{getAllInvitedClients} :\newline
+Cette méthode permet d'obtenir la liste de tous les clients invités sur un portefeuille.\newline
+Elle est utilisée dans "WalletManager" pour le "getWallet".
+\item \textbf{deleteInvitedClient} :\newline
+Cette méthode donne la possibilité de supprimer un invité d'un portefeuille.
+\item \textbf{addInvited} :\newline
+Cette méthode donne la possibilité d'ajouter un invité sur un portefeuille.\newline
+Notez que cette dernière permet aussi de vérifier si le client n'était pas déjà invité sur le portefeuille.
+\item \textbf{changePermission} :\newline
+Cette méthode permet de modifier la permission donnée à un client invité sur un portefeuille.
+
+\end{enumerate}
+
+\end{enumerate}
+
+\begin{flushleft}
+L'ajout d'une méthode nommée \textbf{"getAllInvitedWallets"} dans \textbf{WalletManager} permet de corréler les éléments cités plus tôt dans le package dataobject.
+Il y a maintenant une méthode pour obtenir tous les portefeuilles sous forme de "WalletBasic" sans permission pour le propriétaire et une autre avec permission pour les invités.
+\end{flushleft}
+
+\begin{flushleft}
+Ces permissions étant reprises à l'aide de la table \textbf{"invitedTable"}.
+\end{flushleft}
+
+\begin{flushleft}
+En outre, pour supprimer un portefeuille, il faut maintenant que le client n'ait plus de contrats mais aussi plus d'invités.
+\end{flushleft}

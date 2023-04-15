@@ -5,7 +5,7 @@ import main.be.ac.umons.g02.data_object.Notification;
 import java.util.ArrayList;
 
 public class NotificationManager
-{
+{    
     /**
      * Crée une notification.
      *
