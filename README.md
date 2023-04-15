@@ -34,3 +34,13 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  *   Intercepteurs de navigation: https://v3.router.vuejs.org/fr/guide/advanced/navigation-guards.html#interception-globale
  *   Router: https://router.vuejs.org/guide/essentials/nested-routes.html
  *   jwt-decode: https://www.npmjs.com/package/jwt-decode
+ *   javascript, html, css: https://developer.mozilla.org/fr/
+ *   java: https://docs.oracle.com/
+ *   W3schools: https://www.w3schools.com/
+ *   chartjs: https://www.chartjs.org/
+ *   alwaysdata doc: https://help.alwaysdata.com/en/
+ *   stackoverflow: https://stackoverflow.com/
+ *   delftstack: https://www.delftstack.com/
+ *   vertx: https://vertx.io/docs/
+ *   tuto vertx: https://thierry-leriche-dessirier.developpez.com/tutoriels/java/creer-api-rest-vertx-5-minutes/
+
