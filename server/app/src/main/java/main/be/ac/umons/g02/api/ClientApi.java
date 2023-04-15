@@ -8,6 +8,8 @@ import main.be.ac.umons.g02.data_object.WalletFull;
 import main.be.ac.umons.g02.data_object.ContractBasic;
 import main.be.ac.umons.g02.data_object.ProposalBasic;
 import main.be.ac.umons.g02.data_object.ProposalFull;
+import main.be.ac.umons.g02.data_object.Invitation;
+import main.be.ac.umons.g02.data_object.InvitedClient;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.logging.Logger;
@@ -36,6 +38,18 @@ public class ClientApi extends MyApi implements RouterApi
         final Router subRouter = Router.router(vertx);
         subRouter.route("/*").handler(BodyHandler.create());
 
+        //Extension Claire
+        subRouter.get("/invitedWallets/page").handler(this::getAllInvitedWallets);
+        subRouter.delete("/invitedClients/:address/:id_invited").handler(this::deleteInvitedClient);
+        subRouter.put("/invitedClients/permission").handler(this::changePermission);
+        subRouter.get("/invitedWallets/invitations/page").handler(this::getAllInvitation);
+        
+        subRouter.post("/invitedWallets/proposeInvitation").handler(this::proposeInvitation);
+        subRouter.post("/invitedWallets/acceptInvitation/:id_invitation").handler(this::acceptInvitation);
+        subRouter.post("/invitedWallets/refuseInvitation/:id_invitation").handler(this::refuseInvitation);
+        subRouter.delete("/invitedWallets/invitations/:id_invitation").handler(this::deleteInvitation);
+
+        //base
         subRouter.get("/wallets/page").handler(this::getAllWallets);
         subRouter.get("/wallets/:address").handler(this::getWallet);
         subRouter.post("/wallets").handler(this::createWallet);
@@ -46,6 +60,238 @@ public class ClientApi extends MyApi implements RouterApi
         subRouter.post("/proposeContract").handler(this::clientProposeContract);
 
         return subRouter;
+    }
+
+    /** 
+     * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste des portefeuilles où un client est invité
+     * Cette méthode utilise la pagination 
+     *
+     * @param - Le context de la requête
+     * @see WalletManager
+     * @author Extension Claire
+     */
+    private void getAllInvitedWallets(final RoutingContext routingContext)
+    {
+        LOGGER.info("GetAllInvitedWallets...");
+
+        String id = null;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
+        int[] slice = getSlice(routingContext);
+        if(slice == null)
+            return;
+
+        Object[] res = commonDB.getWalletManager().getAllInvitedWallets(id, slice[0], slice[1]);
+        int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);
+
+        ArrayList<WalletBasic> wallets = (ArrayList<WalletBasic>) res[1];
+
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end(Json.encodePrettily(new JsonObject()
+                        .put("wallets", wallets)
+                        .put("last_page", numberOfPagesRemaining)));
+    }
+
+    /** 
+     * Méthode qui utilise le package de base de données pour supprimer un invité d'un portefeuille en particulier
+     *
+     * @param - Le context de la requête
+     * @see InvitedClientManager
+     * @author Extension Claire
+     */
+    private void deleteInvitedClient(final RoutingContext routingContext)
+    {
+        LOGGER.info("deleteInvitedClient...");
+
+        String address = routingContext.pathParam("address");
+        String invitedId = routingContext.pathParam("id_invited");
+        if(invitedId == "no"){
+            if(((invitedId = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+        }
+
+        commonDB.getInvitedClientManager().deleteInvitedClient(address, invitedId);
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end();
+    }
+
+    /** 
+     * Méthode qui utilise le package de base de données pour modifier les permissions d'un client invité
+     *
+     * @param - Le context de la requête
+     * @see InvitedClientManager
+     * @author Extension Claire
+     */
+    private void changePermission(final RoutingContext routingContext)
+    {
+        LOGGER.info("changePermission...");
+
+        JsonObject body = null;
+        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
+
+        String address = null;
+        if(checkParam((address = body.getString("address")), routingContext)) return;
+
+        String InvitedId = null;
+        if(checkParam((InvitedId = body.getString("id_client_invited")), routingContext)) return;
+
+        String permission = null;
+        if(checkParam((permission = body.getString("permission")), routingContext)) return;
+
+        commonDB.getInvitedClientManager().changePermission(address, InvitedId, permission);
+
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end();
+    }
+
+    /** 
+     * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste des invitations
+     * Cette méthode utilise la pagination 
+     *
+     * @param - Le context de la requête
+     * @see InvitationManager
+     * @author Extension Claire
+     */
+    private void getAllInvitation(final RoutingContext routingContext)
+    {
+        LOGGER.info("getAllInvitation...");
+
+        String id = null;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
+        int[] slice = getSlice(routingContext);
+        if(slice == null)
+            return;
+
+        Object[] res = commonDB.getInvitationManager().getAllInvitation(id, slice[0], slice[1]);
+        int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);
+
+        ArrayList<Invitation> invitations = (ArrayList<Invitation>) res[1];
+
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end(Json.encodePrettily(new JsonObject()
+                        .put("invitations", invitations)
+                        .put("last_page", numberOfPagesRemaining)));
+    }
+
+     /** 
+     * Méthode qui utilise le package de base de données pour créer une nofication afin de prévenir le client d'une nouvelle invitation à un portefeuille
+     *
+     * @param - Le context de la requête
+     * @see InvitationManager
+     * @author Extension Claire
+     */
+    private void proposeInvitation(final RoutingContext routingContext)
+    {
+        LOGGER.info("proposeInvitation...");
+
+        String senderId = null;
+        if(((senderId = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
+        JsonObject body = null;
+        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
+
+        String receiverId = null;
+        if(checkParam((receiverId = body.getString("id_client_invited")), routingContext)) return;
+
+        String address = null;
+        if(checkParam((address = body.getString("address")), routingContext)) return;
+
+        String permission = null;
+        if(checkParam((permission = body.getString("permission")), routingContext)) return;
+
+        String nameSender = commonDB.getLogManager().getName(senderId);
+        
+        if(commonDB.getInvitationManager().createInvitation(senderId, receiverId, address, permission, nameSender, "request") == false){
+           routingContext.response()
+                .setStatusCode(500)
+                .putHeader("Content-Type", "application/json")
+                .end(); 
+        }
+        else{
+            routingContext.response()
+                .setStatusCode(200)
+                .putHeader("Content-Type", "application/json")
+                .end();
+        }
+    }
+
+    /** 
+     * Méthode qui utilise le package de base de données pour faire passer la notification d'invitation à un portefeuille
+     * qui a été acceptée 
+     *
+     * @param - Le context de la requête
+     * @see InvitationManager
+     * @author Extension Claire
+     */
+    private void acceptInvitation(final RoutingContext routingContext)
+    {
+        LOGGER.info("AcceptInvitation...");
+
+        String idInvitation = routingContext.pathParam("id_invitation");
+
+        if(commonDB.getInvitationManager().acceptInvitation(idInvitation) == true){
+            routingContext.response()
+                .setStatusCode(200)
+                .putHeader("Content-Type", "application/json")
+                .end();
+        }
+        else{
+            routingContext.response()
+                .setStatusCode(500)
+                .putHeader("Content-Type", "application/json")
+                .end();
+        }
+
+    }
+
+    /** 
+     * Méthode qui utilise le package de base de données pour supprimer la notification d'invitation à un portefeuille et prévenir l'émetteur de l'invitation
+     *
+     * @param - Le context de la requête
+     * @see InvitationManager
+     * @author Extension Claire
+     */
+    private void refuseInvitation(final RoutingContext routingContext)
+    {
+        LOGGER.info("RefuseInvitation...");
+
+        String idInvitation = routingContext.pathParam("id_invitation");
+
+        commonDB.getInvitationManager().refuseInvitation(idInvitation);
+
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end();
+    }
+
+    /** 
+     * Méthode qui utilise le package de base de données pour juste supprimer l'invitation 
+     *
+     * @param - Le context de la requête
+     * @see InvitationManager
+     * @author Extension Claire
+     */
+    private void deleteInvitation(final RoutingContext routingContext)
+    {
+        LOGGER.info("DeleteInvitation...");
+
+        String idInvitation = routingContext.pathParam("id_invitation");
+
+        commonDB.getInvitationManager().deleteInvitation(idInvitation);
+
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end();
     }
 
     /** 
@@ -124,31 +370,7 @@ public class ClientApi extends MyApi implements RouterApi
 
         String nameOwner = commonDB.getLogManager().getName(id);
 
-        int numberOfResidents = 0;
-        int sizeOfHouse = 0;
-        boolean isHouse = true;
-        boolean isElectricityToCharge = true;
-        boolean solarPanels = false;
-
-        try
-        {
-            if(checkParam((numberOfResidents = body.getInteger("number_of_residents")), routingContext)) return;
-            if(checkParam((sizeOfHouse = body.getInteger("size_of_house")), routingContext)) return;
-            if(checkParam((isHouse = body.getBoolean("is_house")), routingContext)) return;
-            if(checkParam((isElectricityToCharge = body.getBoolean("is_electricity_to_charge")), routingContext)) return;
-            if(checkParam((solarPanels = body.getBoolean("solar_panels")), routingContext)) return;
-        }
-        catch(Exception error)
-        {
-            routingContext.response()
-                .setStatusCode(400)
-                .putHeader("Content-Type", "application/json")
-                .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "error.missingInformation")));
-            return;
-        }
-
-        WalletBasic wallet = new WalletBasic(address, name, id, nameOwner, numberOfResidents, sizeOfHouse, isHouse, isElectricityToCharge, solarPanels);
+        WalletBasic wallet = new WalletBasic(address, name, id, nameOwner);
 
         if(commonDB.getWalletManager().createWallet(wallet))
             routingContext.response()

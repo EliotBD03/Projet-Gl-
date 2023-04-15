@@ -52,7 +52,8 @@ CREATE TABLE `consumption` (
   `ean` varchar(18) NOT NULL,
   `date_recorded` date NOT NULL,
   `daily_consumption` double(6,2) DEFAULT 0,
-  PRIMARY KEY (`ean`,`date_recorded`)
+  PRIMARY KEY (`ean`,`date_recorded`),
+  CONSTRAINT `consumption_ibfk_1` FOREIGN KEY (`ean`) REFERENCES `counter` (`ean`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

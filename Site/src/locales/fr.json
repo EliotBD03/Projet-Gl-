@@ -19,19 +19,7 @@
   },
   "walletform": {
     "name": "Entrez le nom du portefeuille",
-    "adress": "Entrez votre adresse",
-    "__comment": "adrien",
-    "numberOfResidents": "Entrez le nombre de résident",
-    "sizeOfHouse": "Entrez la taille de votre habitation (m²)",
-    "answer1": "Choisisez le type d'habitation:",
-    "answer2": "Choisisez le type de chauffage:",
-    "answer3": "Avez-vous des panneaux solaires:",
-    "typeHouse1": "Maison",
-    "typeHouse2": "Appartement",
-    "typeCharge1": "Électricité",
-    "typeCharge2": "Gaz",
-    "solarPanel1": "Oui",
-    "solarPanel2": "Non"
+    "adress": "Entrez votre adresse"
   },
   "button": {
     "changepwd": "Changer de mot de passe",
@@ -124,41 +112,18 @@
     "deletedwallet": "Portefeuille supprimé",
     "nowallet": "Vous n'avez pas de portefeuille",
     "seeyousoon": "À bientôt !",
-    "mailsent": "Un mail vous a été envoyé",
-    "__comment": "adrien",
-    "numberOfResidents": "Entrez un nombre d'habitant correct",
-    "sizeOfHouse": "Entrez une taille de maison possible"
+    "mailsent": "Un mail vous a été envoyé"
   },
   "wallet": {
     "loading": "Chargement en cours...",
     "owner": "Propriétaire",
-    "lastconsumptions": "Dernières consommations",
-    "__comment": "adrien",
-    "numberOfResidents": "Nombre résidents",
-    "sizeOfHouse": "Taille habitation",
-    "typeOfHouse": "Type habitation",
-    "typeOfCharge": "Type chauffage",
-    "solarPanels": "Panneaux solaires"
+    "lastconsumptions": "Dernières consommations"
   },
   "consumptions": {
     "yourconsumption": "Votre consommation",
     "otherconsumption": "Autres consommations",
     "displaymonth": "Afficher le mois",
-    "displayday": "Afficher le jour",
-    "__comment": "adrien",
-    "compareWithOther": "Comparer (autre personne)",
-    "justSee": "Juste la consommation",
-    "compareOverTime": "Comparer (période)",
-    "statistic": "Voir les statistiques",
-    "sum": "Somme",
-    "mean": "Moyenne",
-    "standardDeviation": "Écart type",
-    "median": "Médiane",
-    "quartiles": "Quartiles",
-    "interquartileRange": "Écart interquartile",
-    "minimum": "Minimum",
-    "maximum": "Maximum",
-    "noInformation": "Il faut des données de consommation"
+    "displayday": "Afficher le jour"
   },
   "account" : {
     "client": "Client",
@@ -219,7 +184,9 @@
     "energy": "Énergie",
     "counter": "Compteur",
     "monohourly": "Monohoraire",
-    "bihourly": "Bihoraire"
+    "bihourly": "Bihoraire",
+    "changepriceperday": "Modifier le prix de jour",
+    "changepricepernight": "Modifier le prix de nuit"
   },
   "client": {
     "generalinformations": "Informations générales",
@@ -251,5 +218,37 @@
     "title": "404",
     "text1": "Oops",
     "text2": "La page que vous recherchez n'existe pas"
+  },
+  "GestionExtClaire": {
+    "gestion": "Gestion",
+    "RW": "Lecture et écriture",
+    "R": "Lecture",
+    "leave": "Quitter le portefeuille",
+    "invited": "Liste des clients invités",
+    "invitedName": "Nom",
+    "permission": "Changer les permissions",
+    "deleteClient": "Supprimer le client invité",
+    "alertLeave": "Vous avez quitté le portefeuille !",
+    "alertDelete": "Client invité supprimé !",
+    "addClient": "Ajouter un invité",
+    "wallets": "Portefeuilles invités",
+    "enterId": "Id de l'invité",
+    "alertId": "S'il vous plaît, entrez l'id de l'invité",
+    "alertBadId": "L'id entré est incorrect",
+    "request": "Une demande est envoyée à l'invité",
+    "ChangePerm": "Changer les permissions",
+    "alertChange": "Permissions changées",
+    "buttonChange": "Changer",
+    "invitation": "Voir de nouvelles invitations",
+    "invitationAccept": "Ton invitation a été acceptée par",
+    "invitationRefuse": "Ton invitation a été refusée par",
+    "invitationPropose": "Tu as reçu une invitation de",
+    "requestAccept": "Accepter",
+    "requestRefuse": "Refuser",
+    "requestSeen": "Vu",
+    "alertBadAccept": "Vous êtes déjà sur ce portefeuille !",
+    "alertAcceptInvitation": "Vous avez accepté l'invitation",
+    "alertRefuseInvitation": "Vous avez refusé l'invitation",
+    "noInvitation": "Pas d'invitations"
   }
 }

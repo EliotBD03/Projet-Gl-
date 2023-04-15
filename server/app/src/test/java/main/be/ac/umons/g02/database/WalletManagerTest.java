@@ -11,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class WalletManagerTest
 {
 
-    private final WalletBasic walletBasic = new WalletBasic("address", "name", "1", "YOU", 1, 50, true, true, true);
+    private final WalletBasic walletBasic = new WalletBasic("address", "name", "1", "YOU");
+    private final WalletBasic walletBasicPerm = new WalletBasic("address2", "name", "2", "YOU", "R"); //Extension Claire
 
     @BeforeAll
     static void setUp() throws Exception
@@ -26,6 +27,7 @@ class WalletManagerTest
     {
        DB.getInstance().executeQuery("DELETE FROM wallet_contract",false);
        DB.getInstance().executeQuery("DELETE FROM wallet",false);
+       DB.getInstance().executeQuery("DELETE FROM invitedTable",false); //Extension Claire
        new LogManager().deleteAccount("1");
        DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
     }
@@ -35,18 +37,26 @@ class WalletManagerTest
     void createWallet()
     {
         assertTrue(new WalletManager().createWallet(walletBasic));
+        assertTrue(new WalletManager().createWallet(walletBasicPerm)); //Extension Claire
     }
     @Test
     @Order(2)
-    void walletIsEmpty()
+    void walletIsEmptyContract()
     {
         DB.getInstance().executeQuery("INSERT INTO wallet_contract(address, contract_id) VALUES('address', 1)",false);
         assertFalse(new WalletManager().walletIsEmpty("address"));
         assertTrue(new WalletManager().walletIsEmpty("addres"));
     }
-
     @Test
     @Order(3)
+    void walletIsEmptyPermission() //Extension Claire
+    {
+        DB.getInstance().executeQuery("INSERT INTO invitedTable(address, invitedId, ownerId, permission) VALUES('address2', 0, 5, 'R')",false); //Extension Claire
+        assertFalse(new WalletManager().walletIsEmpty("address2"));
+        assertTrue(new WalletManager().walletIsEmpty("addres"));
+    }
+    @Test
+    @Order(4)
     void getAllWallets()
     {
         ArrayList<WalletBasic> expected = ((ArrayList<WalletBasic>) new WalletManager().getAllWallets("1",0,1)[1]);
@@ -58,7 +68,21 @@ class WalletManagerTest
     }
 
     @Test
-    @Order(4)
+    @Order(5)
+    void getAllInvitedWallets() //Extension Claire
+    {
+        new InvitedClientManager().addInvited("2", "address2", "1", "R");
+        ArrayList<WalletBasic> expected = ((ArrayList<WalletBasic>) new WalletManager().getAllInvitedWallets("1",0,1)[1]);
+        assertNotNull(expected);
+        assertEquals(expected.get(0).getAddress(), walletBasicPerm.getAddress());
+        assertEquals(expected.get(0).getName(), walletBasicPerm.getName());
+        assertEquals(expected.get(0).getClientId(), walletBasicPerm.getClientId());
+        assertEquals(expected.get(0).getOwnerName(), walletBasicPerm.getOwnerName());
+        assertEquals(expected.get(0).getPermission(), walletBasicPerm.getPermission());
+    }
+
+    @Test
+    @Order(6)
     void getWallet()
     {
         WalletBasic expected = new WalletManager().getWallet(walletBasic.getAddress());
@@ -69,7 +93,7 @@ class WalletManagerTest
     }
 
     @Test
-    @Order(5)
+    @Order(7)
     void doesTheWalletBelongToHim()
     {
         assertTrue(new WalletManager().doesTheWalletBelongToHim(walletBasic.getClientId(), walletBasic.getAddress()));
@@ -77,12 +101,13 @@ class WalletManagerTest
     }
 
     @Test
-    @Order(6)
+    @Order(8)
     void deleteWallet()
     {
         WalletManager walletManager = new WalletManager();
         System.out.println("ici toto");
         assertTrue(walletManager.deleteWallet("nhjgkfldms"));
         assertFalse(walletManager.deleteWallet(walletBasic.getAddress()));
+        assertFalse(walletManager.deleteWallet(walletBasicPerm.getAddress())); //Extension Claire
     }
 }

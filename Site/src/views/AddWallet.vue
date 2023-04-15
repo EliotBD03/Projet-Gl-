@@ -11,46 +11,6 @@
                 <p>
                     <InputMain :text="$t('walletform.adress')" v-model="address"/>
                 </p>
-                <!--adrien-->
-                <div>
-                    <p>
-                        {{ $t('walletform.numberOfResidents') }}
-                        <input class="inputSmall" v-model="numberOfResidents" type="number" min="1"/>
-                    </p>
-                </div>
-                <div>
-                    <p>
-                        {{ $t('walletform.sizeOfHouse') }}
-                        <input class="inputSmall" v-model="sizeOfHouse" type="number" min="1"/>
-                    </p>
-                </div>
-                <div style="display: flex; flex-direction: column;">
-                    <div style="display: inline;">
-                        <p  style="display: inline-block; margin-right: 10px;">{{ $t('walletform.answer1') }}</p>
-                        <input type="radio" id="typeOfHouseChoice1" name="typeOfHouse" value="house" checked>
-                        <label for="typeOfHouseChoice1">{{ $t('walletform.typeHouse1') }}</label>
-
-                        <input type="radio" id="typeOfHouseChoice2" value="apartment">
-                        <label for="typeOfHouseChoice2">{{ $t('walletform.typeHouse2') }}</label>
-                    </div>
-                    <div style="display: inline;">
-                        <p  style="display: inline-block; margin-right: 10px;">{{ $t('walletform.answer2') }}</p>
-                        <input type="radio" id="typeOfChargeChoice1" name="typeOfCharge" value="electricity" checked>
-                        <label for="typeOfChargeChoice1">{{ $t('walletform.typeCharge1') }}</label>
-
-                        <input type="radio" id="typeOfChargeChoice2" value="gas">
-                        <label for="typeOfChargeChoice2">{{ $t('walletform.typeCharge2') }}</label>
-                    </div>
-                    <div style="display: inline;">
-                        <p  style="display: inline-block; margin-right: 10px;">{{ $t('walletform.answer3') }}</p>
-                        <input type="radio" id="solarPanelChoice1" name="solarPanel" value="solarPanel" checked>
-                        <label for="solarPanelChoice1">{{ $t('walletform.solarPanel1') }}</label>
-
-                        <input type="radio" id="solarPanelChoice2" value="noSolarPanel">
-                        <label for="solarPanelChoice2">{{ $t('walletform.solarPanel2') }}</label>
-                    </div>
-                </div>
-                <!--adrien-->
                 <GoButton text="button.add" type="submit" :colore="'green'"/>
             </form>
         </div>
@@ -71,13 +31,7 @@ export default {
     data(){
         return{
             name: '',
-            address: '',
-            //adrien
-            numberOfResidents: 1,
-            sizeOfHouse: 1,
-            house: true,
-            flat: false
-            //adrien
+            address: ''
         }},
     created() {
         GlobalMethods.getCurrentLanguage();
@@ -87,10 +41,6 @@ export default {
         checkArgs(){
             if(!this.name) Swal.fire(this.$t("alerts.name"));
             else if(!this.address) Swal.fire(this.$t("alerts.address"));
-            //adrien
-            else if(!this.numberOfResidents || this.numberOfResidents > 20) Swal.fire(this.$t("alerts.numberOfResidents"));
-            else if(!this.sizeOfHouse || this.sizeOfHouse > 10000) Swal.fire(this.$t("alerts.sizeOfHouse"));
-            //adrien
             else return true;
         },
         /**
@@ -101,21 +51,10 @@ export default {
         post(){
             if(this.checkArgs())
             {
-                //adrien
-                let typeOfHouse = false;
-                let typeOfCharge = false;
-                let solarPanel = false;
-                
-                document.querySelector('input[name="typeOfHouse"]:checked').value == "house" ? typeOfHouse = true : typeOfHouse = false;
-                document.querySelector('input[name="typeOfCharge"]:checked').value == "house" ? typeOfCharge = true : typeOfCharge = false;
-                document.querySelector('input[name="solarPanel"]:checked').value == "house" ? solarPanel = true : solarPanel = false;
-                //adrien
-
                 const requestOptions = {
                     method: "POST",
                     headers: {'Authorization': this.$cookies.get("token")},
-                    //adrien
-                    body: JSON.stringify({ name: this.name, address: this.address, number_of_residents: this.numberOfResidents, size_of_house: this.sizeOfHouse, is_house: typeOfHouse, is_electricity_to_charge: typeOfCharge, solar_panels: solarPanel})
+                    body: JSON.stringify({ name: this.name, address: this.address })
                 };
                 fetch("https://babawallet.alwaysdata.net/api/client/wallets", requestOptions)
                     .then(response => {
@@ -145,7 +84,7 @@ export default {
                         }
                     });
             }
-        },
+        }
     }
 }
 </script>
@@ -166,7 +105,7 @@ export default {
     height: 100vh;
 }
 .contact-form {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     background-color: #f2f2f2;
@@ -175,34 +114,4 @@ export default {
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
 }
 
-/*adrien*/
-.contact-form p {
-  white-space: nowrap;
-}
-
-.contact-form p * {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.inputSmall {
-  font-weight: 500;
-  font-size: 14px;
-  height: 50px;
-  width: 100px;
-  border-radius: 10px;
-  padding: 0 24px;
-  border: none;
-  border-bottom: 1px solid #e5e5e5;
-  outline: none;
-  display: flex;
-  margin: 10px;
-}
-
-.inputSmall:focus {
-  border-bottom: 1px solid #B1B9FC;
-  -webkit-transition: 0.1s;
-  transition: 0.5s;
-}
-/*adrien*/
 </style>
