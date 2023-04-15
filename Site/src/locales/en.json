@@ -19,7 +19,18 @@
   },
   "walletform": {
     "name": "Enter the name of the wallet",
-    "address": "Enter your address"
+    "address": "Enter your address",
+    "numberOfResidents": "Enter the number of residents",
+    "sizeOfHouse": "Enter the size of your house (m²)",
+    "answer1": "Choose the type of house:",
+    "answer2": "Choose the type of heating:",
+    "answer3": "Do you have solar panels:",
+    "typeHouse1": "House",
+    "typeHouse2": "Apartment",
+    "typeCharge1": "Electricity",
+    "typeCharge2": "Gas",
+    "solarPanel1": "Yes",
+    "solarPanel2": "No"
   },
   "button": {
     "changepwd": "Change password",
@@ -50,7 +61,9 @@
     "modifyproposal": "Modify proposal",
     "closeproposal": "Close proposal",
     "deleteaccount": "Delete account",
-    "addwallet": "Add wallet"
+    "addwallet": "Add wallet",
+    "numberOfResidents": "Enter a correct number of residents",
+    "sizeOfHouse": "Enter a possible house size"
   },
   "maincard": {
     "newcontracts": "See new contracts",
@@ -118,13 +131,31 @@
   "wallet": {
     "loading": "Loading...",
     "owner": "Owner",
-    "lastconsumptions": "Last consumptions"
+    "lastconsumptions": "Last consumptions",
+    "numberOfResidents": "Number of residents",
+    "sizeOfHouse": "Size of house",
+    "typeOfHouse": "Type of house",
+    "typeOfCharge": "Heating type",
+    "solarPanels": "Solar panels"
   },
   "consumptions": {
     "yourconsumption": "Your consumption",
     "otherconsumption": "Other consumption",
     "displaymonth": "Display month",
-    "displayday": "Display day"
+    "displayday": "Display day",
+    "compareWithOther": "Compare (other person)",
+    "justSee": "Just consumption",
+    "compareOverTime": "Compare (period)",
+    "statistic": "See statistics",
+    "sum": "Sum",
+    "mean": "Mean",
+    "standardDeviation": "StandardDeviation",
+    "median": "Median",
+    "quartiles": "Quartiles",
+    "interquartileRange": "Interquartile range",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "noInformation": "Consumption data is needed"
   },
   "account" : {
     "client": "Client",

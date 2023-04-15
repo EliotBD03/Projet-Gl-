@@ -19,7 +19,18 @@
   },
   "walletform": {
     "name": "Entrez le nom du portefeuille",
-    "adress": "Entrez votre adresse"
+    "adress": "Entrez votre adresse",
+    "numberOfResidents": "Entrez le nombre de résident",
+    "sizeOfHouse": "Entrez la taille de votre habitation (m²)",
+    "answer1": "Choisisez le type d'habitation:",
+    "answer2": "Choisisez le type de chauffage:",
+    "answer3": "Avez-vous des panneaux solaires:",
+    "typeHouse1": "Maison",
+    "typeHouse2": "Appartement",
+    "typeCharge1": "Électricité",
+    "typeCharge2": "Gaz",
+    "solarPanel1": "Oui",
+    "solarPanel2": "Non"
   },
   "button": {
     "changepwd": "Changer de mot de passe",
@@ -50,7 +61,9 @@
     "modifyproposal": "Modifier la proposition",
     "closeproposal": "Fermer la proposition",
     "deleteaccount": "Supprimer le compte",
-    "addwallet": "Ajouter un portefeuille"
+    "addwallet": "Ajouter un portefeuille",
+    "numberOfResidents": "Entrez un nombre d'habitant correct",
+    "sizeOfHouse": "Entrez une taille de maison possible"
   },
   "maincard": {
     "newcontracts": "Voir les nouveaux contrats",
@@ -117,13 +130,31 @@
   "wallet": {
     "loading": "Chargement en cours...",
     "owner": "Propriétaire",
-    "lastconsumptions": "Dernières consommations"
+    "lastconsumptions": "Dernières consommations",
+    "numberOfResidents": "Nombre résidents",
+    "sizeOfHouse": "Taille habitation",
+    "typeOfHouse": "Type habitation",
+    "typeOfCharge": "Type chauffage",
+    "solarPanels": "Panneaux solaires"
   },
   "consumptions": {
     "yourconsumption": "Votre consommation",
     "otherconsumption": "Autres consommations",
     "displaymonth": "Afficher le mois",
-    "displayday": "Afficher le jour"
+    "displayday": "Afficher le jour",
+    "compareWithOther": "Comparer (autre personne)",
+    "justSee": "Juste la consommation",
+    "compareOverTime": "Comparer (période)",
+    "statistic": "Voir les statistiques",
+    "sum": "Somme",
+    "mean": "Moyenne",
+    "standardDeviation": "Écart type",
+    "median": "Médiane",
+    "quartiles": "Quartiles",
+    "interquartileRange": "Écart interquartile",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "noInformation": "Il faut des données de consommation"
   },
   "account" : {
     "client": "Client",

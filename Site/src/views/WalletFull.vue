@@ -13,6 +13,11 @@
           <p class ="text"> <b>{{ $t("client.generalinformations") }} </b></p>
           <p> <b>{{ $t("wallet.owner") }} :</b> {{ wallet.ownerName}}</p>
         <p> <b>{{ $t("proposal.address") }} :</b> {{ wallet.address }}</p>
+        <p> <b>{{ $t("wallet.numberOfResidents") }} :</b> {{ wallet.numberOfResidents}}</p>
+        <p> <b>{{ $t("wallet.sizeOfHouse") }} (m²) :</b> {{ wallet.sizeOfHouse}}</p>
+        <p> <b>{{ $t("wallet.typeOfHouse") }} :</b> {{ typeOfHouse }}</p>
+        <p> <b>{{ $t("wallet.typeOfCharge") }} :</b> {{ typeOfCharge }}</p>
+        <p> <b>{{ $t("wallet.solarPanels") }} :</b> {{ solarPanels }}</p>
         <p> <b>{{ $t("wallet.lastconsumptions") }} :</b></p>
         <p v-if="wallet.lastConsumptionOfWater"><b>{{ $t("proposal.water") }} :</b> {{ $t("client.noinformation") }}</p>
           <p v-else><b>{{ $t("proposal.water") }} :</b> {{ wallet.lastConsumptionOfWater }}</p>
@@ -95,7 +100,10 @@ export default {
       address : sessionStorage.getItem('address'),
       permission : sessionStorage.getItem("permission"),
       wallet : [],
-      noId: 'no'
+      noId: 'no',
+      typeOfHouse: "",
+      typeOfCharge: "",
+      solarPanels: ""
     }},
   /**
   * Cette méthode récupère le portefeuille pour lequel on veut plus d'informations à la création de la vue.
@@ -122,6 +130,10 @@ export default {
         else {
           const data = await response.json();
           this.wallet = data.wallet;
+          
+          this.wallet.typeOfHouse == "true" ? this.typeOfHouse = "$t('walletform.typeHouse1')" : this.typeOfHouse = "$t('walletform.typeOfHouse2')" ;
+          this.wallet.typeOfCharge == "true" ? this.typeOfCharge = "$t('walletform.typeCharge1')" : this.typeOfCharge = "$t('walletform.typeCharge2')" ;
+          this.wallet.solarPanels == "true" ? this.solarPanels = "$t('walletform.solarPanel1')" : this.solarPanels = "$t('walletform.solarPanel2')" ;
         }
     } catch(error) {
         if(error.message === "Token") {
@@ -194,6 +206,7 @@ export default {
     seeConsumptions(contract){
       sessionStorage.setItem('ean', contract.ean);
       sessionStorage.setItem('contractId', contract.contractId);
+      sessionStorage.setItem('address', this.address);
       this.$router.push({name: 'Consumptions'});
     },
     /**
