@@ -1,36 +1,39 @@
 <template>
     <div class="main">
         <div class="header">
-          <MainHeader text="header.consumption"/>
-          <div class = "permission"> 
-              <p v-if="permission == 'R'">{{ $t("GestionExtClaire.R") }}</p> 
-              <p v-else-if="permission == 'RW'">{{ $t("GestionExtClaire.RW") }}</p> 
-              <p v-else>{{ $t("GestionExtClaire.gestion") }}</p>
-          </div>
+            <MainHeader text="header.consumption"/>
         </div>
         <div class="topbutton">
             <div @click.prevent.left="changeMode(false)">
                 <GoButton text="button.table" :colore="'#34c98e'"/>
             </div>
             <div @click.prevent.left="exportData()">
-                <GoButton text="button.export" :colore="'#34c98e'"/><!--trad-->
+                <GoButton text="button.export" :colore="'#34c98e'"/>
             </div>
             <input type="file" id="csv-file" accept=".csv"/>
             <div @click.prevent.left="importData()">
-                <GoButton text="button.import" :colore="'#34c98e'"/><!--trad-->
+                <GoButton text="button.import" :colore="'#34c98e'"/>
             </div>
             <div @click.prevent.left="changeMode(true)">
                 <GoButton text="button.graphic" :colore="'#34c98e'"/>
             </div>
         </div>
         <div class="middlebutton">
-            <button class="arrow-button" @click.prevent.left="getDataBefore()">
-                <span class="arrow">&larr;</span>
-            </button>
+            <div style="display: block;">
+                <button class="arrow-button" @click.prevent.left="getDataBefore(true)">
+                    <span class="arrow" style="color: #34c98eff;">&larr;</span>
+                </button>
+                <button class="arrow-button" @click.prevent.left="getDataBefore(false)" id="arrowl2" style="display: none; margin-top: 10px;">
+                    <span class="arrow" style="color: #C04BC0">&larr;</span>
+                </button>
+            </div>
             <div class="infos">
                 <div class="container">
-                    <canvas ref="myChart"></canvas>
-                    <div class="tableH" id="table">
+                    <div style="display: block;">
+                        <canvas ref="myChart" id="chart"></canvas>
+                        <canvas ref="myChart2" id="chart2" style="display: none;"></canvas>
+                    </div>
+                    <div class="tableH" id="table" style="display: none;">
                         <div>
                             <div v-for="(date, index) in listDate" :key="index" class="cellule">
                                 {{ date }}
@@ -42,8 +45,23 @@
                             </div>
                         </div>
                     </div>
+                    <div id="stat" style="display: none;">
+                        <div v-if="listValue.length > 0">
+                          <p>{{ $t('consumption.sum') }} : {{ stat[0] }}</p>
+                          <p>{{ $t('consumption.mean') }} : {{ stat[1] }}</p>
+                          <p>{{ $t('consumption.standardDeviation') }} : {{ stat[2] }}</p>
+                          <p>{{ $t('consumption.median') }} : {{ stat[3] }}</p>
+                          <p>{{ $t('consumption.quartiles') }} : {{ stat[4] }}</p>
+                          <p>{{ $t('consumption.interquartileRange') }} : {{ stat[5] }}</p>
+                          <p>{{ $t('consumption.minimum') }} : {{ stat[6] }}</p>
+                          <p>{{ $t('consumption.maximum') }} : {{ stat[7] }}</p>
+                        </div>
+                        <div v-else>
+                          <p>{{ $t('Il faut des données de consommations') }}</p>
+                        </div>
+                    </div>
                 </div>
-                <div v-if="permission != 'R'" class="newconsumption" >
+                <div class="newconsumption" >
                     <InputMain type="date" id="dateNewConsumption" value="2020-01-01" min="2020-01-01" max="2099-12-31"/>
                     <InputMain type="number" id="dataNewConsumption" min="0" step="0.01" />
                     <div @click.prevent.left="post()">
@@ -51,16 +69,27 @@
                     </div>
                 </div>
             </div>
-            <button class="arrow-button" @click.prevent.left="getDataAfter()">
-                <span class="arrow">&rarr;</span>
-            </button>
+            <div style="display: block;">
+                <button class="arrow-button" @click.prevent.left="getDataAfter(true)">
+                    <span class="arrow" style="color: #34c98eff;">&rarr;</span>
+                </button>
+                <button class="arrow-button" @click.prevent.left="getDataAfter(false)" id="arrowr2" style="display: none; margin-top: 10px;">
+                    <span class="arrow" style="color: #C04BC0">&rarr;</span>
+                </button>
+            </div>
         </div>
         <div class="bottombutton">
             <div @click.prevent.left="back()">
                 <GoButton text="button.back" :colore="'darkblue'"/>
             </div>
+            <select v-on:change="changeModSeeConsumption($event.target.value)">
+                <option value="justSee">{{ $t('consumptions.justSee') }}</option>
+                <option value="compareWithOther">{{ $t('consumptions.compareWithOther') }}</option>
+                <option value="compareOverTime">{{ $t('consumptions.compareOverTime') }}</option>
+                <option value="statistic">{{ $t('consumptions.statistic') }}</option>
+            </select>
             <div id="modeTime" @click.prevent.left="changeModTime()">
-                <GoButton :text=labelButtonDisplay :colore="'#34c98e'"/><!--trad-->
+                <GoButton :text=labelButtonDisplay :colore="'#34c98e'"/>
             </div>
         </div>
     </div>
@@ -88,28 +117,36 @@ export default {
         return{
             mode : true,
             ean : sessionStorage.getItem('ean'),
-            permission : sessionStorage.getItem("permission"), //Extension Claire
             date : "",
+            date2 : "",
             isAfter : true,
             listDate : [],
             listValue : [],
+            listValueOther : [],
+            listDate2 : [],
             listValue2 : [],
-            isComparaison : false,
+            modConso : "justSee",
             listNewValue : [],
             listNewDate : [],
             forcing : false,
             chart : null,
+            chart2 : null,
             isDisplayDay : true,
             month : "",
             year : "",
+            month2 : "",
+            year2 : "",
             unity : "",
-            labelButtonDisplay : ""//trad
+            labelButtonDisplay : "",
+            stat : [0, 0, 0, 0, [], 0, 0, 0],
+            tmpFlag : false
         }},
 
     created() {
-        this.getUnity();
-        this.getConsumption();
+        this.get("unity");
+        this.get("consumption");
         GlobalMethods.getCurrentLanguage();
+        this.labelButtonDisplay = this.$t("consumptions.displaymonth") + this.unity;
     },
     methods: {
         showData() { // Méthode qui permet d'afficher/actualiser les données
@@ -161,52 +198,110 @@ export default {
             }
         },
 
-        getDataBefore() { // Méthode qui permet de changer la date de recherche pour en suite aller chercher de nouvelles données dans le passé
-            if(this.isDisplayDay) {
-                this.isAfter = false;
-                this.date = this.listDate[0];
-                this.getConsumption();
+        getDataBefore(isMyConsumption) { // Méthode qui permet de changer la date de recherche pour en suite aller chercher de nouvelles données dans le passé
+            if(isMyConsumption) { // Si on veut voir plus de ses données pour les autres données
+              if(this.isDisplayDay) {
+                  this.isAfter = false;
+                  this.date = this.listDate[0];
+                  if(this.modConso == "compareOverTime") { // Si on est en traine de comparer deux graphiques il faut temporairement changer le mod pour que les consos aillent dans la bonne liste
+                    this.modConso = "justSee";
+                    this.tmpFlag = true;
+                  }
+                  this.get("consumption");
+              } else {
+                  this.month--;
+                  if(this.month <= 0) {
+                      this.month = 12;
+                      this.year--;
+                  }
+                  if(this.modConso == "compareOverTime") {
+                    this.modConso = "justSee";
+                    this.tmpFlag = true;
+                  }
+                  this.get("consumptionOfMonth");
+              }
+
+              if(this.modConso == "compareWithOther") { // Si on récupère des données de l'autre consommation jusqu'à ce qu'on ait le même nombre de données
+                  while(this.listValue.length > this.listValueOther.length) {
+                      this.get("consumptionOther");
+                  }
+              }
             } else {
-                this.month--;
-                if(this.month <= 0) {
-                    this.month = 12;
-                    this.year--;
+                if(this.isDisplayDay) {
+                    this.isAfter = false;
+                    this.date2 = this.listDate2[0];
+                    this.get("consumption");
+                } else {
+                    this.month2--;
+                    if(this.month2 <= 0) {
+                        this.month2 = 12;
+                        this.year2--;
+                    }
+                    this.get("consumptionOfMonth");
                 }
-                this.getConsumptionOfMonth();
             }
         },
 
-        getDataAfter() { // Méthode qui permet de changer la date de recherche pour en suite aller chercher de nouvelles données dans le futur
-            if(this.isDisplayDay) {
-                this.isAfter = true;
-                this.date = this.listDate.slice(-1)[0];
-                this.getConsumption();
+        getDataAfter(isMyConsumption) { // Méthode qui permet de changer la date de recherche pour en suite aller chercher de nouvelles données dans le futur
+            if(isMyConsumption) {
+              if(this.isDisplayDay) {
+                  this.isAfter = true;
+                  this.date = this.listDate.slice(-1)[0];
+                  if(this.modConso == "compareOverTime") {
+                    this.modConso = "justSee";
+                    this.tmpFlag = true;
+                  }
+                  this.get("consumption");
+              } else {
+                  this.month++;
+                  if(this.month >= 13) {
+                      this.month = 1;
+                      this.year++;
+                  }
+                  if(this.modConso == "compareOverTime") {
+                    this.modConso = "justSee";
+                    this.tmpFlag = true;
+                  }
+                    this.get("consumptionOfMonth");
+              }
+
+              if(this.modConso == "compareWithOther") {
+                  while(this.listValue.length > this.listValueOther.length) {
+                      this.get("consumptionOther");
+                  }
+              }
             } else {
-                this.month++;
-                if(this.month >= 13) {
-                    this.month = 1;
-                    this.year++;
-                }
-                this.getConsumptionOfMonth();
+              if(this.isDisplayDay) {
+                  this.isAfter = true;
+                  this.date2 = this.listDate2.slice(-1)[0];
+                  this.get("consumption");
+              } else {
+                  this.month2++;
+                  if(this.month2 >= 13) {
+                      this.month2 = 1;
+                      this.year2++;
+                  }
+                  this.get("consumptionOfMonth");
+              }
             }
         },
 
         showTable() { // Méthode qui détruit le graphique pour afficher ensuite le tableau
-            if(!this.mode) {
+            if(!this.mode && this.modConso == "justSee") {
                 this.chart.destroy();
                 document.getElementById("table").style.display = "flex";
             }
         },
 
         showGraphic() { // Méthode qui cache le tableau pour en suite préparer et afficher le graphique
-            if(this.mode) {
+            if(this.mode && this.modConso != "statistic") {
                 document.getElementById("table").style.display = "none";
 
                 const ctx = this.$refs.myChart.getContext('2d');
                 const data = {
                     labels: this.listDate,
                     datasets: [{
-                        label: this.$t("consumptions.yourconsumption") + this.unity,//trad
+                        label: this.$t("consumptions.yourconsumption") + this.unity,
                         data: this.listValue,
                         fill: false,
                         borderColor: 'rgb(75, 192, 192)',
@@ -214,10 +309,10 @@ export default {
                     }]
                 };
 
-                if(this.isComparaison) {
+                if(this.modConso == "compareWithOther") {
                     data.datasets[0] += {
-                        label: this.$t("consumptions.otherconsumption"),//trad
-                        data: this.listValue2,
+                        label: this.$t("consumptions.otherconsumption"),
+                        data: this.listValueOther,
                         fill: false,
                         borderColor: 'rgb(192, 75, 192)',
                         tension: 0.1
@@ -234,6 +329,33 @@ export default {
                 });
 
                 this.chart.update();
+
+                if (this.modConso == "compareOverTime") {
+                  const ctx2 = this.$refs.myChart2.getContext("2d");
+                  const data2 = {
+                    labels: this.listDate2,
+                    datasets: [
+                      {
+                        label: this.$t("consumptions.yourconsumption") + this.unity,
+                        data: this.listValue2,
+                        fill: false,
+                        borderColor: "rgb(192, 75, 192)",
+                        tension: 0.1,
+                      },
+                    ],
+                  };
+
+                  if (this.chart2) {
+                    this.chart2.destroy();
+                  }
+
+                  this.chart2 = new Chart(ctx2, {
+                    type: "line",
+                    data: data2,
+                  });
+
+                  this.chart2.update();
+                }
             }
         },
 
@@ -246,12 +368,12 @@ export default {
             const data = document.getElementById("dataNewConsumption").value;
             if(data == '')
             {
-                Swal.fire(this.$t("alerts.entervalue"));//trad
+                Swal.fire(this.$t("alerts.entervalue"));
                 return false;
             }
             else if(data < 0)
             {
-                Swal.fire(this.$t("alerts.enterpositiveconsumption"));//trad
+                Swal.fire(this.$t("alerts.enterpositiveconsumption"));
                 return false;
             }
 
@@ -261,13 +383,63 @@ export default {
             return true;
         },
 
-        async getUnity() { // Méthode qui permet de savoir qu'elle est l'unité de mesure en faisant une requête vers l'API
+        async get(typeRequest) { // Méthode qui permet de faire une requête vers l'API en fonction du type de requête
             const requestOptions = {
                 method: "GET",
                 headers: {'Authorization' : this.$cookies.get("token")},
             };
             try {
-                const response = await fetch(`https://babawallet.alwaysdata.net/api/common/contracts/type_of_energy/ + ${sessionStorage.getItem('contractId')}`, requestOptions);
+                let way = ``;
+                let dateWay = "";
+                let month = 1;
+                switch(typeRequest) {
+                    case "unity":
+                        way = `https://babawallet.alwaysdata.net/api/common/contracts/type_of_energy/ + ${sessionStorage.getItem('contractId')}`;
+                        break;
+                    case "consumption":
+                        if(this.modConso == "justSee") {
+                          if(this.date != "") {
+                              dateWay = `&date=${this.date}`;
+                          }
+                          else {
+                              this.isAfter = false;
+                          }
+                        } else if(this.modConso == "compareOverTime") {
+                          if(this.date2 != "") {
+                              dateWay = `&date=${this.date2}`;
+                          }
+                          else {
+                              this.isAfter = false;
+                          }
+                        }
+
+                        way = `https://babawallet.alwaysdata.net/api/common/consumptions/${this.ean}?is_after=${this.isAfter}${dateWay}`;
+                        break;
+                    case "consumptionOfMonth":
+                        if(this.modConso == "justSee") {
+                          if(this.year != "" && this.month != "") {
+                              dateWay = `?year=${this.year}&month=${this.month}`;
+                          }
+                        } else {
+                          if(this.year2 != "" && this.month2 != "") {
+                              dateWay = `?year=${this.year2}&month=${this.month2}`;
+                          }
+                        }
+                        way = `https://babawallet.alwaysdata.net/api/common/consumptions_month/${this.ean}${dateWay}`;
+                        break;
+                    case "consumptionOther":
+                        if(this.lisDate.length > 0) {
+                            if(this.isAfter) {
+                              month = parseInt(this.listDate[this.listDate.length-1].split("-")[1], 10).toString().padStart(2, '0');
+                            } else {
+                              month = parseInt(this.listDate[0].split("-")[1], 10).toString().padStart(2, '0');
+                            }
+                        }
+                        way = `https://babawallet.alwaysdata.net/api/common/other_consumptions/${sessionStorage.getItem('address')}/${sessionStorage.getItem('contractId')}?${month}`;
+                        break;
+                }
+
+                const response = await fetch(way, requestOptions);
                 if (!response.ok) {
                     const data = await response.text();
                     if(response.status == 401 && data.trim() === ''){
@@ -279,125 +451,111 @@ export default {
                     }
                 } else {
                     const data = await response.json();
+                    
+                    switch(typeRequest) {
+                        case "unity":
+                            if(data.type_of_energy == "water") {
+                                this.unity = " (m³)";
+                            } else {
+                                this.unity = " (kWh)";
+                            }
 
-                    if(data.type_of_energy == "water") {
-                        this.unity = " (m³)";
-                    } else {
-                        this.unity = " (kWh)";
+                            this.labelButtonDisplay = this.$t("consumptions.displaymonth") + this.unity;
+                            break;
+
+                        case "consumption":
+                            if(!(Object.keys(data.listConsumption).length === 0)) {
+                                let keys = Object.keys(data.listConsumption);
+                                let values = Object.values(data.listConsumption);
+
+                                if(this.modConso == "justSee" || this.modConso == "statistic") {
+                                  if(this.isAfter) {
+                                      this.listDate = this.listDate.concat(keys);
+                                      this.listValue = this.listValue.concat(values);
+
+                                      if(this.listDate.length > 30) {
+                                          this.listDate = this.listDate.slice(10);
+                                          this.listValue = this.listValue.slice(10);
+                                      }
+                                  } else {
+                                      this.listDate = keys.concat(this.listDate);
+                                      this.listValue = values.concat(this.listValue);
+
+                                      if(this.listDate.length > 30) {
+                                          this.listDate = this.listDate.slice(0, 30);
+                                          this.listValue = this.listValue.slice(0, 30);
+                                      }
+                                  }
+                                } else if(this.modConso == "compareOverTime") {
+                                  if(this.isAfter) {
+                                      this.listDate2 = this.listDate2.concat(keys);
+                                      this.listValue2 = this.listValue2.concat(values);
+
+                                      if(this.listDate2.length > 30) {
+                                          this.listDate2 = this.listDate2.slice(10);
+                                          this.listValue2 = this.listValue2.slice(10);
+                                      }
+                                  } else {
+                                      this.listDate2 = keys.concat(this.listDate2);
+                                      this.listValue2 = values.concat(this.listValue2);
+
+                                      if(this.listDate2.length > 30) {
+                                          this.listDate2 = this.listDate2.slice(0, 30);
+                                          this.listValue2 = this.listValue2.slice(0, 30);
+                                      }
+                                  }
+                                }
+                            }
+                            break;
+
+                        case "consumptionOfMonth":
+                            if(this.modConso == "justSee") {
+                                this.listDate = Object.keys(data.listConsumption);
+                                this.listValue = Object.values(data.listConsumption);
+
+                                if(this.listDate.length > 0) {
+                                    this.year = this.listDate[0].slice(0, 4);
+                                    this.month = this.listDate[0].slice(5, 7);
+                                }
+                            } else if(this.modConso == "compareOverTime") {
+                                this.listDate2 = Object.keys(data.listConsumption);
+                                this.listValue2 = Object.values(data.listConsumption);
+
+                                if(this.listDate2.length > 0) {
+                                    this.year2 = this.listDate2[0].slice(0, 4);
+                                    this.month2 = this.listDate2[0].slice(5, 7);
+                                }
+                            }
+                            break;
+
+                        case "consumptionOther":
+                            if(this.isAfter) {
+                              this.listValueOther = this.listValueOther.concat(data.listConsumption);
+                              this.listValueOther = this.listValueOther.slice(0, this.listValue.length);
+                            } else {
+                              this.listValueOther = data.listConsumption.concat(this.listValueOther);
+                              this.listValueOther = this.listValueOther.slice(0, this.listValue.length);
+                            }
+                            break;
                     }
 
-                    this.labelButtonDisplay = this.$t("consumptions.displaymonth") + this.unity;
+                    if(this.tmpFlag) {
+                      this.modConso = "compareOverTime";
+                      this.tmpFlag = false;
+                    }
+
+                    if(this.modConso == "statistic") {
+                        this.calculStat();
+                    } else {
+                        this.showData();
+                    }
                 }
             } catch(error) {
                 if(error.message === "Token") {
                     this.$cookies.remove("token");
                     this.$cookies.remove("role");
-                    Swal.fire(this.$t("alerts.connectionexpired"));//trad
+                    Swal.fire(this.$t("alerts.connectionexpired"));
                     this.$router.push("/");
-                }
-                else {
-                    GlobalMethods.errorApi(error.message);
-                }
-            }
-        },
-
-        async getConsumption() { // Méthode qui permet de récolter les données demandées en faisant une requête vers l'API
-            const requestOptions = {
-                method: "GET",
-                headers: {'Authorization' : this.$cookies.get("token")},
-            };
-            try {
-                let dateWay = "";
-                if(this.date != "") {
-                    dateWay = `&date=${this.date}`;
-                }
-                else {
-                    this.isAfter = false;
-                }
-                const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions/${this.ean}?is_after=${this.isAfter}${dateWay}`, requestOptions);
-                if (!response.ok) {
-                    const data = await response.text();
-                    if(response.status == 401 && data.trim() === ''){
-                        throw new Error("Token");
-                    }
-                    else{
-                        const data = await response.json();
-                        throw new Error(data.error);
-                    }
-                } else {
-                    const data = await response.json();
-
-                    if(!(Object.keys(data.listConsumption).length === 0)) {
-                        let keys = Object.keys(data.listConsumption);
-                        let values = Object.values(data.listConsumption);
-
-                        if(this.isAfter) {
-                            this.listDate = this.listDate.concat(keys);
-                            this.listValue = this.listValue.concat(values);
-
-                            if(this.listDate.length > 30) {
-                                this.listDate = this.listDate.slice(10);
-                                this.listValue = this.listValue.slice(10);
-                            }
-                        } else {
-                            this.listDate = keys.concat(this.listDate);
-                            this.listValue = values.concat(this.listValue);
-
-                            if(this.listDate.length > 30) {
-                                this.listDate = this.listDate.slice(0, 30);
-                                this.listValue = this.listValue.slice(0, 30);
-                            }
-                        }
-                    }
-
-                    this.showData();
-                }
-            } catch(error) {
-                if(error.message === "Token") {
-                    GlobalMethods.errorToken();
-                }
-                else {
-                    GlobalMethods.errorApi(error.message);
-                }
-            }
-        },
-
-        async getConsumptionOfMonth() { // Méthode qui permet de récolter les données demandées en faisant une requête vers l'API
-            const requestOptions = {
-                method: "GET",
-                headers: {'Authorization' : this.$cookies.get("token")},
-            };
-            try {
-                let dateWay = "";
-                if(this.year != "" && this.month != "") {
-                    dateWay = `?year=${this.year}&month=${this.month}`;
-                }
-                const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions_month/${this.ean}${dateWay}`, requestOptions);
-                if (!response.ok) {
-                    const data = await response.text();
-                    if(response.status == 401 && data.trim() === ''){
-                        throw new Error("Token");
-                    }
-                    else{
-                        const data = await response.json();
-                        throw new Error(data.error);
-                    }
-                } else {
-                    const data = await response.json();
-
-                    this.listDate = Object.keys(data.listConsumption);
-                    this.listValue = Object.values(data.listConsumption);
-
-                    if(this.listDate.length > 0) {
-                        this.year = this.listDate[0].slice(0, 4);
-                        this.month = this.listDate[0].slice(5, 7);
-                    }
-
-                    this.showData();
-                }
-            }  catch(error) {
-                if(error.message === "Token") {
-                    GlobalMethods.errorToken();
                 }
                 else {
                     GlobalMethods.errorApi(error.message);
@@ -438,11 +596,11 @@ export default {
 
                             if(this.isDisplayDay) {
                                 this.date = "";
-                                this.getConsumption();
+                                this.get("consumption");
                             } else {
                                 this.year = "";
                                 this.month = "";
-                                this.getConsumptionOfMonth();
+                                this.get("consumptionOfMonth");
                             }
                         } else {
                             Swal.fire({
@@ -472,17 +630,27 @@ export default {
             }
         },
 
-        changeModTime() { // Méthode qui permet de changer le type d'affichage. Soit jour par jour, soit par moi
+        async changeModTime() { // Méthode qui permet de changer le type d'affichage. Soit jour par jour, soit par moi
             this.isDisplayDay = !this.isDisplayDay;
             this.listDate = [];
             this.listValue = [];
 
             if(this.isDisplayDay) {
-                this.labelButtonDisplay = this.$t("consumptions.displaymonth") + this.unity;//trad
-                this.getConsumption();
+                this.labelButtonDisplay = this.$t("consumptions.displaymonth") + this.unity;
+                await this.get("consumption");
+                if(this.modConso == "compareOverTime") {
+                    this.modConso = "justSee";
+                    this.tmpFlag = true;
+                    await this.get("consumption");
+                }
             } else {
-                this.labelButtonDisplay = this.$t("consumptions.displayday") + this.unity;//trad
-                this.getConsumptionOfMonth();
+                this.labelButtonDisplay = this.$t("consumptions.displayday") + this.unity;
+                  await this.get("consumptionOfMonth");
+                  if(this.modConso == "compareOverTime") {
+                      this.modConso = "justSee";
+                      this.tmpFlag = true;
+                      await this.get("consumptionOfMonth");
+                  }
             }
         },
 
@@ -496,9 +664,99 @@ export default {
                 else{
                     sessionStorage.removeItem('ean');
                     sessionStorage.removeItem('contractId');
-                    this.$router.push('/contractFull');
+                    this.$router.push('/clientFull');
                 }
             }
+        },
+ 
+        changeModSeeConsumption(mod) { // Méthode qui permet de changer la perception des données en différents modes. (seul,comparer ses données avec celles d'un autre utilisateur, comparer ses données à plusieurs moments dans le temps
+            if(mod == this.modConso) return;
+
+            this.modConso = mod;
+            this.listValueOther = [];
+            this.listDate2 = [];
+            this.listValue2 = [];
+            
+            document.getElementById("chart").style.display = "none";
+            document.getElementById("chart2").style.display = "none";
+            document.getElementById("arrowl2").style.display = "none";
+            document.getElementById("arrowr2").style.display = "none";
+            document.getElementById("stat").style.display = "none";
+
+            switch(mod) {
+                case "justSee":
+                    this.showData();
+                    break;
+
+                case "compareWithOther":
+                    document.getElementById("chart").style.display = "inline";
+                    while(this.listValue.length > this.listValueOther.length) {
+                        this.get("consumptionOther");
+                    }
+                    break;
+
+                case "compareOverTime":
+                    document.getElementById("chart").style.display = "inline";
+                    document.getElementById("chart2").style.display = "inline";
+                    document.getElementById("arrowl2").style.display = "inline";
+                    document.getElementById("arrowr2").style.display = "inline";
+
+                    if(this.isDisplayDay) {
+                        this.get("consumption");
+                    } else {
+                        this.get("consumptionOfMonth");
+                    }
+                    break;
+
+                case "statistic":
+                    document.getElementById("stat").style.display = "block";
+                    this.calculStat();
+                    break;
+            }
+        },
+
+        calculStat() { // Méthode qui permet de calculer plusieurs statistiques à partir des données de consommation de l'utilisateur
+            this.stat = [0, 0, 0, 0, [], 0, 0, 0];
+            if(this.listValue.length == 0 ) return;
+
+            // La somme
+            this.stat[0] = this.listValue.reduce((acc, curr)=>{ return acc + curr }, 0);
+
+            // La moyenne
+            this.stat[1] = this.stat[0] / this.listValue.length;
+
+            // L'écart type
+            let tmp = this.listValue.map((k)=>{return (k - this.stat[1]) ** 2})
+            let sum = tmp.reduce((acc, curr)=> acc + curr, 0);
+            this.stat[2] = Math.sqrt(sum / tmp.length);
+
+            // La médiane
+            let values = Array.from(this.listValue);
+            values.sort(function(a,b){return a-b;});
+            var half = Math.floor(values.length / 2);
+            if (values.length % 2)
+              return values[half];
+            this.stat[3] = (values[half - 1] + values[half]) / 2.0;
+
+            // Les quartiles
+            if (this.listValue.length >= 3) {
+              values = Array.from(this.listValue);
+              values.sort(function(a, b) {return a - b;});
+
+              this.stat[4].push(values[Math.floor(values.length * 0.25)]);
+              this.stat[4].push(values[Math.floor(values.length * 0.50)]);
+              this.stat[4].push(values[Math.floor(values.length * 0.75)]);
+
+              // L'écart interquartile
+              if (this.stat[4].length >= 2) {
+                this.stat[5] = this.stat[4][2] - this.stat[4][0];
+              }
+            }
+
+            // Le minimum
+            this.stat[6] = Math.min(...this.listValue);
+            // Le maximum
+            this.stat[7] = Math.max(...this.listValue);
         }
     }
 };
@@ -565,8 +823,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 50px;
-    margin-top: 25px;
+    padding: 0 5px;
+    margin-top: 5px;
 }
 
 .middlebutton {
@@ -608,26 +866,19 @@ export default {
 .arrow {
     font-size: 44px;
     margin-left: 10px;
-    color: #34c98eff;
 }
 
-.permission{
-  position: fixed;
-  margin-top: 50px;
-  margin-right: 20px;
-  top: 0;
-  right: 0;
-  z-index: 9999;
-  font-size: 25px;
+select {
+  padding: 15px 100px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  background: #e8e8e8;
+  font-weight: 1000;
+  font-size: 17px;
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  margin: 10px;
+  text-align: center;
 }
 
-.permission{
-  position: fixed;
-  margin-top: 20px;
-  margin-right: 20px;
-  top: 0;
-  right: 0;
-  z-index: 9999;
-  font-size: 25px;
-}
 </style>
