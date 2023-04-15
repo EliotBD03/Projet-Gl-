@@ -178,31 +178,31 @@
   <style scoped>
   
   .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999; 
-}
-
-.bottombutton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; 
+  }
+  
+  .bottombutton {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     padding: 0 50px;
     margin-top: 50px;
-    width: 90%;
-}
-
-.container {
+    width: 100%;
+  }
+  
+  .container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -210,7 +210,6 @@
   width: 100%;
   overflow: auto;
   margin: 0 auto;
-  height: 100vh;
 }
 
 .list {
@@ -225,15 +224,10 @@
   float: left;
   margin-left: 20%;
 }
-
-.list > * {
-  margin-bottom: 5px;
-}
-
 .contract {  
   width: 30%;
   float: right;
-  height: 40%;
+  height: 60%;
   overflow-y: scroll;
   margin-right: 20%;
   border-radius: 50px;

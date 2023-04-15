@@ -2,11 +2,6 @@
     <div class="main">
         <div class="header">
             <MainHeader text="header.consumption"/>
-            <div class = "permission"> 
-              <p v-if="permission == 'R'">{{ $t("GestionExtClaire.R") }}</p> 
-              <p v-else-if="permission == 'RW'">{{ $t("GestionExtClaire.RW") }}</p> 
-              <p v-else>{{ $t("GestionExtClaire.gestion") }}</p>
-            </div>
         </div>
         <div class="topbutton">
             <div @click.prevent.left="changeMode(false)">
@@ -67,12 +62,10 @@
                     </div>
                 </div>
                 <div class="newconsumption" >
-                    <div v-if="permission != 'R'" class="newconsumption" >
-                        <InputMain type="date" id="dateNewConsumption" value="2020-01-01" min="2020-01-01" max="2099-12-31"/>
-                        <InputMain type="number" id="dataNewConsumption" min="0" step="0.01" />
-                        <div @click.prevent.left="post()">
-                            <GoButton type="submit" text="button.add" :colore="'#34c98e'"/>
-                        </div>
+                    <InputMain type="date" id="dateNewConsumption" value="2020-01-01" min="2020-01-01" max="2099-12-31"/>
+                    <InputMain type="number" id="dataNewConsumption" min="0" step="0.01" />
+                    <div @click.prevent.left="post()">
+                        <GoButton type="submit" text="button.add" :colore="'#34c98e'"/>
                     </div>
                 </div>
             </div>
@@ -124,7 +117,6 @@ export default {
         return{
             mode : true,
             ean : sessionStorage.getItem('ean'),
-            permission : sessionStorage.getItem("permission"), //Extension Claire
             date : "",
             date2 : "",
             isAfter : true,
@@ -888,16 +880,5 @@ select {
   margin: 10px;
   text-align: center;
 }
-
-.permission{
-  position: fixed;
-  margin-top: 50px;
-  margin-right: 20px;
-  top: 0;
-  right: 0;
-  z-index: 9999;
-  font-size: 25px;
-}
-
 
 </style>

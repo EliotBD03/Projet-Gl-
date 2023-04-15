@@ -5,7 +5,7 @@ import main.be.ac.umons.g02.data_object.Notification;
 import java.util.ArrayList;
 
 public class NotificationManager
-{    
+{
     /**
      * Crée une notification.
      *
@@ -85,6 +85,7 @@ public class NotificationManager
      * (Used in the case of a client who sent a notification and the provider valid in response) //TODO proof
      * @param notificationId l'identifiant de la notification
      * @param ean le code ean
+     * @param address l'adresse de la maison
      */
     public void acceptNotification(String notificationId, String ean, String address)
     {
