@@ -17,6 +17,9 @@
               <div @click.prevent.left="seeMore(contract)">
                 <GoButton text="button.go" :colore="'#34c98e'"/>
               </div>
+              <div @click.prevent.left="seeConsumption(contract)">
+                <GoButton text="button.seeConsumption" :colore="'#34c98e'"/>
+              </div>
               <p>--------------------------</p>
             </div>
           </div>
@@ -170,6 +173,19 @@
         sessionStorage.setItem('idContract', contract.contractId);
         sessionStorage.setItem('clientMail', this.client.mail);
         this.$router.push( {name: "ContractFull"} );
+      },
+
+      /**
+      * Cette méthode sauvegarde le contrat sur lequel on souhaite
+      *
+      * @param contract le contrat à sauvegarder
+      */
+      seeConsumption(contract){
+        sessionStorage.setItem('contractId', contract.contractId);
+        sessionStorage.setItem('ean', contract.ean);
+        sessionStorage.setItem('permissions', "RW");
+        sessionStorage.setItem('address', contract.address);
+        this.$router.push( {name: "Consumptions"} );
       }
     }
   };

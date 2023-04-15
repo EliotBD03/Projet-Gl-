@@ -127,7 +127,15 @@ public class WalletManager
             return false;
 
         new Query("INSERT INTO wallet(address,client_id,wallet_name, number_of_residents, size_of_house, is_house, is_electricity_to_charge, solar_panels) VALUES('"+
-                walletBasic.getAddress()+"',"+walletBasic.getClientId()+",'"+walletBasic.getName()+"','"+walletBasic.getNumberOfResidents()+"','"+walletBasic.getSizeOfHouse()+"','"+walletBasic.getIsHouse()+"','"+walletBasic.getIsElectricityToCharge()+"','"+walletBasic.getSolarPanels()+"')").executeWithoutResult();
+                walletBasic.getAddress()+"',"+
+                walletBasic.getClientId()+",'"+
+                walletBasic.getName()+"','"+
+                walletBasic.getNumberOfResidents()+"','"+
+                walletBasic.getSizeOfHouse()+"','"+
+                (walletBasic.getIsHouse() ? 1 : 0)+"','"+
+                (walletBasic.getIsElectricityToCharge() ? 1 : 0)+"','"+
+                (walletBasic.getSolarPanels() ? 1 : 0)+"')")
+          .executeWithoutResult();
 
         return true;
     }
