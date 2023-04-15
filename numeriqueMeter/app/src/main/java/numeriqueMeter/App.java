@@ -58,7 +58,7 @@ public class App
     {
         if(args.length != 4)
         {
-            System.out.println("Le programme a besoin de 3 arguments: [le mail] [le mot de passe] [le code ean] [le type d'énergie(e|g|w)]\nVeuillez utiliser cette commande pour ajouter des arguments: gradle run --args='arg1 arg2 arg3 arg4'");
+            System.out.println("Le programme a besoin de 4 arguments: [le mail] [le mot de passe] [le code ean] [le type d'énergie(e|g|w)]\nVeuillez utiliser cette commande pour ajouter des arguments: gradle run --args='arg1 arg2 arg3 arg4'");
             System.exit(1);
         }
 
