@@ -304,6 +304,11 @@ CREATE TABLE `wallet` (
   `latest_consumption_elec` double(6, 2) DEFAULT 0,
   `latest_consumption_water` double(6, 2) DEFAULT 0,
   `latest_consumption_gas` double(6, 2) DEFAULT 0,
+  `number_of_residents` int(10) DEFAULT NULL,
+  `size_of_house` int(10) DEFAULT NULL,
+  `is_house` binary(1) DEFAULT NULL,
+  `is_electricity_to_charge` binary(1) DEFAULT NULL,
+  `solar_panels` binary(1) DEFAULT NULL,
   PRIMARY KEY (`address`),
   KEY `client_id` (`client_id`),
   CONSTRAINT `wallet_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`)
