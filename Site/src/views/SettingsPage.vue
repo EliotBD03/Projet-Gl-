@@ -79,7 +79,11 @@ export default {
                     }
                 })
                 .catch(error => {
-                    GlobalMethods.errorApi(error.error);
+                    if(error.error === "error.unauthorizedAccess")
+                        GlobalMethods.errorToken();
+                    else{
+                        GlobalMethods.errorApi(error.error);
+                    }
                 });
         },
         /*Méthode pour rediriger vers la page d'accueil*/

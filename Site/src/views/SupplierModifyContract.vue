@@ -79,13 +79,8 @@ export default {
                 console.log(this.name_proposal);
                 const response = await fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions);
                 if (!response.ok) {
-                    if (response.status === 401){
-                        throw new Error('Token');
-                    }
-                    else {
-                        const data = await response.json();
-                        throw new Error(data.error);
-                    }
+                    const data = await response.json();
+                    throw new Error(data.error);
                 }
                 else {
                     const data = await response.json();
@@ -97,18 +92,13 @@ export default {
                 }
             }
             catch(error) {
-                if(error.message === 'Token') {
-                    this.$cookies.remove('token');
-                    this.$cookies.remove('role');
-                    Swal.fire(this.$t("alerts.connectionexpired"));
-                    this.$router.push('/');
-                }
+                if(error.error === "error.unauthorizedAccess")
+                        GlobalMethods.errorToken();
                 else {
                     GlobalMethods.errorApi(error.message);
                 }
             }
         },
-        }
         checkCounter() {
             return parseFloat(this.variable_night_price) !== 0;
         },
@@ -154,7 +144,13 @@ export default {
                             title: this.$t('alerts.good'),
                             text: this.$t("alerts.modifiedproposal"),
                         })
-                    )
+                    ).catch(error => {
+                        if(error.error === "error.unauthorizedAccess")
+                            GlobalMethods.errorToken();
+                        else{
+                            GlobalMethods.errorApi();
+                        }
+                    });
             }
         },
         back(){

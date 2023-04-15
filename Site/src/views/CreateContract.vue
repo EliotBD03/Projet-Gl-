@@ -200,7 +200,11 @@ export default {
                         })
                     )
                 } catch (error) {
-                    GlobalMethods.errorApi(error);
+                    if(error.error === "error.unauthorizedAccess")
+                        GlobalMethods.errorToken();
+                    else{
+                        GlobalMethods.errorApi(error);
+                    }
                 }
             }
         }

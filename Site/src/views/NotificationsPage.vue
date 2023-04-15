@@ -84,12 +84,8 @@ export default {
                 try {
                     const response = await fetch('https://babawallet.alwaysdata.net/api/provider/proposals/' + name, requestOptions);
                     if (!response.ok) {
-                        if (response.status === 401) {
-                            throw new Error('Token');
-                        } else {
-                            const data = await response.json();
-                            throw new Error(data.error);
-                        }
+                        const data = await response.json();
+                        throw new Error(data.error);
                     } else {
                         const data = await response.json();
                         this.contract = data.proposal;
@@ -105,12 +101,9 @@ export default {
                         });
                     }
                 } catch (error) {
-                    if (error.message === 'Token') {
-                        this.$cookies.remove('token');
-                        this.$cookies.remove('role');
-                        Swal.fire(this.$t("alerts.connectionexpired"));
-                        this.$router.push('/');
-                    } else {
+                    if(error.error === "error.unauthorizedAccess")
+                        GlobalMethods.errorToken();
+                    else {
                         GlobalMethods.errorApi(error.message);
                     }
                 }
@@ -122,12 +115,8 @@ export default {
                     };
                     const response = await fetch("https://babawallet.alwaysdata.net/api/client/proposals/" + id + "/" + name, requestsOptions);
                     if (!response.ok) {
-                        if (response.status === 401) {
-                            throw new Error("Token");
-                        } else {
-                            const data = await response.json();
-                            throw new Error(data.error);
-                        }
+                        const data = await response.json();
+                        throw new Error(data.error);
                     } else {
                         const data = await response.json();
                         this.contract = data.proposal;
@@ -143,12 +132,9 @@ export default {
                         });
                     }
                 } catch (error) {
-                    if (error.message === "Token") {
-                        this.$cookies.remove("token");
-                        this.$cookies.remove("role");
-                        Swal.fire(this.$t("alerts.connectionexpired"));
-                        this.$router.push("/");
-                    } else {
+                    if(error.error === "error.unauthorizedAccess")
+                        GlobalMethods.errorToken();
+                     else {
                         GlobalMethods.errorApi(error.message);
                     }
                 }
@@ -171,21 +157,17 @@ export default {
             fetch('https://babawallet.alwaysdata.net/api/common/notifications/' + id_notification, requestOptions)
                 .then(response => {
                     if (!response.ok) {
-                        if (response.status == 401) {
-                            throw new Error("Token");
-                        } else {
-                            const data = response.json();
-                            throw new Error(data.error);
-                        }
+                        const data = response.json();
+                        throw new Error(data.error);
                     } else {
                         Swal.fire(this.$t("alerts.deletednotification"));
                         this.refreshNotifications();
                     }
                 })
                 .catch(error => {
-                    if (error.message === "Token") {
+                    if(error.error === "error.unauthorizedAccess")
                         GlobalMethods.errorToken();
-                    } else {
+                    else {
                         GlobalMethods.errorApi(error.message);
                     }
                 });
@@ -199,12 +181,8 @@ export default {
             try {
                 const response = await fetch(`https://babawallet.alwaysdata.net/api/common/notifications/page?page=${this.nbr}&limit=3`, requestOptions);
                 if (!response.ok) {
-                    if (response.status == 401) {
-                        throw new Error("Token");
-                    } else {
-                        const data = await response.json();
-                        throw new Error(data.error);
-                    }
+                    const data = await response.json();
+                    throw new Error(data.error);
                 } else {
                     const data = await response.json();
                     this.lastPage = data.last_page;
@@ -219,9 +197,9 @@ export default {
                     }
                 }
             } catch (error) {
-                if (error.message === "Token") {
+                if(error.error === "error.unauthorizedAccess")
                     GlobalMethods.errorToken();
-                } else {
+                 else {
                     GlobalMethods.errorApi(error.message);
                 }
             }
@@ -241,21 +219,17 @@ export default {
                 fetch('https://babawallet.alwaysdata.net/api/common/notifications/accept_notification/' + id_notification, requestOptions)
                     .then(response => {
                         if (!response.ok) {
-                            if (response.status == 401) {
-                                throw new Error("Token");
-                            } else {
-                                const data = response.json();
-                                throw new Error(data.error);
-                            }
+                            const data = response.json();
+                            throw new Error(data.error);
                         } else {
                             Swal.fire(this.$t("alerts.acceptednotification"));
                             this.refreshNotifications();
                         }
                     })
                     .catch(error => {
-                        if (error.message === "Token") {
+                        if(error.error === "error.unauthorizedAccess")
                             GlobalMethods.errorToken();
-                        } else {
+                        else {
                             GlobalMethods.errorApi(error.message);
                         }
                     });
@@ -271,21 +245,17 @@ export default {
             fetch("https://babawallet.alwaysdata.net/api/common/notifications/refuse_notification/" + id_notification, requestOptions)
                 .then(response => {
                     if (!response.ok) {
-                        if (response.status == 401) {
-                            throw new Error("Token");
-                        } else {
-                            const data = response.json();
-                            throw new Error(data.error);
-                        }
+                        const data = response.json();
+                        throw new Error(data.error);
                     } else {
                         Swal.fire(this.$t("alerts.refusednotification"));
                         this.refreshNotifications();
                     }
                 })
                 .catch(error => {
-                    if (error.message === "Token") {
+                    if(error.error === "error.unauthorizedAccess")
                         GlobalMethods.errorToken();
-                    } else {
+                    else {
                         GlobalMethods.errorApi(error.message);
                     }
                 });
@@ -322,7 +292,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    height: 100vh;
+    margin: 10vh;
 }
 
 .header {
@@ -337,8 +307,6 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 400px;
-    overflow-y: scroll;
 }
 
 .notif {
