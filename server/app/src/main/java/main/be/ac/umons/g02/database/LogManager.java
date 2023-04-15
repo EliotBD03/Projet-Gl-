@@ -105,6 +105,7 @@ public class LogManager
             new Query("DELETE FROM provider WHERE provider_id="+id).executeWithoutResult();
         }
 
+        new Query("DELETE FROM notification WHERE sender_id="+id+" OR receiver_id="+id).executeWithoutResult();
         new Query("DELETE FROM language WHERE id="+id).executeWithoutResult();
         new Query("DELETE FROM user WHERE id="+id).executeWithoutResult();
 
@@ -131,16 +132,5 @@ public class LogManager
     public String getName(String id)
     {
         return new Query("SELECT name FROM user WHERE id="+id).executeAndGetResult("name").getStringElem(0,0);
-    }
-
-    /**
-     * Donne le mail de l'utilisateur via son identifiant
-     *
-     * @param id l'identifiant de l'utilisateur
-     * @return le mail de l'utilisateur
-     */
-    public String getMail(String id)
-    {
-        return new Query("SELECT mail from user WHERE id="+id).executeAndGetResult("mail").getStringElem(0, 0);
     }
 }

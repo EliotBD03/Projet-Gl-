@@ -19,19 +19,7 @@
   },
   "walletform": {
     "name": "Enter the name of the wallet",
-    "address": "Enter your address",
-    "__comment": "adrien",
-    "numberOfResidents": "Enter the number of residents",
-    "sizeOfHouse": "Enter the size of your house (m²)",
-    "answer1": "Choose the type of house:",
-    "answer2": "Choose the type of heating:",
-    "answer3": "Do you have solar panels:",
-    "typeHouse1": "House",
-    "typeHouse2": "Apartment",
-    "typeCharge1": "Electricity",
-    "typeCharge2": "Gas",
-    "solarPanel1": "Yes",
-    "solarPanel2": "No"
+    "address": "Enter your address"
   },
   "button": {
     "changepwd": "Change password",
@@ -125,41 +113,18 @@
     "deletedwallet": "Wallet deleted",
     "nowallet": "There is no wallet",
     "seeyousoon": "See you soon !",
-    "mailsent": "Mail sent",
-    "__comment": "adrien",
-    "numberOfResidents": "Enter a correct number of residents",
-    "sizeOfHouse": "Enter a possible house size"
+    "mailsent": "Mail sent"
   },
   "wallet": {
     "loading": "Loading...",
     "owner": "Owner",
-    "lastconsumptions": "Last consumptions",
-    "__comment": "adrien",
-    "numberOfResidents": "Number of residents",
-    "sizeOfHouse": "Size of house",
-    "typeOfHouse": "Type of house",
-    "typeOfCharge": "Heating type",
-    "solarPanels": "Solar panels"
+    "lastconsumptions": "Last consumptions"
   },
   "consumptions": {
     "yourconsumption": "Your consumption",
     "otherconsumption": "Other consumption",
     "displaymonth": "Display month",
-    "displayday": "Display day",
-    "__comment": "adrien",
-    "compareWithOther": "Compare (other person)",
-    "justSee": "Just consumption",
-    "compareOverTime": "Compare (period)",
-    "statistic": "See statistics",
-    "sum": "Sum",
-    "mean": "Mean",
-    "standardDeviation": "StandardDeviation",
-    "median": "Median",
-    "quartiles": "Quartiles",
-    "interquartileRange": "Interquartile range",
-    "minimum": "Minimum",
-    "maximum": "Maximum",
-    "noInformation": "Consumption data is needed"
+    "displayday": "Display day"
   },
   "account" : {
     "client": "Client",
@@ -220,7 +185,9 @@
     "energy": "Energy",
     "counter": "Counter",
     "monohourly": "Monohourly",
-    "bihourly": "Bihourly"
+    "bihourly": "Bihourly",
+    "changepriceperday": "Change the price per day",
+    "changepricepernight": "Change the price per night"
   },
   "client": {
     "generalinformations": "General informations",
@@ -252,5 +219,37 @@
     "title": "404",
     "text1": "Oops",
     "text2": "Page not found"
+  },
+  "GestionExtClaire": {
+    "gestion": "Management",
+    "RW": "Read and write",
+    "R": "Read",
+    "leave": "Leave the wallet",
+    "invited": "List of invited clients",
+    "invitedName": "Name",
+    "permission": "Change permissions",
+    "deleteClient": "Delete the invited client",
+    "alertLeave": "You leave the wallet !",
+    "alertDelete": "Invited client deleted",
+    "addClient": "Add a guest",
+    "wallets": "Invited wallets",
+    "enterId": "Guest's id",
+    "alertId": "Please enter the guest id",
+    "alertBadId": "Incorrect id entered",
+    "request": "A request is sent to the guest",
+    "ChangePerm": "Change permissions",
+    "alertChange": "Permissions changed",
+    "buttonChange": "Change",
+    "invitation": "See new invitations",
+    "invitationAccept": "Your invitation has been accepted by",
+    "invitationRefuse": "Your invitation has been declined by",
+    "invitationPropose": "You have received an invitation from",
+    "requestAccept": "Accept",
+    "requestRefuse": "Refuse",
+    "requestSeen": "Seen",
+    "alertBadAccept": "You are already on this wallet !",
+    "alertAcceptInvitation": "You have accepted the invitation",
+    "alertRefuseInvitation": "You have declined the invitation",
+    "noInvitation": "No invitations"
   }
 }

@@ -9,8 +9,14 @@
         <MainCard :text="$t('header.notifications')" redir="Notifications"/>
       </div>
       <div class="globalcontracts"> <!-- div for the button to avoid the 100% width on clicking -->
-        <div class="newcontract" @click.prevent.left="$router.push('/newcontracts')">
+        <div class="middle" @click.prevent.left="$router.push('/newcontracts')">
           <GoButton text="maincard.newcontracts" :colore="'#B1B9FC'"/>
+        </div>
+        <div class="middle" @click.prevent.left="$router.push({ name: 'InvitedWallets' })">
+        <GoButton text="GestionExtClaire.wallets" :colore="'#B1B9FC'"/>
+        </div>
+        <div class="middle" @click.prevent.left="$router.push({ name: 'Invitations' })">
+        <GoButton text="GestionExtClaire.invitation" :colore="'#B1B9FC'"/>
         </div>
       </div>
       <div class="bottombutton">
@@ -19,7 +25,7 @@
         </div>
         <div class="settingsbutton" @click.prevent.left="$router.push('/settings')">
         <GoButton text="header.settings" :colore="'gray'"/>
-          </div>
+        </div>
       </div>
     </div>
 </template>
@@ -55,7 +61,7 @@ export default {
   justify-content: space-evenly;
 }
 
-.newcontract {
+.middle {
   width: fit-content;
 }
 

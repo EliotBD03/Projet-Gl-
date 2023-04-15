@@ -67,8 +67,10 @@ public class Table
     public ArrayList<String> getColumn(int index)
     {
         ArrayList<String> col = new ArrayList<>();
-        for(ArrayList<String> row : table)
-            col.add(row.get(index));
+        if(table == null)
+            for(ArrayList<String> row : table)
+                col.add(row.get(index));
         return col;
+
     }
 }
