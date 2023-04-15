@@ -52,14 +52,14 @@
                     </div>
                     <div id="stat" style="display: none;">
                         <div v-if="listValue.length > 0">
-                          <p>{{ $t('consumption.sum') }} : {{ stat[0] }}</p>
-                          <p>{{ $t('consumption.mean') }} : {{ stat[1] }}</p>
-                          <p>{{ $t('consumption.standardDeviation') }} : {{ stat[2] }}</p>
-                          <p>{{ $t('consumption.median') }} : {{ stat[3] }}</p>
-                          <p>{{ $t('consumption.quartiles') }} : {{ stat[4] }}</p>
-                          <p>{{ $t('consumption.interquartileRange') }} : {{ stat[5] }}</p>
-                          <p>{{ $t('consumption.minimum') }} : {{ stat[6] }}</p>
-                          <p>{{ $t('consumption.maximum') }} : {{ stat[7] }}</p>
+                          <p>{{ $t('consumptions.sum') }} : {{ stat[0] }}</p>
+                          <p>{{ $t('consumptions.mean') }} : {{ stat[1] }}</p>
+                          <p>{{ $t('consumptions.standardDeviation') }} : {{ stat[2] }}</p>
+                          <p>{{ $t('consumptions.median') }} : {{ stat[3] }}</p>
+                          <p>{{ $t('consumptions.quartiles') }} : {{ stat[4] }}</p>
+                          <p>{{ $t('consumptions.interquartileRange') }} : {{ stat[5] }}</p>
+                          <p>{{ $t('consumptions.minimum') }} : {{ stat[6] }}</p>
+                          <p>{{ $t('consumptions.maximum') }} : {{ stat[7] }}</p>
                         </div>
                         <div v-else>
                           <p>{{ $t('Il faut des données de consommations') }}</p>
