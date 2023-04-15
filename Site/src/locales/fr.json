@@ -19,7 +19,7 @@
   },
   "walletform": {
     "name": "Entrez le nom du portefeuille",
-    "adress": "Entrez votre adresse"
+    "address": "Entrez votre adresse"
   },
   "button": {
     "changepwd": "Changer de mot de passe",
@@ -34,6 +34,7 @@
     "newcode": "Envoyer un nouveau code",
     "disconnect": "Déconnexion",
     "go": "Go",
+    "seeConsumption": "Voir consommation",
     "table": "Tableau",
     "export": "Exporter",
     "import": "Importer",
@@ -50,7 +51,11 @@
     "modifyproposal": "Modifier la proposition",
     "closeproposal": "Fermer la proposition",
     "deleteaccount": "Supprimer le compte",
-    "addwallet": "Ajouter un portefeuille"
+    "addwallet": "Ajouter un portefeuille",
+    "accept": "Accepter",
+    "deny": "Refuser",
+    "seen": "Vu",
+    "infos": "Infos"
   },
   "maincard": {
     "newcontracts": "Voir les nouveaux contrats",
@@ -112,7 +117,8 @@
     "deletedwallet": "Portefeuille supprimé",
     "nowallet": "Vous n'avez pas de portefeuille",
     "seeyousoon": "À bientôt !",
-    "mailsent": "Un mail vous a été envoyé"
+    "mailsent": "Un mail vous a été envoyé",
+    "eanAlreadyUse" : "Ce code ean est déjà utilisé"
   },
   "wallet": {
     "loading": "Chargement en cours...",
@@ -147,12 +153,20 @@
     "seconds": "secondes",
     "minutes": "minutes",
     "hours": "heures",
-    "days": "jours"
+    "days": "jours",
+    "now": "A l'instant"
   },
   "notifications": {
     "title": "{name}",
-    "time": "il y a {time}",
-    "text": "{text}"
+    "time": "il y a {time} {format}",
+    "text": "{text}",
+    "accepted": "A accepté votre contrat",
+    "denied": "A refusé votre contrat",
+    "request": "A demandé un contrat",
+    "dailychange": "Consommation journalière du {date} a changé en {consumption} (EAN : {EAN})",
+    "system": "Système",
+    "deleted": "A supprimé votre contrat",
+    "expired": "Votre contrat a expiré"
   },
   "proposal": {
     "selectproposal": "Sélectionnez une proposition",
@@ -163,8 +177,8 @@
     "priceperday": "Prix de jour",
     "pricepernight": "Prix de nuit",
     "peakhours": "Heures de pointe",
-    "startofpeakhours": "Début des heures de pointe",
-    "endofpeakhours": "Fin des heures de pointe",
+    "startofpeakhours": "Début des heures creuses",
+    "endofpeakhours": "Fin des heures pleines",
     "openingdate": "Date d'ouverture",
     "closingdate": "Date de fermeture",
     "rate": "Tarif",
@@ -186,7 +200,8 @@
     "monohourly": "Monohoraire",
     "bihourly": "Bihoraire",
     "changepriceperday": "Modifier le prix de jour",
-    "changepricepernight": "Modifier le prix de nuit"
+    "changepricepernight": "Modifier le prix de nuit",
+    "noproposal":"Aucune proposition"
   },
   "client": {
     "generalinformations": "Informations générales",
@@ -212,7 +227,10 @@
     "codeNotSend" : "Le code n'a pas été envoyé.",
     "addressNotCorrect" : "Cette adresse est déjà prise.",
     "walletNotEmpty" : "Le portefeuille n'est pas vide.",
-    "tableauType" : "Le tableau ne doit contenir que des entiers."
+    "tableauType" : "Le tableau ne doit contenir que des entiers.",
+    "stillContracts" : "Vous avez encore des contrats.",
+    "notHisWallet": "Ce n'est pas votre portefeuille.",
+    "proposalUsed": "Vous ne pouvez pas supprimer un contrat utilisé pour des contrats actifs."
   },
   "404": {
     "title": "404",

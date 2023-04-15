@@ -5,17 +5,20 @@
       </div>
       <div class="container">
         <div class ="list">
-          <p class="text"> {{ $t("client.generalinformation") }} </p>
+          <p class="text"> {{ $t("client.generalinformations") }} </p>
           <p> Mail : {{ client.mail }}</p>
         </div>
         <div class="contract">
           <p class="text"> {{ client.associatedcontracts }}</p>
-          <div v-if="listContract">
+          <div v-if="listContract && listContract.length !== 0">
             <div v-for="contract in listContract" :key="contract.id">
               <p> {{ $t("client.clientname") }} = {{ contract.clientName }}</p>
               <p> {{ $t("client.eancode") }} = {{ contract.ean }}</p>
               <div @click.prevent.left="seeMore(contract)">
                 <GoButton text="button.go" :colore="'#34c98e'"/>
+              </div>
+              <div @click.prevent.left="seeConsumption(contract)">
+                <GoButton text="button.seeConsumption" :colore="'#34c98e'"/>
               </div>
               <p>--------------------------</p>
             </div>
@@ -72,13 +75,8 @@
         try {
           const response = await fetch(`${this.linkApi}${this.client.clientId}/contrats/page?page=${this.nbr}&limit=3`, requestOptions);
           if (!response.ok) { 
-            if(response.status == 401){
-              throw new Error("Token");
-            }
-            else{
-              const data = await response.json();
-              throw new Error(data.error);
-            }
+            const data = await response.json();
+            throw new Error(data.error);
           } else {
             const data = await response.json(); 
             this.lastPage = data.last_page;
@@ -92,9 +90,8 @@
             }
           }
         } catch(error) {
-            if(error.message === "Token") {
+            if(error.error === "error.unauthorizedAccess")
               GlobalMethods.errorToken();
-            } 
             else {  
               GlobalMethods.errorApi(error.message);
             }
@@ -131,12 +128,7 @@
         fetch(`https://babawallet.alwaysdata.net/api/client/clients_of_provider/${this.client.clientId}`, requestOptions)
           .then(response => {
             if(!response.ok){
-              if(response.status == 401){
-                  throw new Error("Token");
-              }
-              else{
-                return response.json().then(json => Promise.reject(json));
-              }
+              return response.json().then(json => Promise.reject(json));
             }
             else{
               Swal.fire({
@@ -148,9 +140,8 @@
             }
           })
           .catch(error => {
-            if(error.message === "Token") {
-              GlobalMethods.errorToken();
-            } 
+            if(error.error === "error.unauthorizedAccess")
+              GlobalMethods.errorToken(); 
             else {
               GlobalMethods.errorApi(error.error);
             }
@@ -170,6 +161,17 @@
         sessionStorage.setItem('idContract', contract.contractId);
         sessionStorage.setItem('clientMail', this.client.mail);
         this.$router.push( {name: "ContractFull"} );
+      },
+
+      /**
+      * Cette méthode sauvegarde le contrat sur lequel on souhaite plus d'informations et redirige vers consumption.
+      * 
+      * @param contract le contrat à sauvegarder.
+      */
+      seeConsumption(contract){
+        sessionStorage.setItem('ean', contract.ean);
+        sessionStorage.setItem('contractId', contract.contractId);
+        this.$router.push({name: 'Consumptions'});
       }
     }
   };

@@ -72,19 +72,24 @@ export default {
             }
             fetch("https://babawallet.alwaysdata.net/api/common/languages/actual_language/" + this.language, requestsOptions)
                 .then(response => {
-                    if(!response.ok){
-                        return response.json().then(json => Promise.reject(json));
+                    if(!response.ok)
+                       throw new Error(response.error);
+                    else
+                    {
+                        Swal.fire({
+                            icon: 'success',
+                            title: this.$t('alerts.good'),
+                            text: this.$t('alerts.languagechanged'),
+                            });
+                        GlobalMethods.isAClient();
                     }
-                    return response.json();
                 })
-                .then(Swal.fire({
-                    icon: 'success',
-                    title: this.$t('alerts.good'),
-                    text: this.$t('alerts.languagechanged'),
-                }))
-                .then(GlobalMethods.isAClient())
                 .catch(error => {
-                    GlobalMethods.errorApi(error.error);
+                    if(error.error === "error.unauthorizedAccess")
+                        GlobalMethods.errorToken();
+                    else{
+                        GlobalMethods.errorApi(error.error);
+                    }
                 });
         },
         /*Méthode pour rediriger vers la page d'accueil*/
@@ -113,15 +118,14 @@ export default {
                 .then(response => {
                     if(!response.ok)
                     {
-                        if(response.status == 401)
-                            throw new Error("Token");
-                        else if(response.status == 404)
+                        if(response.status == 404)
                             this.$router.push({name: "NotFound"});
                         else
                             return response.json().then(json => Promise.reject(json));
                     }
                     else
                     {
+                        console.log("je passe ici toto");
                         Swal.fire(
                             {
                                 icon: "success",
@@ -135,10 +139,8 @@ export default {
                     }     
                 })
                 .catch(error => {
-                    if(error.message === "Token")
+                    if(error.error === "error.unauthorizedOperation")
                         GlobalMethods.errorToken();
-                    else if(error.message === "stillContract")
-                        Swal.fire(this.$t("alerts.stillcontracts"));
                     else
                         GlobalMethods.errorApi(error.error);
                 });
@@ -182,7 +184,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    height: 105vh;
+    height: 110vh;
 }
 
 .header {

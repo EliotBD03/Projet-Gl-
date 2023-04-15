@@ -23,7 +23,7 @@
       </div>
       <div class = "contract">
         <p class = "text"> <b>{{ $t("client.associatedcontracts") }} </b></p>
-        <div v-if="wallet.contract && wallet.contracts.length !== 0"> <!--Vérifier-->
+        <div v-if="wallet.contracts && wallet.contracts.length !== 0">
           <div v-for="contract in wallet.contracts" :key="contract.id">
             <p> <b>{{ $t("account.provider") }} :</b> {{ contract.providerName }}</p>
             <p> <b>{{ $t("client.eancode") }} :</b> {{ contract.ean }}</p>
@@ -146,12 +146,7 @@ export default {
       fetch(`https://babawallet.alwaysdata.net/api/client/wallets/${this.address}`, requestOptions)
           .then(response => {
             if(!response.ok){
-              if(response.status == 401){
-                  throw new Error("Token");
-              }
-              else{
-                return response.json().then(json => Promise.reject(json));
-              }
+              return response.json().then(json => Promise.reject(json));
             }
             else{
               Swal.fire({
@@ -163,9 +158,8 @@ export default {
             }
           })
           .catch(error => {
-            if(error.message === "Token") {
+            if(error.error === "error.unauthorizedAccess")
               GlobalMethods.errorToken();
-            } 
             else {
               GlobalMethods.errorApi(error.error);
             }

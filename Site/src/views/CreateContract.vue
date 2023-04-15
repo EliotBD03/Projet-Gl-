@@ -140,15 +140,15 @@ export default {
             this.localization = location
         },
         checkArgs() {
-            if (!this.name_proposal) Swal.fire(this.$t("proposal.enternameproposal"));
-            else if (!this.type_of_energy) Swal.fire(this.$t("proposal.selecttypeofenergy"));
-            else if (this.localization === '000') Swal.fire(this.$t("proposal.selectlocation"));
-            else if (this.variable_night_price === '') Swal.fire(this.$t("proposal.enternightprice"));
-            else if (!this.variable_day_price) Swal.fire(this.$t("proposal.enterdayprice"));
-            else if (!this.is_fixed_rate) Swal.fire(this.$t("proposal.selectratetype"));
+            if (!this.name_proposal) Swal.fire(this.$t("alerts.enternameproposal"));
+            else if (!this.type_of_energy) Swal.fire(this.$t("alerts.selecttypeofenergy"));
+            else if (this.localization === '000') Swal.fire(this.$t("alerts.selectlocation"));
+            else if (this.variable_night_price === '') Swal.fire(this.$t("alerts.enternightprice"));
+            else if (!this.variable_day_price) Swal.fire(this.$t("alerts.enterdayprice"));
+            else if (!this.is_fixed_rate) Swal.fire(this.$t("alerts.selectratetype"));
             else if (this.checkDuration(this.duration)) Swal.fire(this.$t("alerts.enterduration"));
-            else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire(this.$t("proposal.selectstarthour"));
-            else if (this.checkCounter() && !this.end_off_peak_hours) Swal.fire(this.$t("proposal.selectendhour"));
+            else if (this.checkCounter() && !this.start_off_peak_hours) Swal.fire(this.$t("alerts.selectstarthour"));
+            else if (this.checkCounter() && !this.end_off_peak_hours) Swal.fire(this.$t("alerts.selectendhour"));
             else return true;
         },
         convertToBoolean(value) {
@@ -200,7 +200,11 @@ export default {
                         })
                     )
                 } catch (error) {
-                    GlobalMethods.errorApi(error);
+                    if(error.error === "error.unauthorizedAccess")
+                        GlobalMethods.errorToken();
+                    else{
+                        GlobalMethods.errorApi(error);
+                    }
                 }
             }
         }

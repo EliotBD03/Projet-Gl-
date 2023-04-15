@@ -45,7 +45,7 @@ export default {
       /*Méthode qui permet la déconnexion de l'utilisateur à l'aide de GlobalMethods*/
       callDisconnect() {
           GlobalMethods.disconnect("/");
-      },
+      }
   },
     created() {
         GlobalMethods.getCurrentLanguage();

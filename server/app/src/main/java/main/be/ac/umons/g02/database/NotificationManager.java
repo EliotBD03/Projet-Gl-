@@ -45,11 +45,16 @@ public class NotificationManager
      * @param context le contexte
      * @param ean le code ean
      * @param address l'adresse
+     * @return vrai si on a pu créer la notif(compteur libre), faux sinon
      */
-    public void createNotification(String senderId, String receiverId, String proposalName, String proposalOwnerId, String context,  String ean, String address)
+    public boolean createNotification(String senderId, String receiverId, String proposalName, String proposalOwnerId, String context,  String ean, String address)
     {
+        if(!new WalletManager().isTheCounterFree(ean))
+            return false;
+
         new Query("INSERT INTO notification(sender_id, receiver_id, linked_proposal_name, provider_id_proposal, context, linked_ean, linked_address)"+
                 " VALUES("+senderId+","+receiverId+",'"+proposalName+"',"+proposalOwnerId+",'"+context+"','"+ean+"','"+address+"')").executeWithoutResult();
+        return true;
     }
 
     /**
@@ -63,7 +68,7 @@ public class NotificationManager
      */
     public Object[] getAllNotifications(String idUser, int base, int limit)
     {
-        String query = "SELECT * FROM notification WHERE receiver_id="+idUser + " LIMIT "+ base+", "+limit;
+        String query = "SELECT * FROM notification WHERE receiver_id="+idUser + " ORDER BY creation_date DESC LIMIT "+ base+", "+limit;
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult
                 (
                         "notification_id", "sender_id", "receiver_id", "linked_contract", "linked_proposal_name",
@@ -85,9 +90,14 @@ public class NotificationManager
      * (Used in the case of a client who sent a notification and the provider valid in response) //TODO proof
      * @param notificationId l'identifiant de la notification
      * @param ean le code ean
+     * @param address l'adresse de la maison
+     * @return vrai si on a pu créer la notif(compteur libre), faux sinon
      */
-    public void acceptNotification(String notificationId, String ean, String address)
+    public boolean acceptNotification(String notificationId, String ean, String address)
     {
+        if(!new WalletManager().isTheCounterFree(ean))
+            return false;
+
         ArrayList<String> row = new Query("SELECT * FROM notification WHERE notification_id="+notificationId)
                 .executeAndGetResult
                         (
@@ -98,9 +108,10 @@ public class NotificationManager
         new ContractManager().createContract(row.get(2), ean, row.get(3), address, row.get(1));
 
         createNotification(row.get(1), row.get(0), row.get(2), row.get(3),
-                "Your contract was accepted by "+new LogManager().getName(row.get(1)), ean,address);
+                "Your contract was accepted by "+new LogManager().getName(row.get(1)));
 
         deleteNotification(notificationId);
+        return true;
     }
 
     /**
@@ -120,7 +131,7 @@ public class NotificationManager
 
         new ContractManager().createContract(row.get(2), row.get(5), row.get(3), row.get(6), row.get(0));
         createNotification(row.get(1), row.get(0), row.get(2), row.get(3),
-                "Your contract was accepted by "+new LogManager().getName(row.get(1)), row.get(5),row.get(6));
+                "Your contract was accepted by "+new LogManager().getName(row.get(1)));
 
         deleteNotification(notificationId);
     }

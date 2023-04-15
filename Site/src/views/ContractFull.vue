@@ -4,30 +4,32 @@
             <MainHeader :text="contract.proposal.proposalName"/>
         </div>
         <div class ="list">
-            <div v-if="isRole()">
-                <p> <b>{{ $t("proposal.associatedwallet") }}</b> {{ associatedWallet }}</p>
-                <p> <b>{{ $t("proposal.address") }}</b> {{ addressWallet }}</p>
-                <p> <b>{{ $t("client.eancode") }}</b> {{ contract.ean }}</p>
-                <p> <b>{{ $t("account.provider") }}</b> {{ contract.providerName }}</p>
-            </div>
-            <div v-else>
-                <p> <b>{{ $t("account.client") }}</b> {{ contract.clientName }}</p>
-                <p> <b>{{ $t("account.mail") }}</b> {{ mailClient }}</p>
-                <div @click.prevent.left="seeConsumptions(contract)">
-                    <GoButton text="header.consumption" :colore="'#34c98e'"/>
+            <div class="content">
+                <div v-if="isRole()">
+                    <p> <b>{{ $t("proposal.associatedwallet") }} :</b> {{ associatedWallet }}</p>
+                    <p> <b>{{ $t("proposal.address") }} :</b> {{ addressWallet }}</p>
+                    <p> <b>{{ $t("client.eancode") }} :</b> {{ contract.ean }}</p>
+                    <p> <b>{{ $t("account.provider") }} :</b> {{ contract.providerName }}</p>
                 </div>
+                <div v-else>
+                    <p> <b>{{ $t("account.client") }}</b> {{ contract.clientName }}</p>
+                    <p> <b>{{ $t("account.mail") }}</b> {{ mailClient }}</p>
+                    <div @click.prevent.left="seeConsumptions(contract)">
+                        <GoButton text="header.consumption" :colore="'#34c98e'"/>
+                    </div>
+                </div>
+                <p><b>--------------------------</b></p>
+                <p> <b>{{ $t("proposal.typeofenergy") }} :</b> {{ contract.proposal.typeOfEnergy.charAt(0).toUpperCase() + contract.proposal.typeOfEnergy.slice(1) }}</p>
+                <p> <b>{{ $t("proposal.location") }} :</b> {{ convertLocation(contract.proposal.location) }}</p>
+                <p> <b>{{ $t("proposal.priceperday") }} :</b> {{ contract.proposal.variableDayPrice }}€</p>
+                <p> <b>{{ $t("proposal.pricepernight") }} :</b> {{ contract.proposal.variableNightPrice }}€</p>
+                <p v-if="contract.proposal.startOfPeakHours"> <b>{{ $t("proposal.startofpeakhours") }} :</b> {{ contract.proposal.startOfPeakHours }}</p>
+                <p v-if="contract.proposal.endOfPeakHours"> <b>{{ $t("proposal.endofpeakhours") }} :</b> {{ contract.proposal.endOfPeakHours }}</p>
+                <p> <b>{{ $t("proposal.openingdate") }} :</b> {{ contract.openingDate }}</p>
+                <p> <b>{{ $t("proposal.closingdate") }} :</b> {{ contract.closingDate }}</p>
+                <p v-if="contract.proposal.fixedRate"><b>{{ $t("proposal.rate") }} : </b>{{ $t("proposal.fixed") }}</p>
+                <p v-else><b>{{ $t("proposal.rate") }} : </b>{{ $t("proposal.variable") }}</p>
             </div>
-            <p><b>--------------------------</b></p>
-            <p> <b>{{ $t("proposal.typeofenergy") }} :</b> {{ contract.proposal.typeOfEnergy.charAt(0).toUpperCase() + contract.proposal.typeOfEnergy.slice(1) }}</p>
-            <p> <b>{{ $t("proposal.location") }} :</b> {{ convertLocation(contract.proposal.location) }}</p>
-            <p> <b>{{ $t("proposal.priceperday") }} :</b> {{ contract.proposal.variableDayPrice }}€</p>
-            <p> <b>{{ $t("proposal.pricepernight") }} :</b> {{ contract.proposal.variableNightPrice }}€</p>
-            <p> <b>{{ $t("proposal.startofpeakhours") }} :</b> {{ contract.proposal.startOfPeakHours }}</p>
-            <p> <b>{{ $t("proposal.endofpeakhours") }} :</b> {{ contract.proposal.endOfPeakHours }}</p>
-            <p> <b>{{ $t("proposal.openingdate") }} :</b> {{ contract.openingDate }}</p>
-            <p> <b>{{ $t("proposal.closingdate") }} :</b> {{ contract.closingDate }}</p>
-            <p v-if="contract.isFixedRate"><b>{{ $t("proposal.rate") }} :</b>{{ $t("proposal.fixed") }}</p>
-            <p v-else><b>{{ $t("proposal.rate") }} :</b>{{ $t("proposal.variable") }}</p>
         </div>
         <div class="bottombutton">
             <div class="backbutton" @click.prevent.left="back()">
@@ -71,22 +73,16 @@ export default {
             try {
                 const response = await fetch(`https://babawallet.alwaysdata.net/api/common/contracts/${this.idContract}`,requestOptions);
                 if (!response.ok) {
-                    if(response.status == 401){
-                        throw new Error("Token");
-                    }
-                    else{
-                        const data = await response.json();
-                        throw new Error(data.error);
-                    }
+                    const data = await response.json();
+                    throw new Error(data.error);
                 }
                 else {
                     const data = await response.json();
                     this.contract = data.contract;
                 }
             } catch(error) {
-                if(error.message === "Token") {
+                if(error.error === "error.unauthorizedAccess")
                     GlobalMethods.errorToken();
-                }
                 else {
                     GlobalMethods.errorApi(error.message);
                 }
@@ -105,12 +101,7 @@ export default {
             fetch(`https://babawallet.alwaysdata.net/api/common/contracts/${this.idContract}`, requestOptions)
                 .then(response => {
                     if(!response.ok){
-                        if(response.status == 401){
-                            throw new Error("Token");
-                        }
-                        else{
-                            return response.json().then(json => Promise.reject(json));
-                        }
+                        return response.json().then(json => Promise.reject(json));
                     }
                     else{
                         Swal.fire({
@@ -122,9 +113,8 @@ export default {
                     }
                 })
                 .catch(error => {
-                    if(error.message === "Token") {
+                    if(error.error === "error.unauthorizedAccess")
                         GlobalMethods.errorToken();
-                    }
                     else {
                         GlobalMethods.errorApi(error.error);
                     }
@@ -186,13 +176,13 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 125vh;
 }
 
 .header {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 15vh;
     z-index: 9999;
 }
 
@@ -213,10 +203,17 @@ export default {
     flex-direction: column;
     justify-content: center;
     width: 550px;
-    height: 800px;
+    height: fit-content;
     border-radius: 50px;
     background: #e0e0e0;
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+}
+
+.content {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
 }
 </style>
   

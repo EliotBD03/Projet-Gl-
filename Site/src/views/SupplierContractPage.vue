@@ -67,13 +67,8 @@ export default {
             try {
                 const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
                 if (!response.ok) {
-                    if(response.status == 401){
-                        throw new Error("Token");
-                    }
-                    else{
-                        const data = await response.json();
-                        throw new Error(data.error);
-                    }
+                    const data = await response.json();
+                    throw new Error(data.error);
                 } else {
                     const data = await response.json();
                     this.lastPage = data.last_page;
@@ -88,9 +83,8 @@ export default {
                     }
                 }
             } catch(error) {
-                if(error.message === "Token") {
+                if(error.error === "error.unauthorizedAccess")
                     GlobalMethods.errorToken();
-                }
                 else {
                     if(this.nbr === 1){
                         this.loading = true;
@@ -179,10 +173,10 @@ export default {
     align-items: center;
     justify-content: space-evenly;
     width: 250px;
-    height: 500px;
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
     margin: 10px;
     border-radius: 30px;
+    height: fit-content;
 }
 
 .texte {

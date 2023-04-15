@@ -269,14 +269,8 @@ export default {
             try {
                 const response = await fetch(`https://babawallet.alwaysdata.net/api/common/contracts/type_of_energy/ + ${sessionStorage.getItem('contractId')}`, requestOptions);
                 if (!response.ok) {
-                    const data = await response.text();
-                    if(response.status == 401 && data.trim() === ''){
-                        throw new Error("Token");
-                    }
-                    else{
-                        const data = await response.json();
-                        throw new Error(data.error);
-                    }
+                    const data = await response.json();
+                    throw new Error(data.error);
                 } else {
                     const data = await response.json();
 
@@ -289,12 +283,8 @@ export default {
                     this.labelButtonDisplay = this.$t("consumptions.displaymonth") + this.unity;
                 }
             } catch(error) {
-                if(error.message === "Token") {
-                    this.$cookies.remove("token");
-                    this.$cookies.remove("role");
-                    Swal.fire(this.$t("alerts.connectionexpired"));//trad
-                    this.$router.push("/");
-                }
+                if(error.error === "error.unauthorizedAccess")
+                        GlobalMethods.errorToken();
                 else {
                     GlobalMethods.errorApi(error.message);
                 }
@@ -372,6 +362,7 @@ export default {
                 if(this.year != "" && this.month != "") {
                     dateWay = `?year=${this.year}&month=${this.month}`;
                 }
+                console.log(dateWay);
                 const response = await fetch(`https://babawallet.alwaysdata.net/api/common/consumptions_month/${this.ean}${dateWay}`, requestOptions);
                 if (!response.ok) {
                     const data = await response.text();
@@ -496,7 +487,7 @@ export default {
                 else{
                     sessionStorage.removeItem('ean');
                     sessionStorage.removeItem('contractId');
-                    this.$router.push('/contractFull');
+                    this.$router.push('/clientFull');
                 }
             }
         }
