@@ -59,13 +59,8 @@
             fetch("https://babawallet.alwaysdata.net/api/client/invitedClients/permission", requestOptions)
               .then(response => {
                 if(!response.ok){
-                  if(response.status == 401){
-                    throw new Error("Token");
-                  }
-                  else{
                     return response.json().then(json => Promise.reject(json));
-                  }
-                  }
+                }
                 else{
                   Swal.fire({
                   icon: 'success',
@@ -75,12 +70,10 @@
               }
               }) 
               .catch(error => {
-                if(error.message === "Token") {
-                    GlobalMethods.errorToken();
-                }
-                else {
+                if(error.error === "error.unauthorizedAccess")
+                  GlobalMethods.errorToken();
+                else
                     GlobalMethods.errorApi(error.error);
-                }
               });
           },
           /*Cette méthode permet de retourner à la page des walletFull en supprimant l'id de l'invité du sessionStorage*/

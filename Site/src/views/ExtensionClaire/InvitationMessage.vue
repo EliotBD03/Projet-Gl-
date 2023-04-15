@@ -84,13 +84,8 @@
           try {
             const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
             if (!response.ok) { 
-              if(response.status == 401){
-                throw new Error("Token");
-              }
-              else{
-                const data = await response.json();
-                throw new Error(data.error);
-              }
+              const data = await response.json();
+              throw new Error(data.error);
             } else {
               const data = await response.json(); 
               this.lastPage = data.last_page;
@@ -105,12 +100,10 @@
               }
             }
           } catch(error) {
-              if(error.message === "Token") {
-                GlobalMethods.errorToken();
-              } 
-              else {  
-                GlobalMethods.errorApi(error.message);
-              }
+            if(error.error === "error.unauthorizedAccess")
+              GlobalMethods.errorToken();
+            else
+              GlobalMethods.errorApi(error.error);
           }
         },
         /*Lorsque l'utilisateur appuie sur SeeMore, cette méthode est appelée 
@@ -151,10 +144,7 @@
             fetch(`https://babawallet.alwaysdata.net/api/client/invitedWallets/acceptInvitation/${invitationId}`, requestOptions)
               .then(response => {
                 if(!response.ok){
-                  if(response.status == 401){
-                    throw new Error("Token");
-                  }
-									else if(response.status == 500){
+                  if(response.status == 500){
 										throw new Error("Already");
 									}
                   else{
@@ -171,8 +161,8 @@
 								}
               }) 
               .catch(error => {
-                if(error.message === "Token") {
-                    GlobalMethods.errorToken();
+                if(error.error === "error.unauthorizedAccess"){
+                  GlobalMethods.errorToken();
                 }
 								else if(error.message === "Already") { 
                     GlobalMethods.errorApi(this.$t("GestionExtClaire.alertBadAccept"));
@@ -196,12 +186,7 @@
 					fetch(`https://babawallet.alwaysdata.net/api/client/invitedWallets/refuseInvitation/${invitationId}`, requestOptions)
 						.then(response => {
 							if(!response.ok){
-								if(response.status == 401){
-									throw new Error("Token");
-								}
-								else{
-									return response.json().then(json => Promise.reject(json));
-								}
+								return response.json().then(json => Promise.reject(json));
 							}
 							else{
 								Swal.fire({
@@ -213,12 +198,10 @@
 							}
 						}) 
 						.catch(error => {
-							if(error.message === "Token") {
-									GlobalMethods.errorToken();
-							}
-							else {
-									GlobalMethods.errorApi(error.error);
-							}
+							if(error.error === "error.unauthorizedAccess")
+                  GlobalMethods.errorToken();
+              else
+                GlobalMethods.errorApi(error.error);
 						});
 				},
 				/**
@@ -234,24 +217,17 @@
 					fetch(`https://babawallet.alwaysdata.net/api/client/invitedWallets/invitations/${invitationId}`, requestOptions)
 						.then(response => {
 							if(!response.ok){
-								if(response.status == 401){
-									throw new Error("Token");
-								}
-								else{
-									return response.json().then(json => Promise.reject(json));
-								}
+                return response.json().then(json => Promise.reject(json));
 							}
 							else{
 								this.refresh();
 							}
 						}) 
 						.catch(error => {
-							if(error.message === "Token") {
-									GlobalMethods.errorToken();
-							}
-							else {
-									GlobalMethods.errorApi(error.error);
-							}
+              if(error.error === "error.unauthorizedAccess")
+                GlobalMethods.errorToken();
+              else
+                GlobalMethods.errorApi(error.error);
 						});
 				}
       }

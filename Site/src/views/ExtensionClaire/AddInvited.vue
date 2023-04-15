@@ -69,10 +69,7 @@
               fetch("https://babawallet.alwaysdata.net/api/client/invitedWallets/proposeInvitation", requestOptions)
                 .then(response => {
                   if(!response.ok){
-                    if(response.status == 401){
-                      throw new Error("Token");
-                    }
-                    else if(response.status == 500){
+                    if(response.status == 500){
                       throw new Error("Id");
                     }
                     else{
@@ -88,8 +85,8 @@
                 }
                 }) 
                 .catch(error => {
-                  if(error.message === "Token") {
-                      GlobalMethods.errorToken();
+                  if(error.error === "error.unauthorizedAccess"){
+                    GlobalMethods.errorToken();
                   }
                   else if(error.message === "Id") { 
                     GlobalMethods.errorApi(this.$t("GestionExtClaire.alertBadId"));
