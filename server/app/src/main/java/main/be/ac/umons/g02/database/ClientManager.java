@@ -58,13 +58,7 @@ public class ClientManager
      */
     public Object[] getAllHisClients(String providerId, int base, int limit)
     {
-        String query = "SELECT count(*) AS c FROM user WHERE id IN "+
-                "(SELECT client_id FROM wallet WHERE address IN "+
-                "(SELECT address FROM wallet_contract WHERE contract_id IN "+
-                "(SELECT contract_id FROM provider_contract WHERE provider_id="+providerId+"))) ";
-        int count = new Query(query).executeAndGetResult("c").getIntElem(0,0);
-
-        query = "SELECT * FROM user WHERE id IN "+
+        String query = "SELECT * FROM user WHERE id IN "+
                 "(SELECT client_id FROM wallet WHERE address IN "+
                 "(SELECT address FROM wallet_contract WHERE contract_id IN "+
                 "(SELECT contract_id FROM provider_contract WHERE provider_id="+providerId+"))) "+
@@ -73,9 +67,15 @@ public class ClientManager
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("id", "name", "mail").getTable();
 
         if(table.equals(Table.EMPTY_TABLE))
-            return new Object[] {count, new ArrayList<ClientBasic>()};
+            return new Object[] {0, new ArrayList<ClientBasic>()};
 
-        ArrayList<ClientBasic> clientBasics = getClientBasics(table);
+        ArrayList<ClientBasic> clientBasics = getClientBasics(new Query(query).executeAndGetResult("id", "name", "mail").getTable());
+
+        query = "SELECT count(*) AS c FROM user WHERE id IN "+
+                "(SELECT client_id FROM wallet WHERE address IN "+
+                "(SELECT address FROM wallet_contract WHERE contract_id IN "+
+                "(SELECT contract_id FROM provider_contract WHERE provider_id="+providerId+"))) ";
+        int count = new Query(query).executeAndGetResult("c").getIntElem(0,0);
 
         return new Object[] {count, clientBasics};
     }

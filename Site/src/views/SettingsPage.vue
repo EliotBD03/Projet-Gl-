@@ -3,9 +3,6 @@
         <div class="header">
             <MainHeader text="header.settings"/>
         </div>
-        <div class = "id"> 
-            <p>Id = {{ userId }}</p> 
-        </div>
         <div class="forms">
             <div class="form">
                 <DropdownMain :text="$t('settings.chooselanguage')" v-model="language"/>
@@ -38,7 +35,6 @@ import DropdownMain from "@/components/DropdownMain.vue";
 import Swal from 'sweetalert2';
 import InputMain from "@/components/InputMain.vue";
 import GlobalMethods from "@/components/GlobalMethods.vue";
-import jwt_decode from 'jwt-decode';
 export default {
     components: {
         InputMain,
@@ -51,7 +47,6 @@ export default {
             mail: "",
             test: "",
             language: this.$i18n.locale,
-            userId : ""
         }
     },
     watch: {
@@ -61,7 +56,6 @@ export default {
     },
     created() {
         GlobalMethods.getCurrentLanguage();
-        this.getUserId();
     },
     methods: {
         /*Sauvegarder la langue dans les cookies et afficher un message de confirmation*/
@@ -72,24 +66,19 @@ export default {
             }
             fetch("https://babawallet.alwaysdata.net/api/common/languages/actual_language/" + this.language, requestsOptions)
                 .then(response => {
-                    if(!response.ok)
-                       throw new Error(response.error);
-                    else
-                    {
-                        Swal.fire({
-                            icon: 'success',
-                            title: this.$t('alerts.good'),
-                            text: this.$t('alerts.languagechanged'),
-                            });
-                        GlobalMethods.isAClient();
+                    if(!response.ok){
+                        return response.json().then(json => Promise.reject(json));
                     }
+                    return response.json();
                 })
+                .then(Swal.fire({
+                    icon: 'success',
+                    title: this.$t('alerts.good'),
+                    text: this.$t('alerts.languagechanged'),
+                }))
+                .then(GlobalMethods.isAClient())
                 .catch(error => {
-                    if(error.error === "error.unauthorizedAccess")
-                        GlobalMethods.errorToken();
-                    else{
-                        GlobalMethods.errorApi(error.error);
-                    }
+                    GlobalMethods.errorApi(error.error);
                 });
         },
         /*Méthode pour rediriger vers la page d'accueil*/
@@ -118,14 +107,15 @@ export default {
                 .then(response => {
                     if(!response.ok)
                     {
-                        if(response.status == 404)
+                        if(response.status == 401)
+                            throw new Error("Token");
+                        else if(response.status == 404)
                             this.$router.push({name: "NotFound"});
                         else
                             return response.json().then(json => Promise.reject(json));
                     }
                     else
                     {
-                        console.log("je passe ici toto");
                         Swal.fire(
                             {
                                 icon: "success",
@@ -139,8 +129,10 @@ export default {
                     }     
                 })
                 .catch(error => {
-                    if(error.error === "error.unauthorizedOperation")
+                    if(error.message === "Token")
                         GlobalMethods.errorToken();
+                    else if(error.message === "stillContract")
+                        Swal.fire(this.$t("alerts.stillcontracts"));
                     else
                         GlobalMethods.errorApi(error.error);
                 });
@@ -163,16 +155,6 @@ export default {
                     Swal.close();
                 }
             });
-        },
-        /**
-         * Méthode permettant d'obtenir l'id du client.
-         * 
-         * @author Extension Claire
-         */
-        getUserId(){
-          const token = this.$cookies.get('token');
-          const decode = jwt_decode(token);
-          this.userId = decode.id;
         }
     }
 };
@@ -184,7 +166,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    height: 110vh;
+    height: 100vh;
 }
 
 .header {
@@ -220,15 +202,5 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-}
-
-.id{
-  position: fixed;
-  margin-top: 20px;
-  margin-right: 20px;
-  top: 0;
-  right: 0;
-  z-index: 9999;
-  font-size: 25px;
 }
 </style>

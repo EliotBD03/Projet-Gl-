@@ -36,7 +36,7 @@ public class ConsumptionManager
     public HashMap<String, Double> getConsumptionOfMonth(String ean, String month, String year)
     {
         String query = null;
-        String lowerBoundDate = new Query("SELECT DATE(assignment_date) as 'd' FROM counter WHERE ean="+ean).executeAndGetResult("d").getStringElem(0,0);
+
         if(month != null && year != null)
         {
             String openingDate = year + "-" + month + "-01";
@@ -44,11 +44,8 @@ public class ConsumptionManager
             query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='"+ean+"' AND date_recorded BETWEEN '"+ openingDate + "' AND '" + closingDate + "'";
         }
         else
-            query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean = '" + ean + "' " +
-                    "AND YEAR(date_recorded) = YEAR((SELECT MAX(date_recorded) FROM consumption WHERE ean = '" + ean + "')) " +
-                    "AND MONTH(date_recorded) = MONTH((SELECT MAX(date_recorded) FROM consumption WHERE ean = '" + ean + "')) ";
+            query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean = '" + ean + "' AND YEAR(date_recorded) = YEAR(NOW()) AND MONTH(date_recorded) = MONTH(NOW()) ";
 
-        query += " AND date_recorded >= '"+lowerBoundDate+"'";
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("date_recorded", "daily_consumption").getTable();
         HashMap<String,Double> consumptions= new HashMap<>();
 
@@ -61,23 +58,22 @@ public class ConsumptionManager
      * Donne les consommations dans un intervalle de dates donné en plus d'un code ean.
      *
      *  @param ean le code ean
-     * @param date la première date (YYYY-MM-DD). Si null, la date la plus récente prise
+     * @param date la première date (YYYY-MM-DD)
      * @param isAfter mis à faux si on veut des dates antérieures à date
      * @return une hashmap contenant la date en clé et la consommation en valeur
      */
     public HashMap<String, Double> getConsumptions(String ean, String date, boolean isAfter)
     {
 
-        String lowerBoundDate = new Query("SELECT DATE(assignment_date) as 'd' FROM counter WHERE ean="+ean).executeAndGetResult("d").getStringElem(0,0);
-        String inequality = isAfter ? ">" : "<";
-        String order = isAfter ? "ASC" : "DESC";
-        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='" + ean + "' AND date_recorded " + inequality + "'" + date + "' AND date_recorded >= "+lowerBoundDate+" ORDER BY date_recorded " + order + " LIMIT 0, 10;";
+
+       //if(!isThereSomeValues(ean, new ArrayList<Calendar>(Arrays.asList(startingDate, closingDate))))
+         //   throw new Exception("The table doesn't contain any consumption with the ean code: "+ ean + " within the interval : "+ startingDate + "and " + closingDate);
+        String inequility = isAfter ? ">" : "<";
+        String query = "SELECT daily_consumption, date_recorded FROM consumption WHERE ean ='" + ean + "' AND date_recorded " + inequility + "'" + date + "' ORDER BY date_recorded DESC LIMIT 0, 10;";
 
         if(date == null)
         {
-             query = "SELECT c.daily_consumption, c.date_recorded FROM consumption c INNER JOIN " +
-                     "( SELECT date_recorded FROM consumption WHERE ean = '" + ean + "' AND date_recorded <= (SELECT MAX(date_recorded) FROM consumption) " +
-                     "ORDER BY date_recorded DESC LIMIT 0, 10) t ON c.date_recorded = t.date_recorded WHERE c.ean = '" + ean + "' AND c.date_recorded >="+lowerBoundDate+" ORDER BY c.date_recorded ASC;";
+             query = "SELECT c.daily_consumption, c.date_recorded FROM consumption c INNER JOIN ( SELECT date_recorded FROM consumption WHERE ean = '" + ean + "' AND date_recorded <= (SELECT MAX(date_recorded) FROM consumption) ORDER BY date_recorded DESC LIMIT 0, 10) t ON c.date_recorded = t.date_recorded WHERE c.ean = '" + ean + "' ORDER BY c.date_recorded ASC;";
 
         }
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("date_recorded", "daily_consumption").getTable();
@@ -160,12 +156,13 @@ public class ConsumptionManager
                 "contract_id IN " +
                 "(SELECT contract_id FROM counter WHERE ean='"+ean+"')";
 
-        String getClientIdQuery = "SELECT client_id FROM contract WHERE contract_id IN (SELECT contract_id FROM counter WHERE ean='"+ean+"')";
-
+        DB.getInstance().executeQuery("SELECT address FROM " +
+                "wallet_contract WHERE " +
+                "contract_id IN " +
+                "(SELECT contract_id FROM counter WHERE ean='"+ean+"')",true);
         String address = new Query(getAddressQuery).executeAndGetResult("address").getStringElem(0,0); //on suppose qu'il y a un seul contrat pour même compteur
-        String clientId = new Query(getClientIdQuery).executeAndGetResult("client_id").getStringElem(0,0);
 
-        new WalletManager().addLastConsumption(address, clientId, maxVal, new ContractManager().getTypeOfEnergy(address));
+        new WalletManager().addLastConsumption(address, maxVal, new ContractManager().getTypeOfEnergy(address));
         return true;
     }
 

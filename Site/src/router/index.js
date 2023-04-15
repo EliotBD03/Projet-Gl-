@@ -104,26 +104,6 @@ const routes = [
         path: '/clientContracts',
         name: 'Contracts',
         component: () => import('@/views/ContractPage.vue')
-      },
-      {
-        path: '/addInvited',
-        name: 'AddInvited',
-        component: () => import('@/views/ExtensionClaire/AddInvited.vue')
-      },
-      {
-        path: '/changePermissions',
-        name: 'ChangePermissions',
-        component: () => import('@/views/ExtensionClaire/ChangePermissions.vue')
-      },
-      {
-        path: '/invitations',
-        name: 'Invitations',
-        component: () => import('@/views/ExtensionClaire/InvitationMessage.vue')
-      },
-      {
-        path: '/invitedwallets',
-        name: 'InvitedWallets',
-        component: () => import('@/views/ExtensionClaire/InvitedWallets.vue')
       }
     ],beforeEnter: (to, from, next) => {
         if(cookies.isKey("token") && cookies.isKey("role"))

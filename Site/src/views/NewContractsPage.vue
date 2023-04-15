@@ -112,8 +112,15 @@ export default {
                     const response = await fetch(query, requestOptions);
                     if(!response.ok)
                     {
-                        const data = await response.json();
-                        throw new Error(data.error);
+                        if(response.status == 401)
+                        {
+                            throw new Error("Token");
+                        }
+                        else
+                        {
+                            const data = await response.json();
+                            throw new Error(data.error);
+                        }
                     }
                     else
                     {
@@ -134,8 +141,13 @@ export default {
                 }
                 catch(error)
                 {
-                    if(error.error === "error.unauthorizedAccess")
-                        GlobalMethods.errorToken();
+                    if(error.message === "Token")
+                    {
+                        this.$cookies.remove("token");
+                        this.$cookies.remove("role");
+                        Swal.fire(this.$t("alerts.connectionexpired"));
+                        this.$router.push("/");
+                    }
                     else
                     {
                         GlobalMethods.errorApi(error.message);
@@ -178,12 +190,21 @@ export default {
                 this.selectedLocations = [];
             },
             convertLocation: function(location) {
-                const locToString = [this.$t("proposal.brussels"), this.$t("proposal.flanders"), this.$t("proposal.wallonia")];
                 const result = [];
-                
-                for(let i = 0; i < location.length; i++)
-                    if(location[i] == "1")
-                        result.push(locToString[i]);
+
+                if (location >= 100) {
+                    result.push(this.$t("proposal.wallonia"));
+                    location -= 100;
+                }
+
+                if (location >= 10) {
+                    result.push(this.$t("proposal.flanders"));
+                    location -= 10;
+                }
+
+                if (location >= 1) {
+                    result.push(this.$t("proposal.brussels"));
+                }
 
                 return result.join(' - ');
             },
@@ -197,7 +218,7 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    height: 120vh;
+    height: 100vh;
 }
 
 .proposals {

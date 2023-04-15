@@ -9,14 +9,8 @@
         <MainCard :text="$t('header.notifications')" redir="Notifications"/>
       </div>
       <div class="globalcontracts"> <!-- div for the button to avoid the 100% width on clicking -->
-        <div class="middle" @click.prevent.left="$router.push('/newcontracts')">
+        <div class="newcontract" @click.prevent.left="$router.push('/newcontracts')">
           <GoButton text="maincard.newcontracts" :colore="'#B1B9FC'"/>
-        </div>
-        <div class="middle" @click.prevent.left="$router.push({ name: 'InvitedWallets' })">
-        <GoButton text="GestionExtClaire.wallets" :colore="'#B1B9FC'"/>
-        </div>
-        <div class="middle" @click.prevent.left="$router.push({ name: 'Invitations' })">
-        <GoButton text="GestionExtClaire.invitation" :colore="'#B1B9FC'"/>
         </div>
       </div>
       <div class="bottombutton">
@@ -25,7 +19,7 @@
         </div>
         <div class="settingsbutton" @click.prevent.left="$router.push('/settings')">
         <GoButton text="header.settings" :colore="'gray'"/>
-        </div>
+          </div>
       </div>
     </div>
 </template>
@@ -45,7 +39,7 @@ export default {
       /*Méthode qui permet la déconnexion de l'utilisateur à l'aide de GlobalMethods*/
       callDisconnect() {
           GlobalMethods.disconnect("/");
-      }
+      },
   },
     created() {
         GlobalMethods.getCurrentLanguage();
@@ -61,7 +55,7 @@ export default {
   justify-content: space-evenly;
 }
 
-.middle {
+.newcontract {
   width: fit-content;
 }
 

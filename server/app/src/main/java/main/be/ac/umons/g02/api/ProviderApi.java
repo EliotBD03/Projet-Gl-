@@ -228,6 +228,7 @@ public class ProviderApi extends MyApi implements RouterApi
      * @see ProposalManager
      * @see ContractManager
      */
+    @SuppressWarnings("removal")
     private void addProposal(final RoutingContext routingContext)
     {
         LOGGER.info("AddProposal...");

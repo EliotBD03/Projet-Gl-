@@ -220,28 +220,6 @@ public class ProposalManager
     }
 
     /**
-     * Change le prix des heures pleines et creuses d'une proposition si le prix est variable
-     * @param proposalName le nom de la proposition
-     * @param providerId l'identifiant du fournisseur
-     * @param newPriceDay le prix des heures pleines
-     * @param newPriceNight le prix des heures creuses
-     * @return vrai si le changement a eu lieu (si le prix est variable), faux sinon
-     */
-
-    public boolean changeVariablePrice(String proposalName, String providerId, double newPriceDay, double newPriceNight)
-    {
-        boolean isFixedRate = new Query("SELECT fixed_rate " +
-                "FROM proposal " +
-                "WHERE proposal_name='"+proposalName+"' AND provider_id="+providerId).executeAndGetResult("fixed_rate").getIntElem(0,0) == 1;
-
-        if(!isFixedRate)
-            return false;
-
-        new Query("UPDATE proposal SET offpeak_hours="+newPriceDay+", peak_hours="+newPriceNight+" WHERE proposal_name='"+proposalName+"' AND provider_id="+providerId).executeWithoutResult();
-        return true;
-    }
-
-    /**
      * Supprime une proposition.
      * PRECONDITION: tous contrats reliés à cette proposition → inexistant
      *

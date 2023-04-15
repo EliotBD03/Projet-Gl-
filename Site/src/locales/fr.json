@@ -19,7 +19,19 @@
   },
   "walletform": {
     "name": "Entrez le nom du portefeuille",
-    "address": "Entrez votre adresse"
+    "adress": "Entrez votre adresse",
+    "__comment": "adrien",
+    "numberOfResidents": "Entrez le nombre de résident",
+    "sizeOfHouse": "Entrez la taille de votre habitation (m²)",
+    "answer1": "Choisisez le type d'habitation:",
+    "answer2": "Choisisez le type de chauffage:",
+    "answer3": "Avez-vous des panneaux solaires:",
+    "typeHouse1": "Maison",
+    "typeHouse2": "Appartement",
+    "typeCharge1": "Électricité",
+    "typeCharge2": "Gaz",
+    "solarPanel1": "Oui",
+    "solarPanel2": "Non"
   },
   "button": {
     "changepwd": "Changer de mot de passe",
@@ -34,7 +46,6 @@
     "newcode": "Envoyer un nouveau code",
     "disconnect": "Déconnexion",
     "go": "Go",
-    "seeConsumption": "Voir consommation",
     "table": "Tableau",
     "export": "Exporter",
     "import": "Importer",
@@ -51,11 +62,7 @@
     "modifyproposal": "Modifier la proposition",
     "closeproposal": "Fermer la proposition",
     "deleteaccount": "Supprimer le compte",
-    "addwallet": "Ajouter un portefeuille",
-    "accept": "Accepter",
-    "deny": "Refuser",
-    "seen": "Vu",
-    "infos": "Infos"
+    "addwallet": "Ajouter un portefeuille"
   },
   "maincard": {
     "newcontracts": "Voir les nouveaux contrats",
@@ -118,18 +125,40 @@
     "nowallet": "Vous n'avez pas de portefeuille",
     "seeyousoon": "À bientôt !",
     "mailsent": "Un mail vous a été envoyé",
-    "eanAlreadyUse" : "Ce code ean est déjà utilisé"
+    "__comment": "adrien",
+    "numberOfResidents": "Entrez un nombre d'habitant correct",
+    "sizeOfHouse": "Entrez une taille de maison possible"
   },
   "wallet": {
     "loading": "Chargement en cours...",
     "owner": "Propriétaire",
-    "lastconsumptions": "Dernières consommations"
+    "lastconsumptions": "Dernières consommations",
+    "__comment": "adrien",
+    "numberOfResidents": "Nombre résidents",
+    "sizeOfHouse": "Taille habitation",
+    "typeOfHouse": "Type habitation",
+    "typeOfCharge": "Type chauffage",
+    "solarPanels": "Panneaux solaires"
   },
   "consumptions": {
     "yourconsumption": "Votre consommation",
     "otherconsumption": "Autres consommations",
     "displaymonth": "Afficher le mois",
-    "displayday": "Afficher le jour"
+    "displayday": "Afficher le jour",
+    "__comment": "adrien",
+    "compareWithOther": "Comparer (autre personne)",
+    "justSee": "Juste la consommation",
+    "compareOverTime": "Comparer (période)",
+    "statistic": "Voir les statistiques",
+    "sum": "Somme",
+    "mean": "Moyenne",
+    "standardDeviation": "Écart type",
+    "median": "Médiane",
+    "quartiles": "Quartiles",
+    "interquartileRange": "Écart interquartile",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "noInformation": "Il faut des données de consommation"
   },
   "account" : {
     "client": "Client",
@@ -153,20 +182,12 @@
     "seconds": "secondes",
     "minutes": "minutes",
     "hours": "heures",
-    "days": "jours",
-    "now": "A l'instant"
+    "days": "jours"
   },
   "notifications": {
     "title": "{name}",
-    "time": "il y a {time} {format}",
-    "text": "{text}",
-    "accepted": "A accepté votre contrat",
-    "denied": "A refusé votre contrat",
-    "request": "A demandé un contrat",
-    "dailychange": "Consommation journalière du {date} a changé en {consumption} (EAN : {EAN})",
-    "system": "Système",
-    "deleted": "A supprimé votre contrat",
-    "expired": "Votre contrat a expiré"
+    "time": "il y a {time}",
+    "text": "{text}"
   },
   "proposal": {
     "selectproposal": "Sélectionnez une proposition",
@@ -177,8 +198,8 @@
     "priceperday": "Prix de jour",
     "pricepernight": "Prix de nuit",
     "peakhours": "Heures de pointe",
-    "startofpeakhours": "Début des heures creuses",
-    "endofpeakhours": "Fin des heures pleines",
+    "startofpeakhours": "Début des heures de pointe",
+    "endofpeakhours": "Fin des heures de pointe",
     "openingdate": "Date d'ouverture",
     "closingdate": "Date de fermeture",
     "rate": "Tarif",
@@ -198,10 +219,7 @@
     "energy": "Énergie",
     "counter": "Compteur",
     "monohourly": "Monohoraire",
-    "bihourly": "Bihoraire",
-    "changepriceperday": "Modifier le prix de jour",
-    "changepricepernight": "Modifier le prix de nuit",
-    "noproposal":"Aucune proposition"
+    "bihourly": "Bihoraire"
   },
   "client": {
     "generalinformations": "Informations générales",
@@ -227,46 +245,11 @@
     "codeNotSend" : "Le code n'a pas été envoyé.",
     "addressNotCorrect" : "Cette adresse est déjà prise.",
     "walletNotEmpty" : "Le portefeuille n'est pas vide.",
-    "tableauType" : "Le tableau ne doit contenir que des entiers.",
-    "stillContracts" : "Vous avez encore des contrats.",
-    "notHisWallet": "Ce n'est pas votre portefeuille.",
-    "proposalUsed": "Vous ne pouvez pas supprimer un contrat utilisé pour des contrats actifs."
+    "tableauType" : "Le tableau ne doit contenir que des entiers."
   },
   "404": {
     "title": "404",
     "text1": "Oops",
     "text2": "La page que vous recherchez n'existe pas"
-  },
-  "GestionExtClaire": {
-    "gestion": "Gestion",
-    "RW": "Lecture et écriture",
-    "R": "Lecture",
-    "leave": "Quitter le portefeuille",
-    "invited": "Liste des clients invités",
-    "invitedName": "Nom",
-    "permission": "Changer les permissions",
-    "deleteClient": "Supprimer le client invité",
-    "alertLeave": "Vous avez quitté le portefeuille !",
-    "alertDelete": "Client invité supprimé !",
-    "addClient": "Ajouter un invité",
-    "wallets": "Portefeuilles invités",
-    "enterId": "Id de l'invité",
-    "alertId": "S'il vous plaît, entrez l'id de l'invité",
-    "alertBadId": "L'id entré est incorrect",
-    "request": "Une demande est envoyée à l'invité",
-    "ChangePerm": "Changer les permissions",
-    "alertChange": "Permissions changées",
-    "buttonChange": "Changer",
-    "invitation": "Voir de nouvelles invitations",
-    "invitationAccept": "Ton invitation a été acceptée par",
-    "invitationRefuse": "Ton invitation a été refusée par",
-    "invitationPropose": "Tu as reçu une invitation de",
-    "requestAccept": "Accepter",
-    "requestRefuse": "Refuser",
-    "requestSeen": "Vu",
-    "alertBadAccept": "Vous êtes déjà sur ce portefeuille !",
-    "alertAcceptInvitation": "Vous avez accepté l'invitation",
-    "alertRefuseInvitation": "Vous avez refusé l'invitation",
-    "noInvitation": "Pas d'invitations"
   }
 }

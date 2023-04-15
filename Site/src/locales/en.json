@@ -19,7 +19,19 @@
   },
   "walletform": {
     "name": "Enter the name of the wallet",
-    "address": "Enter your address"
+    "address": "Enter your address",
+    "__comment": "adrien",
+    "numberOfResidents": "Enter the number of residents",
+    "sizeOfHouse": "Enter the size of your house (m²)",
+    "answer1": "Choose the type of house:",
+    "answer2": "Choose the type of heating:",
+    "answer3": "Do you have solar panels:",
+    "typeHouse1": "House",
+    "typeHouse2": "Apartment",
+    "typeCharge1": "Electricity",
+    "typeCharge2": "Gas",
+    "solarPanel1": "Yes",
+    "solarPanel2": "No"
   },
   "button": {
     "changepwd": "Change password",
@@ -34,7 +46,6 @@
     "newcode": "Send a new code",
     "disconnect": "Disconnect",
     "go": "Go",
-    "seeConsumption": "See consumption",
     "table": "Table",
     "export": "Export",
     "import": "Import",
@@ -51,11 +62,7 @@
     "modifyproposal": "Modify proposal",
     "closeproposal": "Close proposal",
     "deleteaccount": "Delete account",
-    "addwallet": "Add wallet",
-    "accept": "Accept",
-    "deny": "Deny",
-    "seen": "Seen",
-    "infos": "Infos"
+    "addwallet": "Add wallet"
   },
   "maincard": {
     "newcontracts": "See new contracts",
@@ -119,18 +126,40 @@
     "nowallet": "There is no wallet",
     "seeyousoon": "See you soon !",
     "mailsent": "Mail sent",
-    "eanAlreadyUse" : "This ean code is already used"
+    "__comment": "adrien",
+    "numberOfResidents": "Enter a correct number of residents",
+    "sizeOfHouse": "Enter a possible house size"
   },
   "wallet": {
     "loading": "Loading...",
     "owner": "Owner",
-    "lastconsumptions": "Last consumptions"
+    "lastconsumptions": "Last consumptions",
+    "__comment": "adrien",
+    "numberOfResidents": "Number of residents",
+    "sizeOfHouse": "Size of house",
+    "typeOfHouse": "Type of house",
+    "typeOfCharge": "Heating type",
+    "solarPanels": "Solar panels"
   },
   "consumptions": {
     "yourconsumption": "Your consumption",
     "otherconsumption": "Other consumption",
     "displaymonth": "Display month",
-    "displayday": "Display day"
+    "displayday": "Display day",
+    "__comment": "adrien",
+    "compareWithOther": "Compare (other person)",
+    "justSee": "Just consumption",
+    "compareOverTime": "Compare (period)",
+    "statistic": "See statistics",
+    "sum": "Sum",
+    "mean": "Mean",
+    "standardDeviation": "StandardDeviation",
+    "median": "Median",
+    "quartiles": "Quartiles",
+    "interquartileRange": "Interquartile range",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "noInformation": "Consumption data is needed"
   },
   "account" : {
     "client": "Client",
@@ -154,20 +183,12 @@
     "seconds": "seconds",
     "minutes": "minutes",
     "hours": "hours",
-    "days": "days",
-    "now": "Just now"
+    "days": "days"
   },
   "notifications": {
     "title": "{name}",
-    "time": "{time} {format} ago",
-    "text": "{text}",
-    "accepted": "Has accepted your contract",
-    "denied": "Has denied your contract",
-    "request": "Contract request",
-    "dailychange": "Daily consumption {date} has changed to {consumption} (EAN : {EAN})",
-    "system": "System",
-    "deleted": "Has deleted your contract",
-    "expired": "Your contract has expired"
+    "time": "{time} ago",
+    "text": "{text}"
   },
   "proposal": {
     "selectproposal": "Select a proposal",
@@ -199,10 +220,7 @@
     "energy": "Energy",
     "counter": "Counter",
     "monohourly": "Monohourly",
-    "bihourly": "Bihourly",
-    "changepriceperday": "Change the price per day",
-    "changepricepernight": "Change the price per night",
-    "noproposal":"There is no proposal"
+    "bihourly": "Bihourly"
   },
   "client": {
     "generalinformations": "General informations",
@@ -228,46 +246,11 @@
     "codeNotSend" : "Error in sending the code.",
     "addressNotCorrect" : "This address is already taken.",
     "walletNotEmpty" : "The wallet is not empty.",
-    "tableauType" : "The table does not only contain numbers.",
-    "stillContracts" : "You still have contracts." ,
-    "notHisWallet": "This wallet does not belong to you.",
-    "proposalUsed": "You can't delete this proposal because it is used by a contract."
+    "tableauType" : "The table does not only contain numbers."
   },
   "404": {
     "title": "404",
     "text1": "Oops",
     "text2": "Page not found"
-  },
-  "GestionExtClaire": {
-    "gestion": "Management",
-    "RW": "Read and write",
-    "R": "Read",
-    "leave": "Leave the wallet",
-    "invited": "List of invited clients",
-    "invitedName": "Name",
-    "permission": "Change permissions",
-    "deleteClient": "Delete the invited client",
-    "alertLeave": "You leave the wallet !",
-    "alertDelete": "Invited client deleted",
-    "addClient": "Add a guest",
-    "wallets": "Invited wallets",
-    "enterId": "Guest's id",
-    "alertId": "Please enter the guest id",
-    "alertBadId": "Incorrect id entered",
-    "request": "A request is sent to the guest",
-    "ChangePerm": "Change permissions",
-    "alertChange": "Permissions changed",
-    "buttonChange": "Change",
-    "invitation": "See new invitations",
-    "invitationAccept": "Your invitation has been accepted by",
-    "invitationRefuse": "Your invitation has been declined by",
-    "invitationPropose": "You have received an invitation from",
-    "requestAccept": "Accept",
-    "requestRefuse": "Refuse",
-    "requestSeen": "Seen",
-    "alertBadAccept": "You are already on this wallet !",
-    "alertAcceptInvitation": "You have accepted the invitation",
-    "alertRefuseInvitation": "You have declined the invitation",
-    "noInvitation": "No invitations"
   }
 }
