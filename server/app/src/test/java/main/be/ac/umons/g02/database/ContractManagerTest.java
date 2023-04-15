@@ -21,7 +21,7 @@ class ContractManagerTest
         LogManager logManager = new LogManager();
         logManager.saveAccount("client@gmail.com", "clientPassword", true, "client", "english");
         logManager.saveAccount("provider@gmail.com", "providerPassword", false, "provider", "english");
-        new WalletManager().createWallet(new WalletBasic("address", "name", "1", "client"));
+        new WalletManager().createWallet(new WalletBasic("address", "name", "1", "client", 1, 50, true, true, true));
         new ProposalManager().addProposal(proposalFull);
     }
 
@@ -86,7 +86,11 @@ class ContractManagerTest
     @Order(6)
     void getAllClientsOfContract()
     {
-        assertEquals("1", new ContractManager().getAllClientsOfContract(proposalFull.getProposalName(), proposalFull.getProviderId()).get(0));
+        ArrayList<String> arrayList = new ArrayList<>()
+        {{
+            add("1");
+        }};
+        assertEquals(arrayList, new ContractManager().getAllClientsOfContract(proposalFull.getProposalName(), proposalFull.getProviderId()));
     }
 
     @Test

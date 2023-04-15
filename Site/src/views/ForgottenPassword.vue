@@ -41,6 +41,7 @@
       /*A la création de la page, récupère le mail dans les cookies et l'envoie vers l'api pour que l'utilisateur puisse avoir le code*/
       created(){
           this.getCode();
+          GlobalMethods.getCurrentLanguage();
       },
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up.

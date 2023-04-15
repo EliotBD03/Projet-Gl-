@@ -4,14 +4,11 @@
             <MainHeader text="header.notifications"/>
         </div>
         <div class="notifs">
-            <MainNotification class="notif" v-for="notif in notifications" :providerId="notif.providerProposalId" :role="role" :key="notif.notificationId" :time="notif.creationDate" :text="notif.context" :id_notification="notif.notificationId" :proposalName="notif.proposalName" @seeProposal="getContract" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
+            <MainNotification class="notif" v-for="notif in notifications" :providerId="notif.providerProposalId" :role="role" :key="notif.notificationId" :time="notif.creationDate" :text="notif.context" :id_notification="notif.notificationId" :proposal-name="notif.proposalName" @seeProposal="getContract" @delete="deleteNotifications" @accept="acceptNotification" @refuse="refuseNotification"/>
         </div>
         <div class="bottombuttons">
             <div class="homebutton" @click.prevent.left="redirecting()">
                 <GoButton text="header.home" :colore="'#B1B9FC'"/>
-            </div>
-            <div v-if="notLastPage()" @click.prevent.left="loader()">
-                <GoButton text="button.seemore" :colore="'#B1B9FC'"/>
             </div>
             <div class="refresh-button" @click="refreshNotifications">
                 <GoButton text="button.refresh" :colore="'#B1B9FC'"/>
@@ -37,7 +34,6 @@ export default {
             notifications: [],
             nbr: 1,
             lastPage: 0,
-            loading : false,
             timer: null,
             role: this.$cookies.get('role'),
         }
@@ -55,25 +51,7 @@ export default {
     /*Méthode pour rediriger vers la page d'accueil*/
     methods: {
         async refreshNotifications(){
-            this.nbr = 1;
-            this.notifications = [];
-            this.lastPage = 0;
-            this.loading = false;
             await this.getNotifications();
-        },
-        notLastPage(){
-            if(this.lastPage == this.nbr || this.loading == true){
-                return false;
-            }
-            return true;
-        },
-        loader()
-        {
-            if(!this.loading)
-            {
-                this.nbr++;
-                this.getNotifications();
-            }
         },
         async getContract(id, name) {
             if (this.$cookies.get('role') === 'supplier') {
@@ -84,8 +62,12 @@ export default {
                 try {
                     const response = await fetch('https://babawallet.alwaysdata.net/api/provider/proposals/' + name, requestOptions);
                     if (!response.ok) {
-                        const data = await response.json();
-                        throw new Error(data.error);
+                        if (response.status === 401) {
+                            throw new Error('Token');
+                        } else {
+                            const data = await response.json();
+                            throw new Error(data.error);
+                        }
                     } else {
                         const data = await response.json();
                         this.contract = data.proposal;
@@ -95,15 +77,16 @@ export default {
                             html: `${this.$t("proposal.typeofenergy")}: ${this.contract.typeOfEnergy}<br>
            ${this.$t("proposal.location")}: ${this.convertLocation(this.contract.location)}<br>
            ${this.$t("proposal.priceperday")}: ${this.contract.variableDayPrice}<br>
-           ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}<br>
-           ${this.$t("proposal.duration")}: ${this.contract.duration/720}<br>
-            ${this.$t("proposal.rate")}: ${this.convertRate(this.contract.fixedRate)}`
+           ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}`
                         });
                     }
                 } catch (error) {
-                    if(error.error === "error.unauthorizedAccess")
-                        GlobalMethods.errorToken();
-                    else {
+                    if (error.message === 'Token') {
+                        this.$cookies.remove('token');
+                        this.$cookies.remove('role');
+                        Swal.fire(this.$t("alerts.connectionexpired"));
+                        this.$router.push('/');
+                    } else {
                         GlobalMethods.errorApi(error.message);
                     }
                 }
@@ -115,8 +98,12 @@ export default {
                     };
                     const response = await fetch("https://babawallet.alwaysdata.net/api/client/proposals/" + id + "/" + name, requestsOptions);
                     if (!response.ok) {
-                        const data = await response.json();
-                        throw new Error(data.error);
+                        if (response.status === 401) {
+                            throw new Error("Token");
+                        } else {
+                            const data = await response.json();
+                            throw new Error(data.error);
+                        }
                     } else {
                         const data = await response.json();
                         this.contract = data.proposal;
@@ -126,26 +113,19 @@ export default {
                             html: `${this.$t("proposal.typeofenergy")}: ${this.contract.typeOfEnergy}<br>
            ${this.$t("proposal.location")}: ${this.convertLocation(this.contract.location)}<br>
            ${this.$t("proposal.priceperday")}: ${this.contract.variableDayPrice}<br>
-           ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}<br>
-            ${this.$t("proposal.duration")}: ${this.contract.duration/720}<br>
-            ${this.$t("proposal.rate")}: ${this.convertRate(this.contract.fixedRate)}`
+           ${this.$t("proposal.pricepernight")}: ${this.contract.variableNightPrice}`
                         });
                     }
                 } catch (error) {
-                    if(error.error === "error.unauthorizedAccess")
-                        GlobalMethods.errorToken();
-                     else {
+                    if (error.message === "Token") {
+                        this.$cookies.remove("token");
+                        this.$cookies.remove("role");
+                        Swal.fire(this.$t("alerts.connectionexpired"));
+                        this.$router.push("/");
+                    } else {
                         GlobalMethods.errorApi(error.message);
                     }
                 }
-            }
-        },
-        convertRate(value) {
-            if (value === false) {
-                return this.$t('proposal.variable');
-            }
-            else {
-                return this.$t('proposal.fixed');
             }
         },
         async deleteNotifications(id_notification) {
@@ -157,55 +137,62 @@ export default {
             fetch('https://babawallet.alwaysdata.net/api/common/notifications/' + id_notification, requestOptions)
                 .then(response => {
                     if (!response.ok) {
-                        const data = response.json();
-                        throw new Error(data.error);
+                        if (response.status == 401) {
+                            throw new Error("Token");
+                        } else {
+                            const data = response.json();
+                            throw new Error(data.error);
+                        }
                     } else {
                         Swal.fire(this.$t("alerts.deletednotification"));
                         this.refreshNotifications();
                     }
                 })
                 .catch(error => {
-                    if(error.error === "error.unauthorizedAccess")
+                    if (error.message === "Token") {
                         GlobalMethods.errorToken();
-                    else {
+                    } else {
                         GlobalMethods.errorApi(error.message);
                     }
                 });
+            await this.refreshNotifications();
         },
         async getNotifications() {
             const requestOptions = {
                 method: "GET",
                 headers: {'Authorization': this.$cookies.get("token")},
-            };
-            this.loading = true;
+            }
             try {
                 const response = await fetch(`https://babawallet.alwaysdata.net/api/common/notifications/page?page=${this.nbr}&limit=3`, requestOptions);
                 if (!response.ok) {
-                    const data = await response.json();
-                    throw new Error(data.error);
+                    if (response.status == 401) {
+                        throw new Error("Token");
+                    } else {
+                        const data = await response.json();
+                        throw new Error(data.error);
+                    }
                 } else {
                     const data = await response.json();
                     this.lastPage = data.last_page;
                     if (this.lastPage == 0) {
                         this.loading = true;
                         Swal.fire(this.$t("alerts.nonotification"));
-                    } else if(this.lastPage >= this.nbr) {
+                    } else {
                         this.id = data.id_proposal;
-                        this.notifications.push(data.allNotifications);
+                        this.notifications = data.allNotifications;
                         this.notifications = this.notifications.flat();
-                        this.loading = false;
                     }
                 }
             } catch (error) {
-                if(error.error === "error.unauthorizedAccess")
+                if (error.message === "Token") {
                     GlobalMethods.errorToken();
-                 else {
+                } else {
                     GlobalMethods.errorApi(error.message);
                 }
             }
         },
         async acceptNotification(id_notification, ean, address) {
-            if(ean.length === 18 || this.role === "supplier") {
+            if(ean.length === 18) {
                 const requestOptions = {
                     method: "POST",
                     headers: {'Authorization': this.$cookies.get("token")},
@@ -219,23 +206,28 @@ export default {
                 fetch('https://babawallet.alwaysdata.net/api/common/notifications/accept_notification/' + id_notification, requestOptions)
                     .then(response => {
                         if (!response.ok) {
-                            const data = response.json();
-                            throw new Error(data.error);
+                            if (response.status == 401) {
+                                throw new Error("Token");
+                            } else {
+                                const data = response.json();
+                                throw new Error(data.error);
+                            }
                         } else {
-                            Swal.fire(this.$t("alerts.acceptednotification"));
+                            Swal.fire(this.$t("alerts.notificationaccepted"));
                             this.refreshNotifications();
                         }
                     })
                     .catch(error => {
-                        if(error.error === "error.unauthorizedAccess")
+                        if (error.message === "Token") {
                             GlobalMethods.errorToken();
-                        else {
+                        } else {
                             GlobalMethods.errorApi(error.message);
                         }
                     });
             } else {
                 Swal.fire(this.$t("alerts.wrongean"));
             }
+            await this.refreshNotifications();
         },
         async refuseNotification(id_notification) {
             const requestOptions = {
@@ -245,17 +237,21 @@ export default {
             fetch("https://babawallet.alwaysdata.net/api/common/notifications/refuse_notification/" + id_notification, requestOptions)
                 .then(response => {
                     if (!response.ok) {
-                        const data = response.json();
-                        throw new Error(data.error);
+                        if (response.status == 401) {
+                            throw new Error("Token");
+                        } else {
+                            const data = response.json();
+                            throw new Error(data.error);
+                        }
                     } else {
                         Swal.fire(this.$t("alerts.refusednotification"));
                         this.refreshNotifications();
                     }
                 })
                 .catch(error => {
-                    if(error.error === "error.unauthorizedAccess")
+                    if (error.message === "Token") {
                         GlobalMethods.errorToken();
-                    else {
+                    } else {
                         GlobalMethods.errorApi(error.message);
                     }
                 });
@@ -292,7 +288,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    margin: 10vh;
+    height: 100vh;
 }
 
 .header {
@@ -306,7 +302,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .notif {

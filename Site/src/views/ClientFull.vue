@@ -5,20 +5,17 @@
       </div>
       <div class="container">
         <div class ="list">
-          <p class="text"> {{ $t("client.generalinformations") }} </p>
+          <p class="text"> {{ $t("client.generalinformation") }} </p>
           <p> Mail : {{ client.mail }}</p>
         </div>
         <div class="contract">
           <p class="text"> {{ client.associatedcontracts }}</p>
-          <div v-if="listContract && listContract.length !== 0">
+          <div v-if="listContract">
             <div v-for="contract in listContract" :key="contract.id">
               <p> {{ $t("client.clientname") }} = {{ contract.clientName }}</p>
               <p> {{ $t("client.eancode") }} = {{ contract.ean }}</p>
               <div @click.prevent.left="seeMore(contract)">
                 <GoButton text="button.go" :colore="'#34c98e'"/>
-              </div>
-              <div @click.prevent.left="seeConsumption(contract)">
-                <GoButton text="button.seeConsumption" :colore="'#34c98e'"/>
               </div>
               <p>--------------------------</p>
             </div>
@@ -75,8 +72,13 @@
         try {
           const response = await fetch(`${this.linkApi}${this.client.clientId}/contrats/page?page=${this.nbr}&limit=3`, requestOptions);
           if (!response.ok) { 
-            const data = await response.json();
-            throw new Error(data.error);
+            if(response.status == 401){
+              throw new Error("Token");
+            }
+            else{
+              const data = await response.json();
+              throw new Error(data.error);
+            }
           } else {
             const data = await response.json(); 
             this.lastPage = data.last_page;
@@ -90,8 +92,9 @@
             }
           }
         } catch(error) {
-            if(error.error === "error.unauthorizedAccess")
+            if(error.message === "Token") {
               GlobalMethods.errorToken();
+            } 
             else {  
               GlobalMethods.errorApi(error.message);
             }
@@ -128,7 +131,12 @@
         fetch(`https://babawallet.alwaysdata.net/api/client/clients_of_provider/${this.client.clientId}`, requestOptions)
           .then(response => {
             if(!response.ok){
-              return response.json().then(json => Promise.reject(json));
+              if(response.status == 401){
+                  throw new Error("Token");
+              }
+              else{
+                return response.json().then(json => Promise.reject(json));
+              }
             }
             else{
               Swal.fire({
@@ -140,8 +148,9 @@
             }
           })
           .catch(error => {
-            if(error.error === "error.unauthorizedAccess")
-              GlobalMethods.errorToken(); 
+            if(error.message === "Token") {
+              GlobalMethods.errorToken();
+            } 
             else {
               GlobalMethods.errorApi(error.error);
             }
@@ -161,17 +170,6 @@
         sessionStorage.setItem('idContract', contract.contractId);
         sessionStorage.setItem('clientMail', this.client.mail);
         this.$router.push( {name: "ContractFull"} );
-      },
-
-      /**
-      * Cette méthode sauvegarde le contrat sur lequel on souhaite plus d'informations et redirige vers consumption.
-      * 
-      * @param contract le contrat à sauvegarder.
-      */
-      seeConsumption(contract){
-        sessionStorage.setItem('ean', contract.ean);
-        sessionStorage.setItem('contractId', contract.contractId);
-        this.$router.push({name: 'Consumptions'});
       }
     }
   };
@@ -180,31 +178,31 @@
   <style scoped>
   
   .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999; 
-}
-
-.bottombutton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; 
+  }
+  
+  .bottombutton {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     padding: 0 50px;
     margin-top: 50px;
-    width: 90%;
-}
-
-.container {
+    width: 100%;
+  }
+  
+  .container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -212,7 +210,6 @@
   width: 100%;
   overflow: auto;
   margin: 0 auto;
-  height: 100vh;
 }
 
 .list {
@@ -227,15 +224,10 @@
   float: left;
   margin-left: 20%;
 }
-
-.list > * {
-  margin-bottom: 5px;
-}
-
 .contract {  
   width: 30%;
   float: right;
-  height: 40%;
+  height: 60%;
   overflow-y: scroll;
   margin-right: 20%;
   border-radius: 50px;

@@ -1,8 +1,7 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text= "header.wallets"/>
-      <div class = "permission"> {{ $t("GestionExtClaire.gestion") }} </div>
+      <MainHeader text="header.wallets"/>
     </div>
     <div class="allcards">
       <div class=cards v-for="wallet in listWallet" :key="wallet.id">
@@ -37,6 +36,14 @@ export default {
     GoButton,
     MainHeader,
   },
+  /*Méthode pour charger la langue sauvegardée en cookie*/
+  mounted() {
+    if (this.$cookies.get("lang")) {
+      this.$i18n.locale = this.$cookies.get("lang");
+    } else {
+      this.$cookies.set("lang", this.$i18n.locale)
+    }
+  },
   data(){
     return{
       linkApi : "https://babawallet.alwaysdata.net/api/client/wallets/",
@@ -47,9 +54,7 @@ export default {
     }},
   /*Au moment de la création on récupère déjà la première page de l'api*/
   created() {
-    GlobalMethods.getCurrentLanguage();
     this.getPage();
-      GlobalMethods.getCurrentLanguage();
   },
   methods: {
     /**
@@ -66,8 +71,13 @@ export default {
       try {
         const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
         if (!response.ok) { 
-          const data = await response.json();
-          throw new Error(data.error);
+          if(response.status == 401){
+            throw new Error("Token");
+          }
+          else{
+            const data = await response.json();
+            throw new Error(data.error);
+          }
         } else {
           const data = await response.json(); 
           this.lastPage = data.last_page;
@@ -82,8 +92,9 @@ export default {
           }
         }
       } catch(error) {
-          if(error.error === "error.unauthorizedAccess")
+          if(error.message === "Token") {
             GlobalMethods.errorToken();
+          } 
           else {  
             GlobalMethods.errorApi(error.message);
           }
@@ -171,14 +182,4 @@ export default {
   color: rgb(138, 150, 253);
   font-size: 30px;
  }
-
- .permission{
-  position: fixed;
-  margin-top: 50px;
-  margin-right: 20px;
-  top: 0;
-  right: 0;
-  z-index: 9999;
-  font-size: 25px;
-}
 </style>

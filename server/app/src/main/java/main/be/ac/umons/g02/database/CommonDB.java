@@ -12,19 +12,8 @@ public class CommonDB
     private static final LogManager logManager = new LogManager();
     private static final ConsumptionManager consumptionManager = new ConsumptionManager();
     private static final ProposalManager proposalManager = new ProposalManager();
+
     private static final ClientManager clientManager = new ClientManager();
-    private static final InvitedClientManager invitedClientManager = new InvitedClientManager(); //Extension Claire
-    private static final InvitationManager invitationManager = new InvitationManager(); //Extension Claire
-
-    public InvitedClientManager getInvitedClientManager()
-    {
-        return invitedClientManager;
-    }
-
-    public InvitationManager getInvitationManager()
-    {
-        return invitationManager;
-    }
 
     public ConsumptionManager getConsumptionManager()
     {
