@@ -105,20 +105,21 @@ class ContractManagerTest
         assertNotEquals(new ContractManager().getTypeOfEnergyFromContract(expected.getContractId()),"ethereum");
 
     }
+
     @Test
     @Order(9)
+    void getAddress()
+    {
+        assertEquals("address", new ContractManager().getAddress("1"));
+    }
+
+    @Test
+    @Order(10)
     void deleteContract()
     {
         new ContractManager().deleteContractAndNotify("1", "1");
         DB.getInstance().executeQuery("SELECT * from provider_contract e, wallet_contract, counter, contract WHERE e.contract_id=1",true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults("*");
         assertEquals(results.get(0).size(), 0);
-    }
-
-    @Test
-    @Order(10)
-    void getAddress()
-    {
-        assertEquals("address", new ContractManager().getAddress("1"));
     }
 }

@@ -77,6 +77,13 @@ class LogManagerTest {
 
     @Test
     @Order(6)
+    void getMail()
+    {
+        assertEquals("test@gmail.com", new LogManager().getName("1"));
+    }
+
+    @Test
+    @Order(7)
     void deleteAccount() throws Exception
     {
         new LogManager().saveAccount("provider@gmail.com", "password", false, "provider", "english");
@@ -86,12 +93,5 @@ class LogManagerTest {
         assertTrue(new LogManager().deleteAccount("2"));
         assertEquals(new Query("SELECT * FROM user WHERE id=2").executeAndGetResult("name").getTable(), Table.EMPTY_TABLE);
 
-    }
-
-    @Test
-    @Order(7)
-    void getMail()
-    {
-        assertEquals("test@gmail.com", new LogManager().getName("1"));
     }
 }
