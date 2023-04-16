@@ -40,7 +40,7 @@ public class WalletManager
         ArrayList<WalletBasic> walletBasics = new ArrayList<>();
 
         for (ArrayList<String> row : table)
-            walletBasics.add(new WalletBasic(row.get(0), row.get(1), row.get(2), new LogManager().getName(row.get(2)), new Integer(row.get(3)), new Integer(row.get(4)), new Boolean(row.get(5)), new Boolean(row.get(6)), new Boolean(row.get(7))));
+            walletBasics.add(new WalletBasic(row.get(0), row.get(1), row.get(2), new LogManager().getName(row.get(2)), new Integer(row.get(3)), new Integer(row.get(4)), row.get(5).equals("1"), row.get(6).equals("1"), row.get(7).equals("1")));
 
         int count = new Query("SELECT count(*) AS 'c' FROM wallet WHERE client_id="+clientId).executeAndGetResult("c").getIntElem(0,0);
 
@@ -102,7 +102,7 @@ public class WalletManager
         ).getTable();
 
         ArrayList<String> row = table.get(0);
-        WalletFull walletFull = new WalletFull(row.get(0), row.get(1), row.get(2), new LogManager().getName(row.get(2)), new Integer(row.get(6)), new Integer(row.get(7)), new Boolean(row.get(8)), new Boolean(row.get(9)), new Boolean(row.get(10)));
+        WalletFull walletFull = new WalletFull(row.get(0), row.get(1), row.get(2), new LogManager().getName(row.get(2)), new Integer(row.get(6)), new Integer(row.get(7)), row.get(8).equals("1"), row.get(9).equals("1"), row.get(10).equals("1"));
 
         walletFull.setLastConsumption(Double.parseDouble(row.get(4)), Double.parseDouble(row.get(3)), Double.parseDouble(row.get(5)));
 
