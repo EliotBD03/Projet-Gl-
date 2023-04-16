@@ -119,4 +119,10 @@ class ContractManagerTest
         assertEquals(results.get(0).size(), 0);
     }
 
+    @Test
+    @Order(10)
+    void getAddress()
+    {
+        assertEquals("address", new ContractManager().getAddress("1"));
+    }
 }

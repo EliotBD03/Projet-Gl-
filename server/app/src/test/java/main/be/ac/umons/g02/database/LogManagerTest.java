@@ -75,7 +75,7 @@ class LogManagerTest {
         assertEquals("testName", new LogManager().getName("1"));
     }
 
-   @Test
+    @Test
     @Order(6)
     void deleteAccount() throws Exception
     {
@@ -88,4 +88,10 @@ class LogManagerTest {
 
     }
 
+    @Test
+    @Order(7)
+    void getMail()
+    {
+        assertEquals("test@gmail.com", new LogManager().getName("1"));
+    }
 }
