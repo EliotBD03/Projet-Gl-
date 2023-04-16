@@ -12,7 +12,7 @@ import java.util.ArrayList;
 class InvitationManagerTest
 {
     private static Invitation propose = new Invitation("1", "1", "2","address", "RW", "client1", "request");
-    private static Invitation propose2 = new Invitation("2", "1", "2","address2", "R", "client1", "request");
+    private static Invitation propose2 = new Invitation("3", "1", "2","address2", "R", "client1", "request");
     @BeforeAll
     static void setUp() throws Exception
     {
@@ -84,7 +84,7 @@ class InvitationManagerTest
     void deleteInvitation()
     {
         InvitationManager invitationManager = new InvitationManager();
-        invitationManager.deleteInvitation("0");
+        invitationManager.deleteInvitation("2");
         DB.getInstance().executeQuery("SELECT * FROM invitation WHERE invitationId=0",true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"senderId", "receiverId", "address", "permission", "nameSender", "type"});
         assertEquals(results.get(0).size(), 0);

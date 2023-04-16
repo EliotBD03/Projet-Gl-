@@ -213,7 +213,9 @@ public class ClientApi extends MyApi implements RouterApi
            routingContext.response()
                 .setStatusCode(500)
                 .putHeader("Content-Type", "application/json")
-                .end(); 
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.id")));
+            return;
         }
         else{
             routingContext.response()
@@ -247,7 +249,9 @@ public class ClientApi extends MyApi implements RouterApi
             routingContext.response()
                 .setStatusCode(500)
                 .putHeader("Content-Type", "application/json")
-                .end();
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.already")));
+            return;
         }
 
     }

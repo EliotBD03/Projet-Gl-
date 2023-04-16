@@ -99,11 +99,11 @@ public class InvitedClientManager
                     " invitedId" +
                     " ownerId," +
                     " permission )" +
-                    " VALUES("
-                    + address + ", '" +
-                    invitedClientId + "','" +
-                    ownerId + "'," +
-                    permission + ")").executeWithoutResult();
+                    " VALUES("+ "'" +
+                    address + "'," +
+                    invitedClientId + "," +
+                    ownerId + ",'" +
+                    permission + "')").executeWithoutResult();
             return true;
         }
         return false;

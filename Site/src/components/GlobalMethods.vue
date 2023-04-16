@@ -72,11 +72,7 @@
           fetch("https://babawallet.alwaysdata.net/log/disconnect", requestOptions)
               .then(response => {
                   if (!response.ok) {
-                      if (response.status == 401) {
-                          throw new Error("Token");
-                      } else {
-                          return response.json().then(json => Promise.reject(json));
-                      }
+                    return response.json().then(json => Promise.reject(json));
                   } else {
                       cookies.remove("token");
                       cookies.remove("role");
@@ -85,7 +81,7 @@
                   }
               })
               .catch(error => {
-                  if (error.message === "Token") {
+                  if (error.error === "error.unauthorizedAccess") {
                       this.errorToken();
                   } else {
                       this.errorApi(error.error);
@@ -102,7 +98,7 @@
               const currentLanguage = await response.json();
               i18n.locale = currentLanguage.language;
           } catch (error) {
-              if (error.message === "Token") {
+              if (error.message === "error.unauthorizedAccess") {
                   this.errorToken();
               }
               else {

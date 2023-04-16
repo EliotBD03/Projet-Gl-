@@ -144,12 +144,7 @@
             fetch(`https://babawallet.alwaysdata.net/api/client/invitedWallets/acceptInvitation/${invitationId}`, requestOptions)
               .then(response => {
                 if(!response.ok){
-                  if(response.status == 500){
-										throw new Error("Already");
-									}
-                  else{
-                    return response.json().then(json => Promise.reject(json));
-                  }
+                  return response.json().then(json => Promise.reject(json));
                 }
                 else{
 									Swal.fire({
@@ -164,7 +159,7 @@
                 if(error.error === "error.unauthorizedAccess"){
                   GlobalMethods.errorToken();
                 }
-								else if(error.message === "Already") { 
+								else if(error.error === "error.already") { 
                     GlobalMethods.errorApi(this.$t("GestionExtClaire.alertBadAccept"));
 										this.seen(invitationId);
                   }
