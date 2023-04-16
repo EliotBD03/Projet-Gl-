@@ -184,7 +184,6 @@
         sessionStorage.setItem('contractId', contract.contractId);
         sessionStorage.setItem('ean', contract.ean);
         sessionStorage.setItem('permissions', "RW");
-        sessionStorage.setItem('address', contract.address);
         this.$router.push( {name: "Consumptions"} );
       }
     }

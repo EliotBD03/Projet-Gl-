@@ -267,5 +267,14 @@ public class ContractManager
         return getContract(contractId).getProposal().getTypeOfEnergy();
     }
 
-
+    /**
+     * Méthode qui permet de retourner l'adresse d'un contrat à partir de son identifiant.
+     *
+     * @param contractId l'identifiant du contrat
+     * @return l'adresse du contrat
+     */
+    public String getAddress(String contractId)
+    {
+        return new Query("SELECT address FROM contract WHERE contract_id = " + contractId).executeAndGetResult("address").getStringElem(0, 0);
+    }
 }

@@ -206,7 +206,6 @@ export default {
     seeConsumptions(contract){
       sessionStorage.setItem('ean', contract.ean);
       sessionStorage.setItem('contractId', contract.contractId);
-      sessionStorage.setItem('address', this.address);
       this.$router.push({name: 'Consumptions'});
     },
     /**

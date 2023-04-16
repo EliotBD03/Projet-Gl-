@@ -436,14 +436,14 @@ export default {
                         way = `https://babawallet.alwaysdata.net/api/common/consumptions_month/${this.ean}${dateWay}`;
                         break;
                     case "consumptionOther":
-                        if(this.lisDate.length > 0) {
+                        if(this.listDate.length > 0) {
                             if(this.isAfter) {
                               month = parseInt(this.listDate[this.listDate.length-1].split("-")[1], 10).toString().padStart(2, '0');
                             } else {
                               month = parseInt(this.listDate[0].split("-")[1], 10).toString().padStart(2, '0');
                             }
                         }
-                        way = `https://babawallet.alwaysdata.net/api/common/other_consumptions/${sessionStorage.getItem('address')}/${sessionStorage.getItem('contractId')}?${month}`;
+                        way = `https://babawallet.alwaysdata.net/api/common/other_consumptions/${sessionStorage.getItem('contractId')}?${month}`;
                         break;
                 }
 
@@ -677,7 +677,7 @@ export default {
             }
         },
  
-        changeModSeeConsumption(mod) { // Méthode qui permet de changer la perception des données en différents modes. (seul,comparer ses données avec celles d'un autre utilisateur, comparer ses données à plusieurs moments dans le temps
+        async changeModSeeConsumption(mod) { // Méthode qui permet de changer la perception des données en différents modes. (seul,comparer ses données avec celles d'un autre utilisateur, comparer ses données à plusieurs moments dans le temps
             if(mod == this.modConso) return;
 
             this.modConso = mod;
@@ -691,6 +691,7 @@ export default {
             document.getElementById("arrowr2").style.display = "none";
             document.getElementById("stat").style.display = "none";
 
+            let i = 0;
             switch(mod) {
                 case "justSee":
                     this.showData();
@@ -698,8 +699,9 @@ export default {
 
                 case "compareWithOther":
                     document.getElementById("chart").style.display = "inline";
-                    while(this.listValue.length > this.listValueOther.length) {
-                        this.get("consumptionOther");
+                    while(this.listValue.length > this.listValueOther.length && i < 4) {
+                        await this.get("consumptionOther");
+                        i++;
                     }
                     break;
 

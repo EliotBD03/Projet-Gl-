@@ -55,7 +55,7 @@ public class CommonApi extends MyApi implements RouterApi
         subRouter.get("/consumptions_month/:ean").handler(this::getConsumptionOfMonth);
         subRouter.get("/consumptions/:ean").handler(this::getConsumptions);
         subRouter.post("/consumptions").handler(this::addConsumption);
-        subRouter.get("/other_consumptions/:address/:id_contract").handler(this::getOtherConsumptions);
+        subRouter.get("/other_consumptions/:id_contract").handler(this::getOtherConsumptions);
 
         return subRouter;
     }
@@ -545,11 +545,10 @@ public class CommonApi extends MyApi implements RouterApi
     {
         LOGGER.info("GetOtherConsumptions...");
 
-        String address = null;
-        if(checkParam((address = routingContext.request().getParam("address")), routingContext)) return;
-
         String idContract = null;
         if(checkParam((idContract = routingContext.request().getParam("id_contract")), routingContext)) return;
+
+        String address = commonDB.getContractManager().getAddress(idContract);
 
         Integer month = new Integer(routingContext.request().getParam("month"));
         if(month == null)
