@@ -24,6 +24,8 @@ import io.vertx.core.http.HttpHeaders;
 import java.lang.Math;
 import java.util.Random;
 
+import io.vertx.core.MultiMap;
+
 /**
  * Classe qui gère la catégorie commune des requêtes de l'API
  */
@@ -55,7 +57,7 @@ public class CommonApi extends MyApi implements RouterApi
         subRouter.get("/consumptions_month/:ean").handler(this::getConsumptionOfMonth);
         subRouter.get("/consumptions/:ean").handler(this::getConsumptions);
         subRouter.post("/consumptions").handler(this::addConsumption);
-        subRouter.get("/other_consumptions/:id_contract").handler(this::getOtherConsumptions);
+        subRouter.get("/other_consumptions/:id_contract/:month").handler(this::getOtherConsumptions);
 
         return subRouter;
     }
@@ -550,9 +552,12 @@ public class CommonApi extends MyApi implements RouterApi
 
         String address = commonDB.getContractManager().getAddress(idContract);
 
-        Integer month = new Integer(routingContext.request().getParam("month"));
-        if(month == null)
+        String monthParam = routingContext.request().getParam("month");
+        Integer month;
+        if(monthParam == null)
             month = 1;
+        else
+            month = Integer.parseInt(monthParam);
 
         WalletFull wallet = commonDB.getWalletManager().getWallet(address);
         String typeOfEnergy = commonDB.getContractManager().getTypeOfEnergyFromContract(idContract);
@@ -642,7 +647,9 @@ public class CommonApi extends MyApi implements RouterApi
             double min = value - value * 0.1;
 
             value = rand.nextDouble() * (max - min) + min;
-            listValue.add(value);
+            String formattedValue = String.format("%.2f", value);
+            double newValue = Double.parseDouble(formattedValue);
+            listValue.add(newValue);
         }
 
         return listValue;

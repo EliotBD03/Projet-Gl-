@@ -206,7 +206,7 @@ export default {
             }
         },
 
-        getDataBefore(isMyConsumption) { // Méthode qui permet de changer la date de recherche pour en suite aller chercher de nouvelles données dans le passé
+        async getDataBefore(isMyConsumption) { // Méthode qui permet de changer la date de recherche pour en suite aller chercher de nouvelles données dans le passé
             if(isMyConsumption) { // Si on veut voir plus de ses données pour les autres données
               if(this.isDisplayDay) {
                   this.isAfter = false;
@@ -215,7 +215,7 @@ export default {
                     this.modConso = "justSee";
                     this.tmpFlag = true;
                   }
-                  this.get("consumption");
+                  await this.get("consumption");
               } else {
                   this.month--;
                   if(this.month <= 0) {
@@ -226,12 +226,12 @@ export default {
                     this.modConso = "justSee";
                     this.tmpFlag = true;
                   }
-                  this.get("consumptionOfMonth");
+                  await this.get("consumptionOfMonth");
               }
 
               if(this.modConso == "compareWithOther") { // Si on récupère des données de l'autre consommation jusqu'à ce qu'on ait le même nombre de données
                   while(this.listValue.length > this.listValueOther.length) {
-                      this.get("consumptionOther");
+                      await this.get("consumptionOther");
                   }
               }
             } else {
@@ -250,7 +250,7 @@ export default {
             }
         },
 
-        getDataAfter(isMyConsumption) { // Méthode qui permet de changer la date de recherche pour en suite aller chercher de nouvelles données dans le futur
+        async getDataAfter(isMyConsumption) { // Méthode qui permet de changer la date de recherche pour en suite aller chercher de nouvelles données dans le futur
             if(isMyConsumption) {
               if(this.isDisplayDay) {
                   this.isAfter = true;
@@ -259,7 +259,7 @@ export default {
                     this.modConso = "justSee";
                     this.tmpFlag = true;
                   }
-                  this.get("consumption");
+                  await this.get("consumption");
               } else {
                   this.month++;
                   if(this.month >= 13) {
@@ -270,12 +270,12 @@ export default {
                     this.modConso = "justSee";
                     this.tmpFlag = true;
                   }
-                    this.get("consumptionOfMonth");
+                    await this.get("consumptionOfMonth");
               }
 
               if(this.modConso == "compareWithOther") {
                   while(this.listValue.length > this.listValueOther.length) {
-                      this.get("consumptionOther");
+                      await this.get("consumptionOther");
                   }
               }
             } else {
@@ -318,13 +318,13 @@ export default {
                 };
 
                 if(this.modConso == "compareWithOther") {
-                    data.datasets[0] += {
+                    data.datasets.push({
                         label: this.$t("consumptions.otherconsumption"),
                         data: this.listValueOther,
                         fill: false,
                         borderColor: 'rgb(192, 75, 192)',
                         tension: 0.1
-                    }
+                    });
                 }
 
                 if(this.chart) {
@@ -405,7 +405,7 @@ export default {
                         way = `https://babawallet.alwaysdata.net/api/common/contracts/type_of_energy/ + ${sessionStorage.getItem('contractId')}`;
                         break;
                     case "consumption":
-                        if(this.modConso == "justSee") {
+                        if(this.modConso == "justSee" || this.modConso == "compareWithOther") {
                           if(this.date != "") {
                               dateWay = `&date=${this.date}`;
                           }
@@ -424,7 +424,7 @@ export default {
                         way = `https://babawallet.alwaysdata.net/api/common/consumptions/${this.ean}?is_after=${this.isAfter}${dateWay}`;
                         break;
                     case "consumptionOfMonth":
-                        if(this.modConso == "justSee") {
+                        if(this.modConso == "justSee" || this.modConso == "compareWithOther") {
                           if(this.year != "" && this.month != "") {
                               dateWay = `?year=${this.year}&month=${this.month}`;
                           }
@@ -443,7 +443,7 @@ export default {
                               month = parseInt(this.listDate[0].split("-")[1], 10).toString().padStart(2, '0');
                             }
                         }
-                        way = `https://babawallet.alwaysdata.net/api/common/other_consumptions/${sessionStorage.getItem('contractId')}?${month}`;
+                        way = `https://babawallet.alwaysdata.net/api/common/other_consumptions/${sessionStorage.getItem('contractId')}/${month}`;
                         break;
                 }
 
@@ -476,7 +476,7 @@ export default {
                                 let keys = Object.keys(data.listConsumption);
                                 let values = Object.values(data.listConsumption);
 
-                                if(this.modConso == "justSee" || this.modConso == "statistic") {
+                                if(this.modConso != "compareOverTime") {
                                   if(this.isAfter) {
                                       this.listDate = this.listDate.concat(keys);
                                       this.listValue = this.listValue.concat(values);
@@ -494,7 +494,7 @@ export default {
                                           this.listValue = this.listValue.slice(0, 30);
                                       }
                                   }
-                                } else if(this.modConso == "compareOverTime") {
+                                } else {
                                   if(this.isAfter) {
                                       this.listDate2 = this.listDate2.concat(keys);
                                       this.listValue2 = this.listValue2.concat(values);
@@ -517,7 +517,7 @@ export default {
                             break;
 
                         case "consumptionOfMonth":
-                            if(this.modConso == "justSee") {
+                            if(this.modConso != "compareOverTime") {
                                 this.listDate = Object.keys(data.listConsumption);
                                 this.listValue = Object.values(data.listConsumption);
 
@@ -525,7 +525,7 @@ export default {
                                     this.year = this.listDate[0].slice(0, 4);
                                     this.month = this.listDate[0].slice(5, 7);
                                 }
-                            } else if(this.modConso == "compareOverTime") {
+                            } else {
                                 this.listDate2 = Object.keys(data.listConsumption);
                                 this.listValue2 = Object.values(data.listConsumption);
 
@@ -538,10 +538,10 @@ export default {
 
                         case "consumptionOther":
                             if(this.isAfter) {
-                              this.listValueOther = this.listValueOther.concat(data.listConsumption);
+                              this.listValueOther = this.listValueOther.concat(Object.values(data.listConsumption));
                               this.listValueOther = this.listValueOther.slice(0, this.listValue.length);
                             } else {
-                              this.listValueOther = data.listConsumption.concat(this.listValueOther);
+                              this.listValueOther = Object.values(data.listConsumption).concat(this.listValueOther);
                               this.listValueOther = this.listValueOther.slice(0, this.listValue.length);
                             }
                             break;
@@ -654,6 +654,11 @@ export default {
             } else {
                 this.labelButtonDisplay = this.$t("consumptions.displayday") + this.unity;
                   await this.get("consumptionOfMonth");
+
+                  while(this.listValue.length > this.listValueOther.length) {
+                    await this.get("consumptionOther");
+                  }
+
                   if(this.modConso == "compareOverTime") {
                       this.modConso = "justSee";
                       this.tmpFlag = true;
@@ -691,7 +696,6 @@ export default {
             document.getElementById("arrowr2").style.display = "none";
             document.getElementById("stat").style.display = "none";
 
-            let i = 0;
             switch(mod) {
                 case "justSee":
                     this.showData();
@@ -699,9 +703,8 @@ export default {
 
                 case "compareWithOther":
                     document.getElementById("chart").style.display = "inline";
-                    while(this.listValue.length > this.listValueOther.length && i < 4) {
+                    while(this.listValue.length > this.listValueOther.length) {
                         await this.get("consumptionOther");
-                        i++;
                     }
                     break;
 
