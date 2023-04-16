@@ -23,7 +23,7 @@ class NotificationManagerTest
         DBTest.setUp();
     }
 
-    //@AfterAll
+    @AfterAll
     static void clean()
     {
         DB.getInstance().executeQuery("TRUNCATE TABLE notification",false);
