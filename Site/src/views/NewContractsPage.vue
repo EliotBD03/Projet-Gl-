@@ -112,15 +112,8 @@ export default {
                     const response = await fetch(query, requestOptions);
                     if(!response.ok)
                     {
-                        if(response.status == 401)
-                        {
-                            throw new Error("Token");
-                        }
-                        else
-                        {
-                            const data = await response.json();
-                            throw new Error(data.error);
-                        }
+                        const data = await response.json();
+                        throw new Error(data.error);
                     }
                     else
                     {
@@ -141,17 +134,10 @@ export default {
                 }
                 catch(error)
                 {
-                    if(error.message === "Token")
-                    {
-                        this.$cookies.remove("token");
-                        this.$cookies.remove("role");
-                        Swal.fire(this.$t("alerts.connectionexpired"));
-                        this.$router.push("/");
-                    }
+                    if(error.message === "error.unauthorizedAccess")
+                        GlobalMethods.errorToken();
                     else
-                    {
                         GlobalMethods.errorApi(error.message);
-                    }
                 }
             },
             loader()

@@ -15,14 +15,8 @@
             <p>
                 <b>{{ $t("proposal.priceperday") }}</b> : {{ contract.variableDayPrice }} €
             </p>
-            <p v-if="!contract.fixedRate">
-                <InputMain :text="$t('proposal.changepriceperday')" v-model="priceperday"/>
-            </p>
             <p>
                 <b>{{ $t("proposal.pricepernight") }}</b> : {{ contract.variableNightPrice }} €
-            </p>
-            <p v-if="!contract.fixedRate">
-                <InputMain :text="$t('proposal.changepricepernight')" v-model="pricepernight"/>
             </p>
             <p v-if="contract.fixedRate">
                 <b>{{ $t("proposal.rate") }}</b> : {{ $t("proposal.fixed") }}
@@ -45,14 +39,17 @@
                         <b>{{ $t("proposal.endofpeakhours") }}</b> : {{ contract.endOfPeakHours }}
                     </p>
                 </div>
-                <p v-if="!contract.fixedRate" @click.prevent.left="post()">
-                    <GoButton text="button.change" :colore="'#34c98e'" />
+                <p>
+                    <b>{{ $t("proposal.duration") }}</b> : {{ duration }}
                 </p>
             </div>
         </div>
         <div class="bottombuttons">
             <div class="backbutton" @click.prevent.left="back()">
                 <GoButton text="button.back" :colore="'darkblue'"/>
+            </div>
+            <div class="changebutton" @click.prevent.left="modifyContract()" v-if="canChange()">
+                <GoButton text="button.change" :colore="'#34c98e'"/>
             </div>
             <div class="closebutton" @click.prevent.left="deleteProposal()">
                 <GoButton text="button.closeproposal" :colore="'red'"/>
@@ -66,11 +63,9 @@ import MainHeader from "@/components/MainHeader.vue";
 import GlobalMethods from "@/components/GlobalMethods.vue";
 import Swal from "sweetalert2";
 import GoButton from "@/components/GoButton.vue";
-import InputMain from "@/components/InputMain.vue";
 
 export default {
     components: {
-        InputMain,
         MainHeader,
         GoButton
     },
@@ -79,49 +74,16 @@ export default {
             name_proposal: sessionStorage.getItem('name_proposal'),
             contract: [],
             location: '',
-            priceperday: '',
-            pricepernight: '',
+            duration: 0,
+            display: false,
         }},
     created() {
         this.getProposal();
         GlobalMethods.getCurrentLanguage();
     },
     methods: {
-        post() {
-            const requestOptions = {
-                method: "POST",
-                body: JSON.stringify({
-                    name_proposal: this.name_proposal,
-                    type_of_energy: this.contract.typeOfEnergy,
-                    localization: this.location,
-                    variable_night_price: parseFloat(this.pricepernight),
-                    variable_day_price: parseFloat(this.priceperday),
-                    is_fixed_rate: this.contract.fixedRate,
-                    duration: this.contract.duration / 720,
-                    start_off_peak_hours: this.contract.startOfPeakHours,
-                    end_off_peak_hours: this.contract.endOfPeakHours
-                }),
-                headers: {'Authorization' : this.$cookies.get("token")}
-            };
-            fetch("https://babawallet.alwaysdata.net/api/provider/proposals", requestOptions)
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(json => Promise.reject(json));
-                    }
-                    return response.json();
-                })
-                .then(
-                    this.$router.push({name: 'HomeSupplier'}))
-                .then(
-                    sessionStorage.removeItem('name_proposal')
-                )
-                .then(
-                    Swal.fire({
-                        icon: 'success',
-                        title: this.$t('alerts.good'),
-                        text: this.$t("alerts.modifiedproposal"),
-                    })
-                )
+        canChange() {
+            return !this.contract.fixedRate || this.contract.variableNightPrice !== 0;
         },
         async getProposal() {
             const requestOptions = {
@@ -131,29 +93,25 @@ export default {
             try {
                 const response = await fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions);
                 if (!response.ok) {
-                    if (response.status === 401){
-                        throw new Error('Token');
-                    }
-                    else {
-                        const data = await response.json();
-                        throw new Error(data.error);
-                    }
+                    const data = await response.json();
+                    throw new Error(data.error);
                 }
                 else {
                     const data = await response.json();
-                    this.contract = data.proposal ;
+                    this.contract = data.proposal;
                     this.location = data.proposal.location;
                     this.priceperday = data.proposal.variableDayPrice;
                     this.pricepernight = data.proposal.variableNightPrice;
+                    this.duration = data.proposal.duration/720;
+
+                    if(this.pricepernight > 0) {
+                        this.display = true;
+                    }
                 }
             }
             catch(error) {
-                if(error.message === 'Token') {
-                    this.$cookies.remove('token');
-                    this.$cookies.remove('role');
-                    Swal.fire(this.$t("alerts.connectionexpired"));
-                    this.$router.push('/');
-                }
+                if(error.error === "error.unauthorizedAccess")
+                    GlobalMethods.errorToken();
                 else {
                     GlobalMethods.errorApi(error.message);
                 }
@@ -204,12 +162,7 @@ export default {
             fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions)
                 .then(response => {
                     if(!response.ok){
-                        if(response.status == 401){
-                            throw new Error("Token");
-                        }
-                        else{
-                            return response.json().then(json => Promise.reject(json));
-                        }
+                        return response.json().then(json => Promise.reject(json));
                     }
                     else{
                         Swal.fire({
@@ -221,9 +174,8 @@ export default {
                     }
                 })
                 .catch(error => {
-                    if(error.message === "Token") {
+                    if(error.error === "error.unauthorizedAccess")
                         GlobalMethods.errorToken();
-                    }
                     else {
                         GlobalMethods.errorApi(error.error);
                     }

@@ -28,7 +28,7 @@
       </div>
       <div class = "contract">
         <p class = "text"> <b>{{ $t("client.associatedcontracts") }} </b></p>
-        <div v-if="wallet.contract && wallet.contracts.length !== 0"> <!--Vérifier-->
+        <div v-if="wallet.contracts && wallet.contracts.length !== 0">
           <div v-for="contract in wallet.contracts" :key="contract.id">
             <p> <b>{{ $t("account.provider") }} :</b> {{ contract.providerName }}</p>
             <p> <b>{{ $t("client.eancode") }} :</b> {{ contract.ean }}</p>
@@ -69,7 +69,7 @@
       <GoButton text="button.back" :colore="'red'"/>
       </div>
 
-      <div v-if="permission === 'R' || permission === 'RW'" class="closebutton" @click.prevent.left="leaveWallet()">
+      <div v-if="permission === 'R' || permission === 'RW'" class="closebutton" @click.prevent.left="deleteClient('no')">
       <GoButton text="GestionExtClaire.leave" :colore="'red'"/>
       </div>
 
@@ -100,7 +100,6 @@ export default {
       address : sessionStorage.getItem('address'),
       permission : sessionStorage.getItem("permission"),
       wallet : [],
-      noId: 'no',
       typeOfHouse: "",
       typeOfCharge: "",
       solarPanels: ""
@@ -119,13 +118,8 @@ export default {
     try {
       const response = await fetch(`https://babawallet.alwaysdata.net/api/client/wallets/${this.address}`,requestOptions);
         if (!response.ok) { 
-          if(response.status == 401){
-            throw new Error("Token");
-          }
-          else{
-            const data = await response.json();
-            throw new Error(data.error);
-          }
+          const data = await response.json();
+          throw new Error(data.error);
         } 
         else {
           const data = await response.json();
@@ -136,12 +130,10 @@ export default {
           this.wallet.solarPanels ? this.solarPanels = "walletform.solarPanel1" : this.solarPanels = "walletform.solarPanel2" ;
         }
     } catch(error) {
-        if(error.message === "Token") {
-          GlobalMethods.errorToken();
-        } 
-        else {
-          GlobalMethods.errorApi(error.message);
-        }
+        if(error.message === "error.unauthorizedAccess")
+            GlobalMethods.errorToken();
+          else
+            GlobalMethods.errorApi(error.message);
     }
   },
   methods: {
@@ -158,12 +150,7 @@ export default {
       fetch(`https://babawallet.alwaysdata.net/api/client/wallets/${this.address}`, requestOptions)
           .then(response => {
             if(!response.ok){
-              if(response.status == 401){
-                  throw new Error("Token");
-              }
-              else{
-                return response.json().then(json => Promise.reject(json));
-              }
+              return response.json().then(json => Promise.reject(json));
             }
             else{
               Swal.fire({
@@ -175,12 +162,10 @@ export default {
             }
           })
           .catch(error => {
-            if(error.message === "Token") {
+            if(error.error === "error.unauthorizedAccess")
               GlobalMethods.errorToken();
-            } 
-            else {
+            else
               GlobalMethods.errorApi(error.error);
-            }
           });
     },
     /*Cette méthode permet de retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
@@ -209,45 +194,6 @@ export default {
       this.$router.push({name: 'Consumptions'});
     },
     /**
-    * Cette méthode permet de supprimer un invité dans le cas où c'est l'invité qui souhaite quitter le portefeuille.
-    * 
-    * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
-    * @author Extension Claire
-    */
-    leaveWallet(){
-      const requestOptions = {
-        method: "DELETE",
-        headers: {'Authorization' : this.$cookies.get("token")}
-      };
-      fetch(`https://babawallet.alwaysdata.net/api/client/invitedClients/${this.address}/${this.noId}`, requestOptions)
-          .then(response => {
-            if(!response.ok){
-              if(response.status == 401){
-                  throw new Error("Token");
-              }
-              else{
-                return response.json().then(json => Promise.reject(json));
-              }
-            }
-            else{
-              Swal.fire({
-                icon: 'success',
-                title: this.$t("alerts.good"),
-                text: this.$t("GestionExtClaire.alertLeave")
-              })
-              this.$router.push({name: 'InvitedWallets'});
-            }
-          })
-          .catch(error => {
-            if(error.message === "Token") {
-              GlobalMethods.errorToken();
-            } 
-            else {
-              GlobalMethods.errorApi(error.error);
-            }
-          });
-    },
-    /**
     * Cette méthode permet de supprimer un invité dans le cas où c'est le propriétaire du portefeuille qui le souhaite.
     * 
     * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
@@ -261,12 +207,7 @@ export default {
       fetch(`https://babawallet.alwaysdata.net/api/client/invitedClients/${this.address}/${id}`, requestOptions)
           .then(response => {
             if(!response.ok){
-              if(response.status == 401){
-                  throw new Error("Token");
-              }
-              else{
-                return response.json().then(json => Promise.reject(json));
-              }
+              return response.json().then(json => Promise.reject(json));
             }
             else{
               Swal.fire({
@@ -278,12 +219,10 @@ export default {
             }
           })
           .catch(error => {
-            if(error.message === "Token") {
+            if(error.error === "error.unauthorizedAccess")
               GlobalMethods.errorToken();
-            } 
-            else {
+            else
               GlobalMethods.errorApi(error.error);
-            }
           });
     },
     /**
@@ -307,7 +246,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 110vh;
 }
 
 .header {

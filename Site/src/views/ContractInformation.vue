@@ -70,13 +70,8 @@ export default
                     const response = await fetch(`https://babawallet.alwaysdata.net/api/client/proposals/${this.providerId}/${this.proposalName}`, requestOptions);
                     if(!response.ok)
                     {
-                        if(response.status == 401)
-                            throw new Error("Token");
-                        else
-                        {
-                            const data = await response.json();
-                            throw new Error(data.error);
-                        }
+                        const data = await response.json();
+                        throw new Error(data.error);
                     }
                     else
                     {
@@ -86,13 +81,8 @@ export default
                 }
                 catch(error)
                 {
-                    if(error.message === "Token")
-                    {
-                        this.$cookies.remove("token");
-                        this.$cookies.remove("role");
-                        Swal.fire(this.$t("alerts.connectionexpired"));
-                        this.$router.push("/")
-                    }
+                    if(error.message === "error.unauthorizedAccess")
+                        GlobalMethods.errorToken();
                     else
                         GlobalMethods.errorApi(error.message);
                 }
@@ -110,10 +100,7 @@ export default
                     {
                         if(!response.ok)
                         {
-                            if(response.status == 401)
-                                throw new Error("Token");
-                            else
-                                return response.json().then(json => Promise.reject(json));
+                            return response.json().then(json => Promise.reject(json));
                         }
                         else
                         {
@@ -127,10 +114,8 @@ export default
                     })
                     .catch(error =>
                     {
-                        if(error.message === "Token")
-                        {
+                        if(error.error === "error.unauthorizedAccess")
                             GlobalMethods.errorToken();
-                        }
                         else
                             GlobalMethods.errorApi(error.error);
                     });

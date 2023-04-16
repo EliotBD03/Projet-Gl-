@@ -3,9 +3,9 @@
         <div class="header">
             <MainHeader text="header.consumption"/>
             <div class = "permission"> 
-              <p v-if="permission == 'R'">{{ $t("GestionExtClaire.R") }}</p> 
-              <p v-else-if="permission == 'RW'">{{ $t("GestionExtClaire.RW") }}</p> 
-              <p v-else>{{ $t("GestionExtClaire.gestion") }}</p>
+              <p v-if="permission == 'R' && role == 'client'">{{ $t("GestionExtClaire.R") }}</p> 
+              <p v-else-if="permission == 'RW' && role == 'client'">{{ $t("GestionExtClaire.RW") }}</p> 
+              <p v-else-if="permission == null && role == 'client'">{{ $t("GestionExtClaire.gestion") }}</p>
             </div>
         </div>
         <div class="topbutton">
@@ -147,7 +147,8 @@ export default {
             unity : "",
             labelButtonDisplay : "",
             stat : [0, 0, 0, 0, [], 0, 0, 0],
-            tmpFlag : false
+            tmpFlag : false,
+            role : this.$cookies.get("role")
         }},
 
     created() {
@@ -896,7 +897,7 @@ select {
 
 .permission{
   position: fixed;
-  margin-top: 50px;
+  margin-top: 20px;
   margin-right: 20px;
   top: 0;
   right: 0;

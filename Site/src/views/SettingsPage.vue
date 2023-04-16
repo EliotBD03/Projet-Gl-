@@ -113,9 +113,7 @@ export default {
                 .then(response => {
                     if(!response.ok)
                     {
-                        if(response.status == 401)
-                            throw new Error("Token");
-                        else if(response.status == 404)
+                        if(response.status == 404)
                             this.$router.push({name: "NotFound"});
                         else
                             return response.json().then(json => Promise.reject(json));
@@ -135,7 +133,7 @@ export default {
                     }     
                 })
                 .catch(error => {
-                    if(error.message === "Token")
+                    if(error.error === "error.unauthorizedAccess")
                         GlobalMethods.errorToken();
                     else if(error.message === "stillContract")
                         Swal.fire(this.$t("alerts.stillcontracts"));

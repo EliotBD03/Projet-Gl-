@@ -83,10 +83,10 @@
             }
           }
         } catch(error) {
-          if(error.error === "error.unauthorizedAccess")
+          if(error.message === "error.unauthorizedAccess")
             GlobalMethods.errorToken();
           else
-            GlobalMethods.errorApi(error.error);
+            GlobalMethods.errorApi(error.message);
         }
       },
       /*Lorsque l'utilisateur appuie sur SeeMore, cette méthode est appelée 

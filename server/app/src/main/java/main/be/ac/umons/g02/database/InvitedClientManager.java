@@ -33,7 +33,7 @@ public class InvitedClientManager
      * @param address l'adresse du portefeuille
      * @param base la borne inférieure
      * @param limit le nombre d'éléments
-     * @return renvoie tous les clients invités (d'un portefeuille) dans un intervalle [base, base + limit] (une arraylist) et le nombre TOTAL de clients associés au fournisseur
+     * @return renvoie tous les clients invités (sur un portefeuille) dans un intervalle [base, base + limit] (une arraylist) et le nombre TOTAL de clients associés au portefeuille
      * @author 
      */
     public Object[] getAllInvitedClients(String address, int base, int limit)

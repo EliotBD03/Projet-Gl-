@@ -65,13 +65,8 @@ export default {
       try {
         const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
         if (!response.ok) { 
-          if(response.status == 401){
-            throw new Error("Token");
-          }
-          else{
             const data = await response.json();
             throw new Error(data.error);
-          }
         } else {
           const data = await response.json(); 
           this.lastPage = data.last_page;
@@ -86,11 +81,10 @@ export default {
           }
         }
       } catch(error) {
-          if(error.message === "Token") {
-            GlobalMethods.errorToken();
-          } 
-          else {  
-            GlobalMethods.errorApi(error.message);
+          if(error.message === "error.unauthorizedAccess")
+              GlobalMethods.errorToken();
+          else {
+              GlobalMethods.errorApi(error.message);
           }
       }
     },

@@ -200,7 +200,10 @@ export default {
                         })
                     )
                 } catch (error) {
-                    GlobalMethods.errorApi(error);
+                    if(error.error === "error.unauthorizedAccess")
+                         GlobalMethods.errorToken();
+                    else
+                        GlobalMethods.errorApi(error.error);
                 }
             }
         }
@@ -215,7 +218,7 @@ export default {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 100vh;
+    height: 110vh;
 }
 
 .header {
@@ -231,7 +234,7 @@ export default {
     justify-content: center;
     flex-direction: column;
     width: 600px;
-    height: 700px;
+    height: 600px;
     border-radius: 50px;
     background: #e0e0e0;
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);

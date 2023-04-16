@@ -111,12 +111,7 @@ export default {
                 fetch("https://babawallet.alwaysdata.net/api/client/wallets", requestOptions)
                     .then(response => {
                         if(!response.ok){
-                            if(response.status == 401){
-                                throw new Error("Token");
-                            }
-                            else{
-                                return response.json().then(json => Promise.reject(json));
-                            }
+                          return response.json().then(json => Promise.reject(json));
                         }
                         else{
                             Swal.fire({
@@ -128,12 +123,10 @@ export default {
                         }
                     })
                     .catch(error => {
-                        if (error.message === "Token") {
-                            GlobalMethods.errorToken();
-                        }
-                        else {
-                            GlobalMethods.errorApi(error.error);
-                        }
+                      if(error.error === "error.unauthorizedAccess")
+                        GlobalMethods.errorToken();
+                      else
+                        GlobalMethods.errorApi(error.error);
                     });
             }
         }
@@ -154,7 +147,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 110vh;
 }
 .contact-form {
     display: flex;
@@ -164,6 +157,7 @@ export default {
     padding: 50px;
     border-radius: 10px;
     box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+    height: 500px;
 }
 
 .contact-form p {

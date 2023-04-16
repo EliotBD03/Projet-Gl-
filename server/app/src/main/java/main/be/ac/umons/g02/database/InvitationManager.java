@@ -21,7 +21,7 @@ public class InvitationManager
     public boolean createInvitation(String senderId, String receiverId, String address, String permission, String nameSender, String type)
     {
         if(new Query("SELECT EXISTS(SELECT * FROM user WHERE id='"+receiverId+"') AS c").executeAndGetResult("c").getIntElem(0,0) == 0 && senderId == receiverId){
-                    return false;
+                return false;
         }
         else{
             new Query("INSERT INTO invitation(senderId,receiverId, address, permission, nameSender, type) " +

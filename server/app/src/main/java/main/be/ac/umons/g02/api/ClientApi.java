@@ -182,7 +182,7 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
      /** 
-     * Méthode qui utilise le package de base de données pour créer une nofication afin de prévenir le client d'une nouvelle invitation à un portefeuille
+     * Méthode qui utilise le package de base de données pour créer une invitation afin de prévenir le client d'une nouvelle invitation à un portefeuille
      *
      * @param - Le context de la requête
      * @see InvitationManager
@@ -253,7 +253,8 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour supprimer la notification d'invitation à un portefeuille et prévenir l'émetteur de l'invitation
+     * Méthode qui utilise le package de base de données pour supprimer l'invitation à un portefeuille 
+     * et prévenir l'émetteur de l'invitation
      *
      * @param - Le context de la requête
      * @see InvitationManager
@@ -274,7 +275,7 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour juste supprimer l'invitation 
+     * Méthode qui utilise le package de base de données pour supprimer l'invitation 
      *
      * @param - Le context de la requête
      * @see InvitationManager

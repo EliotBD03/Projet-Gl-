@@ -66,13 +66,8 @@ export default {
             try {
                 const response = await fetch(`${this.linkApiProposals}page?page=${this.nbrProposals}&limit=6`, requestOptions);
                 if (!response.ok) {
-                    if(response.status == 401){
-                        throw new Error("Token");
-                    }
-                    else{
-                        const data = await response.json();
-                        throw new Error(data.error);
-                    }
+                  const data = await response.json();
+                  throw new Error(data.error);
                 } else {
                     const data = await response.json();
                     this.lastpageProposals = data.last_page;
@@ -89,12 +84,10 @@ export default {
                     }
                 }
             } catch(error) {
-                if(error.message === "Token") {
-                    GlobalMethods.errorToken();
-                }
-                else {
-                    GlobalMethods.errorApi(error.message);
-                }
+              if(error.error === "error.unauthorizedAccess")
+                  GlobalMethods.errorToken();
+                else
+                  GlobalMethods.errorApi(error.error);
             }
         },
         /*Méthode qui vérifie si le fournisseur a bien choisi une proposition sinon envoie une pop-up*/
@@ -116,13 +109,8 @@ export default {
             try {
                 const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
                 if (!response.ok) {
-                    if(response.status == 401){
-                        throw new Error("Token");
-                    }
-                    else{
-                        const data = await response.json();
-                        throw new Error(data.error);
-                    }
+                  const data = await response.json();
+                  throw new Error(data.error);
                 } else {
                     const data = await response.json();
                     this.lastPage = data.last_page;
@@ -137,12 +125,10 @@ export default {
                     }
                 }
             } catch(error) {
-                if(error.message === "Token") {
-                    GlobalMethods.errorToken();
-                }
-                else {
-                    GlobalMethods.errorApi(error.message);
-                }
+              if(error.message === "error.unauthorizedAccess")
+                  GlobalMethods.errorToken();
+              else
+                GlobalMethods.errorApi(error.message);
             }
         },
         /*Lorsque l'utilisateur appuie sur SeeMore, cette méthode est appelée 
@@ -180,12 +166,7 @@ export default {
                 fetch("https://babawallet.alwaysdata.net/api/provider/propose_contract", requestOptions)
                     .then(response => {
                         if(!response.ok){
-                            if(response.status == 401){
-                                throw new Error("Token");
-                            }
-                            else{
-                                return response.json().then(json => Promise.reject(json));
-                            }
+                          return response.json().then(json => Promise.reject(json));
                         }
                         else{
                             Swal.fire({
@@ -196,12 +177,10 @@ export default {
                         }
                     })
                     .catch(error => {
-                        if (error.message === "Token") {
-                            GlobalMethods.errorToken();
-                        }
-                        else {
-                            GlobalMethods.errorApi(error.error);
-                        }
+                      if(error.error === "error.unauthorizedAccess")
+                        GlobalMethods.errorToken();
+                      else
+                        GlobalMethods.errorApi(error.error);
                     });
             }
         }
