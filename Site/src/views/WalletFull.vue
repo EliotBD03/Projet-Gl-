@@ -125,7 +125,7 @@ export default {
         else {
           const data = await response.json();
           this.wallet = data.wallet;
-          console.log(data.wallet.invitedClient);
+          (data.wallet.invitedClient);
           this.wallet.isHouse ? this.typeOfHouse = "walletform.typeHouse1" : this.typeOfHouse = "walletform.typeOfHouse2" ;
           this.wallet.isElectricityToCharge ? this.typeOfCharge = "walletform.typeCharge1" : this.typeOfCharge = "walletform.typeCharge2" ;
           this.wallet.solarPanels ? this.solarPanels = "walletform.solarPanel1" : this.solarPanels = "walletform.solarPanel2" ;

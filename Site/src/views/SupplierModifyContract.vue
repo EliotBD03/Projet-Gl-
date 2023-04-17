@@ -120,7 +120,6 @@ export default {
             headers: {'Authorization' : this.$cookies.get('token')}
         };
         try {
-            console.log(this.name_proposal);
             const response = await fetch(`https://babawallet.alwaysdata.net/api/provider/proposals/${this.name_proposal}`,requestOptions);
             if (!response.ok) {
                 if (response.status === 401){

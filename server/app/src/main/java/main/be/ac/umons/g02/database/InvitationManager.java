@@ -27,7 +27,6 @@ public class InvitationManager
             return false;
         }
         else{
-            System.out.println("je suis une patate");
             new Query("INSERT INTO invitation(senderId,receiverId, address, permission, nameSender, type) " +
                     "VALUES(" + senderId + "," + receiverId + ",'" + address + "','" + permission + "','" + nameSender + "','"+ type +"')").executeWithoutResult();
             return true;

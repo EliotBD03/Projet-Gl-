@@ -149,7 +149,6 @@ export default {
             }
         },
         async deleteNotifications(id_notification) {
-            console.log("test");
             const requestOptions = {
                 method: "DELETE",
                 headers: {'Authorization': this.$cookies.get("token")},
@@ -214,8 +213,6 @@ export default {
                         address: address,
                     })
                 }
-                console.log(ean);
-                console.log(address);
                 fetch('https://babawallet.alwaysdata.net/api/common/notifications/accept_notification/' + id_notification, requestOptions)
                     .then(response => {
                         if (!response.ok) {
