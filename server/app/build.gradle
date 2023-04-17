@@ -44,7 +44,7 @@ application {
     mainClass = 'main.be.ac.umons.g02.App'
 }
 
-tasks.named('test') {
+test{
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }

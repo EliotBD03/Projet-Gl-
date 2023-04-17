@@ -22,6 +22,11 @@ class DBTest {
     }
 
     @Test
+    void doesTheEnvironmentVariableExist()
+    {
+        assertTrue(System.getenv().containsKey("NAMEDBTEST"));
+    }
+    @Test
     void getInstance()
     {
         assertNotNull(DB.getInstance().getClass());
