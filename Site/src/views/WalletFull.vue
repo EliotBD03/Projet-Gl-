@@ -46,8 +46,8 @@
 
       <div class = "invited" v-if="permission == null">
         <p class = "text"> <b>{{ $t("GestionExtClaire.invited") }} </b></p>
-        <div v-if="wallet.invitedClients && wallet.invitedClients.length !== 0">
-          <div v-for="invited in wallet.invitedClients" :key="invited.id">
+        <div v-if="wallet.invitedClient && wallet.invitedClient.length !== 0">
+          <div v-for="invited in wallet.invitedClient" :key="invited.id">
             <p> <b>{{ $t("GestionExtClaire.invitedName") }} :</b> {{ invited.invitedName }}</p>
             <p> <b>Mail :</b> {{ invited.invitedMail }}</p>
             <p> <b>Permission :</b> {{ invited.permission }}</p>
@@ -124,7 +124,7 @@ export default {
         else {
           const data = await response.json();
           this.wallet = data.wallet;
-          
+          console.log(data.wallet.invitedClient);
           this.wallet.isHouse ? this.typeOfHouse = "walletform.typeHouse1" : this.typeOfHouse = "walletform.typeOfHouse2" ;
           this.wallet.isElectricityToCharge ? this.typeOfCharge = "walletform.typeCharge1" : this.typeOfCharge = "walletform.typeCharge2" ;
           this.wallet.solarPanels ? this.solarPanels = "walletform.solarPanel1" : this.solarPanels = "walletform.solarPanel2" ;

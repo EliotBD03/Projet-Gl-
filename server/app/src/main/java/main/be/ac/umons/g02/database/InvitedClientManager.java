@@ -37,13 +37,11 @@ public class InvitedClientManager
      * @author 
      */
     public Object[] getAllInvitedClients(String address, int base, int limit)
-    {
-        String query = "SELECT invitedTable.invitedId, invitedTable.permission," + 
-                "(SELECT name FROM user WHERE id = invitedTable.invitedId) AS invitedName," +
-                "(SELECT mail FROM user WHERE id = invitedTable.invitedId) AS invitedMail" +
-                " FROM invitedTable" +
-                " WHERE invitedTable.address = "+address+
-                " LIMIT "+base+", "+limit;
+    {   
+        String query = "SELECT invitedTable.invitedId, invitedTable.permission, "+
+                "user.name AS invitedName, user.mail AS invitedMail " + 
+                "FROM invitedTable JOIN user ON invitedTable.invitedId = user.id "+
+                "WHERE invitedTable.address = '"+address +"'";
 
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("permission", "invitedName", "invitedId", "invitedMail").getTable();
 
@@ -52,11 +50,10 @@ public class InvitedClientManager
 
         ArrayList<InvitedClient> invitedClients = getInvitedClients(table);
 
-        query = "SELECT count(*) AS c FROM (SELECT invitedTable.invitedId, invitedTable.permission,"+ 
-                "(SELECT name FROM user WHERE id = invitedTable.invitedId) AS invitedName," +
-                "(SELECT mail FROM user WHERE id = invitedTable.invitedId) AS invitedMail" +
-                " FROM invitedTable" +
-                " WHERE invitedTable.address ="+address+")";
+        query = "SELECT COUNT(*) AS 'c' FROM ( SELECT invitedTable.invitedId, invitedTable.permission, "+
+                "user.name AS invitedName, user.mail AS invitedMail " + 
+                "FROM invitedTable JOIN user ON invitedTable.invitedId = user.id "+
+                "WHERE invitedTable.address = '"+address+"') a";
         int count = new Query(query).executeAndGetResult("c").getIntElem(0,0);
 
         return new Object[] {count, invitedClients};

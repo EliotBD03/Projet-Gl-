@@ -71,6 +71,7 @@ class WalletManagerTest
     @Order(5)
     void getAllInvitedWallets() //Extension Claire
     {
+        DB.getInstance().executeQuery("DELETE FROM invitedTable",false);
         new InvitedClientManager().addInvited("2", "address2", "1", "R");
         ArrayList<WalletBasic> expected = ((ArrayList<WalletBasic>) new WalletManager().getAllInvitedWallets("1",0,1)[1]);
         assertNotNull(expected);

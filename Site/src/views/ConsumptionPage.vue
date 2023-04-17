@@ -15,9 +15,11 @@
             <div @click.prevent.left="exportData()">
                 <GoButton text="button.export" :colore="'#34c98e'"/>
             </div>
-            <input type="file" id="csv-file" accept=".csv"/>
-            <div @click.prevent.left="importData()">
-                <GoButton text="button.import" :colore="'#34c98e'"/>
+            <div v-if="permission != 'R'">
+              <input type="file" id="csv-file" accept=".csv"/>
+              <div @click.prevent.left="importData()">
+                  <GoButton text="button.import" :colore="'#34c98e'"/>
+              </div>
             </div>
             <div @click.prevent.left="changeMode(true)">
                 <GoButton text="button.graphic" :colore="'#34c98e'"/>
