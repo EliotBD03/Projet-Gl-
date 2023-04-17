@@ -283,5 +283,19 @@
     "alertAcceptInvitation": "You have accepted the invitation",
     "alertRefuseInvitation": "You have declined the invitation",
     "noInvitation": "No invitations"
+  },
+  "invoice": {
+    "actualproposal": "Actual proposal",
+    "proposal": "Your proposal",
+    "name": "Account name",
+    "number": "Account number",
+    "expirationdate": "Expiration date",
+    "paiementdate": "Payment date",
+    "list": "View invoices list",
+    "associatedcontract": "Associated contract",
+    "annualamount": "Annual amount",
+    "mensualamount": "Monthly amount",
+    "method": "Payment method",
+    "remaining": "Remaining"
   }
 }

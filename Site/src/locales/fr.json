@@ -282,5 +282,19 @@
     "alertAcceptInvitation": "Vous avez accepté l'invitation",
     "alertRefuseInvitation": "Vous avez refusé l'invitation",
     "noInvitation": "Pas d'invitations"
+  },
+  "invoice": {
+    "actualproposal": "Proposition actuelle",
+    "proposal": "Votre proposition",
+    "name": "Nom du compte",
+    "number": "Numéro de compte",
+    "expirationdate": "Date d'expiration",
+    "paiementdate": "Date de paiement",
+    "list": "Liste des factures",
+    "associatedcontract": "Contrat associé",
+    "annualamount": "Montant annuel",
+    "mensualamount": "Montant mensuel",
+    "method": "Méthode de paiement",
+    "remaining": "Restant à payer"
   }
 }
