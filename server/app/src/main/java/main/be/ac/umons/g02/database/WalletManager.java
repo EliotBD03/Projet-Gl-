@@ -113,7 +113,7 @@ public class WalletManager
 
         walletFull.setLastConsumption(Double.parseDouble(row.get(4)), Double.parseDouble(row.get(3)), Double.parseDouble(row.get(5)));
 
-        ArrayList<ContractBasic> contractBasics =(ArrayList<ContractBasic>) new ContractManager().getAllContracts(walletFull.getClientId(), 0, -1)[1];
+        ArrayList<ContractBasic> contractBasics = new ContractManager().getWalletContracts(row.get(2), address);
         walletFull.addContracts(contractBasics);
 
         ArrayList<InvitedClient> invitedClients =(ArrayList<InvitedClient>) new InvitedClientManager().getAllInvitedClients(walletFull.getAddress(), 0, -1)[1];

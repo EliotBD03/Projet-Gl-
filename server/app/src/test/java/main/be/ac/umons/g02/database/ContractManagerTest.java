@@ -108,13 +108,25 @@ class ContractManagerTest
 
     @Test
     @Order(9)
+    void getWalletContracts()
+    {
+        ContractBasic toBetested = new ContractManager().getWalletContracts("1", "address").get(0);
+        assertEquals(toBetested.getClientId(), expected.getClientId());
+        assertEquals(toBetested.getClientName(), expected.getClientName());
+        assertEquals(toBetested.getEan(), expected.getEan());
+        //On ne teste pas tout (on part du principe que le formatage des objets est testés avant)
+
+    }
+
+    @Test
+    @Order(10)
     void getAddress()
     {
         assertEquals("address", new ContractManager().getAddress("1"));
     }
 
     @Test
-    @Order(10)
+    @Order(11)
     void deleteContract()
     {
         new ContractManager().deleteContractAndNotify("1", "1");

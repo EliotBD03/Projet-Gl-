@@ -130,6 +130,32 @@ public class ContractManager
     }
 
     /**
+     * Récupère tous les contrats liés à un certain portefeuille.
+     * @param clientId l'identifiant du client
+     * @param address l'adresse du portefeuille
+     * @return une arraylist de ContractBasic (vide si aucun contrat)
+     */
+    public ArrayList<ContractBasic> getWalletContracts(String clientId, String address)
+    {
+        ArrayList<String> contractIdsLinkedToAddress = new Query("SELECT contract_id FROM wallet_contract WHERE address='"+address+"'")
+                .executeAndGetResult("contract_id")
+                .getColumn(0);
+
+        if(contractIdsLinkedToAddress.size() == 0)
+            return new ArrayList<>();
+
+        ArrayList<ContractBasic> contractBasics = (ArrayList<ContractBasic>) getAllContracts(clientId,0, -1)[1];
+        ArrayList<ContractBasic> contractLinkedToWallet = new ArrayList<>();
+
+        for(ContractBasic contractBasic : contractBasics)
+            for(String contractIdLinkedToAddress : contractIdsLinkedToAddress)
+                if(contractBasic.getContractId().equals(contractIdLinkedToAddress))
+                    contractLinkedToWallet.add(contractBasic);
+
+        return contractLinkedToWallet;
+    }
+
+    /**
      * Supprime un contrat avec un identifiant donné et envoie une notification de suppression.
      *
      * @param contractId l'identifiant du contrat
