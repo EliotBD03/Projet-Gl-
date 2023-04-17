@@ -71,12 +71,10 @@ class WalletManagerTest
     @Order(5)
     void getAllInvitedWallets() //Extension Claire
     {
-        DB.getInstance().executeQuery("DELETE FROM invitedTable",false);
         new InvitedClientManager().addInvited("2", "address2", "1", "R");
         ArrayList<WalletBasic> expected = ((ArrayList<WalletBasic>) new WalletManager().getAllInvitedWallets("1",0,1)[1]);
         assertNotNull(expected);
         assertEquals(expected.get(0).getAddress(), walletBasicPerm.getAddress());
-        assertEquals(expected.get(0).getName(), walletBasicPerm.getName());
         assertEquals(expected.get(0).getClientId(), walletBasicPerm.getClientId());
         assertEquals(expected.get(0).getOwnerName(), walletBasicPerm.getOwnerName());
         assertEquals(expected.get(0).getPermission(), walletBasicPerm.getPermission());

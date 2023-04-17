@@ -15,11 +15,9 @@
             <div @click.prevent.left="exportData()">
                 <GoButton text="button.export" :colore="'#34c98e'"/>
             </div>
-            <div v-if="permission != 'R'">
-              <input type="file" id="csv-file" accept=".csv"/>
-              <div @click.prevent.left="importData()">
+              <input v-if="permission != 'R'" type="file" id="csv-file" accept=".csv"/>
+              <div v-if="permission != 'R'" @click.prevent.left="importData()">
                   <GoButton text="button.import" :colore="'#34c98e'"/>
-              </div>
             </div>
             <div @click.prevent.left="changeMode(true)">
                 <GoButton text="button.graphic" :colore="'#34c98e'"/>
@@ -36,8 +34,10 @@
             </div>
             <div class="infos">
                 <div class="container">
+                    <div class="item">
                         <canvas ref="myChart" id="chart"></canvas>
                         <canvas ref="myChart2" id="chart2" style="display: none;"></canvas>
+                    </div>
                     <div class="tableH" id="table" style="display: none;">
                         <div>
                             <div v-for="(date, index) in listDate" :key="index" class="cellule">
@@ -814,20 +814,20 @@ export default {
 }
 
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 1000px;
-    max-width: 1000px;
-    height: 400px;
-    background: rgb(236, 236, 236);
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 1000px;
+  height: 400px;
+  background: rgb(236, 236, 236);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-.container > *{
-    display: block;
-    width: 40%;
+.item{
+  overflow-y: scroll;
+  display: fixed;
+  width: 80%;
 }
 
 .newconsumption {

@@ -90,6 +90,7 @@ import GoButton from "@/components/GoButton.vue";
 import MainHeader from "@/components/MainHeader.vue";
 import Swal from 'sweetalert2';
 import GlobalMethods from "@/components/GlobalMethods.vue";
+import Promise from 'bluebird';
 export default {
   components: {
     GoButton,
@@ -138,6 +139,14 @@ export default {
   },
   methods: {
     /**
+     * Cette méthode permet d'attendre un peu avant de revenir en arrière pour laisser le temps à la pop-up
+     * de s'afficher.
+     */
+    async wait(){
+      await Promise.delay(2000);
+      this.back();
+    },
+    /**
     * Cette méthode permet de supprimer un portefeuille.
     * 
     * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
@@ -158,7 +167,7 @@ export default {
                 title: this.$t("alerts.good"),
                 text: this.$t("alerts.deletedwallet")
               })
-              this.$router.push({name: 'Wallets'});
+              this.wait();
             }
           })
           .catch(error => {
@@ -210,12 +219,21 @@ export default {
               return response.json().then(json => Promise.reject(json));
             }
             else{
-              Swal.fire({
-                icon: 'success',
-                title: this.$t("alerts.good"),
-                text: this.$t("GestionExtClaire.alertDelete")
-              })
-              this.$router.push({name: 'InvitedWallets'});
+              if(this.permission == "R" || this.permission == "RW"){
+                Swal.fire({
+                  icon: 'success',
+                  title: this.$t("alerts.good"),
+                  text: this.$t("GestionExtClaire.alertLeave")
+                })
+              }
+              else{
+                Swal.fire({
+                  icon: 'success',
+                  title: this.$t("alerts.good"),
+                  text: this.$t("GestionExtClaire.alertDelete")
+                })
+              }
+              this.wait();
             }
           })
           .catch(error => {
@@ -246,7 +264,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 110vh;
+  height: 100vh;
 }
 
 .header {
@@ -262,7 +280,6 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 0 50px;
-    margin-top: 50px;
     width: 90%;
 }
 
@@ -285,7 +302,7 @@ export default {
   border-radius: 50px;
   background: #e0e0e0;
   box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
-  width: 33.33%;
+  width: 40%;
   margin-right: 2%;
   margin-left: 3%;
 }
@@ -295,7 +312,7 @@ export default {
 }
 
 .contract {  
-  width: 33.33%;
+  width: 40%;
   height: 40%;
   overflow-y: scroll;
   border-radius: 50px;

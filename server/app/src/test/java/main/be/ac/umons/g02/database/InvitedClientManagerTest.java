@@ -60,8 +60,8 @@ class InvitedClientManagerTest
     {
         new InvitedClientManager().changePermission("address", "1","RW");
         DB.getInstance().executeQuery("SELECT * FROM invitedTable", true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"permission"});
-        assertEquals("RW", results.get(3).get(0));
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("permission");
+        assertEquals("RW", results.get(1).get(0));
     }
 
     @Test

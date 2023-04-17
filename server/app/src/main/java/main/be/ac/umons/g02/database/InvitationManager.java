@@ -20,8 +20,11 @@ public class InvitationManager
      */
     public boolean createInvitation(String senderId, String receiverId, String address, String permission, String nameSender, String type)
     {
-        if(new Query("SELECT EXISTS(SELECT * FROM user WHERE id='"+receiverId+"') AS c").executeAndGetResult("c").getIntElem(0,0) == 0 && senderId == receiverId){
-                return false;
+        if(new Query("SELECT EXISTS(SELECT * FROM user WHERE id='"+receiverId+"') AS c").executeAndGetResult("c").getIntElem(0,0) == 0){
+            return false;
+        }
+        else if(senderId.equals(receiverId)){
+            return false;
         }
         else{
             System.out.println("je suis une patate");
