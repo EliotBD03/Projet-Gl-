@@ -88,7 +88,7 @@ public class InvitedClientManager
 
     public boolean addInvited(String ownerId, String address, String invitedClientId, String permission)
     {
-        String query = "SELECT * FROM invitedTable WHERE address = "+address+" AND invitedId ="+invitedClientId+"";
+        String query = "SELECT * FROM invitedTable WHERE address = '"+address+"' AND invitedId ="+invitedClientId;
 
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("permission", "invitedId", "invitedName", "invitedMail").getTable();
 
