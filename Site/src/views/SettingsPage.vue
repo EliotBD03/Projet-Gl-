@@ -66,26 +66,31 @@ export default {
     methods: {
         /*Sauvegarder la langue dans les cookies et afficher un message de confirmation*/
         langChanged() {
-            const requestsOptions = {
-                method: "PUT",
-                headers: {'Authorization': this.$cookies.get("token")},
-            }
-            fetch("https://babawallet.alwaysdata.net/api/common/languages/actual_language/" + this.language, requestsOptions)
-                .then(response => {
-                    if(!response.ok){
-                        return response.json().then(json => Promise.reject(json));
-                    }
-                    return response.json();
-                })
-                .then(Swal.fire({
-                    icon: 'success',
-                    title: this.$t('alerts.good'),
-                    text: this.$t('alerts.languagechanged'),
-                }))
-                .then(GlobalMethods.isAClient())
-                .catch(error => {
-                    GlobalMethods.errorApi(error.error);
-                });
+          const requestsOptions = {
+              method: "PUT",
+              headers: {'Authorization': this.$cookies.get("token")},
+          }
+          fetch("https://babawallet.alwaysdata.net/api/common/languages/actual_language/" + this.language, requestsOptions)
+              .then(response => {
+                  if(!response.ok)
+                      throw new Error(response.error);
+                  else
+                  {
+                      Swal.fire({
+                          icon: 'success',
+                          title: this.$t('alerts.good'),
+                          text: this.$t('alerts.languagechanged'),
+                          });
+                      GlobalMethods.isAClient();
+                  }
+              })
+              .catch(error => {
+                  if(error.message === "error.unauthorizedAccess")
+                      GlobalMethods.errorToken();
+                  else{
+                      GlobalMethods.errorApi(error.message);
+                  }
+              });
         },
         /*Méthode pour rediriger vers la page d'accueil*/
         redirecting() {
@@ -135,7 +140,7 @@ export default {
                 .catch(error => {
                     if(error.error === "error.unauthorizedAccess")
                         GlobalMethods.errorToken();
-                    else if(error.message === "stillContract")
+                    else if(error.error === "stillContract")
                         Swal.fire(this.$t("alerts.stillcontracts"));
                     else
                         GlobalMethods.errorApi(error.error);
