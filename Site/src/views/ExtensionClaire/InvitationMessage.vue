@@ -206,7 +206,7 @@
         */
 				seen(invitationId){
 					const requestOptions = {
-						method: "POST",
+						method: "DELETE",
 						headers: {'Authorization': this.$cookies.get("token")}
 					};
 					fetch(`https://babawallet.alwaysdata.net/api/client/invitedWallets/invitations/${invitationId}`, requestOptions)

@@ -34,10 +34,8 @@
             </div>
             <div class="infos">
                 <div class="container">
-                    <div style="display: block;">
                         <canvas ref="myChart" id="chart"></canvas>
                         <canvas ref="myChart2" id="chart2" style="display: none;"></canvas>
-                    </div>
                     <div class="tableH" id="table" style="display: none;">
                         <div>
                             <div v-for="(date, index) in listDate" :key="index" class="cellule">
@@ -813,10 +811,17 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     width: 1000px;
+    max-width: 1000px;
     height: 400px;
     background: rgb(236, 236, 236);
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.container > *{
+    display: block;
+    width: 40%;
 }
 
 .newconsumption {
