@@ -25,7 +25,7 @@ class InvitedClientManagerTest
     @AfterAll
     static void clean()
     {
-        DB.getInstance().executeQuery("DELETE FROM invitedTable",false);
+        DB.getInstance().executeQuery("Truncate FROM invitedTable",false);
         DB.getInstance().executeQuery("DELETE FROM user",false);
         DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
     }
@@ -60,8 +60,8 @@ class InvitedClientManagerTest
     {
         new InvitedClientManager().changePermission("address", "1","RW");
         DB.getInstance().executeQuery("SELECT * FROM invitedTable", true);
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults("permission");
-        assertEquals("RW", results.get(1).get(0));
+        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"permission"});
+        assertEquals("RW", results.get(0).get(0));
     }
 
     @Test

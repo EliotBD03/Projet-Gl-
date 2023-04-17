@@ -12,14 +12,14 @@ class WalletManagerTest
 {
 
     private final WalletBasic walletBasic = new WalletBasic("address", "name", "1", "YOU", 1, 50, true, true, true);
-    private final WalletBasic walletBasicPerm = new WalletBasic("address2", "name", "2", "YOU", 1, 50, true, true, true, "R"); //Extension Claire
-
+    private final WalletBasic walletBasicPerm = new WalletBasic("address", "name", "1", "YOU", 1, 50, true, true, true, "R"); //Extension Claire
+    private final WalletBasic walletBasicPerm1 = new WalletBasic("address2", "name", "1", "YOU", 1, 50, true, true, true, "R"); //Extension Claire
     @BeforeAll
     static void setUp() throws Exception
     {
         DBTest.setUp();
         new LogManager().saveAccount("NEVER", "GONNA", true, "YOU", "UP");
-
+        new LogManager().saveAccount("Bobby", "password", true, "mail", "english");
     }
 
     @AfterAll
@@ -29,6 +29,7 @@ class WalletManagerTest
        DB.getInstance().executeQuery("DELETE FROM wallet",false);
        DB.getInstance().executeQuery("DELETE FROM invitedTable",false); //Extension Claire
        new LogManager().deleteAccount("1");
+       new LogManager().deleteAccount("2");
        DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
     }
 
@@ -37,7 +38,7 @@ class WalletManagerTest
     void createWallet()
     {
         assertTrue(new WalletManager().createWallet(walletBasic));
-        assertTrue(new WalletManager().createWallet(walletBasicPerm)); //Extension Claire
+        assertTrue(new WalletManager().createWallet(walletBasicPerm1)); //Extension Claire
     }
     @Test
     @Order(2)
@@ -51,8 +52,8 @@ class WalletManagerTest
     @Order(3)
     void walletIsEmptyPermission() //Extension Claire
     {
-        DB.getInstance().executeQuery("INSERT INTO invitedTable(address, invitedId, ownerId, permission) VALUES('address2', 0, 5, 'R')",false); //Extension Claire
-        assertFalse(new WalletManager().walletIsEmpty("address2"));
+        DB.getInstance().executeQuery("INSERT INTO invitedTable(address, invitedId, ownerId, permission) VALUES('address2', 9, 5, 'R')",false); //Extension Claire
+        assertFalse(new WalletManager().walletIsEmpty(walletBasicPerm1.getAddress()));
         assertTrue(new WalletManager().walletIsEmpty("addres"));
     }
     @Test
@@ -71,10 +72,11 @@ class WalletManagerTest
     @Order(5)
     void getAllInvitedWallets() //Extension Claire
     {
-        new InvitedClientManager().addInvited("2", "address2", "1", "R");
-        ArrayList<WalletBasic> expected = ((ArrayList<WalletBasic>) new WalletManager().getAllInvitedWallets("1",0,1)[1]);
+        new InvitedClientManager().addInvited("1", "address", "2", "R");
+        ArrayList<WalletBasic> expected = ((ArrayList<WalletBasic>) new WalletManager().getAllInvitedWallets("2",0,1)[1]);
         assertNotNull(expected);
         assertEquals(expected.get(0).getAddress(), walletBasicPerm.getAddress());
+        assertEquals(expected.get(0).getName(), walletBasicPerm.getName());
         assertEquals(expected.get(0).getClientId(), walletBasicPerm.getClientId());
         assertEquals(expected.get(0).getOwnerName(), walletBasicPerm.getOwnerName());
         assertEquals(expected.get(0).getPermission(), walletBasicPerm.getPermission());
@@ -104,9 +106,8 @@ class WalletManagerTest
     void deleteWallet()
     {
         WalletManager walletManager = new WalletManager();
-        System.out.println("ici toto");
         assertTrue(walletManager.deleteWallet("nhjgkfldms"));
         assertFalse(walletManager.deleteWallet(walletBasic.getAddress()));
-        assertFalse(walletManager.deleteWallet(walletBasicPerm.getAddress())); //Extension Claire
+        assertFalse(walletManager.deleteWallet(walletBasicPerm1.getAddress())); //Extension Claire
     }
 }
