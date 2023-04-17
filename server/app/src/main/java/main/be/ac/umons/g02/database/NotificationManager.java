@@ -63,7 +63,7 @@ public class NotificationManager
      */
     public Object[] getAllNotifications(String idUser, int base, int limit)
     {
-        String query = "SELECT * FROM notification WHERE receiver_id="+idUser + " LIMIT "+ base+", "+limit;
+        String query = "SELECT * FROM notification WHERE receiver_id="+idUser + " ORDER BY creation_date DESC LIMIT "+ base+", "+limit;
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult
                 (
                         "notification_id", "sender_id", "receiver_id", "linked_contract", "linked_proposal_name",
