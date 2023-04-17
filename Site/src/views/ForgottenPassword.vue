@@ -18,7 +18,7 @@
           <GoButton text="button.newcode" :colore="'gray'"/>
           </div>
           <div @click.prevent.left="back()">
-          <GoButton text="button.back" :colore="'gray'"/>
+          <GoButton text="button.back" :colore="'red'"/>
           </div>
       </div>
     </div>
@@ -31,7 +31,6 @@
   import Swal from 'sweetalert2';
   import InputMain from "@/components/InputMain.vue";
   export default {
-    name: "forgotForm",
     components: {InputMain, GoButton,MainHeader},
     data(){
       return{
@@ -39,47 +38,40 @@
         newPassword: '',
         repeatedPassword: ''
       }},
-    /*Méthode pour charger la langue sauvegardée en cookie*/
-    mounted() {
-      if (this.$cookies.get("lang")) {
-        this.$i18n.locale = this.$cookies.get("lang");
-      } else {
-        this.$cookies.set("lang", this.$i18n.locale)
-      }
-    },
-      /*Récupère le mail dans les cookies et l'envoie vers l'api pour que l'utilisateur puisse avoir le code*/
+      /*A la création de la page, récupère le mail dans les cookies et l'envoie vers l'api pour que l'utilisateur puisse avoir le code*/
       created(){
           this.getCode();
+          GlobalMethods.getCurrentLanguage();
       },
       methods: {
         /*Méthode qui vérifie si les champs sont bien remplis sinon envoie une pop-up.
           Vérifie également si les mots de passe sont identiques*/
         checkArgs(){
           if(!this.code) Swal.fire(this.$t("alerts.entercode"));
-          if(!this.newPassword) Swal.fire(this.$t("alerts.pwd"));
-          if(!this.repeatedPassword) Swal.fire(this.$t("alerts.pwdconfirm"));
-          if(this.repeatedPassword !== this.newPassword) Swal.fire(this.$t("alerts.pwdmatch"));
+          else if(!this.newPassword) Swal.fire(this.$t("alerts.pwd"));
+          else if(!this.repeatedPassword) Swal.fire(this.$t("alerts.pwdconfirm"));
+          else if(this.repeatedPassword !== this.newPassword) Swal.fire(this.$t("alerts.pwdmatch"));
           else return true;
         },
-        /*Méthode qui envoie le code reçu par mail et le nouveau mot de passe vers l'api si checkArgs() 
-          est true quand l'utilisateur clique sur submit.
-          Si la requête est incorrecte, l'api renvoie un message d'erreur
-          Si elle est correcte affiche une pop-up de succès et redirige*/
+        /**Méthode qui envoie le code reçu par mail et le nouveau mot de passe vers l'api si checkArgs() 
+        * est true quand l'utilisateur clique sur submit.
+        * Si la requête est incorrecte, l'api renvoie un message d'erreur
+        * Si elle est correcte affiche une pop-up de succès et redirige
+        *
+        * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+        */
         post(){
           if(this.checkArgs())
           {
             const requestOptions = {
               method: "PUT",
-              body: JSON.stringify({ code: this.code, newPwd: this.newPassword })
+              body: JSON.stringify({ code: this.code, new_pwd: this.newPassword, mail: this.$cookies.get("mail") })
             };
             fetch("https://babawallet.alwaysdata.net/log/renitialize_pwd", requestOptions)
               .then(response => {
                   if(!response.ok){
-                    const data = response.json();
-                    GlobalMethods.errorApi(data.error);
                     this.$cookies.remove('mail');
-                    this.$router.push("/");
-                    throw new Error(data.error);   
+                    throw response.json();  
                   }
                   else{
                     this.$cookies.remove('mail');
@@ -92,7 +84,11 @@
                   }
               }) 
               .catch(error => {
-                console.error(error);
+                error.then(data => {
+                  GlobalMethods.errorApi(data.error);
+                  console.error("Error", data.error);
+                  this.$router.push("/");
+                });
               });
           }
         },
@@ -114,6 +110,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999; 
 }
 
 .main {
@@ -121,7 +118,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 105vh;
+  height: 100vh;
 }
 
   .forgot-form {
@@ -133,8 +130,7 @@
     height: 700px;
     border-radius: 50px;
     background: #e0e0e0;
-    box-shadow: 20px 20px 60px #bebebe,
-    -20px -20px 60px #ffffff;
+    box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
   }
 
   .headText {

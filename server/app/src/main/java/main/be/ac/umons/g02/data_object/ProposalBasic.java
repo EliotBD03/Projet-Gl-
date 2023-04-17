@@ -6,7 +6,14 @@ public class ProposalBasic
     protected String providerId;
     protected String nameProvider;
     protected String typeOfEnergy;
+    /*
+    location est une séquence de 3 bits :
+        le premier bit : la région Wallone
+        le second bit : la région flamande
+        le troisième bit : la région Bruxelles-Capitale
+    */
     protected String location;
+
 
     public ProposalBasic(String nameProposal, String providerId, String nameProvider, String typeOfEnergy, String location)
     {

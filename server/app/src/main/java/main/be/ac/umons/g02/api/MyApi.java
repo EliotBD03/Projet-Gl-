@@ -1,5 +1,8 @@
 package main.be.ac.umons.g02.api;
 
+import main.be.ac.umons.g02.App;
+import main.be.ac.umons.g02.database.CommonDB;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
@@ -14,6 +17,7 @@ import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import io.vertx.ext.auth.PubSecKeyOptions;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
+
 import java.util.Map;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -32,6 +36,8 @@ import java.util.concurrent.*;
 public class MyApi extends AbstractVerticle
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyApi.class);
+
+    private final CommonDB commonDB = new CommonDB();
 
     private static final int pageDefaultSize = 10;
     private static final int pageMaxSize = 20;
@@ -72,11 +78,12 @@ public class MyApi extends AbstractVerticle
             port = new Integer(env.get("PORT"));
         }
 
-        if(!env.containsKey("PASSPHRASE") || !env.containsKey("CODETOCLEAN"))
+        if(!env.containsKey("PASSPHRASE") || !env.containsKey("CODETOCLEAN") || !env.containsKey("CODETODELETECODE"))
             System.exit(1);
 
         passPhrase = env.get("PASSPHRASE");
         codeToClean = env.get("CODETOCLEAN");
+        App.setCodeToDeleteCode(env.get("CODETODELETECODE"));
 
         jwt = JWTAuth.create(vertx, new JWTAuthOptions()
                 .addPubSecKey(new PubSecKeyOptions()
@@ -85,13 +92,15 @@ public class MyApi extends AbstractVerticle
 
         final Router router = Router.router(vertx);
 
-		router.route().handler(routingContext -> HandlerUtils.handleSite(routingContext));
+        router.route().handler(routingContext -> HandlerUtils.handleSite(routingContext));
         router.options("/*").handler(this::handleOptionsRequest);
         router.route("/api/*").handler(routingContext -> HandlerUtils.handleToken(routingContext));
         router.route("/api/client/*").handler(routingContext -> HandlerUtils.handleRoleClient(routingContext));
         router.route("/api/provider/*").handler(routingContext -> HandlerUtils.handleRoleProvider(routingContext));
         router.route("/api/common/*").handler(routingContext -> HandlerUtils.handleRoleCommon(routingContext));
-        router.get("/clear_blacklist/:code").handler(this::cleanExpiredTokens);
+        router.get("/timer_task/clear_blacklist/:code").handler(this::cleanExpiredTokens);
+        router.get("/timer_task/clear_codelist/:code").handler(routingContext -> App.automaticDeleteCode(routingContext));
+        router.get("/timer_task/clear_contract/:code").handler(this::cleanExpiredContract);
 
         logApi = new LogApi();
         clientApi = new ClientApi();
@@ -123,9 +132,27 @@ public class MyApi extends AbstractVerticle
     }
 
     /**
+     * Méthode qui permet de vérifier si un token est expiré en regardant la valeur de exp
+     */
+    private static boolean isExpired(String token)
+    {
+        String[] parts = token.split("\\.");
+        String payload = new String(Base64.getDecoder().decode(parts[1]), StandardCharsets.UTF_8);
+
+        javax.json.JsonObject jsonPayload = javax.json.Json.createReader(new StringReader(payload)).readObject();
+
+        long exp = jsonPayload.getJsonNumber("exp").longValueExact();
+
+        if(Instant.ofEpochSecond(exp).isBefore(Instant.now()))
+            return true;
+        return false;
+    }
+
+    /**
      * Méthode qui permet de supprimer les tokens qui sont dans la blacklist et qui sont périmés
      * Cette méthode est appelée toutes les 5 minutes par une tâche planifiée d'alwaysdata
      *
+     * @param routingContext - Le contexte de la requête
      */
     private void cleanExpiredTokens(final RoutingContext routingContext)
     {
@@ -140,14 +167,7 @@ public class MyApi extends AbstractVerticle
             {
                 String token = iterator.next();
 
-                String[] parts = token.split("\\.");
-                String payload = new String(Base64.getDecoder().decode(parts[1]), StandardCharsets.UTF_8);
-
-                javax.json.JsonObject jsonPayload = javax.json.Json.createReader(new StringReader(payload)).readObject();
-
-                long exp = jsonPayload.getJsonNumber("exp").longValueExact();
-
-                if(Instant.ofEpochSecond(exp).isBefore(Instant.now()))
+                if(isExpired(token))
                     iterator.remove();
             }
 
@@ -161,8 +181,39 @@ public class MyApi extends AbstractVerticle
                 .setStatusCode(401)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "You are not authorized to do this operation.")));
+                            .put("error", "error.unauthorizedOperation")));
     }
+
+    /**
+     * Méthode qui permet d'appeler une méthode du package base de données pour supprimer les contracts finis.
+     * Cette méthode est appelée tous les jours par une tâche planifiée d'alwaysdata
+     *
+     * @param routingContext - Le contexte de la requête
+     */
+    private void cleanExpiredContract(final RoutingContext routingContext)
+    {
+        LOGGER.info("CleanExpiredContract...");
+
+        String code = routingContext.pathParam("code");
+
+        if(codeToClean.equals(code))
+        {
+            commonDB.getContractManager().deleteExpiredContracts();
+
+            routingContext.response()
+                .setStatusCode(200)
+                .putHeader("Content-Type", "application/json")
+                .end();
+        }
+        else
+            routingContext.response()
+                .setStatusCode(401)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.unauthorizedOperation")));
+    }
+
+
 
     /**
      * Méthode qui permet de gérer la pagination
@@ -174,8 +225,8 @@ public class MyApi extends AbstractVerticle
      */
     protected int[] getSlice(final RoutingContext routingContext)
     {
-        final String stringPage = routingContext.request().getParam("page");
-        final String stringLimit = routingContext.request().getParam("limit");
+        String stringPage = routingContext.request().getParam("page");
+        String stringLimit = routingContext.request().getParam("limit");
 
         int[] slice = {0, 0};
 
@@ -207,7 +258,7 @@ public class MyApi extends AbstractVerticle
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "Page and limit numbers must be integers.")));
+                            .put("error", "error.pageLimit")));
             return null;
         }
 
@@ -217,13 +268,34 @@ public class MyApi extends AbstractVerticle
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The page number must be strictly greater than 0 or the search phrase must not be empty.")));
+                            .put("error", "error.pageNumber")));
             return null;
         }
 
         slice[0] =(page - 1) * slice[1];
 
         return slice;
+    }
+
+    /**
+     * Méthode qui sert à calculer le nombre de page restante
+     *
+     * @param totalNumber - Le nombre total d'élément
+     * @param limit - La taille d'une page
+     */
+    protected int getNumberOfPagesRemaining(int totalNumber, int limit)
+    {
+        int numberOfPagesRemaining = 0;
+
+        while(totalNumber >= limit)
+        {
+            totalNumber -= limit;
+            numberOfPagesRemaining++;
+        }
+        if(totalNumber > 0)
+            numberOfPagesRemaining++;
+
+        return numberOfPagesRemaining;
     }
 
     /**
@@ -241,13 +313,13 @@ public class MyApi extends AbstractVerticle
                 .setStatusCode(400)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "The query is missing information.")));
+                            .put("error", "error.missingInformation")));
             return true;
         }
 
         return false;
     }
-    
+
     /**
      * Méthode qui permet de vérifier que les headers de CORS sont corrects
      *
@@ -255,13 +327,40 @@ public class MyApi extends AbstractVerticle
      */
     private void handleOptionsRequest(RoutingContext routingContext)
     {
+        LOGGER.info("Check CORS...");
+
         String origin = routingContext.request().getHeader(HttpHeaders.ORIGIN);
         routingContext.response()
             .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin)
             .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE,OPTIONS")
-            .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type")
+            .putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization")
             .setStatusCode(200)
             .end();
+    }
+
+    /**
+     * Méthode qui permet de récupérer la valeur d'une clé qui est dans le token
+     *
+     * @param token - Le token qui contient l'objet
+     * @param routingContext - Le contexte de la requête
+     */
+    public static String getDataInToken(RoutingContext routingContext, String key)
+    {
+        String token = routingContext.request().getHeader("Authorization");
+        String[] parts = token.split("\\.");
+        String payload = new String(Base64.getDecoder().decode(parts[1]), StandardCharsets.UTF_8);
+
+        javax.json.JsonObject jsonPayload = javax.json.Json.createReader(new StringReader(payload)).readObject();
+
+        String data = jsonPayload.getString(key, null);
+
+        if(data == null)
+            routingContext.response()
+                .setStatusCode(400)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.tokenMissingInformation")));
+        return data;
     }
 
     /**
@@ -282,11 +381,11 @@ public class MyApi extends AbstractVerticle
             String origin = routingContext.request().getHeader(HttpHeaders.ORIGIN);
             LOGGER.info("origin " + origin);
 
-            if(routingContext.request().path().contains("/clear_blacklist/") || origin != null && origin.startsWith("https://babawallet-site.alwaysdata.net"))
+            if(true)//routingContext.request().path().contains("/timer_task/") || origin != null && origin.startsWith("https://babawallet-site.alwaysdata.net"))
             {
                 routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin);
                 routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE, OPTIONS");
-                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type");
+                routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization");
 
                 routingContext.next();
             }
@@ -295,7 +394,7 @@ public class MyApi extends AbstractVerticle
                     .setStatusCode(401)
                     .putHeader("content-type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this site.")));
+                                .put("error", "error.unauthorizedAccess ")));
         }
 
         /**
@@ -310,27 +409,25 @@ public class MyApi extends AbstractVerticle
         {
             LOGGER.info("Check Token...");
 
-            JWTAuthHandler.create(MyApi.jwt);
-
             String token = routingContext.request().headers().get("Authorization");
-            if(token == null || token.length() <= 7 || !token.substring(7).equals("Bearer "))
+            if(token == null || token.length() <= 7 || !(token.substring(0, 7).equals("Bearer ")))
             {
                 routingContext.response()
                     .setStatusCode(401)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this part of the site.")));
+                                .put("error", "error.unauthorizedAccess")));
                 return;
             }
 
             token = token.substring(7);
 
-            if(MyApi.blackList.contains(token))
+            if(isExpired(token) || MyApi.blackList.contains(token))
                 routingContext.response()
                     .setStatusCode(401)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this part of the site.")));
+                                .put("error", "error.unauthorizedAccess")));
             else
                 routingContext.next();
         };
@@ -345,15 +442,17 @@ public class MyApi extends AbstractVerticle
         {
             LOGGER.info("Check Role Client...");
 
-            String role = routingContext.user().principal().getString("role");
-            if(role != null && role.equals("client"))
+            String role = null;
+            if(((role = MyApi.getDataInToken(routingContext, "role")) == null)) return;
+
+            if(role.equals("client"))
                 routingContext.next();
             else
                 routingContext.response()
                     .setStatusCode(401)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this part of the site.")));
+                                .put("error", "error.unauthorizedAccess")));
         };
 
         /**
@@ -366,15 +465,17 @@ public class MyApi extends AbstractVerticle
         {
             LOGGER.info("Check Role Provider...");
 
-            String role = routingContext.user().principal().getString("role");
-            if(role != null && role.equals("provider"))
+            String role = null;
+            if(((role = MyApi.getDataInToken(routingContext, "role")) == null)) return;
+
+            if(role.equals("supplier"))
                 routingContext.next();
             else
                 routingContext.response()
                     .setStatusCode(401)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this part of the site.")));
+                                .put("error", "error.unauthorizedAccess")));
         };
 
         /**
@@ -387,15 +488,19 @@ public class MyApi extends AbstractVerticle
         {
             LOGGER.info("Check Role Common...");
 
-            String role = routingContext.user().principal().getString("role");
-            if(role != null && (role.equals("client") || role.equals("provider")))
+            String role = null;
+            if(((role = MyApi.getDataInToken(routingContext, "role")) == null)) return;
+
+            if(role.equals("client") || role.equals("supplier"))
+            {
                 routingContext.next();
+            }
             else
                 routingContext.response()
                     .setStatusCode(401)
                     .putHeader("Content-Type", "application/json")
                     .end(Json.encodePrettily(new JsonObject()
-                                .put("error", "You are not authorized to access this part of the site.")));
+                                .put("error", "error.unauthorizedAccess")));
         };
     }
 }

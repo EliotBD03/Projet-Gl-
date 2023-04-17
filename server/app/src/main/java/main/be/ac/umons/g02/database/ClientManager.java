@@ -4,57 +4,103 @@ import main.be.ac.umons.g02.data_object.ClientBasic;
 
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class ClientManager
 {
-    private ArrayList<ClientBasic> getClientBasics()
+    /**
+     * Renvoie tous les clients suites à une précédente requête faite dans les autres méthodes.
+     *
+     *  @return une ArrayList de tuples clients
+     */
+    private ArrayList<ClientBasic> getClientBasics(ArrayList<ArrayList<String>> results)
     {
-        ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"id", "name", "mail"});
 
         ArrayList<ClientBasic> clientBasics = new ArrayList<>();
-        if(results.get(0) == null)
-        {
-            return null;
-        }
 
-        for(int i = 0; i < results.get(0).size();i++)
-        {
-            clientBasics.add(new ClientBasic(results.get(0).get(i), results.get(1).get(i), results.get(2).get(i)));
-        }
+        if(results.get(0) == null)
+            return null;
+
+        for(int i = 0; i < results.size();i++)
+            clientBasics.add(new ClientBasic(results.get(i).get(0), results.get(i).get(1), results.get(i).get(2)));
 
         return clientBasics;
     }
-    public ArrayList<ClientBasic> getAllClients(int base, int limit)
+
+    /**
+     * Renvoie n'importe quel client de la table client.
+     *
+     *  @param base la borne inférieure
+     * @param limit le nombre d'éléments
+     * @return renvoie tous les clients dans un intervalle [base, base + limit] (une arraylist) en plus de la taille de la table
+     */
+    public Object[] getAllClients(int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN (SELECT id FROM client) LIMIT "+base+", "+(base+limit),true);
-        return getClientBasics();
+        String query = "SELECT * FROM user WHERE id IN (SELECT client_id FROM client) LIMIT "+base+", "+limit;
+        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("id", "name", "mail").getTable();
+
+        if(table.equals(Table.EMPTY_TABLE))
+            return new Object[] {0, Table.EMPTY_TABLE};
+
+        ArrayList<ClientBasic> clientBasics = getClientBasics(table);
+
+        int count = new Query("SELECT count(*) AS c FROM client").executeAndGetResult("c").getIntElem(0,0);
+
+        return new Object[] {count, clientBasics};
     }
 
     /**
-     * "SELECT * FROM user WHERE id in (SELECT client_id FROM wallet WHERE address IN (SELECT address FROM wallet_contract WHERE contract_id IN (SELECT contract_id FROM provider_contract WHERE provider_id="+provider_id+"))) LIMIT "+base+","+base+limit
+     * Renvoie tous les clients d'un fournisseur.
+     *
+     *  @param providerId l'identifiant du fournisseur
+     * @param base la borne inférieure
+     * @param limit le nombre d'éléments
+     * @return renvoie tous les clients dans un intervalle [base, base + limit] (une arraylist) et le nombre TOTAL de clients associés au fournisseur
      */
-    public ArrayList<ClientBasic> getAllHisClients(String providerId, int base, int limit)
+    public Object[] getAllHisClients(String providerId, int base, int limit)
     {
-        DB.getInstance().executeQuery("SELECT * FROM user WHERE id IN "+
+        String query = "SELECT * FROM user WHERE id IN "+
                 "(SELECT client_id FROM wallet WHERE address IN "+
                 "(SELECT address FROM wallet_contract WHERE contract_id IN "+
                 "(SELECT contract_id FROM provider_contract WHERE provider_id="+providerId+"))) "+
-                "LIMIT "+base+", "+base+limit,true);
+                "LIMIT "+base+", "+limit;
 
-        return getClientBasics();
+        ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("id", "name", "mail").getTable();
+
+        if(table.equals(Table.EMPTY_TABLE))
+            return new Object[] {0, new ArrayList<ClientBasic>()};
+
+        ArrayList<ClientBasic> clientBasics = getClientBasics(new Query(query).executeAndGetResult("id", "name", "mail").getTable());
+
+        query = "SELECT count(*) AS c FROM user WHERE id IN "+
+                "(SELECT client_id FROM wallet WHERE address IN "+
+                "(SELECT address FROM wallet_contract WHERE contract_id IN "+
+                "(SELECT contract_id FROM provider_contract WHERE provider_id="+providerId+"))) ";
+        int count = new Query(query).executeAndGetResult("c").getIntElem(0,0);
+
+        return new Object[] {count, clientBasics};
     }
 
+    /**
+     * Supprime un client d'un fournisseur.
+     *
+     *  @param providerId l'id du fournisseur
+     * @param clientId l'id du client à supprimer
+     */
+
+    /*
+    SELECT a.contract_id FROM (SELECT * FROM provider_contract WHERE provider_id=2) a INNER JOIN (SELECT * FROM wallet_contract WHERE address IN (SELECT address FROM wallet WHERE client_id=1)) b ON a.contract_id = b.contract_id;
+     */
     public void deleteClient(String providerId, String clientId)
     {
-        DB.getInstance().executeQuery("SELECT contract_id FROM contract WHERE provider_id="+providerId+ " AND client_id=" +clientId, true);
-        ArrayList<String> contracts = DB.getInstance().getResults(new String [] {"address"}).get(0);
-        for(int i = 0; i < contracts.size(); i++)
-        {
-            DB.getInstance().executeQuery("DELETE FROM wallet_contract WHERE contract_id="+contracts.get(i), false);
-            DB.getInstance().executeQuery("DELETE FROM provider_contract WHERE contract_id="+contracts.get(i), false);
-            DB.getInstance().executeQuery("DELETE FROM counter WHERE contract_id="+contracts.get(i), false);
-            DB.getInstance().executeQuery("DELETE FROM contract WHERE contract_id="+contracts.get(i), false);
-        }
+        String query = "SELECT a.contract_id FROM (SELECT * FROM provider_contract WHERE provider_id="+providerId+") a"+
+                " INNER JOIN (SELECT * FROM wallet_contract WHERE address IN (SELECT address FROM wallet WHERE client_id=" +clientId+")) b"+
+                " ON a.contract_id = b.contract_id";
+        ArrayList<String> contracts = new Query(query).executeAndGetResult("contract_id").getColumn(0);
+
+        String[] tables = {"wallet_contract", "provider_contract", "counter", "contract"};
+
+        for (String contract : contracts)
+            for (String table : tables)
+                new Query("DELETE FROM " + table + " WHERE contract_id=" + contract).executeWithoutResult();
     }
 }

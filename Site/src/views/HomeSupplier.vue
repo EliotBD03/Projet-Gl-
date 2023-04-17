@@ -4,9 +4,9 @@
       <MainHeader text="header.home"/>
     </div>
     <div class="allcards">
-      <MainCard :text="$t('maincard.clients')"/>
-      <MainCard :text="$t('header.contracts')"/>
-      <MainCard text="$t('header.notifications')"/>
+      <MainCard :text="$t('maincard.clients')" redir="Clients"/>
+      <MainCard :text="$t('header.contracts')" redir="ContractsSupplier"/>
+      <MainCard :text="$t('header.notifications')" redir="Notifications"/>
     </div>
     <div class="bottombutton">
       <div class="disconnectbutton" @click.prevent.left="callDisconnect()">
@@ -31,18 +31,14 @@ components: {
   MainHeader
   },
   methods: {
-    /*Méthode qui permet la déconnexion de l'utilisateur*/
+    /*Méthode qui permet la déconnexion de l'utilisateur à l'aide de GlobalMethods*/
     callDisconnect(){
       GlobalMethods.disconnect("/");
     }
   },
   /*Méthode pour charger la langue sauvegardée en cookie*/
-  mounted() {
-    if (this.$cookies.get("lang")) {
-      this.$i18n.locale = this.$cookies.get("lang");
-    } else {
-      this.$cookies.set("lang", this.$i18n.locale)
-    }
+  created() {
+    GlobalMethods.getCurrentLanguage();
   }
 };
 </script>

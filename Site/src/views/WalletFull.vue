@@ -1,34 +1,85 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text= {{ wallet.name }}/>
-    </div>
-    <div class ="list">
-      <p> General information : </p>
-      <p> Owner : {{ wallet.nameOwner }}</p>
-      <p> Address : {{ wallet.address }}</p>
-      <p> Last consumptions :</p>
-      <p> Electricity : {{ wallet.lastConsumptionOfWater }}</p>
-      <p> Gas : {{ wallet.lastConsumptionOfGas }}</p>
-      <p> Water : {{ wallet.lastConsumptionOfElectricity }}</p>
-      <p> Associated contracts :</p>
-      <div v-for="contract in wallet.listContracts" :key="contract.id">
-        <p> nom = {{ contract.nom }}</p>
-        <p> conso = {{ contract.conso }}</p>
-        <p> prix = {{ contract.prix }}</p>
-        <p>--------------------------</p>
-        <!-- A voir pour le bouton Go, il faut que contract.vue soit fait-->
+      <MainHeader :text="wallet.name"/>
+      <div class = "permission"> 
+        <p v-if="permission == 'R'">{{ $t("GestionExtClaire.R") }}</p> 
+        <p v-else-if="permission == 'RW'">{{ $t("GestionExtClaire.RW") }}</p> 
+        <p v-else>{{ $t("GestionExtClaire.gestion") }}</p>
       </div>
+    </div>
+    <div class = "container">
+      <div class ="list">
+          <p class ="text"> <b>{{ $t("client.generalinformations") }} </b></p>
+          <p> <b>{{ $t("wallet.owner") }} :</b> {{ wallet.ownerName}}</p>
+        <p> <b>{{ $t("proposal.address") }} :</b> {{ wallet.address }}</p>
+        <p> <b>{{ $t("wallet.numberOfResidents") }} :</b> {{ wallet.numberOfResidents}}</p>
+        <p> <b>{{ $t("wallet.sizeOfHouse") }} (m²) :</b> {{ wallet.sizeOfHouse}}</p>
+        <p> <b>{{ $t("wallet.typeOfHouse") }} :</b> {{ $t(typeOfHouse) }}</p>
+        <p> <b>{{ $t("wallet.typeOfCharge") }} :</b> {{ $t(typeOfCharge) }}</p>
+        <p> <b>{{ $t("wallet.solarPanels") }} :</b> {{ $t(solarPanels) }}</p>
+        <p> <b>{{ $t("wallet.lastconsumptions") }} :</b></p>
+        <p v-if="wallet.lastConsumptionOfWater"><b>{{ $t("proposal.water") }} :</b> {{ $t("client.noinformation") }}</p>
+          <p v-else><b>{{ $t("proposal.water") }} :</b> {{ wallet.lastConsumptionOfWater }}</p>
+        <p v-if="wallet.lastConsumptionOfGas"><b>{{ $t("proposal.gas") }} :</b> {{ $t("client.noinformation") }}</p>
+        <p v-else><b>{{ $t("proposal.gas") }} :</b> {{ wallet.lastConsumptionOfGas }}</p>
+        <p v-if="wallet.lastConsumptionOfElectricity"><b>{{ $t("proposal.electricity") }} :</b> {{ $t("client.noinformation") }}</p>
+        <p v-else><b>{{ $t("proposal.electricity") }} :</b> {{ wallet.lastConsumptionOfElectricity }}</p>
+      </div>
+      <div class = "contract">
+        <p class = "text"> <b>{{ $t("client.associatedcontracts") }} </b></p>
+        <div v-if="wallet.contracts && wallet.contracts.length !== 0">
+          <div v-for="contract in wallet.contracts" :key="contract.id">
+            <p> <b>{{ $t("account.provider") }} :</b> {{ contract.providerName }}</p>
+            <p> <b>{{ $t("client.eancode") }} :</b> {{ contract.ean }}</p>
+            <div v-if="permission != 'R' && permission != 'RW'" @click.prevent.left="seeMore(contract)">
+              <GoButton text="button.go" :colore="'#34c98e'"/>
+            </div>
+            <div class="consumptionsbutton" @click.prevent.left="seeConsumptions(contract)">
+              <GoButton text="header.consumption" :colore="'#B1B9FC'"/>
+            </div>
+            <p><b>--------------------------</b></p>
+          </div>
+        </div>
+        <div v-else> <b>{{ $t("client.noinformation") }}</b></div>
+      </div>
+
+      <div class = "invited" v-if="permission == null">
+        <p class = "text"> <b>{{ $t("GestionExtClaire.invited") }} </b></p>
+        <div v-if="wallet.invitedClient && wallet.invitedClient.length !== 0">
+          <div v-for="invited in wallet.invitedClient" :key="invited.id">
+            <p> <b>{{ $t("GestionExtClaire.invitedName") }} :</b> {{ invited.invitedName }}</p>
+            <p> <b>Mail :</b> {{ invited.invitedMail }}</p>
+            <p> <b>Permission :</b> {{ invited.permission }}</p>
+            <div @click.prevent.left="deleteClient(invited.invitedId)">
+              <GoButton text="GestionExtClaire.deleteClient" :colore="'#34c98e'"/>
+            </div>
+            <div @click.prevent.left="modifyPerm(invited.invitedId)">
+              <GoButton text="GestionExtClaire.permission" :colore="'#34c98e'"/>
+            </div>
+            <p><b>--------------------------</b></p>
+          </div>
+        </div>
+        <div v-else> <b>{{ $t("client.noinformation") }}</b></div>
+      </div>
+
     </div>
     <div class="bottombutton">
       <div class="backbutton" @click.prevent.left="back()">
-      <GoButton text="Back"/>
+      <GoButton text="button.back" :colore="'red'"/>
       </div>
-      <div class="consumptionsbutton" @click.prevent.left="$router.push({name: 'Consumptions'})">
-      <GoButton text="Consumptions"/>
+
+      <div v-if="permission === 'R' || permission === 'RW'" class="closebutton" @click.prevent.left="deleteClient('no')">
+      <GoButton text="GestionExtClaire.leave" :colore="'red'"/>
       </div>
-      <div class="closebutton" @click.prevent.left="deleteWallet()">
-      <GoButton text="Close the wallet"/>
+
+      <div v-else>
+        <div @click.prevent.left="$router.push({ name: 'AddInvited' })">
+        <GoButton text="GestionExtClaire.addClient" :colore="'green'"/>
+        </div>
+        <div class="closebutton" @click.prevent.left="deleteWallet()">
+        <GoButton text="button.closewallet" :colore="'red'"/>
+        </div>
       </div>
     </div>
   </div>
@@ -39,6 +90,7 @@ import GoButton from "@/components/GoButton.vue";
 import MainHeader from "@/components/MainHeader.vue";
 import Swal from 'sweetalert2';
 import GlobalMethods from "@/components/GlobalMethods.vue";
+import Promise from 'bluebird';
 export default {
   components: {
     GoButton,
@@ -46,86 +98,160 @@ export default {
   },
   data(){
     return{
-      address : JSON.parse(sessionStorage.getItem('address')),
-      wallet : ''
+      address : sessionStorage.getItem('address'),
+      permission : sessionStorage.getItem("permission"),
+      wallet : [],
+      typeOfHouse: "",
+      typeOfCharge: "",
+      solarPanels: ""
     }},
-  /*Méthode pour charger la langue sauvegardée en cookie*/
-  mounted() {
-    if (this.$cookies.get("lang")) {
-      this.$i18n.locale = this.$cookies.get("lang");
-    } else {
-      this.$cookies.set("lang", this.$i18n.locale)
-    }
-  },
-  /*Méthode qui récupère le wallet pour lequel on veut plus d'informations à la création de la vue*/
+  /**
+  * Cette méthode récupère le portefeuille pour lequel on veut plus d'informations à la création de la vue.
+  * 
+  * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+  */
   async created(){
+    GlobalMethods.getCurrentLanguage();
     const requestOptions = {
       method: "GET",
       headers: {'Authorization' : this.$cookies.get("token")}
     };
     try {
-      const response = await fetch("https://babawallet.alwaysdata.net/api/client/wallets/:${address}",requestOptions);
-      if (!response.ok) {
-        if(response.status == 401){
-          this.$cookies.remove("token");
-          this.$cookies.remove("role");
-          Swal.fire('Your connection has expired');
-          this.$router.push("/");
-          throw new Error(response.status);
-        }
-        else{
+      const response = await fetch(`https://babawallet.alwaysdata.net/api/client/wallets/${this.address}`,requestOptions);
+        if (!response.ok) { 
           const data = await response.json();
-          GlobalMethods.errorApi(data.error);
           throw new Error(data.error);
+        } 
+        else {
+          const data = await response.json();
+          this.wallet = data.wallet;
+          console.log(data.wallet.invitedClient);
+          this.wallet.isHouse ? this.typeOfHouse = "walletform.typeHouse1" : this.typeOfHouse = "walletform.typeOfHouse2" ;
+          this.wallet.isElectricityToCharge ? this.typeOfCharge = "walletform.typeCharge1" : this.typeOfCharge = "walletform.typeCharge2" ;
+          this.wallet.solarPanels ? this.solarPanels = "walletform.solarPanel1" : this.solarPanels = "walletform.solarPanel2" ;
         }
-      } else {
-        const data = await response.json();
-        this.wallet = data.wallet;
-      }
-    } catch (error) {
-      console.error(error);
+    } catch(error) {
+        if(error.message === "error.unauthorizedAccess")
+            GlobalMethods.errorToken();
+          else
+            GlobalMethods.errorApi(error.message);
     }
   },
   methods: {
-    /* Méthode permettant de supprimer un portefeuille*/
+    /**
+     * Cette méthode permet d'attendre un peu avant de revenir en arrière pour laisser le temps à la pop-up
+     * de s'afficher.
+     */
+    async wait(){
+      await Promise.delay(2000);
+      this.back();
+    },
+    /**
+    * Cette méthode permet de supprimer un portefeuille.
+    * 
+    * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+    */
     deleteWallet() {
       const requestOptions = {
         method: "DELETE",
         headers: {'Authorization' : this.$cookies.get("token")}
       };
-      fetch("https://babawallet.alwaysdata.net/api/client/wallets/:${address}", requestOptions)
+      fetch(`https://babawallet.alwaysdata.net/api/client/wallets/${this.address}`, requestOptions)
           .then(response => {
             if(!response.ok){
-              if(response.status == 401){
-                this.$cookies.remove("role");
-                this.$cookies.remove("token");
-                Swal.fire('Your connection has expired');
-                this.$router.push("/");
-                throw new Error(response.status);
-              }
-              else{
-                const data = response.json();
-                GlobalMethods.errorApi(data.error);
-                throw new Error(data.error);
-              }
+              return response.json().then(json => Promise.reject(json));
             }
             else{
               Swal.fire({
                 icon: 'success',
-                title: 'Good !',
-                text: 'Wallet deleted !'
+                title: this.$t("alerts.good"),
+                text: this.$t("alerts.deletedwallet")
               })
-              this.$router.push({name: 'Wallets'});
+              this.wait();
             }
           })
           .catch(error => {
-            console.error(error);
+            if(error.error === "error.unauthorizedAccess")
+              GlobalMethods.errorToken();
+            else
+              GlobalMethods.errorApi(error.error);
           });
     },
-    /*Retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
+    /*Cette méthode permet de retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
+    /*Extension Claire : permet de retourner aussi à la page InvitedWallet*/
     back(){
-      sessionStorage.removeItem('address');
-      this.$router.push({name: 'Wallets'});
+      if(this.permission == "R" || this.permission == "RW"){
+        sessionStorage.clear();
+        this.$router.push({name: 'InvitedWallets'});
+      }
+      else{
+        sessionStorage.clear();
+        this.$router.push({name: 'Wallets'});
+      }
+    },
+    /*Méthode permettant de sauvegarder le contrat sur lequel on souhaite plus d'informations et rediriger vers contratFull*/
+    seeMore(contract){
+      sessionStorage.setItem('walletName', this.wallet.name);
+      sessionStorage.setItem('walletAddress', this.wallet.address);
+      sessionStorage.setItem('idContract', contract.contractId);
+      this.$router.push( {name: "ContractFull"} );
+    },
+
+    seeConsumptions(contract){
+      sessionStorage.setItem('ean', contract.ean);
+      sessionStorage.setItem('contractId', contract.contractId);
+      this.$router.push({name: 'Consumptions'});
+    },
+    /**
+    * Cette méthode permet de supprimer un invité dans le cas où c'est le propriétaire du portefeuille qui le souhaite.
+    * 
+    * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+    * @author Extension Claire
+    */
+    deleteClient(id){
+      const requestOptions = {
+        method: "DELETE",
+        headers: {'Authorization' : this.$cookies.get("token")}
+      };
+      fetch(`https://babawallet.alwaysdata.net/api/client/invitedClients/${this.address}/${id}`, requestOptions)
+          .then(response => {
+            if(!response.ok){
+              return response.json().then(json => Promise.reject(json));
+            }
+            else{
+              if(this.permission == "R" || this.permission == "RW"){
+                Swal.fire({
+                  icon: 'success',
+                  title: this.$t("alerts.good"),
+                  text: this.$t("GestionExtClaire.alertLeave")
+                })
+              }
+              else{
+                Swal.fire({
+                  icon: 'success',
+                  title: this.$t("alerts.good"),
+                  text: this.$t("GestionExtClaire.alertDelete")
+                })
+              }
+              this.wait();
+            }
+          })
+          .catch(error => {
+            if(error.error === "error.unauthorizedAccess")
+              GlobalMethods.errorToken();
+            else
+              GlobalMethods.errorApi(error.error);
+          });
+    },
+    /**
+    * Cette méthode de rediriger vers ChangePermissions en enregistrant l'id de l'invité dont on souhaite changer les permissions.
+    * 
+    * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+    * @author Extension Claire
+    */
+    modifyPerm(id){
+      sessionStorage.setItem('invitedID', id);
+      this.$router.push({name: 'ChangePermissions'});
     }
   }
 };
@@ -136,7 +262,8 @@ export default {
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 }
 
@@ -144,19 +271,79 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999; 
 }
 
 .bottombutton {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 50px;
-  margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+    width: 90%;
 }
 
-.list{
-  margin-top : 10%;
-  text-align: center;
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  overflow: auto;
+  margin: 0 auto;
+  height: 100vh;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+  width: 40%;
+  margin-right: 2%;
+  margin-left: 3%;
+}
+
+.list > * {
+  margin-bottom: 5px;
+}
+
+.contract {  
+  width: 40%;
+  height: 40%;
+  overflow-y: scroll;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+  margin-right: 3%;
+}
+
+.invited {  
+  width: 33.3%;
+  height: 40%;
+  overflow-y: scroll;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+  margin-right: 3%;
+}
+
+
+.text{
+  color: rgb(138, 150, 253);
+  font-size: 30px;
+}
+
+.permission{
+  position: fixed;
+  margin-top: 20px;
+  margin-right: 20px;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+  font-size: 25px;
 }
 </style>

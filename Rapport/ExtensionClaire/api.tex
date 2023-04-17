@@ -1,0 +1,38 @@
+\subsection{API}
+
+\subsubsection{Introduction}
+
+\begin{flushleft}
+Dans cette partie, je vais vous expliquer les ajouts apportés à l'API de la base du projet. 
+\end{flushleft}
+\begin{flushleft}
+Notez que les ajouts se trouvent dans ClientApi de ce package étant donné que cette extension ne concerne que les clients.
+\end{flushleft}
+
+\subsubsection{ClientApi}
+
+\begin{flushleft}
+Vous pouvez remarquer l'ajout des méthodes suivantes afin de faire la passerelle entre le front-end et la base de données.
+\end{flushleft}
+
+\begin{enumerate}
+\item \textbf{getAllInvitedWallets} :\newline
+Cette méthode permet d'appeler la méthode de "WalletManager" expliquée précédemment dans le but d'obtenir les portefeuilles "invités" avec la permission liée. 
+\item \textbf{deleteInvitedClient} :\newline
+Cette méthode permet d'appeler la méthode de "InvitedClientManager" afin de supprimer un invité. 
+\item \textbf{changePermission} :\newline
+Cette méthode permet d'appeler la méthode de "InvitedClientManager" afin de changer la permission un invité. 
+\item \textbf{getAllInvitation} :\newline
+Cette méthode permet d'appeler la méthode de "InvitationManager" dans le but d'obtenir toutes les invitations et refus ou acceptations de ces dernières. 
+\item \textbf{proposeInvitation} :\newline
+Cette méthode permet d'appeler la méthode de "InvitationManager" afin d'envoyer une invitation à un autre client pour espérer l'ajouter à la liste des invités. 
+Cette méthode renvoie un code 500 si les conditions expliquées précédemment ne sont pas remplies.
+\item \textbf{acceptInvitation} :\newline
+Cette méthode permet d'appeler la méthode de "InvitationManager" afin d'accepter une invitation. 
+Cette méthode renvoie aussi un code 500 si les conditions expliquées précédemment ne sont pas remplies.
+\item \textbf{refuseInvitation} :\newline
+Cette méthode permet d'appeler la méthode de "InvitationManager" afin de refuser une invitation. 
+\item \textbf{deleteInvitation} :\newline
+Cette méthode permet d'appeler la méthode de "InvitationManager" afin de supprimer une invitation. 
+Cette dernière est également utile pour le front-end pour les invitations à marquer comme lues.
+\end{enumerate}

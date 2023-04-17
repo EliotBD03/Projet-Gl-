@@ -1,25 +1,28 @@
 <template>
   <div class="main">
     <div class="header">
-      <MainHeader text="header.wallets"/>
+      <MainHeader text= "header.wallets"/>
+      <div class = "permission"> {{ $t("GestionExtClaire.gestion") }} </div>
     </div>
     <div class="allcards">
-      <div v-infinite-scroll="loader">
-        <div class=cards v-for="wallet in listWallet" :key="wallet.id">
-          <div class="texte">
-          <p> {{ wallet.name }} :</p>
-          <p> {{ wallet.nameOwner }}</p>
+      <div class=cards v-for="wallet in listWallet" :key="wallet.id">
+        <div class="texte">
+          <p class="name"> {{ wallet.name }} </p>
+            <p><b>{{ $t("proposal.address") }} :</b></p>
           <p> {{ wallet.address }}</p>
-          </div>
-          <div @click.prevent.left="seeMore(wallet)">
-            <GoButton text="button.go" :colore="'#34c98e'"/>
-          </div>
-         <div v-if="loading">{{ $t("wallets.loading") }}</div>
         </div>
-        <AddWalletForm/>
+        <div @click.prevent.left="seeMore(wallet)">
+          <GoButton text="button.go" :colore="'#34c98e'"/>
+        </div>
+      </div>
+      <div v-if="notLastPage()" @click.prevent.left="loader()">
+        <GoButton text="button.seemore" :colore="'#B1B9FC'"/>
       </div>
     </div>
-    <div class="homebutton" @click.prevent.left="$router.push('/Home')">
+    <div @click.prevent.left="$router.push('/addWallet')">
+      <GoButton text="button.addwallet" :colore="'#B1B9FC'"/>
+    </div>
+    <div class="homebutton" @click.prevent.left="$router.push({ name: 'HomeClient' })">
       <GoButton text="header.home" :colore="'#B1B9FC'"/>
     </div>
   </div>
@@ -27,39 +30,32 @@
 <script>
 import MainHeader from "@/components/MainHeader.vue";
 import GoButton from "@/components/GoButton.vue";
-import AddWalletForm from "@/components/AddWalletForm.vue";
 import Swal from 'sweetalert2';
 import GlobalMethods from "@/components/GlobalMethods.vue";
 export default {
   components : {
     GoButton,
     MainHeader,
-    AddWalletForm
-  },
-  /*Méthode pour charger la langue sauvegardée en cookie*/
-  mounted() {
-    if (this.$cookies.get("lang")) {
-      this.$i18n.locale = this.$cookies.get("lang");
-    } else {
-      this.$cookies.set("lang", this.$i18n.locale)
-    }
   },
   data(){
     return{
       linkApi : "https://babawallet.alwaysdata.net/api/client/wallets/",
       nbr : 1,
       loading : false,
-      listWallet: [
-        { name: "Item 1", nameOwner: "BOb", address: "Rue ll", lastConsumptionOfWater: 10, lastConsumptionOfGas: 44, lastConsumptionOfElectricity: 90, listContracts: [{nom: "Engie", conso: "10000", prix : "400000"}, {nom: "paee", conso: "9000", prix : "5000"}]},
-
-        ]
+      lastPage : 0,
+      listWallet: []
     }},
   /*Au moment de la création on récupère déjà la première page de l'api*/
   created() {
+    GlobalMethods.getCurrentLanguage();
     this.getPage();
   },
   methods: {
-    /*Méthode permettant de récupérer les pages des wallets de l'Api en scrollant */
+    /**
+    * Cette méthode permet de récupérer les pages des portefeuilles de l'Api avec le bouton seeMore (+à la création de la page).
+    * 
+    * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
+    */
     async getPage(){
       const requestOptions = {
         method: "GET",
@@ -67,44 +63,55 @@ export default {
       };
       this.loading = true; //bloquer les demandes de loader pendant ce temps.
       try {
-        const response = await fetch("${linkApi}page?page=${nbr}", requestOptions);
+        const response = await fetch(`${this.linkApi}page?page=${this.nbr}&limit=3`, requestOptions);
         if (!response.ok) { 
-          if(response.status == 401){
-            this.$cookies.remove("token");
-            this.$cookies.remove("role");
-            Swal.fire('Your connection has expired');
-            this.$router.push("/");
-            throw new Error(response.status);
-          }
-          else{
             const data = await response.json();
-            GlobalMethods.errorApi(data.error);
             throw new Error(data.error);
-          }
         } else {
           const data = await response.json(); 
-          this.listWallet.push(data); //ajouter la suite de la réponse à la liste
+          this.lastPage = data.last_page;
+          console.log(data.last_page)
+          if(this.lastPage == 0){
+              this.loading = true;
+              Swal.fire(this.$t("alerts.nowallet"));
+          }
+          else if(this.lastPage >= this.nbr){
+            this.listWallet.push(data.wallets); //ajouter la suite de la réponse à la liste
+            this.listWallet = this.listWallet.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
+            this.loading = false;
+          }
         }
-      } catch (error) {
-        console.error(error);
+      } catch(error) {
+          if(error.message === "error.unauthorizedAccess")
+              GlobalMethods.errorToken();
+          else {
+              GlobalMethods.errorApi(error.message);
+          }
       }
-      this.loading = false;
     },
-    /*Lorsque l'utilisateur scrolle, cette méthode est appelée 
+    /*Lorsque l'utilisateur appuie sur SeeMore, cette méthode est appelée 
     pour augmenter le nombre de la page et appeler getPage*/
     loader()
     {
-      if(!this.loading)
+       if(!this.loading)
       {
         this.nbr++;
         this.getPage();
       }
     },
-    /*On sauvegarde l'adresse du wallet sur lequel on souhaite plus d'informations
-    et on redirige vers walletFull*/
+    /*Méthode permettant de vérifier si la dernière page n'a pas encore été chargée 
+    ou si on est pas en cours de chargement*/
+    notLastPage(){
+      if(this.lastPage == this.nbr || this.loading == true){
+        return false;
+      }
+      return true;
+    },
+    /*Méthode permettant de sauvegarder l'adresse du portefeuille sur lequel on souhaite plus d'informations
+    et rediriger vers walletFull*/
     seeMore(wallet){
       sessionStorage.setItem('address', wallet.address);
-      this.$router.push({name: "WalletsFull"});
+      this.$router.push( {name: "WalletFull"} );
     }
   }
 }
@@ -116,6 +123,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999; 
 }
 
 .main {
@@ -123,19 +131,19 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 100vh;
 }
 
 .homebutton {
   display: flex;
   justify-content: center;
 }
-
 .allcards {
   display: flex;
   align-items: center;
-  flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin-top: 10vh;
 }
 
 .cards {
@@ -143,11 +151,13 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  width: 400px;
-  height: 500px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  margin: 10px;
+  width: 250px;
+  height: 400px;
+  box-shadow: 0 15px 50px rgba(177, 185, 252, 1);
+  margin: 20px;
+  border-radius: 30px;
 }
+
 
 .texte {
   display: flex;
@@ -155,5 +165,20 @@ export default {
   align-items: center;
   justify-content: center;
   margin: 50px;
+}
+
+.name {
+  color: rgb(138, 150, 253);
+  font-size: 30px;
+ }
+
+ .permission{
+  position: fixed;
+  margin-top: 50px;
+  margin-right: 20px;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+  font-size: 25px;
 }
 </style>

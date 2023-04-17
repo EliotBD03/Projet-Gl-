@@ -72,7 +72,7 @@ DROP TABLE IF EXISTS `contract`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contract` (
   `contract_id` int(10) NOT NULL AUTO_INCREMENT,
-  `proposal_name` varchar(10) DEFAULT NULL,
+  `proposal_name` varchar(30) DEFAULT NULL,
   `ean` varchar(18) DEFAULT NULL,
   `provider_id` int(10) DEFAULT NULL,
   `address` varchar(42) DEFAULT NULL,
@@ -110,6 +110,7 @@ DROP TABLE IF EXISTS `counter`;
 CREATE TABLE `counter` (
   `ean` varchar(18) NOT NULL,
   `contract_id` int(10) DEFAULT NULL,
+  `assignment_date` timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ean`),
   KEY `contract_id` (`contract_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -161,10 +162,10 @@ CREATE TABLE `notification` (
   `notification_id` int(10) NOT NULL AUTO_INCREMENT,
   `sender_id` int(10) DEFAULT NULL,
   `receiver_id` int(10) DEFAULT NULL,
-  `linked_contract` varchar(30) DEFAULT NULL,
+  `linked_contract` int(10) DEFAULT NULL,
   `linked_proposal_name` varchar(30) DEFAULT NULL,
   `provider_id_proposal` int(10) DEFAULT NULL,
-  `context` varchar(25) DEFAULT NULL,
+  `context` varchar(255) DEFAULT NULL,
   `linked_ean`varchar(18) DEFAULT NULL,
   `linked_address`varchar(42) DEFAULT NULL,
   `creation_date` timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -195,12 +196,11 @@ CREATE TABLE `proposal` (
   `gas` binary(1) DEFAULT NULL,
   `electricity` binary(1) DEFAULT NULL,
   `fixed_rate` binary(1) DEFAULT NULL,
-  `peak_hours` double(6,2) DEFAULT NULL,
-  `offpeak_hours` double(6,2) DEFAULT NULL,
+  `peak_hours` double(6,2) DEFAULT 0.00,
+  `offpeak_hours` double(6,2) DEFAULT 0.00,
   `start_peak_hours` time DEFAULT NULL,
   `end_peak_hours` time DEFAULT NULL,
-  `price` double(6,2) DEFAULT NULL,
-  `location` binary(3) DEFAULT NULL,
+  `location` varchar(3) DEFAULT NULL,
   `duration` int(10) DEFAULT NULL,
   PRIMARY KEY (`proposal_name`,`provider_id`),
   KEY `provider_id` (`provider_id`),
@@ -304,6 +304,11 @@ CREATE TABLE `wallet` (
   `latest_consumption_elec` double(6, 2) DEFAULT 0,
   `latest_consumption_water` double(6, 2) DEFAULT 0,
   `latest_consumption_gas` double(6, 2) DEFAULT 0,
+  `number_of_residents` int(10) DEFAULT NULL,
+  `size_of_house` int(10) DEFAULT NULL,
+  `is_house` binary(1) DEFAULT NULL,
+  `is_electricity_to_charge` binary(1) DEFAULT NULL,
+  `solar_panels` binary(1) DEFAULT NULL,
   PRIMARY KEY (`address`),
   KEY `client_id` (`client_id`),
   CONSTRAINT `wallet_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`)

@@ -1,0 +1,19 @@
+\babel@toc {french}{}
+\babel@toc {french}{}
+\contentsline {section}{\numberline {1}Extension 1.6.1 : Gestion d’utilisateurs par D’Haene Claire}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Introduction}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Base de données}{4}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Introduction}{4}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Package dataobject}{5}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}Package database}{6}{subsubsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.3}API}{9}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Introduction}{9}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}ClientApi}{9}{subsubsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.4}Front-end}{10}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}Introduction}{10}{subsubsection.1.4.1}%
+\contentsline {subsubsection}{\numberline {1.4.2}AddInvited}{10}{subsubsection.1.4.2}%
+\contentsline {subsubsection}{\numberline {1.4.3}ChangePermissions}{10}{subsubsection.1.4.3}%
+\contentsline {subsubsection}{\numberline {1.4.4}InvitationMessage}{10}{subsubsection.1.4.4}%
+\contentsline {subsubsection}{\numberline {1.4.5}InvitedWallet}{10}{subsubsection.1.4.5}%
+\contentsline {subsubsection}{\numberline {1.4.6}WalletFull et consumptionPage}{11}{subsubsection.1.4.6}%
+\contentsline {subsection}{\numberline {1.5}Conclusion}{12}{subsection.1.5}%
