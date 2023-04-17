@@ -107,7 +107,9 @@ public class ClientApi extends MyApi implements RouterApi
 
         String address = routingContext.pathParam("address");
         String invitedId = routingContext.pathParam("id_invited");
-        if(invitedId == "no"){
+        LOGGER.info(invitedId);
+        if(invitedId.equals("no")){
+            LOGGER.info("je passe là");
             if(((invitedId = MyApi.getDataInToken(routingContext, "id")) == null)) return;
         }
 

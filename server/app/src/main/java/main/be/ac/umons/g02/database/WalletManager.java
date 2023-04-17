@@ -72,7 +72,10 @@ public class WalletManager
         for (ArrayList<String> row : table)
             walletBasics.add(new WalletBasic(row.get(0), row.get(1), row.get(2), new LogManager().getName(row.get(2)), row.get(3)));
 
-        int count = new Query("SELECT count(*) AS 'c' FROM wallet WHERE client_id="+clientId).executeAndGetResult("c").getIntElem(0,0);
+        int count = new Query("SELECT count(*) AS 'c' FROM" +" (SELECT w.*, inv.permission, ROW_NUMBER() OVER () AS row_number "+
+                        "FROM wallet w " +
+                        "JOIN invitedTable inv ON w.address COLLATE utf8mb4_unicode_ci = inv.address COLLATE utf8mb4_unicode_ci "+
+                        "WHERE inv.invitedId = "+ clientId + ") p").executeAndGetResult("c").getIntElem(0,0);
 
         return new Object[] {count,walletBasics};
     }

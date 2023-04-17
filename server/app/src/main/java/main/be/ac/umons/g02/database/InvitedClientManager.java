@@ -71,7 +71,7 @@ public class InvitedClientManager
      */
     public void deleteInvitedClient(String address, String invitedClientId)
     {
-        String query = "DELETE FROM invitedTable WHERE address = "+ address +" AND invitedId = "+ invitedClientId+"";
+        String query = "DELETE FROM invitedTable WHERE address = '"+ address +"' AND invitedId = "+ invitedClientId;
         new Query(query).executeWithoutResult();
     }
 
@@ -118,6 +118,6 @@ public class InvitedClientManager
      */
     public void changePermission(String address, String invitedClientId, String permission)
     {
-        new Query("UPDATE invitedTable SET permission="+permission+" WHERE address = "+address+" AND invitedId = "+invitedClientId+"").executeWithoutResult();
+        new Query("UPDATE invitedTable SET permission='"+permission+"' WHERE address = '"+address+"' AND invitedId = "+invitedClientId+"").executeWithoutResult();
     }
 }
