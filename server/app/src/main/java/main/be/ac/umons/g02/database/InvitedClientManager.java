@@ -96,7 +96,7 @@ public class InvitedClientManager
         {
             new Query("INSERT INTO invitedTable(" +
                     " address," +
-                    " invitedId" +
+                    " invitedId," +
                     " ownerId," +
                     " permission )" +
                     " VALUES("+ "'" +
