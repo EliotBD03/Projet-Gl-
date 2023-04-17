@@ -61,7 +61,7 @@ public class WalletManager
     {
         String query = "SELECT w.*, inv.permission, ROW_NUMBER() OVER () AS row_number "+
                         "FROM wallet w " +
-                        "JOIN invitedTable inv ON w.address COLLATE utf8mb4_unicode_ci = inv.address COLLATE utf8mb4_unicode_ci "+
+                        "JOIN invitedTable inv ON w.address COLLATE utf8mb4_unicode_ci = inv.address "+
                         "WHERE inv.invitedId = "+ clientId +" LIMIT " + base+", " + limit;
 
 
@@ -74,7 +74,7 @@ public class WalletManager
 
         int count = new Query("SELECT count(*) AS 'c' FROM" +" (SELECT w.*, inv.permission, ROW_NUMBER() OVER () AS row_number "+
                         "FROM wallet w " +
-                        "JOIN invitedTable inv ON w.address COLLATE utf8mb4_unicode_ci = inv.address COLLATE utf8mb4_unicode_ci "+
+                        "JOIN invitedTable inv ON w.address COLLATE utf8mb4_unicode_ci = inv.address "+
                         "WHERE inv.invitedId = "+ clientId + ") p").executeAndGetResult("c").getIntElem(0,0);
 
         return new Object[] {count,walletBasics};

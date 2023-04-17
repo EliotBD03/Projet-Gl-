@@ -43,4 +43,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  *   delftstack: https://www.delftstack.com/
  *   vertx: https://vertx.io/docs/
  *   tuto vertx: https://thierry-leriche-dessirier.developpez.com/tutoriels/java/creer-api-rest-vertx-5-minutes/
+ *   Collate: https://stackoverflow.com/questions/44027987/illegal-mix-of-collations-utf8mb4-unicode-ci-implicit-and-utf8mb4-general-ci
+ *	 row_number: https://learn.microsoft.com/fr-fr/sql/t-sql/functions/row-number-transact-sql?view=sql-server-ver16
 

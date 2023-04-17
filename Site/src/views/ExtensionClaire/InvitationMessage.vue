@@ -129,7 +129,11 @@
         */
 				async refresh(){
 					await Promise.delay(2000); //Ce délai permet d'afficher les pop-ups s'il y en a
-					window.location.reload();
+					this.nbr = 1;
+          this.listInvitation = [];
+          this.lastPage = 0;
+          this.loading = false;
+          await this.getPage();
 				},
 				/**
         * Cette méthode permet d'envoyer l'id d'invitation vers l'api afin d'accepter une invitation.
