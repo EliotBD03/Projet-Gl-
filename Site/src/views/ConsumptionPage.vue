@@ -669,9 +669,13 @@ export default {
         back() { // Méthdode qui permet de revenir à la page précédente en fonction de son rôle
             if(cookies.isKey("token") && cookies.isKey("role"))
             {
-                if(cookies.get("role") === 'client'){
+                if(cookies.get("role") === 'client' && this.permission != 'RW' && this.permission != 'R'){
                     sessionStorage.clear();
                     this.$router.push('/wallets');
+                }
+                else if(cookies.get("role") === 'client' && this.permission != null){
+                    sessionStorage.clear();
+                    this.$router.push('/invitedwallets');
                 }
                 else{
                     sessionStorage.removeItem('ean');

@@ -72,13 +72,16 @@
           } else {
             const data = await response.json(); 
             this.lastPage = data.last_page;
-            if(this.lastPage == 0){
+            console.log(data.last_page)
+            console.log(data.wallets)
+            if(this.lastPage == -1){ //temp  =0
                 this.loading = true;
                 Swal.fire(this.$t("alerts.nowallet"));
             }
-            else if(this.lastPage >= this.nbr){
+            else if(this.lastPage <= this.nbr){  //temp >=
               this.listWallet.push(data.wallets); //ajouter la suite de la réponse à la liste
               this.listWallet = this.listWallet.flat(); //transforme une liste multidimensionnelle en une liste à une seule dimension
+              console.log(this.listWallet)
               this.loading = false;
             }
           }
@@ -166,6 +169,10 @@
     align-items: center;
     justify-content: center;
     margin: 50px;
+  }
+
+.texte > * {
+  margin-bottom: 5px;
   }
   
   .name {

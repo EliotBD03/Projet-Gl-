@@ -70,6 +70,7 @@ export default {
         } else {
           const data = await response.json(); 
           this.lastPage = data.last_page;
+          console.log(data.last_page)
           if(this.lastPage == 0){
               this.loading = true;
               Swal.fire(this.$t("alerts.nowallet"));

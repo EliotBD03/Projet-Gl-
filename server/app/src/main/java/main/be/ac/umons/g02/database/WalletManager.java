@@ -59,10 +59,11 @@ public class WalletManager
      */
     public Object[] getAllInvitedWallets(String clientId, int base, int limit)
     {
-        String query = "SELECT wallet.*, invitedTable.permission FROM wallet " +
-        "JOIN invitedTable ON wallet.address COLLATE utf8mb4_unicode_ci = invitedTable.address COLLATE utf8mb4_unicode_ci "+
-        "WHERE invitedTable.invitedId COLLATE utf8mb4_unicode_ci ="+ clientId +" COLLATE utf8mb4_unicode_ci"
-        + " LIMIT " + base+", " + limit;
+        String query = "SELECT w.*, inv.permission, ROW_NUMBER() OVER () AS row_number "+
+                        "FROM wallet w " +
+                        "JOIN invitedTable inv ON w.address COLLATE utf8mb4_unicode_ci = inv.address COLLATE utf8mb4_unicode_ci "+
+                        "WHERE inv.invitedId = "+ clientId +" LIMIT " + base+", " + limit;
+
 
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("address", "wallet_name", "client_id", "permission").getTable();
 
