@@ -351,6 +351,61 @@ LOCK TABLES `wallet_contract` WRITE;
 /*!40000 ALTER TABLE `wallet_contract` DISABLE KEYS */;
 /*!40000 ALTER TABLE `wallet_contract` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+--
+-- Table structure for table `invitedTable`
+--
+
+DROP TABLE IF EXISTS `invitedTable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE invitedTable(
+    address varchar(42) PRIMARY KEY,
+    invitedId int(10) PRIMARY KEY,
+    ownerId int(10),
+    permission varchar(2),
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `invitedTable`
+--
+
+LOCK TABLES `invitedTable` WRITE;
+/*!40000 ALTER TABLE `invitedTable` DISABLE KEYS */;
+/*!40000 ALTER TABLE `invitedTable` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
+-- Table structure for table `invitation`
+--
+
+DROP TABLE IF EXISTS `invitation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE invitation (
+    invitationId int(10) PRIMARY KEY AUTO_INCREMENT,
+    senderId int(10),
+    receiverId int(10),
+    address varchar(42),
+    permission varchar(2),
+    nameSender varchar(255),
+    type varchar(7)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `invitation`
+--
+
+LOCK TABLES `invitation` WRITE;
+/*!40000 ALTER TABLE `invitation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `invitation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
