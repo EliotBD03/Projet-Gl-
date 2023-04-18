@@ -17,7 +17,6 @@ class InvitedClientManagerTest
     {
         DBTest.setUp();
         LogManager logManager = new LogManager();
-        //On suppose que les tables sont vides donc par défaut name1 -> id = 1 et name2 -> id = 2 
         logManager.saveAccount("mail1", "password", true, "name1", "english");
         logManager.saveAccount("mail2", "password", true, "name2", "english");
     }
@@ -34,13 +33,14 @@ class InvitedClientManagerTest
     @Order(1)
     void addInvited()
     {
-        assertEquals(new InvitedClientManager().addInvited("2", "address", "1", "R"), true);
+        assertTrue(new InvitedClientManager().addInvited("2", "address", "1", "R"));
         DB.getInstance().executeQuery("SELECT * FROM invitedTable", true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults("address", "invitedId", "ownerId", "permission");
         assertEquals("address", results.get(0).get(0));
         assertEquals("1", results.get(1).get(0));
         assertEquals("2", results.get(2).get(0));
         assertEquals("R", results.get(3).get(0));
+        assertFalse(new InvitedClientManager().addInvited("2", "address", "1", "RW"));
     }
 
     @Test

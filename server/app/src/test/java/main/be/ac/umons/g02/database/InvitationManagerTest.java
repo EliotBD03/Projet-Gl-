@@ -18,7 +18,6 @@ class InvitationManagerTest
     {
         DBTest.setUp();
         LogManager logManager = new LogManager();
-        //On suppose que les tables sont vides donc par défaut client1 -> id = 1 et client2 -> id = 2 
         logManager.saveAccount("clientmail", "password", true, "client1", "english");
         logManager.saveAccount("clientmail2", "password", true, "client2", "english");
     }
@@ -28,6 +27,7 @@ class InvitationManagerTest
     {
         DB.getInstance().executeQuery("TRUNCATE TABLE invitation",false);
         DB.getInstance().executeQuery("DELETE FROM invitedTable",false);
+        DB.getInstance().executeQuery("DELETE FROM client",false);
         DB.getInstance().executeQuery("DELETE FROM user",false);
         DB.getInstance().executeQuery("ALTER TABLE invitation AUTO_INCREMENT = 1", false);
         DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
@@ -38,15 +38,18 @@ class InvitationManagerTest
     @Order(1)
     void createInvitation()
     {
-        new InvitationManager().createInvitation(propose.senderId(), propose.receiverId(), propose.address(), propose.permission(), propose.nameSender(), propose.type());
+        assertTrue(new InvitationManager().createInvitation(propose.senderId(), propose.receiverId(), propose.address(), propose.permission(), propose.nameSender(), propose.type()));
         DB.getInstance().executeQuery("SELECT * FROM invitation", true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults("senderId", "receiverId", "address", "permission", "nameSender", "type");
         assertEquals(propose.senderId(), results.get(0).get(0));
         assertEquals(propose.receiverId(), results.get(1).get(0));
-        assertEquals("address", results.get(2).get(0));
-        assertEquals("RW", results.get(3).get(0));
+        assertEquals(propose.address(), results.get(2).get(0));
+        assertEquals(propose.permission(), results.get(3).get(0));
         assertEquals(propose.nameSender(), results.get(4).get(0));
-        assertEquals("request", results.get(5).get(0));
+        assertEquals(propose.type(), results.get(5).get(0));
+        assertFalse(new InvitationManager().createInvitation(propose.senderId(), propose.senderId(), propose.address(), propose.permission(), propose.nameSender(), propose.type()));
+        assertFalse(new InvitationManager().createInvitation(propose.senderId(), 20, propose.address(), propose.permission(), propose.nameSender(), propose.type()));
+
     }
 
     @Test
@@ -85,7 +88,7 @@ class InvitationManagerTest
     {
         InvitationManager invitationManager = new InvitationManager();
         invitationManager.deleteInvitation("2");
-        DB.getInstance().executeQuery("SELECT * FROM invitation WHERE invitationId=0",true);
+        DB.getInstance().executeQuery("SELECT * FROM invitation WHERE invitationId=2",true);
         ArrayList<ArrayList<String>> results = DB.getInstance().getResults(new String[] {"senderId", "receiverId", "address", "permission", "nameSender", "type"});
         assertEquals(results.get(0).size(), 0);
     }
