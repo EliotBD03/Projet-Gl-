@@ -79,7 +79,7 @@ class LogManagerTest {
     @Order(6)
     void getMail()
     {
-        assertEquals("test@gmail.com", new LogManager().getName("1"));
+        assertEquals("test@gmail.com", new LogManager().getMail("1"));
     }
 
     @Test
