@@ -19,6 +19,9 @@
         <GoButton text="GestionExtClaire.invitation" :colore="'#B1B9FC'"/>
         </div>
       </div>
+        <div class="globalcontracts">
+            <GoButton text="invoices.list" :colore="'#B1B9FC'"/>
+        </div>
       <div class="bottombutton">
         <div class="disconnectbutton" @click.prevent.left="callDisconnect()">
         <GoButton text="button.disconnect" :colore="'red'"/>
@@ -91,7 +94,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 50px;
 }
 
 
