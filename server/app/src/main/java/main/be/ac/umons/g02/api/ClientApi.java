@@ -43,7 +43,7 @@ public class ClientApi extends MyApi implements RouterApi
         subRouter.delete("/invitedClients/:address/:id_invited").handler(this::deleteInvitedClient);
         subRouter.put("/invitedClients/permission").handler(this::changePermission);
         subRouter.get("/invitedWallets/invitations/page").handler(this::getAllInvitation);
-        
+
         subRouter.post("/invitedWallets/proposeInvitation").handler(this::proposeInvitation);
         subRouter.post("/invitedWallets/acceptInvitation/:id_invitation").handler(this::acceptInvitation);
         subRouter.post("/invitedWallets/refuseInvitation/:id_invitation").handler(this::refuseInvitation);
@@ -181,7 +181,7 @@ public class ClientApi extends MyApi implements RouterApi
                         .put("last_page", numberOfPagesRemaining)));
     }
 
-     /** 
+    /** 
      * Méthode qui utilise le package de base de données pour créer une invitation afin de prévenir le client d'une nouvelle invitation à un portefeuille
      *
      * @param - Le context de la requête
@@ -208,9 +208,9 @@ public class ClientApi extends MyApi implements RouterApi
         if(checkParam((permission = body.getString("permission")), routingContext)) return;
 
         String nameSender = commonDB.getLogManager().getName(senderId);
-        
+
         if(commonDB.getInvitationManager().createInvitation(senderId, receiverId, address, permission, nameSender, "request") == false){
-           routingContext.response()
+            routingContext.response()
                 .setStatusCode(500)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
@@ -563,7 +563,15 @@ public class ClientApi extends MyApi implements RouterApi
         if(commonDB.getWalletManager().doesTheWalletBelongToHim(id, address))
         {
             String nameClient = commonDB.getLogManager().getName(id);
-            commonDB.getNotificationManager().createNotification(id, idProvider, nameProposal, idProvider, "Contract request from " + nameClient, ean, address);
+            if(!commonDB.getNotificationManager().createNotification(id, idProvider, nameProposal, idProvider, "Contract request from " + nameClient, ean, address))
+            {
+                routingContext.response()
+                    .setStatusCode(401)
+                    .putHeader("Content-Type", "application/json")
+                    .end(Json.encodePrettily(new JsonObject()
+                                .put("error", "error.eanAlreadyUse")));
+                return;
+            }
 
             routingContext.response()
                 .setStatusCode(200)
