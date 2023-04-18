@@ -31,7 +31,7 @@ public class InvoiceManager {
         return false;
     }
 
-    public ArrayList<InvoiceBasic> seeHistory(String clientId) {
+    public ArrayList<InvoiceBasic> getHistory(String clientId) {
         // TODO
         return null;
     }

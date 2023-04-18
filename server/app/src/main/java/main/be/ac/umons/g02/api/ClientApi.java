@@ -10,6 +10,8 @@ import main.be.ac.umons.g02.data_object.ProposalBasic;
 import main.be.ac.umons.g02.data_object.ProposalFull;
 import main.be.ac.umons.g02.data_object.Invitation;
 import main.be.ac.umons.g02.data_object.InvitedClient;
+import main.be.ac.umons.g02.data_object.InvoiceBasic;
+import main.be.ac.umons.g02.data_object.InvoiceFull;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.logging.Logger;
@@ -47,6 +49,13 @@ public class ClientApi extends MyApi implements RouterApi
         subRouter.post("/invitedWallets/acceptInvitation/:id_invitation").handler(this::acceptInvitation);
         subRouter.post("/invitedWallets/refuseInvitation/:id_invitation").handler(this::refuseInvitation);
         subRouter.delete("/invitedWallets/invitations/:id_invitation").handler(this::deleteInvitation);
+
+        //Extension Maxime
+        subRouter.get("/invoices/page").handler(this::getAllInvoices);
+        subRouter.get("/invoices/:id_invoice").handler(this::getInvoice);
+        subRouter.delete("/invoices/:id_invoice").handler(this::deleteInvoice);
+        subRouter.put("/invoices/:id_invoice").handler(this::changePaymentMethod);
+        subRouter.put("/invoices/:id_invoice/account").handler(this::changeAccountInformation);
 
         //base
         subRouter.get("/wallets/page").handler(this::getAllWallets);
@@ -587,5 +596,29 @@ public class ClientApi extends MyApi implements RouterApi
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
                             .put("error", "error.notHisWallet")));
+    }
+
+    private void getAllInvoices(final RoutingContext routingContext)
+    {
+        LOGGER.info("GetAllInvoices...");
+
+        String id = null;
+        if(((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
+        int[] slice = getSlice(routingContext);
+        if(slice == null)
+            return;
+
+        Object[] res = commonDB.getInvoiceManager().getInvoices(id, slice[0], slice[1]);
+        int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);
+
+        ArrayList<InvoiceBasic> invoices = (ArrayList<InvoiceBasic>) res[1];
+
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end(Json.encodePrettily(new JsonObject()
+                        .put("invoices", invoices)
+                        .put("last_page", numberOfPagesRemaining)));
     }
 }
