@@ -15,6 +15,7 @@ public class CommonDB
     private static final ClientManager clientManager = new ClientManager();
     private static final InvitedClientManager invitedClientManager = new InvitedClientManager(); //Extension Claire
     private static final InvitationManager invitationManager = new InvitationManager(); //Extension Claire
+    private static final InvoiceManager invoiceManager = new InvoiceManager(); //Extension Maxime
 
     public InvitedClientManager getInvitedClientManager()
     {
@@ -55,6 +56,11 @@ public class CommonDB
     public ClientManager getClientManager()
     {
         return clientManager;
+    }
+
+    public InvoiceManager getInvoiceManager()
+    {
+        return invoiceManager;
     }
 
 }
