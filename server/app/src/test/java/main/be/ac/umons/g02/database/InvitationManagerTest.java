@@ -48,7 +48,7 @@ class InvitationManagerTest
         assertEquals(propose.nameSender(), results.get(4).get(0));
         assertEquals(propose.type(), results.get(5).get(0));
         assertFalse(new InvitationManager().createInvitation(propose.senderId(), propose.senderId(), propose.address(), propose.permission(), propose.nameSender(), propose.type()));
-        assertFalse(new InvitationManager().createInvitation(propose.senderId(), 20, propose.address(), propose.permission(), propose.nameSender(), propose.type()));
+        assertFalse(new InvitationManager().createInvitation(propose.senderId(), '20', propose.address(), propose.permission(), propose.nameSender(), propose.type()));
 
     }
 
