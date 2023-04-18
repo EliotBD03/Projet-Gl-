@@ -621,4 +621,74 @@ public class ClientApi extends MyApi implements RouterApi
                         .put("invoices", invoices)
                         .put("last_page", numberOfPagesRemaining)));
     }
+
+    private void getInvoice(final RoutingContext routingContext) {
+        LOGGER.info("GetInvoice...");
+
+        String invoiceId = routingContext.pathParam("invoice_id");
+
+        InvoiceFull invoice = commonDB.getInvoiceManager().getInvoice(invoiceId);
+
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end(Json.encodePrettily(new JsonObject()
+                        .put("invoice", invoice)));
+    }
+
+    private void deleteInvoice(final RoutingContext routingContext) {
+        LOGGER.info("DeleteInvoice...");
+
+        String invoiceId = routingContext.pathParam("invoice_id");
+
+        commonDB.getInvoiceManager().deleteInvoice(invoiceId);
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end();
+    }
+
+    private void changePaymentMethod(final RoutingContext routingContext) {
+        LOGGER.info("ChangePaymentMethod...");
+
+        JsonObject body = null;
+        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
+
+        String invoiceId = null;
+        if(checkParam((invoiceId = body.getString("invoice_id")), routingContext)) return;
+
+        String paymentMethod = null;
+        if(checkParam((paymentMethod = body.getString("payment_method")), routingContext)) return;
+
+        commonDB.getInvoiceManager().changePaymentMethod(invoiceId, paymentMethod);
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end();
+    }
+
+    private void changeAccountInformation(final RoutingContext routingContext) {
+        LOGGER.info("ChangeAccountInformation...");
+
+        JsonObject body = null;
+        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
+
+        String invoiceId = null;
+        if(checkParam((invoiceId = body.getString("invoice_id")), routingContext)) return;
+
+        String accountName = null;
+        if(checkParam((accountName = body.getString("account_name")), routingContext)) return;
+
+        String accountNumber = null;
+        if(checkParam((accountNumber = body.getString("account_number")), routingContext)) return;
+
+        String expirationDate = null;
+        if(checkParam((expirationDate = body.getString("expiration_date")), routingContext)) return;
+
+        commonDB.getInvoiceManager().changeAccountInformation(invoiceId, accountName, accountNumber, expirationDate);
+        routingContext.response()
+            .setStatusCode(200)
+            .putHeader("Content-Type", "application/json")
+            .end();
+    }
 }

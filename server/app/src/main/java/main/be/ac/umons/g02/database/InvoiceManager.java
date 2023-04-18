@@ -12,7 +12,7 @@ public class InvoiceManager {
         return false;
     }
 
-    private void deleteInvoice(String invoiceId) {
+    public void deleteInvoice(String invoiceId) {
         // TODO
     }
 
