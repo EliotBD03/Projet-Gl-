@@ -49,7 +49,7 @@ public class WalletManager
 
     /**
      * Donne tous les portefeuilles où un certain client est invité dans un intervalle : [base, base + limit]
-     * en plus du nombre total de portefeuilles que le client possède.
+     * en plus du nombre total de portefeuilles "invités" que le client possède.
      *
      * @param clientId l'identifiant du client invité
      * @param base la borne inférieure

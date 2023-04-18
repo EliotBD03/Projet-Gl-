@@ -42,11 +42,10 @@
           GlobalMethods.getCurrentLanguage();
         },
         methods: {
-          /**Méthode qui, lorsque l'utilisateur 
-          * clique sur change, envoie l'id, l'adresse et 
+          /**Méthode qui, lorsque l'utilisateur clique sur change, envoie l'id, l'adresse et 
           * la permission vers l'api.
           * Si la requête est incorrecte, l'api renvoie un message d'erreur.
-          * Si elle est correcte affiche une pop-up de succès 
+          * Si elle est correcte affiche une pop-up de succès. 
           *   
           * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
           */

@@ -2,7 +2,7 @@
   <div class="main">
     <div class="header">
       <MainHeader :text="wallet.name"/>
-      <div class = "permission"> 
+      <div class = "permission"> <!--Extension Claire-->
         <p v-if="permission == 'R'">{{ $t("GestionExtClaire.R") }}</p> 
         <p v-else-if="permission == 'RW'">{{ $t("GestionExtClaire.RW") }}</p> 
         <p v-else>{{ $t("GestionExtClaire.gestion") }}</p>
@@ -32,7 +32,7 @@
           <div v-for="contract in wallet.contracts" :key="contract.id">
             <p> <b>{{ $t("account.provider") }} :</b> {{ contract.providerName }}</p>
             <p> <b>{{ $t("client.eancode") }} :</b> {{ contract.ean }}</p>
-            <div v-if="permission != 'R' && permission != 'RW'" @click.prevent.left="seeMore(contract)">
+            <div v-if="permission == null" @click.prevent.left="seeMore(contract)"><!--Extension Claire-->
               <GoButton text="button.go" :colore="'#34c98e'"/>
             </div>
             <div class="consumptionsbutton" @click.prevent.left="seeConsumptions(contract)">
@@ -44,7 +44,7 @@
         <div v-else> <b>{{ $t("client.noinformation") }}</b></div>
       </div>
 
-      <div class = "invited" v-if="permission == null">
+      <div class = "invited" v-if="permission == null"> <!--Extension Claire-->
         <p class = "text"> <b>{{ $t("GestionExtClaire.invited") }} </b></p>
         <div v-if="wallet.invitedClient && wallet.invitedClient.length !== 0">
           <div v-for="invited in wallet.invitedClient" :key="invited.id">
@@ -69,7 +69,7 @@
       <GoButton text="button.back" :colore="'red'"/>
       </div>
 
-      <div v-if="permission === 'R' || permission === 'RW'" class="closebutton" @click.prevent.left="deleteClient('no')">
+      <div v-if="permission !== null" class="closebutton" @click.prevent.left="deleteClient('no')"><!--Extension Claire-->
       <GoButton text="GestionExtClaire.leave" :colore="'red'"/>
       </div>
 
@@ -180,7 +180,7 @@ export default {
     /*Cette méthode permet de retourner à la page des wallets en supprimant l'adresse du sessionStorage*/
     /*Extension Claire : permet de retourner aussi à la page InvitedWallet*/
     back(){
-      if(this.permission == "R" || this.permission == "RW"){
+      if(this.permission != null){
         sessionStorage.clear();
         this.$router.push({name: 'InvitedWallets'});
       }
@@ -203,7 +203,7 @@ export default {
       this.$router.push({name: 'Consumptions'});
     },
     /**
-    * Cette méthode permet de supprimer un invité dans le cas où c'est le propriétaire du portefeuille qui le souhaite.
+    * Cette méthode permet de supprimer un invité.
     * 
     * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
     * @author Extension Claire
@@ -219,7 +219,7 @@ export default {
               return response.json().then(json => Promise.reject(json));
             }
             else{
-              if(this.permission == "R" || this.permission == "RW"){
+              if(this.permission !== null){
                 Swal.fire({
                   icon: 'success',
                   title: this.$t("alerts.good"),
@@ -246,7 +246,6 @@ export default {
     /**
     * Cette méthode de rediriger vers ChangePermissions en enregistrant l'id de l'invité dont on souhaite changer les permissions.
     * 
-    * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.
     * @author Extension Claire
     */
     modifyPerm(id){

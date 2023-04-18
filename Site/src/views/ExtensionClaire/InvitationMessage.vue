@@ -125,7 +125,7 @@
           return true;
         },
 				/**
-        * Cette méthode permet de refresh la page et obtenir les nouvelles invitations ou supprimer les anciennes.
+        * Cette méthode permet de refresh la page et obtenir les nouvelles invitations (ou ne plus afficher les anciennes).
         */
 				async refresh(){
 					await Promise.delay(2000); //Ce délai permet d'afficher les pop-ups s'il y en a
@@ -165,7 +165,7 @@
                 }
 								else if(error.error === "error.already") { 
                     GlobalMethods.errorApi(this.$t("GestionExtClaire.alertBadAccept"));
-										this.seen(invitationId);
+                    this.refresh();
                   }
                 else {
                     GlobalMethods.errorApi(error.error);

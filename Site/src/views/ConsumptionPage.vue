@@ -2,7 +2,7 @@
     <div class="main">
         <div class="header">
             <MainHeader text="header.consumption"/>
-            <div class = "permission"> 
+            <div class = "permission"> <!--Extension Claire-->
               <p v-if="permission == 'R' && role == 'client'">{{ $t("GestionExtClaire.R") }}</p> 
               <p v-else-if="permission == 'RW' && role == 'client'">{{ $t("GestionExtClaire.RW") }}</p> 
               <p v-else-if="permission == null && role == 'client'">{{ $t("GestionExtClaire.gestion") }}</p>
@@ -15,7 +15,7 @@
             <div @click.prevent.left="exportData()">
                 <GoButton text="button.export" :colore="'#34c98e'"/>
             </div>
-              <input v-if="permission != 'R'" type="file" id="csv-file" accept=".csv"/>
+              <input v-if="permission != 'R'" type="file" id="csv-file" accept=".csv"/><!--Extension Claire-->
               <div v-if="permission != 'R'" @click.prevent.left="importData()">
                   <GoButton text="button.import" :colore="'#34c98e'"/>
             </div>
@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="newconsumption" >
-                    <div v-if="permission != 'R'" class="newconsumption" >
+                    <div v-if="permission != 'R'" class="newconsumption" > <!--Extension Claire-->
                         <InputMain type="date" id="dateNewConsumption" value="2020-01-01" min="2020-01-01" max="2099-12-31"/>
                         <InputMain type="number" id="dataNewConsumption" min="0" step="0.01" />
                         <div @click.prevent.left="post()">
@@ -668,10 +668,10 @@ export default {
             }
         },
 
-        back() { // Méthdode qui permet de revenir à la page précédente en fonction de son rôle
+        back() { // Méthode qui permet de revenir à la page précédente en fonction de son rôle (et de la permission -> Extension Claire)
             if(cookies.isKey("token") && cookies.isKey("role"))
             {
-                if(cookies.get("role") === 'client' && this.permission != 'RW' && this.permission != 'R'){
+                if(cookies.get("role") === 'client' && this.permission == null){
                     sessionStorage.clear();
                     this.$router.push('/wallets');
                 }

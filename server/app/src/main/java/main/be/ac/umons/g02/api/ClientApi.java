@@ -43,7 +43,6 @@ public class ClientApi extends MyApi implements RouterApi
         subRouter.delete("/invitedClients/:address/:id_invited").handler(this::deleteInvitedClient);
         subRouter.put("/invitedClients/permission").handler(this::changePermission);
         subRouter.get("/invitedWallets/invitations/page").handler(this::getAllInvitation);
-
         subRouter.post("/invitedWallets/proposeInvitation").handler(this::proposeInvitation);
         subRouter.post("/invitedWallets/acceptInvitation/:id_invitation").handler(this::acceptInvitation);
         subRouter.post("/invitedWallets/refuseInvitation/:id_invitation").handler(this::refuseInvitation);
@@ -63,10 +62,11 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste des portefeuilles où un client est invité
-     * Cette méthode utilise la pagination 
+     * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste des portefeuilles 
+     * où un client est invité.
+     * Cette méthode utilise la pagination
      *
-     * @param - Le context de la requête
+     * @param - Le contexte de la requête
      * @see WalletManager
      * @author Extension Claire
      */
@@ -95,9 +95,9 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour supprimer un invité d'un portefeuille en particulier
+     * Méthode qui utilise le package de base de données pour supprimer un invité d'un portefeuille en particulier.
      *
-     * @param - Le context de la requête
+     * @param - Le contexte de la requête
      * @see InvitedClientManager
      * @author Extension Claire
      */
@@ -119,9 +119,9 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour modifier les permissions d'un client invité
+     * Méthode qui utilise le package de base de données pour modifier la permission d'un client invité.
      *
-     * @param - Le context de la requête
+     * @param - Le contexte de la requête
      * @see InvitedClientManager
      * @author Extension Claire
      */
@@ -150,10 +150,10 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste des invitations
+     * Méthode qui utilise le package de base de données pour renvoyer une partie de la liste des invitations.
      * Cette méthode utilise la pagination 
      *
-     * @param - Le context de la requête
+     * @param - Le contexte de la requête
      * @see InvitationManager
      * @author Extension Claire
      */
@@ -182,9 +182,10 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour créer une invitation afin de prévenir le client d'une nouvelle invitation à un portefeuille
+     * Méthode qui utilise le package de base de données pour créer une invitation afin de prévenir le client 
+     * d'une nouvelle invitation à un portefeuille.
      *
-     * @param - Le context de la requête
+     * @param - Le contexte de la requête
      * @see InvitationManager
      * @author Extension Claire
      */
@@ -222,14 +223,15 @@ public class ClientApi extends MyApi implements RouterApi
                 .setStatusCode(200)
                 .putHeader("Content-Type", "application/json")
                 .end();
+            return;
         }
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour faire passer la notification d'invitation à un portefeuille
-     * qui a été acceptée 
+     * Méthode qui utilise le package de base de données pour faire passer l'invitation à un portefeuille
+     * qui a été acceptée.
      *
-     * @param - Le context de la requête
+     * @param - Le contexte de la requête
      * @see InvitationManager
      * @author Extension Claire
      */
@@ -244,6 +246,7 @@ public class ClientApi extends MyApi implements RouterApi
                 .setStatusCode(200)
                 .putHeader("Content-Type", "application/json")
                 .end();
+            return;
         }
         else{
             routingContext.response()
@@ -258,9 +261,9 @@ public class ClientApi extends MyApi implements RouterApi
 
     /** 
      * Méthode qui utilise le package de base de données pour supprimer l'invitation à un portefeuille 
-     * et prévenir l'émetteur de l'invitation
+     * et prévenir l'émetteur de l'invitation du refus.
      *
-     * @param - Le context de la requête
+     * @param - Le contexte de la requête
      * @see InvitationManager
      * @author Extension Claire
      */
@@ -279,9 +282,9 @@ public class ClientApi extends MyApi implements RouterApi
     }
 
     /** 
-     * Méthode qui utilise le package de base de données pour supprimer l'invitation 
+     * Méthode qui utilise le package de base de données pour supprimer l'invitation.
      *
-     * @param - Le context de la requête
+     * @param - Le contexte de la requête
      * @see InvitationManager
      * @author Extension Claire
      */

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class InvitedClientManager
 {
     /**
-     * Renvoie tous les clients invités suite à une précédente requête faite dans les autres méthodes.
+     * Méthode annexe à getAllInvitedClients.
      *
      * @return une ArrayList de tuples clients invités
      * @author Extension Claire
@@ -28,12 +28,13 @@ public class InvitedClientManager
     }
 
     /**
-     * Renvoie tous les clients invités d'un propriétaire.
+     * Renvoie tous les clients invités d'un propriétaire à une certaine adresse.
      *
      * @param address l'adresse du portefeuille
      * @param base la borne inférieure
      * @param limit le nombre d'éléments
-     * @return renvoie tous les clients invités (sur un portefeuille) dans un intervalle [base, base + limit] (une arraylist) et le nombre TOTAL de clients associés au portefeuille
+     * @return renvoie tous les clients invités (sur un portefeuille) dans un intervalle [base, base + limit] (une arraylist) 
+     * et le nombre TOTAL de clients associés au portefeuille
      * @author 
      */
     public Object[] getAllInvitedClients(String address, int base, int limit)
@@ -73,10 +74,10 @@ public class InvitedClientManager
     }
 
      /**
-     * Le propriétaire ajoute un invité.
+     * Méthode qui permet d'ajouter un invité à un certain portefeuille.
      *
      * @param ownerId l'id du propriétaire
-     * @param address l'adresse de la maison
+     * @param address l'adresse du portefeuille
      * @param InvitedClientId l'id du client invité
      * @param permission la permission du client invité
      * @return vrai si le client est ajouté, faux si le client était déjà invité
@@ -103,8 +104,9 @@ public class InvitedClientManager
     }
 
      /**
-     * Change le permission d'un client invité
-     * @param address l'adresse de la maison
+     * Méthode qui permet de changer la permission d'un client invité sur un certain portefeuille.
+     *
+     * @param address l'adresse du portefeuille
      * @param InvitedClientId l'id du client invité
      * @param permission la permission du client invité
      * @author Extension Claire

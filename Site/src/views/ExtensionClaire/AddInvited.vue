@@ -45,15 +45,14 @@
           GlobalMethods.getCurrentLanguage();
         },
         methods: {
-          /*Méthode qui vérifie si le champ id est bien rempli sinon envoie un pop-up*/
+          /*Méthode qui vérifie si le champ id est bien rempli sinon envoie une pop-up*/
           checkArgs(){
             if(!this.id) Swal.fire(this.$t("GestionExtClaire.alertId"));
             else return true;
           },
-          /**Méthode qui, lorsque l'utilisateur 
-          * clique sur add, envoie l'id, l'adresse et 
+          /**Méthode qui, lorsque l'utilisateur clique sur add, envoie l'id, l'adresse et 
           * la permission vers l'api si checkArgs() est true.
-          * Si la requête est incorrecte, l'api renvoie un status d'erreur ou un message d'erreur
+          * Si la requête est incorrecte, l'api un message d'erreur
           * Si elle est correcte affiche une pop-up de succès 
           *   
           * @throws une erreur potentiellement renvoyée par l'API ou une erreur de token gérée dans GlobalMethods.

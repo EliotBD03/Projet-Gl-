@@ -1,7 +1,7 @@
 package main.be.ac.umons.g02.data_object;
 
 /** 
-    *Classe permettant de regrouper les informations des clients invités sur un portefeuille
+    *Classe permettant de regrouper les informations des clients invités sur un portefeuille.
     *
     * @see WalletFull
     * @author Extension Claire

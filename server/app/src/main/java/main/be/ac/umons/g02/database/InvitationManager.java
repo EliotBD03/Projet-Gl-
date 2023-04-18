@@ -9,12 +9,12 @@ public class InvitationManager
 /**
      * Crée une invitation.
      *
-     * @param senderId l'identifiant de l'envoyeur
-     * @param receiverId l'identifiant de receveur
-     * @param address l'addresse du wallet
-     * @param permission la permission du receveur sur le wallet
+     * @param senderId l'identifiant de l'émetteur
+     * @param receiverId l'identifiant du receveur
+     * @param address l'addresse du portefeuille
+     * @param permission la permission du client invité sur le portefeuille
      * @param nameSender le nom de l'émetteur
-     * @param type le type d'invitation
+     * @param type le type d'invitation (accept, denial, request)
      * @return vrai si l'id du receveur entré existe bien et si l'utilisateur n'essaie pas de s'ajouter lui-même, faux sinon.
      * @author Extension Claire
      */

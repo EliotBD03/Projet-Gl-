@@ -31,7 +31,7 @@ public class WalletBasic
     }
 
     /** 
-    *Ajout de la permission dans walletBasic afin de départager Read and Write, Read et le propriétaire du portefeuille.
+    *Ajout de la permission dans WalletBasic afin de départager Read and Write, Read et le propriétaire du portefeuille.
     *
     * @author Extension Claire
     */
