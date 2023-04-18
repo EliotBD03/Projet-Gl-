@@ -207,4 +207,15 @@ public class WalletManager
                 .getIntElem(0,0) == 1;
     }
 
+    /**
+     * Vérifie si le compteur est déjà utilisé par une autre personne
+     *
+     * @param ean l'identifiant du compteur
+     * @return vrai s'il est libre, faux sinon
+     */
+    public boolean isTheCounterFree(String ean)
+    {
+        return new Query("SELECT EXISTS(SELECT * FROM contract WHERE ean='"+ean+"') AS 'c'").executeAndGetResult("c").getIntElem(0,0) == 0;
+    }
+
 }
