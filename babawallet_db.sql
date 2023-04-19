@@ -365,7 +365,7 @@ CREATE TABLE invitedTable(
     invitedId int(10) PRIMARY KEY,
     ownerId int(10),
     permission varchar(2),
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -393,7 +393,7 @@ CREATE TABLE invitation (
     permission varchar(2),
     nameSender varchar(255),
     type varchar(7)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
