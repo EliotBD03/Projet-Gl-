@@ -281,7 +281,9 @@
     "alertBadAccept": "Vous êtes déjà sur ce portefeuille !",
     "alertAcceptInvitation": "Vous avez accepté l'invitation",
     "alertRefuseInvitation": "Vous avez refusé l'invitation",
-    "noInvitation": "Pas d'invitations"
+    "noInvitation": "Pas d'invitations",
+    "RS": "L",
+    "RWS": "LE"
   },
   "invoice": {
     "actualproposal": "Proposition actuelle",

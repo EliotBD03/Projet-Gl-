@@ -50,7 +50,10 @@
           <div v-for="invited in wallet.invitedClient" :key="invited.id">
             <p> <b>{{ $t("GestionExtClaire.invitedName") }} :</b> {{ invited.invitedName }}</p>
             <p> <b>Mail :</b> {{ invited.invitedMail }}</p>
-            <p> <b>Permission :</b> {{ invited.permission }}</p>
+            <div> <b>Permission : </b>
+              <p style="display: inline-block;" v-if="invited.permission === 'R'">{{ $t("GestionExtClaire.RS") }}</p>
+              <p style="display: inline-block;" v-else>{{ $t("GestionExtClaire.RWS") }}</p>
+            </div>
             <div @click.prevent.left="deleteClient(invited.invitedId)">
               <GoButton text="GestionExtClaire.deleteClient" :colore="'#34c98e'"/>
             </div>

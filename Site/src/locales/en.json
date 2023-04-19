@@ -282,7 +282,9 @@
     "alertBadAccept": "You are already on this wallet !",
     "alertAcceptInvitation": "You have accepted the invitation",
     "alertRefuseInvitation": "You have declined the invitation",
-    "noInvitation": "No invitations"
+    "noInvitation": "No invitations",
+    "RS": "R",
+    "RWS": "RW"
   },
   "invoice": {
     "actualproposal": "Actual proposal",
