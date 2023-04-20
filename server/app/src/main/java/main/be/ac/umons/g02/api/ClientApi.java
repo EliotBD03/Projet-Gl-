@@ -49,8 +49,8 @@ public class ClientApi extends MyApi implements RouterApi
         subRouter.put("/invoices/:id_invoice").handler(this::changePaymentMethod);
         subRouter.put("/invoices/:id_invoice/account").handler(this::changeAccountInformation);
         subRouter.post("/invoices").handler(this::createInvoice);
-        subRouter.post("invoices/account").handler(this::addBank);
-        subRouter.get("invoices/account/:client_id").handler(this::getBank);
+        subRouter.post("/invoices/account").handler(this::addBank);
+        subRouter.get("/invoices/account/:client_id").handler(this::getBank);
 
         //base
         subRouter.get("/wallets/page").handler(this::getAllWallets);
