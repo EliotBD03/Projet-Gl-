@@ -19,7 +19,7 @@
   },
   "walletform": {
     "name": "Entrez le nom du portefeuille",
-    "adress": "Entrez votre adresse",
+    "address": "Entrez votre adresse",
     "numberOfResidents": "Entrez le nombre de résident",
     "sizeOfHouse": "Entrez la taille de votre habitation (m²)",
     "answer1": "Choisisez le type d'habitation:",
