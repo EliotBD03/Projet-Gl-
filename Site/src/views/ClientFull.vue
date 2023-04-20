@@ -123,7 +123,7 @@
           method: "DELETE",
           headers: {'Authorization' : this.$cookies.get("token")}
         };
-        fetch(`https://babawallet.alwaysdata.net/api/client/clients_of_provider/${this.client.clientId}`, requestOptions)
+        fetch(`https://babawallet.alwaysdata.net/api/provider/clients/clients_of_provider/${this.client.clientId}`, requestOptions)
           .then(response => {
             if(!response.ok){
               return response.json().then(json => Promise.reject(json));
