@@ -2,16 +2,8 @@ package main.be.ac.umons.g02.api;
 
 import main.be.ac.umons.g02.api.MyApi;
 
+import main.be.ac.umons.g02.data_object.*;
 import main.be.ac.umons.g02.database.CommonDB;
-import main.be.ac.umons.g02.data_object.WalletBasic;
-import main.be.ac.umons.g02.data_object.WalletFull;
-import main.be.ac.umons.g02.data_object.ContractBasic;
-import main.be.ac.umons.g02.data_object.ProposalBasic;
-import main.be.ac.umons.g02.data_object.ProposalFull;
-import main.be.ac.umons.g02.data_object.Invitation;
-import main.be.ac.umons.g02.data_object.InvitedClient;
-import main.be.ac.umons.g02.data_object.InvoiceBasic;
-import main.be.ac.umons.g02.data_object.InvoiceFull;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.logging.Logger;
@@ -57,7 +49,6 @@ public class ClientApi extends MyApi implements RouterApi
         subRouter.put("/invoices/:id_invoice").handler(this::changePaymentMethod);
         subRouter.put("/invoices/:id_invoice/account").handler(this::changeAccountInformation);
         subRouter.post("/invoices").handler(this::createInvoice);
-        subRouter.get("invoices/:client_id").handler(this::getHistory);
         subRouter.post("invoices/account").handler(this::addBank);
         subRouter.get("invoices/account/:client_id").handler(this::getBank);
 
@@ -700,5 +691,109 @@ public class ClientApi extends MyApi implements RouterApi
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
             .end();
+    }
+
+    private void createInvoice(final RoutingContext routingContext) {
+        LOGGER.info("CreateInvoice...");
+
+        String id = null;
+        if (((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
+        JsonObject body = null;
+        if (checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
+
+        double price = 0;
+        boolean status = false;
+        String contractId = null;
+        double remaining = 0;
+        String paymentMethod = null;
+        String paymentDate = null;
+        try {
+
+            if (checkParam((price = body.getDouble("price")), routingContext)) return;
+
+            if (checkParam((status = body.getBoolean("status")), routingContext)) return;
+            if (checkParam((contractId = body.getString("contract_id")), routingContext)) return;
+
+            if (checkParam((remaining = body.getDouble("remaining")), routingContext)) return;
+
+            if (checkParam((paymentMethod = body.getString("payment_method")), routingContext)) return;
+
+            if (checkParam((paymentDate = body.getString("payment_date")), routingContext)) return;
+
+        } catch (Exception e) {
+            routingContext.response()
+                    .setStatusCode(400)
+                    .putHeader("Content-Type", "application/json")
+                    .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.missingInformation")));
+        }
+
+        InvoiceFull invoice = new InvoiceFull(id, price, status);
+        invoice.setMoreInformation(contractId, remaining, paymentMethod, paymentDate);
+
+        commonDB.getInvoiceManager().createInvoice(invoice);
+    }
+
+    private void addBank(final RoutingContext routingContext) {
+        LOGGER.info("AddBank...");
+
+        JsonObject body = null;
+        if (checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
+
+        String id = null;
+        if (((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
+        String accountName = null;
+        String accountNumber = null;
+        String expirationDate = null;
+        String paymentMethod = null;
+        try {
+
+            if (checkParam((accountName = body.getString("account_name")), routingContext)) return;
+
+            if (checkParam((accountNumber = body.getString("account_number")), routingContext)) return;
+
+            if (checkParam((expirationDate = body.getString("expiration_date")), routingContext)) return;
+
+            if (checkParam((paymentMethod = body.getString("payment_method")), routingContext)) return;
+
+        } catch (Exception error) {
+            routingContext.response()
+                    .setStatusCode(400)
+                    .putHeader("Content-Type", "application/json")
+                    .end(Json.encodePrettily(new JsonObject()
+                            .put("error", "error.missingInformation")));
+        }
+
+        Bank bank = new Bank(id, accountName, accountNumber, expirationDate, paymentMethod);
+
+        commonDB.getBankManager().addBank(bank);
+        routingContext.response()
+                .setStatusCode(200)
+                .putHeader("Content-Type", "application/json")
+                .end();
+    }
+
+    private void getBank(final RoutingContext routingContext) {
+        LOGGER.info("GetBank...");
+
+        String id = null;
+        if (((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
+
+        int[] slice = getSlice(routingContext);
+        if(slice == null) return;
+
+        Object[] res = commonDB.getBankManager().getBank(id, slice[0], slice[1]);
+        int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);
+
+        ArrayList<Bank> banks = (ArrayList<Bank>) res[1];
+
+        routingContext.response()
+                .setStatusCode(200)
+                .putHeader("Content-Type", "application/json")
+                .end(Json.encodePrettily(new JsonObject()
+                        .put("banks", banks)
+                        .put("last_page", numberOfPagesRemaining)));
     }
 }
