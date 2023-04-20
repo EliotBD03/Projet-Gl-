@@ -357,10 +357,11 @@ DROP TABLE IF EXISTS `invitedTable`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE invitedTable(
-    `address` varchar(42) PRIMARY KEY,
-    `invitedId` int(10) PRIMARY KEY,
-    `ownerId` int(10),
-    `permission` varchar(2),
+    `address` varchar(42) DEFAULT NULL,
+    `invitedId` int(10) DEFAULT NULL,
+    `ownerId` int(10) DEFAULT NULL,
+    `permission` varchar(2) DEFAULT NULL,
+    PRIMARY KEY (`address`,`invitedId`)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -382,13 +383,14 @@ DROP TABLE IF EXISTS `invitation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE invitation (
-    `invitationId` int(10) PRIMARY KEY AUTO_INCREMENT,
-    `senderId` int(10),
-    `receiverId` int(10),
-    `address` varchar(42),
-    `permission` varchar(2),
-    `nameSender` varchar(255),
-    `type` varchar(7)
+    `invitationId` int(10) AUTO_INCREMENT,
+    `senderId` int(10) DEFAULT NULL,
+    `receiverId` int(10) DEFAULT NULL,
+    `address` varchar(42) DEFAULT NULL,
+    `permission` varchar(2) DEFAULT NULL,
+    `nameSender` varchar(255) DEFAULT NULL,
+    `type` varchar(7) DEFAULT NULL,
+    PRIMARY KEY (`invitationId`)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -400,6 +402,7 @@ LOCK TABLES `invitation` WRITE;
 /*!40000 ALTER TABLE `invitation` DISABLE KEYS */;
 /*!40000 ALTER TABLE `invitation` ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
