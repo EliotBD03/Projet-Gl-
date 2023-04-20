@@ -188,8 +188,15 @@
   },
   "notifications": {
     "title": "{name}",
-    "time": "{time} ago",
-    "text": "{text}"
+    "time": "{time} {format} ago",
+    "text": "{text}",
+    "accepted": "Has accepted your contract",
+    "denied": "Has denied your contract",
+    "request": "Contract request",
+    "dailychange": "Daily consumption {date} has changed to {consumption}",
+    "system": "System",
+    "deleted": "Has deleted your contract",
+    "expired": "Your contract has expired"
   },
   "proposal": {
     "selectproposal": "Select a proposal",

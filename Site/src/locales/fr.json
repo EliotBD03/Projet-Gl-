@@ -187,8 +187,15 @@
   },
   "notifications": {
     "title": "{name}",
-    "time": "il y a {time}",
-    "text": "{text}"
+    "time": "il y a {time} {format}",
+    "text": "{text}",
+    "accepted": "A accepté votre contrat",
+    "denied": "A refusé votre contrat",
+    "request": "A demandé un contrat",
+    "dailychange": "Consommation journalière du {date} a changé en {consumption}",
+    "system": "Système",
+    "deleted": "A supprimé votre contrat",
+    "expired": "Votre contrat a expiré"
   },
   "proposal": {
     "selectproposal": "Sélectionnez une proposition",
