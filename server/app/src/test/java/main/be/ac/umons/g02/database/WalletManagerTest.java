@@ -31,6 +31,8 @@ class WalletManagerTest
        new LogManager().deleteAccount("1");
        new LogManager().deleteAccount("2");
        DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
+       DB.getInstance().executeQuery("ALTER TABLE wallet_contract AUTO_INCREMENT = 1", false);
+
     }
 
     @Test

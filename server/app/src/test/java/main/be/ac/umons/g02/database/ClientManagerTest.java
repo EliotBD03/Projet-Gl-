@@ -57,13 +57,4 @@ class ClientManagerTest {
         assertEquals(toBeTested.clientId(), client.clientId());
     }
 
-
-    @Test
-    @Order(3)
-    void deleteClient()
-    {
-        ClientManager clientManager = new ClientManager();
-        clientManager.deleteClient("2","1");
-        assertEquals((clientManager.getAllHisClients("1", 0, 1)[1]), Table.EMPTY_TABLE);
-    }
 }

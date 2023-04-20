@@ -97,8 +97,6 @@ public class ClientManager
                 " ON a.contract_id = b.contract_id";
         ArrayList<String> contracts = new Query(query).executeAndGetResult("contract_id").getColumn(0);
 
-        String[] tables = {"wallet_contract", "provider_contract", "counter", "contract"};
-
         for (String contract : contracts)
             new ContractManager().deleteContractAndNotify(contract, providerId);
     }

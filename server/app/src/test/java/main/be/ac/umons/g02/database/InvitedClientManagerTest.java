@@ -25,6 +25,8 @@ class InvitedClientManagerTest
     static void clean()
     {
         DB.getInstance().executeQuery("DELETE FROM invitedTable",false);
+        DB.getInstance().executeQuery("DELETE FROM client", false);
+        DB.getInstance().executeQuery("DELETE FROM language", false);
         DB.getInstance().executeQuery("DELETE FROM user",false);
         DB.getInstance().executeQuery("ALTER TABLE user AUTO_INCREMENT = 1", false);
     }
