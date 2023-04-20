@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment">
+    tools:context=".ui.FirstFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:padding="16dp">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/submitButton"
             android:layout_width="355dp"
             android:layout_height="65dp"
             android:layout_marginStart="16dp"
@@ -68,55 +68,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailInput" />
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="110dp"
-            android:layout_height="53dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="128dp"
-            android:layout_marginEnd="253dp"
-            android:layout_marginBottom="520dp"
-            android:text="provider"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Switch
-            android:id="@+id/switch2"
-            android:layout_width="109dp"
-            android:layout_height="58dp"
-            android:layout_marginTop="127dp"
-            android:layout_marginEnd="92dp"
-            android:text="english"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Switch
-            android:id="@+id/switch3"
-            android:layout_width="110dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="184dp"
-            android:text="client"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Switch
-            android:id="@+id/switch4"
-            android:layout_width="104dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="92dp"
-            android:layout_marginBottom="460dp"
-            android:text="french"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switch2"
-            app:layout_constraintVertical_bias="0.0" />
-
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/forgotPasswordButton"
             android:layout_width="169dp"
             android:layout_height="52dp"
             android:layout_marginStart="255dp"
@@ -124,12 +77,55 @@
             android:layout_marginEnd="3dp"
             android:layout_marginBottom="54dp"
             android:text="forgotten Password"
-            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintBottom_toTopOf="@+id/submitButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passordInput"
             app:layout_constraintVertical_bias="0.583" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:layout_marginEnd="108dp"
+            android:layout_marginBottom="3dp"
+            android:text="client"
+            app:layout_constraintBottom_toTopOf="@+id/checkBox2"
+            app:layout_constraintEnd_toStartOf="@+id/checkBox3"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="64dp"
+            android:text="provider"
+            app:layout_constraintBottom_toTopOf="@+id/emailInput"
+            app:layout_constraintStart_toStartOf="@+id/passordInput" />
+
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="35dp"
+            android:text="english"
+            app:layout_constraintStart_toEndOf="@+id/checkBox2"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="6dp"
+            android:text="francais"
+            app:layout_constraintStart_toEndOf="@+id/checkBox2"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

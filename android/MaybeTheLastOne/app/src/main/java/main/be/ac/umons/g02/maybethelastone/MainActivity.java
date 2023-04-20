@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import main.be.ac.umons.g02.maybethelastone.R;
 import main.be.ac.umons.g02.maybethelastone.databinding.ActivityMainBinding;
 
 import android.view.Menu;

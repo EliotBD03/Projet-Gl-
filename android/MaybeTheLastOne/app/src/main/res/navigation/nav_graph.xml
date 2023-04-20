@@ -7,13 +7,16 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="main.be.ac.umons.g02.maybethelastone.FirstFragment"
+        android:name="main.be.ac.umons.g02.maybethelastone.LogIn"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/forgotPassword"
+            app:destination="@id/forgottenPassword" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -24,5 +27,15 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgottenPassword"
+        android:name="main.be.ac.umons.g02.maybethelastone.LogIn"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>

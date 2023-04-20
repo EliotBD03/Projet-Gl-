@@ -9,9 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import main.be.ac.umons.g02.maybethelastone.data.Account;
 import main.be.ac.umons.g02.maybethelastone.databinding.FragmentFirstBinding;
 
-public class FirstFragment extends Fragment {
+public class LogIn extends Fragment {
 
     private FragmentFirstBinding binding;
 
@@ -30,20 +31,27 @@ public class FirstFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        binding.button.setOnClickListener(new View.OnClickListener() {
+        binding.submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(signIn(binding.emailInput.toString(), binding.passordInput.toString()))
-                    NavHostFragment.findNavController(FirstFragment.this)
+                if(logIn(binding.emailInput.toString(), binding.passordInput.toString()))
+                    NavHostFragment.findNavController(LogIn.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
+            }
+        });
+
+        binding.forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(LogIn.this)
+                        .navigate(R.id.forgotPassword);
             }
         });
     }
 
-    public boolean signIn(String email, String password)
+    public boolean logIn(String email, String password)
     {
-        System.out.println("mail: " + email + " password:" + password);
-        return true;
+        return Account.checkAccount(email, password);
     }
 
     @Override
