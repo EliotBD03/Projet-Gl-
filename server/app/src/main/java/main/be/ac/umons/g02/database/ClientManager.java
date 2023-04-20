@@ -100,7 +100,6 @@ public class ClientManager
         String[] tables = {"wallet_contract", "provider_contract", "counter", "contract"};
 
         for (String contract : contracts)
-            for (String table : tables)
-                new Query("DELETE FROM " + table + " WHERE contract_id=" + contract).executeWithoutResult();
+            new ContractManager().deleteContractAndNotify(contract, providerId);
     }
 }
