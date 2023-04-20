@@ -660,7 +660,13 @@ public class ClientApi extends MyApi implements RouterApi
         String paymentMethod = null;
         if(checkParam((paymentMethod = body.getString("payment_method")), routingContext)) return;
 
-        commonDB.getInvoiceManager().changePaymentMethod(invoiceId, paymentMethod);
+        //convert paymentMethod to boolean
+        if(paymentMethod.equals("true"))
+            paymentMethod = "1";
+        else
+            paymentMethod = "0";
+
+        commonDB.getBankManager().changePaymentMethod(invoiceId, paymentMethod);
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
@@ -685,7 +691,7 @@ public class ClientApi extends MyApi implements RouterApi
         String expirationDate = null;
         if(checkParam((expirationDate = body.getString("expiration_date")), routingContext)) return;
 
-        commonDB.getInvoiceManager().changeAccountInformation(invoiceId, accountName, accountNumber, expirationDate);
+        commonDB.getBankManager().changeAccountInformation(invoiceId, accountName, accountNumber, expirationDate);
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")

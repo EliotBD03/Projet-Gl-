@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class InvoiceFull extends InvoiceBasic{
 
-    private ContractBasic contract;
+    private String contractId;
     private ArrayList<Double> accounts;
     private double remaining;
 
@@ -18,13 +18,10 @@ public class InvoiceFull extends InvoiceBasic{
         super(invoiceId, price, status);
     }
 
-    public ContractBasic getContract() {
-        return contract;
+    public String getContractId() {
+        return contractId;
     }
 
-    public ArrayList<Double> getAccounts() {
-        return accounts;
-    }
 
     public double getRemaining() {
         return remaining;
@@ -34,30 +31,22 @@ public class InvoiceFull extends InvoiceBasic{
         return paymentMethod;
     }
 
-    public String getAccountName() {
-        return accountName;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public String getExpirationDate() {
-        return expirationDate;
-    }
-
     public String getPaymentDate() {
         return paymentDate;
     }
 
-    public void setMoreInformation(ContractBasic contract, ArrayList<Double> accounts, double remaining, String paymentMethod, String accountName, String accountNumber, String expirationDate, String paymentDate) {
-        this.contract = contract;
-        this.accounts = accounts;
+
+    public void setMoreInformation(String contractId, double remaining, String paymentMethod, String paymentDate) {
+        this.contractId = contractId;
         this.remaining = remaining;
         this.paymentMethod = paymentMethod;
-        this.accountName = accountName;
-        this.accountNumber = accountNumber;
-        this.expirationDate = expirationDate;
         this.paymentDate = paymentDate;
+    }
+    public boolean isPaid() {
+        return remaining == 0;
+    }
+
+    public String getAlreadyPaid() {
+        return String.valueOf(price - remaining);
     }
 }
