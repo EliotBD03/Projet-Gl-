@@ -131,7 +131,8 @@
     "deletedwallet": "Wallet deleted",
     "nowallet": "There is no wallet",
     "seeyousoon": "See you soon !",
-    "mailsent": "Mail sent"
+    "mailsent": "Mail sent",
+    "eanAlreadyUse" : "This ean code is already used"
   },
   "wallet": {
     "loading": "Loading...",

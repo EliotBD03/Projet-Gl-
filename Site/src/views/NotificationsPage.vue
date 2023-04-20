@@ -162,7 +162,7 @@ export default {
                     }
                 })
                 .catch(error => {
-                    if(error.error === "error.unauthorizedAccess")
+                    if(error.message === "error.unauthorizedAccess")
                         GlobalMethods.errorToken();
                     else {
                         GlobalMethods.errorApi(error.message);
