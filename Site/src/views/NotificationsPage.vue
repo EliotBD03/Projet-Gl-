@@ -25,6 +25,7 @@ import MainHeader from "@/components/MainHeader.vue";
 import MainNotification from "@/components/MainNotification.vue";
 import GoButton from "@/components/GoButton.vue";
 import GlobalMethods from "@/components/GlobalMethods.vue";
+import Promise from 'bluebird';
 import Swal from "sweetalert2";
 export default {
     components: {
@@ -55,11 +56,8 @@ export default {
     /*Méthode pour rediriger vers la page d'accueil*/
     methods: {
         async refreshNotifications(){
-            this.nbr = 1;
-            this.notifications = [];
-            this.lastPage = 0;
-            this.loading = false;
-            await this.getNotifications();
+            await Promise.delay(2000); //Ce délai permet d'afficher les pop-ups s'il y en a
+            window.location.reload();
         },
         notLastPage(){
             if(this.lastPage == this.nbr || this.loading == true){
@@ -164,7 +162,7 @@ export default {
                     }
                 })
                 .catch(error => {
-                    if(error.error === "error.unauthorizedAccess")
+                    if(error.message === "error.unauthorizedAccess")
                         GlobalMethods.errorToken();
                     else {
                         GlobalMethods.errorApi(error.message);

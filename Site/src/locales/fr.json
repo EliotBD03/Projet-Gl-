@@ -130,7 +130,8 @@
     "deletedwallet": "Portefeuille supprimé",
     "nowallet": "Vous n'avez pas de portefeuille",
     "seeyousoon": "À bientôt !",
-    "mailsent": "Un mail vous a été envoyé"
+    "mailsent": "Un mail vous a été envoyé",
+    "eanAlreadyUse" : "Ce code ean est déjà utilisé"
   },
   "wallet": {
     "loading": "Chargement en cours...",
@@ -183,7 +184,8 @@
     "seconds": "secondes",
     "minutes": "minutes",
     "hours": "heures",
-    "days": "jours"
+    "days": "jours",
+    "now": "A l'instant"
   },
   "notifications": {
     "title": "{name}",
