@@ -109,7 +109,7 @@ export default {
                         Swal.fire({
                             icon: 'success',
                             title: this.$t("alerts.good"),
-                            text: this.$t("alerts.deletecontract")
+                            text: this.$t("alerts.deletedcontract")
                         })
                         this.back();
                     }
