@@ -319,7 +319,8 @@ public class LogApi extends MyApi implements RouterApi
         if(commonDB.getLogManager().deleteAccount(id))
             routingContext.response()
                     .setStatusCode(200)
-                    .putHeader("Content-Type", "application/json");
+                    .putHeader("Content-Type", "application/json")
+                    .end();
 
         else
             routingContext.response()
