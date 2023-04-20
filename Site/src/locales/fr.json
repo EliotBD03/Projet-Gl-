@@ -183,7 +183,8 @@
     "seconds": "secondes",
     "minutes": "minutes",
     "hours": "heures",
-    "days": "jours"
+    "days": "jours",
+    "now": "A l'instant"
   },
   "notifications": {
     "title": "{name}",
