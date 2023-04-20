@@ -357,10 +357,10 @@ DROP TABLE IF EXISTS `invitedTable`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE invitedTable(
-    address varchar(42) PRIMARY KEY,
-    invitedId int(10) PRIMARY KEY,
-    ownerId int(10),
-    permission varchar(2),
+    `address` varchar(42) PRIMARY KEY,
+    `invitedId` int(10) PRIMARY KEY,
+    `ownerId` int(10),
+    `permission` varchar(2),
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -382,13 +382,13 @@ DROP TABLE IF EXISTS `invitation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE invitation (
-    invitationId int(10) PRIMARY KEY AUTO_INCREMENT,
-    senderId int(10),
-    receiverId int(10),
-    address varchar(42),
-    permission varchar(2),
-    nameSender varchar(255),
-    type varchar(7)
+    `invitationId` int(10) PRIMARY KEY AUTO_INCREMENT,
+    `senderId` int(10),
+    `receiverId` int(10),
+    `address` varchar(42),
+    `permission` varchar(2),
+    `nameSender` varchar(255),
+    `type` varchar(7)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 
