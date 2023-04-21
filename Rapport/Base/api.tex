@@ -31,7 +31,7 @@ Avant de passer en revue les différentes modifications apportées, nous précis
 \item Nous avons découvert qu'il fallait rajouter des en-têtes CORS pour pouvoir effectuer correctement les requêtes, il y a un donc un handler qui rajoute tous les en-têtes nécessaires.
 \item Le token contient la date d'expiration ainsi que l'identifiant et le rôle de l'utilisateur. Pour pouvoir récupérer toutes ces informations, nous avons rajouté une méthode nommée getDataInToken qui retourne la valeur que l'on souhaite en String.
 \item Nous avons retiré la méthode changeProposal car elle était superflue. En effet, dorénavant, pour changer une proposition, nous re-appelons la méthode addProposal avec le même nom de proposition pour écraser l'ancienne.
-\item Auparvant, nous avions une méthode pour réinitialiser le mot de passe lorsque nous l'avons oublié et une autre changePwd pour changer le mot de passe depuis la page paramètre une fois connectée. Nous avons donc supprimé cette dernière pour appeler dans tous les cas renitializePwd.
+\item Auparvant, nous avions une méthode pour réinitialiser le mot de passe lorsque nous l'avons oublié et une autre changePwd pour changer le mot de passe depuis la page paramètre une fois connecté. Nous avons donc supprimé cette dernière pour appeler dans tous les cas renitializePwd.
 \item Nous avons appliqué, pour changer une consommation, le même principe que pour changer une proposition. Nous avons donc supprimé la méthode changeConsumption.
 \item Pour finir, nous avons rajouté une requête API et une méthode pour supprimer son compte, elle a été placée dans LogApi et elle appelle une méthode de la base de données également rajoutée à cet effet.
 \end{enumerate}
