@@ -9,36 +9,36 @@
 \contentsline {subsection}{\numberline {1.4}Front-end}{7}{subsection.1.4}%
 \contentsline {subsubsection}{\numberline {1.4.1}Intoduction}{7}{subsubsection.1.4.1}%
 \contentsline {subsubsection}{\numberline {1.4.2}Pages liées à la gestion des comptes}{8}{subsubsection.1.4.2}%
-\contentsline {subsubsection}{\numberline {1.4.3}Pages liées aux clients}{8}{subsubsection.1.4.3}%
-\contentsline {subsubsection}{\numberline {1.4.4}Pages liées aux fournisseurs}{8}{subsubsection.1.4.4}%
-\contentsline {subsubsection}{\numberline {1.4.5}Pages liées aux fonctionnalités communes}{9}{subsubsection.1.4.5}%
-\contentsline {subsubsection}{\numberline {1.4.6}Problèmes rencontrés}{9}{subsubsection.1.4.6}%
-\contentsline {subsubsection}{\numberline {1.4.7}Les langues}{9}{subsubsection.1.4.7}%
-\contentsline {subsubsection}{\numberline {1.4.8}Modules importés}{9}{subsubsection.1.4.8}%
-\contentsline {subsection}{\numberline {1.5}Conclusion}{11}{subsection.1.5}%
-\contentsline {section}{\numberline {2}Extension 1.6.1 : Gestion d’utilisateurs par D’Haene Claire}{12}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Introduction}{12}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Base de données}{13}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Introduction}{13}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Package dataobject}{14}{subsubsection.2.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.3}Package database}{15}{subsubsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.3}API}{18}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Introduction}{18}{subsubsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.2}ClientApi}{18}{subsubsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.4}Front-end}{19}{subsection.2.4}%
-\contentsline {subsubsection}{\numberline {2.4.1}Introduction}{19}{subsubsection.2.4.1}%
-\contentsline {subsubsection}{\numberline {2.4.2}AddInvited}{19}{subsubsection.2.4.2}%
-\contentsline {subsubsection}{\numberline {2.4.3}ChangePermissions}{19}{subsubsection.2.4.3}%
-\contentsline {subsubsection}{\numberline {2.4.4}InvitationMessage}{19}{subsubsection.2.4.4}%
-\contentsline {subsubsection}{\numberline {2.4.5}InvitedWallet}{19}{subsubsection.2.4.5}%
-\contentsline {subsubsection}{\numberline {2.4.6}WalletFull et consumptionPage}{19}{subsubsection.2.4.6}%
-\contentsline {subsubsection}{\numberline {2.4.7}Modules importés}{20}{subsubsection.2.4.7}%
-\contentsline {subsection}{\numberline {2.5}Conclusion}{21}{subsection.2.5}%
-\contentsline {section}{\numberline {3}Extension 1.6.4 : Analyse statistique de la consommation énergétique par Adrien Fiévet}{22}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Introduction}{22}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Base de données}{23}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}API}{24}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Front-end}{25}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.1}Les portefeuilles}{25}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}Consommations}{25}{subsubsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.5}Conclusion}{26}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {1.4.3}Pages liées aux clients}{9}{subsubsection.1.4.3}%
+\contentsline {subsubsection}{\numberline {1.4.4}Pages liées aux fournisseurs}{10}{subsubsection.1.4.4}%
+\contentsline {subsubsection}{\numberline {1.4.5}Pages liées aux fonctionnalités communes}{11}{subsubsection.1.4.5}%
+\contentsline {subsubsection}{\numberline {1.4.6}Problèmes rencontrés}{12}{subsubsection.1.4.6}%
+\contentsline {subsubsection}{\numberline {1.4.7}Les langues}{13}{subsubsection.1.4.7}%
+\contentsline {subsubsection}{\numberline {1.4.8}Modules importés}{13}{subsubsection.1.4.8}%
+\contentsline {subsection}{\numberline {1.5}Conclusion}{14}{subsection.1.5}%
+\contentsline {section}{\numberline {2}Extension 1.6.1 : Gestion d’utilisateurs par D’Haene Claire}{15}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Introduction}{15}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Base de données}{16}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Introduction}{16}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Package dataobject}{17}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Package database}{18}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}API}{21}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Introduction}{21}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}ClientApi}{21}{subsubsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.4}Front-end}{22}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Introduction}{22}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}AddInvited}{22}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}ChangePermissions}{22}{subsubsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.4}InvitationMessage}{22}{subsubsection.2.4.4}%
+\contentsline {subsubsection}{\numberline {2.4.5}InvitedWallet}{22}{subsubsection.2.4.5}%
+\contentsline {subsubsection}{\numberline {2.4.6}WalletFull et consumptionPage}{22}{subsubsection.2.4.6}%
+\contentsline {subsubsection}{\numberline {2.4.7}Modules importés}{23}{subsubsection.2.4.7}%
+\contentsline {subsection}{\numberline {2.5}Conclusion}{24}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Extension 1.6.4 : Analyse statistique de la consommation énergétique par Adrien Fiévet}{25}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Introduction}{25}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Base de données}{26}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}API}{27}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Front-end}{28}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Les portefeuilles}{28}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Consommations}{28}{subsubsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.5}Conclusion}{29}{subsection.3.5}%

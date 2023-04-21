@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.4.13)  21 APR 2023 12:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.4.13)  21 APR 2023 13:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -508,22 +508,22 @@ LaTeX Warning: The counter will not be printed.
 [7
 
 
-] [8]
+] [8] [9] [10] [11] [12]
 
 LaTeX Warning: The counter will not be printed.
-             The label is: - on input line 90.
+             The label is: - on input line 93.
 
-[9]) [10]
+) [13]
 \openout2 = `Base/conclusion.aux'.
 
- (./Base/conclusion.tex) [11
+ (./Base/conclusion.tex) [14
 
 
 ]
 \openout2 = `ExtensionClaire/introduction.aux'.
 
  (./ExtensionClaire/introduction.tex)
-[12
+[15
 
 
 ]
@@ -535,7 +535,7 @@ Overfull \hbox (11.33383pt too wide) in paragraph at lines 14--16
 for-ma-tions n^^Secessaires
  []
 
-[13
+[16
 
 
 ]
@@ -543,20 +543,20 @@ for-ma-tions n^^Secessaires
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 31.
 
-[14]
+[17]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 73.
 
-[15]
+[18]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 111.
 
-[16]) [17]
+[19]) [20]
 \openout2 = `ExtensionClaire/api.aux'.
 
- (./ExtensionClaire/api.tex) [18
+ (./ExtensionClaire/api.tex) [21
 
 
 ]
@@ -586,13 +586,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 17--18
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 55.
 
-[19
+[22
 
 
-]) [20]
+]) [23]
 \openout2 = `ExtensionClaire/conclusion.aux'.
 
- (./ExtensionClaire/conclusion.tex) [21
+ (./ExtensionClaire/conclusion.tex) [24
 
 
 ]
@@ -604,32 +604,32 @@ Overfull \hbox (28.06337pt too wide) in paragraph at lines 2--2
 []\OT1/cmr/bx/n/14.4 Extension 1.6.4 : Ana-lyse sta-tis-tique de la consom-
  []
 
-) [22
+) [25
 
 
 ]
 \openout2 = `ExtensionAdrien/bdd.aux'.
 
- (./ExtensionAdrien/bdd.tex) [23
+ (./ExtensionAdrien/bdd.tex) [26
 
 
 ]
 \openout2 = `ExtensionAdrien/api.aux'.
 
- (./ExtensionAdrien/api.tex) [24
+ (./ExtensionAdrien/api.tex) [27
 
 
 ]
 \openout2 = `ExtensionAdrien/front.aux'.
 
 
-(./ExtensionAdrien/front.tex) [25
+(./ExtensionAdrien/front.tex) [28
 
 
 ]
 \openout2 = `ExtensionAdrien/conclusion.aux'.
 
- (./ExtensionAdrien/conclusion.tex) [26
+ (./ExtensionAdrien/conclusion.tex) [29
 
 
 ]
@@ -650,8 +650,8 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 80.
  ) 
 Here is how much of TeX's memory you used:
- 9245 strings out of 483113
- 135972 string characters out of 5964008
+ 9248 strings out of 483113
+ 135993 string characters out of 5964008
  416565 words of memory out of 5000000
  23851 multiletter control sequences out of 15000+600000
  540849 words of font info for 57 fonts, out of 8000000 for 9000
@@ -666,10 +666,10 @@ t/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmti12.pfb>
-Output written on main.pdf (26 pages, 282265 bytes).
+Output written on main.pdf (29 pages, 283281 bytes).
 PDF statistics:
- 497 PDF objects out of 1000 (max. 8388607)
- 451 compressed objects within 5 object streams
- 157 named destinations out of 1000 (max. 500000)
+ 509 PDF objects out of 1000 (max. 8388607)
+ 460 compressed objects within 5 object streams
+ 160 named destinations out of 1000 (max. 500000)
  347 words of extra memory for PDF output out of 10000 (max. 10000000)
 
