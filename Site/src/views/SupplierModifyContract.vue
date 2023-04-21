@@ -129,7 +129,6 @@ export default {
                         if (!response.ok) {
                             return response.json().then(json => Promise.reject(json));
                         }
-                        return response.json();
                     })
                     .then(
                         this.$router.push({name: 'HomeSupplier'}))
