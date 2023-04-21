@@ -10,11 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import main.be.ac.umons.g02.maybethelastone.data.Account;
-import main.be.ac.umons.g02.maybethelastone.databinding.FragmentFirstBinding;
+import main.be.ac.umons.g02.maybethelastone.databinding.LogInBinding;
+import main.be.ac.umons.g02.maybethelastone.databinding.SingUpBinding;
 
 public class LogIn extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private LogInBinding binding;
 
     @Override
     public View onCreateView(
@@ -22,7 +23,7 @@ public class LogIn extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = LogInBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -37,6 +38,8 @@ public class LogIn extends Fragment {
                 if(logIn(binding.emailInput.toString(), binding.passordInput.toString()))
                     NavHostFragment.findNavController(LogIn.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                else
+                    System.out.println("je passe");
             }
         });
 

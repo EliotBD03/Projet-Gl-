@@ -1,4 +1,4 @@
-package main.be.ac.umons.g02.maybethelastone.api;
+package main.be.ac.umons.g02.maybethelastone.api.query;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;

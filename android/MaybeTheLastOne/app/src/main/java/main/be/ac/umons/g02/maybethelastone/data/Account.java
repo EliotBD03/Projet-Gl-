@@ -1,8 +1,13 @@
 package main.be.ac.umons.g02.maybethelastone.data;
 
-import main.be.ac.umons.g02.maybethelastone.api.APIAccount;
+
+
+import main.be.ac.umons.g02.maybethelastone.api.query.APIAccount;
 import main.be.ac.umons.g02.maybethelastone.api.APIClient;
-import main.be.ac.umons.g02.maybethelastone.api.APIEmail;
+import main.be.ac.umons.g02.maybethelastone.api.query.APIEmail;
+import main.be.ac.umons.g02.maybethelastone.api.request.LoginRequest;
+import main.be.ac.umons.g02.maybethelastone.api.request.SaveRequest;
+import main.be.ac.umons.g02.maybethelastone.api.response.LoginResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,28 +47,34 @@ public class Account
         return isClient;
     }
 
+    private static void handleLoginResponse(LoginResponse loginResponse)
+    {
+        account = new Account(loginResponse.getToken(), loginResponse.getRole().equals("client"));
+    }
+
     public static boolean checkAccount(String mail, String password)
     {
         APIClient apiClient = new APIClient();
         APIAccount apiAccount = apiClient.getRetrofit().create(APIAccount.class);
-        Call<Account> call = apiAccount.checkAccount(mail, password);
-        final Account[] account = new Account[1];
+        Call<LoginResponse> call = apiAccount.checkAccount(new LoginRequest(mail, password));
 
-        call.enqueue(new Callback<Account>() {
+        call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<Account> call, Response<Account> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if(response.isSuccessful())
-                    account[0] = response.body();
+                {
+                    assert response.body() != null;
+                    handleLoginResponse(response.body());
+                }
                 else
                     System.out.println("Account not found"); //TODO
             }
 
             @Override
-            public void onFailure(Call<Account> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
                 System.out.println("Connection error"); //TODO
             }
         });
-        Account.account = account[0];
 
         return Account.account != null;
     }
@@ -72,24 +83,25 @@ public class Account
     {
         APIClient apiClient = new APIClient();
         APIAccount apiAccount = apiClient.getRetrofit().create(APIAccount.class);
-        Call<Account> call = apiAccount.saveAccount(name, mail, password, code, isClient, language);
-        final Account[] account = new Account[1];
+        Call<LoginResponse> call = apiAccount.saveAccount(new SaveRequest(name, mail, password, code, isClient, language));
 
-        call.enqueue(new Callback<Account>() {
+        call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<Account> call, Response<Account> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if(response.isSuccessful())
-                    account[0] = response.body();
+                {
+                    assert response.body() != null;
+                    handleLoginResponse(response.body());
+                }
                 else
                     System.out.println("Couldn't create account"); //TODO
             }
 
             @Override
-            public void onFailure(Call<Account> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
                 System.out.println("Connection error"); //TODO
             }
         });
-        Account.account = account[0];
 
         return Account.account != null;
     }

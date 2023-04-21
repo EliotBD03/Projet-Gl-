@@ -1,6 +1,7 @@
 package main.be.ac.umons.g02.maybethelastone.api;
 
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient
 {
@@ -11,8 +12,9 @@ public class APIClient
     {
         if(retrofit == null)
             retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .build();
+                    .baseUrl(URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
     }
 
     public Retrofit getRetrofit()

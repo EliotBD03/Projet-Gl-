@@ -9,7 +9,7 @@
         android:id="@+id/FirstFragment"
         android:name="main.be.ac.umons.g02.maybethelastone.LogIn"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/log_in">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -22,7 +22,7 @@
         android:id="@+id/SecondFragment"
         android:name="main.be.ac.umons.g02.maybethelastone.SecondFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/home">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
@@ -32,7 +32,7 @@
         android:id="@+id/forgottenPassword"
         android:name="main.be.ac.umons.g02.maybethelastone.LogIn"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/log_in">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
