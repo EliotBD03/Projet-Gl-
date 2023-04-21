@@ -193,27 +193,32 @@ public class ProposalManager
     public boolean addProposal(ProposalFull proposal)
     {
         boolean value = false;
+        String query = null;
         if(doesTheProposalExist(proposal.getProposalName(), proposal.getProviderId()))
         {
-            deleteProposal(proposal.getProposalName(), proposal.getProviderId());
+            query = "UPDATE proposal SET peak_hours=" + proposal.getVariableDayPrice()+", offpeak_hours="+proposal.getVariableNightPrice()+
+                    ", start_peak_hours="+proposal.getStartOfPeakHours()+", end_peak_hours="+proposal.getEndOfPeakHours()+" WHERE provider_id="+proposal.getProviderId()+
+                    " AND proposal_name="+proposal.getProposalName();
             value = true;
         }
+        else
+        {
+             query = "INSERT INTO proposal(proposal_name, provider_id, water"+
+                    ",gas,electricity,fixed_rate,peak_hours,offpeak_hours,start_peak_hours,end_peak_hours, location, duration)"
+                    + " VALUES('"+proposal.getProposalName() + "',"
+                    + proposal.getProviderId()+ ","
+                    + ((proposal.getTypeOfEnergy().equals("water")) ? 1 : 0) + ","
+                    + ((proposal.getTypeOfEnergy().equals("gas")) ? 1 : 0) + ","
+                    + ((proposal.getTypeOfEnergy().equals("electricity")) ? 1 : 0) + ","
+                    + (proposal.isFixedRate() ? 1 : 0) + ","
+                    + proposal.getVariableDayPrice() + ","
+                    + proposal.getVariableNightPrice() + ","
+                    + (proposal.getStartOfPeakHours() == null ? "DEFAULT" : "'"+proposal.getStartOfPeakHours()+"'") + ","
+                    + (proposal.getEndOfPeakHours() == null ? "DEFAULT" : "'"+proposal.getEndOfPeakHours()+"'") + ","
+                    + proposal.getLocation() + ","
+                    + proposal.getDuration() +");";
 
-        String query = "INSERT INTO proposal(proposal_name, provider_id, water"+
-                ",gas,electricity,fixed_rate,peak_hours,offpeak_hours,start_peak_hours,end_peak_hours, location, duration)"
-                + " VALUES('"+proposal.getProposalName() + "',"
-                + proposal.getProviderId()+ ","
-                + ((proposal.getTypeOfEnergy().equals("water")) ? 1 : 0) + ","
-                + ((proposal.getTypeOfEnergy().equals("gas")) ? 1 : 0) + ","
-                + ((proposal.getTypeOfEnergy().equals("electricity")) ? 1 : 0) + ","
-                + (proposal.isFixedRate() ? 1 : 0) + ","
-                + proposal.getVariableDayPrice() + ","
-                + proposal.getVariableNightPrice() + ","
-                + (proposal.getStartOfPeakHours() == null ? "DEFAULT" : "'"+proposal.getStartOfPeakHours()+"'") + ","
-                + (proposal.getEndOfPeakHours() == null ? "DEFAULT" : "'"+proposal.getEndOfPeakHours()+"'") + ","
-                + proposal.getLocation() + ","
-                + proposal.getDuration() +");";
-
+        }
         new Query(query).executeWithoutResult();
 
         return value;
