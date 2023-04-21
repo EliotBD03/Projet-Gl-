@@ -36,6 +36,7 @@ class ProposalManagerTest
         ProposalManager proposalManager = new ProposalManager();
         proposalManager.addProposal(reference);
         assertNotEquals(((ArrayList<ProposalBasic>)proposalManager.getAllProposals(null, null,0,1 )[1]).size(),0);
+        proposalManager.addProposal(reference);
     }
 
     /**

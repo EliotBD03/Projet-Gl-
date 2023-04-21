@@ -197,8 +197,8 @@ public class ProposalManager
         if(doesTheProposalExist(proposal.getProposalName(), proposal.getProviderId()))
         {
             query = "UPDATE proposal SET peak_hours=" + proposal.getVariableDayPrice()+", offpeak_hours="+proposal.getVariableNightPrice()+
-                    ", start_peak_hours="+proposal.getStartOfPeakHours()+", end_peak_hours="+proposal.getEndOfPeakHours()+" WHERE provider_id="+proposal.getProviderId()+
-                    " AND proposal_name="+proposal.getProposalName();
+                    ", start_peak_hours='"+proposal.getStartOfPeakHours()+"', end_peak_hours='"+proposal.getEndOfPeakHours()+"' WHERE provider_id="+proposal.getProviderId()+
+                    " AND proposal_name='"+proposal.getProposalName()+"'";
             value = true;
         }
         else
