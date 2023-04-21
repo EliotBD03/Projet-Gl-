@@ -1,6 +1,7 @@
 <template>
     <div class="main">
         <div class="header">
+            <!-- coucou-->
             <MainHeader text="header.modifyproposal"/>
         </div>
         <div class="contact-form">
