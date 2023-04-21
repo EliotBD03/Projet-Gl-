@@ -258,7 +258,8 @@
     "addressNotCorrect" : "Cette adresse est déjà prise.",
     "walletNotEmpty" : "Le portefeuille n'est pas vide.",
     "tableauType" : "Le tableau ne doit contenir que des entiers.",
-    "notHisWallet": "Ce portefeuille ne vous appartient pas."
+    "notHisWallet": "Ce portefeuille ne vous appartient pas.",
+    "proposalUsed": "Ce contract est actuellement lié à un client."
   },
   "404": {
     "title": "404",
