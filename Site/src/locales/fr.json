@@ -259,7 +259,8 @@
     "walletNotEmpty" : "Le portefeuille n'est pas vide.",
     "tableauType" : "Le tableau ne doit contenir que des entiers.",
     "notHisWallet": "Ce portefeuille ne vous appartient pas.",
-    "proposalUsed": "Ce contract est actuellement lié à un client."
+    "proposalUsed": "Ce contract est actuellement lié à un client.",
+    "stillContracts": "Il reste encore des contrats associés."
   },
   "404": {
     "title": "404",

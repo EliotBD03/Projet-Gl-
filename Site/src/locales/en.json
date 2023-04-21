@@ -260,7 +260,8 @@
     "walletNotEmpty" : "The wallet is not empty.",
     "tableauType" : "The table does not only contain numbers.",
     "notHisWallet": "This wallet doesn't belong to you",
-    "proposalUsed": "This proposal is currently used by a client"
+    "proposalUsed": "This proposal is currently used by a client",
+    "stillContracts": "There are still contracts associated"
   },
   "404": {
     "title": "404",
