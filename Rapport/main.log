@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.4.13)  21 APR 2023 13:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.4.13)  21 APR 2023 15:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -451,12 +451,12 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 20.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<images/umons.jpeg, id=172, 1927.2pt x 749.80125pt>
+<images/umons.jpeg, id=188, 1927.2pt x 749.80125pt>
 File: images/umons.jpeg Graphic file (type jpg)
 <use images/umons.jpeg>
 Package pdftex.def Info: images/umons.jpeg  used on input line 50.
 (pdftex.def)             Requested size: 103.50105pt x 40.26099pt.
-<images/facSciences.png, id=174, 578.16pt x 255.95625pt>
+<images/facSciences.png, id=190, 578.16pt x 255.95625pt>
 File: images/facSciences.png Graphic file (type png)
 <use images/facSciences.png>
 Package pdftex.def Info: images/facSciences.png  used on input line 52.
@@ -465,16 +465,16 @@ Package pdftex.def Info: images/facSciences.png  used on input line 52.
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./images/umons.jpeg> <./im
 ages/facSciences.png>] (./main.toc
-Overfull \hbox (24.97421pt too wide) in paragraph at lines 37--37
+Overfull \hbox (24.97421pt too wide) in paragraph at lines 41--41
  [] [][]\OT1/cmr/bx/n/10 Extension 1.6.4 : Ana-lyse sta-tis-tique de la consom-
 ma-tion ^^Senerg^^Setique 
  []
 
-)
+[2])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [2] [3]
+ [3]
 \openout2 = `Base/introduction.aux'.
 
  (./Base/introduction.tex
@@ -494,10 +494,27 @@ Overfull \hbox (38.58418pt too wide) in paragraph at lines 10--12
 ]
 \openout2 = `Base/api.aux'.
 
- (./Base/api.tex) [6
+ (./Base/api.tex
+Overfull \hbox (0.20172pt too wide) in paragraph at lines 24--25
+[]\OT1/cmr/m/n/10 Nous avons ajout^^Se la ges-tion de pa-gi-na-tion. No-tam-men
+t gr^ace ^^Ra la m^^Sethode
+ []
+
+
+Overfull \hbox (15.17387pt too wide) in paragraph at lines 29--30
+\OT1/cmr/m/n/10 Hand-le-rU-tils. Elle re-groupe les hand-lers uti-lis^^Ses pour
+ ef-fec-tuer les v^^Serifications. 
+ []
+
+[6
 
 
 ]
+
+LaTeX Warning: The counter will not be printed.
+             The label is: - on input line 45.
+
+[7]) [8]
 \openout2 = `Base/front.aux'.
 
  (./Base/front.tex
@@ -505,25 +522,25 @@ Overfull \hbox (38.58418pt too wide) in paragraph at lines 10--12
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 9.
 
-[7
+[9
 
 
-] [8] [9] [10] [11] [12]
+] [10] [11] [12] [13] [14] [15]
 
 LaTeX Warning: The counter will not be printed.
-             The label is: - on input line 93.
+             The label is: - on input line 94.
 
-) [13]
+) [16]
 \openout2 = `Base/conclusion.aux'.
 
- (./Base/conclusion.tex) [14
+ (./Base/conclusion.tex) [17
 
 
 ]
 \openout2 = `ExtensionClaire/introduction.aux'.
 
  (./ExtensionClaire/introduction.tex)
-[15
+[18
 
 
 ]
@@ -535,7 +552,7 @@ Overfull \hbox (11.33383pt too wide) in paragraph at lines 14--16
 for-ma-tions n^^Secessaires
  []
 
-[16
+[19
 
 
 ]
@@ -543,20 +560,20 @@ for-ma-tions n^^Secessaires
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 31.
 
-[17]
+[20]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 73.
 
-[18]
+[21]
 
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 111.
 
-[19]) [20]
+[22]) [23]
 \openout2 = `ExtensionClaire/api.aux'.
 
- (./ExtensionClaire/api.tex) [21
+ (./ExtensionClaire/api.tex) [24
 
 
 ]
@@ -586,13 +603,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 17--18
 LaTeX Warning: The counter will not be printed.
              The label is: - on input line 55.
 
-[22
+[25
 
 
-]) [23]
+]) [26]
 \openout2 = `ExtensionClaire/conclusion.aux'.
 
- (./ExtensionClaire/conclusion.tex) [24
+ (./ExtensionClaire/conclusion.tex) [27
 
 
 ]
@@ -604,32 +621,32 @@ Overfull \hbox (28.06337pt too wide) in paragraph at lines 2--2
 []\OT1/cmr/bx/n/14.4 Extension 1.6.4 : Ana-lyse sta-tis-tique de la consom-
  []
 
-) [25
+) [28
 
 
 ]
 \openout2 = `ExtensionAdrien/bdd.aux'.
 
- (./ExtensionAdrien/bdd.tex) [26
+ (./ExtensionAdrien/bdd.tex) [29
 
 
 ]
 \openout2 = `ExtensionAdrien/api.aux'.
 
- (./ExtensionAdrien/api.tex) [27
+ (./ExtensionAdrien/api.tex) [30
 
 
 ]
 \openout2 = `ExtensionAdrien/front.aux'.
 
 
-(./ExtensionAdrien/front.tex) [28
+(./ExtensionAdrien/front.tex) [31
 
 
 ]
 \openout2 = `ExtensionAdrien/conclusion.aux'.
 
- (./ExtensionAdrien/conclusion.tex) [29
+ (./ExtensionAdrien/conclusion.tex) [32
 
 
 ]
@@ -646,17 +663,17 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 80.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 80.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 80.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: A0FFC92BC0EF2EE7E6DABEB754126ADB;3067.
+(rerunfilecheck)             Checksum: 3E15216D516521F431FAAFB385D034A5;3402.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 80.
  ) 
 Here is how much of TeX's memory you used:
- 9248 strings out of 483113
- 135993 string characters out of 5964008
- 416565 words of memory out of 5000000
- 23851 multiletter control sequences out of 15000+600000
+ 9279 strings out of 483113
+ 136321 string characters out of 5964008
+ 416570 words of memory out of 5000000
+ 23855 multiletter control sequences out of 15000+600000
  540849 words of font info for 57 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 40i,6n,45p,437b,587s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,7n,45p,562b,627s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/tex
@@ -666,10 +683,10 @@ t/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmti12.pfb>
-Output written on main.pdf (29 pages, 283281 bytes).
+Output written on main.pdf (32 pages, 290410 bytes).
 PDF statistics:
- 509 PDF objects out of 1000 (max. 8388607)
- 460 compressed objects within 5 object streams
- 160 named destinations out of 1000 (max. 500000)
- 347 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 569 PDF objects out of 1000 (max. 8388607)
+ 516 compressed objects within 6 object streams
+ 187 named destinations out of 1000 (max. 500000)
+ 379 words of extra memory for PDF output out of 10000 (max. 10000000)
 
