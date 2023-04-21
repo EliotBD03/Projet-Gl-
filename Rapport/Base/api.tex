@@ -1,2 +1,69 @@
 \subsection{API}
 \subsubsection{Intoduction}
+
+\begin{flushleft}
+Nous allons voir dans cette section le choix du framework pour lancer un serveur API ainsi que les modifications effectuées pour la partie API. Nous allons ensuite évoquer un petit programme pour simuler un compteur numérique et finalement nous allons expliquer les plus gros problèmes rencontrés.
+\end{flushleft}
+
+\subsubsection{Choix du framework}
+
+\begin{flushleft}
+Comme expliqué dans le rapport de modélisation, nous avons choisi d'utiliser le framework Vertx pour gérer l'API. Nous sommes partis sur cette solution car nous avons trouvé un excellent tutoriel très complet pour apprendre le fonctionnement de Vertx, en sachant qu'il y a également une très bonne documentation ainsi qu'un serveur discord si jamais on avait vraiment rencontré des gros problèmes. Ce framework étant facile à utiliser, nous n'avons eu aucun problème à lancer nos premiers serveurs testes.
+\end{flushleft}
+
+\subsubsection{Modification apportées}
+
+\begin{flushleft}
+Avant de passer en revue les différentes modifications apportées, nous précisons dans un premier temps que nous avons gardé la structure des fichiers énnoncée dans le rapport de modélisation. 
+\end{flushleft}
+
+\begin{enumerate}
+\item Nous avons rajouté une nouvelle méthode pour obtenir la liste des contrats entre un client et un fournisseur, cette dernière est appelée getAllClientsOfContract.
+\item Nous avons ajusté quelques chemins API afin de convenir à nos besoins.
+\item Nous avons finalement manipulé les dates comme des objets String et non des Calendar.
+\item Nous avons ajouté la gestion de pagination. Notamment grâce à la méthode getSlice se trouvant dans le fichier MyApi.
+\item Nous avons rajouté une nouvelle méthode pour obtenir les consommations par mois.
+\item Nous avons totalement changé la gestion des tokens, la classe AbstractToken a été supprimée et tout est maintenant géré dans la classe MyApi grâce à Vertx.
+\item Nous avons ajouté une protection par rapport à l'autorisation des requêtes. En effet, seules les requêtes de notre site et d'always data sont autorisées.
+\item Nous avons dû faire de la surcharge de constructeur pour createNotification car si c'est le client qui accepte, il doit également spécifier son adresse et son code ean.
+\item Pour vérifier les tokens, le rôle de l'utilisateur ainsi que la source de la requête, nous avons ajouté une classe interne dans MyApi qui se nomme HandlerUtils. Elle regroupe les handlers utilisés pour effectuer les vérifications.
+\item Comme notre api a dû être lancé sur always data comme un site, nous n'avons pas pu utiliser les timers de java. Pour régler de problème, nous avons ajouté des timer task dans always data qui effectue des requêtes à intervalles réguliés pour supprimer les codes email et les contrats.
+\item Nous avons découvert qu'il fallait rajouter des en-têtes CORS pour pouvoir effectuer correctement les requêtes, il y a un donc un handler qui rajoute tous les en-têtes nécessaires.
+\item Le token contient la date d'expiration ainsi que l'identifiant et le rôle de l'utilisateur. Pour pouvoir récupérer toutes ces informations, nous avons rajouté une méthode nommée getDataInToken qui retourne la valeur que l'on souhaite en String.
+\item Nous avons retiré la méthode changeProposal car elle était superflue. En effet, dorénavant, pour changer une proposition, nous re-appelons la méthode addProposal avec le même nom de proposition pour écraser l'ancienne.
+\item Auparvant, nous avions une méthode pour réinitialiser le mot de passe lorsque nous l'avons oublié et une autre changePwd pour changer le mot de passe depuis la page paramètre une fois connectée. Nous avons donc supprimé cette dernière pour appeler dans tous les cas renitializePwd.
+\item Comme le principe pour changer une proposition, nous avons appliqué ce même principe pour changer une consommation. Nous avons donc supprimé la méthode changeConsumption.
+\item Pour finir, nous avons rajouté une requête API et une méthode pour supprimer son compte, elle a été placée dans LogApi et elle appelle une méthode de la base de données également rajouté à cet effet.
+\end{enumerate}
+
+\subsubsection{Compteur numérique}
+
+\begin{flushleft}
+Pour simuler un compteur numérique, nous avons donc créé un programme annexe se trouvant dans le dossier numeriqueMeter. Dans ce dossier se trouve un programme java gérer par gradle, vous pouvez donc le lancer. Ce dernier a besoin de plusieurs arguments:
+\end{flushleft}
+
+\besoin{enumerate}[-]
+\item L'adresse mail du compte
+\item Le mot de passe du compte
+\item Le code ean du contrat
+\item Le type d'énergie (e|g|w)
+\end{enumerate}
+
+\begin{flushleft}
+Une fois se programme lancée, il ajoutera une consommation plus ou moins aléatoire en fonction du type d'énergie toutes les 5 secondes et affichera dans la console la date d'ajout ainsi que la valeur. Pour l'arrêter, il suffit d'entrer n'importe quel caractère et ensuite appuyer sur entrer pour fermer le programme correctement.
+\end{flushleft}
+
+\subsubsection{Gros proglèmes rencontrés}
+
+\begin{flushleft}
+Au niveau de l'API, il y a principalement deux problèmes que nous avons eu beaucoup de mal à régler.
+\end{flushleft}
+
+\begin{flushleft}
+D'un côté nous voulions lancer notre serveur comme un vrai serveur always data. Cependant, il était donc en http et comme le port d'always data n'était pas le port par défaut, nous n'avons pas réussi à faire vérifier notre serveur pour le faire passer en https. Pour régler ce problème, nous avons été obligé de lancer notre serveur comme un site mais l'inconvénient est donc que les timers de java n'étaient plus utilisables et nous avions donc mis en place des timer task pour contourner cet inconvénient.
+\end{flushleft}
+
+\begin{flushleft}
+D'un autre côté, le plus gros problème que nous avons rencontré est qu'il fallait ajouter des en-têtes CORS car il y a une protection internet qui bloque nos requêtes entre le site et le serveur car ils ne sont pas dans le même domaine. Nous n'avions aucune idée des en-têtes qu'il nous manquait ni comment les ajouter correctement.
+\end{flushleft}
+
