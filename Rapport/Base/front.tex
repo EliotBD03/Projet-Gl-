@@ -14,15 +14,87 @@ Le fichier "index.js" permet d'identifier plus clairement les parties, nous avon
 \end{enumerate} 
 \newpage
 \subsubsection{Pages liées à la gestion des comptes}
+\begin{enumerate}
+\item \textbf{Login} :\newline
+Cette page permet aux utilisateurs de se connecter.
+\item \textbf{CreateAccount} :\newline
+Cette page permet aux utilisateurs de créer un compte.
+\item \textbf{ForgottenPassword} :\newline
+Cette page donne la possibilité aux utilisateurs de changer de mot de passe s'ils le souhaitent ou s'ils ne souviennent plus de celui-ci.
+\end{enumerate}
+
 
 \subsubsection{Pages liées aux clients}
+\begin{enumerate}
+\item \textbf{HomeClient} :\newline
+La page d’accueil des clients.
+\item \textbf{Wallets} :\newline
+Cette page comprend tous les portefeuilles du client.
+\item \textbf{WalletFull} :\newline
+Cette page permet de voir les informations liées à un portefeuille en particulier en partant de la page Wallets.
+\item \textbf{AddWallet} :\newline
+Cette page donne la possibilité au client d’ajouter un portefeuille.
+\item \textbf{NewContracts} : \newline
+Cette page permet au client d’envoyer un notification au fournisseur afin d’essayer d’avoir un nouveau contrat avec ce fournisseur en question.
+\item \textbf{ContractInformation} : \newline
+Cette page permet de voir les informations liées à une nouvelle proposition se trouvant dans NewContractsPage.
+\item \textbf{ContractPage} : \newline
+Cette page permet de voir les contrats en cours qu’un client a en commun avec un fournisseur.
+\end{enumerate} 
 
 \subsubsection{Pages liées aux fournisseurs}
 
+\begin{enumerate}
+\item \textbf{HomeSupplier} : \newline
+La page d’accueil des fournisseurs.
+\item \textbf{Clients} : \newline
+Cette page comprend tous les clients du fournisseur.
+\item \textbf{ClientFull} :  \newline
+Cette page permet de voir les informations liées à un client en particulier en partant de la page Clients.
+\item \textbf{AddClient} : \newline
+Cette page donne la possibilité au fournisseur d’ajouter un client avec la proposition qu’il désire.
+\item \textbf{CreateContract} :\newline
+Cette page permet au fournisseur de créer  des nouvelles propositions.
+\item \textbf{SupplierContractPage} :\newline
+Cette page permet au fournisseur de voir les propositions qu’il a créées.
+\item \textbf{ProposalFull} :\newline
+Cette page permet de voir les informations liées à un proposition en particulier en partant de la page SupplierContractPage.
+\item \textbf{SupplierModifyContract} :\newline
+Cette page donne la possibilité au fournisseur de modifier ses propositions et ses contrats en cours s’ils sont variables.
+\end{enumerate} 
+
 \subsubsection{Pages liées aux fonctionnalités communes}
+\begin{enumerate}
+\item \textbf{Notifications} :\newline
+Cette page donne la possibilité aux utilisateurs de voir leurs notifications ainsi que les accepter ou le refuser.
+\item \textbf{ContractFull} :\newline
+Cette page permet aux utilisateurs de voir un contrat en cours en partant de la page ClientFull ou WalletFull.
+\item \textbf{ConsumptionPage} :\newline
+Cette page permet aux utilisateurs d’observer la consommation liée à un contrat.
+\end{enumerate} 
 
 \subsubsection{Problèmes rencontrés}
-On est passé de vue2 à 3.
-Router
+\begin{flushleft}
+Nous avons rencontré un souci avec notre router, l’ensemble des redirections fonctionnait en local mais pas sur alwaysdata en ligne.
+\end{flushleft}
+\begin{flushleft}
+Nous n’avions pas compris que nous envoyions des fichiers statiques (venant du dist) sur le serveur.
+\end{flushleft}
+\begin{flushleft}
+De ce fait, la configuration se faisait en nodejs mais pas en fichier statique, ce qui était la source du problème.
+\end{flushleft}
+
+\subsubsection{Les langues}
 
 \subsubsection{Modules importés}
+\begin{enumerate}[-]
+\item \textbf{VueCookies} :\newline
+Ce module est importé afin de gérer les cookies.
+\item \textbf{VueSweetalert2} :\newline
+Ce dernier est importé afin d'obtenir diverses pop-ups.
+\item \textbf{i18n} :\newline
+Celui-ci est importé dans le but de gérer les langues comme expliqué dans la section précédente.
+\item \textbf{bluebird} :\newline
+Ce module est importé pour permettre de laisser un temps d'attente.
+Celui-ci est utile notamment lorsqu'on souhaite afficher une pop-up et ensuite rediriger.
+\end{enumerate} 
