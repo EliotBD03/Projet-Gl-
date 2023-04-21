@@ -258,7 +258,8 @@
     "codeNotSend" : "Error in sending the code.",
     "addressNotCorrect" : "This address is already taken.",
     "walletNotEmpty" : "The wallet is not empty.",
-    "tableauType" : "The table does not only contain numbers."
+    "tableauType" : "The table does not only contain numbers.",
+    "notHisWallet": "This wallet doesn't belong to you"
   },
   "404": {
     "title": "404",
