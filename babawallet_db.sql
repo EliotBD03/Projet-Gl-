@@ -407,6 +407,56 @@ LOCK TABLES `invitation` WRITE;
 /*!40000 ALTER TABLE `invitation` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `invoice`
+--
+
+DROP TABLE IF EXISTS `invoice`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `invoice` (
+  `invoice_id` int(10) NOT NULL AUTO_INCREMENT,
+  `price` double(10,2) DEFAULT NULL,
+  `contract_id` int(10) NOT NULL,
+  `status` binary(1) DEFAULT 0,
+  `payment_method` binary(1) DEFAULT 0,
+  `already_paid` double(10,2) DEFAULT 0,
+  `payment_date` date DEFAULT 0,
+  PRIMARY KEY (`invoice_id`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `invoice`
+--
+
+LOCK TABLES `invoice` WRITE;
+/*!40000 ALTER TABLE `invoice` DISABLE KEYS */;
+/*!40000 ALTER TABLE `invoice` ENABLE KEYS */;
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `bank`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bank` (
+  `client_id` int(10) NOT NULL,
+  `payment_method` binary(1) DEFAULT 0,
+  `account_name` varchar(35) DEFAULT NULL,
+  `account_number` varchar(20) NOT NULL,
+  `expiration_date` date,
+  PRIMARY KEY (`account_number`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bank`
+--
+
+LOCK TABLES `bank` WRITE;
+/*!40000 ALTER TABLE `bank` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bank` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
