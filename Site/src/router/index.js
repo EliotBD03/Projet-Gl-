@@ -124,6 +124,11 @@ const routes = [
         path: '/invitedwallets',
         name: 'InvitedWallets',
         component: () => import('@/views/ExtensionClaire/InvitedWallets.vue')
+      },
+      {
+        path: '/invoices',
+        name: 'Invoices',
+        component: () => import('@/views/InvoicePage.vue')
       }
     ],beforeEnter: (to, from, next) => {
         if(cookies.isKey("token") && cookies.isKey("role"))

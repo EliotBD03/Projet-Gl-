@@ -122,7 +122,7 @@ export default {
                         if(this.lastPage == 0)
                         {
                             this.loading = true;
-                            Swal.fire(this.$t("proposal.noproposal"));
+                            Swal.fire(this.$t("alerts.noproposal"));
                         }
                         else if(this.lastPage >= this.nbr)
                         {

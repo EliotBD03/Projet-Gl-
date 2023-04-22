@@ -15,6 +15,7 @@
     "yourclients": "Your clients",
     "addproposal": "Add a proposal",
     "modifyproposal": "Modify a proposal",
+    "invoice": "Invoice",
     "other": "{name}"
   },
   "walletform": {
@@ -132,7 +133,8 @@
     "nowallet": "There is no wallet",
     "seeyousoon": "See you soon !",
     "mailsent": "Mail sent",
-    "eanAlreadyUse" : "This ean code is already used"
+    "eanAlreadyUse" : "This ean code is already used",
+    "noinvoice": "There is no invoice"
   },
   "wallet": {
     "loading": "Loading...",
@@ -302,7 +304,7 @@
     "RS": "R",
     "RWS": "RW"
   },
-  "invoice": {
+  "invoices": {
     "actualproposal": "Actual proposal",
     "proposal": "Your proposal",
     "name": "Account name",

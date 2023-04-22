@@ -15,6 +15,7 @@
     "yourclients": "Vos clients",
     "addproposal": "Ajouter une proposition",
     "modifyproposal": "Modifier la proposition",
+    "invoice": "Facture",
     "other": "{name}"
   },
   "walletform": {
@@ -131,7 +132,8 @@
     "nowallet": "Vous n'avez pas de portefeuille",
     "seeyousoon": "À bientôt !",
     "mailsent": "Un mail vous a été envoyé",
-    "eanAlreadyUse" : "Ce code ean est déjà utilisé"
+    "eanAlreadyUse" : "Ce code ean est déjà utilisé",
+    "noinvoice": "Vous n'avez pas de facture"
   },
   "wallet": {
     "loading": "Chargement en cours...",
@@ -301,7 +303,7 @@
     "RS": "L",
     "RWS": "LE"
   },
-  "invoice": {
+  "invoices": {
     "actualproposal": "Proposition actuelle",
     "proposal": "Votre proposition",
     "name": "Nom du compte",

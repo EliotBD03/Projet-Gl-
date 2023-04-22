@@ -415,6 +415,7 @@ DROP TABLE IF EXISTS `invoice`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `invoice` (
   `invoice_id` int(10) NOT NULL AUTO_INCREMENT,
+  `client_id` int(10) NOT NULL,
   `price` double(10,2) DEFAULT NULL,
   `contract_id` int(10) NOT NULL,
   `status` binary(1) DEFAULT 0,

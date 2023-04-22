@@ -19,7 +19,7 @@
         <GoButton text="GestionExtClaire.invitation" :colore="'#B1B9FC'"/>
         </div>
       </div>
-        <div class="globalcontracts">
+        <div class="globalcontracts" @click.prevent.left="$router.push({name: 'Invoices'})">
             <GoButton text="invoices.list" :colore="'#B1B9FC'"/>
         </div>
       <div class="bottombutton">
