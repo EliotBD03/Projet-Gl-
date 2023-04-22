@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class InvoiceManager {
 
-    public boolean doesInvoiceExist(int invoiceId) {
+    public boolean doesInvoiceExist(String invoiceId) {
         return new Query("SELECT EXISTS(SELECT * FROM invoice WHERE invoice_id='"+invoiceId+"') AS 'c'").executeAndGetResult("c").getIntElem(0,0) == 1;
     }
 
@@ -15,7 +15,7 @@ public class InvoiceManager {
         new Query("DELETE FROM invoice WHERE invoice_id='"+invoiceId+"'").executeWithoutResult();
     }
 
-    public InvoiceFull getInvoice(int invoiceId) {
+    public InvoiceFull getInvoice(String invoiceId) {
         if(!doesInvoiceExist(invoiceId))
             return null;
 
@@ -34,7 +34,7 @@ public class InvoiceManager {
 
         ArrayList<String> row = table.get(0);
 
-        InvoiceFull invoicefull = new InvoiceFull(Integer.parseInt(row.get(0)), row.get(1), Double.parseDouble(row.get(2)), row.get(5).equals("1"));
+        InvoiceFull invoicefull = new InvoiceFull(row.get(0), row.get(1), Double.parseDouble(row.get(2)), row.get(5).equals("1"));
         invoicefull.setMoreInformation(
                 row.get(2),
                 Double.parseDouble(row.get(5)),
@@ -60,7 +60,7 @@ public class InvoiceManager {
 
         ArrayList<InvoiceBasic> invoiceBasics = new ArrayList<>();
         for(ArrayList<String> row : table) {
-            invoiceBasics.add(new InvoiceBasic(Integer.parseInt(row.get(0)), clientId, Double.parseDouble(row.get(1)), row.get(4).equals("1")));
+            invoiceBasics.add(new InvoiceBasic(row.get(0), clientId, Double.parseDouble(row.get(1)), row.get(4).equals("1")));
         }
 
         int count = new Query("SELECT COUNT(*) as 'c' FROM invoice WHERE client_id='"+clientId+"'").executeAndGetResult("c").getIntElem(0,0);
