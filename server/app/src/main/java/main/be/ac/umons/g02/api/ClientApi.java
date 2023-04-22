@@ -620,7 +620,7 @@ public class ClientApi extends MyApi implements RouterApi
     private void getInvoice(final RoutingContext routingContext) {
         LOGGER.info("GetInvoice...");
 
-        String invoiceId = routingContext.pathParam("invoice_id");
+        int invoiceId = Integer.parseInt(routingContext.pathParam("invoice_id"));
 
         InvoiceFull invoice = commonDB.getInvoiceManager().getInvoice(invoiceId);
 
@@ -729,7 +729,7 @@ public class ClientApi extends MyApi implements RouterApi
                             .put("error", "error.missingInformation")));
         }
 
-        InvoiceFull invoice = new InvoiceFull(id, price, status);
+        InvoiceFull invoice = new InvoiceFull(0, id, price, status);
         invoice.setMoreInformation(contractId, remaining, paymentMethod, paymentDate);
 
         commonDB.getInvoiceManager().createInvoice(invoice);

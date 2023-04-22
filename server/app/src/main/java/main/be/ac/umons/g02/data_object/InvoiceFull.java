@@ -14,8 +14,8 @@ public class InvoiceFull extends InvoiceBasic{
     private String expirationDate;
     private String paymentDate;
 
-    public InvoiceFull(String invoiceId, double price, boolean status) {
-        super(invoiceId, price, status);
+    public InvoiceFull(int invoiceId, String client_id, double price, boolean status) {
+        super(invoiceId, client_id, price, status);
     }
 
     public String getContractId() {
