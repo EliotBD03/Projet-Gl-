@@ -1,3 +1,43 @@
 \subsection{Base de données}
 \subsubsection{Intoduction}
+\begin{flushleft}
+Dans cette partie, il s'agira de discuter de la mise en oeuvre de la base de données. Nous allons entre autre parler des choix des technologies utilisées, des changements faits par rapport au diagramme de classe initial et des problèmes rencontrés.
+\end{flushleft}
+\subsubsection{choix technologiques}
+\begin{flushleft}
+    Premièrement, il a été décidé de stocker les données sur une base de donnée $\mathbf{MySQL}$/$\mathbf{MariaDB}$. Ceci se fait en adéquation avec les conaissances déjà acquises lors du cours de Base de données 1 (partie SQL). 
+\end{flushleft}
+\begin{flushleft}
+    Deuxièmement, la librairie $\mathbf{java.sql}$ a été utilisée pour gérer les interactions avec la base de données. La raison principale est que java.sql est assez intuitif et possède une courbe d'apprentissage assez courte qui se résume juste à sa documentation principale. En dépis du peu de possibilité que possède cette api, elle a convenu à notre méthode d'implémentation.
+\end{flushleft}
+\begin{flushleft}
+    Troisièmement, des $\mathbf{variables \ d'environments}$ ont été mises en place pour ne pas laisser les identifiants de la base de données en dur dans le code.
+\end{flushleft}
+\begin{flushleft}
+    Quatrièmement, la testabilité de l'application a été permise grâce à $\mathbf{Junit5}$. A noter que les tests vérifient "grosso modo" si la requête SQL a bien été écrite. De plus, l'utilisation de mock object est impossible étant donné la nature du framework utilisé pour communiquer avec la base de donnée. C'est pour cela qu'une base de données test a été créée pour permettre d'éxécuter les requêtes.
+\end{flushleft}
+\begin{flushleft}
+    Cinquièmement, l'encryption des mot des passes dans la base de données a été rendue possible via le framework $\mathbf{springframework.security}$ qui utilise l'algorithme Bcrypt (déjà expliqué dans la phase de modélisation).
+\end{flushleft}
+\subsubsection{Changements effectués}
+\begin{flushleft}
+    Pour convenir aux remarques faîtes lors de la phase d'analyse, il a été decidé d'effectuer plus de distinctions dans le package $\mathbf{database}$. Effectivement, il a été décidé de faire correspondre une classe à une ou au plus 3 tables de la base de données. Par exemple, $\mathbf{ConsumptionManager}$ va se charger principalement des tables: \texttt{consumption} et \texttt{counter}.
+\end{flushleft}
+\begin{flushleft}
+    Ensuite, des classes ont été rajoutées. Nous avons tout d'abord la classe \textbf{DB} qui s'occupe de générer la connexion en ne possédant qu'une instance (Singleton pattern). De plus, \textbf{Table} et \textbf{Query} ont été rajouté pour avoir une meilleure abstraction. Enfin, \textbf{CommonDB} a été remodelé pour ne posséder que des instances des classes "Manager" ce qui permet une meilleure cohésion avec le package \textbf{api}.
+\end{flushleft}
+\begin{flushleft}
+    En ce qui concerne l'ajout de certaines méthodes non présentes dans notre diagramme de classe initial, nous n'avions pas pu prévoir ces méthodes lors de notre analyse.
+\end{flushleft}
+
+\subsubsection{problèmes rencontrées}
+\begin{flushleft}
+    Effectuer du test-driven-development était quelque chose d'extrémement compliqué à cause du fait de n'avoir comme erreur dans la console : "the syntax of the query at line 1" sachant que la requête de se fait en une ligne. 
+\end{flushleft}
+\begin{flushleft}
+    Les clés étrangères ont été plus ennuyantes qu'utiles étant donné qu'aucune requête ne prend de terme "DELETE ON CASCADE".
+\end{flushleft}
+\begin{flushleft}
+    Lors des différents tests, il se pouvait que la base de données "crash" sans aucune raison.
+\end{flushleft}
 
