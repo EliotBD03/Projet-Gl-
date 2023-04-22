@@ -16,10 +16,12 @@ public class InvoiceManager {
     }
 
     public InvoiceFull getInvoice(String invoiceId) {
+        System.out.println(invoiceId);
         if(!doesInvoiceExist(invoiceId))
             return null;
 
-        String query = "SELECT * from invoice WHERE invoice_id='"+invoiceId+"'";
+        String query = "SELECT * FROM invoice WHERE invoice_id='"+invoiceId+"'";
+        System.out.println(query);
         DB.getInstance().executeQuery(query,true);
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult(
                 "invoice_id",
