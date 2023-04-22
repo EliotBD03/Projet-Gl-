@@ -44,7 +44,7 @@ public class InvoiceManager {
     }
 
     public Object[] getInvoices(String clientId, int base, int limit) {
-        String query = "SELECT * FROM invoice WHERE contract_id IN (SELECT contract_id FROM contract WHERE client_id='"+clientId+"') LIMIT "+base+","+limit;
+        String query = "SELECT * FROM invoice WHERE client_id='"+clientId+"' LIMIT "+base+","+limit;
         DB.getInstance().executeQuery(query,true);
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult(
                 "invoice_id",
