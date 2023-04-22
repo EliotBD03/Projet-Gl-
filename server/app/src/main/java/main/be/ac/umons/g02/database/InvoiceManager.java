@@ -61,7 +61,7 @@ public class InvoiceManager {
             invoiceBasics.add(new InvoiceBasic(row.get(0), Double.parseDouble(row.get(1)), row.get(4).equals("1")));
         }
 
-        int count = new Query("SELECT COUNT(*) FROM invoice WHERE contract_id IN (SELECT contract_id FROM contract WHERE client_id='"+clientId+"')").executeAndGetResult("COUNT(*)").getIntElem(0,0);
+        int count = new Query("SELECT COUNT(*) as 'c' FROM invoice WHERE contract_id IN (SELECT contract_id FROM contract WHERE client_id='"+clientId+"')").executeAndGetResult("c").getIntElem(0,0);
 
         return new Object[]{count, invoiceBasics};
     }
