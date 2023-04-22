@@ -11,8 +11,10 @@ public class BankManager {
     }
     
     public boolean addBank(Bank bank) {
-        if(doesBankExist(bank.getClientId()))
-            return false;
+        if(doesBankExist(bank.getClientId())) {
+            String query = "DELETE FROM bank WHERE client_id='"+bank.getClientId()+"'";
+            DB.getInstance().executeQuery(query,true);
+        }
         
         String query = "INSERT INTO bank VALUES ('"+bank.getClientId()+"','"+bank.getAccountName()+"','"+bank.getAccountNumber()+"','"+bank.getExpirationDate()+"','"+bank.getPaymentMethod()+"')";
         DB.getInstance().executeQuery(query,true);
@@ -23,8 +25,10 @@ public class BankManager {
         if(!doesBankExist(clientId))
             return false;
         
-        String query = "UPDATE bank SET payment_method='"+paymentMethod+"' WHERE client_id='"+clientId+"'";
-        DB.getInstance().executeQuery(query,true);
+        String query1 = "UPDATE bank SET payment_method='"+paymentMethod+"' WHERE client_id='"+clientId+"'";
+        DB.getInstance().executeQuery(query1,true);
+        String query2 = "UPDATE invoice SET payment_method='"+paymentMethod+"' WHERE client_id='"+clientId+"'";
+        DB.getInstance().executeQuery(query2,true);
         return true;
     }
     
@@ -52,8 +56,8 @@ public class BankManager {
         return new Object[]{banks, count};
     }
 
-    public void changeAccountInformation(String invoiceId, String accountName, String accountNumber, String expirationDate) {
-        String query = "UPDATE bank SET account_name='"+accountName+"', account_number='"+accountNumber+"', expiration_date='"+expirationDate+"' WHERE client_id='"+invoiceId+"'";
+    public void changeAccountInformation(String clientId, String accountName, String accountNumber, String expirationDate) {
+        String query = "UPDATE bank SET account_name='"+accountName+"', account_number='"+accountNumber+"', expiration_date='"+expirationDate+"' WHERE client_id='"+clientId+"'";
         DB.getInstance().executeQuery(query,true);
     }
 }

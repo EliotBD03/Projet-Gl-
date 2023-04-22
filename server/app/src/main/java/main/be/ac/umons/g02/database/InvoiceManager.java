@@ -63,7 +63,7 @@ public class InvoiceManager {
 
         int count = new Query("SELECT COUNT(*) FROM invoice WHERE contract_id IN (SELECT contract_id FROM contract WHERE client_id='"+clientId+"')").executeAndGetResult("COUNT(*)").getIntElem(0,0);
 
-        return new Object[]{invoiceBasics, count};
+        return new Object[]{count, invoiceBasics};
     }
 
     public boolean createInvoice(InvoiceFull invoice) {
