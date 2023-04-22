@@ -45,7 +45,7 @@ public class ClientApi extends MyApi implements RouterApi
         //Extension Maxime
         subRouter.get("/invoices/page").handler(this::getAllInvoices);
         subRouter.get("/invoices/:id_invoice").handler(this::getInvoice);
-        subRouter.delete("/invoices/:id_invoice").handler(this::deleteInvoice);
+        subRouter.delete("/invoices/:invoice_id").handler(this::deleteInvoice);
         subRouter.put("/invoices/:id_invoice").handler(this::changePaymentMethod);
         subRouter.put("/invoices/:id_invoice/account").handler(this::changeAccountInformation);
         subRouter.post("/invoices").handler(this::createInvoice);

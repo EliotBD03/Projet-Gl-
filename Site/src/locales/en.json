@@ -316,6 +316,8 @@
     "annualamount": "Annual amount",
     "mensualamount": "Monthly amount",
     "method": "Payment method",
-    "remaining": "Remaining"
+    "remaining": "Remaining",
+    "invoicetitle": "Invoice n°{number}",
+    "annualprice": "Annual price"
   }
 }

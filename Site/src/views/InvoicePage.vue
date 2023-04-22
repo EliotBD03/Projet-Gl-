@@ -5,9 +5,9 @@
         </div>
         <div class="allcards">
             <div class="cards" v-for="invoice in invoicesList" :key="invoice.id">
-                <p class="number"> {{ invoice.id }}</p>
-                <p><b>{{ $t("invoices.remaining") }}</b></p>
-                <p>{{ invoice.account }}</p>
+                <p class="titre"> {{ $t("invoices.invoicetitle", {number: invoice.invoiceId}) }}</p>
+                <p><b>{{ $t("invoices.annualprice") }}</b></p>
+                <p>{{ invoice.price }} €</p>
                 <div v-if="invoice.status">
                     <div class="payed">
                         <GoButton text="button.payed" :colore="'orange'"/>
@@ -89,9 +89,13 @@ export default {
                 }
             }
         },
+        seeMore(invoice) {
+            sessionStorage.setItem("invoice_id", invoice.invoiceId);
+            this.$router.push({name: "InvoiceFull"})
+        },
         redirecting() {
             GlobalMethods.isAClient();
-        }
+        },
     }
 }
 </script>
@@ -138,6 +142,11 @@ export default {
     justify-content: space-between;
     padding: 0 50px;
     margin-top: 10px;
+}
+
+.titre {
+    color: rgb(138, 150, 253);
+    font-size: 30px;
 }
 
 </style>

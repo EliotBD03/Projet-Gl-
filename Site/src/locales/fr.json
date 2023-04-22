@@ -315,6 +315,8 @@
     "annualamount": "Montant annuel",
     "mensualamount": "Montant mensuel",
     "method": "Méthode de paiement",
-    "remaining": "Restant à payer"
+    "remaining": "Restant à payer",
+    "invoicetitle": "Facture n°{number}",
+    "annualprice": "Prix annuel"
   }
 }

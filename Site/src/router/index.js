@@ -129,6 +129,11 @@ const routes = [
         path: '/invoices',
         name: 'Invoices',
         component: () => import('@/views/InvoicePage.vue')
+      },
+      {
+        path: '/invoiceFull',
+        name: 'InvoiceFull',
+        component: () => import('@/views/InvoiceFull.vue')
       }
     ],beforeEnter: (to, from, next) => {
         if(cookies.isKey("token") && cookies.isKey("role"))
