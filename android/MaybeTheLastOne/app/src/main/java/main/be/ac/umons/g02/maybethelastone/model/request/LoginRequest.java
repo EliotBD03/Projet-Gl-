@@ -1,11 +1,11 @@
-package main.be.ac.umons.g02.maybethelastone.api.request;
+package main.be.ac.umons.g02.maybethelastone.model.request;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginRequest
 {
-    @SerializedName("email")
+    @SerializedName("mail")
     private String email;
-    @SerializedName("password")
+    @SerializedName("pwd")
     private String password;
 
     public LoginRequest(String email, String password) {

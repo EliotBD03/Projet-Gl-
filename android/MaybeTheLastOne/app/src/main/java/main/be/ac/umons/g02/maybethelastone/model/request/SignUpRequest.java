@@ -1,31 +1,31 @@
-package main.be.ac.umons.g02.maybethelastone.api.request;
+package main.be.ac.umons.g02.maybethelastone.model.request;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SaveRequest
+public class SignUpRequest
 {
     @SerializedName("name")
     private String name;
 
-    @SerializedName("email")
-    private String email;
+    @SerializedName("mail")
+    private String mail;
 
-    @SerializedName("password")
+    @SerializedName("pwd")
     private String password;
 
     @SerializedName("code")
     private String code;
 
-    @SerializedName("isClient")
+    @SerializedName("is_client")
     private boolean isClient;
 
     @SerializedName("language")
     private String language;
 
-    public SaveRequest(String name, String email, String password, String code, boolean isClient, String language)
+    public SignUpRequest(String name, String email, String password, String code, boolean isClient, String language)
     {
         this.name = name;
-        this.email = email;
+        this.mail = email;
         this.password = password;
         this.code = code;
         this.isClient = isClient;

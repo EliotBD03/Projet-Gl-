@@ -1,4 +1,4 @@
-package main.be.ac.umons.g02.maybethelastone.api.response;
+package main.be.ac.umons.g02.maybethelastone.model.response;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse
@@ -7,6 +7,12 @@ public class LoginResponse
     private String role;
     @SerializedName("token")
     private String token;
+
+    public LoginResponse(String role, String token)
+    {
+        this.role = role;
+        this.token = token;
+    }
 
     public String getRole()
     {

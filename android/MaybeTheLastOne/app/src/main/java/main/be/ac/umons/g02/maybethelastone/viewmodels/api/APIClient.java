@@ -1,10 +1,11 @@
-package main.be.ac.umons.g02.maybethelastone.api;
+package main.be.ac.umons.g02.maybethelastone.viewmodels.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient
 {
+    public static final String MESSAGE_ERROR_CONNECTION = "you might not have connection";
     private static Retrofit retrofit;
     private final String URL = "https://babawallet.alwaysdata.net/";
 

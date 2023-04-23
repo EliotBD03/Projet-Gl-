@@ -48,10 +48,10 @@
             android:text="email"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.968"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.371" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <EditText
             android:id="@+id/passordInput"
@@ -84,48 +84,14 @@
             app:layout_constraintTop_toBottomOf="@+id/passordInput"
             app:layout_constraintVertical_bias="0.583" />
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
-            android:layout_marginEnd="108dp"
-            android:layout_marginBottom="3dp"
-            android:text="client"
-            app:layout_constraintBottom_toTopOf="@+id/checkBox2"
-            app:layout_constraintEnd_toStartOf="@+id/checkBox3"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <CheckBox
-            android:id="@+id/checkBox2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="64dp"
-            android:text="provider"
-            app:layout_constraintBottom_toTopOf="@+id/emailInput"
-            app:layout_constraintStart_toStartOf="@+id/passordInput" />
-
-        <CheckBox
-            android:id="@+id/checkBox3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="90dp"
-            android:layout_marginTop="35dp"
-            android:text="english"
-            app:layout_constraintStart_toEndOf="@+id/checkBox2"
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="176dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="45dp"
+            android:text="@string/sign_up_hint"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        <CheckBox
-            android:id="@+id/checkBox4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="90dp"
-            android:layout_marginTop="6dp"
-            android:text="francais"
-            app:layout_constraintStart_toEndOf="@+id/checkBox2"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -15,9 +15,19 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="babahome"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:fontFamily="sans-serif-condensed-light"
+            android:text="@string/still_in_development"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="405dp" />
+
+        <ImageView
+            android:id="@+id/gifImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/catcoding"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="-8dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

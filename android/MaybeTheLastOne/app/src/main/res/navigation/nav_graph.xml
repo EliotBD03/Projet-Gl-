@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="main.be.ac.umons.g02.maybethelastone.LogIn"
+        android:name="main.be.ac.umons.g02.maybethelastone.views.LogInView"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/log_in">
 
@@ -17,11 +17,14 @@
         <action
             android:id="@+id/forgotPassword"
             app:destination="@id/forgottenPassword" />
+        <action
+            android:id="@+id/action_FirstFragment_to_SignUp"
+            app:destination="@id/SignUp" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="main.be.ac.umons.g02.maybethelastone.SecondFragment"
-        android:label="@string/second_fragment_label"
+        android:name="main.be.ac.umons.g02.maybethelastone.views.HomeView"
+        android:label="@string/third_fragment_label"
         tools:layout="@layout/home">
 
         <action
@@ -30,12 +33,22 @@
     </fragment>
     <fragment
         android:id="@+id/forgottenPassword"
-        android:name="main.be.ac.umons.g02.maybethelastone.LogIn"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/log_in">
+        android:name="main.be.ac.umons.g02.maybethelastone.views.ForgottenPasswordView"
+        android:label="@string/fourth_fragment_label"
+        tools:layout="@layout/forgotten_password">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SignUp"
+        android:name="main.be.ac.umons.g02.maybethelastone.views.SignUpView"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/log_in">
+        <action
+            android:id="@+id/action_SignUp_to_SecondFragment"
             app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>

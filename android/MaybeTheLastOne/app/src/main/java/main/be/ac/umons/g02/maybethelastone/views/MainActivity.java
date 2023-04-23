@@ -1,4 +1,4 @@
-package main.be.ac.umons.g02.maybethelastone;
+package main.be.ac.umons.g02.maybethelastone.views;
 
 import android.os.Bundle;
 
@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
-import androidx.core.view.WindowCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import main.be.ac.umons.g02.maybethelastone.R;
+import main.be.ac.umons.g02.maybethelastone.viewmodels.api.APIClient;
 import main.be.ac.umons.g02.maybethelastone.databinding.ActivityMainBinding;
 
 import android.view.Menu;
@@ -23,12 +23,14 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
+    public static APIClient apiClient;
     private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        apiClient = new APIClient();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
