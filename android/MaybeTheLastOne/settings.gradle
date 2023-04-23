@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "MaybeTheLastOne"
+rootProject.name = "BabaWallet"
 include ':app'
 include ':apitest'

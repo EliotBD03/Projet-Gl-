@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'main.be.ac.umons.g02.maybethelastone'
+    namespace 'main.be.ac.umons.g02.babawallet'
     compileSdk 33
 
     defaultConfig {
-        applicationId "main.be.ac.umons.g02.maybethelastone"
+        applicationId "main.be.ac.umons.g02.babawallet"
         minSdk 24
         targetSdk 33
         versionCode 1

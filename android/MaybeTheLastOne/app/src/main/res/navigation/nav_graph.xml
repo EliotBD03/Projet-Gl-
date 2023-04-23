@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="main.be.ac.umons.g02.maybethelastone.views.LogInView"
+        android:name="main.be.ac.umons.g02.babawallet.views.LogInView"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/log_in">
 
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="main.be.ac.umons.g02.maybethelastone.views.HomeView"
+        android:name="main.be.ac.umons.g02.babawallet.views.HomeView"
         android:label="@string/third_fragment_label"
         tools:layout="@layout/home">
 
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgottenPassword"
-        android:name="main.be.ac.umons.g02.maybethelastone.views.ForgottenPasswordView"
+        android:name="main.be.ac.umons.g02.babawallet.views.ForgottenPasswordView"
         android:label="@string/fourth_fragment_label"
         tools:layout="@layout/forgotten_password">
 
@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/SignUp"
-        android:name="main.be.ac.umons.g02.maybethelastone.views.SignUpView"
+        android:name="main.be.ac.umons.g02.babawallet.views.SignUpView"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/log_in">
         <action
