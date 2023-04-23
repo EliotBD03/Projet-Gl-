@@ -3,6 +3,9 @@ package main.be.ac.umons.g02.maybethelastone.viewmodels.api;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Crée l'instance retrofit permettant d'envoyer des requêtes HTTP
+ */
 public class APIClient
 {
     public static final String MESSAGE_ERROR_CONNECTION = "you might not have connection";

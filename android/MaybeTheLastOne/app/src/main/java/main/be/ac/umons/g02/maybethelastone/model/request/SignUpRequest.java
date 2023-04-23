@@ -8,7 +8,7 @@ public class SignUpRequest
     private String name;
 
     @SerializedName("mail")
-    private String mail;
+    private String email;
 
     @SerializedName("pwd")
     private String password;
@@ -25,10 +25,40 @@ public class SignUpRequest
     public SignUpRequest(String name, String email, String password, String code, boolean isClient, String language)
     {
         this.name = name;
-        this.mail = email;
+        this.email = email;
         this.password = password;
         this.code = code;
         this.isClient = isClient;
         this.language = language;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public String getCode()
+    {
+        return code;
+    }
+
+    public boolean isClient()
+    {
+        return isClient;
+    }
+
+    public String getLanguage()
+    {
+        return language;
     }
 }

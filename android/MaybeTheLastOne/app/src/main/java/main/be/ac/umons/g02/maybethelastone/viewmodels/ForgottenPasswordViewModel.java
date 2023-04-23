@@ -8,7 +8,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ForgottenPasswordViewModel
+/**
+ * ViewModel qui s'occupe de la partie mot de passe oublié
+ */
+public class ForgottenPasswordViewModel implements ViewModel
 {
     private ReinitializePasswordRequest reinitializePasswordRequest;
     private static final String PASSWORD_REINITIALIZED = "password reinitialized";
@@ -19,7 +22,12 @@ public class ForgottenPasswordViewModel
         reinitializePasswordRequest = new ReinitializePasswordRequest(email, code, newPassword);
     }
 
-    public void reinitializePassword(APICallback callback)
+    /**
+     * Reset le mot de passe de l'utilisateur
+     * @param callback instance permettant d'effectuer un retour de la requête
+     */
+    @Override
+    public void doYourStuff(APICallback callback)
     {
         APIAccount apiAccount = new APIClient().getRetrofit().create(APIAccount.class);
         Call<Void> call = apiAccount.reinitializePassword(reinitializePasswordRequest);

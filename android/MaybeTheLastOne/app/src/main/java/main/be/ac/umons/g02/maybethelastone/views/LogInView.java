@@ -15,6 +15,9 @@ import main.be.ac.umons.g02.maybethelastone.databinding.LogInBinding;
 import main.be.ac.umons.g02.maybethelastone.viewmodels.LoginViewModel;
 import main.be.ac.umons.g02.maybethelastone.viewmodels.api.APICallback;
 
+/**
+ * View se chargeant du layout : log_in.xml
+ */
 public class LogInView extends Fragment {
 
     private LogInBinding binding;
@@ -60,21 +63,7 @@ public class LogInView extends Fragment {
 
     public void logIn(String email, String password)
     {
-        new LoginViewModel(email, password).checkAccount(new APICallback()
-        {
-            @Override
-            public void onAPIError(String errorMessage)
-            {
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAPISuccess()
-            {
-                NavHostFragment.findNavController(LogInView.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });
+        CallbackHandler.handleCallback(new LoginViewModel(email, password), this, R.id.action_FirstFragment_to_SecondFragment);
     }
 
     @Override

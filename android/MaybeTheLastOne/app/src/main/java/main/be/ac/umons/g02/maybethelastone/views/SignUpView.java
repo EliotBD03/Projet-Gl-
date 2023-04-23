@@ -16,10 +16,13 @@ import main.be.ac.umons.g02.maybethelastone.viewmodels.Code;
 import main.be.ac.umons.g02.maybethelastone.viewmodels.SignUpViewModel;
 import main.be.ac.umons.g02.maybethelastone.viewmodels.api.APICallback;
 
+/**
+ * View se chargeant du layout : sign_up.xml
+ */
 public class SignUpView extends Fragment
 {
     private main.be.ac.umons.g02.maybethelastone.databinding.SignUpBinding binding;
-
+    private SignUpView signUpView;
     private String language;
 
     @Override
@@ -27,7 +30,7 @@ public class SignUpView extends Fragment
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
+        signUpView = this;
         binding = main.be.ac.umons.g02.maybethelastone.databinding.SignUpBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
@@ -48,17 +51,7 @@ public class SignUpView extends Fragment
         binding.sendCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Code(binding.emailInput.getText().toString()).sendCode(new APICallback() {
-                    @Override
-                    public void onAPIError(String errorMessage) {
-                        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onAPISuccess() {
-
-                    }
-                });
+                CallbackHandler.handleCallback(new Code(binding.emailInput.getText().toString()), signUpView,  -1);
             }
         });
 
@@ -71,20 +64,10 @@ public class SignUpView extends Fragment
         else
             language = "english";
     }
-    private void signUp(String name, String email, String password, String code, boolean isCLient, String language)
+    private void signUp(String name, String email, String password, String code, boolean isClient, String language)
     {
-        new SignUpViewModel(name, email, password, code, isCLient, language).saveAccount(new APICallback() {
-            @Override
-            public void onAPIError(String errorMessage) {
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAPISuccess() {
-                NavHostFragment.findNavController(SignUpView.this)
-                        .navigate(R.id.action_SignUp_to_SecondFragment);
-            }
-        });
+        SignUpViewModel signUpViewModel = new SignUpViewModel(name, email, password, code, isClient, language);
+        CallbackHandler.handleCallback(signUpViewModel, this, R.id.action_SignUp_to_SecondFragment);
     }
 
     @Override

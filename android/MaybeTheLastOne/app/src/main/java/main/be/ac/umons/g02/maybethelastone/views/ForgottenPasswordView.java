@@ -16,13 +16,18 @@ import main.be.ac.umons.g02.maybethelastone.viewmodels.Code;
 import main.be.ac.umons.g02.maybethelastone.viewmodels.ForgottenPasswordViewModel;
 import main.be.ac.umons.g02.maybethelastone.viewmodels.api.APICallback;
 
+/**
+ * View se chargeant du layout : forgotten_password.xml
+ */
 public class ForgottenPasswordView extends Fragment
 {
     private ForgottenPasswordBinding binding;
+    private ForgottenPasswordView forgottenPasswordView;
 
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        forgottenPasswordView = this;
        binding = ForgottenPasswordBinding.inflate(inflater, container, false);
        return binding.getRoot();
     }
@@ -36,17 +41,7 @@ public class ForgottenPasswordView extends Fragment
             @Override
             public void onClick(View view)
             {
-                new Code(binding.emailInput.getText().toString()).sendCode(new APICallback() {
-                    @Override
-                    public void onAPIError(String errorMessage) {
-                        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onAPISuccess() {
-
-                    }
-                });
+                CallbackHandler.handleCallback(new Code(binding.emailInput.getText().toString()), forgottenPasswordView,  -1);
             }
         });
 
@@ -60,17 +55,7 @@ public class ForgottenPasswordView extends Fragment
 
     private void reinitializePassword(String email, String code, String newPassword)
     {
-        new ForgottenPasswordViewModel(email, code, newPassword).reinitializePassword(new APICallback() {
-            @Override
-            public void onAPIError(String errorMessage) {
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAPISuccess() {
-                NavHostFragment.findNavController(ForgottenPasswordView.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });
+        CallbackHandler.handleCallback(new ForgottenPasswordViewModel(email,code,newPassword),
+                forgottenPasswordView, R.id.action_FirstFragment_to_SecondFragment);
     }
 }

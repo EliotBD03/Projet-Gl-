@@ -9,7 +9,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignUpViewModel
+/**
+ * ViewModel qui s'occupe de la partie creation de compte
+ */
+public class SignUpViewModel implements ViewModel
 {
     private SignUpRequest signUpRequest;
     private SignUpResponse signUpResponse;
@@ -21,7 +24,12 @@ public class SignUpViewModel
         signUpRequest = new SignUpRequest(name, email, password, code, isClient, language);
     }
 
-    public boolean saveAccount(APICallback callback)
+    /**
+     * Envoie une requête essayant de créer un compte avec les paramètres définis dans le constructeur
+     * @param callback instance permettant d'effectuer un retour de la requête
+     */
+    @Override
+    public void doYourStuff(APICallback callback)
     {
         APIAccount apiAccount = new APIClient().getRetrofit().create(APIAccount.class);
         Call<SignUpResponse> call = apiAccount.saveAccount(signUpRequest);
@@ -51,7 +59,6 @@ public class SignUpViewModel
                 callback.onAPIError(APIClient.MESSAGE_ERROR_CONNECTION);
             }
         });
-        return signUpResponse != null;
     }
 
 }

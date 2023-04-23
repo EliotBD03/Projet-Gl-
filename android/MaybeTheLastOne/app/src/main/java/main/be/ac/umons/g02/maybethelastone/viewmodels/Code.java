@@ -7,7 +7,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Code
+/**
+ * ViewModel qui s'occupe de la partie requête concernant l'envoie d'un code
+ */
+public class Code implements ViewModel
 {
     private String email;
     private final String MESSAGE_CODE_SENT= "a code has been sent";
@@ -17,7 +20,13 @@ public class Code
     {
         this.email = email;
     }
-    public void sendCode(APICallback callback)
+
+    /**
+     * Envoie un code à l'adresse : email
+     * @param callback instance permettant d'effectuer un retour de la requête
+     */
+    @Override
+    public void doYourStuff(APICallback callback)
     {
         APICode apiCode = new APIClient().getRetrofit().create(APICode.class);
         Call<Void> call = apiCode.sendCode(email);

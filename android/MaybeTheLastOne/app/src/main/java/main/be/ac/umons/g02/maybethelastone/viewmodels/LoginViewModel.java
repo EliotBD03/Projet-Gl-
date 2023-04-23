@@ -11,7 +11,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginViewModel
+/**
+ * ViewModel qui s'occupe de la partie log in
+ */
+public class LoginViewModel implements ViewModel
 {
     private LoginRequest loginRequest;
     private LoginResponse loginResponse;
@@ -23,7 +26,12 @@ public class LoginViewModel
         loginRequest = new LoginRequest(email,password);
     }
 
-    public void checkAccount(APICallback callback)
+    /**
+     * Essaye d'effectuer une connexion avec le compte de l'utilisateur.
+     * @param callback instance permettant d'effectuer un retour de la requête
+     */
+    @Override
+    public void doYourStuff(APICallback callback)
     {
         APIAccount apiAccount = new APIClient().getRetrofit().create(APIAccount.class);
         Call<LoginResponse> call = apiAccount.checkAccount(loginRequest);

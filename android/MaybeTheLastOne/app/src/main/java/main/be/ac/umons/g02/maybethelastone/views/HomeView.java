@@ -14,6 +14,9 @@ import com.bumptech.glide.Glide;
 
 import main.be.ac.umons.g02.maybethelastone.databinding.HomeBinding;
 
+/**
+ * View se chargeant du layout : home.xml
+ */
 public class HomeView extends Fragment {
 
     private HomeBinding binding;
