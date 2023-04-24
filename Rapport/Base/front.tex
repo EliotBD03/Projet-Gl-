@@ -12,7 +12,6 @@ Le fichier "index.js" permet d'identifier plus clairement les parties, nous avon
 \item \textbf{Pages liées aux fournisseurs}
 \item \textbf{Pages liées aux fonctionnalités communes}
 \end{enumerate} 
-\newpage
 \subsubsection{Pages liées à la gestion des comptes}
 \begin{enumerate}
 \item \textbf{Login} :\newline
@@ -23,7 +22,6 @@ Cette page permet aux utilisateurs de créer un compte.
 Cette page donne la possibilité aux utilisateurs de changer de mot de passe s'ils le souhaitent ou s'ils ne se souviennent plus de celui-ci.
 \end{enumerate}
 
-\newpage
 \subsubsection{Pages liées aux clients}
 \begin{enumerate}
 \item \textbf{HomeClient} :\newline
@@ -42,7 +40,6 @@ Cette page permet de voir les informations liées à une nouvelle proposition se
 Cette page permet de voir les contrats en cours qu’un client a en commun avec un fournisseur.
 \end{enumerate} 
 
-\newpage
 \subsubsection{Pages liées aux fournisseurs}
 \begin{enumerate}
 \item \textbf{HomeSupplier} : \newline
@@ -54,7 +51,8 @@ Cette page permet de voir les informations liées à un client en particulier en
 \item \textbf{AddClient} : \newline
 Cette page donne la possibilité au fournisseur d’ajouter un client avec la proposition qu’il désire.
 \item \textbf{CreateContract} :\newline
-Cette page permet au fournisseur de créer des nouvelles propositions.
+Cette page permet au fournisseur de créer des nouvelles propositions. \newline
+Notez que si on entre "baba" en durée, une fois le contrat associé à un client, celui-ci durera une heure. 
 \item \textbf{SupplierContractPage} :\newline
 Cette page permet au fournisseur de voir les propositions qu’il a créées.
 \item \textbf{ProposalFull} :\newline
@@ -63,7 +61,6 @@ Cette page permet de voir les informations liées à une proposition en particul
 Cette page donne la possibilité au fournisseur de modifier ses propositions ou ses contrats en cours s’ils sont variables.
 \end{enumerate} 
 
-\newpage
 \subsubsection{Pages liées aux fonctionnalités communes}
 \begin{enumerate}
 \item \textbf{Notifications} :\newline
@@ -74,7 +71,6 @@ Cette page permet aux utilisateurs de voir un contrat en cours de manière déta
 Cette page permet aux utilisateurs d’observer la consommation liée à un contrat.
 \end{enumerate} 
 
-\newpage
 \subsubsection{Problèmes rencontrés}
 \begin{flushleft}
 Nous avons rencontré un souci avec notre router, l’ensemble des redirections fonctionnait en local mais pas sur alwaysdata en ligne.
@@ -86,10 +82,8 @@ Nous n’avions pas compris que nous envoyions des fichiers statiques (venant du
 De ce fait, la configuration se faisait en nodejs mais pas en fichier statique, ce qui était la source du problème.
 \end{flushleft}
 
-\newpage
 \subsubsection{Les langues}
 
-\newpage
 \subsubsection{Modules importés}
 \begin{enumerate}[-]
 \item \textbf{VueCookies} :\newline

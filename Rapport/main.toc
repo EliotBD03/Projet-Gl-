@@ -1,48 +1,56 @@
 \babel@toc {french}{}
 \babel@toc {french}{}
-\contentsline {section}{\numberline {1}Base du projet}{4}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Introduction}{4}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Base de données}{5}{subsection.1.2}%
-\contentsline {subsubsection}{\numberline {1.2.1}Intoduction}{5}{subsubsection.1.2.1}%
+\contentsline {section}{\numberline {1}Base du projet}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Introduction}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Base de données}{4}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Intoduction}{4}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Choix technologiques}{4}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}Changements effectués}{4}{subsubsection.1.2.3}%
+\contentsline {subsubsection}{\numberline {1.2.4}Problèmes rencontrées}{5}{subsubsection.1.2.4}%
 \contentsline {subsection}{\numberline {1.3}API}{6}{subsection.1.3}%
 \contentsline {subsubsection}{\numberline {1.3.1}Intoduction}{6}{subsubsection.1.3.1}%
 \contentsline {subsubsection}{\numberline {1.3.2}Choix du framework}{6}{subsubsection.1.3.2}%
 \contentsline {subsubsection}{\numberline {1.3.3}Modification apportées}{6}{subsubsection.1.3.3}%
 \contentsline {subsubsection}{\numberline {1.3.4}Compteur numérique}{7}{subsubsection.1.3.4}%
-\contentsline {subsubsection}{\numberline {1.3.5}Gros proglèmes rencontrés}{8}{subsubsection.1.3.5}%
+\contentsline {subsubsection}{\numberline {1.3.5}Problèmes rencontrés}{8}{subsubsection.1.3.5}%
 \contentsline {subsection}{\numberline {1.4}Front-end}{9}{subsection.1.4}%
 \contentsline {subsubsection}{\numberline {1.4.1}Intoduction}{9}{subsubsection.1.4.1}%
-\contentsline {subsubsection}{\numberline {1.4.2}Pages liées à la gestion des comptes}{10}{subsubsection.1.4.2}%
-\contentsline {subsubsection}{\numberline {1.4.3}Pages liées aux clients}{11}{subsubsection.1.4.3}%
-\contentsline {subsubsection}{\numberline {1.4.4}Pages liées aux fournisseurs}{12}{subsubsection.1.4.4}%
-\contentsline {subsubsection}{\numberline {1.4.5}Pages liées aux fonctionnalités communes}{13}{subsubsection.1.4.5}%
-\contentsline {subsubsection}{\numberline {1.4.6}Problèmes rencontrés}{14}{subsubsection.1.4.6}%
-\contentsline {subsubsection}{\numberline {1.4.7}Les langues}{15}{subsubsection.1.4.7}%
-\contentsline {subsubsection}{\numberline {1.4.8}Modules importés}{16}{subsubsection.1.4.8}%
-\contentsline {subsection}{\numberline {1.5}Conclusion}{17}{subsection.1.5}%
-\contentsline {section}{\numberline {2}Extension 1.6.1 : Gestion d’utilisateurs par D’Haene Claire}{18}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Introduction}{18}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Base de données}{19}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Introduction}{19}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Package dataobject}{20}{subsubsection.2.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.3}Package database}{21}{subsubsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.3}API}{24}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Introduction}{24}{subsubsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.2}ClientApi}{24}{subsubsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.4}Front-end}{25}{subsection.2.4}%
-\contentsline {subsubsection}{\numberline {2.4.1}Introduction}{25}{subsubsection.2.4.1}%
-\contentsline {subsubsection}{\numberline {2.4.2}AddInvited}{25}{subsubsection.2.4.2}%
-\contentsline {subsubsection}{\numberline {2.4.3}ChangePermissions}{25}{subsubsection.2.4.3}%
-\contentsline {subsubsection}{\numberline {2.4.4}InvitationMessage}{25}{subsubsection.2.4.4}%
-\contentsline {subsubsection}{\numberline {2.4.5}InvitedWallet}{25}{subsubsection.2.4.5}%
-\contentsline {subsubsection}{\numberline {2.4.6}WalletFull et consumptionPage}{25}{subsubsection.2.4.6}%
-\contentsline {subsubsection}{\numberline {2.4.7}Modules importés}{26}{subsubsection.2.4.7}%
-\contentsline {subsection}{\numberline {2.5}Conclusion}{27}{subsection.2.5}%
-\contentsline {section}{\numberline {3}Extension 1.6.4 : Analyse statistique de la consommation énergétique par Adrien Fiévet}{28}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Introduction}{28}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Base de données}{29}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}API}{30}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Front-end}{31}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.1}Les portefeuilles}{31}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}Consommations}{31}{subsubsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.5}Conclusion}{32}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {1.4.2}Pages liées à la gestion des comptes}{9}{subsubsection.1.4.2}%
+\contentsline {subsubsection}{\numberline {1.4.3}Pages liées aux clients}{9}{subsubsection.1.4.3}%
+\contentsline {subsubsection}{\numberline {1.4.4}Pages liées aux fournisseurs}{10}{subsubsection.1.4.4}%
+\contentsline {subsubsection}{\numberline {1.4.5}Pages liées aux fonctionnalités communes}{10}{subsubsection.1.4.5}%
+\contentsline {subsubsection}{\numberline {1.4.6}Problèmes rencontrés}{10}{subsubsection.1.4.6}%
+\contentsline {subsubsection}{\numberline {1.4.7}Les langues}{11}{subsubsection.1.4.7}%
+\contentsline {subsubsection}{\numberline {1.4.8}Modules importés}{11}{subsubsection.1.4.8}%
+\contentsline {subsection}{\numberline {1.5}Conclusion}{12}{subsection.1.5}%
+\contentsline {section}{\numberline {2}Extension 1.6.1 : Gestion d’utilisateurs par D’Haene Claire}{13}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Introduction}{13}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Base de données}{14}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Introduction}{14}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Package dataobject}{14}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Package database}{15}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}API}{18}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Introduction}{18}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}ClientApi}{18}{subsubsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.4}Front-end}{19}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Introduction}{19}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}AddInvited}{19}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}ChangePermissions}{19}{subsubsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.4}InvitationMessage}{19}{subsubsection.2.4.4}%
+\contentsline {subsubsection}{\numberline {2.4.5}InvitedWallet}{19}{subsubsection.2.4.5}%
+\contentsline {subsubsection}{\numberline {2.4.6}WalletFull et consumptionPage}{19}{subsubsection.2.4.6}%
+\contentsline {subsubsection}{\numberline {2.4.7}Modules importés}{20}{subsubsection.2.4.7}%
+\contentsline {subsection}{\numberline {2.5}Conclusion}{21}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Extension 1.6.4 : Analyse statistique de la consommation énergétique par Adrien Fiévet}{22}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Introduction}{22}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Base de données}{23}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}API}{24}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Front-end}{25}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Les portefeuilles}{25}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Consommations}{25}{subsubsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.5}Conclusion}{26}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Extension 1.6.10 : Application android par Julien Ladeuze}{27}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Introduction}{27}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Choix technologiques}{28}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Difficultées rencontrées}{29}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Ressentis}{30}{subsection.4.4}%
