@@ -6,7 +6,7 @@
 \contentsline {subsubsection}{\numberline {1.2.1}Intoduction}{5}{subsubsection.1.2.1}%
 \contentsline {subsubsection}{\numberline {1.2.2}Choix technologiques}{5}{subsubsection.1.2.2}%
 \contentsline {subsubsection}{\numberline {1.2.3}Changements effectués}{5}{subsubsection.1.2.3}%
-\contentsline {subsubsection}{\numberline {1.2.4}Problèmes rencontrées}{6}{subsubsection.1.2.4}%
+\contentsline {subsubsection}{\numberline {1.2.4}Problèmes rencontrés}{6}{subsubsection.1.2.4}%
 \contentsline {subsection}{\numberline {1.3}API}{7}{subsection.1.3}%
 \contentsline {subsubsection}{\numberline {1.3.1}Intoduction}{7}{subsubsection.1.3.1}%
 \contentsline {subsubsection}{\numberline {1.3.2}Choix du framework}{7}{subsubsection.1.3.2}%
@@ -52,5 +52,5 @@
 \contentsline {section}{\numberline {4}Extension 1.6.10 : Application android par Julien Ladeuze}{28}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Introduction}{28}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Choix technologiques}{29}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Difficultées rencontrées}{30}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.3}Difficultés rencontrées}{30}{subsection.4.3}%
 \contentsline {subsection}{\numberline {4.4}Ressentis}{31}{subsection.4.4}%
