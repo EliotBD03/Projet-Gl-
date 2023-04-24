@@ -22,6 +22,11 @@ npm run build
 npm run lint
 ```
 
+### Run numerique counter
+```
+gradle run --args='mail passWord codeEAN TypeOfEnergy(e|g|w)'
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
