@@ -74,9 +74,9 @@ public class ConsumptionManager
 
         if(date == null)
         {
-             query = "SELECT c.daily_consumption, c.date_recorded FROM consumption c INNER JOIN " +
-                     "( SELECT date_recorded FROM consumption WHERE ean = '" + ean + "' AND date_recorded <= (SELECT MAX(date_recorded) FROM consumption) " +
-                     "ORDER BY date_recorded DESC LIMIT 0, 10) t ON c.date_recorded = t.date_recorded WHERE c.ean = '" + ean + "' AND c.date_recorded >="+lowerBoundDate+" ORDER BY c.date_recorded ASC;";
+            query = "SELECT c.daily_consumption, c.date_recorded FROM consumption c INNER JOIN " +
+                    "( SELECT date_recorded FROM consumption WHERE ean = '" + ean + "' AND date_recorded <= (SELECT MAX(date_recorded) FROM consumption) " +
+                    "ORDER BY date_recorded DESC LIMIT 0, 10) t ON c.date_recorded = t.date_recorded WHERE c.ean = '" + ean + "' AND c.date_recorded >="+lowerBoundDate+" ORDER BY c.date_recorded ASC;";
 
         }
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult("date_recorded", "daily_consumption").getTable();
@@ -93,55 +93,62 @@ public class ConsumptionManager
      * @param ean le code ean du compteur
      * @param values les différentes valeurs
      * @param dates les différentes dates (format d'une date : YYYY-MM-DD)
-    * @param forcingChange réécrit sur les valeurs déjà existantes si le booléen est mis à vrai
+     * @param forcingChange réécrit sur les valeurs déjà existantes si le booléen est mis à vrai
      * @param isClient vrai si l'utilisateur qui ajout/change les consommations est un client
      * @throws IllegalArgumentException quand la taille des listes n'est pas la même
      * @return vrai dans le cas où une écriture dans la base de données a été faite, faux sinon
      */
-    public boolean addConsumption(String ean, ArrayList<Double> values, ArrayList<String> dates, boolean forcingChange, boolean isClient)
-    {
-        if(values.size() != dates.size())
-            throw new IllegalArgumentException("the size of the two lists is not the same.\n"+
-                                                "values : " + values.size() + "\n" +
-                                                "dates  : " + dates.size());
+    public boolean addConsumption(String ean, ArrayList<Double> values, ArrayList<String> dates, boolean forcingChange, boolean isClient) {
+        double electricityPrice = 0.7;
+        double gasPrice = 6.5;
+        double waterPrice = 2.8;
+        if (values.size() != dates.size())
+            throw new IllegalArgumentException("the size of the two lists is not the same.\n" +
+                    "values : " + values.size() + "\n" +
+                    "dates  : " + dates.size());
 
-        if(isThereSomeValues(ean, dates) && !forcingChange)
-           return false;
+        if (isThereSomeValues(ean, dates) && !forcingChange)
+            return false;
 
-        String previousConsumption = "SELECT CASE daily_consumption"+
-                " WHEN MONTH(DATE_SUB(daily_consumption, INTERVAL 1 DAY)) = MONTH(MAX(date_recorded)) THEN daily_consumption ELSE 0.0 END "+
-                " AS daily_consumption"+
-                " FROM consumption"+
-                " WHERE date_recorded IN (SELECT max(date_recorded) FROM consumption) AND ean='"+ean+"'";
+        String previousConsumption = "SELECT CASE daily_consumption" +
+                " WHEN MONTH(DATE_SUB(daily_consumption, INTERVAL 1 DAY)) = MONTH(MAX(date_recorded)) THEN daily_consumption ELSE 0.0 END " +
+                " AS daily_consumption" +
+                " FROM consumption" +
+                " WHERE date_recorded IN (SELECT max(date_recorded) FROM consumption) AND ean='" + ean + "'";
 
         double value = 0.0;
         boolean isConsumptionChanged = false;
-        for(int i = 0; i < values.size(); i++)
-        {
+        for (int i = 0; i < values.size(); i++) {
             ArrayList<ArrayList<String>> consumptions = new Query(previousConsumption).executeAndGetResult("daily_consumption").getTable();
 
-            if(consumptions.size() != 0)
-            {
+            if (consumptions.size() != 0) {
                 value = Double.parseDouble(consumptions.get(0).get(0));
                 isConsumptionChanged = true;
             }
 
-            String query = "INSERT INTO consumption(ean, date_recorded, daily_consumption) VALUES('"+
-                    ean+"','"+dates.get(i)+"',"+(values.get(i)+value)+
-                    ") ON DUPLICATE KEY UPDATE daily_consumption="+values.get(i);
+            String query = "INSERT INTO consumption(ean, date_recorded, daily_consumption) VALUES('" +
+                    ean + "','" + dates.get(i) + "'," + (values.get(i) + value) +
+                    ") ON DUPLICATE KEY UPDATE daily_consumption=" + values.get(i);
 
             new Query(query).executeWithoutResult();
 
-            if(isConsumptionChanged)
-            {
-                String getUsefulColumnsQuery = "SELECT contract_id, provider_id, client_id FROM contract WHERE ean="+ean;
+            if (isConsumptionChanged) {
+                String getUsefulColumnsQuery = "SELECT contract_id, provider_id, client_id FROM contract WHERE ean=" + ean;
                 Table table = new Query(getUsefulColumnsQuery).executeAndGetResult("contract_id", "provider_id", "client_id");
 
-                String senderId = isClient ? table.getStringElem(0,2) : table.getStringElem(0,1);
-                String receiverId = isClient ? table.getStringElem(0,1) : table.getStringElem(0,2);
-                String contractId = table.getStringElem(0,0);
+                String senderId = isClient ? table.getStringElem(0, 2) : table.getStringElem(0, 1);
+                String receiverId = isClient ? table.getStringElem(0, 1) : table.getStringElem(0, 2);
+                String contractId = table.getStringElem(0, 0);
 
                 new NotificationManager().createNotification(senderId, receiverId, contractId, "the daily consumption in the " + dates.get(i) + " has changed to " + values.get(i) + " for this ean code : " + ean);
+                WalletManager.energyType typeOfEnergy = new ContractManager().getTypeOfEnergy(new Query("SELECT address FROM wallet_contract WHERE contract_id IN (SELECT contract_id FROM counter WHERE ean='" + ean + "')").executeAndGetResult("address").getStringElem(0, 0));
+                if (typeOfEnergy == WalletManager.energyType.GAS)
+                    new InvoiceManager().changePrice(contractId, gasPrice * values.get(i));
+                else if (typeOfEnergy == WalletManager.energyType.WATER)
+                    new InvoiceManager().changePrice(contractId, waterPrice * values.get(i));
+                else
+                    new InvoiceManager().changePrice(contractId, electricityPrice * values.get(i));
+
             }
 
             value = 0.0;
@@ -150,19 +157,19 @@ public class ConsumptionManager
         String getMaximumValueQuery = "SELECT daily_consumption" +
                 " FROM consumption " +
                 "WHERE date_recorded IN " +
-                "(SELECT max(date_recorded) FROM consumption WHERE ean='"+ean+"')";
+                "(SELECT max(date_recorded) FROM consumption WHERE ean='" + ean + "')";
 
-        double maxVal = new Query(getMaximumValueQuery).executeAndGetResult("daily_consumption").getDoubleElem(0,0);
+        double maxVal = new Query(getMaximumValueQuery).executeAndGetResult("daily_consumption").getDoubleElem(0, 0);
 
         String getAddressQuery = "SELECT address FROM " +
                 "wallet_contract WHERE " +
                 "contract_id IN " +
-                "(SELECT contract_id FROM counter WHERE ean='"+ean+"')";
+                "(SELECT contract_id FROM counter WHERE ean='" + ean + "')";
 
-        String getClientIdQuery = "SELECT client_id FROM contract WHERE contract_id IN (SELECT contract_id FROM counter WHERE ean='"+ean+"')";
+        String getClientIdQuery = "SELECT client_id FROM contract WHERE contract_id IN (SELECT contract_id FROM counter WHERE ean='" + ean + "')";
 
-        String address = new Query(getAddressQuery).executeAndGetResult("address").getStringElem(0,0); //on suppose qu'il y a un seul contrat pour même compteur
-        String clientId = new Query(getClientIdQuery).executeAndGetResult("client_id").getStringElem(0,0);
+        String address = new Query(getAddressQuery).executeAndGetResult("address").getStringElem(0, 0); //on suppose qu'il y a un seul contrat pour même compteur
+        String clientId = new Query(getClientIdQuery).executeAndGetResult("client_id").getStringElem(0, 0);
 
         new WalletManager().addLastConsumption(address, clientId, maxVal, new ContractManager().getTypeOfEnergy(address));
         return true;

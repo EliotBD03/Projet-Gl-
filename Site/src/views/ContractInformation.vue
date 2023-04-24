@@ -12,7 +12,7 @@
             <p> <b>{{ $t("proposal.pricepernight") }} :</b> {{ proposal.variableNightPrice }}</p>
             <p v-if="proposal.isFixedRate"><b>{{ $t("proposal.rate") }} :</b>{{ $t("proposal.fixed") }}</p>
             <p v-else><b>{{ $t("proposal.rate") }} :</b>{{ $t("proposal.variable") }}</p>
-            <p> <b>{{ $t("proposal.peakhours") }} :</b> {{ proposal.startOffPeakHours }} - {{ proposal.endOfPeakHours }}</p>
+            <p> <b>{{ $t("proposal.peakhours") }} :</b> {{ proposal.startOfPeakHours }} - {{ proposal.endOfPeakHours }}</p>
             <div class="input">
                 <form id="input" method="submit" @submit.prevent="submit">
                     <InputMain :text="$t('walletform.address')" v-model="address"/>

@@ -91,6 +91,7 @@ export default {
         },
         seeMore(invoice) {
             sessionStorage.setItem("invoice_id", invoice.invoiceId);
+            sessionStorage.setItem("client_id", invoice.clientId);
             this.$router.push({name: "InvoiceFull"})
         },
         redirecting() {

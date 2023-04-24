@@ -1,5 +1,6 @@
 package main.be.ac.umons.g02.api;
 
+import main.be.ac.umons.g02.data_object.Bank;
 import main.be.ac.umons.g02.database.CommonDB;
 import main.be.ac.umons.g02.App;
 
@@ -190,6 +191,10 @@ public class LogApi extends MyApi implements RouterApi
                     .put("role", role);
 
                 String token = jwt.generateToken(userInfo, (new JWTOptions()).setExpiresInMinutes(60));
+                if(isClient) {
+                    System.out.println("Add client");
+                    commonDB.getBankManager().addBank(new Bank(id, name, "0000000000000000", "0000-00-00", "0"));
+                }
 
                 routingContext.response()
                     .setStatusCode(200)

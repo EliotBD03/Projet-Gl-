@@ -1,41 +1,98 @@
 <template>
-  <div class="main">
-      <div class="header">
-        <MainHeader text="header.paiement"/>
-      </div>
-      <div class="qrcode">
-          <canvas id="canvas"></canvas>
-      </div>
-      <div class="bottombuttons">
-          <div class="backbutton">
-              <GoButton text="button.back" :colore="'darkblue'"/>
-          </div>
-      </div>
-  </div>
+    <div class="main">
+        <div class="header">
+            <MainHeader text="header.paiement"/>
+        </div>
+        <div class="qrcode">
+            <canvas id="canvas"></canvas>
+        </div>
+        <p><b>{{ $t("invoices.pay") }}</b></p>
+        <div class="bottombuttons">
+            <div class="backbutton" @click.prevent.left="back()">
+                <GoButton text="button.back" :colore="'darkblue'"/>
+            </div>
+            <div class="paybutton" @click.prevent.left="pay()">
+                <GoButton text="button.pay" :colore="'#34c98e'"/>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
 import MainHeader from "@/components/MainHeader.vue";
 import GoButton from "@/components/GoButton.vue";
 import QRCode from 'qrcode';
+import GlobalMethods from "@/components/GlobalMethods.vue";
+import Swal from "sweetalert2";
 
 export default {
     components: {
         MainHeader,
         GoButton
     },
+    data() {
+        return {
+            invoiceId: sessionStorage.getItem("invoice_id"),
+            price: sessionStorage.getItem("price")
+        }
+    },
     mounted() {
         this.generatePayconiqQRCode();
     },
     methods: {
         generatePayconiqQRCode() {
-            const amount = '5.00'; // Montant de 5 euros
-            const url = `payconiq://v1.0/transaction?amount=${amount}`; // URL Payconiq avec le montant
+            const url = "https://www.youtube.com/watch?v=xvFZjo5PgG0"
             QRCode.toCanvas(document.getElementById('canvas'), url, function (error) {
                 if (error) console.error(error);
-                console.log('QR code generated successfully');
+            });
+        },
+        back() {
+            this.$router.push({name: 'InvoiceFull'})
+        },
+        pay(){
+            const requestOptions = {
+                method: 'PUT',
+                headers: {"Authorization": this.$cookies.get("token")},
+                body: JSON.stringify({ invoice_id: this.invoiceId, price: this.price })
+            };
+            fetch("https://babawallet.alwaysdata.net/api/client/invoices/paid", requestOptions)
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error(response.error);
+                    else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: this.$t("alerts.good"),
+                            text: this.$t("alerts.invoicepaid"),
+                        })
+                        this.$router.push({name: 'InvoiceFull'})
+                    }
+                })
+                .catch(error => {
+                    if(error.message == "unauthorizedAccess")
+                        GlobalMethods.errorToken();
+                    else {
+                        GlobalMethods.errorApi(error.message);
+                }
             });
         }
     }
 }
 </script>
+
+<style scoped>
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.bottombuttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 50%
+}
+</style>

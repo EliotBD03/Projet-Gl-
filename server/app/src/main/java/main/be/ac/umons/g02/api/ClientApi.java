@@ -44,13 +44,13 @@ public class ClientApi extends MyApi implements RouterApi
 
         //Extension Maxime
         subRouter.get("/invoices/page").handler(this::getAllInvoices);
-        subRouter.get("/invoices/:id_invoice").handler(this::getInvoice);
-        subRouter.delete("/invoices/:invoice_id").handler(this::deleteInvoice);
-        subRouter.put("/invoices/:id_invoice").handler(this::changePaymentMethod);
-        subRouter.put("/invoices/:id_invoice/account").handler(this::changeAccountInformation);
-        subRouter.post("/invoices").handler(this::createInvoice);
+        subRouter.get("/invoices/:invoice_id").handler(this::getInvoice);
+        subRouter.put("/invoices/:client_id").handler(this::changePaymentMethod);
+        subRouter.put("/invoices/:client_id/account").handler(this::changeAccountInformation);
+        subRouter.put("/invoices/proposal").handler(this::changeProposal);
         subRouter.post("/invoices/account").handler(this::addBank);
         subRouter.get("/invoices/account/:client_id").handler(this::getBank);
+        subRouter.put("/invoices/paid").handler(this::changePaid);
 
         //base
         subRouter.get("/wallets/page").handler(this::getAllWallets);
@@ -622,6 +622,8 @@ public class ClientApi extends MyApi implements RouterApi
 
         String invoiceId = routingContext.pathParam("invoice_id");
 
+        LOGGER.info("invoiceId: " + invoiceId);
+
         InvoiceFull invoice = commonDB.getInvoiceManager().getInvoice(invoiceId);
 
         routingContext.response()
@@ -631,37 +633,39 @@ public class ClientApi extends MyApi implements RouterApi
                         .put("invoice", invoice)));
     }
 
-    private void deleteInvoice(final RoutingContext routingContext) {
-        LOGGER.info("DeleteInvoice...");
+    public void changeProposal(final RoutingContext routingContext) {
+        LOGGER.info("ChangeProposal...");
 
-        String invoiceId = routingContext.pathParam("invoice_id");
+        JsonObject body = null;
+        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
 
-        commonDB.getInvoiceManager().deleteInvoice(invoiceId);
+        String invoice_id = null;
+        if(checkParam((invoice_id = body.getString("invoice_id")), routingContext)) return;
+
+        double proposal = 0;
+        if(checkParam((proposal = body.getDouble("proposal")), routingContext)) return;
+
+        commonDB.getInvoiceManager().changeProposal(invoice_id, proposal);
         routingContext.response()
-            .setStatusCode(200)
-            .putHeader("Content-Type", "application/json")
-            .end();
+                .setStatusCode(200)
+                .putHeader("Content-Type", "application/json")
+                .end();
     }
 
     private void changePaymentMethod(final RoutingContext routingContext) {
         LOGGER.info("ChangePaymentMethod...");
 
+        String clientId = routingContext.pathParam("client_id");
+
         JsonObject body = null;
         if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
 
-        String invoiceId = null;
-        if(checkParam((invoiceId = body.getString("invoice_id")), routingContext)) return;
-
         String paymentMethod = null;
         if(checkParam((paymentMethod = body.getString("payment_method")), routingContext)) return;
+        LOGGER.info("paymentMethod: " + paymentMethod);
 
-        //convert paymentMethod to boolean
-        if(paymentMethod.equals("true"))
-            paymentMethod = "1";
-        else
-            paymentMethod = "0";
 
-        commonDB.getBankManager().changePaymentMethod(invoiceId, paymentMethod);
+        commonDB.getBankManager().changePaymentMethod(clientId, paymentMethod);
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
@@ -674,8 +678,7 @@ public class ClientApi extends MyApi implements RouterApi
         JsonObject body = null;
         if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
 
-        String invoiceId = null;
-        if(checkParam((invoiceId = body.getString("invoice_id")), routingContext)) return;
+        String clientId = routingContext.pathParam("client_id");
 
         String accountName = null;
         if(checkParam((accountName = body.getString("account_name")), routingContext)) return;
@@ -686,53 +689,14 @@ public class ClientApi extends MyApi implements RouterApi
         String expirationDate = null;
         if(checkParam((expirationDate = body.getString("expiration_date")), routingContext)) return;
 
-        commonDB.getBankManager().changeAccountInformation(invoiceId, accountName, accountNumber, expirationDate);
+        String paymentMethod = null;
+        if(checkParam((paymentMethod = body.getString("payment_method")), routingContext)) return;
+
+        commonDB.getBankManager().changeAccountInformation(clientId, accountName, accountNumber, expirationDate, paymentMethod);
         routingContext.response()
             .setStatusCode(200)
             .putHeader("Content-Type", "application/json")
             .end();
-    }
-
-    private void createInvoice(final RoutingContext routingContext) {
-        LOGGER.info("CreateInvoice...");
-
-        String id = null;
-        if (((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
-
-        JsonObject body = null;
-        if (checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
-
-        double price = 0;
-        boolean status = false;
-        String contractId = null;
-        double remaining = 0;
-        String paymentMethod = null;
-        String paymentDate = null;
-        try {
-
-            if (checkParam((price = body.getDouble("price")), routingContext)) return;
-
-            if (checkParam((status = body.getBoolean("status")), routingContext)) return;
-            if (checkParam((contractId = body.getString("contract_id")), routingContext)) return;
-
-            if (checkParam((remaining = body.getDouble("remaining")), routingContext)) return;
-
-            if (checkParam((paymentMethod = body.getString("payment_method")), routingContext)) return;
-
-            if (checkParam((paymentDate = body.getString("payment_date")), routingContext)) return;
-
-        } catch (Exception e) {
-            routingContext.response()
-                    .setStatusCode(400)
-                    .putHeader("Content-Type", "application/json")
-                    .end(Json.encodePrettily(new JsonObject()
-                            .put("error", "error.missingInformation")));
-        }
-
-        InvoiceFull invoice = new InvoiceFull("0", id, price, status);
-        invoice.setMoreInformation(contractId, remaining, paymentMethod, paymentDate);
-
-        commonDB.getInvoiceManager().createInvoice(invoice);
     }
 
     private void addBank(final RoutingContext routingContext) {
@@ -778,22 +742,28 @@ public class ClientApi extends MyApi implements RouterApi
     private void getBank(final RoutingContext routingContext) {
         LOGGER.info("GetBank...");
 
-        String id = null;
-        if (((id = MyApi.getDataInToken(routingContext, "id")) == null)) return;
-
-        int[] slice = getSlice(routingContext);
-        if(slice == null) return;
-
-        Object[] res = commonDB.getBankManager().getBank(id, slice[0], slice[1]);
-        int numberOfPagesRemaining = getNumberOfPagesRemaining((int) res[0], slice[1]);
-
-        ArrayList<Bank> banks = (ArrayList<Bank>) res[1];
+        String client_id = routingContext.pathParam("client_id");
+        Bank bank = commonDB.getBankManager().getBank(client_id);
 
         routingContext.response()
                 .setStatusCode(200)
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encodePrettily(new JsonObject()
-                        .put("banks", banks)
-                        .put("last_page", numberOfPagesRemaining)));
+                        .put("bank", bank)));
+    }
+
+    public void changePaid(final RoutingContext routingContext) {
+        LOGGER.info("ChangePaid...");
+
+        JsonObject body = null;
+        if(checkParam((body = routingContext.body().asJsonObject()), routingContext)) return;
+
+        String invoice_id = null;
+        if(checkParam((invoice_id = body.getString("invoice_id")), routingContext)) return;
+
+        double price = 0;
+        if(checkParam((price = body.getDouble("price")), routingContext)) return;
+
+        commonDB.getInvoiceManager().changeAlreadyPaid(invoice_id, price);
     }
 }

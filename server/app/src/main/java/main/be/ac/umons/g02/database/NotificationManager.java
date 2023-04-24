@@ -1,5 +1,6 @@
 package main.be.ac.umons.g02.database;
 
+import main.be.ac.umons.g02.data_object.InvoiceFull;
 import main.be.ac.umons.g02.data_object.Notification;
 
 import java.util.ArrayList;
@@ -93,6 +94,7 @@ public class NotificationManager
      */
     public boolean acceptNotification(String notificationId, String ean, String address)
     {
+        //Get the actual month and year with a java module
         if(!new WalletManager().isTheCounterFree(ean))
             return false;
 
@@ -104,7 +106,10 @@ public class NotificationManager
                 .getTable().get(0);
 
         new ContractManager().createContract(row.get(2), ean, row.get(3), address, row.get(1));
-
+        ArrayList<String> row2 = new Query("SELECT contract_id FROM contract WHERE proposal_name='"+row.get(2)+"' AND ean='"+ean+"' AND provider_id="+row.get(3)+" AND client_id="+row.get(1)).executeAndGetResult("contract_id").getTable().get(0);
+        InvoiceFull invoiceFull = new InvoiceFull(row2.get(0), row.get(1),0.0, 0.0, false);
+        invoiceFull.setMoreInformation(row2.get(0), 0.0 ,"0", "2023-12-12");
+        new InvoiceManager().createInvoice(invoiceFull);
         createNotification(row.get(1), row.get(0), row.get(2), row.get(3),
                 "Your contract was accepted by "+new LogManager().getName(row.get(1)), ean,address);
 
@@ -129,6 +134,11 @@ public class NotificationManager
                 .getTable().get(0);
 
         new ContractManager().createContract(row.get(2), row.get(5), row.get(3), row.get(6), row.get(0));
+        ArrayList<String> row2 = new Query("SELECT * FROM contract WHERE provider_id="+row.get(3)+" AND client_id="+row.get(0)+" AND ean="+row.get(5)).executeAndGetResult("contract_id").getTable().get(0);
+        InvoiceFull invoiceFull = new InvoiceFull(row2.get(0), row.get(0), 0.0, 0.0, false);
+        invoiceFull.setMoreInformation(row2.get(0), 0.0, "0", "2023-12-12");
+        new InvoiceManager().createInvoice(invoiceFull);
+
         createNotification(row.get(1), row.get(0), row.get(2), row.get(3),
                 "Your contract was accepted by "+new LogManager().getName(row.get(1)), row.get(5),row.get(6));
 

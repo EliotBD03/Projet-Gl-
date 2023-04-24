@@ -134,6 +134,21 @@ const routes = [
         path: '/invoiceFull',
         name: 'InvoiceFull',
         component: () => import('@/views/InvoiceFull.vue')
+      },
+      {
+        path: '/changeproposal',
+        name: 'ChangeProposal',
+        component: () => import('@/views/ChangeInvoiceProposal.vue')
+      },
+      {
+        path: '/changeaccount',
+        name: 'ChangeAccount',
+        component: () => import('@/views/ChangePaiementInformations.vue')
+      },
+      {
+        path: '/invoice/payment',
+        name: 'Payment',
+        component: () => import('@/views/PaiementQR.vue')
       }
     ],beforeEnter: (to, from, next) => {
         if(cookies.isKey("token") && cookies.isKey("role"))

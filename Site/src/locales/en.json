@@ -16,6 +16,7 @@
     "addproposal": "Add a proposal",
     "modifyproposal": "Modify a proposal",
     "invoice": "Invoice",
+    "paiement": "Payment",
     "other": "{name}"
   },
   "walletform": {
@@ -69,7 +70,13 @@
     "seen": "Seen",
     "infos": "Infos",
     "numberOfResidents": "Enter a correct number of residents",
-    "sizeOfHouse": "Enter a possible house size"
+    "sizeOfHouse": "Enter a possible house size",
+    "changeproposal": "Change proposal",
+    "changemethod": "Change payment method",
+    "viewinfos": "View infos",
+    "changeaccountinformations": "Change account informations",
+    "pay": "Pay",
+    "payed": "Payed"
   },
   "maincard": {
     "newcontracts": "See new contracts",
@@ -134,7 +141,9 @@
     "seeyousoon": "See you soon !",
     "mailsent": "Mail sent",
     "eanAlreadyUse" : "This ean code is already used",
-    "noinvoice": "There is no invoice"
+    "noinvoice": "There is no invoice",
+    "methodchanged": "Payment method changed",
+    "accountinformationchanged": "Account information changed"
   },
   "wallet": {
     "loading": "Loading...",
@@ -310,7 +319,8 @@
     "name": "Account name",
     "number": "Account number",
     "expirationdate": "Expiration date",
-    "paiementdate": "Payment date",
+    "expirationdateplaceholder": "Expiration date (YYYY-MM-DD)",
+    "paymentdate": "Payment date",
     "list": "View invoices list",
     "associatedcontract": "Associated contract",
     "annualamount": "Annual amount",
@@ -318,6 +328,11 @@
     "method": "Payment method",
     "remaining": "Remaining",
     "invoicetitle": "Invoice n°{number}",
-    "annualprice": "Annual price"
+    "annualprice": "Annual price",
+    "manual": "Manual (Payment)",
+    "auto": "Automatic (Direct debit)",
+    "price": "Price",
+    "accountinfos": "Account informations",
+    "pay": "After payment, click on the button below"
   }
 }

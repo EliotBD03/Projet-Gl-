@@ -16,7 +16,6 @@ public class InvoiceManager {
     }
 
     public InvoiceFull getInvoice(String invoiceId) {
-        System.out.println(invoiceId);
         if(!doesInvoiceExist(invoiceId))
             return null;
 
@@ -27,6 +26,7 @@ public class InvoiceManager {
                 "invoice_id",
                 "client_id",
                 "price",
+                "proposal",
                 "contract_id",
                 "status",
                 "payment_method",
@@ -35,13 +35,15 @@ public class InvoiceManager {
         ).getTable();
 
         ArrayList<String> row = table.get(0);
+        double remaining = Double.parseDouble(row.get(2)) - Double.parseDouble(row.get(7));
+        String contractName = getProposalName(row.get(4));
 
-        InvoiceFull invoicefull = new InvoiceFull(row.get(0), row.get(1), Double.parseDouble(row.get(2)), row.get(5).equals("1"));
+        InvoiceFull invoicefull = new InvoiceFull(invoiceId, row.get(1), Double.parseDouble(row.get(2)), Double.parseDouble(row.get(3)), row.get(5).equals("1"));
         invoicefull.setMoreInformation(
-                row.get(2),
-                Double.parseDouble(row.get(5)),
-                row.get(4),
-                row.get(6)
+                contractName,
+                remaining,
+                row.get(6),
+                row.get(7)
         );
         return invoicefull;
     }
@@ -53,6 +55,7 @@ public class InvoiceManager {
                 "invoice_id",
                 "client_id",
                 "price",
+                "proposal",
                 "contract_id",
                 "status",
                 "payment_method",
@@ -62,7 +65,7 @@ public class InvoiceManager {
 
         ArrayList<InvoiceBasic> invoiceBasics = new ArrayList<>();
         for(ArrayList<String> row : table) {
-            invoiceBasics.add(new InvoiceBasic(row.get(0), clientId, Double.parseDouble(row.get(1)), row.get(4).equals("1")));
+            invoiceBasics.add(new InvoiceBasic(row.get(0), clientId, Double.parseDouble(row.get(2)), Double.parseDouble(row.get(3)), row.get(5).equals("1")));
         }
 
         int count = new Query("SELECT COUNT(*) as 'c' FROM invoice WHERE client_id='"+clientId+"'").executeAndGetResult("c").getIntElem(0,0);
@@ -70,39 +73,67 @@ public class InvoiceManager {
         return new Object[]{count, invoiceBasics};
     }
 
-    public boolean createInvoice(InvoiceFull invoice) {
-        if(doesInvoiceExist(invoice.getInvoiceId()))
-            return false;
-
-        new Query("INSERT INTO invoice (client_id,price, contract_id, status, payment_method, already_paid, payment_date) VALUES ('"+
-                invoice.getPrice()+",'"+
-                invoice.getContractId()+"',"+
-                (invoice.isPaid() ? 1 : 0)+",'"+
-                invoice.getPaymentMethod()+"',"+
-                invoice.getAlreadyPaid()+",'"+
-                invoice.getPaymentDate()+"')").executeWithoutResult();
-
-        return true;
-    }
-
-    /*** public ArrayList<InvoiceBasic> getHistory(String clientId) {
-        //Return all invoiceBasic that are paid
-        String query = "SELECT * FROM invoice WHERE contract_id IN (SELECT contract_id FROM contract WHERE client_id='"+clientId+"') AND status=1";
+    public String getProposalName(String contract_id){
+        String query = "SELECT proposal_name FROM contract WHERE contract_id='"+contract_id+"'";
         DB.getInstance().executeQuery(query,true);
         ArrayList<ArrayList<String>> table = new Query(query).executeAndGetResult(
-                "invoice_id",
-                "price",
-                "contract_id",
-                "status",
-                "payment_method",
-                "already_paid",
-                "payment_date"
+                "proposal_name"
         ).getTable();
 
-        ArrayList<InvoiceBasic> invoiceBasics = new ArrayList<>();
-        for(ArrayList<String> row : table) {
-            invoiceBasics.add(new InvoiceBasic(row.get(0), Double.parseDouble(row.get(1)), row.get(4).equals("1")));
+        return table.get(0).get(0);
+    }
+
+    public boolean createInvoice(InvoiceFull invoice) {
+        if(doesInvoiceExist(invoice.getContractId())) {
+            String query = "UPDATE invoice set client_id='"+invoice.getClientId()+"', price='"+invoice.getPrice()+"', status='"+(invoice.isPaid() ? 1 : 0)+"', payment_method='"+invoice.getPaymentMethod()+"', already_paid='"+invoice.getAlreadyPaid()+"', payment_date='"+invoice.getPaymentDate()+"' WHERE contract_id='"+invoice.getContractId()+"'";
+            DB.getInstance().executeQuery(query,false);
+            return true;
+        } else {
+            String query = "INSERT INTO invoice (client_id, price, proposal, contract_id, status, payment_method, already_paid, payment_date) VALUES ('"+invoice.getClientId()+"', '"+invoice.getPrice()+"', '"+invoice.getProposal()+"', '"+invoice.getContractId()+"', '"+(invoice.isPaid() ? 1 : 0)+"', '"+invoice.getPaymentMethod()+"', '"+invoice.getAlreadyPaid()+"', '"+invoice.getPaymentDate()+"')";
+            DB.getInstance().executeQuery(query,false);
+            return true;
         }
-        return invoiceBasics;
-    }***/
+    }
+
+    public void changeProposal(String invoiceId, double proposal) {
+        String query = "UPDATE invoice set proposal='"+proposal+"' WHERE invoice_id='"+invoiceId+"'";
+        DB.getInstance().executeQuery(query,false);
+    }
+
+    public void changePrice(String invoiceId, double price) {
+        String actualPrice = "SELECT price FROM invoice WHERE invoice_id='"+invoiceId+"'";
+        DB.getInstance().executeQuery(actualPrice,true);
+        ArrayList<ArrayList<String>> table = new Query(actualPrice).executeAndGetResult(
+                "price"
+        ).getTable();
+        double actualPriceDouble = Double.parseDouble(table.get(0).get(0));
+        price += actualPriceDouble;
+        String query = "UPDATE invoice set price='"+price+"' WHERE invoice_id='"+invoiceId+"'";
+        DB.getInstance().executeQuery(query,false);
+
+        changeProposal(invoiceId, Math.floor(price/12));
+
+        if (price == 0) {
+            String query2 = "UPDATE invoice set status='1' WHERE invoice_id='"+invoiceId+"'";
+            DB.getInstance().executeQuery(query2,false);
+        }
+        else {
+            String query2 = "UPDATE invoice set status='0' WHERE invoice_id='"+invoiceId+"'";
+            DB.getInstance().executeQuery(query2,false);
+        }
+    }
+
+    public void changeAlreadyPaid(String invoiceId, double alreadyPaid) {
+
+        String query = "UPDATE invoice set already_paid='"+alreadyPaid+"' WHERE invoice_id='"+invoiceId+"'";
+        DB.getInstance().executeQuery(query,false);
+
+        String query2 = "SELECT price FROM invoice WHERE invoice_id='"+invoiceId+"'";
+        DB.getInstance().executeQuery(query2,true);
+        ArrayList<ArrayList<String>> table = new Query(query2).executeAndGetResult(
+                "price"
+        ).getTable();
+        double price = Double.parseDouble(table.get(0).get(0));
+        changePrice(invoiceId, price);
+    }
 }

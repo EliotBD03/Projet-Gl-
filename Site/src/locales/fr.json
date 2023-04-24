@@ -16,6 +16,7 @@
     "addproposal": "Ajouter une proposition",
     "modifyproposal": "Modifier la proposition",
     "invoice": "Facture",
+    "paiement": "Paiement",
     "other": "{name}"
   },
   "walletform": {
@@ -69,7 +70,13 @@
     "seen": "Vu",
     "infos": "Infos",
     "numberOfResidents": "Entrez un nombre d'habitant correct",
-    "sizeOfHouse": "Entrez une taille de maison possible"
+    "sizeOfHouse": "Entrez une taille de maison possible",
+    "changeproposal": "Changer la proposition",
+    "changemethod": "Changer la méthode de paiement",
+    "viewinfos": "Voir les informations",
+    "changeaccountinformations": "Changer les informations du compte",
+    "pay": "Payer",
+    "payed": "Payé"
   },
   "maincard": {
     "newcontracts": "Voir les nouveaux contrats",
@@ -133,7 +140,9 @@
     "seeyousoon": "À bientôt !",
     "mailsent": "Un mail vous a été envoyé",
     "eanAlreadyUse" : "Ce code ean est déjà utilisé",
-    "noinvoice": "Vous n'avez pas de facture"
+    "noinvoice": "Vous n'avez pas de facture",
+    "methodchanged": "La méthode de paiement a bien été changée",
+    "accountinformationchanged": "Les informations du compte ont bien été changées"
   },
   "wallet": {
     "loading": "Chargement en cours...",
@@ -309,7 +318,8 @@
     "name": "Nom du compte",
     "number": "Numéro de compte",
     "expirationdate": "Date d'expiration",
-    "paiementdate": "Date de paiement",
+    "expirationdateplaceholder": "Date d'expiration (YYYY-MM-DD)",
+    "paymentdate": "Date de paiement",
     "list": "Liste des factures",
     "associatedcontract": "Contrat associé",
     "annualamount": "Montant annuel",
@@ -317,6 +327,11 @@
     "method": "Méthode de paiement",
     "remaining": "Restant à payer",
     "invoicetitle": "Facture n°{number}",
-    "annualprice": "Prix annuel"
+    "annualprice": "Prix annuel",
+    "manual": "Manuel (Virement)",
+    "auto": "Automatique (Domiciliation)",
+    "price": "Prix",
+    "accountinfos": "Informations du compte",
+    "pay": "Après avoir effectué le paiement, cliquez sur le bouton"
   }
 }

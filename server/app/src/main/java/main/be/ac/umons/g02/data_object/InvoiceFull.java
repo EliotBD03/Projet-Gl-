@@ -5,17 +5,13 @@ import java.util.ArrayList;
 public class InvoiceFull extends InvoiceBasic{
 
     private String contractId;
-    private ArrayList<Double> accounts;
     private double remaining;
 
     private String paymentMethod;
-    private String accountName;
-    private String accountNumber;
-    private String expirationDate;
     private String paymentDate;
 
-    public InvoiceFull(String invoiceId, String client_id, double price, boolean status) {
-        super(invoiceId, client_id, price, status);
+    public InvoiceFull(String invoiceId, String client_id, double price, double proposal, boolean status) {
+        super(invoiceId, client_id, price, proposal, status);
     }
 
     public String getContractId() {
