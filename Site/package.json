@@ -14,7 +14,7 @@
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
     "papaparse": "^5.4.1",
-    "qrcode": "^1.5.1",
+    "qrcode": "^1.5.3",
     "serve": "^14.2.0",
     "sweetalert2": "^11.4.8",
     "vue": "^2.6.14",

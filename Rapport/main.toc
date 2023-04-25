@@ -24,34 +24,35 @@
 \contentsline {subsubsection}{\numberline {1.5.2}Les langues}{13}{subsubsection.1.5.2}%
 \contentsline {subsubsection}{\numberline {1.5.3}Modules importés}{13}{subsubsection.1.5.3}%
 \contentsline {subsection}{\numberline {1.6}Conclusion}{14}{subsection.1.6}%
-\contentsline {section}{\numberline {2}Extension 1.6.1 : Gestion d’utilisateurs par D’Haene Claire}{15}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Introduction}{15}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Base de données}{16}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Introduction}{16}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Package dataobject}{16}{subsubsection.2.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.3}Package database}{17}{subsubsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.3}API}{20}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Introduction}{20}{subsubsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.2}ClientApi}{20}{subsubsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.4}Front-end}{21}{subsection.2.4}%
-\contentsline {subsubsection}{\numberline {2.4.1}Introduction}{21}{subsubsection.2.4.1}%
-\contentsline {subsubsection}{\numberline {2.4.2}AddInvited}{21}{subsubsection.2.4.2}%
-\contentsline {subsubsection}{\numberline {2.4.3}ChangePermissions}{21}{subsubsection.2.4.3}%
-\contentsline {subsubsection}{\numberline {2.4.4}InvitationMessage}{21}{subsubsection.2.4.4}%
-\contentsline {subsubsection}{\numberline {2.4.5}InvitedWallet}{21}{subsubsection.2.4.5}%
-\contentsline {subsubsection}{\numberline {2.4.6}WalletFull et consumptionPage}{21}{subsubsection.2.4.6}%
-\contentsline {subsubsection}{\numberline {2.4.7}Modules importés}{22}{subsubsection.2.4.7}%
-\contentsline {subsection}{\numberline {2.5}Conclusion}{23}{subsection.2.5}%
-\contentsline {section}{\numberline {3}Extension 1.6.4 : Analyse statistique de la consommation énergétique par Adrien Fiévet}{24}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Introduction}{24}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Base de données}{25}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}API}{26}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Front-end}{27}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.1}Les portefeuilles}{27}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}Consommations}{27}{subsubsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.5}Conclusion}{28}{subsection.3.5}%
-\contentsline {section}{\numberline {4}Extension 1.6.10 : Application android par Julien Ladeuze}{29}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Introduction}{29}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Choix technologiques}{30}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Difficultés rencontrées}{31}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Ressentis}{32}{subsection.4.4}%
+\contentsline {subsection}{\numberline {1.7}Readme}{15}{subsection.1.7}%
+\contentsline {section}{\numberline {2}Extension 1.6.1 : Gestion d’utilisateurs par D’Haene Claire}{16}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Introduction}{16}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Base de données}{17}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Introduction}{17}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Package dataobject}{17}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Package database}{18}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}API}{21}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Introduction}{21}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}ClientApi}{21}{subsubsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.4}Front-end}{22}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Introduction}{22}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}AddInvited}{22}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}ChangePermissions}{22}{subsubsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.4}InvitationMessage}{22}{subsubsection.2.4.4}%
+\contentsline {subsubsection}{\numberline {2.4.5}InvitedWallet}{22}{subsubsection.2.4.5}%
+\contentsline {subsubsection}{\numberline {2.4.6}WalletFull et consumptionPage}{22}{subsubsection.2.4.6}%
+\contentsline {subsubsection}{\numberline {2.4.7}Modules importés}{23}{subsubsection.2.4.7}%
+\contentsline {subsection}{\numberline {2.5}Conclusion}{24}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Extension 1.6.4 : Analyse statistique de la consommation énergétique par Adrien Fiévet}{25}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Introduction}{25}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Base de données}{26}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}API}{27}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Front-end}{28}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Les portefeuilles}{28}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Consommations}{28}{subsubsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.5}Conclusion}{29}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Extension 1.6.10 : Application android par Julien Ladeuze}{30}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Introduction}{30}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Choix technologiques}{31}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Difficultés rencontrées}{32}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Ressentis}{33}{subsection.4.4}%
