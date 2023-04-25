@@ -144,7 +144,8 @@
     "noinvoice": "There is no invoice",
     "methodchanged": "Payment method changed",
     "accountinformationchanged": "Account information changed",
-    "proposalrange": "Your proposal must be between 20% lower and 20% higher than the current price"
+    "proposalrange": "Your proposal must be between 20% lower and 20% higher than the current price",
+    "proposalchanged": "The proposal has been changed"
   },
   "wallet": {
     "loading": "Loading...",

@@ -33,7 +33,7 @@ export default {
     data() {
         return {
             invoiceId: sessionStorage.getItem("invoice_id"),
-            price: sessionStorage.getItem("price")
+            proposal: sessionStorage.getItem("proposal"),
         }
     },
     mounted() {
@@ -47,13 +47,16 @@ export default {
             });
         },
         back() {
+            sessionStorage.removeItem("price");
+            sessionStorage.removeItem("proposal")
             this.$router.push({name: 'InvoiceFull'})
         },
         pay(){
+            let paid_price = this.proposal;
             const requestOptions = {
-                method: 'PUT',
+                method: 'POST',
                 headers: {"Authorization": this.$cookies.get("token")},
-                body: JSON.stringify({ invoice_id: this.invoiceId, price: this.price })
+                body: JSON.stringify({ invoice_id: this.invoiceId, price: parseFloat(paid_price) })
             };
             fetch("https://babawallet.alwaysdata.net/api/client/invoices/paid", requestOptions)
                 .then(response => {

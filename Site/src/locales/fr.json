@@ -143,7 +143,8 @@
     "noinvoice": "Vous n'avez pas de facture",
     "methodchanged": "La méthode de paiement a bien été changée",
     "accountinformationchanged": "Les informations du compte ont bien été changées",
-    "proposalrange": "Votre proposition doit être 20% en dessous ou 20% au dessus de la proposition"
+    "proposalrange": "Votre proposition doit être 20% en dessous ou 20% au dessus de la proposition",
+    "proposalchanged": "La proposition a bien été changée"
   },
   "wallet": {
     "loading": "Chargement en cours...",

@@ -136,9 +136,6 @@ export default {
                 return this.$t("invoices.manual");
             }
         },
-        calculateProposal() {
-            return Math.floor(this.invoice.price / 12);
-        },
         testPay() {
             return this.invoice.paymentMethod !== "0";
         },
@@ -195,11 +192,12 @@ export default {
         },
         changeProposal(){
             sessionStorage.setItem("proposal", this.invoice.proposal);
+            sessionStorage.setItem("price", this.invoice.remaining);
             this.$router.push({name: "ChangeProposal"});
         },
         pay() {
             sessionStorage.setItem("invoice_id", this.invoice_id);
-            sessionStorage.setItem("price", this.invoice.proposal);
+            sessionStorage.setItem("proposal", this.invoice.proposal);
             this.$router.push({name: "Payment"});
         }
     }

@@ -125,8 +125,16 @@ public class InvoiceManager {
 
     public void changeAlreadyPaid(String invoiceId, double alreadyPaid) {
 
-        String query = "UPDATE invoice set already_paid='"+alreadyPaid+"' WHERE invoice_id='"+invoiceId+"'";
-        DB.getInstance().executeQuery(query,false);
+        String query = "SELECT already_paid FROM invoice WHERE invoice_id='"+invoiceId+"'";
+        DB.getInstance().executeQuery(query, true);
+        ArrayList<ArrayList<String>> table1 = new Query(query).executeAndGetResult(
+                "already_paid"
+        ).getTable();
+        double already_paid = Double.parseDouble(table1.get(0).get(0));
+        alreadyPaid += already_paid;
+
+        String query1 = "UPDATE invoice set already_paid='"+alreadyPaid+"' WHERE invoice_id='"+invoiceId+"'";
+        DB.getInstance().executeQuery(query1,false);
 
         String query2 = "SELECT price FROM invoice WHERE invoice_id='"+invoiceId+"'";
         DB.getInstance().executeQuery(query2,true);
@@ -134,6 +142,21 @@ public class InvoiceManager {
                 "price"
         ).getTable();
         double price = Double.parseDouble(table.get(0).get(0));
-        changePrice(invoiceId, price);
+
+        double newPrice = price - alreadyPaid;
+        String query3 = "UPDATE invoice set price='"+newPrice+"' WHERE invoice_id='"+invoiceId+"'";
+        DB.getInstance().executeQuery(query3,false);
+
+
+        changeProposal(invoiceId, Math.floor(newPrice/12));
+
+        if (newPrice == 0) {
+            String query4 = "UPDATE invoice set status='1' WHERE invoice_id='"+invoiceId+"'";
+            DB.getInstance().executeQuery(query4,false);
+        }
+        else {
+            String query5 = "UPDATE invoice set status='0' WHERE invoice_id='"+invoiceId+"'";
+            DB.getInstance().executeQuery(query5,false);
+        }
     }
 }

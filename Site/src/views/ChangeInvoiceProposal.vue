@@ -4,7 +4,7 @@
         <MainHeader text="header.modifyproposal"/>
       </div>
       <div class="content">
-          <p><b>{{ $t("invoices.actualproposal") }}</b></p>
+          <p><b>{{ $t("invoices.actualproposal") }}</b> : {{proposal}} €</p>
           <InputMain :text="$t('invoices.proposal')" v-model="new_proposal"/>
       </div>
       <div class="bottombuttons">
@@ -33,21 +33,26 @@ export default {
     data() {
         return {
             proposal: sessionStorage.getItem("proposal"),
+            price: sessionStorage.getItem("price"),
             invoiceId: sessionStorage.getItem("invoice_id"),
             new_proposal: 0
         }
     },
+    created() {
+        GlobalMethods.getCurrentLanguage();
+    },
     methods: {
         back() {
-            sessionStorage.removeItem("proposal")
+            sessionStorage.removeItem("proposal");
+            sessionStorage.removeItem("price")
             this.$router.push({name: 'InvoiceFull'})
         },
         changeProposal() {
             if(this.isWithinRange()) {
                 const requestOptions = {
-                    method: 'PUT',
+                    method: 'POST',
                     headers: {"Authorization": this.$cookies.get("token")},
-                    body: JSON.stringify({proposal: this.proposal, invoice_id: this.invoiceId})
+                    body: JSON.stringify({proposal: parseFloat(this.new_proposal), invoice_id: this.invoiceId})
                 };
                 fetch("https://babawallet.alwaysdata.net/api/client/invoices/proposal", requestOptions)
                     .then(response => {
@@ -78,8 +83,9 @@ export default {
         },
         isWithinRange() {
             this.new_proposal = parseFloat(this.new_proposal);
-            const lowerLimit = this.proposal * 0.8;
-            const upperLimit = this.proposal * 1.2;
+            let limit = Math.floor(this.price/12)
+            const lowerLimit = limit * 0.8;
+            const upperLimit = limit * 1.2;
             return this.new_proposal >= lowerLimit && this.new_proposal <= upperLimit;
         }
     }

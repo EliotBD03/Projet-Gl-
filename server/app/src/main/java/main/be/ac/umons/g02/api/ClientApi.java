@@ -47,10 +47,10 @@ public class ClientApi extends MyApi implements RouterApi
         subRouter.get("/invoices/:invoice_id").handler(this::getInvoice);
         subRouter.put("/invoices/:client_id").handler(this::changePaymentMethod);
         subRouter.put("/invoices/:client_id/account").handler(this::changeAccountInformation);
-        subRouter.put("/invoices/proposal").handler(this::changeProposal);
+        subRouter.post("/invoices/proposal").handler(this::changeProposal);
         subRouter.post("/invoices/account").handler(this::addBank);
         subRouter.get("/invoices/account/:client_id").handler(this::getBank);
-        subRouter.put("/invoices/paid").handler(this::changePaid);
+        subRouter.post("/invoices/paid").handler(this::changePaid);
 
         //base
         subRouter.get("/wallets/page").handler(this::getAllWallets);
@@ -765,5 +765,10 @@ public class ClientApi extends MyApi implements RouterApi
         if(checkParam((price = body.getDouble("price")), routingContext)) return;
 
         commonDB.getInvoiceManager().changeAlreadyPaid(invoice_id, price);
+
+        routingContext.response()
+                .setStatusCode(200)
+                .putHeader("Content-Type", "application/json")
+                .end();
     }
 }
