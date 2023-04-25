@@ -142,12 +142,18 @@ public class ConsumptionManager
 
                 new NotificationManager().createNotification(senderId, receiverId, contractId, "the daily consumption in the " + dates.get(i) + " has changed to " + values.get(i) + " for this ean code : " + ean);
                 WalletManager.energyType typeOfEnergy = new ContractManager().getTypeOfEnergy(new Query("SELECT address FROM wallet_contract WHERE contract_id IN (SELECT contract_id FROM counter WHERE ean='" + ean + "')").executeAndGetResult("address").getStringElem(0, 0));
-                if (typeOfEnergy == WalletManager.energyType.GAS)
+                if (typeOfEnergy == WalletManager.energyType.GAS) {
                     new InvoiceManager().changePrice(contractId, gasPrice * values.get(i));
-                else if (typeOfEnergy == WalletManager.energyType.WATER)
+                    new NotificationManager().createNotification(receiverId, senderId, contractId, "The invoice number " + contractId + " has been updated");
+                }
+                else if (typeOfEnergy == WalletManager.energyType.WATER) {
                     new InvoiceManager().changePrice(contractId, waterPrice * values.get(i));
-                else
+                    new NotificationManager().createNotification(receiverId, senderId, contractId, "The invoice number " + contractId + " has been updated");
+                }
+                else {
                     new InvoiceManager().changePrice(contractId, electricityPrice * values.get(i));
+                    new NotificationManager().createNotification(receiverId, senderId, contractId, "The invoice number " + contractId + " has been updated");
+                }
 
             }
 

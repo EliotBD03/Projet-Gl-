@@ -69,7 +69,16 @@ Cette page donne la possibilité aux utilisateurs de voir leurs notifications ai
 Cette page permet aux utilisateurs de voir un contrat en cours de manière détaillée en partant de la page ClientFull ou WalletFull.
 \item \textbf{ConsumptionPage} :\newline
 Cette page permet aux utilisateurs d’observer la consommation liée à un contrat.
-\end{enumerate} 
+\end{enumerate}
+
+\newpage
+\subsection{Modifications apportées}
+\begin{flushleft}
+    Quelques modifications par rapport à la maquette fournie ont été apportées. En effet, lors de la conception de la maquette, nous ne connaissions pas les banques CSS mises à notre disposition et donc nous n'avions pas beaucoup pensé au design\footnote{Toutes les banques de CSS utilisées ont été citées dans le readme.}.
+\end{flushleft}
+\begin{flushleft}
+    Dans l'ensemble, le design du site respecte tout de même la thématique que nous avions apporté lors de la réalisation de la maquette. Cependant quelques modifications de design comme : Les notifications, l'affichage des wallets/contrats/proposal, la suppression d'une barre de recherche, les formulaires et la page de login, ... Toutes ces choses ont reçu des modifications au niveau du design.
+\end{flushleft} 
 
 \subsubsection{Problèmes rencontrés}
 \begin{flushleft}
@@ -82,7 +91,14 @@ Nous n’avions pas compris que nous envoyions des fichiers statiques (venant du
 De ce fait, la configuration se faisait en nodejs mais pas en fichier statique, ce qui était la source du problème.
 \end{flushleft}
 
+\newpage
 \subsubsection{Les langues}
+\begin{flushleft}
+    Pour respecter les normes d'internationalisation, nous avons du implémenter le module \textit{i18n}. Ce module nous permettait de traduire l'ensemble de notre site dans des langues que nous aurions prédéfinies. Ici, les langues ajoutées sont le français et l'anglais. C'est pourquoi, il n'y a aucun texte codé en "dur" mais nous faisons l'usage de \textit{clés de traduction} pour rediriger le site vers la bonne traduction en fonction de la langue stockée en base de données. La langue est chargée en base de donnée et est stockée localement dans la variable \textit{i18n.locale}.
+\end{flushleft}
+\begin{flushleft}
+    Pour ajouter une langue, il suffit d'ajouter un fichier \textit{.json} dans avec les langues, de rajouter cette langue (via un ajout de ligne) dans le fichier json des langues configurées et ajouter les différentes clés de traduction.
+\end{flushleft}
 
 \subsubsection{Modules importés}
 \begin{enumerate}[-]

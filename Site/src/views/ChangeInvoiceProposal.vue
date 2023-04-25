@@ -5,7 +5,7 @@
       </div>
       <div class="content">
           <p><b>{{ $t("invoices.actualproposal") }}</b></p>
-          <InputMain :text="$t('invoice.proposal')" v-model="proposal"/>
+          <InputMain :text="$t('invoices.proposal')" v-model="new_proposal"/>
       </div>
       <div class="bottombuttons">
           <div class="change" @click.prevent.left="changeProposal()">
@@ -33,7 +33,8 @@ export default {
     data() {
         return {
             proposal: sessionStorage.getItem("proposal"),
-            invoiceId: sessionStorage.getItem("invoice_id")
+            invoiceId: sessionStorage.getItem("invoice_id"),
+            new_proposal: 0
         }
     },
     methods: {
@@ -42,30 +43,44 @@ export default {
             this.$router.push({name: 'InvoiceFull'})
         },
         changeProposal() {
-            const requestOptions = {
-                method: 'PUT',
-                headers: { "Authorization": this.$cookies.get("token")},
-                body: JSON.stringify({ proposal: this.proposal, invoice_id: this.invoiceId })
-            };
-            fetch("https://babawallet.alwaysdata.net/api/client/invoices/proposal", requestOptions)
-                .then(response => {
-                    if (!response.ok)
-                        throw new Error(response.error);
-                    else {
-                        Swal.fire({
-                            icon: 'success',
-                            title: this.$t("alerts.good"),
-                            text: this.$t("alerts.proposalchanged"),
-                        })
-                        this.$router.push({name: 'InvoiceFull'})
-                    }
-                }).catch(error => {
-                    if(error.message === "error.unauthorizedAccess")
+            if(this.isWithinRange()) {
+                const requestOptions = {
+                    method: 'PUT',
+                    headers: {"Authorization": this.$cookies.get("token")},
+                    body: JSON.stringify({proposal: this.proposal, invoice_id: this.invoiceId})
+                };
+                fetch("https://babawallet.alwaysdata.net/api/client/invoices/proposal", requestOptions)
+                    .then(response => {
+                        if (!response.ok)
+                            throw new Error(response.error);
+                        else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: this.$t("alerts.good"),
+                                text: this.$t("alerts.proposalchanged"),
+                            })
+                            this.$router.push({name: 'InvoiceFull'})
+                        }
+                    }).catch(error => {
+                    if (error.message === "error.unauthorizedAccess")
                         GlobalMethods.errorToken();
                     else {
                         GlobalMethods.errorApi(error.message);
                     }
-            });
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: this.$t("alerts.error"),
+                    text: this.$t("alerts.proposalrange"),
+                })
+            }
+        },
+        isWithinRange() {
+            this.new_proposal = parseFloat(this.new_proposal);
+            const lowerLimit = this.proposal * 0.8;
+            const upperLimit = this.proposal * 1.2;
+            return this.new_proposal >= lowerLimit && this.new_proposal <= upperLimit;
         }
     }
 }

@@ -143,7 +143,8 @@
     "eanAlreadyUse" : "This ean code is already used",
     "noinvoice": "There is no invoice",
     "methodchanged": "Payment method changed",
-    "accountinformationchanged": "Account information changed"
+    "accountinformationchanged": "Account information changed",
+    "proposalrange": "Your proposal must be between 20% lower and 20% higher than the current price"
   },
   "wallet": {
     "loading": "Loading...",
@@ -209,7 +210,8 @@
     "dailychange": "Daily consumption {date} has changed to {consumption}",
     "system": "System",
     "deleted": "Has deleted your contract",
-    "expired": "Your contract has expired"
+    "expired": "Your contract has expired",
+    "invoice": "The invoice number {number} updated."
   },
   "proposal": {
     "selectproposal": "Select a proposal",
