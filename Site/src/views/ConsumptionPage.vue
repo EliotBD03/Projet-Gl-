@@ -1,5 +1,4 @@
-<template>
-    <div class="main">
+<template>    <div class="main">
         <div class="header">
             <MainHeader text="header.consumption"/>
             <div class = "permission"> <!--Extension Claire-->
@@ -643,6 +642,8 @@ export default {
             this.isDisplayDay = !this.isDisplayDay;
             this.listDate = [];
             this.listValue = [];
+            this.listDate2 = [];
+            this.listValue2 = [];
 
             if(this.isDisplayDay) {
                 this.labelButtonDisplay = this.$t("consumptions.displaymonth") + this.unity;
