@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.4.13)  25 APR 2023 21:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.4.13)  26 APR 2023 15:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -357,7 +357,9 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 (./ExtensionAdrien/bdd.aux) (./ExtensionAdrien/api.aux)
 (./ExtensionAdrien/front.aux) (./ExtensionAdrien/conclusion.aux)
 (./ExtensionJulien/intro.aux) (./ExtensionJulien/tech.aux)
-(./ExtensionJulien/difficultes.aux) (./ExtensionJulien/ressentis.aux))
+(./ExtensionJulien/difficultes.aux) (./ExtensionJulien/ressentis.aux)
+(./Extension.aux) (./Extension.aux) (./Extension.aux) (./Extension.aux)
+(./Extension.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
@@ -683,8 +685,49 @@ Overfull \hbox (28.06337pt too wide) in paragraph at lines 2--2
 
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 87.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 87.
+\openout2 = `Extension.aux'.
+
+
+No file Extension.tex.
+[34
+
+
+
+]
+\openout2 = `Extension.aux'.
+
+
+No file Extension.tex.
+[35
+
+
+]
+\openout2 = `Extension.aux'.
+
+
+No file Extension.tex.
+[36
+
+
+]
+\openout2 = `Extension.aux'.
+
+
+No file Extension.tex.
+[37
+
+
+]
+\openout2 = `Extension.aux'.
+
+
+No file Extension.tex.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 93.
+[38
+
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 93.
  (./main.aux (./Base/introduction.aux) (./Base/bdd.aux) (./Base/api.aux)
 (./Base/front.aux) (./Base/conclusion.aux) (./Base/readme.aux)
 (./ExtensionClaire/introduction.aux) (./ExtensionClaire/bdd.aux)
@@ -693,18 +736,20 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 87.
 (./ExtensionAdrien/bdd.aux) (./ExtensionAdrien/api.aux)
 (./ExtensionAdrien/front.aux) (./ExtensionAdrien/conclusion.aux)
 (./ExtensionJulien/intro.aux) (./ExtensionJulien/tech.aux)
-(./ExtensionJulien/difficultes.aux) (./ExtensionJulien/ressentis.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 87.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 87.
+(./ExtensionJulien/difficultes.aux) (./ExtensionJulien/ressentis.aux)
+(./Extension.aux) (./Extension.aux) (./Extension.aux) (./Extension.aux)
+(./Extension.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 93.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 93.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: E3720374C8D65EDB6155FE35AF4907D8;4142.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 87.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 93.
  ) 
 Here is how much of TeX's memory you used:
- 9369 strings out of 483113
- 138086 string characters out of 5964008
- 418424 words of memory out of 5000000
- 23893 multiletter control sequences out of 15000+600000
+ 9403 strings out of 483113
+ 138564 string characters out of 5964008
+ 418795 words of memory out of 5000000
+ 23901 multiletter control sequences out of 15000+600000
  541982 words of font info for 61 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  40i,6n,45p,645b,646s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -720,10 +765,10 @@ amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
 i10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (33 pages, 345892 bytes).
+Output written on main.pdf (38 pages, 347190 bytes).
 PDF statistics:
- 650 PDF objects out of 1000 (max. 8388607)
- 592 compressed objects within 6 object streams
- 199 named destinations out of 1000 (max. 500000)
+ 674 PDF objects out of 1000 (max. 8388607)
+ 610 compressed objects within 7 object streams
+ 204 named destinations out of 1000 (max. 500000)
  459 words of extra memory for PDF output out of 10000 (max. 10000000)
 
