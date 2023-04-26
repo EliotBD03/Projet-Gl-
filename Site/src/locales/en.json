@@ -147,7 +147,8 @@
     "proposalrange": "Your proposal must be between 20% lower and 20% higher than the current price or equal to the remaining price",
     "proposalchanged": "The proposal has been changed",
     "invoicepaid": "Invoice paid",
-    "proposalgreaterthanremaining": "The proposal must be greater than the remaining price"
+    "proposalgreaterthanremaining": "The proposal must be greater than the remaining price",
+    "choosemethod": "Please choose a payment method"
   },
   "wallet": {
     "loading": "Loading...",
@@ -214,7 +215,8 @@
     "system": "System",
     "deleted": "Has deleted your contract",
     "expired": "Your contract has expired",
-    "invoice": "The invoice number {number} updated."
+    "invoice": "The invoice number {number} updated.",
+    "contractchanged": "The contract has been changed"
   },
   "proposal": {
     "selectproposal": "Select a proposal",

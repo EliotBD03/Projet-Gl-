@@ -49,6 +49,7 @@ export default {
         }
     },
     methods: {
+        //Méthode pour voir le temps écoulé depuis la notification
         getElapsedTime() {
             const time = moment(this.time);
             const now = moment();
@@ -63,6 +64,7 @@ export default {
                 return this.$t("settings.now");
             }
         },
+        //Méthode pour modifier le titre et le texte de la notification
         updateTextAndTitle() {
             let title = "";
             let texte = this.text;
@@ -95,25 +97,34 @@ export default {
                 const number = match[1];
                 title = this.$t("notifications.system");
                 texte = this.$t("notifications.invoice", {number: number});
+            } else if (this.text.includes("The contract has been changed.")) {
+                title = this.$t("notifications.system");
+                texte = this.$t("notifications.contractchanged");
             }
             this.title = title;
             this.texte = texte;
         },
+        //Méthode pour accepter une demande
         accept() {
             this.$emit("accept", this.id_notification, this.ean, this.adress);
         },
+        //Méthode pour refuser une demande
         refuse() {
             this.$emit("refuse", this.id_notification);
         },
+        //Méthode pour supprimer une notification
         deleted() {
             this.$emit("delete", this.id_notification);
         },
+        //Méthode pour voir les informations d'une proposition
         seeProposal() {
             this.$emit("seeProposal", this.providerId, this.proposalName);
         },
+        //Méthode pour voir le type de notification
         checkStatus() {
             return this.text.includes("request");
         },
+        //Méthode pour voir le rôle de l'utilisateur
         checkRole() {
             if (this.role === 'client') {
                 return this.checkStatus();

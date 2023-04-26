@@ -50,8 +50,10 @@ export default {
     },
     created() {
         this.getBank();
+        GlobalMethods.getCurrentLanguage();
     },
     methods: {
+        // Récupère les informations de paiement du client
         async getBank() {
             const requestOptions = {
                 method: "GET",
@@ -85,6 +87,7 @@ export default {
                 }
             }
         },
+        // Modifie les informations de paiement du client
         post(){
             const requestOptions = {
                 method: "PUT",

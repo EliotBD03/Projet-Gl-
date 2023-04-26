@@ -15,9 +15,6 @@ public class InvoiceBasic {
         this.status = status;
     }
 
-    public String getInvoiceId() {
-        return invoiceId;
-    }
 
     public double getPrice() {
         return price;
@@ -27,9 +24,6 @@ public class InvoiceBasic {
         return proposal;
     }
 
-    public boolean getStatus() {
-        return status;
-    }
 
     public String getClientId() {
         return client_id;

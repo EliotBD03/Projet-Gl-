@@ -76,6 +76,7 @@ export default {
         this.checkstatus();
     },
     methods: {
+        // Récupère une facture
         async getInvoice() {
             const requestOptions = {
                 method: "GET",
@@ -99,6 +100,7 @@ export default {
             }
             this.checkstatus();
         },
+        // Récupère les informations bancaires d'un client
         async getBank() {
             const requestOptions = {
                 method: "GET",
@@ -121,16 +123,19 @@ export default {
                 }
             }
         },
+        // Retourne à la page d'accueil
         redirecting() {
             sessionStorage.removeItem("invoice_id");
             sessionStorage.removeItem("client_id");
             this.$router.push({name: "HomeClient"});
         },
+        // Revient en arrière
         back() {
             sessionStorage.removeItem("invoice_id");
             sessionStorage.removeItem("client_id");
             this.$router.push({name: "Invoices"});
         },
+        // Vérifie la méthode de paiement
         parseMethod() {
             if (this.invoice.paymentMethod === "0") {
                 return this.$t("invoices.auto");
@@ -138,12 +143,14 @@ export default {
                 return this.$t("invoices.manual");
             }
         },
+        // Vérifier si le paiement est manuel ou automatique
         testPay() {
             return this.invoice.paymentMethod !== "0";
         },
+        // Change la méthode de paiement
         changeMethod(){
             Swal.fire({
-                title: 'Choisissez votre méthode de paiement',
+                title: this.$t("alerts.choosemethod"),
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: this.$t("invoices.auto"),
@@ -157,6 +164,7 @@ export default {
                 }
             })
         },
+        // Change la méthode de paiement
         putMethod(paymentMethod) {
             const requestOptions = {
                 method: "PUT",
@@ -188,16 +196,19 @@ export default {
                 this.refresh();
             }
         },
+        // Rafraichit la page
         async refresh() {
             await Promise.delay(2000)
             window.location.reload();
         },
+        // Change la proposition de paiement
         changeProposal(){
             sessionStorage.setItem("proposal", this.invoice.proposal);
             sessionStorage.setItem("price", this.invoice.price);
             sessionStorage.setItem("remaining", this.invoice.remaining);
             this.$router.push({name: "ChangeProposal"});
         },
+        // Redirige vers le paiement
         pay() {
             if(parseFloat(this.invoice.proposal) > parseFloat(this.invoice.remaining)) {
                 Swal.fire({
@@ -211,6 +222,7 @@ export default {
                 this.$router.push({name: "Payment"});
             }
         },
+        // Vérifie le statut de la facture
         checkstatus(){
             if(this.invoice.status) {
                 sessionStorage.removeItem("invoice_id");

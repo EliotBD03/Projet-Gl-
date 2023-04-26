@@ -50,9 +50,6 @@ export default {
             this.refreshNotifications();
         }, 5 * 60 * 1000);
     },
-    beforeDestroy() {
-        clearInterval(this.timer);
-    },
     /*Méthode pour rediriger vers la page d'accueil*/
     methods: {
         async refreshNotifications(){

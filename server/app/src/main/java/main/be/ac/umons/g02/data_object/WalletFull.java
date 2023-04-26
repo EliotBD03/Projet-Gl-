@@ -16,38 +16,16 @@ public class WalletFull extends WalletBasic{
         invitedClients = new ArrayList<>(); //Ajout de la liste des invités Extension Claire
     }
 
-    public ArrayList<InvitedClient> getInvitedClient(){
-        return invitedClients;
-    }
 
     public void addInvitedClients(ArrayList<InvitedClient> invitedClients)
     {
         this.invitedClients.addAll(invitedClients);
     }
 
-    public ArrayList<ContractBasic> getContracts()
-    {
-        return contracts;
-    }
 
     public void addContracts(ArrayList<ContractBasic> contracts)
     {
         this.contracts.addAll(contracts);
-    }
-
-    public double getLastConsumptionOfWater()
-    {
-        return lastConsumptionOfWater;
-    }
-
-    public double getLastConsumptionOfElectricity()
-    {
-        return lastConsumptionOfElectricity;
-    }
-
-    public double getLastConsumptionOfGas()
-    {
-        return lastConsumptionOfGas;
     }
 
     public void setLastConsumption(double lastConsumptionOfWater, double lastConsumptionOfElectricity, double lastConsumptionOfGas)

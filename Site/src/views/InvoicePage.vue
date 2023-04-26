@@ -53,6 +53,7 @@ export default {
         GlobalMethods.getCurrentLanguage();
     },
     methods: {
+        // Récupère les factures du client
         async getInvoices() {
             const requestOptions = {
                 method: "GET",
@@ -89,11 +90,13 @@ export default {
                 }
             }
         },
+        // Voir la facture en détail
         seeMore(invoice) {
             sessionStorage.setItem("invoice_id", invoice.invoiceId);
             sessionStorage.setItem("client_id", invoice.clientId);
             this.$router.push({name: "InvoiceFull"})
         },
+        // Redirection vers la page d'accueil
         redirecting() {
             GlobalMethods.isAClient();
         },

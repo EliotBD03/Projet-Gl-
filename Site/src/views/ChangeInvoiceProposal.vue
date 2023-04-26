@@ -49,6 +49,7 @@ export default {
             sessionStorage.removeItem("remaining")
             this.$router.push({name: 'InvoiceFull'})
         },
+        // Change la proposition de paiement de la facture
         changeProposal() {
             if(this.isWithinRange()) {
                 const requestOptions = {
@@ -86,6 +87,7 @@ export default {
                 })
             }
         },
+        // Vérifie que la proposition est dans la fourchette de 20% du prix mensuel
         isWithinRange() {
             this.new_proposal = parseFloat(this.new_proposal);
             if (this.new_proposal === parseFloat(this.remaining))

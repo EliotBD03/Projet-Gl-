@@ -593,6 +593,10 @@ public class ClientApi extends MyApi implements RouterApi
                             .put("error", "error.notHisWallet")));
     }
 
+    /**
+     * Method qui récupère toutes les factures d'un client
+     * @param routingContext - Le context de la requête
+     */
     private void getAllInvoices(final RoutingContext routingContext)
     {
         LOGGER.info("GetAllInvoices...");
@@ -617,12 +621,14 @@ public class ClientApi extends MyApi implements RouterApi
                         .put("last_page", numberOfPagesRemaining)));
     }
 
+    /**
+     * Method qui récupère une facture en particulier
+     * @param routingContext - Le context de la requête
+     */
     private void getInvoice(final RoutingContext routingContext) {
         LOGGER.info("GetInvoice...");
 
         String invoiceId = routingContext.pathParam("invoice_id");
-
-        LOGGER.info("invoiceId: " + invoiceId);
 
         InvoiceFull invoice = commonDB.getInvoiceManager().getInvoice(invoiceId);
 
@@ -633,6 +639,10 @@ public class ClientApi extends MyApi implements RouterApi
                         .put("invoice", invoice)));
     }
 
+    /**
+     * Méthod qui permet de mofidier la proposition d'un accompte
+     * @param routingContext - Le context de la requête
+     */
     public void changeProposal(final RoutingContext routingContext) {
         LOGGER.info("ChangeProposal...");
 
@@ -652,6 +662,10 @@ public class ClientApi extends MyApi implements RouterApi
                 .end();
     }
 
+    /**
+     * Méthode qui permet de changer son moyen de paiement
+     * @param routingContext - Le context de la requête
+     */
     private void changePaymentMethod(final RoutingContext routingContext) {
         LOGGER.info("ChangePaymentMethod...");
 
@@ -672,6 +686,10 @@ public class ClientApi extends MyApi implements RouterApi
             .end();
     }
 
+    /**
+     * Méthode qui permet de changer les informations de son compte
+     * @param routingContext - Le context de la requête
+     */
     private void changeAccountInformation(final RoutingContext routingContext) {
         LOGGER.info("ChangeAccountInformation...");
 
@@ -699,6 +717,10 @@ public class ClientApi extends MyApi implements RouterApi
             .end();
     }
 
+    /**
+     * Méthode qui permet d'ajouter des informations bancaires
+     * @param routingContext - Le context de la requête
+     */
     private void addBank(final RoutingContext routingContext) {
         LOGGER.info("AddBank...");
 
@@ -739,6 +761,10 @@ public class ClientApi extends MyApi implements RouterApi
                 .end();
     }
 
+    /**
+     * Méthode qui permet de récupérer les informations bancaires
+     * @param routingContext - Le context de la requête
+     */
     private void getBank(final RoutingContext routingContext) {
         LOGGER.info("GetBank...");
 
@@ -752,6 +778,10 @@ public class ClientApi extends MyApi implements RouterApi
                         .put("bank", bank)));
     }
 
+    /**
+     * Méthode qui permet de modifier les informations bancaires lors d'un paiement
+     * @param routingContext - Le context de la requête
+     */
     public void changePaid(final RoutingContext routingContext) {
         LOGGER.info("ChangePaid...");
 

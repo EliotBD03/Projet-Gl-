@@ -1,7 +1,5 @@
 package main.be.ac.umons.g02.data_object;
 
-import java.util.ArrayList;
-
 public class InvoiceFull extends InvoiceBasic{
 
     private String contractId;
@@ -16,11 +14,6 @@ public class InvoiceFull extends InvoiceBasic{
 
     public String getContractId() {
         return contractId;
-    }
-
-
-    public double getRemaining() {
-        return remaining;
     }
 
     public String getPaymentMethod() {

@@ -37,20 +37,24 @@ export default {
         }
     },
     mounted() {
+        GlobalMethods.getCurrentLanguage();
         this.generatePayconiqQRCode();
     },
     methods: {
+        // Génère le QR Code de paiement
         generatePayconiqQRCode() {
             const url = "https://www.youtube.com/watch?v=xvFZjo5PgG0"
             QRCode.toCanvas(document.getElementById('canvas'), url, function (error) {
                 if (error) console.error(error);
             });
         },
+        // Retourne à la page de la facture
         back() {
             sessionStorage.removeItem("price");
             sessionStorage.removeItem("proposal")
             this.$router.push({name: 'InvoiceFull'})
         },
+        // Paye la facture
         pay(){
             let paid_price = this.proposal;
             const requestOptions = {

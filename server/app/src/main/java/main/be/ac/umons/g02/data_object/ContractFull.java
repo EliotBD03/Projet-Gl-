@@ -12,16 +12,6 @@ public class ContractFull extends ContractBasic
         super(contractId, ean, providerId, clientId, providerName, clientName);
     }
 
-    public String getOpeningDate()
-    {
-        return openingDate;
-    }
-
-    public String getClosingDate()
-    {
-        return closingDate;
-    }
-
     public ProposalFull getProposal(){return proposal;}
 
     public String getAddress(){return address;}
