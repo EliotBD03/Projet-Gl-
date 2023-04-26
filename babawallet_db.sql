@@ -86,7 +86,6 @@ CREATE TABLE `contract` (
   KEY `proposal_name` (`proposal_name`),
   KEY `address` (`address`,`contract_id`),
   KEY `ean` (`ean`),
-  CONSTRAINT `contract_ibfk_1` FOREIGN KEY (`proposal_name`) REFERENCES proposal(`proposal_name`),
   CONSTRAINT `contract_ibfk_2` FOREIGN KEY (`provider_id`) REFERENCES provider_contract(`provider_id`),
   CONSTRAINT `contract_ibfk_3` FOREIGN KEY (`address`) REFERENCES wallet_contract(`address`),
   CONSTRAINT `contract_ibfk_4` FOREIGN KEY (`ean`) REFERENCES `counter`(`ean`)
