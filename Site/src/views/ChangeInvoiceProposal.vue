@@ -35,6 +35,7 @@ export default {
             proposal: sessionStorage.getItem("proposal"),
             price: sessionStorage.getItem("price"),
             invoiceId: sessionStorage.getItem("invoice_id"),
+            remaining: sessionStorage.getItem("remaining"),
             new_proposal: 0
         }
     },
@@ -44,7 +45,8 @@ export default {
     methods: {
         back() {
             sessionStorage.removeItem("proposal");
-            sessionStorage.removeItem("price")
+            sessionStorage.removeItem("price");
+            sessionStorage.removeItem("remaining")
             this.$router.push({name: 'InvoiceFull'})
         },
         changeProposal() {
@@ -64,6 +66,9 @@ export default {
                                 title: this.$t("alerts.good"),
                                 text: this.$t("alerts.proposalchanged"),
                             })
+                            sessionStorage.removeItem("proposal");
+                            sessionStorage.removeItem("price");
+                            sessionStorage.removeItem("remaining")
                             this.$router.push({name: 'InvoiceFull'})
                         }
                     }).catch(error => {
@@ -83,10 +88,14 @@ export default {
         },
         isWithinRange() {
             this.new_proposal = parseFloat(this.new_proposal);
-            let limit = Math.floor(this.price/12)
-            const lowerLimit = limit * 0.8;
-            const upperLimit = limit * 1.2;
-            return this.new_proposal >= lowerLimit && this.new_proposal <= upperLimit;
+            if (this.new_proposal === parseFloat(this.remaining))
+                return true;
+            else {
+                let limit = this.price / 12;
+                const lowerLimit = limit * 0.8;
+                const upperLimit = limit * 1.2;
+                return this.new_proposal >= lowerLimit && this.new_proposal <= upperLimit;
+            }
         }
     }
 }

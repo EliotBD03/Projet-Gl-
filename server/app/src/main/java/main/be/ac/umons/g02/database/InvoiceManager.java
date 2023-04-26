@@ -43,7 +43,7 @@ public class InvoiceManager {
                 contractName,
                 remaining,
                 row.get(6),
-                row.get(7)
+                row.get(8)
         );
         return invoicefull;
     }
@@ -143,14 +143,7 @@ public class InvoiceManager {
         ).getTable();
         double price = Double.parseDouble(table.get(0).get(0));
 
-        double newPrice = price - alreadyPaid;
-        String query3 = "UPDATE invoice set price='"+newPrice+"' WHERE invoice_id='"+invoiceId+"'";
-        DB.getInstance().executeQuery(query3,false);
-
-
-        changeProposal(invoiceId, Math.floor(newPrice/12));
-
-        if (newPrice == 0) {
+        if (alreadyPaid == price) {
             String query4 = "UPDATE invoice set status='1' WHERE invoice_id='"+invoiceId+"'";
             DB.getInstance().executeQuery(query4,false);
         }

@@ -68,6 +68,8 @@ export default {
                             title: this.$t("alerts.good"),
                             text: this.$t("alerts.invoicepaid"),
                         })
+                        sessionStorage.removeItem("price");
+                        sessionStorage.removeItem("proposal")
                         this.$router.push({name: 'InvoiceFull'})
                     }
                 })

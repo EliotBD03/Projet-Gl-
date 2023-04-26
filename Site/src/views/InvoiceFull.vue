@@ -73,6 +73,7 @@ export default {
         this.getInvoice();
         this.getBank();
         GlobalMethods.getCurrentLanguage();
+        this.checkstatus();
     },
     methods: {
         async getInvoice() {
@@ -96,6 +97,7 @@ export default {
                     GlobalMethods.errorApi(error.message);
                 }
             }
+            this.checkstatus();
         },
         async getBank() {
             const requestOptions = {
@@ -192,13 +194,29 @@ export default {
         },
         changeProposal(){
             sessionStorage.setItem("proposal", this.invoice.proposal);
-            sessionStorage.setItem("price", this.invoice.remaining);
+            sessionStorage.setItem("price", this.invoice.price);
+            sessionStorage.setItem("remaining", this.invoice.remaining);
             this.$router.push({name: "ChangeProposal"});
         },
         pay() {
-            sessionStorage.setItem("invoice_id", this.invoice_id);
-            sessionStorage.setItem("proposal", this.invoice.proposal);
-            this.$router.push({name: "Payment"});
+            if(parseFloat(this.invoice.proposal) > parseFloat(this.invoice.remaining)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: this.$t("alerts.error"),
+                    text: this.$t("alerts.proposalgreaterthanremaining"),
+                })
+            } else {
+                sessionStorage.setItem("invoice_id", this.invoice_id);
+                sessionStorage.setItem("proposal", this.invoice.proposal);
+                this.$router.push({name: "Payment"});
+            }
+        },
+        checkstatus(){
+            if(this.invoice.status) {
+                sessionStorage.removeItem("invoice_id");
+                sessionStorage.removeItem("client_id");
+                this.$router.push({name: "HomeClient"});
+            }
         }
     }
 }

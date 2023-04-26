@@ -89,8 +89,8 @@ export default {
             } else if (this.text.includes("expired")) {
                 title = this.$t("notifications.system");
                 texte = this.$t("notifications.expired");
-            } else if (this.text.includes("The invoice number")) {
-                const regex = /The invoice number (\d+) has updated/;
+            } else if (this.text.includes("invoice")) {
+                const regex = /The invoice number (\d+) has been updated/;
                 const match = regex.exec(this.text);
                 const number = match[1];
                 title = this.$t("notifications.system");
