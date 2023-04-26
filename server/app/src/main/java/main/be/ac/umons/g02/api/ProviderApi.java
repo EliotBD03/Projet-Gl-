@@ -298,7 +298,7 @@ public class ProviderApi extends MyApi implements RouterApi
             ArrayList<String> listClient = commonDB.getContractManager().getAllClientsOfContract(nameProposal, id);
 
             for(String idClient : listClient)
-                commonDB.getNotificationManager().createNotification(id, idClient, nameProposal, "The contract has been changed.");
+                commonDB.getNotificationManager().createNotification(id, idClient, nameProposal, id,"The contract has been changed.");
         }
 
         routingContext.response()
