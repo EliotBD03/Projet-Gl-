@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.4.13)  25 APR 2023 21:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.4.13)  26 APR 2023 15:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -357,7 +357,10 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 (./ExtensionAdrien/bdd.aux) (./ExtensionAdrien/api.aux)
 (./ExtensionAdrien/front.aux) (./ExtensionAdrien/conclusion.aux)
 (./ExtensionJulien/intro.aux) (./ExtensionJulien/tech.aux)
-(./ExtensionJulien/difficultes.aux) (./ExtensionJulien/ressentis.aux))
+(./ExtensionJulien/difficultes.aux) (./ExtensionJulien/ressentis.aux)
+(./ExtensionMaxime/intro.aux) (./ExtensionMaxime/api.aux)
+(./ExtensionMaxime/bdd.aux) (./ExtensionMaxime/front.aux)
+(./ExtensionMaxime/conclusion.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
@@ -453,12 +456,12 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 20.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<images/umons.jpeg, id=229, 1927.2pt x 749.80125pt>
+<images/umons.jpeg, id=253, 1927.2pt x 749.80125pt>
 File: images/umons.jpeg Graphic file (type jpg)
 <use images/umons.jpeg>
 Package pdftex.def Info: images/umons.jpeg  used on input line 50.
 (pdftex.def)             Requested size: 103.50105pt x 40.26099pt.
-<images/facSciences.png, id=231, 578.16pt x 255.95625pt>
+<images/facSciences.png, id=255, 578.16pt x 255.95625pt>
 File: images/facSciences.png Graphic file (type png)
 <use images/facSciences.png>
 Package pdftex.def Info: images/facSciences.png  used on input line 52.
@@ -683,8 +686,45 @@ Overfull \hbox (28.06337pt too wide) in paragraph at lines 2--2
 
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 87.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 87.
+\openout2 = `ExtensionMaxime/intro.aux'.
+
+ (./ExtensionMaxime/intro.tex
+Overfull \hbox (2.34494pt too wide) in paragraph at lines 1--1
+[]\OT1/cmr/bx/n/14.4 Extension 1.6.7 : Fac-tu-ra-tion et paie-ment d'ac-
+ []
+
+) [34
+
+
+]
+\openout2 = `ExtensionMaxime/api.aux'.
+
+ (./ExtensionMaxime/api.tex) [35
+
+
+]
+\openout2 = `ExtensionMaxime/bdd.aux'.
+
+ (./ExtensionMaxime/bdd.tex [36
+
+
+])
+[37]
+\openout2 = `ExtensionMaxime/front.aux'.
+
+ (./ExtensionMaxime/front.tex) [38
+
+
+]
+\openout2 = `ExtensionMaxime/conclusion.aux'.
+
+ (./ExtensionMaxime/conclusion.tex)
+[39
+
+
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 93.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 93.
  (./main.aux (./Base/introduction.aux) (./Base/bdd.aux) (./Base/api.aux)
 (./Base/front.aux) (./Base/conclusion.aux) (./Base/readme.aux)
 (./ExtensionClaire/introduction.aux) (./ExtensionClaire/bdd.aux)
@@ -693,18 +733,21 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 87.
 (./ExtensionAdrien/bdd.aux) (./ExtensionAdrien/api.aux)
 (./ExtensionAdrien/front.aux) (./ExtensionAdrien/conclusion.aux)
 (./ExtensionJulien/intro.aux) (./ExtensionJulien/tech.aux)
-(./ExtensionJulien/difficultes.aux) (./ExtensionJulien/ressentis.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 87.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 87.
+(./ExtensionJulien/difficultes.aux) (./ExtensionJulien/ressentis.aux)
+(./ExtensionMaxime/intro.aux) (./ExtensionMaxime/api.aux)
+(./ExtensionMaxime/bdd.aux) (./ExtensionMaxime/front.aux)
+(./ExtensionMaxime/conclusion.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 93.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 93.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E3720374C8D65EDB6155FE35AF4907D8;4142.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 87.
+(rerunfilecheck)             Checksum: 5380D2328ADBEB05B868F1D97D4781B5;4532.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 93.
  ) 
 Here is how much of TeX's memory you used:
- 9369 strings out of 483113
- 138086 string characters out of 5964008
- 418424 words of memory out of 5000000
- 23893 multiletter control sequences out of 15000+600000
+ 9467 strings out of 483113
+ 139819 string characters out of 5964008
+ 420279 words of memory out of 5000000
+ 23919 multiletter control sequences out of 15000+600000
  541982 words of font info for 61 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  40i,6n,45p,645b,646s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -720,10 +763,10 @@ amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
 i10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (33 pages, 345892 bytes).
+Output written on main.pdf (39 pages, 358546 bytes).
 PDF statistics:
- 650 PDF objects out of 1000 (max. 8388607)
- 592 compressed objects within 6 object streams
- 199 named destinations out of 1000 (max. 500000)
- 459 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 747 PDF objects out of 1000 (max. 8388607)
+ 682 compressed objects within 7 object streams
+ 240 named destinations out of 1000 (max. 500000)
+ 507 words of extra memory for PDF output out of 10000 (max. 10000000)
 
