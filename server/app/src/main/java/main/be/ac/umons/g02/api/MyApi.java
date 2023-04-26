@@ -381,7 +381,7 @@ public class MyApi extends AbstractVerticle
             String origin = routingContext.request().getHeader(HttpHeaders.ORIGIN);
             LOGGER.info("origin " + origin);
 
-            if(true)//routingContext.request().path().contains("/timer_task/") || origin != null && origin.startsWith("https://babawallet-site.alwaysdata.net"))
+            if(routingContext.request().path().contains("/timer_task/") || origin != null && origin.startsWith("https://babawallet-site.alwaysdata.net"))
             {
                 routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin);
                 routingContext.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE, OPTIONS");
