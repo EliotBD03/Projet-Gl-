@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProposalManagerTest
 {
-    static final ProposalFull reference = new ProposalFull("1","jackie", "electricity", "100", "elec");
+    static ProposalFull reference = new ProposalFull("1","jackie", "electricity", "100", "elec");
 
     @BeforeAll
     static void setUp() throws Exception
@@ -36,7 +36,10 @@ class ProposalManagerTest
         ProposalManager proposalManager = new ProposalManager();
         proposalManager.addProposal(reference);
         assertNotEquals(((ArrayList<ProposalBasic>)proposalManager.getAllProposals(null, null,0,1 )[1]).size(),0);
-        proposalManager.addProposal(reference);
+        ProposalFull newProposal = new ProposalFull(reference.getProviderId(), reference.getNameProvider(), reference.getTypeOfEnergy(), reference.getLocation(), reference.getProposalName());
+        newProposal.setMoreInformation(45, 45, false, "20:15:00","06:15:00",6);
+        proposalManager.addProposal(newProposal);
+        reference = newProposal;
     }
 
     /**

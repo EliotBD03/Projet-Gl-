@@ -193,11 +193,13 @@ public class ProposalManager
     public boolean addProposal(ProposalFull proposal)
     {
         boolean value = false;
-        String query = null;
+        String query;
         if(doesTheProposalExist(proposal.getProposalName(), proposal.getProviderId()))
         {
             query = "UPDATE proposal SET peak_hours=" + proposal.getVariableDayPrice()+", offpeak_hours="+proposal.getVariableNightPrice()+
-                    ", start_peak_hours='"+proposal.getStartOfPeakHours()+"', end_peak_hours='"+proposal.getEndOfPeakHours()+"' WHERE provider_id="+proposal.getProviderId()+
+                    ", start_peak_hours="+(proposal.getStartOfPeakHours() == null ? "DEFAULT" : "'"+proposal.getStartOfPeakHours()+"'")+
+                    ", end_peak_hours="+(proposal.getEndOfPeakHours() == null ? "DEFAULT" : "'"+proposal.getEndOfPeakHours()+"'")+
+                    " WHERE provider_id="+proposal.getProviderId()+
                     " AND proposal_name='"+proposal.getProposalName()+"'";
             value = true;
         }
