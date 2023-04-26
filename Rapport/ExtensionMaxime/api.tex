@@ -1,0 +1,30 @@
+\subsection{API}
+
+\begin{flushleft}
+Nous retrouvons ici toutes les fonctionnalités implémentées par rapport à l'API. Bien entendu, nous ne reviendrons pas sur la partie commune qui est la même qu'expliqué précédemment. Ceci n'est qu'un explication des ajouts fait à cette API.
+\end{flushleft}
+
+\begin{flushleft}
+    Tout d'abord, dans la class \textit{ClientAPI} nous retrouvons ces différentes méthodes. Toutes ces méthodes répondent au même fonctionnement : Recevoir une requête via le paramètre \textit{routingContext} et en retirer l'id, le body et parfois un élément présent dans la requête comme un id client. Ensuite, ces méthodes appeleront les Managers \textit{InvoiceManager} pour les factures et \textit{BankManager} pour toute la gestion du compte bancaire.
+\end{flushleft}
+
+\begin{enumerate}
+    \item getAllInvoices :\newline
+    Permet de recevoir la liste des \textit{InvoiceBasic}\footnote{Voir section Base de Données} lié à un client.
+    \item getInvoice :\newline
+    Permet de recevoir une \textit{InvoiceFull} avec plus d'informations
+    \item changePaymentMethod :\newline
+    Permet de changer la méthode de paiement (Manuel ou Automatique)
+    \item changeAccountInformation :\newline
+    Permet de changer les informations bancaires.
+    \item changeProposal :\newline
+    Permet de changer la proposition d'accompte mensuel faite par le client.
+    \item addBank :\newline
+    Permet de créer une entrée bancaire en base de données lors de la création d'un client.
+    \item getBank :\newline
+    Permet de récupérer les informations bancaires d'un client.
+    \item changePaid :\newline
+    Permet d'effectuer le paiement d'une facture.
+\end{enumerate}
+
+

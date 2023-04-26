@@ -1,0 +1,57 @@
+\subsection{Base de données}
+
+\begin{flushleft}
+Dans cette partie, nous verrons les différentes \textit{class} implémentées pour l'extension ainsi que les rajouts de tables dans la base de données
+\end{flushleft}
+
+\begin{flushleft}
+    Dans la base de données, 2 tables ont été ajoutées : 
+    \begin{enumerate}
+        \item Bank :\newline
+        Contient les informations bancaires d'un client. Une nouvelle ligne de cette table est crée dès lors qu'un client s'inscrit sur le site. Son id client est le même que dans la table \textit{client} et les reste des colonnes est fixé à 0 ou null.
+        \item Invoice :\newline
+        Contient toutes les factures. Chaque facture est liée à un id client ainsi qu'un contrat. Bien entendu, un contrat correspond à une seule facture et vice-versa.
+    \end{enumerate}
+\end{flushleft}
+
+\begin{flushleft}
+    Pour les class Java, il y a 3 nouveaux Objets et 2 Managers. Pour les Objets il y a :
+    \begin{enumerate}
+        \item Bank :\newline
+        Qui va créer un objet \textit{Bank} pour stocker les informations bancaires d'un client telles que le numéro de compte, le nom du compte et la date d'expiration.
+        \item InvoiceBasic :\newline
+        Qui va créer un objet \textit{InvoiceBasic} avec peu d'informations pour éviter le surplus d'informations lors de la requête. Ces informations sont l'id du client, le prix, la proposition (qui correspond initialement à un douzième du prix annuel) et le status (payé ou non).
+        \item InvoiceFull :\newline
+        Qui va créer un objet \textit{InvoiceBasic} avec les mêmes informations mais les informations supplémentaires telles que l'id du contrat, le restnt à payer, la méthode de paiement ou la date de paiement seront ajoutées via une méthode \textit{setMoreInformation}
+    \end{enumerate}
+    Pour les Managers, il y a 2 nouveaux Managers et quelques modifications aux Managers de la base pour répondre au fonctionnalités de l'extension.
+    \begin{enumerate}
+        \item InvoiceManager :\newline
+        Ce Manager va permettre de gérer la création et la modification d'informations d'une facture. On ya retrouve les méthodes suivantes : 
+        \begin{enumerate}
+            \item doesInvoiceExist :\newline
+            Permet de savoir si une facture existe déjà ou non
+            \item getProposalName :\newline
+            Permet de récupérer le nom de la proposition associée à un contrat
+            \item createInvoice :\newline
+            Créer une facture en base de données
+            \item changePrice :\newline
+            Mets à jour les informations liées au prix
+            \item changeAlreadyPaid :\newline
+            Mets à jours les informations d'une facture lors d'un paiement
+
+        \end{enumerate}
+        Le reste des méthodes font la même chose que leur homologue dans la partie API
+        \item BankManager :\newline
+        Ce Manager va permettre de gérer la création et la moficiations d'informatons d'un compte bancaire. On y retrouve les méthodes suivantes : 
+        \begin{enumerate}
+            \item doesBankExist :\newline
+            Permet de savoir si une compte bancaire existe
+        \end{enumerate}
+        Le reste des méthodes font la même chose que leur homologue dans la partie API
+        \item ConsumptionManager :\newline
+        Dès qu'une consommation est ajoutée/modifiée, la prix de la facture correspondante est mis à jour et une notification est envoyée au client.
+    \end{enumerate}
+
+    Pour des raisons pratiques, une facture est créer dès qu'un contrat est établi entre un fournisseur et un client. Cette facture est mis à jour à chaque nouvelles consommation et le client peut déjà payer la facture à ce moment là. Aucun mail n'est envoyé pour dire qu'une facture est prête mais j'ai utilisé le fonctionnement de notifications pour envoyer, à mise à jour de facture, une notification correspondante.
+\end{flushleft}

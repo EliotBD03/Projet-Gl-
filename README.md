@@ -39,6 +39,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  *   Intercepteurs de navigation: https://v3.router.vuejs.org/fr/guide/advanced/navigation-guards.html#interception-globale
  *   Router: https://router.vuejs.org/guide/essentials/nested-routes.html
  *   jwt-decode: https://www.npmjs.com/package/jwt-decode
+ *   qr-code: https://www.npmjs.com/package/qrcode
  *   javascript, html, css: https://developer.mozilla.org/fr/
  *   java: https://docs.oracle.com/
  *   W3schools: https://www.w3schools.com/
