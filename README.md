@@ -28,7 +28,19 @@ gradle run --args='mail passWord codeEAN TypeOfEnergy(e|g|w)'
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [Configuration Reference](https://cli.vuejs.org/config/).  
+Connexion aux 3 comptes fournisseur : 
+ * Engie : 
+    * mail : 212107@umons.ac.be
+    * password : abcd
+ * Luminus : 
+    * mail : babawallet@hotmail.com
+    * password : abcd
+    * email-password: walletbaba_great
+ * SWDE : 
+    * mail : babawallet.site@hotmail.com
+    * password : abcd
+    * email-password: BabaWallet_Great1
 
 ## Sources 
  *   cookies : https://www.vuescript.com/handling-cookies-vue-js-vue-cookies/
