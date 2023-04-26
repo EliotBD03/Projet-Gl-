@@ -262,12 +262,14 @@ public class CommonApi extends MyApi implements RouterApi
             if(checkParam((address = body.getString("address")), routingContext)) return;
 
             if(commonDB.getWalletManager().doesTheWalletBelongToHim(id, address))
+            {
                 if(!commonDB.getNotificationManager().acceptNotification(idNotification, ean, address))
                     routingContext.response()
                         .setStatusCode(401)
                         .putHeader("Content-Type", "application/json")
                         .end(Json.encodePrettily(new JsonObject()
                                     .put("error", "error.eanAlreadyUse")));
+            }
             else
             {
                 routingContext.response()
